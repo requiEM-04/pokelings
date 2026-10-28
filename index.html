@@ -1739,7 +1739,12 @@ body.introOn .screen{visibility:hidden!important}
 .lgNote{font-size:12px;color:#5a6278}
 </style>
 </head>
-<body>
+<body><div id="bootLd" style="position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;background:radial-gradient(ellipse at 50% 40%,#2a2f6a,#0b0d1a 70%);color:#fff;font:600 14px system-ui,sans-serif;transition:opacity .4s">
+<div style="font:900 44px/1 system-ui,sans-serif;letter-spacing:2px;text-shadow:3px 3px 0 #000">POKÉ<span style="color:#ffd84a">LINGS</span></div>
+<div style="width:min(420px,80vw);height:14px;border:3px solid #0b0d13;border-radius:8px;background:#1a1f3a;overflow:hidden;box-shadow:0 0 0 2px #3a4580"><i id="bootBar" style="display:block;height:100%;width:3%;background:linear-gradient(90deg,#ffd84a,#ff9a3a);transition:width .3s"></i></div>
+<div id="bootTxt" style="opacity:.8">Lade Pokémon …</div><div style="font-size:11px;opacity:.45">Beim ersten Besuch dauert es etwas, danach geht es schneller.</div></div>
+<script>function __ld(i,n,done){var b=document.getElementById("bootBar"),t=document.getElementById("bootTxt");if(b)b.style.width=Math.max(3,i/n*100)+"%";if(t)t.textContent=done?"Starte Spiel …":"Lade Pokémon … "+Math.round(i/n*100)+" %";}</script>
+
 <div id="app">
   <header id="hud" class="glass">
     <div id="logo"><svg class="ic" viewBox="0 0 24 24" data-i="ball"></svg><span>POKÉ<b>LINGS</b></span></div>
@@ -1835,12 +1840,13 @@ body.introOn .screen{visibility:hidden!important}
 <div class="screen" id="menu"><div class="mwrap"><div class="big1"><svg class="ic" viewBox="0 0 24 24" data-i="ball"></svg><span class="lg">POKÉ<b>LINGS</b></span></div><div class="tagline"><span>KANTO · AUTO · BATTLER</span></div><div class="who" id="menuWho"></div><div id="menuBtns"></div><div class="menuLoc" id="menuLoc"></div></div><div class="fanNote">Inoffizielles Fan-Spiel · nicht kommerziell · Pokémon © Nintendo / Creatures Inc. / GAME FREAK / The Pokémon Company · keine Verbindung zu diesen Unternehmen</div></div>
 <div id="modal"><div id="mbox" class="glass"></div></div>
 <div id="toast"></div>
-<script src="sprites-1.js"></script>
-<script src="sprites-2.js"></script>
-<script src="sprites-3.js"></script>
-<script src="sprites-4.js"></script>
-<script src="sprites-5.js"></script>
-<script src="sprites-6.js"></script>
+<script>__ld(0,6)</script><script src="sprites-1.js"></script>
+<script>__ld(1,6)</script><script src="sprites-2.js"></script>
+<script>__ld(2,6)</script><script src="sprites-3.js"></script>
+<script>__ld(3,6)</script><script src="sprites-4.js"></script>
+<script>__ld(4,6)</script><script src="sprites-5.js"></script>
+<script>__ld(5,6)</script><script src="sprites-6.js"></script>
+<script>__ld(6,6,1)</script>
 <script>
 "use strict";
 const SPRITE_DATA=(window.__SPR||{});
@@ -8096,6 +8102,7 @@ requestAnimationFrame(frame);
   if(navigator.webdriver||window.__noIntro||seen)go();else{try{sessionStorage.setItem("pokelings_intro","1");}catch(e){}playIntro(go);}})();
 window.__pk={get GL(){return GL},step,buyXP,specOpts,SPECSall:SPECS,genEnemies,fuseUnits,canFuse,get S(){return S},get B(){return B},get META(){return META},startBattle,fight,buy,buyItem,merges,SPECIES,setSpeed,render,setTab,chooseEvent,rollPaths,choosePath,rerollPaths,signIn,newRun,register,login,gainXP,equip,stats,capFor,level,doReroll,showFusion,labScreen,refreshWorld,sell,toBag,genEnemies,expCap,LOCS,setArenaLoc,setView,resize,pow:(u,m,mine)=>powOf(armyStats(u,m,mine)),winShare,escale:()=>enemyScale()};
 </script>
+<script>(function(){var l=document.getElementById("bootLd");if(l){l.style.opacity=0;setTimeout(function(){l.remove()},450);}})();</script>
 </body>
 </html>
 
