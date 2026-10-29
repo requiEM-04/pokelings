@@ -2374,6 +2374,49 @@ body.duelMode #wlabels,body.duelMode #wToken,body.duelMode #wwrap .wCard{display
 .admNote{margin:10px 0 0;font-size:11px;color:var(--dim)}
 @media (max-width:760px){.admList td:nth-child(2),.admList th:nth-child(2),.admList td:nth-child(7),.admList th:nth-child(7){display:none}}
 body.duelB .cine-skip{display:none!important}
+/* Trainerkarte */
+.tcard{position:relative;width:250px;height:360px;border-radius:16px;overflow:hidden;border:4px solid #0b0d13;box-shadow:0 6px 0 rgba(0,0,0,.45),inset 0 0 0 3px rgba(255,255,255,.35);display:flex;flex-direction:column;align-items:center;color:#fff;flex:none}
+.tcBg{position:absolute;inset:0;z-index:0}.tcShine{position:absolute;inset:0;z-index:1;background:linear-gradient(160deg,rgba(255,255,255,.28),transparent 38%,transparent 70%,rgba(0,0,0,.35));pointer-events:none}
+.tcTop{position:relative;z-index:2;margin-top:12px;width:calc(100% - 24px);padding:6px 10px;border-radius:10px;background:rgba(10,12,22,.72);border:2px solid rgba(255,255,255,.18);text-align:center}
+.tcTop b{display:block;font-family:var(--px);font-size:14px;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tcTop small{display:block;font-size:11px;color:#ffd84a;font-weight:700;margin-top:2px}
+.tcAv{position:relative;z-index:2;flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center}
+.tcAv img{position:absolute;bottom:22px;left:50%;width:112px;height:168px;margin-left:-56px;image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(0,0,0,.35))}
+.tcAv img.f1{opacity:0;animation:tcCheer 1.1s steps(1) infinite}.tcAv img.f0{animation:tcCheer0 1.1s steps(1) infinite}
+@keyframes tcCheer{0%,55%{opacity:0}56%,100%{opacity:1}}@keyframes tcCheer0{0%,55%{opacity:1}56%,100%{opacity:0}}
+.tcPlat{position:absolute;bottom:12px;left:50%;width:150px;height:26px;margin-left:-75px;border-radius:50%;background:radial-gradient(rgba(0,0,0,.45),transparent 70%)}
+.tcBdg{position:relative;z-index:2;display:flex;gap:8px;margin-bottom:8px}
+.tcStats{position:relative;z-index:2;display:flex;gap:6px;margin-bottom:10px}.tcStats span{display:flex;align-items:center;gap:4px;padding:3px 7px;border-radius:7px;background:rgba(10,12,22,.72);font-size:12px;font-weight:700}.tcStats .ic{width:13px;height:13px;color:#ffd84a}
+.bdg{position:relative;width:54px;height:60px;display:flex;align-items:center;justify-content:center}
+.bdg>i{position:absolute;inset:0;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:linear-gradient(160deg,#ffffff 0,var(--bc) 22%,var(--bc) 60%,rgba(0,0,0,.45) 100%);display:flex;align-items:center;justify-content:center}
+.bdg>i::after{content:"";position:absolute;inset:4px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#14182a;z-index:0}
+.bdg>i>*{position:relative;z-index:1}.bdg>i .ic{width:24px;height:24px;color:var(--bc)}.bdg .bsp img,.bdg .bsp canvas{width:34px!important;height:34px!important;image-rendering:pixelated}
+.bdg em{position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);z-index:2;font-style:normal;font-family:var(--px);font-size:9px;padding:1px 5px;border-radius:5px;background:var(--bc);color:#14141c;border:2px solid #0b0d13}
+.bdg.t4>i{animation:bdgGlow 2.4s ease-in-out infinite}@keyframes bdgGlow{50%{filter:brightness(1.35) drop-shadow(0 0 6px var(--bc))}}
+.bdg.empty>i{background:rgba(255,255,255,.18)}.bdg.empty>i::after{background:rgba(10,12,22,.55)}
+.bdg.sm{width:40px;height:44px}.bdg.sm>i .ic{width:18px;height:18px}.bdg.sm em{font-size:8px}.bdg.sm .bsp img,.bdg.sm .bsp canvas{width:26px!important;height:26px!important}
+/* Editor */
+.cdWrap{display:flex;gap:18px;align-items:flex-start}.cdPrev{flex:none;display:flex;flex-direction:column;align-items:center;gap:6px}.cdSide{flex:1;min-width:0}
+.cdBody{max-height:min(calc(58*var(--vh,1vh)),560px);overflow:auto;padding-right:4px}.cdHint{font-size:12px;color:var(--muted);margin:6px 0}.cdCat{margin:12px 0 6px;font-family:var(--px);font-size:11px;color:var(--amber)}
+.cdGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.cdB{position:relative;display:flex;gap:10px;align-items:center;text-align:left;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.08);color:#e8ecf6;cursor:pointer}
+.cdB.on{border-color:var(--cyan);background:rgba(92,242,255,.08)}.cdB.lock{opacity:.6}.cdB.lock .bdg{filter:grayscale(1)}.cdB>div{min-width:0;flex:1}.cdB b{display:block;font-size:13px}.cdB small{display:block;font-size:11px;color:var(--muted)}
+.cdL{position:absolute;left:30px;top:30px}.cdL .ic{width:14px;height:14px;color:#fff}
+.cdBar{display:block;height:6px;margin:4px 0 2px;border-radius:4px;background:#0b0d13;overflow:hidden}.cdBar i{display:block;height:100%}.cdN{font-weight:700}
+.avPick{display:flex;gap:14px;justify-content:center;margin-top:12px}.avOpt{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 18px;border-radius:12px;background:rgba(255,255,255,.05);border:3px solid rgba(255,255,255,.12);color:#fff;cursor:pointer}
+.avOpt img{width:96px;height:144px;image-rendering:pixelated}.avOpt img.up{position:absolute;top:12px;opacity:0}.avOpt:hover img.up{opacity:1}.avOpt b{font-family:var(--px);font-size:12px}.avOpt.on{border-color:var(--cyan)}
+.avPick.sm{justify-content:flex-start}.avPick.sm .avOpt img{width:64px;height:96px}
+.cdBgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}.cdBg{display:flex;flex-direction:column;gap:4px;padding:6px;border-radius:10px;background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.1);color:#fff;cursor:pointer;text-align:left}
+.cdBg i{height:54px;border-radius:7px;display:block}.cdBg b{font-size:12px}.cdBg small{font-size:10px;color:var(--muted);display:flex;gap:4px;align-items:center}.cdBg small .ic{width:11px;height:11px}.cdBg.on{border-color:var(--cyan)}.cdBg.lock{opacity:.55;cursor:default}
+.cdTitles{display:flex;flex-wrap:wrap;gap:6px}.cdT{padding:6px 10px;border-radius:8px;background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.12);color:#fff;font-weight:700;cursor:pointer}.cdT.on{border-color:#ffd84a;color:#ffd84a}
+@media (max-width:760px){.cdWrap{flex-direction:column;align-items:center}.cdSide{width:100%}}
+/* VS mit Trainerkarten (Live-Duell) */
+#vs.duelVs .vsHero{display:none}
+.vsCards{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:0 calc(6*var(--vw,1vw));pointer-events:none}
+.vsCards .tcard.L{animation:tcInL .55s cubic-bezier(.2,1.4,.4,1) both;transform:rotate(-4deg)}.vsCards .tcard.R{animation:tcInR .55s cubic-bezier(.2,1.4,.4,1) .12s both;transform:rotate(4deg)}
+@keyframes tcInL{from{transform:translateX(calc(-60*var(--vw,1vw))) rotate(-14deg)}to{transform:translateX(0) rotate(-4deg)}}@keyframes tcInR{from{transform:translateX(calc(60*var(--vw,1vw))) rotate(14deg)}to{transform:translateX(0) rotate(4deg)}}
+#vs.out .vsCards .tcard{transition:transform .35s,opacity .35s;opacity:0}
+@media (max-width:760px){.vsCards{padding:0 calc(2*var(--vw,1vw))}.vsCards .tcard{width:150px;height:230px}.vsCards .tcAv img{width:64px;height:96px;margin-left:-32px;bottom:16px}.vsCards .tcTop b{font-size:10px}.vsCards .bdg{width:34px;height:38px}.vsCards .tcStats{display:none}}
+.cdB .bdg{flex:none}#vs.duelVs .vsFoot .wc{display:none}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -4283,14 +4326,14 @@ function signOut(){if(S&&S.phase==="shop")save();LS.del("pokelings_session");try
 function showMenu(){
   if(S&&S.duel){mpLeave(true);S=null;B=null;}
   if(S&&S.phase==="shop")save();
-  showScreen("menu");if(typeof patchAuto==="function")patchAuto();
+  showScreen("menu");if(typeof avatarCheck==="function")avatarCheck();if(typeof patchAuto==="function")patchAuto();
   const sv=LS.get(saveKey(),null);const total=Object.values(META.champs).reduce((a,b)=>a+b,0);
   $("menuWho").innerHTML=`<span>${ic("user")} ${esc(USER||"Gast")}</span><span style="color:var(--gem)">${ic("gem")} ${META.gems}${gemEventMul()>1?` <small style="font-size:10px;background:var(--gem);color:#0b0d13;border-radius:6px;padding:1px 5px;margin-left:3px">+${Math.round((gemEventMul()-1)*100)} % HEUTE</small>`:""}</span><span style="color:var(--amber)">${ic("trophy")} ${total}</span>`;
   const mb=(id,icn,t,s,main)=>`<button class="mbtn ${main?"main":""}" id="${id}"><span class="mi">${ic(icn)}</span><div><b>${t}</b><small>${s}</small></div></button>`;
   $("menuBtns").innerHTML=(sv&&sv.S?mb("mCont","play","Weiterspielen",`${sv.S.daily?"Tagesherausforderung":MODES[sv.S.mode].n} · Runde ${sv.S.round}`,1):"")+
-   mb("mNew","plus","Neues Spiel","Schwierigkeit & Partner wählen",!(sv&&sv.S))+mb("mMp","users","Mehrspieler","Tagesherausforderung · Live-Duell · Geisterkämpfe")+mb("mLab","lab","Forschungslabor","Dauerhafte Verbesserungen & neue Pokémon")+mb("mDex","dex","Pokédex","Sammlung · Schillernde · Mega-Formen")+mb("mAch","trophy","Erfolge",(()=>{const n=Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length;return n+"/"+ACH.length+" freigeschaltet · Statistik · Verlauf";})())+mb("mSet","gear","Einstellungen","Anleitung · Sound · Grafik · "+(USER?"Abmelden":"Login"));
+   mb("mNew","plus","Neues Spiel","Schwierigkeit & Partner wählen",!(sv&&sv.S))+mb("mMp","users","Mehrspieler","Tagesherausforderung · Live-Duell · Geisterkämpfe")+mb("mLab","lab","Forschungslabor","Dauerhafte Verbesserungen & neue Pokémon")+mb("mDex","dex","Pokédex","Sammlung · Schillernde · Mega-Formen")+mb("mCard","user","Trainerkarte","Figur · Hintergrund · 3 Abzeichen")+mb("mAch","trophy","Erfolge",(()=>{const n=Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length;return n+"/"+ACH.length+" freigeschaltet · Statistik · Verlauf";})())+mb("mSet","gear","Einstellungen","Anleitung · Sound · Grafik · "+(USER?"Abmelden":"Login"));
   if($("mCont"))$("mCont").onclick=()=>{const rk=(S&&S.phase!=="over"&&S.region)||(sv&&sv.S&&sv.S.region)||"kanto";needReg(rk,()=>{hideScreens();if(!S||S.phase==="over")loadGame();setTab("shop");render();});};
-  $("mNew").onclick=chooseMode;$("mMp").onclick=()=>mpModal();$("mLab").onclick=()=>labScreen();$("mDex").onclick=()=>dexModal("dex");$("mAch").onclick=()=>achModal();$("mSet").onclick=settingsModal;
+  $("mNew").onclick=chooseMode;$("mMp").onclick=()=>mpModal();$("mLab").onclick=()=>labScreen();$("mDex").onclick=()=>dexModal("dex");$("mAch").onclick=()=>achModal();if($("mCard"))$("mCard").onclick=()=>cardModal();$("mSet").onclick=settingsModal;
   const bs=[...$("menuBtns").querySelectorAll(".mbtn")];bs.forEach((b,i)=>{b.onmouseenter=()=>menuSel(i);});menuSel(0);
 }
 function menuSel(i){const bs=[...$("menuBtns").querySelectorAll(".mbtn")];if(!bs.length)return;i=(i+bs.length)%bs.length;bs.forEach((b,j)=>b.classList.toggle("sel",j===i));$("menuBtns").dataset.sel=i;}
@@ -5330,6 +5373,7 @@ function npcDraw(g,ox,oy,P,f){const W=NPC.W,H=NPC.H,G=[...Array(H)].map(()=>Arra
   if(hs==="bun"){r(7,0,2,1,P.hair);}
   if(P.hat==="cap"){r(4,1,8,2,P.hatC);r(4,3,8,1,dk(P.hatC));if(P.role==="trainer"||P.role==="coach")r(7,1,2,1,"#f4f4ee");}
   if(P.hat==="beanie"){r(4,0,8,3,P.hatC);p(7,0,"#f4f4ee");p(8,0,"#f4f4ee");}
+  if(P.hat==="sunhat"){r(2,2,12,1,"#f4f4ee");r(4,0,8,2,"#f4f4ee");r(4,1,8,1,P.hatC);}
   if(P.hat==="bigcap"){r(3,2,10,1,dk(P.hatC));r(5,0,6,2,P.hatC);}
   // Requisiten
   if(P.role==="camera"){r(10,4,5,3,"#2a2a30");p(14,5,"#8ad0ff");r(11,7,1,2,"#2a2a30");if(f===1)p(10,3,"#e0402e");}
@@ -9806,6 +9850,8 @@ function admSQL(){const em=clEmail(ADM.name);return `-- Pokélings Admin: einmal
 create table if not exists public.admins(uid uuid primary key);
 alter table public.admins enable row level security;
 insert into public.admins(uid) select id from auth.users where email='${em}' on conflict do nothing;
+-- nur EIN Admin: alle anderen Einträge entfernen
+delete from public.admins where uid not in (select id from auth.users where email='${em}');
 
 create or replace function public.is_admin() returns boolean language sql security definer set search_path=public as $$
   select exists(select 1 from public.admins where uid=auth.uid()) $$;
@@ -9859,7 +9905,8 @@ grant execute on function public.is_admin() to authenticated;
 grant execute on function public.admin_stats() to authenticated;
 grant execute on function public.admin_list(text) to authenticated;
 grant execute on function public.admin_delete(uuid) to authenticated;
-grant execute on function public.admin_set_pw(uuid,text) to authenticated;`;}
+grant execute on function public.admin_set_pw(uuid,text) to authenticated;
+notify pgrst, 'reload schema';`;}
 /* Anfragen als Admin */
 async function admRpc(fn,body){const s=CL.sess;CL.sess=ADM.sess;try{if(Date.now()>ADM.sess.exp-60000){const r=await clFetch("/auth/v1/token?grant_type=refresh_token",{method:"POST",auth:false,body:{refresh_token:ADM.sess.refresh_token}});if(r.ok)ADM.sess=Object.assign({},ADM.sess,{access_token:r.j.access_token,refresh_token:r.j.refresh_token,exp:Date.now()+(r.j.expires_in||3600)*1000});CL.sess=ADM.sess;}
     return await clFetch("/rest/v1/rpc/"+fn,{method:"POST",body:body||{}});}finally{CL.sess=s;}}
@@ -9920,11 +9967,107 @@ function admSetup(){openModal(`<h2>${ic("gear")} SERVER-SETUP</h2><div class="le
    <div class="rbtns" style="margin-top:12px"><button class="pri" id="admCp">${ic("check")} Code kopieren</button><button class="btn" id="admCx">Schließen</button></div>`,"",true);
   $("admCx").onclick=closeModal;$("admCp").onclick=async()=>{const t=$("admSqlT");try{await navigator.clipboard.writeText(t.value);}catch(e){t.select();document.execCommand("copy");}toast("SQL kopiert","check");};}
 
+/* ================================ TRAINERKARTE & ABZEICHEN ================================
+   Eigene Trainerkarte (Figur Junge/Mädchen, Hintergrund, Titel, 3 Abzeichen) – erscheint im Live-Duell auf dem VS-Bildschirm.
+   Abzeichen haben 4 Stufen (Bronze, Silber, Gold, Platin) und sind echte Grind-Ziele: Typen, Partner-Pokémon, Kampf, Champion, Sammeln. */
+const TIER=[null,{n:"Bronze",c:"#d8904e"},{n:"Silber",c:"#d2dbe8"},{n:"Gold",c:"#ffd23f"},{n:"Platin",c:"#8af0ff"}];
+const ROMAN=["","I","II","III","IV"];
+const _st=()=>(META&&META.stats)||{},_dex=()=>Object.values((META&&META.dex)||{});
+const BADGE_FIX=[
+ {id:"champ",cat:"Champion",n:"Champion",ic:"crown",d:"Champion-Titel (alle Modi und Regionen)",v:()=>Object.values(META.champs||{}).reduce((a,b)=>a+b,0),T:[1,10,40,100]},
+ {id:"world",cat:"Champion",n:"Weltenbummler",ic:"route",d:"Regionen, in denen du Champion bist",v:()=>Object.keys(REGIONS).filter(r=>_champR(r)>0).length,T:[1,3,5,7]},
+ {id:"nightm",cat:"Champion",n:"Albtraumjäger",ic:"ghost",d:"Champion-Titel auf Albtraum",v:()=>(META.champs||{}).night||0,T:[1,3,10,30]},
+ {id:"iron",cat:"Champion",n:"Eiserner Wille",ic:"heart",d:"Champion-Titel im Nuzlocke-Modus",v:()=>(META.champs||{}).nuzlocke||0,T:[1,3,10,30]},
+ {id:"duel",cat:"Champion",n:"Duellkönig",ic:"swords",d:"Gewonnene Live-Duelle",v:()=>(META.mp||{}).duelWins||0,T:[3,15,50,150]},
+ {id:"streak",cat:"Champion",n:"Unaufhaltsam",ic:"fast",d:"Längste Siegesserie in einem Lauf",v:()=>_st().bestStreak||0,T:[5,10,15,20]},
+ {id:"se",cat:"Kampf",n:"Volltreffer",ic:"bolt",d:"Sehr effektive Treffer",v:()=>_st().se||0,T:[500,3000,15000,50000]},
+ {id:"crit",cat:"Kampf",n:"Kritiker",ic:"crit",d:"Kritische Treffer",v:()=>_st().crits||0,T:[300,2000,10000,40000]},
+ {id:"mega",cat:"Kampf",n:"Mega-Meister",ic:"mega",d:"Mega-Entwicklungen",v:()=>_dex().reduce((a,d)=>a+(d.mega||0),0),T:[10,75,300,1000]},
+ {id:"flaw",cat:"Kampf",n:"Makellos",ic:"def",d:"Kämpfe ohne eigenen K.O. gewonnen",v:()=>_st().flawless||0,T:[50,300,1000,3000]},
+ {id:"boss",cat:"Kampf",n:"Bossbrecher",ic:"trophy",d:"Besiegte Bosse",v:()=>_st().bosses||0,T:[25,150,500,1500]},
+ {id:"ko",cat:"Kampf",n:"Vernichter",ic:"skull",d:"Besiegte Gegner",v:()=>_st().kos||0,T:[1000,10000,50000,150000]},
+ {id:"hit",cat:"Kampf",n:"Einschlag",ic:"atk",d:"Stärkster einzelner Treffer",v:()=>_st().maxHit||0,T:[2000,8000,25000,80000]},
+ {id:"dex",cat:"Sammeln",n:"Pokédex-Profi",ic:"dex",d:"Verschiedene Pokémon gefangen",v:()=>_dex().filter(d=>d.owned>0).length,T:[100,300,550,800]},
+ {id:"shiny",cat:"Sammeln",n:"Glitzerjäger",ic:"shiny",d:"Schillernde Pokémon gefunden",v:()=>_dex().reduce((a,d)=>a+(d.shiny||0),0),T:[5,25,75,200]},
+ {id:"fuse",cat:"Sammeln",n:"Fusionsmeister",ic:"merge",d:"Fusionen",v:()=>_st().fusions||0,T:[100,750,3000,10000]},
+ {id:"gem",cat:"Sammeln",n:"Edelstein-Magnat",ic:"gem",d:"Gesammelte Edelsteine",v:()=>META.gemsTotal||0,T:[1000,10000,40000,120000]},
+ {id:"achv",cat:"Sammeln",n:"Perfektionist",ic:"star",d:"Freigeschaltete Erfolge",v:()=>Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length,T:[10,25,40,ACH.length]},
+ {id:"daily",cat:"Sammeln",n:"Tagesheld",ic:"cal",d:"Gespielte Tagesherausforderungen",v:()=>META.dailyN||0,T:[5,30,100,365]},
+ {id:"vet",cat:"Sammeln",n:"Veteran",ic:"play",d:"Spielzeit in Stunden",v:()=>Math.floor((_st().time||0)/60),T:[5,25,100,300]},
+ {id:"coll",cat:"Sammeln",n:"Abzeichen-Sammler",ic:"badge",d:"Erreichte Abzeichen-Stufen (alle zusammen)",v:()=>badgeTierSum(),T:[10,30,60,100]}];
+const BADGE_BY={};BADGE_FIX.forEach(b=>BADGE_BY[b.id]=b);
+function badgeDef(id){if(BADGE_BY[id])return BADGE_BY[id];
+  if(id&&id.startsWith("t_")){const t=id.slice(2);if(!TYPES[t])return null;return{id,cat:"Typen",n:TYPES[t][0]+"-Experte",ic:"ball",col:TYPES[t][1],d:`Siege mit ${TYPES[t][0]}-Pokémon im Team`,v:()=>((_st().typeW||{})[t])||0,T:[25,100,300,1000]};}
+  if(id&&id.startsWith("p_")){const L=LINE_BY[id.slice(2)];if(!L)return null;const last=L.stages[L.stages.length-1];
+    return{id,cat:"Partner",n:"Partner: "+last[1],ic:"heart",sp:last[0],d:`Siege mit ${last[1]} (ganze Linie) im Team`,v:()=>L.stages.reduce((a,s)=>a+(((META.dex||{})[s[0]]||{}).wins||0),0),T:[25,100,300,800]};}
+  return null;}
+const badgeTier=(b,v)=>{let n=0;for(const t of b.T)if(v>=t)n++;return n;};
+function badgeTierSum(){let s=0;for(const b of BADGE_FIX)if(b.id!=="coll")try{s+=badgeTier(b,b.v());}catch(e){}for(const t in TYPES){const b=badgeDef("t_"+t);s+=badgeTier(b,b.v());}return s;}
+function badgeAll(){const out=[];for(const b of BADGE_FIX)out.push(b);for(const t in TYPES)out.push(badgeDef("t_"+t));
+  const lines=[];for(const L of LINES){const b=badgeDef("p_"+L.k);const v=b.v();if(v>0)lines.push([b,v]);}lines.sort((a,b)=>b[1]-a[1]).slice(0,40).forEach(x=>out.push(x[0]));return out;}
+function badgeState(b){let v=0;try{v=b.v();}catch(e){}const t=badgeTier(b,v);return{v,t,next:b.T[t]||null};}
+/* Medaille als HTML */
+function badgeHTML(id,tier,size){const b=badgeDef(id);if(!b||!tier)return `<div class="bdg empty${size?" "+size:""}"><i></i></div>`;const T=TIER[tier];
+  const inner=b.sp?`<span class="bsp" data-sp="${b.sp}"></span>`:ic(b.ic,"",b.col?`color:${b.col}`:"");
+  return `<div class="bdg t${tier}${size?" "+size:""}" style="--bc:${T.c}" data-tn="${esc(b.n)} ${ROMAN[tier]}" data-td="${esc(T.n)} · ${esc(b.d)}" data-tc="${T.c}"><i>${inner}</i><em>${ROMAN[tier]}</em></div>`;}
+/* Figuren (eigene Pixel-Trainer) */
+const AVATAR={boy:{skin:"#f0c090",hair:"#2a1a10",hs:"short",hat:"cap",hatC:"#e0402e",shirt:"#2a6ad8",shirt2:"#f4f4ee",pants:"#3a3a44",shoes:"#e0402e",role:"trainer",pack:"#d8b048"},
+ girl:{skin:"#f8d8b8",hair:"#8a5a2a",hs:"long",hat:"sunhat",hatC:"#e0402e",shirt:"#e0402e",shirt2:"#f4f4ee",skirt:"#2a6ad8",shoes:"#f4f4ee",role:"trainer",pack:"#ffd23f"}};
+const _avC={};function avatarURL(av,f){const k=av+f;if(_avC[k])return _avC[k];const P=AVATAR[av]||AVATAR.boy,c=document.createElement("canvas");c.width=NPC.W;c.height=NPC.H;npcDraw(c.getContext("2d"),0,0,P,f);return _avC[k]=c.toDataURL();}
+const CARD_BG={
+ wiese:{n:"Standard",css:"linear-gradient(180deg,#7ad0ff 0 46%,#5cbf5a 46% 100%)"},
+ ozean:{n:"Ozean",css:"repeating-linear-gradient(170deg,#2a6ad8 0 14px,#3a7ae8 14px 28px)",lock:()=>badgeState(BADGE_BY.dex).t>=1,ld:"Pokédex-Profi I"},
+ vulkan:{n:"Vulkan",css:"radial-gradient(circle at 50% 110%,#ffd23f 0,#ff7a2a 32%,#a8281e 62%,#3a0e0e 100%)",lock:()=>badgeState(BADGE_BY.boss).t>=1,ld:"Bossbrecher I"},
+ nacht:{n:"Nacht",css:"radial-gradient(circle at 30% 20%,#ffffff 0 1px,transparent 2px) 0 0/34px 34px,radial-gradient(circle at 70% 60%,#d8e4ff 0 1px,transparent 2px) 0 0/46px 46px,linear-gradient(180deg,#1a1440,#3a2a6a)",lock:()=>badgeState(BADGE_BY.vet).t>=1,ld:"Veteran I"},
+ blitz:{n:"Blitz",css:"repeating-linear-gradient(135deg,#ffd23f 0 18px,#1a1a20 18px 36px)",lock:()=>badgeState(BADGE_BY.duel).t>=1,ld:"Duellkönig I"},
+ geist:{n:"Geisterstunde",css:"radial-gradient(circle at 50% 30%,#8a5ad8 0,#3a1a5a 55%,#100818 100%)",lock:()=>badgeState(BADGE_BY.nightm).t>=1,ld:"Albtraumjäger I"},
+ champion:{n:"Champion",css:"conic-gradient(from 0deg at 50% 40%,#e0402e,#ffd23f,#2a6ad8,#e0402e)",lock:()=>badgeState(BADGE_BY.champ).t>=2,ld:"Champion II"},
+ gold:{n:"Gold",css:"linear-gradient(135deg,#8a6a10,#ffd23f 30%,#fff2b0 48%,#ffd23f 62%,#8a6a10)",lock:()=>badgeAll().some(b=>badgeState(b).t>=3),ld:"ein Abzeichen in Gold"},
+ platin:{n:"Platin",css:"linear-gradient(135deg,#2a5a7a,#8af0ff 30%,#ffffff 48%,#8af0ff 62%,#2a5a7a)",lock:()=>badgeAll().some(b=>badgeState(b).t>=4),ld:"ein Abzeichen in Platin"}};
+function cardMeta(){META.card=META.card||{};const C=META.card;if(!C.bg||!CARD_BG[C.bg]||(CARD_BG[C.bg].lock&&!(()=>{try{return CARD_BG[C.bg].lock();}catch(e){return false;}})()))C.bg="wiese";C.badges=(C.badges||[]).filter(id=>badgeDef(id)).slice(0,3);return C;}
+function cardMine(){const C=cardMeta();const b=C.badges.map(id=>{const d=badgeDef(id);return[id,d?badgeState(d).t:0];}).filter(x=>x[1]>0);
+  return{name:USER||mpName&&mpName()||"Gast",av:C.av||"boy",bg:C.bg,title:C.title||(C.av==="girl"?"Trainerin":"Trainer"),badges:b,ch:Object.values(META.champs||{}).reduce((a,c)=>a+c,0),dw:(META.mp||{}).duelWins||0,dex:_dex().filter(d=>d.owned>0).length};}
+function cardClean(c){if(!c||typeof c!=="object")return null;const n=v=>Math.max(0,Math.min(1e7,v|0));
+  return{name:String(c.name||"?").slice(0,20),av:c.av==="girl"?"girl":"boy",bg:CARD_BG[c.bg]?c.bg:"wiese",title:String(c.title||"Trainer").replace(/[<>]/g,"").slice(0,24),
+    badges:(Array.isArray(c.badges)?c.badges:[]).slice(0,3).filter(x=>Array.isArray(x)&&badgeDef(String(x[0]))).map(x=>[String(x[0]).slice(0,40),Math.max(1,Math.min(4,x[1]|0))]),ch:n(c.ch),dw:n(c.dw),dex:n(c.dex)};}
+function cardHTML(c,side){c=c||cardMine();const bg=CARD_BG[c.bg]||CARD_BG.wiese;const sl=[0,1,2].map(i=>c.badges[i]?badgeHTML(c.badges[i][0],c.badges[i][1]):badgeHTML(null,0)).join("");
+  return `<div class="tcard${side?" "+side:""}"><div class="tcBg" style="background:${bg.css}"></div><div class="tcShine"></div>
+   <div class="tcTop"><b>${esc(c.name)}</b><small>${esc(c.title)}</small></div>
+   <div class="tcAv"><i class="tcPlat"></i><img class="f0" src="${avatarURL(c.av,0)}" alt=""><img class="f1" src="${avatarURL(c.av,1)}" alt=""></div>
+   <div class="tcBdg">${sl}</div>
+   <div class="tcStats"><span>${ic("crown")}${c.ch}</span><span>${ic("swords")}${c.dw}</span><span>${ic("dex")}${c.dex}</span></div></div>`;}
+function cardHydrate(root){hydrateIcons(root);root.querySelectorAll(".bsp[data-sp]").forEach(e=>{if(!e.firstChild)try{e.appendChild(spriteEl(+e.dataset.sp));}catch(x){}});}
+/* Figur wählen (auch bei bestehenden Konten einmal) */
+function avatarPick(cb){openModal(`<h2>${ic("user")} WER BIST DU?</h2><div class="lead">Wähle deine Figur für die Trainerkarte. Sie erscheint im Live-Duell auf dem VS-Bildschirm. Ändern kannst du sie jederzeit unter <b>Trainerkarte</b>.</div>
+   <div class="avPick">${["boy","girl"].map(a=>`<button class="avOpt" data-av="${a}"><img src="${avatarURL(a,0)}" alt=""><img class="up" src="${avatarURL(a,1)}" alt=""><b>${a==="boy"?"Junge":"Mädchen"}</b></button>`).join("")}</div>`,"narrow",false);
+  $("mbox").querySelectorAll(".avOpt").forEach(b=>b.onclick=()=>{const C=cardMeta();C.av=b.dataset.av;if(!C.title)C.title=C.av==="girl"?"Trainerin":"Trainer";saveMeta();closeModal();toast("Trainerkarte erstellt","user");cb&&cb();});}
+function avatarCheck(){try{if(!META||window.__noIntro||window.__autoPick)return;if(META.card&&META.card.av)return;setTimeout(()=>{if($("menu").classList.contains("show")&&!$("modal").classList.contains("show")&&!(META.card&&META.card.av))avatarPick();},350);}catch(e){}}
+/* Trainerkarte bearbeiten */
+let CARD_TAB="badges";
+function cardModal(t){t=t||CARD_TAB;CARD_TAB=t;const C=cardMeta(),me=cardMine();let body="";
+  if(t==="badges"){const all=badgeAll(),cats=["Champion","Kampf","Sammeln","Typen","Partner"];const got=all.filter(b=>badgeState(b).t>0).length;
+    body=`<p class="cdHint">Tippe ein freigeschaltetes Abzeichen an, um es in eines der 3 Felder zu legen (nochmal tippen = entfernen). ${got} von ${all.length} Abzeichen freigeschaltet.</p>`+cats.map(cat=>{const L=all.filter(b=>b.cat===cat);if(!L.length)return"";
+      return `<h4 class="cdCat">${cat}</h4><div class="cdGrid">${L.map(b=>{const s=badgeState(b),on=C.badges.includes(b.id),pr=s.next?Math.min(1,s.v/s.next):1;
+        return `<button class="cdB${on?" on":""}${s.t?"":" lock"}" data-b="${b.id}">${badgeHTML(b.id,Math.max(1,s.t),"sm")}${s.t?"":`<span class="cdL">${ic("lock")}</span>`}<div><b>${esc(b.n)} ${s.t?ROMAN[s.t]:""}</b><small>${esc(b.d)}</small>
+          <span class="cdBar"><i style="width:${Math.round(pr*100)}%;background:${s.t?TIER[s.t].c:"#6a7088"}"></i></span><small class="cdN">${Math.floor(s.v).toLocaleString("de-DE")}${s.next?` / ${s.next.toLocaleString("de-DE")} → ${TIER[s.t+1].n}`:" · MAX"}</small></div></button>`;}).join("")}</div>`;}).join("");}
+  else if(t==="look"){body=`<h4 class="cdCat">Figur</h4><div class="avPick sm">${["boy","girl"].map(a=>`<button class="avOpt${C.av===a?" on":""}" data-av="${a}"><img src="${avatarURL(a,0)}" alt=""><b>${a==="boy"?"Junge":"Mädchen"}</b></button>`).join("")}</div>
+    <h4 class="cdCat">Hintergrund</h4><div class="cdBgs">${Object.entries(CARD_BG).map(([k,b])=>{const ok=!b.lock||b.lock();return `<button class="cdBg${C.bg===k?" on":""}${ok?"":" lock"}" data-bg="${k}" ${ok?"":"disabled"}><i style="background:${b.css}"></i><b>${b.n}</b>${ok?"":`<small>${ic("lock")} ${b.ld}</small>`}</button>`;}).join("")}</div>
+    <h4 class="cdCat">Titel</h4><div class="cdTitles">${[C.av==="girl"?"Trainerin":"Trainer",...badgeAll().filter(b=>badgeState(b).t>=2&&b.cat!=="Partner").map(b=>b.n)].filter((v,i,a)=>a.indexOf(v)===i).map(n=>`<button class="cdT${(C.title||"")===n?" on":""}" data-t="${esc(n)}">${esc(n)}</button>`).join("")}</div><p class="cdHint">Titel schaltest du frei, wenn ein Abzeichen Silber erreicht.</p>`;}
+  openModal(`<h2>${ic("user")} TRAINERKARTE</h2><div class="cdWrap"><div class="cdPrev">${cardHTML(me)}<p class="cdHint" style="text-align:center">So sehen dich Gegner im Live-Duell.</p></div>
+    <div class="cdSide"><div class="dtabs"><button data-ct="badges" class="${t==="badges"?"on":""}">ABZEICHEN</button><button data-ct="look" class="${t==="look"?"on":""}">FIGUR & STIL</button></div><div class="cdBody">${body}</div></div></div>
+    <div class="rbtns" style="margin-top:12px"><button class="btn" id="cdBack">${ic("back")} Zurück</button></div>`,"wide",true);
+  const mb=$("mbox");cardHydrate(mb);$("cdBack").onclick=()=>{closeModal();if(typeof showMenu==="function"&&$("menu").classList.contains("show"))showMenu();};
+  mb.querySelectorAll("[data-ct]").forEach(b=>b.onclick=()=>cardModal(b.dataset.ct));
+  mb.querySelectorAll(".cdB").forEach(b=>b.onclick=()=>{const id=b.dataset.b,d=badgeDef(id);if(!d||!badgeState(d).t){toast("Noch nicht freigeschaltet","lock");return;}const i=C.badges.indexOf(id);if(i>=0)C.badges.splice(i,1);else{if(C.badges.length>=3)C.badges.shift();C.badges.push(id);}saveMeta();cardModal("badges");});
+  mb.querySelectorAll("[data-av]").forEach(b=>b.onclick=()=>{const was=C.av;C.av=b.dataset.av;if(!C.title||C.title===(was==="girl"?"Trainerin":"Trainer"))C.title=C.av==="girl"?"Trainerin":"Trainer";saveMeta();cardModal("look");});
+  mb.querySelectorAll("[data-bg]").forEach(b=>b.onclick=()=>{C.bg=b.dataset.bg;saveMeta();cardModal("look");});
+  mb.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{C.title=b.dataset.t;saveMeta();cardModal("look");});}
+
 /* ================================ MEHRSPIELER ================================
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="9.1",DUEL_HP=20;
+const MP_VER="9.2",DUEL_HP=30;
 const dayKey=d=>(d||new Date()).toISOString().slice(0,10);
 const mpName=()=>USER||(window.__gName||(window.__gName="Gast-"+(100+Math.floor(VRND()*900))));
 
@@ -9952,7 +10095,7 @@ function dailyInfo(day){day=day||dayKey();const h=strHash("pkl-daily|"+day),R=mk
   return{day,seed:h,region:reg,rules:[a,b],ty:tys[Math.floor(R()*tys.length)]||"normal"};}
 function ruleTxt(k,D){const R=DAILY_RULES[k];return R.d.replace("{T}",(TYPES[D.ty]||["?"])[0]);}
 function dailyState(){const D=dailyInfo(),M=META.daily||{};return{D,played:M.day===D.day,score:M.day===D.day?M.score:null};}
-function startDaily(){const {D,played}=dailyState();const go=()=>{if(!played){META.daily={day:D.day,used:1};saveMeta();}newRun("normal",D.region,{daily:Object.assign({},D,{scored:!played})});};
+function startDaily(){const {D,played}=dailyState();const go=()=>{if(!played){META.daily={day:D.day,used:1};META.dailyN=(META.dailyN||0)+1;saveMeta();}newRun("normal",D.region,{daily:Object.assign({},D,{scored:!played})});};
   const sv=LS.get(saveKey(),null);if(sv&&sv.S&&sv.S.round>1){openModal(`<h2>${ic("cal")} TAGESHERAUSFORDERUNG</h2><div class="lead">Dein laufendes Spiel (Runde ${sv.S.round}) wird dabei beendet.</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="dGo">${ic("play")} Trotzdem starten</button><button class="btn" id="dNo">Abbrechen</button></div>`,"narrow",true);$("dGo").onclick=()=>{closeModal();go();};$("dNo").onclick=()=>mpModal();}else go();}
 function dailyIntro(){const D=S.daily;toast(`Tagesherausforderung ${D.day.split("-").reverse().join(".")}${D.scored?"":" · Übungslauf"} · ${D.rules.filter(k=>DAILY_RULES[k]).map(k=>DAILY_RULES[k].n).join(" · ")}`,"cal");}
 function dailyScore(win,reached){return Math.max(0,(reached-1)*100+S.wins*10+S.bosses*25+(win?300:0)-S.revives*40);}
@@ -10028,12 +10171,12 @@ function duelCreate(region){const code=String(1000+Math.floor(VRND()*9000));
     $("duX").onclick=()=>{mpLeave(true);mpModal();};DU.pending={region,seed:Math.floor(VRND()*2147483647)};});}
 function duelJoin(code){if(!/^\d{4}$/.test(code)){toast("Der Code hat 4 Ziffern","swords");return;}
   duelConnect(code,false,()=>{openModal(`<h2>${ic("swords")} LIVE-DUELL</h2><div class="lead">Verbinde mit Raum <b>${code}</b> …</div><p class="empty" style="text-align:center"><span class="duDots"></span> Suche Gegner</p><div class="rbtns"><button class="btn" id="duX">${ic("close")} Abbrechen</button></div>`,"narrow");
-    $("duX").onclick=()=>{mpLeave(true);mpModal();};let n=0;const hi=()=>{if(DU.peer){clearInterval(DU.hello);return;}if(++n>40){clearInterval(DU.hello);mpLeave(true);mpErr(`In Raum ${code} wartet niemand. Prüfe den Code.`);return;}duelSend("hello",{name:mpName(),ul:META.unlocked});};hi();DU.hello=setInterval(hi,1500);});}
+    $("duX").onclick=()=>{mpLeave(true);mpModal();};let n=0;const hi=()=>{if(DU.peer){clearInterval(DU.hello);return;}if(++n>40){clearInterval(DU.hello);mpLeave(true);mpErr(`In Raum ${code} wartet niemand. Prüfe den Code.`);return;}duelSend("hello",{name:mpName(),ul:META.unlocked,card:typeof cardMine==="function"?cardMine():null});};hi();DU.hello=setInterval(hi,1500);});}
 function duelMsg(m){if(!m||m.f===DU.id)return;if(m.to&&m.to!==DU.id)return;
   if(DU.peer&&m.f!==DU.peer){if(m.t==="hello"&&DU.host)DU.tr.send({t:"full",f:DU.id,to:m.f});return;}
   DU.last=Date.now();if(DU.lost&&S&&S.duel){DU.lost=false;renderEnc();}
-  if(m.t==="hello"&&DU.host&&!DU.peer&&DU.pending){DU.peer=m.f;const P=DU.pending,nm=String(m.name||"Gast").slice(0,20),ul=Array.isArray(m.ul)?m.ul:[],pl=META.unlocked.filter(k=>ul.includes(k));duelSend("start",{seed:P.seed,region:P.region,name:mpName(),pool:pl});if(m.v!==MP_VER)toast("Hinweis: Dein Gegner hat eine andere Spielversion. Bitte beide neu laden (Strg+F5).","info");duelBegin(P.region,P.seed,nm,pl);return;}
-  if(m.t==="start"&&!DU.host&&!DU.peer){DU.peer=m.f;clearInterval(DU.hello);if(m.v!==MP_VER)toast("Hinweis: Dein Gegner hat eine andere Spielversion. Bitte beide neu laden (Strg+F5).","info");duelBegin(REGIONS[m.region]?m.region:"kanto",m.seed|0,String(m.name||"Gast").slice(0,20),(Array.isArray(m.pool)?m.pool:[]).filter(k=>META.unlocked.includes(k)));return;}
+  if(m.t==="hello"&&DU.host&&!DU.peer&&DU.pending){DU.peer=m.f;const P=DU.pending,nm=String(m.name||"Gast").slice(0,20),ul=Array.isArray(m.ul)?m.ul:[],pl=META.unlocked.filter(k=>ul.includes(k));DU.peerCard=typeof cardClean==="function"?cardClean(m.card):null;duelSend("start",{seed:P.seed,region:P.region,name:mpName(),pool:pl,card:typeof cardMine==="function"?cardMine():null});if(m.v!==MP_VER)toast("Hinweis: Dein Gegner hat eine andere Spielversion. Bitte beide neu laden (Strg+F5).","info");duelBegin(P.region,P.seed,nm,pl);return;}
+  if(m.t==="start"&&!DU.host&&!DU.peer){DU.peer=m.f;DU.peerCard=typeof cardClean==="function"?cardClean(m.card):null;clearInterval(DU.hello);if(m.v!==MP_VER)toast("Hinweis: Dein Gegner hat eine andere Spielversion. Bitte beide neu laden (Strg+F5).","info");duelBegin(REGIONS[m.region]?m.region:"kanto",m.seed|0,String(m.name||"Gast").slice(0,20),(Array.isArray(m.pool)?m.pool:[]).filter(k=>META.unlocked.includes(k)));return;}
   if(m.t==="full"){mpLeave(true);mpErr("Dieser Raum ist schon voll.");return;}
   const D=S&&S.duel;if(!D)return;
   if(m.t==="ready"){const r=m.r|0;D.opp[r]=teamClean(m.team);duelSend("ack",{r});if(r===S.round&&D.ready!==r&&!DU.cd)DU.cd=Date.now()+60000;renderEnc();duelCheck();}
@@ -10064,7 +10207,7 @@ function duelFighters(){const D=S.duel,r=S.round,mine=D.snap[r],opp=D.opp[r],hT=
 function duelSum(){let h=2166136261;const add=v=>{h^=v|0;h=Math.imul(h,16777619);};add(Math.round(B.t*60));for(const f of B.F){add(f.alive?1:0);add(Math.round(Math.max(0,f.hp)));}return(h>>>0).toString(36);}
 function duelApply(r,hw,dmg){const D=S.duel,me=D.host?hw:!hw;if(D.applied[r]){const a=D.applied[r];D.hp[a.me?1:0]+=a.dmg;}D.hp[me?1:0]-=dmg;D.applied[r]={me,dmg,hw};S.results[r-1]=me?"w":"l";return me;}
 function duelEnd(hw){B.done=true;for(const p of B.proj){if(p.orb)killOrb(p.orb);p.done=true;}B.proj=[];B.winSide=hw?"mine":"enemy";
-  const D=S.duel,r=S.round,surv=B.F.filter(f=>f.alive&&!f.u.minion&&f.side===(hw?"mine":"enemy")).length,dmg=2+surv+Math.floor(r/2),sum=duelSum();
+  const D=S.duel,r=S.round,surv=B.F.filter(f=>f.alive&&!f.u.minion&&f.side===(hw?"mine":"enemy")).length,dmg=1+Math.ceil(surv/2)+Math.floor(r/3),sum=duelSum();
   D.res[r]={hw,dmg,sum};const me=duelApply(r,hw,dmg);
   if(D.host)duelSend("res",{r,hw,dmg,sum});else if(D.hres[r])duelFix(r);
   sfx(me?"win":"lose");S.phase="result";render();
@@ -10092,7 +10235,7 @@ function renderDuelEnc(m){if(!m)return;const D=S.duel,r=S.round,rd=D.ready===r,o
   const st=DU.lost?`<span style="color:var(--red)">${esc(D.peerName)} antwortet nicht …</span>`:rd&&op?"Kampf startet …":rd?`Du bist bereit. Warte auf <b>${esc(D.peerName)}</b> …`:op?`<b style="color:var(--amber)">${esc(D.peerName)} ist bereit!</b> Automatisch bereit in <b id="duCd">${duelCdLeft()}</b> s`:`<b>${esc(D.peerName)}</b> stellt sein Team zusammen …`;
   m.innerHTML=`<div id="encHead"><h2>LIVE-DUELL</h2><span class="diff" style="--dc:#ff4d6d">${ic("swords")} Testphase</span></div>${duelHpHtml()}
    <p class="duSt">${st}</p>
-   <div class="duRules">${ic("info","","width:14px;height:14px")} Faire Regeln: keine Relikte, keine Labor-Talente. Beide Geräte berechnen denselben Kampf. Wer verliert, verliert 2 KP + 1 je überlebendem Gegner + 1 je zwei Runden.</div>
+   <div class="duRules">${ic("info","","width:14px;height:14px")} Faire Regeln: keine Relikte, keine Labor-Talente. Beide Geräte berechnen denselben Kampf. Jeder hat 30 Duell-KP. Wer verliert, verliert 1 KP + 1 je zwei überlebende Gegner + 1 je drei Runden.</div>
    <div id="encFoot">${DU.lost?`<button class="btn" id="duWin">${ic("trophy")} Kampflos gewinnen</button>`:`<button class="btn" id="duQuit">${ic("flag")} Aufgeben</button>`}<span style="flex:1"></span><button class="pri hot" id="duGo" ${rd||!bu?"disabled":""}>${ic("check")} ${rd?"BEREIT ✓":"BEREIT"}</button></div>
    ${bu?"":`<p style="color:var(--red);font-weight:700;margin:8px 0 0;text-align:center">Stelle zuerst Pokémon im RASTER auf.</p>`}`;
   $("duGo").onclick=duelReady;if($("duWin"))$("duWin").onclick=()=>duelFinal(true,"lost");
@@ -10215,8 +10358,12 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER=typeof MP_VER!=="undefined"?MP_VER:"9.1";
+const GAME_VER=typeof MP_VER!=="undefined"?MP_VER:"9.2";
 const PATCH=[
+ {v:"9.2",d:"29.10.2026",t:"Trainerkarte & Abzeichen",items:[
+  ["user","Trainerkarte: Wähle Junge oder Mädchen, einen Hintergrund, einen Titel und bis zu 3 Abzeichen. Im Live-Duell fliegen beide Karten beim VS-Bildschirm herein."],
+  ["badge","Über 60 Abzeichen mit 4 Stufen (Bronze, Silber, Gold, Platin): Champion, Kampf, Sammeln, je ein Abzeichen pro Typ und Partner-Abzeichen für deine Lieblings-Pokémon. Am Anfang gibt es nur den Standard-Hintergrund, alle weiteren Hintergründe und Titel schaltest du mit Abzeichen frei."],
+  ["heart","Live-Duell: 30 statt 20 Duell-KP und weniger Schaden pro Niederlage, die Duelle dauern länger."]]},
  {v:"9.1",d:"29.10.2026",t:"Neues Stadion & Pixel-Publikum",items:[
   ["swords","Duell-Stadion komplett neu gebaut: runde Tribünenringe in Teamfarben, Laufbahn, Dach mit Fahnen, Videowand, Trainerbänke, Eckfahnen und Flutlicht-Gittermasten."],
   ["users","Hunderte Retro-Pixelfiguren: jubelndes Publikum mit Fahnen und Schals, dazu Schiedsrichter, Trainer, Kameraleute, Cheerleader, Verkäufer, Ansager und mehr."],
@@ -10616,6 +10763,7 @@ function hit(f,t,pow,crit,type,critB,ult,basicA){
   else if(type==="ice"&&t.wetT>0){d*=1.25;if(Math.random()<.4)popAt(fw(t,1.5),"Schockfrost!","s","#9ff0ff");}
   else if((type==="poison"||type==="bug")&&t.poisT>0){d*=1.2;if(Math.random()<.4)popAt(fw(t,1.5),"Toxisch!","s","#d080ff");}
   const isCrit=t.abil!=="panzerhaut"&&(f.nextCrit||Math.random()<(f.crit||0)+(critB||0));if(isCrit){f.nextCrit=false;d*=1.8+((f.sx&&f.sx.critMul)||0);}
+  if(!SIM&&f.side==="mine"&&typeof META!=="undefined"&&META&&!(S&&S.duel)){const st=META.stats||(META.stats={});if(m>1)st.se=(st.se||0)+1;if(isCrit)st.crits=(st.crits||0)+1;}
   t.hurtT=isCrit||ult?.35:.25;t.hurtCrit=isCrit||!!ult;if(isCrit||ult)B.hitStop=Math.max(B.hitStop,ult?.07:.045);
   if(f.ambush&&f.jumped&&!f.ambushUsed){f.ambushUsed=true;d*=2;popAt(fw(t,1.6),"Hinterhalt!","s","#e0c0ff");}
   const sx=f.sx||{};
@@ -10715,7 +10863,9 @@ function vsSplash(cb){
   $("bMine").textContent=(USER||"DU").toUpperCase();$("bMineS").textContent=`${mine.length} Pokémon`;$("bEnemy").textContent=(boss?boss.name:enc.name).toUpperCase();$("bEnemyS").textContent=D.n+(S.revanche?" · Revanche":"");
   vs.classList.add("show");sfx("vs");setTimeout(()=>{if(vs.classList.contains("show")){sfx("crit",.05);sfx("boom",.25);}},430);
   let done=false;const fin=()=>{if(done)return;done=true;vs.classList.add("out");setTimeout(()=>{vs.classList.remove("show","out");cb();},window.__fast?0:380);};
-  if(!S.duel)vs.onclick=fin;else{const sk=vs.querySelector(".vsSkip");if(sk)sk.remove();}setTimeout(fin,window.__fast?10:2500);
+  vs.classList.toggle("duelVs",!!S.duel);
+  if(S.duel&&typeof cardHTML==="function"){try{const me=cardMine(),op=DU.peerCard||{name:S.duel.peerName,av:"boy",bg:"nacht",title:"Trainer",badges:[],ch:0,dw:0,dex:0};const w=document.createElement("div");w.className="vsCards";w.innerHTML=cardHTML(me,"L")+cardHTML(op,"R");vs.appendChild(w);cardHydrate(w);}catch(e){console.warn("vsCards",e);}}
+  if(!S.duel)vs.onclick=fin;else{const sk=vs.querySelector(".vsSkip");if(sk)sk.remove();}setTimeout(fin,window.__fast?10:S.duel?3600:2500);
 }
 function fight(){if(S&&S.duel){duelReady();return;}if(typeof geistUpload==="function")geistUpload();if(!S||S.phase!=="shop"||!boardUnits().length||!S.enc||S.enc.type==="event")return;S.pending=true;save();delete S.pending;S.phase="intro";setTab("raster");syncArena();enterBattleMode(true);setView("battle");render();megaWarm();vsSplash(startBattle);}
 function megaWarm(){try{const us=[...boardUnits(),...(S.enemies||[])].filter(u=>(u.items||[]).includes("mega")&&MEGA[u.sp]);if(!us.length||typeof CINE==="undefined"||!CINE.warm)return;const keys=[];for(const u of us){const mf=megaForm(u.sp,roleOf(u),u.megaF);keys.push(sprKey(u.sp,u.shiny));if(mf)keys.push(sprKey(u.sp,u.shiny,mf.k));}setTimeout(()=>CINE.warm(keys),30);}catch(e){}}
@@ -10734,6 +10884,7 @@ function statBattle(win){try{const st=META.stats=META.stats||{};const mine=B.F.f
   add("kos",en.filter(f=>!f.alive).length);add("lost",mine.filter(f=>!f.alive).length);st.maxHit=Math.max(st.maxHit||0,B.maxHit||0);
   if(win&&S.enc&&S.enc.type==="boss")add("bosses",1);if(win&&S.enc&&S.enc.type==="elite")add("elites",1);if(win&&!mine.some(f=>!f.alive))add("flawless",1);
   st.bestStreak=Math.max(st.bestStreak||0,win?(S.streak||0)+1:0);
+  if(win){st.typeW=st.typeW||{};const ts=new Set();for(const f of mine)for(const t of (f.types||f.sp.types))ts.add(t);for(const t of ts)st.typeW[t]=(st.typeW[t]||0)+1;}
   st.dmgBy=st.dmgBy||{};for(const f of mine){const k=SPECIES[f.u.sp].line.k;st.dmgBy[k]=(st.dmgBy[k]||0)+Math.round(f.dmg||0);}
   const top=mine.slice().sort((a,b)=>(b.dmg||0)-(a.dmg||0))[0];if(top&&(top.dmg||0)>(st.bestFight||0)){st.bestFight=Math.round(top.dmg);st.bestFightSp=top.u.sp;}}catch(e){}}
 function permaDeath(){if(!S||!MODES[S.mode]||!MODES[S.mode].perma||!B)return;const gone=[];
