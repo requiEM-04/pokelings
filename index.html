@@ -2355,6 +2355,24 @@ body.battle #simChip{display:none!important}
 .pnV ul{margin:0;padding:0;list-style:none}.pnV li{display:flex;gap:8px;align-items:flex-start;font-size:13px;line-height:1.45;margin:5px 0;color:#d8deea}.pnV li .ic{width:15px;height:15px;flex:none;margin-top:2px;color:var(--amber)}
 
 body.duelMode #wlabels,body.duelMode #wToken,body.duelMode #wwrap .wCard{display:none!important}
+
+/* Admin-Panel (im Menü-Stil) */
+#admWrap{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;max-width:1120px;margin:auto}
+#admWrap .big1{transform:scale(.62);margin:-18px 0 -24px}
+.admPanel{width:100%;padding:16px 18px;border-radius:14px}
+.admHead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}.admHead h2{margin:0;display:flex;align-items:center;gap:8px;font-family:var(--px);font-size:18px;color:var(--amber)}
+.admWho{display:flex;align-items:center;gap:6px;font-weight:700;color:var(--cyan)}.admWho .ic{width:15px;height:15px}
+.admStats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-bottom:12px}
+.admTile{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.08);border-left:4px solid var(--c)}
+.admTile .ic{grid-row:1/3;width:22px;height:22px;color:var(--c)}.admTile b{font-family:var(--px);font-size:16px;color:#fff}.admTile small{color:var(--muted);font-size:11px}
+.admWarn{grid-column:1/-1;display:flex;gap:10px;padding:12px;border-radius:10px;background:rgba(255,200,60,.08);border:2px solid rgba(255,200,60,.35);font-size:13px;line-height:1.45}.admWarn .ic{width:20px;height:20px;flex:none;color:var(--amber)}
+.admSearch{display:flex;gap:10px;align-items:center;margin-bottom:8px}.admSearch input{flex:1;padding:10px 12px;border-radius:8px;border:2px solid rgba(255,255,255,.14);background:#0b0d13;color:#fff;font:600 14px var(--ui)}.admSearch span{color:var(--muted);font-size:12px;white-space:nowrap}
+.admList{max-height:min(calc(46*var(--vh,1vh)),460px);overflow:auto;border-radius:10px;border:2px solid rgba(255,255,255,.08)}
+.admList table{width:100%;border-collapse:collapse;font-size:13px}.admList th{position:sticky;top:0;background:#1a1f2e;text-align:left;padding:8px 10px;font-family:var(--px);font-size:9px;color:var(--muted);letter-spacing:.04em}
+.admList td{padding:7px 10px;border-top:1px solid rgba(255,255,255,.06);color:#d8deea;white-space:nowrap}.admList tr:hover td{background:rgba(92,242,255,.05)}
+.admAct{display:flex;gap:6px;justify-content:flex-end}.admAct .btn{padding:5px 8px}.admAct .btn .ic{width:14px;height:14px}.admAct .btn.danger{color:#ff8a7a;border-color:rgba(255,90,90,.45)}
+.admNote{margin:10px 0 0;font-size:11px;color:var(--dim)}
+@media (max-width:760px){.admList td:nth-child(2),.admList th:nth-child(2),.admList td:nth-child(7),.admList th:nth-child(7){display:none}}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -9663,6 +9681,131 @@ const _signIn0=signIn;signIn=function(name,remember){const r=_signIn0(name,remem
 async function clBoard(){const r=await clFetch("/rest/v1/board?select=name,score,titles,ach,own,shy,per&order=score.desc&limit=50",{auth:false,timeout:7000});
   if(!r.ok||!Array.isArray(r.j))return null;return r.j.map(x=>({n:x.name,pts:x.score,titles:x.titles,ach:x.ach,own:x.own,shy:x.shy,per:Object.assign(Object.fromEntries(Object.keys(REGIONS).map(k=>[k,{row:{},top:null,best:0}])),x.per||{})}));}
 const _rLb0=renderLeaderboard;renderLeaderboard=function(rows,src){_rLb0(rows,src);if(!rows)clBoard().then(cr=>{if(cr&&cr.length&&$("auth").classList.contains("show"))_rLb0(cr,"cloud");});};
+
+/* ================================ ADMIN (nur für REQUIEM) ================================
+   Anmelden mit Benutzername "Admin" + eigenem Passwort. Das Passwort steht nirgends im Code:
+   Der Admin ist ein normales Cloud-Konto, alle Admin-Rechte prüft der Server (Supabase-Funktionen + Tabelle admins).
+   Kein spielbares Konto: Nach dem Login erscheint nur das Admin-Panel (Menü-Hintergrund bleibt). */
+const ADM={name:"requiem-admin",sess:null,list:[],q:""};
+const admIsName=n=>/^\s*admin\s*$/i.test(n||"");
+const admReserved=n=>/^(admin|requiem-admin)/i.test((n||"").trim());
+function admSQL(){const em=clEmail(ADM.name);return `-- Pokélings Admin: einmal im Supabase SQL-Editor ausführen
+create table if not exists public.admins(uid uuid primary key);
+alter table public.admins enable row level security;
+insert into public.admins(uid) select id from auth.users where email='${em}' on conflict do nothing;
+
+create or replace function public.is_admin() returns boolean language sql security definer set search_path=public as $$
+  select exists(select 1 from public.admins where uid=auth.uid()) $$;
+
+create or replace function public.admin_stats() returns json language plpgsql security definer set search_path=public,auth as $$
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  return json_build_object(
+    'accounts',(select count(*) from auth.users u where not exists(select 1 from public.admins a where a.uid=u.id)),
+    'new7',(select count(*) from auth.users u where u.created_at>now()-interval '7 days' and not exists(select 1 from public.admins a where a.uid=u.id)),
+    'active1',(select count(*) from public.profiles where updated_at>now()-interval '1 day'),
+    'active7',(select count(*) from public.profiles where updated_at>now()-interval '7 days'),
+    'games',(select coalesce(sum((meta->>'games')::numeric),0)::bigint from public.profiles),
+    'wins',(select coalesce(sum((meta->>'wins')::numeric),0)::bigint from public.profiles),
+    'duels',(select coalesce(sum((meta->'mp'->>'duels')::numeric),0)::bigint from public.profiles),
+    'gems',(select coalesce(sum((meta->>'gems')::numeric),0)::bigint from public.profiles),
+    'board',(select count(*) from public.board));
+end $$;
+
+create or replace function public.admin_list(q text default '') returns table(id uuid,name text,created_at timestamptz,last_sign_in_at timestamptz,updated_at timestamptz,games int,wins int,gems int,score int)
+language plpgsql security definer set search_path=public,auth as $$
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  return query select u.id, coalesce(p.name,u.raw_user_meta_data->>'name','?')::text, u.created_at, u.last_sign_in_at, p.updated_at,
+    coalesce((p.meta->>'games')::numeric,0)::int, coalesce((p.meta->>'wins')::numeric,0)::int, coalesce((p.meta->>'gems')::numeric,0)::int, coalesce(b.score::numeric,0)::int
+  from auth.users u left join public.profiles p on p.id=u.id left join public.board b on b.id=u.id
+  where not exists(select 1 from public.admins a where a.uid=u.id)
+    and (q is null or q='' or coalesce(p.name,u.raw_user_meta_data->>'name','') ilike '%'||q||'%')
+  order by coalesce(p.updated_at,u.created_at) desc limit 200;
+end $$;
+
+create or replace function public.admin_delete(target uuid) returns void language plpgsql security definer set search_path=public,auth as $$
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  if exists(select 1 from public.admins where uid=target) then raise exception 'admin'; end if;
+  delete from public.board where id=target; delete from public.profiles where id=target; delete from auth.users where id=target;
+end $$;
+
+create or replace function public.admin_set_pw(target uuid, pw text) returns void language plpgsql security definer set search_path=public,auth,extensions as $$
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  update auth.users set encrypted_password=extensions.crypt(pw,extensions.gen_salt('bf')),updated_at=now() where id=target;
+end $$;
+
+revoke all on function public.is_admin() from public, anon;
+revoke all on function public.admin_stats() from public, anon;
+revoke all on function public.admin_list(text) from public, anon;
+revoke all on function public.admin_delete(uuid) from public, anon;
+revoke all on function public.admin_set_pw(uuid,text) from public, anon;
+grant execute on function public.is_admin() to authenticated;
+grant execute on function public.admin_stats() to authenticated;
+grant execute on function public.admin_list(text) to authenticated;
+grant execute on function public.admin_delete(uuid) to authenticated;
+grant execute on function public.admin_set_pw(uuid,text) to authenticated;`;}
+/* Anfragen als Admin */
+async function admRpc(fn,body){const s=CL.sess;CL.sess=ADM.sess;try{if(Date.now()>ADM.sess.exp-60000){const r=await clFetch("/auth/v1/token?grant_type=refresh_token",{method:"POST",auth:false,body:{refresh_token:ADM.sess.refresh_token}});if(r.ok)ADM.sess=Object.assign({},ADM.sess,{access_token:r.j.access_token,refresh_token:r.j.refresh_token,exp:Date.now()+(r.j.expires_in||3600)*1000});CL.sess=ADM.sess;}
+    return await clFetch("/rest/v1/rpc/"+fn,{method:"POST",body:body||{}});}finally{CL.sess=s;}}
+async function admLogin(pw){if(!pw)return{err:"Passwort eingeben."};let r=await clSignin(ADM.name,pw);
+  if(r.net)return{err:"Keine Verbindung zum Server."};
+  if(!r.ok)return{need:true};
+  const j=r.j;ADM.sess={access_token:j.access_token,refresh_token:j.refresh_token,uid:j.user&&j.user.id,exp:Date.now()+(j.expires_in||3600)*1000,name:ADM.name};return{ok:true};}
+/* Login-Knopf: "Admin" abfangen, Namen reservieren */
+(function(){const btn=$("aGo");if(!btn)return;const orig=btn.onclick;
+  btn.onclick=async()=>{const n=$("aUser").value,p=$("aPass").value;
+    if(typeof authMode!=="undefined"&&authMode==="reg"&&admReserved(n)){$("aErr").textContent="Dieser Benutzername ist reserviert.";return;}
+    if(!admIsName(n)||(typeof authMode!=="undefined"&&authMode==="reg"))return orig&&orig();
+    if(btn.disabled)return;const lbl=btn.textContent;btn.disabled=true;btn.textContent="VERBINDE …";$("aErr").textContent="";
+    try{const r=await admLogin(p);if(r.err){$("aErr").textContent=r.err;return;}if(r.need){admCreate(p);return;}$("aPass").value="";admShow();}finally{btn.disabled=false;btn.textContent=lbl;}};})();
+/* Erstes Mal: Admin-Konto anlegen (Passwort zur Sicherheit zweimal) – existiert es schon, war das Passwort falsch */
+function admCreate(p){openModal(`<h2>${ic("crown")} ADMIN</h2><div class="lead">Anmeldung fehlgeschlagen. Falls es das Admin-Konto noch nicht gibt, kannst du es jetzt anlegen. Bitte das Passwort zur Bestätigung nochmal eingeben:</div>
+   <label class="fld" style="margin-top:10px">PASSWORT WIEDERHOLEN<input id="admC2" type="password" maxlength="64" autocomplete="off"></label><div class="aerr" id="admCe"></div>
+   <div class="rbtns" style="margin-top:12px"><button class="pri" id="admCg">${ic("check")} Admin-Konto anlegen</button><button class="btn" id="admCx2">Abbrechen</button></div>`,"narrow",true);
+  $("admCx2").onclick=closeModal;$("admCg").onclick=async()=>{if($("admC2").value!==p){$("admCe").textContent="Passwörter stimmen nicht überein.";return;}
+    const s=await clSignup(ADM.name,p);if(!(s.ok&&s.j&&s.j.access_token)){$("admCe").textContent=/already|registered|exists/i.test(clErr(s))?"Das Admin-Konto gibt es schon: Das Passwort war falsch.":"Fehlgeschlagen: "+clErr(s);return;}
+    const j=s.j;ADM.sess={access_token:j.access_token,refresh_token:j.refresh_token,uid:j.user&&j.user.id,exp:Date.now()+(j.expires_in||3600)*1000,name:ADM.name};closeModal();$("aPass").value="";admShow();setTimeout(admSetup,400);};}
+const admFmt=d=>d?new Date(d).toLocaleString("de-DE",{day:"2-digit",month:"2-digit",year:"2-digit",hour:"2-digit",minute:"2-digit"}):"–";
+const admNum=v=>(+v||0).toLocaleString("de-DE");
+/* Panel im Menü (Hintergrund + Stil bleiben) */
+function admShow(){showScreen("menu");const mw=document.querySelector("#menu .mwrap");if(mw)mw.style.display="none";let w=$("admWrap");if(!w){w=document.createElement("div");w.id="admWrap";$("menu").appendChild(w);}
+  w.innerHTML=`<div class="big1"><svg class="ic" viewBox="0 0 24 24" data-i="ball"></svg><span class="lg">POKÉ<b>LINGS</b></span></div>
+   <div class="admPanel glass"><div class="admHead"><h2>${ic("crown")} ADMIN</h2><span class="admWho">${ic("user")} REQUIEM</span><span style="flex:1"></span><button class="btn sm" id="admRef">${ic("dice")} Aktualisieren</button><button class="btn sm" id="admSql">${ic("gear")} Server-Setup</button><button class="btn sm" id="admOut">${ic("logout")} Abmelden</button></div>
+    <div id="admStats" class="admStats"><p class="empty">Lade Statistiken …</p></div>
+    <div class="admSearch"><input id="admQ" placeholder="Spielername suchen …" maxlength="16" autocomplete="off"><span id="admCount"></span></div>
+    <div id="admList" class="admList"></div>
+    <p class="admNote">Nur Online-Konten sind sichtbar. Gast-Spielstände und reine Offline-Konten liegen nur auf dem Gerät des Spielers.</p></div>`;
+  hydrateIcons(w);$("admOut").onclick=admLogout;$("admRef").onclick=()=>admLoad();$("admSql").onclick=admSetup;
+  let tm=0;$("admQ").addEventListener("input",e=>{clearTimeout(tm);tm=setTimeout(()=>{ADM.q=e.target.value.trim();admLoadList();},300);});
+  admLoad();}
+function admLogout(){ADM.sess=null;const w=$("admWrap");if(w)w.remove();const mw=document.querySelector("#menu .mwrap");if(mw)mw.style.display="";showAuth();}
+async function admLoad(){const r=await admRpc("admin_stats");const box=$("admStats");if(!box)return;
+  if(!r.ok){box.innerHTML=`<div class="admWarn">${ic("info")} <div><b>Server noch nicht eingerichtet.</b><br>Einmalig unter <b>Server-Setup</b> den SQL-Code kopieren und im Supabase SQL-Editor ausführen. Danach auf Aktualisieren tippen.<br><small>Antwort: ${esc(String((r.j&&(r.j.message||r.j.hint))||r.status))}</small></div></div>`;hydrateIcons(box);$("admList").innerHTML="";return;}
+  const s=r.j||{},t=(icn,l,v,c)=>`<div class="admTile" style="--c:${c}">${ic(icn)}<b>${admNum(v)}</b><small>${l}</small></div>`;
+  box.innerHTML=t("users","Konten",s.accounts,"#5cf2ff")+t("star","neu (7 Tage)",s.new7,"#ffd84a")+t("bolt","aktiv heute",s.active1,"#4dffa6")+t("cal","aktiv (7 Tage)",s.active7,"#7cc8ff")+t("play","Läufe gesamt",s.games,"#ff9a3a")+t("trophy","Siege gesamt",s.wins,"#ffd23f")+t("swords","Duelle",s.duels,"#ff4d6d")+t("gem","Edelsteine im Umlauf",s.gems,"#c27cff");
+  hydrateIcons(box);admLoadList();}
+async function admLoadList(){const L=$("admList");if(!L)return;L.innerHTML=`<p class="empty">Lade Konten …</p>`;const r=await admRpc("admin_list",{q:ADM.q||""});
+  if(!r.ok){L.innerHTML=`<p class="empty">Konten konnten nicht geladen werden.</p>`;return;}ADM.list=Array.isArray(r.j)?r.j:[];$("admCount").textContent=ADM.list.length+(ADM.list.length>=200?"+":"")+" Treffer";
+  L.innerHTML=ADM.list.length?`<table><thead><tr><th>Name</th><th>Erstellt</th><th>Zuletzt aktiv</th><th>Läufe</th><th>Siege</th><th>Edelst.</th><th>Punkte</th><th></th></tr></thead><tbody>${ADM.list.map((a,i)=>`<tr><td><b>${esc(a.name)}</b></td><td>${admFmt(a.created_at)}</td><td>${admFmt(a.updated_at||a.last_sign_in_at)}</td><td>${admNum(a.games)}</td><td>${admNum(a.wins)}</td><td>${admNum(a.gems)}</td><td>${admNum(a.score)}</td>
+    <td class="admAct"><button class="btn sm" data-pw="${i}" title="Neues Passwort setzen">${ic("lock")}</button><button class="btn sm danger" data-del="${i}" title="Konto löschen">${ic("trash")}</button></td></tr>`).join("")}</tbody></table>`:`<p class="empty">Keine Konten gefunden.</p>`;
+  hydrateIcons(L);L.querySelectorAll("[data-pw]").forEach(b=>b.onclick=()=>admPw(ADM.list[+b.dataset.pw]));L.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>admDel(ADM.list[+b.dataset.del]));}
+function admPw(a){if(!a)return;openModal(`<h2>${ic("lock")} PASSWORT SETZEN</h2><div class="lead">Neues Passwort für <b>${esc(a.name)}</b>. Gib es dem Spieler danach weiter, er kann sich sofort damit anmelden.</div>
+   <label class="fld" style="margin-top:10px">NEUES PASSWORT<input id="admNp" maxlength="64" autocomplete="off"></label><div class="aerr" id="admPe"></div>
+   <div class="rbtns" style="margin-top:12px"><button class="pri" id="admPg">${ic("check")} Setzen</button><button class="btn" id="admPx">Abbrechen</button></div>`,"narrow",true);
+  $("admPx").onclick=closeModal;$("admPg").onclick=async()=>{const np=$("admNp").value;if(np.length<4){$("admPe").textContent="Mindestens 4 Zeichen.";return;}
+    const r=await admRpc("admin_set_pw",{target:a.id,pw:clPw(a.name,np)});if(!r.ok){$("admPe").textContent="Fehlgeschlagen: "+esc(String((r.j&&r.j.message)||r.status));return;}closeModal();toast(`Passwort von ${a.name} geändert`,"check");};}
+function admDel(a){if(!a)return;openModal(`<h2>${ic("trash")} KONTO LÖSCHEN?</h2><div class="lead">Das Konto <b>${esc(a.name)}</b> mit Spielstand und Bestenlisten-Eintrag wird endgültig gelöscht. Zum Bestätigen den Namen eintippen:</div>
+   <label class="fld" style="margin-top:10px">NAME<input id="admDn" maxlength="16" autocomplete="off"></label><div class="aerr" id="admDe"></div>
+   <div class="rbtns" style="margin-top:12px"><button class="pri hot" id="admDg">${ic("trash")} Endgültig löschen</button><button class="btn" id="admDx">Abbrechen</button></div>`,"narrow",true);
+  $("admDx").onclick=closeModal;$("admDg").onclick=async()=>{if($("admDn").value.trim().toLowerCase()!==String(a.name).toLowerCase()){$("admDe").textContent="Name stimmt nicht.";return;}
+    const r=await admRpc("admin_delete",{target:a.id});if(!r.ok){$("admDe").textContent="Fehlgeschlagen: "+esc(String((r.j&&r.j.message)||r.status));return;}closeModal();toast(`${a.name} gelöscht`,"trash");admLoad();};}
+function admSetup(){openModal(`<h2>${ic("gear")} SERVER-SETUP</h2><div class="lead">Einmalig: Supabase öffnen → <b>SQL Editor</b> → <b>New query</b> → Code einfügen → <b>Run</b>. Danach im Admin-Panel auf Aktualisieren tippen.</div>
+   <textarea id="admSqlT" readonly style="width:100%;height:240px;margin-top:10px;font:11px/1.35 monospace;background:#0b0d13;color:#cfe8ff;border:2px solid rgba(255,255,255,.12);border-radius:8px;padding:8px">${esc(admSQL())}</textarea>
+   <div class="rbtns" style="margin-top:12px"><button class="pri" id="admCp">${ic("check")} Code kopieren</button><button class="btn" id="admCx">Schließen</button></div>`,"",true);
+  $("admCx").onclick=closeModal;$("admCp").onclick=async()=>{const t=$("admSqlT");try{await navigator.clipboard.writeText(t.value);}catch(e){t.select();document.execCommand("copy");}toast("SQL kopiert","check");};}
 
 /* ================================ MEHRSPIELER ================================
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
