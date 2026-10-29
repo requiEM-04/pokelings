@@ -2354,13 +2354,7 @@ body.battle #simChip{display:none!important}
 .pnH{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}.pnH b{font-family:var(--px);font-size:13px;color:var(--cyan)}.pnH span{font-weight:700;color:#fff}.pnH small{margin-left:auto;color:var(--muted)}
 .pnV ul{margin:0;padding:0;list-style:none}.pnV li{display:flex;gap:8px;align-items:flex-start;font-size:13px;line-height:1.45;margin:5px 0;color:#d8deea}.pnV li .ic{width:15px;height:15px;flex:none;margin-top:2px;color:var(--amber)}
 
-/* Live-Duell: feste Arena statt Wegkarte, Duell-Box im Raster */
-#duelBox{display:none;position:absolute;left:50%;top:64px;transform:translateX(-50%);width:min(440px,46%);z-index:7;padding:10px 12px}
-body.duelMode #duelBox{display:block}body.duelMode.battle #duelBox{display:none!important}
-body.duelMode .tab[data-tab="enc"],body.duelMode #toEnc{display:none!important}
-#duelBox #encHead,#duelBox .duRules{display:none}#duelBox .duSt{margin:6px 0;font-size:13px;text-align:center}#duelBox #encFoot{display:flex;gap:8px;align-items:center;margin-top:6px}
-@media (max-width:760px){#duelBox{width:calc(100% - 20px);top:auto;bottom:250px}}
-@media (max-height:520px){#duelBox{width:300px;top:auto;bottom:60px;padding:6px 8px}#duelBox .duSt{font-size:11px;margin:3px 0}}
+body.duelMode #wlabels,body.duelMode #wToken,body.duelMode #wwrap .wCard{display:none!important}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -2413,7 +2407,6 @@ uiScale();addEventListener("resize",uiScale);</script>
         <div class="ov rasterOnly" id="rSide"></div>
         <button class="ibtn ov glass rasterOnly" id="infoTgl" title="Infos ein/aus"><svg class="ic" viewBox="0 0 24 24" data-i="help"></svg><span>INFO</span></button>
         <button class="pri hot rasterOnly" id="toEnc">ZUR BEGEGNUNG <svg class="ic" viewBox="0 0 24 24" data-i="swords"></svg></button>
-        <div class="ov rasterOnly glass" id="duelBox"></div>
         <div class="ov rasterOnly" id="arenaDockHost"></div>
         <div class="ov" id="bTags"><div class="htag" style="--tagc:var(--cyan)"><b id="bMine">DU</b><small id="bMineS"></small></div><div class="htag" style="--tagc:var(--pink);text-align:right;border-left:1px solid var(--line);border-right:3px solid var(--pink)"><b id="bEnemy">GEGNER</b><small id="bEnemyS"></small></div></div>
         <div class="ov" id="battleTop"><div class="t" id="hpMine"><i></i></div><div id="timer">45</div><div class="t" id="hpEnemy"><i></i></div></div>
@@ -5263,6 +5256,7 @@ let CAM_EXCLUDE=[]; // Arten, die gerade als Gegner kämpfen (keine Doppelgänge
 /* ================================ KANTO-ORTE (3D-Dioramen) ================================ */
 const LOCS={
  alabastia:{n:"Alabastia",sub:"Heimatstadt",kind:"town",ground:"grass",roofs:[0xd8483c,0xc8503c],cam:[16,19,10,129,1,7]},
+ duelarena:{region:"duel",n:"Duell-Arena",sub:"Live-Duell",kind:"stadium",ground:"plaza",cam:[]},
  route1:{n:"Route 1",sub:"Weg nach Vertania",kind:"route",ground:"grass",cam:[16,19,10,13,43,25]},
  vertania:{n:"Vertania City",sub:"Stadt der Bäume",kind:"town",ground:"grass",roofs:[0x3aa060,0xd8483c],cam:[16,19,129,54,1]},
  wald:{n:"Vertania-Wald",sub:"Dichter Wald",kind:"forest",ground:"forest",cam:[10,13,25,46,12,16]},
@@ -6590,9 +6584,47 @@ function bSpuk(k,L,id){const R=k.R;k.layers=["forest","forest","grass"];k.gtint=
     {sp:609,x:2.6,z:-12.6,mode:"float",s:1.2},{sp:710,x:-4.8,z:-5,mode:"hop",s:1.1},{sp:708,x:5.6,z:-6.2,mode:"hop",s:1.2},{sp:354,x:9.4,z:-6,mode:"float",s:1.2},{sp:607,x:-0.2,z:-7.6,mode:"hop",s:1},{sp:355,x:2.8,z:-1.6,mode:"float",s:1.1},{sp:302,x:-8,z:-6.4,mode:"hop",s:1}];
   k.usedCam=k.cams.map(c=>c.sp);
   ambient(k,{bfly:0,ffly:46,birds:false});dress(k,{grass:16,flowers:2,rocks:6,gcol:0x24443a,fcols:[0x9a7ad8,0x6ad8c0]});}
+/* ---------------- Duell-Arena (Live-Duell): großes Stadion mit Tribünen, Flutlicht und Anzeigetafel ---------------- */
+function bStadium(k,L,id){const R=k.R;k.layers=["plaza","grass","asphalt"];k.rep=[.5,.33,.25];k.cloud=0;k.H=()=>0;k.vig=.25;
+  mRect(k,0,0,13.4,8.6,0,"r",1,1);mRect(k,0,0,17.4,12.4,0,"g",.55,1);
+  const W=0xf4f4ee;// Spielfeld-Linien
+  for(const s of[-1,1]){k.p("box","unlit",0,.014,s*3.9,12.6,.01,.08,0,W);k.p("box","unlit",s*6.3,.014,0,.08,.01,7.8,0,W);}
+  k.p("box","unlit",0,.014,0,.08,.01,7.8,0,W);
+  for(let i=0;i<10;i++)k.p("box","matte",-5.85+i*1.3,0,0,1.3,.008,8.2,0,i%2?0x3d9444:0x47a54e);k.p("box","matte",0,0,0,13.6,.004,8.8,0,0x3a8a40);
+  for(const s of[-1,1]){k.p("box","unlit",s*5.1,.015,0,.06,.01,3.2,0,W);for(const z of[-1.6,1.6])k.p("box","unlit",s*5.7,.015,z,1.2,.01,.06,0,W);}
+  // Bande mit Werbeflächen (blau = deine Seite, rot = Gegner)
+  const ad=[0x2a6ad8,0xe0402e,0xffd23f,0x38b048,0x8a4ad8];
+  for(let i=0;i<9;i++){const x=-8+i*2;k.p("box","matte",x,0,-5.5,1.96,.55,.18,0,0x2a2e3a);k.p("box","unlit",x,.08,-5.4,1.8,.38,.02,0,ad[i%ad.length]);}
+  for(const s of[-1,1])for(let i=0;i<5;i++){const z=-4.4+i*2.2;k.p("box","matte",s*8.9,0,z,.18,.55,2.16,0,0x2a2e3a);k.p("box","unlit",s*8.8,.08,z,.02,.38,1.96,0,s<0?0x2a6ad8:0xe0402e);}
+  // Tribünen hinten
+  const step=0xb8b4ac,step2=0xa09c94,crowd=[0xe0402e,0x2a6ad8,0xffd23f,0xf4f4ee,0x38b048,0xff8ad0,0x8a4ad8,0xff9a3a,0x3a3a44];
+  const rows=6,nPer=k.n(34);
+  for(let r=0;r<rows;r++){const z=-6.4-r*1.1,y=r*.55;k.p("box","matte",0,0,z,24,y+.55,1.1,0,r%2?step:step2);
+    for(let i=0;i<nPer;i++){const x=-11.4+i*(22.8/(nPer-1))+(R()-.5)*.25;if(R()<.12)continue;const c=pick2(R,crowd);k.p("box","matte",x,y+.55,z+.1,.3,.34,.26,0,c);k.p("sph","matte",x,y+.98,z+.1,.13,.13,.13,0,pick2(R,[0xf0c8a0,0xc89070,0x8a5a3a,0xf8dcc0]));}}
+  k.block(-12,-13.5,12,-5.8);
+  // Tribünen seitlich (vorne offen, damit der Blick frei bleibt)
+  for(const s of[-1,1]){for(let r=0;r<5;r++){const x=s*(10+r*1.1),y=r*.55;k.p("box","matte",x,0,-1.2,1.1,y+.55,9.6,0,r%2?step:step2);
+      for(let i=0;i<k.n(14);i++){const z=-5.6+i*(8.8/13)+(R()-.5)*.2;if(R()<.15)continue;k.p("box","matte",x,y+.55,z,.26,.34,.3,0,pick2(R,crowd));k.p("sph","matte",x,y+.98,z,.13,.13,.13,0,pick2(R,[0xf0c8a0,0xc89070,0x8a5a3a,0xf8dcc0]));}}
+    k.block(s<0?-16:9.4,-6,s<0?-9.4:16,3.6);}
+  // Dach-Kante und Außenmauer
+  k.p("box","matte",0,3.85,-12.4,25,.35,1.6,0,0x5a6070);for(const s of[-1,1])k.p("box","matte",s*15.4,0,-1.2,.6,3.4,10,0,0x8a8e98);
+  k.p("box","matte",0,0,-13.3,25,4,.6,0,0x8a8e98);
+  // Anzeigetafel
+  k.at(0,0,-13.6,0);k.p("box","metal",-3.2,0,0,.3,5.8,.3,0,0x3a3e48);k.p("box","metal",3.2,0,0,.3,5.8,.3,0,0x3a3e48);k.p("box","matte",0,4.4,0,7.4,2.6,.5,0,0x1a1e28);
+  k.p("plane","sign:LIVE-DUELL:#14182a:#ffd84a",0,5.25,.27,6.4,1.1,1);k.p("box","unlit",-2.2,4.62,.27,2.4,.4,.02,0,0x2a6ad8);k.p("box","unlit",2.2,4.62,.27,2.4,.4,.02,0,0xe0402e);k.end();
+  // Flutlichtmasten
+  const fl=[[-14.2,-11.6],[14.2,-11.6],[-15.6,3.4],[15.6,3.4]];
+  for(const[x,z] of fl){k.p("cyl8","metal",x,0,z,.22,8.6,.22,0,0x5a6070);k.at(x,8.6,z,Math.atan2(-x,-z+1));k.p("box","matte",0,0,0,2.4,1.3,.3,0,0x2a2e36);for(let i=0;i<3;i++)for(let j=0;j<2;j++)k.p("box","glowS",-.75+i*.75,.3+j*.55,.17,.6,.4,.04,0,0xfff6d0);k.end();
+    k.pt("add",3,0,x,9.1,z,2.4,0xfff0c0,1);}
+  k.lights.push([0,-6,0xfff0d0],[-8,2,0xfff0d0],[8,2,0xfff0d0]);
+  // Fahnen in Teamfarben
+  for(let i=0;i<6;i++){const x=-11+i*4.4;k.p("cyl6","metal",x,3.3,-12.2,.04,2.2,.04,0,0xc8ccd4);k.p("box","matte",x+.38,4.7,-12.2,.72,.5,.03,0,i%2?0xe0402e:0x2a6ad8);}
+  // Pokébälle als Deko vorne an den Ecken
+  for(const s of[-1,1]){k.at(s*7.6,0,5.6,0);k.p("sph","matte",0,.42,0,.42,.42,.42,0,0xe8e8ec);k.p("hemi","matte",0,.42,0,.43,.43,.43,0,0xe0402e);k.p("box","matte",0,.4,0,.88,.05,.88,0,0x1a1a20);k.end();}
+  ambient(k,{bfly:false});}
 const LOC_BUILD={spukwald:bSpuk,dukatia:bDukatia,ebenholz:bEbenholz,strudelinseln:bJCave,drachenhoehle:bJCave};
 
-const KIND_BUILD={town:bTown,route:bRoute,forest:bForest,rocktown:bRocktown,cave:bCave,bridge:bBridge,ice:bIce,harbor:bHarbor,tower:bTower,city:bCity,plant:bPlant,safari:bSafari,volcano:bVolcano,beach:bBeach,jtown:bJtown,pagoda:bPagoda,ruins:bRuins,park:bPark,burned:bBurned,snowtown:bSnowTown,lake:bLake,summit:bSummit};
+const KIND_BUILD={stadium:bStadium,town:bTown,route:bRoute,forest:bForest,rocktown:bRocktown,cave:bCave,bridge:bBridge,ice:bIce,harbor:bHarbor,tower:bTower,city:bCity,plant:bPlant,safari:bSafari,volcano:bVolcano,beach:bBeach,jtown:bJtown,pagoda:bPagoda,ruins:bRuins,park:bPark,burned:bBurned,snowtown:bSnowTown,lake:bLake,summit:bSummit};
 
 
 /* Route 119: Fluss im Dauerregen, dichtes hohes Gras, Dschungelbäume */
@@ -6613,6 +6645,7 @@ function bMarsh(k,L,dark){const R=k.R;k.layers=["grass","dirt","sand"];arenaPatc
   dress(k,{grass:14,flowers:dark?0:6,rocks:4});ambient(k);}
 /* ---------- Signaturen: jeder Ort bekommt sein eigenes Gesicht (Wetter, Wahrzeichen, Wildpokémon) ---------- */
 const SIG={
+duelarena:{t:"sunset",w:"sparkle"},
 neuborkia:{w:"leaves_g",p:[["kTurbine",-11,-11,.7],["kFlowerBed",7.5,-7,2,.6,0]]},
 viola:{t:"sunset",w:"petals",p:[["kShrine",0,-11.5,0,1],["kMaple",-9,-8,1]]},
 azalea:{t:"day",w:"leaves_g",p:[["kWell",-7.5,-7],["kKiln",8.5,-8],["kTree",-9.5,-10,1.2]]},
@@ -7165,7 +7198,7 @@ function setMarks(list,night){const sig=(night?"n":"d")+list.map(m=>m.id+(m.past
   for(const m of list){const L=LOCS[m.id];if(!m.boss||m.past||!L.legend||typeof SPRITE_DATA==="undefined"||!SPRITE_DATA[L.legend])continue;let sp=null;const tx=new THREE.TextureLoader().load(SPRITE_DATA[L.legend],t=>{const im=t.image;if(sp&&im&&im.height)sp.scale.x=sp.scale.y*im.width/im.height;});tx.magFilter=THREE.NearestFilter;
     sp=new THREE.Sprite(new THREE.SpriteMaterial({map:tx,transparent:true,alphaTest:.4}));sp.center.set(.5,0);const big=m.cur?2.2:1.55;sp.scale.set(big,big,1);sp.position.set(m.x,WL.H(m.x,m.z)+.36,m.z+.05);if(m.cur)sp.userData.hop=sp.position.y;WL.marks.add(sp);}}
 function refreshWorld(){
-  if(!WL||!S)return;if(WL.region!==wRegion())wBuildRegion(wRegion());const r=S.round;const list=[];const night=r>=19;
+  if(!WL||!S)return;if(S.duel){const c=document.querySelector("#wwrap .wCard");if(c)c.remove();return;}if(WL.region!==wRegion())wBuildRegion(wRegion());const r=S.round;const list=[];const night=r>=19;
   WL.palTarget=(r-1)/19;
   for(let i=0;i<=20;i++){const n=WL.nodes[i];
     if(i===0){setNode(n,"ball","#e0402e",{icon:r<=1});}
@@ -7208,6 +7241,7 @@ const _wv=new THREE.Vector3(),_wm=new THREE.Matrix4(),_wq=new THREE.Quaternion()
 function animWorld(dt){
   if(!WL)return;const now=performance.now(),rdt=Math.min(.5,(now-(WL.last||now))/1000);if(now-WL.last>600){WL.intro=1;}WL.last=now;
   WL.t+=dt;const t=WL.t;WL.uT.value=t;if(typeof KU!=="undefined")KU.t.value=t;
+  if(S&&S.duel){duelWorld(dt,t);return;}
   // Tageszeit sanft überblenden
   if(WL.palTarget!=null){if(WL.palT<0)WL.palT=WL.palTarget;WL.palT+=(WL.palTarget-WL.palT)*Math.min(1,rdt*2.5);const P=wPal(WL.palT);
     WL.sunL.color.copy(P.sun);WL.sunL.intensity=P.sunI;WL.hemi.color.copy(P.hs);WL.hemi.groundColor.copy(P.hg);WL.hemi.intensity=P.hi;WL.scene.fog.color.copy(P.fog);WL.r.setClearColor(P.fog);
@@ -7251,6 +7285,18 @@ function animWorld(dt){
   const lab=$("wlabels");[...lab.children].forEach((d,i)=>{let p;if(i<=20){p=WL.NP[i];if(S&&i===S.round&&!BOSSES[i]){d.style.display="none";return;}}else{const f=WL.forks[i-21];if(!f.g.visible||!d.textContent){d.style.display="none";return;}p=f.g.position;}
     const[x,y,z]=pr(p.clone().setY(p.y-.1));const vis=z<1&&x>-60&&x<WL.W+60&&y>-20&&y<WL.H2+20;d.style.display=vis?"":"none";if(vis){d.style.left=Math.round(x)+"px";d.style.top=Math.round(y+14)+"px";}});
 }
+
+/* Live-Duell: Begegnungskarte zeigt die große Duell-Arena von oben */
+function duelWorld(dt,t){if(!WL)return;let D=WL.duel;
+  if(!D){const scene=new THREE.Scene(),Lt=LIGHTING.sunset;const hemi=new THREE.HemisphereLight(Lt.hemi[0],Lt.hemi[1],Lt.hemi[2]*1.1);scene.add(hemi);const key=new THREE.DirectionalLight(Lt.key[0],Lt.key[1]);key.position.set(Lt.dir[0],Lt.dir[1],Lt.dir[2]).normalize().multiplyScalar(50);scene.add(key);scene.add(key.target);
+    const fill=new THREE.DirectionalLight(0xffffff,Lt.fill||.3);fill.position.set(10,20,30);scene.add(fill);scene.fog=new THREE.Fog(Lt.fog[0],60,140);
+    let loc=null;try{loc=buildKanto("duelarena",4242);scene.add(loc.grp);}catch(e){console.warn("duelWorld",e);}
+    const cam=new THREE.PerspectiveCamera(38,WL.W/Math.max(1,WL.H2),.5,400);D=WL.duel={scene,cam,loc,clear:Lt.clear};}
+  const side=WL.W>900?470/WL.W:0,asp=WL.W/Math.max(1,WL.H2);D.cam.aspect=asp;D.cam.updateProjectionMatrix();
+  const zm=Math.min(1.9,Math.max(1,1.25/asp))*(WL.zoom||1),sw=Math.sin(t*.12)*3.2;
+  const look=new THREE.Vector3(side*18*zm+WL.pan.x,0,-2.6+WL.pan.z);D.cam.position.set(look.x+sw,27*zm,look.z+17*zm);D.cam.lookAt(look);
+  if(D.loc&&D.loc.anim)for(const a of D.loc.anim)try{a(dt,t);}catch(e){}
+  WL.r.setClearColor(D.clear);WL.r.render(D.scene,D.cam);}
 
 /* ================================ BEGEGNUNGSKARTE 2.0 ================================
    Lebendige Welt: wilde Pokémon, Vogelschwärme und Meeresbewohner der Region, Wahrzeichen am Rand,
@@ -7593,7 +7639,7 @@ function shopCam(dt){if(!SB.on||!GL||!GL.camOv)return;SB.t+=dt;const t=SB.t,a=SB
   GL.camOv.pos.set(Math.sin(a)*R,h,Math.cos(a)*R-1.5);GL.camOv.look.set(Math.sin(a)*1.5,.9,-4.2);GL.camOv.k=1;GL.camOv.cur=1;}
 function setTab(t){
   if(!S)return;
-  if(["battle","intro","result","ko"].includes(S.phase))t="raster";if(S.duel&&t==="enc")t="raster";
+  if(["battle","intro","result","ko"].includes(S.phase))t="raster";
   tab=t;document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("on",b.dataset.tab===t));
   ["vShop","vRaster","vEnc"].forEach((v,i)=>$(v).classList.toggle("on",["shop","raster","enc"][i]===t));
   shopBg(t==="shop");
@@ -7602,7 +7648,7 @@ function setTab(t){
   if(t==="enc"){requestAnimationFrame(()=>{resizeWorld();refreshWorld();});if(S.phase==="shop"&&!S.paths&&!BOSSES[S.round])autoRoll();}
   if(typeof simChip==="function")simChip();
 }
-function render(){if(typeof achCheck==="function")setTimeout(achCheck,0);document.body.classList.toggle("duelMode",!!(S&&S.duel));if(S&&S.duel&&S.phase==="shop"&&typeof renderDuelEnc==="function")try{renderDuelEnc($("duelBox"));}catch(e){}
+function render(){if(typeof achCheck==="function")setTimeout(achCheck,0);document.body.classList.toggle("duelMode",!!(S&&S.duel));
   if(!S)return;if(typeof BGM!=="undefined"&&BGM.region)BGM.region(S.enc&&S.enc.loc==="spukwald"?"spuk":(S.region||"kanto"));buildBench();
   const lv=level(),cap=capFor(),bu=boardUnits().length;
   $("sRound").textContent=S.round;$("sGold").textContent=S.gold;$("sInc").textContent="+"+income();goldFx();$("sMode").textContent=MODES[S.mode].n;
@@ -9622,7 +9668,7 @@ const _rLb0=renderLeaderboard;renderLeaderboard=function(rows,src){_rLb0(rows,sr
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="8.9",DUEL_HP=20;
+const MP_VER="9.0",DUEL_HP=20;
 const dayKey=d=>(d||new Date()).toISOString().slice(0,10);
 const mpName=()=>USER||(window.__gName||(window.__gName="Gast-"+(100+Math.floor(VRND()*900))));
 
@@ -9698,7 +9744,7 @@ function geistInject(inner){if(!S||S.duel||!geistOn()||S.phase!=="shop"||!S.path
 const DU={tr:null,id:null,peer:null,last:0,lost:false,iv:0,hello:0,rt:0,cd:0,tick:0};
 function setMir(on){MIR=!!on;document.body.classList.toggle("mir",MIR);}
 const DUEL_ARENA={kanto:"saffronia",johto:"dukatia",hoenn:"prachtpolis",sinnoh:"sliga",unova:"eliga",kalos:"kliga",alola:"mliga"};
-function duelLoc(){const a=DUEL_ARENA[S.region||"kanto"];if(a&&typeof LOCS!=="undefined"&&LOCS[a])return a;const P=(typeof LOC_POOL!=="undefined"&&LOC_POOL.length)?LOC_POOL:[HOME_LOC];return P[(S.duel.seed)%P.length];}
+function duelLoc(){if(typeof LOCS!=="undefined"&&LOCS.duelarena)return "duelarena";const a=DUEL_ARENA[S.region||"kanto"];if(a&&typeof LOCS!=="undefined"&&LOCS[a])return a;const P=(typeof LOC_POOL!=="undefined"&&LOC_POOL.length)?LOC_POOL:[HOME_LOC];return P[(S.duel.seed)%P.length];}
 /* Verbindung: Supabase Realtime (Broadcast) oder lokal zwischen zwei Tabs (?mp=local, zum Testen) */
 function mpTransport(topic,onMsg,onState){
   if(/[?&]mp=local/.test(location.search)&&typeof BroadcastChannel!=="undefined"){const bc=new BroadcastChannel("pkl-"+topic);bc.onmessage=e=>onMsg(e.data);setTimeout(()=>onState("joined"),60);return{send:p=>bc.postMessage(p),close:()=>bc.close()};}
@@ -9785,7 +9831,7 @@ function duelFinal(win,why){if(!S||!S.duel)return;const D=S.duel;if(S.phase==="o
    <div class="rewards"><div class="incRow"><span>Duelle gespielt / gewonnen</span><span>${META.mp.duels||1} / ${META.mp.duelWins||0}</span></div>${D.desync?`<div class="incRow"><span>Testphase: Abweichungen</span><span>${D.desync}</span></div>`:""}</div>
    <div class="rbtns"><button class="pri" id="rGo">${ic("menu")} Hauptmenü</button><button class="btn" id="rMp">${ic("users")} Neues Duell</button></div></div></div>`;
   R.classList.add("show");const out=next=>{R.classList.remove("show");R.innerHTML="";mpLeave(true);S=null;B=null;clearVis();clearFx();$("texts").innerHTML="";showMenu();if(next)mpModal();};$("rGo").onclick=()=>out();$("rMp").onclick=()=>out(true);}
-function renderDuelEnc(m){m=$("duelBox")||m;if(!m)return;const D=S.duel,r=S.round,rd=D.ready===r,op=!!D.opp[r],bu=boardUnits().length;
+function renderDuelEnc(m){if(!m)return;const D=S.duel,r=S.round,rd=D.ready===r,op=!!D.opp[r],bu=boardUnits().length;
   $("wTitleT").textContent="LIVE-DUELL";$("wTitleS").textContent=`Raum ${D.code} · Runde ${r}`;
   const st=DU.lost?`<span style="color:var(--red)">${esc(D.peerName)} antwortet nicht …</span>`:rd&&op?"Kampf startet …":rd?`Du bist bereit. Warte auf <b>${esc(D.peerName)}</b> …`:op?`<b style="color:var(--amber)">${esc(D.peerName)} ist bereit!</b> Automatisch bereit in <b id="duCd">${duelCdLeft()}</b> s`:`<b>${esc(D.peerName)}</b> stellt sein Team zusammen …`;
   m.innerHTML=`<div id="encHead"><h2>LIVE-DUELL</h2><span class="diff" style="--dc:#ff4d6d">${ic("swords")} Testphase</span></div>${duelHpHtml()}
@@ -9794,7 +9840,7 @@ function renderDuelEnc(m){m=$("duelBox")||m;if(!m)return;const D=S.duel,r=S.roun
    <div id="encFoot">${DU.lost?`<button class="btn" id="duWin">${ic("trophy")} Kampflos gewinnen</button>`:`<button class="btn" id="duQuit">${ic("flag")} Aufgeben</button>`}<span style="flex:1"></span><button class="pri hot" id="duGo" ${rd||!bu?"disabled":""}>${ic("check")} ${rd?"BEREIT ✓":"BEREIT"}</button></div>
    ${bu?"":`<p style="color:var(--red);font-weight:700;margin:8px 0 0;text-align:center">Stelle zuerst Pokémon im RASTER auf.</p>`}`;
   $("duGo").onclick=duelReady;if($("duWin"))$("duWin").onclick=()=>duelFinal(true,"lost");
-  if($("duQuit"))$("duQuit").onclick=()=>{openModal(`<h2>${ic("flag")} AUFGEBEN?</h2><div class="lead">Das Duell gegen ${esc(D.peerName)} ist dann verloren.</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="qY">Aufgeben</button><button class="btn" id="qN">Weiterspielen</button></div>`,"narrow",true);$("qY").onclick=()=>{closeModal();duelSend("gg",{});duelFinal(false,"quit");};$("qN").onclick=closeModal;};}
+  if($("duQuit"))$("duQuit").onclick=()=>{openModal(`<h2>${ic("flag")} AUFGEBEN?</h2><div class="lead">Das Duell gegen ${esc(D.peerName)} ist dann verloren.</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="qY">Aufgeben</button><button class="btn" id="qN">Weiterspielen</button></div>`,"narrow",true);$("qY").onclick=()=>{closeModal();duelSend("gg",{});setTimeout(()=>duelSend("gg",{}),300);setTimeout(()=>duelSend("gg",{}),1000);duelFinal(false,"quit");};$("qN").onclick=closeModal;};}
 
 /* ================================ MENÜ ================================ */
 function mpModal(){const {D,played,score}=dailyState(),cl=typeof CL!=="undefined"&&!!CL.sess,dd=D.day.split("-").reverse().join(".");
@@ -9913,8 +9959,11 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER=typeof MP_VER!=="undefined"?MP_VER:"8.9";
+const GAME_VER=typeof MP_VER!=="undefined"?MP_VER:"9.0";
 const PATCH=[
+ {v:"9.0",d:"29.10.2026",t:"Duell-Stadion",items:[
+  ["swords","Live-Duell: eigenes Stadion mit Tribünen, Publikum, Flutlicht und Anzeigetafel, als Kampfort und als Karte unter BEGEGNUNG (Blick von oben ins Stadion)."],
+  ["flag","Live-Duell: Gibt einer auf, erscheint die Meldung sofort beim Gegner."]]},
  {v:"8.9",d:"29.10.2026",t:"Faires Duell-Gold",items:[
   ["coin","Live-Duell: Beide bekommen nach jeder Runde gleich viel Gold, der Verlierer nur 1 Münze weniger. Keine Zinsen und keine Siegesserie mehr."],
   ["swords","Live-Duell: Die VS-Anzeige zu Kampfbeginn ist gesperrt, Mega-Szenen lassen sich wieder überspringen."],
