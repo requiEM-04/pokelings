@@ -2347,13 +2347,12 @@ body.battle #simChip{display:none!important}
 .choice.spec .fbadge{position:absolute;bottom:8px;right:8px;display:inline-flex;align-items:center;gap:4px;font-family:var(--px);font-size:8px;padding:3px 5px;border-radius:4px;background:rgba(124,200,255,.16);color:#9fd8ff;border:1px solid rgba(124,200,255,.4)}.choice.spec .fbadge .ic{width:10px;height:10px}
 
 /* Version & Patchnotes */
-#verTag{position:fixed;left:4px;bottom:2px;z-index:60;font:500 10px/1.2 var(--ui);color:rgba(220,228,245,.55);background:rgba(10,12,20,.35);border:0;border-radius:4px;padding:2px 5px;cursor:pointer;letter-spacing:.2px}
+#verTag{position:fixed;left:4px;bottom:2px;z-index:650;font:500 10px/1.2 var(--ui);color:rgba(220,228,245,.55);background:rgba(10,12,20,.35);border:0;border-radius:4px;padding:2px 5px;cursor:pointer;letter-spacing:.2px}
 #verTag:hover{color:#fff;background:rgba(10,12,20,.75)}body.battle #verTag{display:none}
 .pnList{max-height:min(calc(62*var(--vh,1vh)),560px);overflow:auto;padding-right:4px}
 .pnV{margin-bottom:14px;padding:10px 12px;border:2px solid rgba(255,255,255,.08);border-radius:10px;background:rgba(255,255,255,.03)}.pnV.new{border-color:rgba(92,242,255,.35);background:rgba(92,242,255,.05)}
 .pnH{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}.pnH b{font-family:var(--px);font-size:13px;color:var(--cyan)}.pnH span{font-weight:700;color:#fff}.pnH small{margin-left:auto;color:var(--muted)}
 .pnV ul{margin:0;padding:0;list-style:none}.pnV li{display:flex;gap:8px;align-items:flex-start;font-size:13px;line-height:1.45;margin:5px 0;color:#d8deea}.pnV li .ic{width:15px;height:15px;flex:none;margin-top:2px;color:var(--amber)}
-body.duelB .cine-skip{display:none!important}
 
 /* Live-Duell: feste Arena statt Wegkarte, Duell-Box im Raster */
 #duelBox{display:none;position:absolute;left:50%;top:64px;transform:translateX(-50%);width:min(440px,46%);z-index:7;padding:10px 12px}
@@ -8540,7 +8539,7 @@ function run(sc){
       const sv=t>.8&&t<R;if(sv!==lastSkip){lastSkip=sv;skip.style.display=sv?"block":"none";}
       if(!(typeof sk==="number")&&t>=END)finish();}
     function input(e){if(done)return;if(e.type==="keydown"){if(!(e.key===" "||e.key==="Enter"||e.key==="Escape"))return;}
-      e.preventDefault();e.stopPropagation();if(!started||tc<.8)return;if(typeof S!=="undefined"&&S&&S.duel&&typeof B!=="undefined"&&B&&!B.done)return;
+      e.preventDefault();e.stopPropagation();if(!started||tc<.8)return;
       if(tc<R)t0=performance.now()-Math.max(R+.05,END-.8)*1000;else finish();}
     function finish(){if(done)return;done=true;cancelAnimationFrame(raf);clearInterval(guard);window.removeEventListener("keydown",input,true);ov.removeEventListener("pointerdown",input);LIVE.delete(api);
       ov.classList.add("out");setTimeout(()=>{ov.remove();if(restorePos!==null)host.style.position=restorePos;resolve();},sc.fade||380);}
@@ -9922,7 +9921,7 @@ const PATCH=[
   ["dice","Balancing: Rudel, Einzelgänger, Heilkreis, Abpraller und Aderlass etwas abgeschwächt. Fluch, Parade und Verstummen haben eine Obergrenze."],
   ["gear","Patchnotes jetzt auch in den Einstellungen."]]},
  {v:"8.7",d:"29.10.2026",t:"Synchrone Duelle",items:[
-  ["swords","Live-Duell: Das Kampf-Intro und Mega-Szenen lassen sich nicht mehr überspringen, damit beide Spieler synchron bleiben."],
+  ["swords","Live-Duell: Die VS-Anzeige zu Kampfbeginn lässt sich nicht mehr wegtippen, damit beide Spieler synchron starten."],
   ["fast","Live-Duell: Stellt einer das Tempo auf 2× oder 3×, läuft der Kampf bei beiden so schnell."]]},
  {v:"8.6",d:"29.10.2026",t:"Faire Duelle, Formation & Klassen 2.0",items:[
   ["swords","Multiplayer fair: Im Live-Duell und in der Tagesherausforderung ist der Skillbaum aus. Im Duell gibt es im Shop nur Start-Pokémon plus die gekauften, die ihr beide habt."],
@@ -9944,13 +9943,13 @@ const PATCH=[
  {v:"8.0–8.4",d:"Oktober 2026",t:"Alola & Multiplayer-Test",items:[
   ["users","Live-Duelle (Testphase) und Tagesherausforderung mit Rangliste."],
   ["star","Neue Region Alola, neue Karten, Musik je Region, Tutorial und bessere Leistung auf dem Handy."]]}];
-function patchNotes(){const h=PATCH.map((p,i)=>`<div class="pnV${i?"":" new"}"><div class="pnH"><b>v${p.v}</b><span>${esc(p.t)}</span><small>${p.d}</small></div><ul>${p.items.map(([icn,tx])=>`<li>${ic(icn)}<span>${esc(tx)}</span></li>`).join("")}</ul></div>`).join("");
+function patchNotes(){try{LS.set("pokelings_ver",GAME_VER);}catch(e){}const h=PATCH.map((p,i)=>`<div class="pnV${i?"":" new"}"><div class="pnH"><b>v${p.v}</b><span>${esc(p.t)}</span><small>${p.d}</small></div><ul>${p.items.map(([icn,tx])=>`<li>${ic(icn)}<span>${esc(tx)}</span></li>`).join("")}</ul></div>`).join("");
   openModal(`<h2>${ic("scroll")} PATCHNOTES</h2><div class="pnList">${h}</div><div class="rbtns" style="margin-top:12px"><button class="btn pri" id="pnOk">${ic("check")} Weiter</button></div>`,"",true);
-  $("pnOk").onclick=()=>closeModal();try{LS.set("pokelings_ver",GAME_VER);}catch(e){}}
+  $("pnOk").onclick=()=>closeModal();}
 (function(){const t=document.createElement("button");t.id="verTag";t.title="Patchnotes anzeigen";t.textContent="v"+GAME_VER+" · Patchnotes";t.onclick=e=>{e.stopPropagation();patchNotes();};
   const add=()=>{document.body.appendChild(t);};if(document.body)add();else addEventListener("DOMContentLoaded",add);})();
 /* neue Version: Patchnotes einmal automatisch im Menü zeigen */
-function patchAuto(){try{if(window.__noIntro||window.__autoPick)return;if(LS.get("pokelings_ver",null)===GAME_VER)return;setTimeout(()=>{if($("menu")&&$("menu").classList.contains("show")&&!$("modal").classList.contains("show"))patchNotes();},900);}catch(e){}}
+function patchAuto(){try{if(window.__noIntro||window.__autoPick)return;const sv=LS.get("pokelings_ver",null);if(sv===GAME_VER)return;if(sv===null&&!(META&&(META.games||META.gemsTotal))){LS.set("pokelings_ver",GAME_VER);return;}setTimeout(()=>{if($("menu")&&$("menu").classList.contains("show")&&!$("modal").classList.contains("show"))patchNotes();},900);}catch(e){}}
 
 /* ================================ KAMPF: 2 ATTACKEN + EIGENE KI ================================ */
 let B=null,speed=1;
