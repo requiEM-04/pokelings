@@ -2322,6 +2322,9 @@ input.nick::placeholder{color:inherit;opacity:1}input.nick.big{width:11em}
 /* Empfehlung: gleiche Linie für spätere Fusion */
 .card .mg.rc{background:#5cf2ff;color:#05252b;animation:none}
 #shopRow .card.recom{box-shadow:0 0 0 2px rgba(92,242,255,.55),0 0 18px rgba(92,242,255,.18)}
+
+/* Shop: Karte antippen = kaufen, Info-Knopf für Details */
+.card .top .infob{margin-left:auto;margin-right:4px;width:24px;height:24px;display:grid;place-items:center;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.18);border-radius:5px;color:#cfd6ea;cursor:zoom-in;padding:0}.card .top .infob .ic{width:14px;height:14px}.card .top .infob:hover{color:#fff;border-color:#ffd84a}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -7437,7 +7440,9 @@ function renderShop(){
       <div class="abl"><div class="al"><span class="ak">1</span><b>${L.m1.n}</b>${pill(L.m1.t)}</div><div class="al"><span class="ak sp">2</span><b>${L.ab.n}</b>${pill(L.ab.t)}</div><p>${L.ab.d}</p></div>${(()=>{const ab=abilOf(it.id);return ab&&ABIL[ab]?`<div class="abil1" title="${ABIL[ab].n}: ${ABIL[ab].d}">${ic("spark")}<b>${ABIL[ab].n}</b></div>`:"";})()}
       <button class="buy">${ic("coin")}${cost}</button>${rarSpark(L.tier)}`;
     c.querySelector(".pic").appendChild(natFit(spriteEl(it.id,"",{shiny:shy}),.95));
-    c.querySelector(".buy").onclick=e=>{e.stopPropagation();buy(i);};c.querySelector(".pic").onclick=()=>unitOverview({sp:it.id,stars:0,items:[],gifts:[],shiny:shy},"shop");c.querySelector(".pic").style.cursor="zoom-in";
+    const ovw=()=>unitOverview({sp:it.id,stars:0,items:[],gifts:[],shiny:shy},"shop");
+    c.querySelector(".buy").onclick=e=>{e.stopPropagation();buy(i);};c.onclick=e=>{if(e.target.closest(".lockb,.infob"))return;buy(i);};c.style.cursor="pointer";
+    c.oncontextmenu=e=>{e.preventDefault();ovw();};const top=c.querySelector(".top");if(top){const ib=document.createElement("button");ib.className="infob";ib.title="Details ansehen (auch Rechtsklick)";ib.innerHTML=ic("info");ib.onclick=e=>{e.stopPropagation();ovw();};top.insertBefore(ib,top.querySelector(".lockb"));}
     c.querySelector(".lockb").onclick=e=>{e.stopPropagation();it.frozen=!it.frozen;renderShop();};
     c.onmouseenter=()=>showInfo({sp:it.id,stars:0,items:[],gifts:[],shiny:shy},"shop");
     g.appendChild(c);
@@ -7446,7 +7451,7 @@ function renderShop(){
   if(!sc){c.className="card scard empty";c.innerHTML=`<div class="sold">GEKAUFT</div>`;}
   else{const s=IT_BY[sc.id],cost=itCost(s.r);c.className="card scard"+(S.gold<cost?" poor":"")+(sc.frozen?" frozen":"");c.style.setProperty("--rc",IT_COL[s.r]);
     c.innerHTML=`<div class="top"><span>${s.reg?REGIONS[s.reg].n.toUpperCase()+"-":""}ITEM · ${IT_NAME[s.r].toUpperCase()}</span><button class="lockb ${sc.frozen?"on":""}">${ic(sc.frozen?"lock":"unlock")}</button></div><div class="sicon">${itmEl(sc.id,"big")}</div><div class="nm" style="font-size:16px">${s.n}</div><div class="sd">${s.d}</div><div class="sk">${s.kind==="class"?"Ersetzt die Klasse eines Pokémon":"Auf ein Pokémon ziehen"}</div><button class="buy">${ic("coin")}${cost}</button>`;
-    c.querySelector(".buy").onclick=buyItem;c.querySelector(".lockb").onclick=e=>{e.stopPropagation();sc.frozen=!sc.frozen;renderShop();};c.onmouseenter=()=>showItemInfo(sc.id);}
+    c.querySelector(".buy").onclick=e=>{e.stopPropagation();buyItem();};c.onclick=e=>{if(e.target.closest(".lockb"))return;buyItem();};c.style.cursor="pointer";c.querySelector(".lockb").onclick=e=>{e.stopPropagation();sc.frozen=!sc.frozen;renderShop();};c.onmouseenter=()=>showItemInfo(sc.id);}
   g.appendChild(c);
 }
 let lastGold=null;
@@ -10185,10 +10190,10 @@ function pauseMenu(){
   const resume=()=>{if(B)B.userPause=false;};
   const row=(id,icn,t,s,cls)=>`<button class="mbtn ${cls||""}" id="${id}"><span class="mi">${ic(icn)}</span><div><b>${t}</b><small>${s}</small></div></button>`;
   openModal(`<h2>${ic("menu")} PAUSE</h2><div class="pauseInfo"><span>${ic(MODES[S.mode].ic)} ${MODES[S.mode].n}</span><span>${ic("flag")} Runde ${S.round}/20</span><span>${ic("coin")} ${S.gold} Gold</span><span>${ic("trophy")} ${S.wins} Siege</span><span>${ic("heart")} ${S.revives} Wiederbelebungen</span></div>
-   <div class="setList pgrid">${row("pRes","play","Weiterspielen",inB?"Der Kampf läuft weiter":"Zurück ins Spiel","main")}${row("pHelp","help","Anleitung","So funktioniert Pokélings")}${row("pSnd","bolt",SFX.label(),"Klicken zum Wechseln")}${row("pGfx","eye",typeof gfxLabel==="function"?gfxLabel():"Grafik","Klicken zum Wechseln")}${row("pLang","dex",LANG==="en"?"Language: English":"Sprache: Deutsch",LANG==="en"?"Click: Deutsch":"Klicken: English")}
+   <div class="setList pgrid">${row("pRes","play","Weiterspielen",inB?"Der Kampf läuft weiter":"Zurück ins Spiel","main")}${row("pHelp","help","Anleitung","So funktioniert Pokélings")}${row("pSnd","bolt",SFX.label(),"Klicken zum Wechseln")}${row("pGfx","eye",typeof gfxLabel==="function"?gfxLabel():"Grafik","Klicken zum Wechseln")}${row("pMus","play",typeof BGM!=="undefined"?BGM.label():"Musik","Klicken zum Wechseln")}${row("pLang","dex",LANG==="en"?"Language: English":"Sprache: Deutsch",LANG==="en"?"Click: Deutsch":"Klicken: English")}
    ${row("pMenu","logout","Hauptmenü",inB?"Achtung: ein laufender Kampf zählt als Niederlage":"Spielstand wird gespeichert")}${row("pQuit","flag","Lauf aufgeben","Beendet den Lauf, du bekommst Edelsteine für deinen Fortschritt","danger")}</div>`,"narrow pauseM",resume);
   $("pRes").onclick=()=>{closeModal();resume();};$("pHelp").onclick=()=>{help();};
-  $("pSnd").onclick=()=>{$("pSnd").querySelector("b").textContent=SFX.cycle();sfx("coin");};$("pGfx").onclick=()=>{$("pGfx").querySelector("b").textContent=gfxCycle();};$("pLang").onclick=()=>setLang(LANG==="en"?"de":"en");
+  $("pSnd").onclick=()=>{$("pSnd").querySelector("b").textContent=SFX.cycle();sfx("coin");};$("pMus").onclick=()=>{$("pMus").querySelector("b").textContent=BGM.cycle();sfx("click");};$("pGfx").onclick=()=>{$("pGfx").querySelector("b").textContent=gfxCycle();};$("pLang").onclick=()=>setLang(LANG==="en"?"de":"en");
   $("pMenu").onclick=()=>{closeModal();if(S.duel){duelSend("gg",{});mpLeave(true);if(B)B.done=true;S=null;B=null;clearVis();clearFx();$("texts").innerHTML="";$("vs").classList.remove("show");enterBattleMode(false);showMenu();return;}if(inB){abortBattle();}showMenu();};
   $("pQuit").onclick=()=>{openModal(`<h2>${ic("flag")} LAUF AUFGEBEN?</h2><div class="lead">Der Lauf endet in Runde ${S.round}. Du bekommst Edelsteine für deinen bisherigen Fortschritt. Das kann nicht rückgängig gemacht werden.</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="qYes">${ic("flag")} JA, AUFGEBEN</button><button class="btn" id="qNo">${ic("back")} Doch nicht</button></div>`,"narrow",()=>pauseMenu());
     $("qNo").onclick=()=>pauseMenu();$("qYes").onclick=()=>{closeModal();if(S.duel){duelSend("gg",{});duelFinal(false,"quit");return;}if(B&&!B.done){B.done=true;B.userPause=false;}if(typeof cineStop==="function")cineStop();$("result").classList.remove("show");$("vs").classList.remove("show");finish(false);};};
