@@ -15,28 +15,59 @@
 
 </head>
 <body><style>
-#bootLd{position:fixed;inset:0;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(12px,2.6vh,22px);overflow:hidden;background:linear-gradient(#000006,#07123a 55%,#140a2e);color:#fff;font:600 14px system-ui,sans-serif;transition:opacity .45s;padding:16px;box-sizing:border-box;text-align:center}
-#bootLd .bg{position:absolute;left:-50%;right:-50%;bottom:-10%;height:55%;background:repeating-linear-gradient(90deg,rgba(92,242,255,.35) 0 2px,transparent 2px 64px),repeating-linear-gradient(0deg,rgba(255,74,216,.32) 0 2px,transparent 2px 46px);transform:perspective(320px) rotateX(64deg);transform-origin:50% 0;animation:bgRun 1.2s linear infinite;-webkit-mask:linear-gradient(transparent,#000 40%);mask:linear-gradient(transparent,#000 40%)}
-@keyframes bgRun{to{background-position:0 0,0 46px}}
-#bootLd .sun{position:absolute;left:50%;top:44%;width:min(70vw,520px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,120,220,.28),rgba(80,120,255,.12) 45%,transparent 70%)}
-#bootLd .lg{position:relative;font-family:"Press Start 2P",monospace;font-size:clamp(24px,min(9vw,12vh),64px);line-height:1;letter-spacing:2px;white-space:nowrap}
-#bootLd .lg span{background:linear-gradient(#ffffff,#c8d4e8 45%,#6a7a98 52%,#e8eef8);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(3px 3px 0 #0b1030)}
-#bootLd .lg b{background:linear-gradient(#fff6c0,#ffd84a 45%,#c08a10 52%,#ffe680);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:400;filter:drop-shadow(3px 3px 0 #2a1a00)}
-#bootLd .tg{position:relative;font-family:"Press Start 2P",monospace;font-size:clamp(7px,1.6vw,11px);letter-spacing:2px;color:#dfe8ff;text-shadow:2px 0 #ff4ad8,-2px 0 #5cf2ff}
-#bootLd .bar{position:relative;width:min(440px,82vw);height:16px;border:3px solid #0b0d13;border-radius:9px;background:#141a36;box-shadow:0 0 0 2px #3a4a90,0 0 24px rgba(92,160,255,.25)}
-#bootLd .bar i{position:absolute;left:0;top:0;bottom:0;width:3%;border-radius:6px;background:linear-gradient(90deg,#5cf2ff,#ffd84a 70%,#ff8a3d);transition:width .35s}
-#bootLd .bar em{position:absolute;top:50%;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;border:3px solid #0b0d13;background:linear-gradient(#e0402e 0 46%,#0b0d13 46% 56%,#f4f4f4 56%);box-shadow:0 2px 0 rgba(0,0,0,.4);transition:left .35s;animation:bSpin 1s linear infinite}
-#bootLd .bar em::after{content:"";position:absolute;left:50%;top:50%;width:7px;height:7px;margin:-5px 0 0 -5px;border-radius:50%;background:#fff;border:2px solid #0b0d13}
-@keyframes bSpin{to{transform:rotate(360deg)}}
-#bootLd .txt{position:relative;font-family:"Press Start 2P",monospace;font-size:clamp(8px,1.8vw,11px);color:#ffe680}
-#bootLd .tip{position:relative;font-family:"Pixelify Sans",system-ui,sans-serif;max-width:min(520px,88vw);min-height:2.6em;font-size:clamp(11px,2.8vw,13px);color:rgba(220,230,255,.75);line-height:1.35}
-#bootLd .ft{position:absolute;bottom:10px;left:0;right:0;font-size:10px;opacity:.4}
+#bootLd{position:fixed;inset:0;z-index:99999;overflow:hidden;background:linear-gradient(#020214,#0a0f3a 38%,#2a0e4a 58%,#0b0820 60%,#05030f);color:#fff;font:600 14px system-ui,sans-serif;transition:opacity .5s;box-sizing:border-box}
+#bootLd *{box-sizing:border-box}
+#bootLd .st{position:absolute;inset:0 0 40% 0;background-image:radial-gradient(1px 1px at 12% 18%,#fff,transparent),radial-gradient(1px 1px at 27% 62%,#cfe,transparent),radial-gradient(1.5px 1.5px at 41% 30%,#fff,transparent),radial-gradient(1px 1px at 58% 12%,#fdf,transparent),radial-gradient(1px 1px at 66% 48%,#fff,transparent),radial-gradient(1.5px 1.5px at 79% 22%,#fff,transparent),radial-gradient(1px 1px at 88% 58%,#cef,transparent),radial-gradient(1px 1px at 6% 44%,#fff,transparent),radial-gradient(1px 1px at 34% 8%,#fff,transparent),radial-gradient(1px 1px at 93% 9%,#fff,transparent);animation:bTw 3s ease-in-out infinite alternate}
+@keyframes bTw{to{opacity:.45}}
+#bootLd .sun{position:absolute;left:50%;top:60%;width:min(46vh,64vw);aspect-ratio:1;transform:translate(-50%,-92%);border-radius:50%;background:linear-gradient(#ffe36a,#ff9a3d 40%,#ff3f8a 75%,#a01ac8);
+  -webkit-mask:repeating-linear-gradient(180deg,#000 0 calc(6% - 2px),transparent calc(6% - 2px) 6%),linear-gradient(#000 45%,transparent 46%);-webkit-mask-composite:source-over;mask:linear-gradient(#000 0 46%,transparent 0),repeating-linear-gradient(180deg,#000 0 7px,transparent 7px 11px);mask-composite:add;box-shadow:0 0 80px rgba(255,90,170,.5);filter:drop-shadow(0 0 40px rgba(255,80,160,.55));opacity:.9}
+#bootLd .mt{position:absolute;left:0;right:0;top:calc(60% - 9vh);height:9vh;background:linear-gradient(#1a0b3a,#0b0820);clip-path:polygon(0 100%,0 55%,8% 30%,14% 60%,22% 20%,30% 58%,37% 40%,44% 70%,50% 45%,57% 72%,63% 35%,70% 62%,77% 18%,85% 55%,92% 32%,100% 58%,100% 100%)}
+#bootLd .fb{position:absolute;left:0;right:0;top:60%;bottom:0;background:linear-gradient(#1a0a34,#0a0618 60%,#05030f)}
+#bootLd .fl{position:absolute;left:-50%;right:-50%;top:60%;bottom:-5%;background:repeating-linear-gradient(90deg,rgba(92,242,255,.55) 0 2px,transparent 2px 70px),repeating-linear-gradient(0deg,rgba(255,74,216,.5) 0 2px,transparent 2px 52px);transform:perspective(300px) rotateX(62deg);transform-origin:50% 0;animation:bRun 1s linear infinite;-webkit-mask:linear-gradient(transparent,#000 22%);mask:linear-gradient(transparent,#000 22%)}
+#bootLd .hz{position:absolute;left:0;right:0;top:calc(60% - 1px);height:3px;background:linear-gradient(90deg,transparent,#ff6ad5,#fff,#5cf2ff,transparent);box-shadow:0 0 18px #ff6ad5}
+@keyframes bRun{to{background-position:0 0,0 52px}}
+#bootLd .par{position:absolute;left:0;right:0;top:60%;bottom:0;pointer-events:none;z-index:1}
+#bootLd .par i{position:absolute;right:-20vw;display:flex;flex-direction:column;align-items:center;animation:bWalk linear forwards}
+#bootLd .par img{image-rendering:pixelated;height:100%;filter:drop-shadow(0 0 6px rgba(255,255,255,.25))}
+#bootLd .par i::after{content:"";width:70%;height:12%;margin-top:-6%;border-radius:50%;background:rgba(0,0,0,.45)}
+#bootLd .par i.sh img{filter:drop-shadow(0 0 8px #ffe680)}
+@keyframes bWalk{to{transform:translateX(-140vw)}}
+#bootLd .ui{position:absolute;left:0;right:0;top:0;height:60%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(10px,2.2vh,20px);padding:0 16px;text-align:center}
+#bootLd .ball{width:clamp(38px,7vh,64px);aspect-ratio:1;border-radius:50%;border:4px solid #0b0d13;background:linear-gradient(#e8402e 0 46%,#0b0d13 46% 56%,#f4f4f4 56%);position:relative;animation:bBob 1.6s ease-in-out infinite;box-shadow:0 6px 0 rgba(0,0,0,.35),0 0 30px rgba(255,90,90,.35)}
+#bootLd .ball::after{content:"";position:absolute;left:50%;top:50%;width:30%;height:30%;transform:translate(-50%,-50%);border-radius:50%;background:#fff;border:3px solid #0b0d13;animation:bBlink 1.6s infinite}
+@keyframes bBob{50%{transform:translateY(-8px) rotate(-8deg)}}@keyframes bBlink{50%{background:#ffe680;box-shadow:0 0 10px #ffe680}}
+#bootLd .lg{position:relative;font-family:"Press Start 2P",monospace;font-size:clamp(30px,min(10vw,13vh),118px);line-height:1;letter-spacing:.04em;white-space:nowrap}
+#bootLd .lg span{background:linear-gradient(#fff,#d2dcf0 45%,#6a7a98 52%,#eef3fb);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(4px 4px 0 #0b1030) drop-shadow(0 0 18px rgba(140,200,255,.35))}
+#bootLd .lg b{background:linear-gradient(#fff6c0,#ffd84a 45%,#c08a10 52%,#ffe680);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:400;filter:drop-shadow(4px 4px 0 #2a1a00) drop-shadow(0 0 18px rgba(255,200,80,.4))}
+#bootLd .lg::after{content:"";position:absolute;inset:-10% -5%;background:linear-gradient(100deg,transparent 40%,rgba(255,255,255,.75) 50%,transparent 60%);mix-blend-mode:overlay;animation:bShine 3.2s ease-in-out infinite}
+@keyframes bShine{0%,40%{transform:translateX(-110%)}80%,100%{transform:translateX(110%)}}
+#bootLd .tg{font-family:"Press Start 2P",monospace;font-size:clamp(8px,1.4vw,13px);letter-spacing:.2em;color:#e8eeff;text-shadow:2px 0 #ff4ad8,-2px 0 #5cf2ff}
+#bootLd .pb{width:min(520px,84vw);display:flex;flex-direction:column;gap:8px;margin-top:clamp(6px,2vh,18px)}
+#bootLd .seg{display:flex;gap:4px;padding:5px;border:3px solid #0b0d13;border-radius:8px;background:#121633;box-shadow:0 0 0 2px #4a5aa8,0 0 26px rgba(92,160,255,.25)}
+#bootLd .seg i{flex:1;height:clamp(10px,1.8vh,16px);border-radius:2px;background:#232a52;transition:background .25s,box-shadow .25s}
+#bootLd .seg i.on{background:linear-gradient(#ffffff,#ffd84a 40%,#ff8a3d);box-shadow:0 0 8px rgba(255,200,80,.7)}
+#bootLd .row{display:flex;justify-content:space-between;align-items:center;font-family:"Press Start 2P",monospace;font-size:clamp(8px,1.2vw,11px);color:#ffe680}
+#bootLd .row b{font-weight:400;color:#fff;font-size:clamp(10px,1.6vw,15px)}
+#bootLd .tb{position:absolute;left:50%;bottom:clamp(14px,4vh,40px);transform:translateX(-50%);width:min(640px,90vw);padding:12px 18px;border-radius:8px;background:rgba(246,246,240,.96);border:3px solid #1a1a2a;box-shadow:inset 0 0 0 3px #7aa0d8,0 10px 30px rgba(0,0,0,.5);font-family:"Pixelify Sans",system-ui,sans-serif;font-size:clamp(13px,2.2vw,17px);color:#1a1a2a;text-align:left;min-height:3.2em;z-index:6}
+#bootLd .tb::after{content:"▼";position:absolute;right:12px;bottom:6px;font-size:11px;color:#d8402e;animation:bBlink2 .8s steps(2) infinite}
+@keyframes bBlink2{50%{opacity:0}}
+#bootLd .sc{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px);z-index:4}
+#bootLd .vg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 50%,rgba(0,0,0,.6));z-index:4}
+@media (max-aspect-ratio:1/1){#bootLd .ui{height:56%}#bootLd .lg{font-size:clamp(24px,9.4vw,64px)}#bootLd .tb{bottom:16px}}
 </style>
-<div id="bootLd"><div class="sun"></div><div class="bg"></div><div class="lg"><span>POKÉ</span><b>LINGS</b></div><div class="tg">SAMMELN · FUSIONIEREN · KÄMPFEN</div>
-<div class="bar"><i id="bootBar"></i><em id="bootBall" style="left:3%"></em></div><div class="txt" id="bootTxt">LADE POKÉMON …</div><div class="tip" id="bootTip"></div><div class="ft">Beim ersten Besuch dauert es etwas, danach geht es schneller.</div></div>
-<script>var __TIPS=["Tipp: Zieh zwei gleiche Pokémon aufeinander, um sie zu fusionieren.","Tipp: Höhere Schwierigkeit bringt deutlich mehr Trainerpunkte.","Tipp: Nass + Elektro, verbrannt + Feuer: Typ-Kombos richten Extra-Schaden an.","Tipp: Schillernde Pokémon zählen im Pokédex pro Form, auch Megas.","Tipp: Überschüssige Energie geht nicht verloren, sie zählt für die nächste Spezialattacke.","Tipp: Jede Region hat eigene Items. Schau im Shop nach!","Tipp: Nuzlocke: besiegte Pokémon sind weg, dafür dreifache Edelsteine.","Tipp: Mit Benutzername + Passwort spielst du auf jedem Gerät weiter."],__tipI=Math.floor(Math.random()*8);
-function __tip(){var t=document.getElementById("bootTip");if(t){t.textContent=__TIPS[__tipI++%__TIPS.length];}}__tip();var __tipT=setInterval(__tip,3200);
-function __ld(i,n,done){var p=Math.max(3,i/n*100),b=document.getElementById("bootBar"),e=document.getElementById("bootBall"),t=document.getElementById("bootTxt");if(b)b.style.width=p+"%";if(e)e.style.left=p+"%";if(t)t.textContent=done?"STARTE SPIEL …":"LADE POKÉMON … "+Math.round(i/n*100)+" %";}</script>
+<div id="bootLd"><div class="st"></div><div class="sun"></div><div class="mt"></div><div class="fb"></div><div class="fl"></div><div class="hz"></div><div class="par" id="bootPar"></div>
+<div class="ui"><div class="ball"></div><div class="lg"><span>POKÉ</span><b>LINGS</b></div><div class="tg">SAMMELN · FUSIONIEREN · KÄMPFEN</div>
+<div class="pb"><div class="seg" id="bootSeg"></div><div class="row"><span id="bootTxt">LADE POKÉMON …</span><b id="bootPct">0 %</b></div></div></div>
+<div class="tb" id="bootTip"></div><div class="sc"></div><div class="vg"></div></div>
+<script>(function(){var s=document.getElementById("bootSeg"),h="";for(var i=0;i<24;i++)h+="<i></i>";s.innerHTML=h;})();
+var __TIPS=["Zieh zwei gleiche Pokémon aufeinander, um sie zu fusionieren.","Höhere Schwierigkeit bringt deutlich mehr Trainerpunkte für die Bestenliste.","Nass + Elektro, verbrannt + Feuer: Typ-Kombos richten Extra-Schaden an.","Schillernde Pokémon zählen im Pokédex pro Form, auch Megas.","Überschüssige Energie verpufft nicht, sie zählt für die nächste Spezialattacke.","Jede Region hat eigene Items. Schau im Shop nach!","Nuzlocke: besiegte Pokémon sind weg, dafür gibt es viel mehr Edelsteine.","Mit Benutzername und Passwort spielst du auf jedem Gerät weiter.","Megasteine gibt es nur einmal pro Lauf. Wähle weise!","Crypto-Pokémon werden nach ein paar Runden erlöst und erhalten eine geheime Fähigkeit."],__tipI=Math.floor(Math.random()*10),__tipT0=0;
+function __tip(){var t=document.getElementById("bootTip");if(!t)return;var s=__TIPS[__tipI++%__TIPS.length],k=0;clearInterval(__tipT0);t.textContent="";__tipT0=setInterval(function(){k+=2;t.textContent=s.slice(0,k);if(k>=s.length)clearInterval(__tipT0);},28);}
+__tip();var __tipT=setInterval(__tip,4200);
+var __parT=setInterval(function(){var S=window.__SPR,p=document.getElementById("bootPar");if(!S||!p)return;if(p.children.length>7)return;var ks=Object.keys(S).filter(function(k){return /^s?\d{1,3}$/.test(k);});if(!ks.length)return;
+  var k=ks[Math.floor(Math.random()*ks.length)],d=Math.random(),i=document.createElement("i"),im=new Image();im.src=S[k];if(k[0]==="s")i.className="sh";
+  var hh=5+d*13;i.style.height=hh+"vmin";i.style.bottom=(22+(1-d)*50)+"%";i.style.zIndex=Math.round(d*10);i.style.animationDuration=(9-d*4)+"s";i.style.opacity=.55+d*.45;i.appendChild(im);p.appendChild(i);
+  i.addEventListener("animationend",function(){i.remove();});},650);
+function __ld(i,n,done){var p=i/n,s=document.querySelectorAll("#bootSeg i"),c=Math.round(p*s.length),t=document.getElementById("bootTxt"),q=document.getElementById("bootPct");for(var j=0;j<s.length;j++)s[j].className=j<c?"on":"";if(q)q.textContent=Math.round(p*100)+" %";if(t)t.textContent=done?"STARTE SPIEL …":"LADE POKÉMON …";}</script>
 <style>:root{
   --bg0:#12141c;--text:#f6f6f2;--muted:#a8b0c8;--dim:#6a7290;
   --win:#283043;--win2:#323c55;--wout:#0b0d13;--wline:#7686ab;--wlineHi:#a9b7d6;
@@ -2208,6 +2239,34 @@ body.introOn .screen{visibility:hidden!important}
 .stAccB{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 #mbox.setL .stAcc button.ok{background:rgba(46,170,90,.1);border:2px solid #2eaa5a;color:#1a7a3a}#mbox.setL .stAcc button.ok:hover{background:rgba(46,170,90,.2)}
 .stAcc button.ok{background:rgba(46,170,90,.14);border-color:rgba(46,170,90,.5);color:#a8f0c0}
+
+/* Handy quer (wenig Höhe): Raster frei räumen, Infos nur auf Knopfdruck */
+#infoTgl{display:none}
+@media (max-height:520px){
+  #infoTgl{display:flex;align-items:center;gap:5px;position:absolute;top:8px;right:8px;z-index:9;height:32px;padding:0 10px;font-family:var(--px);font-size:9px;color:#fff}
+  #infoTgl .ic{width:16px;height:16px}
+  body.infoOpen #infoTgl{background:rgba(255,216,74,.25);box-shadow:inset 0 0 0 2px #ffd84a}
+  #rTag,#hint,body:not(.battle) #locTag{display:none!important}
+  #rSide{display:none!important}
+  body.infoOpen #rSide{display:flex!important;top:46px;right:8px;bottom:8px;width:min(300px,46vw);pointer-events:auto;z-index:9}
+  body.infoOpen #rSide #infoBox{flex:1 1 auto;overflow:auto}
+  #arenaDockHost{left:8px;right:8px;bottom:6px}
+  #dock{padding:4px 6px!important;gap:6px!important}
+  #dock .dl{font-size:8px}#dock .dl small{display:none}
+  .slot,#bench .slot,#bag .slot{width:44px!important;height:44px!important}
+  #sellSlot{height:44px!important;min-width:56px;font-size:8px}
+  #toEnc{right:8px;bottom:62px;height:34px;padding:0 12px;font-size:10px}
+}
+@media (max-width:520px) and (min-height:521px){#rTag{display:none!important}#locTag{top:10px}}
+.dxSep{grid-column:1/-1;display:flex;align-items:baseline;gap:10px;margin:10px 0 2px;padding:7px 12px;border-radius:8px;background:linear-gradient(90deg,color-mix(in srgb,var(--rc) 45%,#141a2a),rgba(20,26,42,0) 80%);border-left:5px solid var(--rc)}
+.dxSep:first-child{margin-top:0}
+.dxSep b{font-family:var(--px);font-size:13px;color:#fff;text-shadow:2px 2px 0 #000}
+.dxSep small{font-family:var(--px);font-size:9px;color:#ffe680}
+.dxSep span{margin-left:auto;font-weight:700;font-size:13px;color:#cfd6ea}
+/* Shop bleibt groß, auch wenn alle Pokémon gekauft sind */
+#shopRow{grid-template-rows:minmax(0,1fr)}
+#shopRow .card,#shopRow .card.empty{height:100%}
+@media (min-height:861px){#shopRow .card,#shopRow .card.empty{height:min(100%,640px)}}
 </style>
 <div id="app">
   <header id="hud" class="glass">
@@ -2253,6 +2312,7 @@ body.introOn .screen{visibility:hidden!important}
         <div class="ov rasterOnly glass" id="hint"></div>
         <div id="locTag"><div class="htag" style="align-items:center"><b id="locName">ALABASTIA</b><small id="locSub"></small></div></div>
         <div class="ov rasterOnly" id="rSide"></div>
+        <button class="ibtn ov glass rasterOnly" id="infoTgl" title="Infos ein/aus"><svg class="ic" viewBox="0 0 24 24" data-i="help"></svg><span>INFO</span></button>
         <button class="pri hot rasterOnly" id="toEnc">ZUR BEGEGNUNG <svg class="ic" viewBox="0 0 24 24" data-i="swords"></svg></button>
         <div class="ov rasterOnly" id="arenaDockHost"></div>
         <div class="ov" id="bTags"><div class="htag" style="--tagc:var(--cyan)"><b id="bMine">DU</b><small id="bMineS"></small></div><div class="htag" style="--tagc:var(--pink);text-align:right;border-left:1px solid var(--line);border-right:3px solid var(--pink)"><b id="bEnemy">GEGNER</b><small id="bEnemyS"></small></div></div>
@@ -2687,7 +2747,7 @@ const ITEMS=[
  {id:"metro",n:"Metronom",ic:"bolt",col:"#ffd84a",r:"e",d:"Jeder Treffer auf dasselbe Ziel +6 % Schaden (bis +48 %). Ein Zielwechsel setzt es zurück."},
  {id:"fokus",n:"Fokusgurt",ic:"band",col:"#ffd23f",r:"e",d:"+15 % KP. Überlebt einmal pro Kampf einen K.O.-Treffer mit 30 % KP."},
  {id:"kraut",n:"Energiekraut",ic:"leaf",col:"#7ae05a",r:"e",d:"Startet mit voller Energie: wirkt die Spezialattacke sofort."},
- {id:"mega",n:"Megastein",ic:"mega",col:"#ff7ad8",r:"e",kind:"mega",d:"Nur einer pro Lauf! Zu Beginn jedes Kampfs mega-entwickelt sich das Pokémon (eigene Stärken je Mega). Glurak und Mewtu haben zwei Formen zur Wahl. Für Bisaflor, Glurak, Turtok, Tauboss, Simsala, Gengar, Stahlos, Mewtu (auch Vorstufen, wirkt ab Endstufe)."},
+ {id:"mega",n:"Megastein",ic:"mega",col:"#ff7ad8",r:"e",kind:"mega",d:"Nur einer pro Lauf! Zu Beginn jedes Kampfs mega-entwickelt sich das Pokémon (eigene Stärken je Mega). Glurak und Mewtu haben zwei Formen zur Wahl. Für viele Endstufen aller Regionen, z. B. Bisaflor, Glurak, Gengar, Mewtu oder in Kalos Brigaron, Fennexis, Quajutsu und Diancie (auch Vorstufen, wirkt ab Endstufe)."},
  // Regionale Items: gibt es nur im Shop und in Belohnungen der jeweiligen Region
  {id:"floete",reg:"kanto",n:"Pokéflöte",ic:"bubble",col:"#ff6b5c",r:"r",d:"Immun gegen Betäubung, Verlangsamung und Schlaf."},
  {id:"mond",reg:"kanto",n:"Mondstein",ic:"star",col:"#c8c0ff",r:"r",d:"Fee-, Psycho- und Normal-Pokémon: Spezialattacke +30 %."},
@@ -2777,6 +2837,16 @@ const IT_BY={};ITEMS.forEach(s=>IT_BY[s.id]=s);
 /* Mega-Entwicklungen: X = physische Rollen (Tank/Krieger/Assassine), Y = sonst (falls vorhanden) */
 /* Mega-Entwicklungen: jede Form hat einen eigenen Schwerpunkt. Bei zwei Formen (X/Y) wählst du selbst. */
 const MEGA={
+ 652:{x:{k:"10292",n:"Mega-Brigaron",types:["grass","fighting"],tag:"Stachelbollwerk",d:"+40 % KP, +35 Verteidigung, Schild über 20 % KP.",b:{hp:.4,def:35,shield:.2}}},
+ 655:{x:{k:"10293",n:"Mega-Fennexis",types:["fire","psychic"],tag:"Magierflamme",d:"Spezialattacke +45 %, startet mit voller Energie, jeder Treffer verbrennt.",b:{ab:.45,full:1,burn:1}}},
+ 658:{x:{k:"10294",n:"Mega-Quajutsu",types:["water","dark"],tag:"Wandlungskunst",d:"+35 % Angriff, +25 % Angriffstempo, +15 % Krit-Chance.",b:{atk:.35,as:.25,crit:.15}}},
+ 668:{x:{k:"10295",n:"Mega-Pyroleo",types:["fire","normal"],tag:"Königsmähne",d:"+35 % Angriff, Spezialattacke +30 %, jeder Treffer verbrennt.",b:{atk:.35,ab:.3,burn:1}}},
+ 678:{x:{k:"10314",n:"Mega-Psiaugon",types:["psychic"],tag:"Strolch",d:"Spezialattacke +40 %, braucht 25 % weniger Energie, +15 % Ausweichen.",b:{ab:.4,mana:.25,dodge:.15}}},
+ 687:{x:{k:"10297",n:"Mega-Calamanero",types:["dark","psychic"],tag:"Umkehrung",d:"Spezialattacke +40 %, +25 % KP, +10 % Ausweichen.",b:{ab:.4,hp:.25,dodge:.1}}},
+ 689:{x:{k:"10298",n:"Mega-Thanathora",types:["rock","fighting"],tag:"Krallenfels",d:"+40 % Angriff, +25 Verteidigung, +10 % Krit-Chance.",b:{atk:.4,def:25,crit:.1}}},
+ 691:{x:{k:"10299",n:"Mega-Tandrak",types:["poison","dragon"],tag:"Giftdrache",d:"Spezialattacke +45 %, +1 Reichweite, +15 % Angriff.",b:{ab:.45,range:1,atk:.15}}},
+ 701:{x:{k:"10300",n:"Mega-Resladero",types:["fighting","flying"],tag:"Showtime",d:"+40 % Angriff, +30 % Angriffstempo, Treffer können nicht ausweichen.",b:{atk:.4,as:.3,sure:1}}},
+ 719:{x:{k:"10075",n:"Mega-Diancie",types:["rock","fairy"],tag:"Zauberspiegel",d:"Spezialattacke +40 %, +30 % KP, Schild über 20 % KP.",b:{ab:.4,hp:.3,shield:.2}}},
  3:{x:{k:"10033",n:"Mega-Bisaflor",types:["grass","poison"],tag:"Dicke Fettschicht",d:"+40 % KP, +25 Verteidigung, regeneriert 1,5 % KP/s.",b:{hp:.4,def:25,regen:.015}}},
  6:{x:{k:"10034",n:"Mega-Glurak X",types:["fire","dragon"],tag:"Drachenkraft",d:"Nahkampf-Bestie: +30 % Angriff, +20 Verteidigung, 8 % Lebensraub. Feuer/Drache.",b:{atk:.3,def:20,ls:.08}},
     y:{k:"10035",n:"Mega-Glurak Y",types:["fire","flying"],tag:"Dürre",d:"Sonnenglut: Spezialattacke +45 %, +1 Reichweite, jeder Treffer verbrennt. Feuer/Flug.",b:{ab:.45,range:1,burn:1}}},
@@ -3073,7 +3143,7 @@ const BOSSES_BY={kanto:BOSSES,johto:{
  5:{name:"Arenaleiterin Viola",sub:"Boss · Käfer",units:[[666,0,5,2,1.137],[665,0,5,1,1.024],[664,0,6,3,1.024],[661,0,6,0,1.024],[669,0,7,2,1.024]]},
  10:{name:"Diancie & Hoopa",sub:"Legendärer Boss · Juwel und Ringe",units:[[719,0,7,1,0.8],[720,0,6,2,0.76],[699,0,7,3,1.6],[697,0,5,1,1.6]]},
  15:{name:"Crypto-Yveltal",sub:"Team Flare · Flordelis' Endwaffe",units:[[717,0,7,1,0.711,"c"],[668,0,7,3,0.8],[687,0,6,2,1.111],[691,0,5,0,1.111],[675,0,5,4,1.111],[711,0,6,4,1.111],[663,0,5,2,1.111]]},
- 20:{name:"Champion Diantha",sub:"Finale · Pokémon-Liga Kalos",units:[[282,1,6,2,1.018],[706,1,6,0,0.536],[697,1,5,1,0.536],[699,1,6,4,0.536],[701,1,5,3,0.536],[716,0,7,3,0.67],[718,0,7,1,0.536],[681,0,5,2,0.536]]}}};
+ 20:{name:"Champion Diantha",sub:"Finale · Pokémon-Liga Kalos",units:[[282,1,6,2,0.92,"m"],[706,1,6,0,0.536],[697,1,5,1,0.536],[699,1,6,4,0.536],[701,1,5,3,0.536],[716,0,7,3,0.67],[718,0,7,1,0.536],[681,0,5,2,0.536]]}}};
 /* Crypto-Pokémon (Team Rocket): verschlossene Herzen, dunkle Energie */
 const CRYPTO={atk:1.2,hp:1.15,vs:1.15,vsC:.85,rage:.5,rageAs:1.25,rageAtk:1.12,drain:.008,purify:3};
 const ROCKET_N={kalos:["Flare-Rüpel","Flare-Rüpelin","Flare-Wissenschaftlerin","Flare-Admin Malva","Flare-Boss Flordelis"],unova:["Plasma-Rüpel","Plasma-Rüpelin","Schattentriade","Weiser Zinzolin","N","Plasma-Boss G-Cis"],sinnoh:["Galaktik-Rüpel","Galaktik-Rüpelin","Galaktik-Commander Mars","Galaktik-Commander Jupiter","Galaktik-Commander Saturn","Galaktik-Boss Zyrus"],hoenn:["Magma-Rüpel","Aqua-Rüpelin","Magma-Rüpelin","Aqua-Rüpel","Magma-Anführer Marc","Aqua-Anführer Adrian"],kanto:["Rocket-Rüpel","Rocket-Rüpelin","Rocket-Wissenschaftler","Rocket-Vorstand Atlas"],johto:["Rocket-Rüpel","Rocket-Rüpelin","Rocket-Vorstand Lambda","Rocket-Vorstand Atlas","Rocket-Vorstand Athena"]};
@@ -3096,7 +3166,7 @@ const MODES={
  normal:{n:"Normal",ic:"ball",enemy:1,revive:.12,gem:1,base:5,d:"Die Standard-Erfahrung."},
  hard:{n:"Schwer",ic:"skull",enemy:1.15,revive:.18,gem:1.6,base:5,d:"Stärkere Gegner, harte Revanchen.",unlock:"Runde 10 auf Normal in dieser Region"},
  night:{n:"Albtraum",ic:"ghost",enemy:1.32,revive:.25,gem:2.5,base:4,d:"Nur für echte Geisterjäger.",unlock:"Champion auf Schwer in dieser Region"},
- nuzlocke:{n:"Nuzlocke",ic:"heart",enemy:.95,revive:.12,gem:3,base:5,perma:1,d:"Gegner wie auf Normal, aber besiegte Pokémon sind für den Rest des Laufs weg. Dafür dreifache Edelsteine.",unlock:"Champion auf Schwer in dieser Region"}
+ nuzlocke:{n:"Nuzlocke",ic:"heart",enemy:1.12,revive:.18,gem:3,base:5,perma:1,d:"Gegner stärker als auf Normal, und besiegte Pokémon sind für den Rest des Laufs weg. Dafür dreifache Edelsteine.",unlock:"Champion auf Schwer in dieser Region"}
 };
 const LV_XP=[0,4,9,15,23,33,45,60];
 const ODDS_LV={1:[70,30,0,0,0],2:[56,38,6,0,0],3:[46,40,14,0,0],4:[42,40,18,0,0],5:[28,36,26,8,2],6:[18,30,32,16,4],7:[12,24,34,23,7],8:[8,18,32,30,12]};
@@ -3780,9 +3850,9 @@ function showMenu(){
   $("menuWho").innerHTML=`<span>${ic("user")} ${esc(USER||"Gast")}</span><span style="color:var(--gem)">${ic("gem")} ${META.gems}</span><span style="color:var(--amber)">${ic("trophy")} ${total}</span>`;
   const mb=(id,icn,t,s,main)=>`<button class="mbtn ${main?"main":""}" id="${id}"><span class="mi">${ic(icn)}</span><div><b>${t}</b><small>${s}</small></div></button>`;
   $("menuBtns").innerHTML=(sv&&sv.S?mb("mCont","play","Weiterspielen",`${MODES[sv.S.mode].n} · Runde ${sv.S.round}`,1):"")+
-   mb("mNew","plus","Neues Spiel","Schwierigkeit & Partner wählen",!(sv&&sv.S))+mb("mLab","lab","Forschungslabor","Dauerhafte Verbesserungen & neue Pokémon")+mb("mDex","dex","Pokédex","Sammlung · Schillernde · Mega-Formen")+mb("mAch","trophy","Erfolge",(()=>{const n=Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length;return n+"/"+ACH.length+" freigeschaltet · Statistik · Verlauf";})())+mb("mSave","check","Jetzt speichern",typeof CL!=="undefined"&&CL.sess?"Sofort in die Cloud sichern · ohne Abmelden":"Sofort auf diesem Gerät sichern")+mb("mSet","gear","Einstellungen","Anleitung · Sound · Grafik · "+(USER?"Abmelden":"Login"));
+   mb("mNew","plus","Neues Spiel","Schwierigkeit & Partner wählen",!(sv&&sv.S))+mb("mLab","lab","Forschungslabor","Dauerhafte Verbesserungen & neue Pokémon")+mb("mDex","dex","Pokédex","Sammlung · Schillernde · Mega-Formen")+mb("mAch","trophy","Erfolge",(()=>{const n=Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length;return n+"/"+ACH.length+" freigeschaltet · Statistik · Verlauf";})())+mb("mSet","gear","Einstellungen","Anleitung · Sound · Grafik · "+(USER?"Abmelden":"Login"));
   if($("mCont"))$("mCont").onclick=()=>{hideScreens();if(!S||S.phase==="over")loadGame();setTab("shop");render();};
-  $("mNew").onclick=chooseMode;$("mLab").onclick=()=>labScreen();$("mDex").onclick=()=>dexModal("dex");$("mAch").onclick=()=>achModal();$("mSet").onclick=settingsModal;$("mSave").onclick=()=>saveNow($("mSave"));
+  $("mNew").onclick=chooseMode;$("mLab").onclick=()=>labScreen();$("mDex").onclick=()=>dexModal("dex");$("mAch").onclick=()=>achModal();$("mSet").onclick=settingsModal;
   const bs=[...$("menuBtns").querySelectorAll(".mbtn")];bs.forEach((b,i)=>{b.onmouseenter=()=>menuSel(i);});menuSel(0);
 }
 function menuSel(i){const bs=[...$("menuBtns").querySelectorAll(".mbtn")];if(!bs.length)return;i=(i+bs.length)%bs.length;bs.forEach((b,j)=>b.classList.toggle("sel",j===i));$("menuBtns").dataset.sel=i;}
@@ -3802,7 +3872,7 @@ function settingsModal(){
     ${line("dex","Sprache","Language",seg("stLang",[["de","Deutsch"],["en","English"]],LANG))}</div>
    <div class="stGrp"><h4>${ic("help")} Spiel</h4><div class="stChips">
     <button id="sHelp">${ic("help")} Anleitung</button>${inMenu?`<button id="sIntro">${ic("play")} Intro ansehen</button>`:""}<button id="sLegal">${ic("info")} Musik, Rechte &amp; Datenschutz</button></div></div>
-   <div class="stGrp"><h4>${ic("user")} Konto</h4><div class="stAcc"><span>${USER?`Angemeldet als <b>${esc(USER)}</b><br><small class="clSt ${typeof CL!=="undefined"&&CL.sess?"on":""}">${typeof CL!=="undefined"&&CL.sess?"☁ Cloud-Sync aktiv · auf allen Geräten":"Nur auf diesem Gerät gespeichert"}</small>`:"Nicht angemeldet (Gast)"}</span><span class="stAccB">${USER?`<button id="sSaveNow" class="ok">${ic("check")} Jetzt speichern</button>`:""}<button id="sOut">${ic("logout")} ${USER?"Abmelden":"Zum Login"}</button></span></div></div>
+   <div class="stGrp"><h4>${ic("user")} Konto</h4><div class="stAcc"><span>${USER?`Angemeldet als <b>${esc(USER)}</b><br><small class="clSt ${typeof CL!=="undefined"&&CL.sess?"on":""}">${typeof CL!=="undefined"&&CL.sess?"☁ Cloud-Sync aktiv · auf allen Geräten":"Nur auf diesem Gerät gespeichert"}</small>`:"Nicht angemeldet (Gast)"}</span><span class="stAccB"><button id="sSaveNow" class="ok">${ic("check")} Jetzt speichern</button><button id="sOut">${ic("logout")} ${USER?"Abmelden":"Zum Login"}</button></span></div></div>
    <div class="stSave"><button class="g" id="sBkExp">${ic("pack")}<div><b>Spielstände sichern</b><small>Alle Konten als Datei speichern</small></div></button>
     <button class="b" id="sBkImp">${ic("up")}<div><b>Spielstände laden</b><small>Sicherung einspielen</small></div></button></div>`,"narrow pauseM setL",true);
   if($("sSaveNow"))$("sSaveNow").onclick=()=>saveNow($("sSaveNow"));
@@ -3823,7 +3893,7 @@ let modeRegion="kanto";
 /* Pixel-Landkarte je Region (prozedural, deterministisch) */
 const _regArt={};
 function regionArt(rk){if(_regArt[rk])return _regArt[rk];const W=128,H=72,c=document.createElement("canvas");c.width=W;c.height=H;const g=c.getContext("2d"),img=g.createImageData(W,H),d=img.data;
-  let sd=rk==="johto"?913:rk==="hoenn"?557:rk==="sinnoh"?733:rk==="unova"?389:rk==="kalos"?811:271;const rnd0=()=>{sd=(sd*16807)%2147483647;return sd/2147483647;};
+  let sd=rk==="johto"?913:rk==="hoenn"?557:rk==="sinnoh"?733:rk==="unova"?389:rk==="kalos"?1465:271;const rnd0=()=>{sd=(sd*16807)%2147483647;return sd/2147483647;};
   const N=24,grid=[];for(let i=0;i<(N+1)*(N+1);i++)grid.push(rnd0());const vn=(x,y,f)=>{x*=f;y*=f;const xi=Math.floor(x)%N,yi=Math.floor(y)%N,xf=x-Math.floor(x),yf=y-Math.floor(y),s=t=>t*t*(3-2*t),G=(a,b)=>grid[((b%N)*(N+1))+(a%N)];
     const a=G(xi,yi),b=G(xi+1,yi),cc=G(xi,yi+1),dd=G(xi+1,yi+1);return a+(b-a)*s(xf)+(cc-a)*s(yf)+(a-b-cc+dd)*s(xf)*s(yf);};
   const P=rk==="kalos"?{deep:[20,40,110],sea:[40,90,175],shal:[90,150,205],sand:[230,212,170],grass:[110,175,95],grass2:[170,180,90],forest:[55,110,70],forest2:[90,135,70],hill:[160,140,120],mtn:[190,185,195],snow:[250,252,255]}:rk==="unova"?{deep:[25,45,110],sea:[45,95,165],shal:[95,150,195],sand:[225,205,160],grass:[100,165,95],grass2:[140,170,80],forest:[45,105,65],forest2:[70,125,75],hill:[150,135,120],mtn:[185,180,190],snow:[250,252,255]}:rk==="sinnoh"?{deep:[20,50,120],sea:[40,90,170],shal:[90,150,200],sand:[220,210,170],grass:[90,160,90],grass2:[120,170,90],forest:[40,110,70],forest2:[60,130,80],hill:[140,130,120],mtn:[190,190,200],snow:[250,252,255]}:rk==="hoenn"?{deep:[20,60,150],sea:[30,110,200],shal:[70,170,220],sand:[236,220,160],grass:[100,190,90],grass2:[150,200,80],forest:[30,130,70],forest2:[50,160,80],hill:[170,140,100],mtn:[150,110,90],snow:[220,90,60]}:rk==="johto"?{deep:[30,70,140],sea:[52,112,190],shal:[90,160,210],sand:[226,206,140],grass:[132,176,72],grass2:[176,170,60],forest:[150,96,40],forest2:[196,120,40],hill:[150,128,96],mtn:[200,196,190],snow:[244,244,244]}
@@ -3842,7 +3912,7 @@ function regStats(rk){const R=(META.reg&&META.reg[rk])||(rk==="kanto"?{champs:ME
   const sps=LINES.flatMap(L=>L.stages.map(s=>s[0])).filter(id=>{const g=REG_RANGE[rk]||[0,0];return id>=g[0]&&id<=g[1];});const seen=sps.filter(id=>META.dex[id]&&META.dex[id].seen).length,shy=sps.filter(id=>META.dex[id]&&META.dex[id].shiny).length;
   const champ=Object.values(R.champs||{}).reduce((a,b)=>a+b,0),best=Math.max(0,...Object.values(R.best||{}));return{R,seen,total:sps.length,shy,champ,best};}
 const REG_ART={kanto:{mascot:150,trio:[1,4,7],grad:"#e0402e,#3b6fc4",gen:"1. GENERATION"},johto:{mascot:250,mascot2:249,trio:[152,155,158],grad:"#d8a020,#9aa8c0",gen:"2. GENERATION"},hoenn:{mascot:384,mascot2:383,trio:[252,255,258],grad:"#2a9a6a,#3a7ad8",gen:"3. GENERATION"},sinnoh:{mascot:483,mascot2:484,trio:[387,390,393],grad:"#5a6ad8,#c85ad8",gen:"4. GENERATION"},unova:{mascot:643,mascot2:644,trio:[495,498,501],grad:"#3a3a48,#d8d8e4",gen:"5. GENERATION"},kalos:{mascot:716,mascot2:717,trio:[650,653,656],grad:"#2a6ad8,#d83a5a",gen:"6. GENERATION"}};
-const SOON_REG={};
+const SOON_REG={alola:{n:"Alola",d:"Teil 7 · Inselabenteuer bis zur Pokémon-Liga",gen:"7. GENERATION",mascot:791,mascot2:792,grad:"#f0a030,#3a8ad8"}};
 const MODE_ART={easy:{sp:175,col:"#4dffa6",tag:"ENTSPANNT"},normal:{sp:25,col:"#5cf2ff",tag:"KLASSISCH"},hard:{sp:248,col:"#ff8a3d",tag:"HERAUSFORDERND"},nuzlocke:{sp:442,col:"#e8d8a0",tag:"PERMATOD"},night:{sp:94,col:"#c27cff",tag:"GNADENLOS"}};
 function regCardHtml(k,r,A,ok,soon){const st=soon?{champ:0,best:0,seen:0,total:0,shy:0}:regStats(k);
   return `<button class="regCard${ok?"":" locked"}${soon?" soon":""}" data-r="${k}" ${ok?"":"disabled"} style="--g:linear-gradient(135deg,${A.grad})">
@@ -4213,16 +4283,17 @@ function introDuel(o,at,B,flash){
   const endBeams=()=>{cancelAnimationFrame(raf);raf=0;[bL,bR].forEach(b=>{b.animate([{opacity:1},{opacity:0}],{duration:140,fill:"forwards"});});clash.style.opacity=0;bolt.innerHTML="";if(H){H.stop();H=null;}};
   o.__duelStop=()=>{cancelAnimationFrame(raf);cancelAnimationFrame(rf);cancelAnimationFrame(raf3);IV.forEach(clearInterval);if(H){H.stop();H=null;}window.__caveE=0;window.__caveF=0;window.__caveR=0;window.__IC=null;};
 
-  // 0 – Kamerafahrt wie im ersten Intro: Kreisen um die Arena, Kristalle wachsen aus dem See. Mewtu als Schatten.
-  at(0,()=>{bars.classList.add("on");Rm.classList.add("sil");A.L.y=9;A.L.x=-6;A.L.z=-4;L.style.opacity=0;L._st.o=0;IC.t0=performance.now();
-    tween(IC,{yaw:-.35,pitch:.2,dist:10.5,ty:1.3},B*2.4,"io");ease("__caveE",.08,300);sfx("zap",.02);});
-  // 0.8 – Kristalle blitzen auf: Crypto-Mewtu ist enthüllt, dunkle Flammen, rote Augen
-  at(.8,()=>{window.__caveF=.3;ease("__caveF",0,260);ease("__caveE",.25,B*.6);Rm.classList.remove("sil");Rm.classList.add("on","burn");glint(head(Rm),"#ff3a6a",80);voice("mewtwo");shake(8,260);});
-  // 1.3 – Mew fliegt im Bogen herein, die Kamera schwenkt mit
-  at(1.3,()=>{L.style.opacity=1;L._st.o=1;L.getAnimations().forEach(a=>a.cancel());L.style.transform="none";
-    tween(A.L,{x:-2.5,y:.75,z:0},B*1.3,"o",(a,e)=>{a.y=.75+(1-e)*8.3*(1-e)+Math.sin(e*Math.PI)*1.2;a.z=-4*(1-e)+Math.sin(e*Math.PI*2)*1.4;});
-    L.animate([{transform:"rotate(-200deg) scale(.6)"},{transform:"rotate(0) scale(1)"}],{duration:B*1.3,easing:"cubic-bezier(.3,.7,.4,1)"});
-    trail(L,"#ffb8ec",B*1.3);tween(IC,{yaw:.3,pitch:.12,dist:10},B*1.3,"io");setTimeout(()=>{L.classList.add("on");voice("mew");sfx("sparkle",.05);glint(head(L),"#ffc0ee",50);},B*1.3);});
+  // 0 – Kampfbeginn wie im klassischen Intro (Gengar gegen Nidorino): beide gleiten als Schatten von den Bildrändern herein
+  at(0,()=>{bars.classList.add("on");L.classList.add("sil");Rm.classList.add("sil");Object.assign(A.L,{x:-15,y:.75,z:0});Object.assign(A.R,{x:15,y:0,z:0});IC.t0=performance.now();
+    Object.assign(IC,{yaw:0,pitch:.12,dist:11,tx:0,ty:1.3,tz:0});tween(IC,{dist:10.2},B*1.2,"o");
+    tween(A.L,{x:-2.5},B*1.05,"l");tween(A.R,{x:2.5},B*1.05,"l");trail(L,"#ffffff",B*1);trail(Rm,"#c8a0ff",B*1);ease("__caveE",.08,300);sfx("jump",.05);});
+  // 1.05 – angekommen: Blitz, Farbe kommt zurück
+  at(1.05,()=>{flash(160,"#fff");L.classList.remove("sil");Rm.classList.remove("sil");L.classList.add("on");Rm.classList.add("on");shake(10,220);sfx("land",.06);ease("__caveE",.25,B*.6);window.__caveF=.25;ease("__caveF",0,240);});
+  // 1.35 / 1.75 – Mew hüpft zweimal (wie Nidorino)
+  const hop=(h)=>{tween(A.L,{y:.75},B*.36,"l",(o,e)=>{o.y=.75+Math.sin(e*Math.PI)*h;});mv(L,{sx:.9,sy:1.12},B*.12);setTimeout(()=>mv(L,{sx:1,sy:1},B*.2),B*.3);sfx("jump",.04);};
+  at(1.35,()=>{hop(1.1);});at(1.75,()=>{hop(1.4);voice("mew");setTimeout(()=>glint(head(L),"#ffc0ee",50),B*.2);});
+  // 2.15 – Crypto-Mewtu antwortet: lehnt sich vor, dunkle Flammen lodern auf, rote Augen
+  at(2.15,()=>{Rm.classList.add("burn");mv(Rm,{x:-14,sx:1.06,sy:.95},B*.25,"cubic-bezier(.2,1.4,.4,1)");setTimeout(()=>mv(Rm,{x:0,sx:1,sy:1},B*.3),B*.3);glint(head(Rm),"#ff3a6a",80);voice("mewtwo");shake(12,300);tween(IC,{dist:9.6,ty:1.25},B*.5,"o");});
   // 2.7 – Anime-Augen-Schnitt
   at(2.7,()=>{cut.classList.add("on");lines.classList.add("on");sfx("click",.05);sfx("zap",.03);shake(8,200);tween(IC,{yaw:0,pitch:.14,dist:9.2,ty:1.2},1,"l");});
   at(3.45,()=>{cut.classList.remove("on");lines.classList.remove("on");});
@@ -4279,6 +4350,9 @@ const ACH=[
  {id:"sinnoh",t:2,ic:"bolt",n:"Champion von Sinnoh",d:"Werde in Sinnoh Champion.",chk:()=>_champR("sinnoh")>0},
  {id:"unova",t:2,ic:"swords",n:"Champion von Einall",d:"Werde in Einall Champion.",chk:()=>_champR("unova")>0},
  {id:"kalos",t:2,ic:"gem",n:"Champion von Kalos",d:"Werde in Kalos Champion.",chk:()=>_champR("kalos")>0},
+ {id:"kfossil",t:2,ic:"relic",n:"Urzeit-Duo",d:"Habe Monargoras und Amagarga gleichzeitig im Team.",chk:()=>{const a=_all().map(u=>u.sp);return a.includes(697)&&a.includes(699);}},
+ {id:"kmega",t:3,ic:"mega",n:"Kalos-Mega",d:"Rüste ein Kalos-Pokémon in Endstufe mit einem Megastein aus.",chk:()=>_all().some(u=>(u.items||[]).includes("mega")&&MEGA[u.sp]&&u.sp>=650&&u.sp<=721)},
+ {id:"kfairy",t:2,ic:"star",n:"Feenzauber",d:"Habe 4 Fee-Pokémon gleichzeitig im Raster.",chk:()=>_bu().filter(u=>SPECIES[u.sp].types.includes("fairy")).length>=4},
  {id:"purify5",t:2,ic:"heart",n:"Herzensöffner",d:"Erlöse insgesamt 5 Crypto-Pokémon.",prog:()=>[(META.stats||{}).purified||0,5]},
  {id:"dex100",t:2,ic:"dex",n:"Forscher",d:"Sieh 100 verschiedene Pokémon im Pokédex.",prog:()=>[_dexSeen(),100]},
  {id:"star2",t:2,ic:"star",n:"Doppelstern",d:"Bringe ein Pokémon auf ★★.",chk:()=>_all().some(u=>u.stars>=2)},
@@ -4420,7 +4494,8 @@ function dexCard(e){const shyV=DEXV.shy,has=shyV?e.shy:e.seen,num="#"+String(e.i
 function dexRender(){const E=window.__dexE||dexEntries(),q=DEXV.q.trim().toLowerCase();
   const L=E.filter(e=>(DEXV.r==="all"||e.reg===DEXV.r)&&(DEXV.f==="all"||(DEXV.f==="own"&&(DEXV.shy?e.shy:e.own))||(DEXV.f==="miss"&&!(DEXV.shy?e.shy:e.own))||(DEXV.f==="mega"&&e.mega))
     &&(!q||((e.seen||e.shy)&&e.name.toLowerCase().includes(q))||String(e.id)===q.replace("#","").replace(/^0+/,"")));
-  const g=$("dxGrid");g.innerHTML=L.length?L.map(dexCard).join(""):`<div class="empty">Nichts gefunden.</div>`;
+  const g=$("dxGrid");let lastR=null;const RG=Object.assign({},REGIONS,{later:{n:"Weitere"}}),GN={kanto:1,johto:2,hoenn:3,sinnoh:4,unova:5,kalos:6};
+  g.innerHTML=L.length?L.map(e=>{let h="";if(e.reg!==lastR){lastR=e.reg;const all=E.filter(x=>x.reg===e.reg),own=all.filter(x=>DEXV.shy?x.shy:x.own).length;h=`<div class="dxSep" style="--rc:${(REG_ART[e.reg]&&REG_ART[e.reg].grad.split(",")[0])||"#5a6280"}"><b>${esc(((RG[e.reg]||{}).n||e.reg).toUpperCase())}</b>${GN[e.reg]?`<small>${GN[e.reg]}. GENERATION</small>`:""}<span>${own}/${all.length}</span></div>`;}return h+dexCard(e);}).join(""):`<div class="empty">Nichts gefunden.</div>`;
   $("dxInfo").textContent=`${L.length} Einträge`+(DEXV.shy?" · Schillernd-Ansicht: farbig = schillernd gefangen":"")+" · Schloss = noch nicht im Shop-Pool";
   g.querySelectorAll(".pic[data-dsp]").forEach(el=>el.appendChild(spriteEl(+el.dataset.dsp,"",{shiny:!!el.dataset.sh,mega:el.dataset.mk||undefined})));
   g.querySelectorAll(".dxC").forEach(b=>b.onclick=()=>dexDetail(b.dataset.k));}
@@ -4568,8 +4643,8 @@ function resize(){
   GL.r.setSize(W,H,false);GL.fr.setSize(W,H,false);GL.cam.aspect=W/H;GL.cam.updateProjectionMatrix();
   const tan=Math.tan(THREE.MathUtils.degToRad(GL.cam.fov/2));
   const preset=(cx,cz,fitW,fitD,ang)=>{const a2=THREE.MathUtils.degToRad(ang);const d=Math.max(fitD/(2*tan)*1.2,fitW/(2*tan*GL.cam.aspect));const look=new THREE.Vector3(cx,0,cz);return{look,pos:look.clone().add(new THREE.Vector3(0,d*Math.sin(a2),d*Math.cos(a2)))};};
-  GL.presets.battle=preset(0,-1.7,13.4+(FW-8)*.9,5+(FH-5),23);
-  const side=W>900?330/W:0,RP=window.__rp||(H<480?[.1,1.4,1.3,2.2]:[.1,1.8,1.1,1.15]),Wv=(5.9+(PCOLS-3)*1.1)*RP[2]/(1-side);GL.presets.raster=preset(-(GXo-(PCOLS-1)/2)+RP[0]+side*Wv/2,RP[1],Wv,(5.5+(FH-5))*RP[3],46);
+  {const asp=W/H,bw=13.4+(FW-8)*.9;GL.presets.battle=preset(0,asp<.8?-1.2:-1.7,asp<.8?bw*.68:bw,5+(FH-5),asp<.8?30:23);}
+  const side=W>900?330/W:0,RP=window.__rp||(H<480?[.1,1.0,.72,1.12]:[.1,1.8,1.1,1.15]),Wv=(5.9+(PCOLS-3)*1.1)*RP[2]/(1-side);GL.presets.raster=preset(-(GXo-(PCOLS-1)/2)+RP[0]+side*Wv/2,RP[1],Wv,(5.5+(FH-5))*RP[3],46);
   if(!GL.inited){GL.inited=true;GL.camPos.copy(GL.presets[GL.view].pos);GL.camLook.copy(GL.presets[GL.view].look);}
 }
 function setView(v,instant){if(!GL)return;GL.view=v;if(instant&&GL.presets[v]){GL.camPos.copy(GL.presets[v].pos);GL.camLook.copy(GL.presets[v].look);}}
@@ -4905,7 +4980,7 @@ const LOCS={
  frescora:{region:"kalos",n:"Frescora",sub:"Windmühlendorf",kind:"jtown",ground:"grass",roofs:[0xb05a3a,0x6a7a8a],cam:[712,698,713,672]},
  frosthoehle:{region:"kalos",n:"Frosthöhle",sub:"Eisige Grotte",kind:"ice",ground:"ice",cam:[712,713,698,699]},
  fluxia:{region:"kalos",n:"Fluxia City",sub:"Sonnenuhr & Arena von Astrid",kind:"city",ground:"plaza",roofs:[0x6a5ad8,0xe0c050],cam:[677,678,686,655]},
- cromlexia:{region:"kalos",n:"Cromlexia",sub:"Dorf der Menhire",kind:"ruins",ground:"grass",cam:[703,679,688,708]},
+ cromlexia:{region:"kalos",n:"Cromlexia",sub:"Dorf der Menhire",kind:"route",ground:"grass",cam:[703,679,688,708]},
  mosaia:{region:"kalos",n:"Mosaia",sub:"Stadt am Wasserfall",kind:"lake",ground:"grass",cam:[692,690,704,714]},
  fractalia:{region:"kalos",n:"Fractalia City",sub:"Arena von Galantho",kind:"snowtown",ground:"grass",roofs:[0xe0e8f0,0x5a7aa0],cam:[712,713,698,699]},
  pokedorf:{region:"kalos",n:"Pokémon-Dorf",sub:"Versteck der Pokémon",kind:"forest",ground:"forest",cam:[704,705,711,676,685]},
@@ -5846,6 +5921,28 @@ function kTurbine(k,x,z,s){s=s||1;k.p("trunk","matte",x,0,z,.16*s,5*s,.16*s,0,0x
   if(k.static){for(let i=0;i<3;i++)k.p("boxc","matte",x+Math.sin(i*2.094+.3)*1.1*s,5.15*s+Math.cos(i*2.094+.3)*1.1*s,z+.24*s,.14*s,2.2*s,.05*s,0,0xf4f4f2,0,-(i*2.094+.3));return;}
   const rot=new THREE.Group();rot.position.set(x,5.15*s,z+.24*s);for(let i=0;i<3;i++){const m=new THREE.Mesh(K().boxc,kmat("matte"));m.scale.set(.14*s,2.2*s,.05*s);m.position.set(Math.sin(i*2.094)*1.1*s,Math.cos(i*2.094)*1.1*s,0);m.rotation.z=-i*2.094;m.castShadow=k.shadows;rot.add(m);}
   const hub=new THREE.Mesh(K().sph,kmat("matte"));hub.scale.setScalar(.16*s);rot.add(hub);k.add(rot);const sp=.8+k.R()*.4;k.anim.push((dt,t)=>{rot.rotation.z=-t*sp;});k.block(x-.4,z-.4,x+.4,z+.4);}
+/* Kalos: Prismaturm (Illumina City), Menhire (Cromlexia), Windmühle (Frescora) */
+function kPrismTower(k,x,z,s){s=s||1;k.at(x,0,z,0,s);const night=k.tod==="night",ST=0x8a96a8,ST2=0x6a7488;
+  k.p("box","matte",0,0,0,5,.5,5,0,0xb8b0a0);
+  let y=.5;const tiers=[[3.8,1.6],[3,1.5],[2.3,1.6],[1.7,1.7],[1.2,1.8],[.85,1.8],[.6,1.6]];
+  for(let i=0;i<tiers.length;i++){const[w,h]=tiers[i],w2=(tiers[i+1]||[w*.7])[0];
+    for(const sx of[-1,1])for(const sz of[-1,1]){const lx=(w+w2)/4*sx,lz=(w+w2)/4*sz;k.p("box","metal",lx,y,lz,.14,h,.14,0,ST,sz*(w-w2)*.35,-sx*(w-w2)*.35);}
+    k.p("box","metal",0,y+h-.08,0,w2+.16,.12,w2+.16,0,ST2);
+    for(const sz of[-1,1]){k.p("boxc","metal",0,y+h/2,sz*w2/2,w*1.1,.05,.05,0,ST,0,.75);k.p("boxc","metal",0,y+h/2,sz*w2/2,w*1.1,.05,.05,0,ST,0,-.75);}
+    if(i<3&&night)k.p("box","unlit",0,y+h-.2,0,w2*.9,.05,w2*.9,0,0xffe8a8);y+=h;}
+  k.p("cone6","glass",0,y,0,.55,1.2,.55,0,0xbfe8ff);k.p("ico","glowS",0,y+1.25,0,.38,.5,.38,0,night?0xfff0a0:0xd8f4ff);
+  const p=kwp(k,0,y+1.3,0);k.end();k.pt("add",0,0,p.x,p.y,p.z,(night?2.2:1.2)*s,night?0xffe090:0xbfe8ff,2,0,0,0);k.block(x-2.6*s,z-2.6*s,x+2.6*s,z+2.6*s);}
+function kMenhir(k,x,z,h,ry){const R=k.R;h=h||2.4;const col=[0x8a8478,0x7a7468,0x9a9284][Math.floor(R()*3)];
+  k.p("box","matte",x,0,z,.55+R()*.25,h,.42+R()*.2,ry||R()*3,col,(R()-.5)*.12,(R()-.5)*.12);k.p("ico","matte",x,h-.05,z,.32,.22,.28,R()*6,col);
+  k.p("ico","swayF",x+.25,.05,z+.2,.35,.18,.3,R()*6,0x5a8a3a);k.block(x-.4,z-.4,x+.4,z+.4);}
+function kMenhirRing(k,x,z,r,n){for(let i=0;i<n;i++){const a=i/n*Math.PI*2;kMenhir(k,x+Math.cos(a)*r,z+Math.sin(a)*r*.6,1.8+k.R()*1.6,a);}}
+function kWindmill(k,x,z,s){s=s||1;const R=k.R;k.p("cyl6","matte",x,0,z,1*s,3.2*s,1*s,0,0xf2ece0);k.p("cyl6","matte",x,3.2*s,z,.8*s,.4*s,.8*s,0,0xe0d8c8);k.p("cone6","matte",x,3.6*s,z,1*s,1.4*s,1*s,0,0x8a4a32);
+  k.p("box","matte",x,0,z+.98*s,.5*s,1*s,.06*s,0,0x5a3a24);k.p("box","unlit",x,1.9*s,z+.98*s,.36*s,.36*s,.05*s,0,k.tod==="night"?0xffd890:0x6a8ab0);
+  const bl=(g,i)=>{g.p("boxc","matte",0,0,0,.18*s,2.6*s,.05*s,0,0x6a4a30,0,-(i*Math.PI/2));};
+  if(k.static){for(let i=0;i<4;i++)k.p("boxc","matte",x+Math.sin(i*1.5708+.4)*1.3*s,3.3*s+Math.cos(i*1.5708+.4)*1.3*s,z+1.05*s,.34*s,2.4*s,.05*s,0,0xe8e0d0,0,-(i*1.5708+.4));return;}
+  const rot=new THREE.Group();rot.position.set(x,3.3*s,z+1.05*s);for(let i=0;i<4;i++){const m=new THREE.Mesh(K().boxc,kmat("matte"));m.scale.set(.34*s,2.4*s,.05*s);m.position.set(Math.sin(i*1.5708)*1.3*s,Math.cos(i*1.5708)*1.3*s,0);m.rotation.z=-i*1.5708;m.material=kmat("matte");m.castShadow=k.shadows;rot.add(m);}
+  rot.children.forEach(m=>{m.material=m.material.clone();m.material.color.setHex(0xe8e0d0);});
+  const hub=new THREE.Mesh(K().sph,kmat("matte"));hub.scale.setScalar(.2*s);rot.add(hub);k.add(rot);const sp=.5+R()*.3;k.anim.push((dt,t)=>{rot.rotation.z=-t*sp;});k.block(x-1.1*s,z-1.1*s,x+1.1*s,z+1.1*s);}
 function kRadioTower(k,x,z,s){s=s||1;k.at(x,0,z,0,s);const night=k.tod==="night";k.p("box","matte",0,0,0,3.4,2.2,2.4,0,0xe8e4dc);for(let i=0;i<4;i++)k.p("box","unlit",-1.2+i*.8,1.1,1.21,.5,.5,.04,0,night?0xffe0a0:0x8ab4d4);
   k.p("box","unlit",0,.12,1.21,1,.8,.04,0,night?0xffe6b0:0xb8e0f8);k.p("plane","sign:Radioturm:#d8402e:#ffffff",0,1.85,1.23,2.2,.36,1);
   let y=2.2;for(let i=0;i<9;i++){const w=1.5*(1-i*.085),h=.9;for(const sx of[-1,1])for(const sz of[-1,1])k.p("box","matte",sx*w/2,y,sz*w/2,.08,h,.08,0,i%2?0xf4f4f0:0xd8402e);k.p("box","matte",0,y+h-.06,0,w+.06,.08,w+.06,0,i%2?0xf4f4f0:0xd8402e);
@@ -5952,7 +6049,7 @@ function bBeach(k,L,id){const R=k.R,an=id==="anemonia";
     for(let z=-6.8;z>-11;z-=.4)k.p("box","matte",3.6,.06,z,1.8,.1,.36,0,vary(0xb08254,R,.07));k.cams=[{sp:226,x:-4.2,z:-11.8,mode:"hop",s:1.1},{sp:72,x:5.4,z:-10.6,mode:"hop"}];k.usedCam=[226,72];}
   else{k.layers=["grass","dirt","sand"];arenaPatch(k,"r");kPath(k,[[-30,-5.6],[30,-5.4]],1.6,"r");kSea(k,x=>-10.2+Math.sin(x*.27)*.6,-1,{sandW:4.6});
     kPC(k,-11.6,-2.8,Math.PI/2-.25);kMart(k,11.8,-3,-Math.PI/2+.25);kHouse(k,-12.4,3.8,Math.PI/2,L.roofs[1],2.4,2,1.4);kHouse(k,12.6,3.6,-Math.PI/2,L.roofs[0],2.4,2,1.4);
-    for(const[x,z] of [[-6.8,-8.2],[7.2,-8.4],[-2.6,-8.8]])kPalm(k,x,z,1+R()*.2);k.at(4.2,0,-8.8,.5);k.p("box","matte",0,0,0,1.8,.3,.7,0,0x8a5a34);k.p("box","matte",0,.18,0,1.6,.12,.56,0,0x3a6ad8);k.end();
+    for(const[x,z] of [[-6.8,-8.2],[7.2,-8.4],[-2.6,-8.8]])kPalm(k,x,z,1+R()*.2);k.p("cyl6","matte",2.4,0,-9.9,.05,1.9,.05,0,0xe8e8e8);k.p("cone6","matte",2.4,1.75,-9.9,1.15,.42,1.15,0,0xe0402e);k.p("box","matte",2.9,.02,-9.4,1.5,.04,.7,.35,0x3a8ad8);k.block(1.6,-10.6,3.8,-8.8);
     for(let i=0;i<6;i++){const x=(R()*2-1)*14,z=-12.5-R()*5;kRock(k,x,z,.7+R(),0x7a7a82);k.p("ring","ripple",x,.04,z,1,1,1,0);}for(const x of [-8,-3,3,8])kLamp(k,x,-6.6);
     for(const sx of[-1,1])kBench(k,sx*5.4,-6.8,Math.PI);kFlowerBed(k,-7.6,-3.6,1.6,.5,0);kFlowerBed(k,7.8,-3.8,1.6,.5,0);k.cams=[{sp:129,x:-3,z:-12.6,mode:"jump"},{sp:116,x:4.6,z:-13.2,mode:"hop"}];k.usedCam=[129,116];}
   dress(k,{grass:an?4:12,flowers:an?3:14,rocks:3,rim:an?12:26});ambient(k);}
@@ -6030,7 +6127,7 @@ escissia:{w:"leaves_g",p:[["kFlowerBed",-7.5,-7,2,.6,0]]},
 aquarellia:{w:"bfly",p:[["kFountain",0,-9.6,1]]},
 kroute2:{w:"leaves_g",p:[["kSign",7.5,-6,"Route 2"]]},
 nouvaria:{t:"day",w:"bfly",p:[["kFountain",0,-9.6,1]]},
-illumina:{t:"night",w:"sparkle",p:[["kRadioTower",0,-13,1.1]]},
+illumina:{t:"night",w:"sparkle",p:[["kPrismTower",-9.5,-11,1.25]]},
 vanitea:{t:"sunset",w:"petals",p:[["kStatue",-8,-8,0],["kStatue",8,-8,0]]},
 kroute7:{w:"petals",p:[["kFlowerBed",-7.5,-7,2,.6,0],["kFlowerBed",7.5,-7,2,.6,0]]},
 relievera:{t:"sunset",w:"gulls",p:[["kBoulder",-9,-8,1.2]]},
@@ -6041,10 +6138,10 @@ tempera:{w:"gulls",p:[["kCrate",-8,-7,1,0],["kBarrel",8,-7,1]]},
 kkraftwerk:{t:"night",w:"embers",p:[["kTurbine",-11,-11,.8]]},
 romantia:{t:"sunset",w:"fireflies",p:[["kShroom",-8,-7,1.2],["kShroom",8.5,-7.5,1]]},
 hotelruine:{t:"night",w:"fog",p:[["kDeadTree",-9,-8,1]]},
-frescora:{t:"sunset",w:"leaves_r",p:[["kTurbine",-11,-11,.8],["kMaple",9,-8,1]]},
+frescora:{t:"sunset",w:"leaves_r",p:[["kWindmill",-10,-10,1],["kWindmill",11,-12,.9],["kMaple",9,-8,1]]},
 frosthoehle:{w:"snow"},
 fluxia:{t:"sunset",w:"sparkle",p:[["kStatue",0,-10.5,0]]},
-cromlexia:{t:"sunset",w:"fog",p:[["kBoulder",-9,-8,1.2],["kBoulder",9,-8.5,1.1],["kBoulder",0,-11,1.4]]},
+cromlexia:{t:"sunset",w:"fog",p:[["kMenhirRing",0,-11,3.4,9],["kMenhir",-9,-7.5,2.6],["kMenhir",9.5,-8,3.2],["kMenhir",-12,-10,2.2]]},
 mosaia:{w:"bubbles",p:[["kFall",-11.5,-12,3,4,0]]},
 fractalia:{t:"day",w:"snow",p:[["kSnowPine",-8.5,-8,1],["kSnowPine",8.5,-8,1]]},
 pokedorf:{t:"day",w:"fireflies",p:[["kTree",-8.5,-7,1.2],["kFall",11.5,-12,3,4,0]]},
@@ -6085,9 +6182,9 @@ const SIG_W={rain:k=>kSwarm(k,"alpha",1,2,90,[-12,12,-11,5],0,6,.07,0xa8c8f0,.5,
  sparkle:k=>kSwarm(k,"add",0,0,22,[-11,11,-11,5],.3,3.5,.07,0xd8e8ff,.4,[.6,.4,.6]),bubbles:k=>kSwarm(k,"add",0,6,14,[-10,10,-10,3],.2,2.5,.18,0xc8f0ff,.6,[.2,.2,.2]),
  embers:k=>kSwarm(k,"add",2,0,26,[-11,11,-11,4],0,.2,.1,[0xff9a3a,0xffd060],.45,[1,4,.4]),sand:k=>kSwarm(k,"alpha",1,2,40,[-14,14,-12,5],0,3,.09,0xe0c890,.4,[3,1.2,.4]),
  gulls:k=>{if(typeof kFlock==="function")kFlock(k,5,-14,4.5,0xf4f4f8);}};
-function sigApply(k,L,id){const S0=SIG[id];if(!S0)return;const fns={kWell,kApricorn,kSign,kLighthouse,kTorii,kMaple,kLantern,kStatue,kKiln,kRadioTower,kFountain,kWhirl,kSnowPine,kDragonStatue,kTree,kFlowerBed,kShroom,kStation,kPalm,kCrate,kBarrel,kTurbine,kFall,kBoulder,kShrine,kRainbow,kDeadTree};
-  for(const d of S0.p||[]){const f=fns[d[0]];if(!f)continue;let [x,z]=[d[1],d[2]];if(d[0]!=="kRainbow"&&d[0]!=="kFall"&&d[0]!=="kWhirl"){let ok=false;for(const [dx,dz] of [[0,0],[1.5,0],[-1.5,0],[0,-1.5],[2.5,-1],[-2.5,-1],[0,-3],[3.5,0],[-3.5,0]]){if(k.free(x+dx,z+dz,.7)){x+=dx;z+=dz;ok=true;break;}}if(!ok)continue;}
-    try{f(k,x,z,...d.slice(3));if(k.block&&d[0]!=="kRainbow")k.block(x-.9,z-.7,x+.9,z+.7);}catch(e){}}
+function sigApply(k,L,id){const S0=SIG[id];if(!S0)return;const fns={kPrismTower,kMenhir,kMenhirRing,kWindmill,kWell,kApricorn,kSign,kLighthouse,kTorii,kMaple,kLantern,kStatue,kKiln,kRadioTower,kFountain,kWhirl,kSnowPine,kDragonStatue,kTree,kFlowerBed,kShroom,kStation,kPalm,kCrate,kBarrel,kTurbine,kFall,kBoulder,kShrine,kRainbow,kDeadTree};
+  for(const d of S0.p||[]){const f=fns[d[0]];if(!f)continue;let [x,z]=[d[1],d[2]];if(d[0]!=="kRainbow"&&d[0]!=="kFall"&&d[0]!=="kWhirl"){let ok=false;for(const [dx,dz] of [[0,0],[1.5,0],[-1.5,0],[0,-1.5],[2.5,-1],[-2.5,-1],[0,-3],[3.5,0],[-3.5,0]]){if(k.free(x+dx,z+dz,.7)){x+=dx;z+=dz;ok=true;break;}}if(!ok){if(window.__sigDbg)console.warn("SIG skip",d[0],x,z);continue;}}
+    try{f(k,x,z,...d.slice(3));if(k.block&&d[0]!=="kRainbow")k.block(x-.9,z-.7,x+.9,z+.7);}catch(e){if(window.__sigDbg)console.warn("SIG",d[0],e.message);}}
   if(S0.w&&SIG_W[S0.w])try{SIG_W[S0.w](k);}catch(e){}}
 function camOK(L,id,sp){if(!L||L.region==="kanto")return true;const S0=SIG[id];if(S0&&S0.keep&&S0.keep.includes(sp))return true;if((L.cam||[]).includes(sp))return true;
   const n=parseInt(String(sp).replace(/^s/,""),10),g=(typeof REG_RANGE!=="undefined"&&REG_RANGE[L.region])||null;return !g||(n>=g[0]&&n<=g[1]);}
@@ -6958,7 +7055,7 @@ function expLevel(r){return clamp(expPLv(r)+1,1,8);}
 const unitVal=r=>2+(r-1)*.62;
 function genEnemies(p){
   const r=S.round,boss=BOSSES[r];let list=[];
-  if(boss)list=boss.units.map(([sp,st,x,y,m,fl])=>Object.assign(mkUnit(sp,st),{x:exOld(x),y:eyOld(y),mult:m,gifts:r>=10&&!(fl||"").includes("r")?[pick(GIFTS.filter(g=>g.id!=="g_slot")).id,...(r>=16?[pick(GIFTS.filter(g=>g.id!=="g_slot")).id]:[])]:[]},(fl||"").includes("c")||(fl||"").includes("r")?{crypto:1}:{},(fl||"").includes("r")?{raid:1}:{}));
+  if(boss)list=boss.units.map(([sp,st,x,y,m,fl])=>Object.assign(mkUnit(sp,st),{x:exOld(x),y:eyOld(y),mult:m,gifts:r>=10&&!(fl||"").includes("r")?[pick(GIFTS.filter(g=>g.id!=="g_slot")).id,...(r>=16?[pick(GIFTS.filter(g=>g.id!=="g_slot")).id]:[])]:[]},(fl||"").includes("c")||(fl||"").includes("r")?{crypto:1}:{},(fl||"").includes("r")?{raid:1}:{},(fl||"").includes("m")&&MEGA[sp]?{items:["mega"]}:{}));
   else{
     const D=DIFF[p.type],lvE=expLevel(r);
     const bu=boardUnits(),pv=bu.reduce((a,u)=>a+unitCost(u)+(u.items||[]).length*1.6+(u.gifts||[]).length*1.2,0);
@@ -7004,7 +7101,10 @@ const EVENTS=[
  {id:"gift",ic:"spark",n:"Weise Trainerin",d:"Ein zufälliges Pokémon im Raster erhält eine Fusionsgabe.",w:2},
  {id:"shiny",ic:"shiny",n:"Schillernde Quelle",d:"Im nächsten Shop ist ein Pokémon garantiert schillernd.",w:1},
  {id:"scout",ic:"eye",n:"Späher",d:"Nächster Kampf: Gegner −15 % Werte. Dafür gibt es kein Zinsgold diese Runde.",w:1,risk:"Kompromiss"},
- {id:"mart",ic:"store",n:"Ausverkauf im Pokémon-Markt",d:"Die nächsten 2 Mal neu würfeln sind gratis.",w:2}
+ {id:"mart",ic:"store",n:"Ausverkauf im Pokémon-Markt",d:"Die nächsten 2 Mal neu würfeln sind gratis.",w:2},
+ {id:"fossil",reg:"kalos",ic:"relic",n:"Fossillabor Petrophia",d:"Ein wiederbelebtes Urzeit-Pokémon schließt sich dir an: Balgoras oder Amarino.",w:2},
+ {id:"erkenntnis",reg:"kalos",ic:"mega",n:"Turm der Erkenntnis",d:"Der Meister schenkt dir einen Megastein. Hast du schon einen: +{g} Gold.",w:1},
+ {id:"flare",reg:"kalos",ic:"flag",n:"Team-Flare-Kontrolle",d:"Zahle {t} Gold Schutzgeld und erhalte ein Kalos-Item. Reicht dein Gold nicht, sind die Gegner im nächsten Kampf 20 % stärker.",w:1,risk:"Kosten"}
 ];
 const EV_REG={kanto:{chest:"Silph-Lieferung",trader:"Rocket-Hehler",egg:"Ei der Pension"},johto:{chest:"Aprikoko-Ernte",altar:"Schrein im Steineichenwald",gamble:"Spielhalle Dukatia"},hoenn:{chest:"Geheimbasis",trader:"Devon-Vertreter",shiny:"Glitzernde Meeresströmung"},sinnoh:{gems:"Untergrund-Grabung",chest:"Hamanasu-Park",altar:"Ruinen von Trostu"},unova:{gamble:"Musical-Wette",trader:"Händler in Stratos",chest:"Fund in der Wüste"},kalos:{chest:"Boutique in Illumina",trader:"Flare-Händler",shiny:"Glitzerspur im Pokémon-Dorf",egg:"Ei vom Fossillabor"}};
 
@@ -7020,7 +7120,7 @@ function cryptoChoice(cb){const seen=new Set(),opts=[];for(const e of (S.enc&&S.
   $("mbox").querySelectorAll(".choice").forEach(b=>b.onclick=()=>{const e=pickO[+b.dataset.i],f=S.bench.indexOf(null);if(f<0)return;const u=mkUnit(e.sp,0);u.crypto=CRYPTO.purify;S.bench[f]=u;dexUp(u.sp,d=>d.owned++);closeModal();toast(`${SPECIES[u.sp].name} schließt sich dir an: Crypto-Pokémon`,"heart");sfx("coin");render();save();cb&&cb();});
   $("cSkip").onclick=()=>{S.gold+=3;closeModal();render();save();cb&&cb();};}
 function eventOptions(){const g=4+Math.floor(S.round/2),st=Math.max(3,Math.min(12,Math.floor((S.gold||0)/2))),tr=Math.max(5,6+Math.floor(S.round/4));
-  const ok=EVENTS.filter(e=>!(e.id==="candy"&&!allUnits().some(u=>SPECIES[u.sp].next))&&!(e.id==="altar"&&(S.relics.length>=RELIC_MAX||Math.random()<.6))&&!(e.id==="gift"&&!boardUnits().length)&&!(e.id==="egg"&&S.round>17));
+  const ok=EVENTS.filter(e=>!(e.reg&&e.reg!==(S.region||"kanto"))&&!(e.id==="erkenntnis"&&(S.round<6||S.megaFound||S.megaGift))&&!(e.id==="candy"&&!allUnits().some(u=>SPECIES[u.sp].next))&&!(e.id==="altar"&&(S.relics.length>=RELIC_MAX||Math.random()<.6))&&!(e.id==="gift"&&!boardUnits().length)&&!(e.id==="egg"&&S.round>17));
   const bag=[];for(const e of ok)for(let i=0;i<(e.w||1);i++)bag.push(e);const out=[];let gd=0;while(out.length<3+perk("treasure")&&bag.length&&gd++<60){const e=pick(bag);if(!out.some(o=>o.id===e.id))out.push(e);}
   const rn=(EV_REG[S.region||"kanto"]||{});return out.map(e=>({...e,n:rn[e.id]||e.n,d:e.d.replace("{g}",g).replace(/\{s\}/g,st).replace("{s3}",st*3).replace("{t}",tr),g,st,tr}));}
 function pickLocs(n){const recent=new Set(Object.values(S.locs||{}).slice(-3));const c=shuffle(LOC_POOL.filter(k=>!recent.has(k)));return c.slice(0,n);}
@@ -7067,7 +7167,7 @@ function winFeat(en){const cnt=SYN_ON?synCounts(boardUnits()):null,M=[];for(cons
 const WC_TY={easy:.84,mid:.3,hard:.37,elite:0,rocket:-.29};
 const winChance=(en,ty)=>{if(!en||!en.length||!boardUnits().length)return .5;let z=WC_W[0];try{const f=winFeat(en);z+=WC_W[1]*f[0]+WC_W[2]*f[1];z=.958*z+(BOSSES[S.round]&&(!ty||ty==="boss")?WC_W[3]:(WC_TY[ty]||0))+(en.some(e=>e.crypto)?-.15:0);}catch(e){z=(winShare(en)-.45)*38;}return Math.max(.03,Math.min(.95,1/(1+Math.exp(-z))));};
 function chanceTag(p,big){const [t,c]=p>=.9?["Sicher","var(--green)"]:p>=.65?["Gut","var(--cyan)"]:p>=.35?["Riskant","var(--amber)"]:["Gefährlich","var(--red)"];const v=Math.round(p*100);return `<div class="chance${big?" big":""}" style="--cc:${c}" title="Geschätzte Siegchance (grobe Schätzung aus Stärke und Typen)"><span class="cl">${ic("trophy")}Siegchance</span><span class="cbar"><i style="width:${v}%"></i></span><b>~${v}%</b><em>${t}</em></div>`;}
-const enemyScale=()=>(S&&S.scout?.85:1)*1.0*(1+Math.max(0,S.round-8)*.02+Math.max(0,S.round-14)*.012)*MODES[S.mode].enemy*(S.revanche?1+S.revives*Math.max(.03,MODES[S.mode].revive-.03*perk("phoenix")):1);
+const enemyScale=()=>(S&&S.scout?.85:1)*(S&&S.flare?1.2:1)*1.0*(1+Math.max(0,S.round-8)*.02+Math.max(0,S.round-14)*.012)*MODES[S.mode].enemy*(S.revanche?1+S.revives*Math.max(.03,MODES[S.mode].revive-.03*perk("phoenix")):1);
 // Sprite nach sichtbarem Inhalt zentrieren (GIF-Leinwand ist oft einseitig leer, z.B. Schweif)
 function centerSpr(img){if(!img||img.tagName!=="IMG")return img;
   const go=()=>{try{const w=img.naturalWidth,h=img.naturalHeight;if(!w||!h)return;const c=document.createElement("canvas");c.width=w;c.height=h;const x=c.getContext("2d");x.drawImage(img,0,0);const d=x.getImageData(0,0,w,h).data;
@@ -7118,6 +7218,9 @@ function chooseEvent(i){
   const e=S.enc.options[i];const free=S.bench.indexOf(null);
   if(e.id==="wild"){const t=rollTier();const L=pick(pool().filter(l=>l.tier<=t))||pick(pool());if(free>=0){S.bench[free]=mkUnit(L.stages[0][0]);dexUp(L.stages[0][0],d=>{d.seen++;d.owned++;});toast(`${L.stages[0][1]} schließt sich an!`,"grass");}else{S.gold+=COST[L.tier];toast("Bank voll: stattdessen Gold","coin");}}
   else if(e.id==="chest")S.gold+=e.g;
+  else if(e.id==="fossil"){const sp=Math.random()<.5?696:698;if(free>=0){S.bench[free]=mkUnit(sp);dexUp(sp,d=>{d.seen++;d.owned++;});toast(`${SPECIES[sp].name} ist wiederbelebt!`,"relic");}else{S.gold+=COST[3];toast("Bank voll: stattdessen Gold","coin");}}
+  else if(e.id==="erkenntnis"){if(!S.megaFound&&!S.megaGift){S.megaGift=true;toBag("mega");toast("Megastein erhalten!","mega");}else{S.gold+=e.g;}}
+  else if(e.id==="flare"){if(S.gold>=e.tr){S.gold-=e.tr;const k=pick(ITEMS.filter(x=>x.reg==="kalos")).id;toBag(k);toast("Team Flare zieht ab. Du erhältst ein Kalos-Item.","flag");}else{S.flare=true;toast("Zu wenig Gold: Team Flare stärkt die Gegner im nächsten Kampf!","flag");}}
   else if(e.id==="scroll")toBag(pickItem(["r"]));
   else if(e.id==="candy"){const c=allUnits().filter(u=>SPECIES[u.sp].next);if(c.length){const u=pick(c);const from=u.sp;evolve(u);S.fuseQ.push({uid:u.uid,from});}}
   else if(e.id==="train")gainXP(5);
@@ -9289,7 +9392,7 @@ function report(){
 function nextRound(prize){
   const go=()=>{enterBattleMode(false);clearZones();S.round++;S.phase="shop";B=null;$("texts").innerHTML="";clearVis();clearFx();rollShop();setupRound();setView("raster",true);
     if(BOSSES[S.round])toast(`Bossrunde: ${BOSSES[S.round].name}`,"crown");
-    if(S.scout&&S.history[S.round-1]&&S.history[S.round-1]!=="event"){S.scout=false;}if(S.noInterest&&S.history[S.round-1]!=="event")S.noInterest=false;
+    if(S.scout&&S.history[S.round-1]&&S.history[S.round-1]!=="event"){S.scout=false;}if(S.flare&&S.history[S.round-1]&&S.history[S.round-1]!=="event"){S.flare=false;}if(S.noInterest&&S.history[S.round-1]!=="event")S.noInterest=false;
     if(S.eggs&&S.eggs.length){const due=S.eggs.filter(e=>e.r<=S.round);S.eggs=S.eggs.filter(e=>e.r>S.round);for(const eg of due){const L=pick(pool().filter(l=>l.tier===eg.t))||pick(pool());const f=S.bench.indexOf(null);const id=L.stages[0][0];if(f>=0){const u=mkUnit(id,0,Math.random()<.08);S.bench[f]=u;dexUp(id,d=>{d.seen++;d.owned++;if(u.shiny)d.shiny=(d.shiny||0)+1;});setTimeout(()=>toast(`Das Ei ist geschlüpft: ${L.stages[0][1]}!`,"heart"),600);}else{S.gold+=COST[L.tier];setTimeout(()=>toast("Ei geschlüpft, aber die Bank ist voll: Gold stattdessen","coin"),600);}}}
     delete S.purCounted;save();saveMeta();setTab("shop");render();purifyShow(()=>merges());};
   if(S.round===10&&S.history[10]==="boss"&&!S.megaGift&&!S.megaFound){S.megaGift=true;toBag("mega");toast((S.region==="johto"?"Die legendären Hunde hinterlassen":S.region==="hoenn"?"Die Regis hinterlassen":S.region==="sinnoh"?"Das Seen-Trio hinterlässt":S.region==="unova"?"Die Ritter der Redlichkeit hinterlassen":S.region==="kalos"?"Diancie hinterlässt":"Arktos hinterlässt")+" einen Megastein!","mega");}
@@ -9327,7 +9430,7 @@ function koFromSave(){if(!S)return;S.phase="ko";B={done:true,F:[],proj:[],zones:
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{setTab(b.dataset.tab);render();});
 $("btnReroll").onclick=()=>{sfx("click");doReroll();};$("btnXp").onclick=()=>buyXP();
 $("toRaster").onclick=()=>{setTab("raster");render();};
-$("toEnc").onclick=()=>{setTab("enc");render();};
+$("toEnc").onclick=()=>{setTab("enc");render();};$("infoTgl").onclick=()=>{document.body.classList.toggle("infoOpen");sfx("click",.04);};
 $("goldChip").onclick=e=>{e.stopPropagation();$("incPop").classList.toggle("show");};
 document.addEventListener("click",()=>$("incPop").classList.remove("show"));
 const setSpeed=v=>{speed=v;$("bSpeed").querySelector("span").textContent=speed+"×";};
@@ -9341,9 +9444,9 @@ function pauseMenu(){
   const resume=()=>{if(B)B.userPause=false;};
   const row=(id,icn,t,s,cls)=>`<button class="mbtn ${cls||""}" id="${id}"><span class="mi">${ic(icn)}</span><div><b>${t}</b><small>${s}</small></div></button>`;
   openModal(`<h2>${ic("menu")} PAUSE</h2><div class="pauseInfo"><span>${ic(MODES[S.mode].ic)} ${MODES[S.mode].n}</span><span>${ic("flag")} Runde ${S.round}/20</span><span>${ic("coin")} ${S.gold} Gold</span><span>${ic("trophy")} ${S.wins} Siege</span><span>${ic("heart")} ${S.revives} Wiederbelebungen</span></div>
-   <div class="setList pgrid">${row("pRes","play","Weiterspielen",inB?"Der Kampf läuft weiter":"Zurück ins Spiel","main")}${row("pSave","check","Jetzt speichern",typeof CL!=="undefined"&&CL.sess?"Sichert sofort in die Cloud, ohne Abmelden":"Sichert sofort auf diesem Gerät")}${row("pHelp","help","Anleitung","So funktioniert Pokélings")}${row("pSnd","bolt",SFX.label(),"Klicken zum Wechseln")}${row("pGfx","eye",typeof gfxLabel==="function"?gfxLabel():"Grafik","Klicken zum Wechseln")}${row("pLang","dex",LANG==="en"?"Language: English":"Sprache: Deutsch",LANG==="en"?"Click: Deutsch":"Klicken: English")}
+   <div class="setList pgrid">${row("pRes","play","Weiterspielen",inB?"Der Kampf läuft weiter":"Zurück ins Spiel","main")}${row("pHelp","help","Anleitung","So funktioniert Pokélings")}${row("pSnd","bolt",SFX.label(),"Klicken zum Wechseln")}${row("pGfx","eye",typeof gfxLabel==="function"?gfxLabel():"Grafik","Klicken zum Wechseln")}${row("pLang","dex",LANG==="en"?"Language: English":"Sprache: Deutsch",LANG==="en"?"Click: Deutsch":"Klicken: English")}
    ${row("pMenu","logout","Hauptmenü",inB?"Achtung: ein laufender Kampf zählt als Niederlage":"Spielstand wird gespeichert")}${row("pQuit","flag","Lauf aufgeben","Beendet den Lauf, du bekommst Edelsteine für deinen Fortschritt","danger")}</div>`,"narrow pauseM",resume);
-  $("pRes").onclick=()=>{closeModal();resume();};$("pSave").onclick=()=>saveNow($("pSave"));$("pHelp").onclick=()=>{help();};
+  $("pRes").onclick=()=>{closeModal();resume();};$("pHelp").onclick=()=>{help();};
   $("pSnd").onclick=()=>{$("pSnd").querySelector("b").textContent=SFX.cycle();sfx("coin");};$("pGfx").onclick=()=>{$("pGfx").querySelector("b").textContent=gfxCycle();};$("pLang").onclick=()=>setLang(LANG==="en"?"de":"en");
   $("pMenu").onclick=()=>{closeModal();if(inB){abortBattle();}showMenu();};
   $("pQuit").onclick=()=>{openModal(`<h2>${ic("flag")} LAUF AUFGEBEN?</h2><div class="lead">Der Lauf endet in Runde ${S.round}. Du bekommst Edelsteine für deinen bisherigen Fortschritt. Das kann nicht rückgängig gemacht werden.</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="qYes">${ic("flag")} JA, AUFGEBEN</button><button class="btn" id="qNo">${ic("back")} Doch nicht</button></div>`,"narrow",()=>pauseMenu());
@@ -9390,9 +9493,9 @@ requestAnimationFrame(frame);
   if(navigator.webdriver||window.__noIntro||seen)go();else{try{sessionStorage.setItem("pokelings_intro","1");}catch(e){}playIntro(go);}})();
 window.__pk={get GL(){return GL},step,buyXP,specOpts,SPECSall:SPECS,genEnemies,fuseUnits,canFuse,get S(){return S},get B(){return B},get META(){return META},startBattle,fight,buy,buyItem,merges,SPECIES,setSpeed,render,setTab,chooseEvent,rollPaths,choosePath,rerollPaths,signIn,newRun,register,login,gainXP,equip,stats,capFor,level,doReroll,showFusion,labScreen,refreshWorld,sell,toBag,genEnemies,expCap,LOCS,setArenaLoc,setView,resize,pow:(u,m,mine)=>powOf(armyStats(u,m,mine)),winShare,escale:()=>enemyScale()};
 </script>
-<script>(function(){var t0=Date.now(),l=document.getElementById("bootLd");if(!l)return;var t=document.getElementById("bootTxt");if(t)t.textContent="BAUE DIE WELT AUF …";var b=document.getElementById("bootBar");if(b)b.style.width="100%";
+<script>(function(){var t0=Date.now(),l=document.getElementById("bootLd");if(!l)return;var t=document.getElementById("bootTxt");if(t)t.textContent="BAUE DIE WELT AUF …";var q=document.getElementById("bootPct");if(q)q.textContent="100 %";var b=document.getElementById("bootBar");if(b)b.style.width="100%";
 function ready(){return document.querySelector(".screen.show,#intro,#stScene")||(typeof S!=="undefined"&&!!S);}
-(function chk(){if(ready()||Date.now()-t0>30000){setTimeout(function(){l.style.opacity=0;setTimeout(function(){l.remove();try{clearInterval(__tipT)}catch(e){}},450);},700);}else setTimeout(chk,120);})();})();</script>
+(function chk(){if(ready()||Date.now()-t0>30000){setTimeout(function(){l.style.opacity=0;setTimeout(function(){l.remove();try{clearInterval(__tipT);clearInterval(__parT);clearInterval(__tipT0)}catch(e){}},450);},700);}else setTimeout(chk,120);})();})();</script>
 </body>
 </html>
 
