@@ -864,7 +864,7 @@ body.menubg #arena{position:fixed!important;inset:0!important;z-index:595;border
 body.menubg #arena>*:not(#c3d){display:none!important}
 body.menubg .screen#menu,body.menubg .screen#auth{background:radial-gradient(ellipse at 50% 46%,rgba(10,14,30,.05) 0 30%,rgba(10,14,30,.55) 100%)}
 body.menubg .screen #bgcv{display:none}
-#menu .mwrap{width:min(470px,100%);display:flex;flex-direction:column;align-items:stretch}
+#menu .mwrap{width:min(520px,100%);display:flex;flex-direction:column;align-items:stretch}
 .big1{gap:12px;margin-bottom:4px}
 .big1 .lg{font-family:var(--px);font-size:46px;line-height:1;color:#ffcb05;letter-spacing:2px;
   text-shadow:3px 0 0 #2a5ab8,-3px 0 0 #2a5ab8,0 3px 0 #2a5ab8,0 -3px 0 #2a5ab8,3px 3px 0 #2a5ab8,-3px 3px 0 #2a5ab8,3px -3px 0 #2a5ab8,-3px -3px 0 #2a5ab8,0 7px 0 #16316e,4px 8px 0 #0b1a40}
@@ -2693,7 +2693,7 @@ body.duelB .cine-skip{display:none!important}
 #vs.v4 .v4T{position:absolute;z-index:8;right:16px;bottom:14px;width:40px;height:40px;opacity:0;animation:v4tf .3s .4s forwards}
 @keyframes v4tf{to{opacity:.8}}
 #vs.v4 .v4T svg{position:absolute;left:0;top:0;width:40px;height:40px;transform:rotate(-90deg)}
-#vs.v4 .v4T circle{fill:none;stroke-width:3.5}#vs.v4 .v4T .trk{stroke:rgba(255,255,255,.14);fill:rgba(11,13,19,.45)}#vs.v4 .v4T .prg{stroke:rgba(255,255,255,.85);stroke-dasharray:100.5;stroke-dashoffset:0;animation:v4drain 5s linear both}
+#vs.v4 .v4T circle{fill:none;stroke-width:3.5}#vs.v4 .v4T .trk{stroke:rgba(255,255,255,.14);fill:rgba(11,13,19,.45)}#vs.v4 .v4T .prg{stroke:rgba(255,255,255,.85);stroke-dasharray:100.5;stroke-dashoffset:0;animation:v4drain var(--vsd,5s) linear both}
 @keyframes v4drain{to{stroke-dashoffset:100.5}}
 #vs.v4 .v4T span{position:absolute;inset:0}
 #vs.v4 .v4T b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--px);font-weight:400;font-size:12px;color:#fff;text-shadow:2px 2px 0 #000;opacity:0;animation:v4tick 1s linear forwards}
@@ -2806,31 +2806,10 @@ body.duelB .cine-skip{display:none!important}
 #menu:has(#admWrap) #mLb{display:none}
 @media (max-width:1240px){#mLb.mLb{display:none}#menuBtns .mbtn.lbOnly{display:flex}}
 /* ===== v9.8: Menü + Bestenliste passen auf Laptops (geringe Bildschirmhöhe, z. B. 1366×768 oder 150 % Skalierung) ===== */
-#mLb.mLb{width:min(340px,calc((100% - 540px)/2 - 24px))}
-@media (max-height:880px){
-  .big1 .lg{font-size:36px}.big1 .ic{width:42px;height:42px}
-  .tagline{margin:6px 0 8px}.tagline span{padding:4px 12px 3px}
-  #menu .who{padding:3px 14px;font-size:15px;margin-bottom:8px;border-width:3px}
-  #menuBtns{padding:5px 6px}#menuBtns .mbtn{margin:0;padding:5px 12px 5px 32px;gap:12px}
-  #menuBtns .mbtn .mi{width:32px;height:32px;border-width:2px}#menuBtns .mbtn .mi .ic{width:18px;height:18px}
-  #menuBtns .mbtn b{font-size:11px}#menuBtns .mbtn small{font-size:13px;line-height:1.25}
-  .menuLoc{margin-top:6px;font-size:13px;padding:2px 10px}
-  #menu .fanNote{font-size:10px;bottom:4px}
-  #mLb.mLb{padding:12px;gap:6px;max-height:calc(100% - 90px)}
-  #mLb .lbRow{padding:5px 8px;gap:8px}#mLb .lbRank{width:24px;height:24px;font-size:10px}
-  #mLb .lbMain b{font-size:13px}#mLb .lbMain{gap:2px}#mLb .lbRegs i{width:15px;height:15px;font-size:6px}
-  #mLb .lbPts{font-size:12px}#mLb .lbMain small{font-size:10px}
-}
-@media (max-height:740px){
-  .big1 .lg{font-size:28px}.big1 .ic{width:32px;height:32px}.big1{margin-bottom:0}
-  .tagline{margin:4px 0 6px}.tagline span{font-size:8px}
-  #menu .who{font-size:13px;margin-bottom:6px}
-  #menuBtns .mbtn{padding:3px 10px 3px 30px}#menuBtns .mbtn .mi{width:28px;height:28px}#menuBtns .mbtn .mi .ic{width:16px;height:16px}
-  #menuBtns .mbtn small{font-size:12px}
-  .menuLoc{display:none}
-  #mLb .lbMain small{display:none}
-}
-@media (max-height:620px){#menuBtns .mbtn small{display:none}#menuBtns .mbtn{padding:4px 10px 4px 30px}}
+#mLb.mLb{width:min(370px,calc((100% - 540px)/2 - 24px))}
+#mLb .lbRow{padding:6px 8px;gap:8px}#mLb .lbRank{width:26px;height:26px;font-size:10px}
+/* v9.9: Menü + Bestenliste werden per menuFit() gleichmäßig an die Fensterhöhe angepasst; hier nur noch der Hinweis unten */
+@media (max-height:880px){#menu .fanNote{font-size:10px;bottom:4px}}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -4767,7 +4746,14 @@ function showMenu(){
   if($("mCont"))$("mCont").onclick=()=>{const rk=(S&&S.phase!=="over"&&S.region)||(sv&&sv.S&&sv.S.region)||"kanto";needReg(rk,()=>{hideScreens();if(!S||S.phase==="over")loadGame();setTab("shop");render();});};
   $("mNew").onclick=chooseMode;$("mMp").onclick=()=>mpModal();if($("mLbB")){$("mLbB").classList.add("lbOnly");$("mLbB").onclick=()=>menuLbModal();}try{menuLbMount();}catch(e){}if($("mFr")){$("mFr").insertAdjacentHTML("beforeend",`<em class="mBadge" id="mFrN" style="display:none"></em>`);$("mFr").onclick=()=>friendsModal();try{socBadges();}catch(e){}}$("mLab").onclick=()=>labScreen();$("mDex").onclick=()=>dexModal("dex");$("mAch").onclick=()=>achModal();if($("mCard"))$("mCard").onclick=()=>cardModal();$("mSet").onclick=settingsModal;
   const bs=[...$("menuBtns").querySelectorAll(".mbtn")];bs.forEach((b,i)=>{b.onmouseenter=()=>menuSel(i);});menuSel(0);
+  menuFit();
 }
+/* v9.9: Menü + Bestenliste wachsen mit der Fensterhöhe mit (gleichmäßig skaliert statt gestaucht, nie größer als in Full HD) */
+function menuFit(){try{const M=$("menu"),w=M&&M.querySelector(".mwrap"),lb=$("mLb");if(!w||!M.classList.contains("show")||w.style.display==="none")return;
+  w.style.zoom="";if(lb)lb.style.zoom="";const h=w.offsetHeight;if(!h)return;const Z=window.UIZ||1,H=innerHeight/Z,W=innerWidth/Z,lbOn=!!lb&&getComputedStyle(lb).display!=="none";
+  let z=Math.min(1,Math.max(.6,(H-96)/h));if(lbOn)z=Math.min(z,W/1360);z=Math.round(z*100)/100;const v=z<1?String(z):"";w.style.zoom=v;if(lb)lb.style.zoom=v;}catch(e){}}
+addEventListener("resize",()=>{clearTimeout(menuFit.t);menuFit.t=setTimeout(menuFit,80);});
+try{if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>menuFit());}catch(e){}
 function menuSel(i){const bs=[...$("menuBtns").querySelectorAll(".mbtn")];if(!bs.length)return;i=(i+bs.length)%bs.length;bs.forEach((b,j)=>b.classList.toggle("sel",j===i));$("menuBtns").dataset.sel=i;}
 document.addEventListener("keydown",e=>{if(!$("menu").classList.contains("show")||$("modal").classList.contains("show"))return;const i=+($("menuBtns").dataset.sel||0);
   if(e.key==="ArrowDown"||e.key==="s"){e.preventDefault();menuSel(i+1);sfx("click");}else if(e.key==="ArrowUp"||e.key==="w"){e.preventDefault();menuSel(i-1);sfx("click");}
@@ -8338,7 +8324,7 @@ function renderShop(){
   const g=$("shopRow");g.innerHTML="";g.style.setProperty("--n",S.shop.mons.length+1);
   const owned={};for(const u of allUnits())if(u.stars===0)owned[u.sp]=(owned[u.sp]||0)+1;
   /* Empfehlung: gleiche Entwicklungslinie schon im Team (z. B. Glurak ★1) → zum späteren Fusionieren sammeln */
-  const lineOwn={};for(const u of allUnits()){const k=SPECIES[u.sp].line.k,v=SPECIES[u.sp].stage*3+(u.stars||0);if(!lineOwn[k]||v>lineOwn[k].v)lineOwn[k]={u,v};}
+  const lineOwn={};for(const u of allUnits()){if(!canMerge(u))continue;const k=SPECIES[u.sp].line.k,v=SPECIES[u.sp].stage*3+(u.stars||0);if(!lineOwn[k]||v>lineOwn[k].v)lineOwn[k]={u,v};}
   S.shop.mons.forEach((it,i)=>{
     const c=document.createElement("div");
     if(!it){c.className="card empty";c.innerHTML=`<div class="sold">GEKAUFT</div>`;g.appendChild(c);return;}
@@ -11938,8 +11924,12 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="9.8.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="9.9"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"9.9",d:"29.10.2026",t:"Schnellfix",items:[
+  ["grid","Menü und Bestenliste wachsen mit der Fenstergröße mit und nutzen den Platz auf Laptops besser aus. Lange Titel in der Bestenliste sind wieder ganz zu sehen."],
+  ["swords","VS-Bildschirm: im Singleplayer nur noch 3 Sekunden, im Mehrspieler weiter 5 Sekunden."],
+  ["up","Shop: SAMMELN wird nicht mehr empfohlen, wenn die Linie schon voll ausgebaut ist (z. B. Serpiroyal ★★)."]]},
  {v:"9.8.5",d:"29.10.2026",t:"Schnellfix",items:[
   ["badge","VS-Karte: Abzeichen mit Pokémon sitzen jetzt mittig im Sechseck."],
   ["merge","Fusion: das Entwicklungsfenster erscheint sofort. Ob ein Shiny schillernd bleibt, siehst du erst am Ende der Animation, nicht schon vorher auf dem Feld."],
@@ -12463,7 +12453,7 @@ function enterBattleMode(on){document.body.classList.toggle("battle",on);documen
 /* VS-Bildschirm v4 (9.5): dein Hintergrund über die ganze linke Seite, dein Lieblingspokémon unten links, 3 Abzeichen nacheinander,
    VS-Einschlag in der Naht, rechts das gegnerische Team (Live-Duell: Karte des Gegners). 5 Sekunden, nicht überspringbar (lädt im Hintergrund). */
 function vsSplash(cb){
-  const boss=BOSSES[S.round],vs=$("vs"),enc=S.enc,D=DIFF[enc.type]||{n:""};
+  const boss=BOSSES[S.round],vs=$("vs"),enc=S.enc,D=DIFF[enc.type]||{n:""},vsSec=S.duel?5:3;
   const en=S.enemies||[],pwr=u=>(u.mult||1)*10+(u.stars||0)*3+((SPECIES[u.sp]||{}).stage||0)+(u.megaK?4:0),team=en.slice().sort((a,b)=>pwr(b)-pwr(a));
   let me;try{me=cardMine();}catch(e){me={name:USER||"Du",fav:25,bg:"std",title:"Trainer",badges:[]};}
   const op=S.duel?(DU.peerCard||{name:S.duel.peerName||"Gegner",fav:25,bg:"std",title:"Trainer",badges:[]}):null;
@@ -12487,7 +12477,7 @@ function vsSplash(cb){
    ${S.duel?`<div class="v4B R">${bdg(op)}</div>`:""}
    <div class="v4VS"><i class="bu"></i><i class="ri"></i>${spk}<b>VS</b></div>
    <i class="v4Fl"></i></div></div>
-   <div class="v4T" title="Kampf beginnt"><svg viewBox="0 0 40 40" aria-hidden="true"><circle class="trk" cx="20" cy="20" r="16"/><circle class="prg" cx="20" cy="20" r="16"/></svg><span><b>5</b><b>4</b><b>3</b><b>2</b><b>1</b></span></div>`;
+   <div class="v4T" title="Kampf beginnt" style="--vsd:${vsSec}s"><svg viewBox="0 0 40 40" aria-hidden="true"><circle class="trk" cx="20" cy="20" r="16"/><circle class="prg" cx="20" cy="20" r="16"/></svg><span>${Array.from({length:vsSec},(_,i)=>`<b>${vsSec-i}</b>`).join("")}</span></div>`;
   if(typeof cardHydrate==="function")cardHydrate(vs);else hydrateIcons(vs);
   const putFav=(sel,id,sh,fl)=>{const b=vs.querySelector(sel);if(b)try{const im=natFit(spriteEl(SPECIES[id]?id:25,"",{shiny:!!sh}),1);b.appendChild(typeof sprAlign==="function"?sprAlign(im,fl):im);}catch(e){}};
   putFav(".v4Fav.L .bob",me.fav,me.favSh,true);if(S.duel)putFav(".v4Fav.R .bob",op.fav,op.favSh,false);
@@ -12495,7 +12485,7 @@ function vsSplash(cb){
   $("bMine").textContent=(USER||"DU").toUpperCase();$("bMineS").textContent=`${boardUnits().length} Pokémon`;$("bEnemy").textContent=(S.duel?op.name:boss?boss.name:enc.name).toUpperCase();$("bEnemyS").textContent=S.duel?"Live-Duell":D.n+(S.revanche?" · Revanche":"");
   vs.onclick=null;vs.classList.add("show");sfx("vs");setTimeout(()=>{if(vs.classList.contains("show")){sfx("crit",.05);sfx("boom",.25);}},320);
   let done=false;const S0=S;const fin=()=>{if(done)return;done=true;vs.classList.add("out");setTimeout(()=>{vs.classList.remove("show","out");vs.innerHTML="";if(!S||S!==S0)return;cb();},window.__fast?0:360);};
-  setTimeout(fin,window.__fast?10:5000);
+  setTimeout(fin,window.__fast?10:vsSec*1000);
 }
 function fight(){if(S&&S.duel){duelReady();return;}if(typeof geistUpload==="function")geistUpload();if(!S||S.phase!=="shop"||!boardUnits().length||!S.enc||S.enc.type==="event")return;S.pending=true;save();delete S.pending;S.phase="intro";setTab("raster");syncArena();enterBattleMode(true);setView("battle");render();megaWarm();vsSplash(startBattle);}
 function megaWarm(){try{const us=[...boardUnits(),...(S.enemies||[])].filter(u=>(u.items||[]).includes("mega")&&MEGA[u.sp]);if(!us.length||typeof CINE==="undefined"||!CINE.warm)return;const keys=[];for(const u of us){const mf=megaForm(u.sp,roleOf(u),u.megaF);keys.push(sprKey(u.sp,u.shiny));if(mf)keys.push(sprKey(u.sp,u.shiny,mf.k));}setTimeout(()=>CINE.warm(keys),30);}catch(e){}}
