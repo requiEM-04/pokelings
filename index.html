@@ -2380,7 +2380,7 @@ body.duelB .cine-skip{display:none!important}
 .tcard{position:relative;width:250px;height:360px;border-radius:16px;overflow:hidden;border:4px solid #0b0d13;box-shadow:0 6px 0 rgba(0,0,0,.45),inset 0 0 0 3px rgba(255,255,255,.35);display:flex;flex-direction:column;align-items:center;color:#fff;flex:none}
 .tcBg{position:absolute;inset:0;z-index:0}.tcShine{position:absolute;inset:0;z-index:1;background:linear-gradient(160deg,rgba(255,255,255,.28),transparent 38%,transparent 70%,rgba(0,0,0,.35));pointer-events:none}
 .tcTop{position:relative;z-index:2;margin-top:12px;width:calc(100% - 24px);padding:6px 10px;border-radius:10px;background:rgba(10,12,22,.72);border:2px solid rgba(255,255,255,.18);text-align:center}
-.tcTop b{display:block;font-family:var(--px);font-size:14px;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tcTop small{display:block;font-size:11px;color:#ffd84a;font-weight:700;margin-top:2px}
+.tcTop b{display:block;font-family:var(--px);font-size:14px;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tcTop small{display:block;font-size:11px;color:#ffd84a;font-weight:700;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}.tcTop small.long{font-size:10px}.tcTop small.xl{font-size:9px;letter-spacing:-.01em}
 .tcAv{position:relative;z-index:2;flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center}
 .tcAv img{position:absolute;bottom:20px;left:50%;width:144px;height:180px;margin-left:-72px;image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(0,0,0,.35))}
 .tcAv img.f1{opacity:0;animation:tcCheer 1.1s steps(1) infinite}.tcAv img.f0{animation:tcCheer0 1.1s steps(1) infinite}
@@ -2748,6 +2748,47 @@ body.duelB .cine-skip{display:none!important}
 .admFbI{display:flex;flex-wrap:wrap;gap:5px}.admFbI span{font-size:10px;color:var(--muted);padding:2px 6px;border-radius:5px;background:rgba(255,255,255,.05)}
 .admFbR{margin-top:8px;padding:8px 10px;border-radius:8px;background:rgba(92,242,255,.06);border-left:3px solid var(--cyan)}.admFbR small{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--cyan)}.admFbR .ic{width:12px;height:12px}.admFbR p{margin:4px 0 0;white-space:pre-wrap;font-size:13px}
 .admFbW textarea{width:100%;height:80px;margin-top:8px;padding:8px 10px;border-radius:8px;border:2px solid rgba(255,255,255,.12);background:#0b0d13;color:#e8f2ff;font:14px/1.35 var(--ui);resize:vertical;box-sizing:border-box}.admFbW .rbtns{margin-top:6px}
+/* ===== v9.6: Freunde, Einladungen, Chat, Ranked ===== */
+.mBadge{position:absolute;right:12px;top:50%;transform:translateY(-50%);min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:#e0402e;color:#fff;font:700 12px/20px var(--ui);font-style:normal;text-align:center;box-shadow:0 0 0 2px #fff}
+.mpCard.ranked{--mc:#ffd84a}.mpCard.daily{grid-column:1/-1}
+.rkMe{display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-height:28px}.rkMe small{color:var(--muted);font-size:12px}
+.rkChip{display:inline-flex;align-items:center;gap:5px;padding:3px 9px 3px 7px;border-radius:12px;font:700 12px var(--ui);color:#0b0d13;background:var(--rc);white-space:nowrap;box-shadow:0 0 10px color-mix(in srgb,var(--rc) 45%,transparent)}
+.rkChip .ic{width:13px;height:13px}.rkChip b{font-weight:800}.rkChip.sm{font-size:11px;padding:2px 7px 2px 5px}.rkChip.sm .ic{width:11px;height:11px}
+.rkSearch{display:flex;align-items:center;justify-content:center;gap:12px;margin:14px 0 6px}.rkSearch b{font:16px var(--px);color:var(--amber)}
+.rkList{display:flex;flex-direction:column;gap:5px;max-height:min(calc(60*var(--vh,1vh)),520px);overflow:auto}
+.rkRow{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)}.rkRow.me{border-color:var(--cyan);background:rgba(92,242,255,.08)}
+.rkRow b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rkRow small{color:var(--muted);font-size:11px;white-space:nowrap}.rkPos{width:26px;text-align:center;font:11px var(--px);color:var(--amber)}
+.rkRes span:last-child{display:inline-flex;align-items:center;gap:6px}
+/* Einladung oben (wie in Brawl Stars) mit weißer Zeitleiste */
+.socBan{position:fixed;left:50%;top:10px;z-index:2600;width:min(520px,calc(calc(100*var(--vw,1vw)) - 20px));transform:translate(-50%,-140%);transition:transform .32s cubic-bezier(.2,1.3,.4,1);border-radius:14px;overflow:hidden;background:linear-gradient(180deg,#2a3352,#1b2136);border:3px solid #0b0d13;box-shadow:inset 0 0 0 2px rgba(255,255,255,.12),0 10px 30px rgba(0,0,0,.55)}
+.socBan.show{transform:translate(-50%,0)}.socBan.rk{background:linear-gradient(180deg,#4a3a10,#241c08)}.socBan.fr{background:linear-gradient(180deg,#1f3a4a,#14222e)}
+.sbMain{display:flex;align-items:center;gap:10px;padding:10px 12px 12px}
+.sbIc{width:40px;height:40px;flex:none;display:grid;place-items:center;border-radius:10px;background:rgba(255,255,255,.1);color:#fff}.sbIc .ic{width:22px;height:22px}.socBan.rk .sbIc{color:#ffd84a}
+.sbTx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.sbTx>b{font:13px var(--px);color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sbTx span{font-size:13px;color:#d8deea}.sbTx span b{font:inherit;font-weight:800;color:#fff}.socBan.rk .sbTx span b{color:#ffd84a}
+.sbYes,.sbNo{height:40px;border-radius:9px;border:3px solid #0b0d13;font:700 14px var(--ui);display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.sbYes{padding:0 14px;background:linear-gradient(#5ef08a,#26b052);color:#0b2010}.sbNo{width:40px;justify-content:center;background:linear-gradient(#ff7a7a,#d83a3a);color:#fff}.sbYes .ic,.sbNo .ic{width:16px;height:16px}
+.sbBar{position:absolute;left:0;bottom:0;height:5px;width:100%;background:#fff;box-shadow:0 0 8px rgba(255,255,255,.8);transform-origin:left;animation:sbBar 10s linear forwards}
+@keyframes sbBar{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.socWait{height:6px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden;margin:12px 0 4px}.socWait i{display:block;height:100%;background:#fff;transform-origin:left;animation:sbBar 15s linear forwards}
+/* Freunde */
+#mbox.frM{max-width:820px}.frHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}.frHead>span{display:inline-flex;align-items:center;gap:6px}.frHead .ic{width:15px;height:15px}
+.frTabs button em{font-style:normal;background:#e0402e;color:#fff;border-radius:8px;padding:0 5px;margin-left:4px;font-family:var(--ui);font-size:10px}.frTabs button em:empty{display:none}
+.frTop{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:12px;color:var(--muted)}.frTop select{padding:6px 8px;border-radius:6px;background:#0b0d13;color:#fff;border:2px solid rgba(255,255,255,.14)}
+.frList{display:flex;flex-direction:column;gap:6px;max-height:min(calc(52*var(--vh,1vh)),460px);overflow:auto;padding-right:2px}
+.frRow{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.07)}.frRow.on{border-color:rgba(77,255,166,.35)}
+.frMon{width:48px;height:48px;flex:none;display:flex;align-items:flex-end;justify-content:center;border-radius:8px;background:rgba(0,0,0,.25)}.frMon img{image-rendering:pixelated;transform:scaleX(-1)}
+.frInfo{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.frInfo b{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.frInfo small{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--muted)}
+.frDot{width:8px;height:8px;border-radius:50%;background:#6a7088}.frRow.on .frDot{background:#4dffa6;box-shadow:0 0 6px #4dffa6}
+.frAct{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.frAct .btn,.frAct .pri{position:relative;white-space:nowrap}.frAct em{position:absolute;top:-6px;right:-6px;min-width:16px;height:16px;border-radius:8px;background:#e0402e;color:#fff;font:700 10px/16px var(--ui);font-style:normal;text-align:center}
+.frAdd .favBar .pri{white-space:nowrap}
+@media (max-width:640px){.frRow{flex-wrap:wrap}.frAct{width:100%;justify-content:flex-start}}
+/* Chat */
+.chatList{display:flex;flex-direction:column;gap:6px;height:min(calc(50*var(--vh,1vh)),420px);overflow:auto;padding:10px;border-radius:10px;background:#0b0d13;border:2px solid rgba(255,255,255,.08)}
+.chatM{max-width:78%;align-self:flex-start;display:flex;flex-direction:column;gap:2px;padding:7px 10px;border-radius:10px 10px 10px 3px;background:#232a40;color:#e8eefc;font-size:14px;line-height:1.35;word-break:break-word}
+.chatM.me{align-self:flex-end;border-radius:10px 10px 3px 10px;background:linear-gradient(#2f6fd0,#2456a8);color:#fff}.chatM small{font-size:10px;opacity:.6;align-self:flex-end}
+.chatIn{display:flex;gap:8px;margin-top:8px}.chatIn input{flex:1;height:42px;padding:0 12px;border-radius:8px;border:2px solid rgba(255,255,255,.14);background:#0b0d13;color:#fff;font:15px var(--ui)}.chatIn .pri{white-space:nowrap}
+/* Admin-Vergabe */
+.admGTabs{margin:6px 0 10px}.admGTabs button{display:inline-flex;align-items:center;gap:6px}.admGTabs .ic{width:14px;height:14px}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -3236,7 +3277,7 @@ const LINES=[
  {k:"meteno",region:"alola",fb:1.45,tier:2,role:"tank",fly:1,m1:{n:"Sternschauer",t:"normal",s:"proj",p:1.2,cd:5,d:"Funkelnde Sterne: 120 %."},ab:{n:"Meteorpanzer",t:"rock",s:"shield",p:.45,d:"Die Kernschale wird hart: Schild über 45 % der KP, lockt Gegner an."},stages:[[774,"Meteno",["rock","flying"]]]},
  {k:"lusardin",region:"alola",fb:1.45,tier:2,role:"warrior",m1:{n:"Aquaknarre",t:"water",s:"strike",p:1.5,cd:4,d:"Wasserstoß: 150 %."},ab:{n:"Schwarmform",t:"water",s:"nova",p:2.3,r:1.6,d:"Ein riesiger Fischschwarm: 230 % an allen Gegnern im Umkreis."},stages:[[746,"Lusardin",["water"]]]},
  {k:"sankabuh",region:"alola",fb:1.3,tier:3,role:"tank",m1:{n:"Sandgrab",t:"ground",s:"debuff",p:.6,cd:6,fx:"blind",dur:2.5,d:"Wirbelnder Sand: 60 % und blendet das Ziel 2,5 s."},ab:{n:"Sandsammler",t:"ground",s:"shield",p:.45,heal:.12,d:"Saugt Sand auf: Schild über 45 % der KP und heilt 12 %."},stages:[[769,"Sankabuh",["ghost","ground"]],[770,"Colossand",["ghost","ground"]]]},
- {k:"mimigma",region:"alola",fb:1.4,tier:3,role:"assassin",m1:{n:"Schattenklaue",t:"ghost",s:"strike",p:1.5,cd:4,crit:.2,d:"Krallen unter dem Kostüm: 150 %, 20 % Krit-Chance."},ab:{n:"Kostümfluch",t:"ghost",s:"dash",p:2.8,st:"stun",d:"Taucht hinter dem Ziel auf: 280 %, betäubt kurz."},stages:[[778,"Mimigma",["ghost","fairy"]]]},
+ {k:"mimigma",excl:1,region:"alola",fb:1.4,tier:3,role:"assassin",m1:{n:"Schattenklaue",t:"ghost",s:"strike",p:1.5,cd:4,crit:.2,d:"Krallen unter dem Kostüm: 150 %, 20 % Krit-Chance."},ab:{n:"Kostümfluch",t:"ghost",s:"dash",p:2.8,st:"stun",d:"Taucht hinter dem Ziel auf: 280 %, betäubt kurz."},stages:[[778,"Mimigma",["ghost","fairy"]]]},
  {k:"knirfish",region:"alola",fb:1.4,tier:3,role:"berserk",m1:{n:"Psychozahn",t:"psychic",s:"strike",p:1.5,cd:4,d:"Psychischer Biss: 150 %."},ab:{n:"Kaskade",t:"water",s:"strike",p:2.8,st:"stun",d:"Schnellt wie ein Wasserfall hoch: 280 %, betäubt kurz."},stages:[[779,"Knirfish",["water","psychic"]]]},
  {k:"senlong",region:"alola",fb:1.4,tier:3,role:"mage",m1:{n:"Drachenwut",t:"dragon",s:"proj",p:1.3,cd:4,d:"Drachenatem: 130 %."},ab:{n:"Draco Meteor",t:"dragon",s:"aoe",p:2.5,r:1.5,d:"Meteore regnen herab: 250 % Flächenschaden."},stages:[[780,"Sen-Long",["normal","dragon"]]]},
  {k:"moruda",region:"alola",fb:1.4,tier:3,role:"warrior",m1:{n:"Ankerwurf",t:"steel",s:"strike",p:1.6,cd:4,st:"slow",d:"Schleudert den Anker: 160 % und verlangsamt."},ab:{n:"Phantomstoß",t:"ghost",s:"nova",p:2.2,r:1.6,d:"Der Anker kreist: 220 % an allen Gegnern im Umkreis."},stages:[[781,"Moruda",["ghost","grass"]]]},
@@ -3259,6 +3300,10 @@ const UNLOCK_COST={1:8,2:14,3:20,4:28,5:42};
 const COST={1:2,2:3,3:4,4:5,5:8};
 const SPECIES={};
 for(const L of LINES)L.stages.forEach((s,i)=>{SPECIES[s[0]]={id:s[0],name:s[1],types:s[2],line:L,stage:i,next:L.stages[i+1]?L.stages[i+1][0]:null};});
+// Exklusive Linien (rein kosmetisch, z. B. Mimigma für REQUIEM): bleiben in SPECIES für die Kampfkarte, sind aber nirgends spielbar (Pool, Labor, Pokédex, Gegner)
+for(let i=LINES.length-1;i>=0;i--)if(LINES[i].excl)LINES.splice(i,1);
+const exclOk=()=>typeof USER!=="undefined"&&!!USER&&String(USER).trim().toLowerCase()==="requiem";
+const isExcl=id=>!!(SPECIES[id]&&SPECIES[id].line&&SPECIES[id].line.excl);
 const STG=[1,1.8,3.1],STG_ATK=[1,1.62,2.65],STG_DEF=[1,1.35,1.75];
 const SYN_ON=false; // Synergien vorerst deaktiviert
 const SYN={fire:{k:"atk",v:.2,d:"Feuer +{v}% Angriff"},water:{k:"hp",v:.2,d:"Wasser +{v}% KP"},grass:{k:"regen",v:.015,d:"Pflanze regeneriert {v}% KP/s"},electric:{k:"as",v:.2,d:"Elektro +{v}% Angriffstempo"},psychic:{k:"mana",v:30,raw:1,d:"Psycho startet mit +{v} Energie"},fighting:{k:"atk",v:.2,d:"Kampf +{v}% Angriff"},rock:{k:"def",v:.3,d:"Gestein +{v}% Verteidigung"},ground:{k:"def",v:.3,d:"Boden +{v}% Verteidigung"},steel:{k:"def",v:.3,d:"Stahl +{v}% Verteidigung"},ghost:{k:"dodge",v:.15,d:"Geist weicht {v}% der Treffer aus"},dragon:{k:"both",v:.15,d:"Drache +{v}% KP & Angriff"},flying:{k:"as",v:.15,d:"Flug +{v}% Angriffstempo"},fairy:{k:"heal",v:.3,d:"Fee-Heilung +{v}%"},normal:{k:"hp",v:.2,d:"Normal +{v}% KP"},ice:{k:"atk",v:.2,d:"Eis +{v}% Angriff"},poison:{k:"poison",v:.02,d:"Gift-Treffer vergiften ({v}% KP/s, 3 s)"}};
@@ -3742,14 +3787,21 @@ function spriteEl(id,cls,o){
   if(id&&typeof id==="object"){o={shiny:id.shiny,mega:id.megaK};id=id.sp;}o=o||{};
   const sp=SPECIES[id]||{name:"?",types:["normal"]};const key=sprKey(id,o.shiny,o.mega);if(sprIdx[key]==="ph")return phEl(sp);
   const img=document.createElement("img");img.className=cls||"";img.alt=sp.name;img.draggable=false;
-  const urls=SPR(key);if(!urls.length)return phEl(sp);let i=typeof sprIdx[key]==="number"?sprIdx[key]:0;
+  const urls=SPR(key);if(!urls.length)return phWait(id,cls,o,sp,key);let i=typeof sprIdx[key]==="number"?sprIdx[key]:0;
   img.onload=()=>{sprIdx[key]=i;};img.onerror=()=>{i++;if(i<urls.length)img.src=urls[i];else{if(urls.length)sprIdx[key]="ph";img.replaceWith(phEl(sp));}};
   img.src=urls[Math.min(i,urls.length-1)];return img;
 }
 // Natürliche Größenverhältnisse der Sprites: kleine Pokémon bleiben kleiner, sanft gestaucht (F = (Größe/96)^0,6)
-function natFit(img,frac,both){if(!img||img.tagName!=="IMG")return img;frac=frac||.95;const f=()=>{const w=img.naturalWidth,h=img.naturalHeight;if(!w||!h)return;const m=Math.max(w,h),F=Math.min(1,Math.pow(m/96,.6))*frac;
+function natFit(img,frac,both){if(img&&img.dataset&&img.dataset.spw){img.dataset.nf=frac||.95;if(both)img.dataset.nb=1;return img;}if(!img||img.tagName!=="IMG")return img;frac=frac||.95;const f=()=>{const w=img.naturalWidth,h=img.naturalHeight;if(!w||!h)return;const m=Math.max(w,h),F=Math.min(1,Math.pow(m/96,.6))*frac;
     img.style.height=(F*h/m*100).toFixed(1)+"%";if(both){img.style.width=(F*w/m*100).toFixed(1)+"%";img.style.objectFit="fill";}else img.style.width="auto";};
   if(img.complete&&img.naturalWidth)f();else img.addEventListener("load",f,{once:true});return img;}
+const SPR_CORE=new Set([250,249,152,155,158,384,383,252,255,258,483,484,387,390,393,643,644,495,498,501,716,717,650,653,656,791,792,722,725,728,888,889,175,248,442,94,25]);
+const SPR_RG=[["johto",152,251],["hoenn",252,386],["sinnoh",387,493],["unova",494,649],["kalos",650,721],["alola",722,809]];
+function sprChunk(key){const i=parseInt(String(key).replace(/^s/,""),10);if(!(i>151)||i>=10000||SPR_CORE.has(i))return null;const r=SPR_RG.find(x=>i>=x[1]&&i<=x[2]);return r?r[0]:null;}
+function phWait(id,cls,o,sp,key){const el=phEl(sp),ch=sprChunk(key);
+  if(ch&&window.__SPRM&&__SPRM[ch]&&!__SPRM[ch].done){el.dataset.spw=id;if(cls)el.dataset.spc=cls;if(o&&o.shiny)el.dataset.sps=1;if(o&&o.mega)el.dataset.spm=o.mega;try{__sprLoad(ch);}catch(e){}}return el;}
+function sprSwapWaiting(){document.querySelectorAll("[data-spw]").forEach(el=>{try{const im=spriteEl(+el.dataset.spw,el.dataset.spc||"",{shiny:!!el.dataset.sps,mega:el.dataset.spm||undefined});if(!im||im.tagName!=="IMG")return;
+  if(el.dataset.nf)natFit(im,+el.dataset.nf,!!el.dataset.nb);if(el.dataset.al&&typeof sprAlign==="function")sprAlign(im,el.dataset.al==="2");el.replaceWith(im);}catch(e){}});}
 function phEl(sp){const d=document.createElement("div");d.className="ph";d.style.background=`radial-gradient(circle at 40% 35%,${TYPES[sp.types[0]][1]},#141836)`;d.textContent=sp.name.slice(0,2);return d;}
 const pill=t=>`<span class="tp" style="--tc:${TYPES[t][1]}">${TYPES[t][0]}</span>`;
 const pills=ts=>ts.map(pill).join(" ");
@@ -4669,9 +4721,9 @@ function showMenu(){
   $("menuWho").innerHTML=`<span>${ic("user")} ${esc(USER||"Gast")}</span><span style="color:var(--gem)">${ic("gem")} ${META.gems}${gemEventMul()>1?` <small style="font-size:10px;background:var(--gem);color:#0b0d13;border-radius:6px;padding:1px 5px;margin-left:3px">+${Math.round((gemEventMul()-1)*100)} % HEUTE</small>`:""}</span><span style="color:var(--amber)">${ic("trophy")} ${total}</span>`;
   const mb=(id,icn,t,s,main)=>`<button class="mbtn ${main?"main":""}" id="${id}"><span class="mi">${ic(icn)}</span><div><b>${t}</b><small>${s}</small></div></button>`;
   $("menuBtns").innerHTML=(sv&&sv.S?mb("mCont","play","Weiterspielen",`${sv.S.daily?"Tagesherausforderung":MODES[sv.S.mode].n} · Runde ${sv.S.round}`,1):"")+
-   mb("mNew","plus","Neues Spiel","Schwierigkeit & Partner wählen",!(sv&&sv.S))+mb("mMp","users","Mehrspieler","Tagesherausforderung · Live-Duell · Geisterkämpfe")+mb("mLab","lab","Forschungslabor","Dauerhafte Verbesserungen & neue Pokémon")+mb("mDex","dex","Pokédex","Sammlung · Schillernde · Mega-Formen")+mb("mCard","user","Trainerkarte","Lieblingspokémon · Hintergrund · 3 Abzeichen")+mb("mAch","trophy","Erfolge",(()=>{const n=Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length;return n+"/"+ACH.length+" freigeschaltet · Statistik · Verlauf";})())+mb("mSet","gear","Einstellungen","Anleitung · Sound · Grafik · "+(USER?"Abmelden":"Login"));
+   mb("mNew","plus","Neues Spiel","Schwierigkeit & Partner wählen",!(sv&&sv.S))+mb("mMp","swords","Mehrspieler","Ranked · Live-Duell · Tagesherausforderung · Geister")+mb("mFr","users","Freunde","Anfragen · Einladen · Chat")+mb("mLab","lab","Forschungslabor","Dauerhafte Verbesserungen & neue Pokémon")+mb("mDex","dex","Pokédex","Sammlung · Schillernde · Mega-Formen")+mb("mCard","user","Trainerkarte","Lieblingspokémon · Hintergrund · 3 Abzeichen")+mb("mAch","trophy","Erfolge",(()=>{const n=Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length;return n+"/"+ACH.length+" freigeschaltet · Statistik · Verlauf";})())+mb("mSet","gear","Einstellungen","Anleitung · Sound · Grafik · "+(USER?"Abmelden":"Login"));
   if($("mCont"))$("mCont").onclick=()=>{const rk=(S&&S.phase!=="over"&&S.region)||(sv&&sv.S&&sv.S.region)||"kanto";needReg(rk,()=>{hideScreens();if(!S||S.phase==="over")loadGame();setTab("shop");render();});};
-  $("mNew").onclick=chooseMode;$("mMp").onclick=()=>mpModal();$("mLab").onclick=()=>labScreen();$("mDex").onclick=()=>dexModal("dex");$("mAch").onclick=()=>achModal();if($("mCard"))$("mCard").onclick=()=>cardModal();$("mSet").onclick=settingsModal;
+  $("mNew").onclick=chooseMode;$("mMp").onclick=()=>mpModal();if($("mFr")){$("mFr").insertAdjacentHTML("beforeend",`<em class="mBadge" id="mFrN" style="display:none"></em>`);$("mFr").onclick=()=>friendsModal();try{socBadges();}catch(e){}}$("mLab").onclick=()=>labScreen();$("mDex").onclick=()=>dexModal("dex");$("mAch").onclick=()=>achModal();if($("mCard"))$("mCard").onclick=()=>cardModal();$("mSet").onclick=settingsModal;
   const bs=[...$("menuBtns").querySelectorAll(".mbtn")];bs.forEach((b,i)=>{b.onmouseenter=()=>menuSel(i);});menuSel(0);
 }
 function menuSel(i){const bs=[...$("menuBtns").querySelectorAll(".mbtn")];if(!bs.length)return;i=(i+bs.length)%bs.length;bs.forEach((b,j)=>b.classList.toggle("sel",j===i));$("menuBtns").dataset.sel=i;}
@@ -5194,7 +5246,7 @@ const ACH=[
  {id:"shinyleg",t:4,ic:"shiny",n:"Glückspilz",d:"Besitze ein schillerndes legendäres Pokémon.",chk:()=>_all().some(u=>u.shiny&&SPECIES[u.sp].line.leg)},
  {id:"star2leg",t:4,ic:"crown",n:"Göttlich",d:"Bringe ein legendäres Pokémon auf ★★.",chk:()=>_all().some(u=>u.stars>=2&&SPECIES[u.sp].line.leg)},
  {id:"blitz",t:4,ic:"bolt",n:"Blitzsieg",d:"Gewinne den Finalkampf in Runde 20 in unter 12 Sekunden Kampfzeit."},
- {id:"dexall",t:4,ic:"dex",n:"Pokédex komplett",d:"Sieh alle Pokémon aller Regionen.",prog:()=>[_dexSeen(),Object.keys(SPECIES).length]}
+ {id:"dexall",t:4,ic:"dex",n:"Pokédex komplett",d:"Sieh alle Pokémon aller Regionen.",prog:()=>[_dexSeen(),LINES.reduce((a,L)=>a+L.stages.length,0)]}
 ];
 const ACH_BY={};ACH.forEach(a=>ACH_BY[a.id]=a);
 function achGrant(id){if(!META||!ACH_BY[id])return;META.ach=META.ach||{};if(META.ach[id])return;const a=ACH_BY[id],T=ACH_T[a.t];META.ach[id]=Date.now();META.gems+=T.g;META.gemsTotal=(META.gemsTotal||0)+T.g;saveMeta();
@@ -5267,7 +5319,7 @@ function trainerScore(m0){const m=JSON.parse(JSON.stringify(m0||newMeta()));try{
       if(n>0){pts+=LB_W[md]*rf*(1+.25*Math.min(n-1,4));}else if(b>1)pts+=LB_W[md]*rf*.4*(b/20);}
     top=LB_ORD.find(md=>row[md]>0)||null;per[rk]={row,top,best};});
   const ach=Object.keys(m.ach||{}).filter(k=>ACH_BY[k]);const achP=ach.reduce((a,k)=>a+[0,1,3,6,10][ACH_BY[k].t]||0,0);
-  const dex=Object.values(m.dex||{}),own=dex.filter(d=>d.owned>0).length,shy=dex.filter(d=>d.shiny>0).length;
+  const dex=Object.entries(m.dex||{}).filter(([id])=>!isExcl(+id)).map(e=>e[1]),own=dex.filter(d=>d.owned>0).length,shy=dex.filter(d=>d.shiny>0).length;
   pts+=achP+own*.25+shy;return{pts:Math.round(pts*10),titles,ach:ach.length,own,shy,per};}
 function lbRows(){return Object.values(accounts()).map(a=>{const m=LS.get(metaKey(a.name),null)||newMeta();return Object.assign({n:a.name},trainerScore(m));}).sort((a,b)=>b.pts-a.pts||b.titles-a.titles);}
 function renderLeaderboard(rows,src){const el=$("lbList");if(!el)return;rows=rows||lbRows();const sm=document.querySelector("#lbList")&&document.querySelector("#lbList").parentNode.querySelector(".ttl small");if(sm)sm.textContent=src==="cloud"?"weltweit":"dieser Browser";
@@ -5280,12 +5332,13 @@ function renderLeaderboard(rows,src){const el=$("lbList");if(!el)return;rows=row
 function lbDetail(a){if(!a)return;const regs=Object.keys(REGIONS);let cd=a.card&&typeof cardClean==="function"?cardClean(a.card):null;
   // eigene Karte immer live; Titel-Effekt nur, wenn der Titel laut Server wirklich vergeben ist
   let own=false;try{if(typeof CL!=="undefined"&&CL.sess&&a.id&&a.id===CL.sess.uid&&USER&&typeof cardMine==="function"){cd=cardMine();own=true;}}catch(e){}
-  if(cd){const tt=a.tt;cd.ts=tt&&cd.title===tt.text&&TITLE_FX[tt.style]?tt.style:own?cd.ts:null;}
+  if(cd){const tt=a.tt;if(tt&&!own){cd.title=tt.text;cd.ts=TITLE_FX[tt.style]?tt.style:null;}else cd.ts=tt&&cd.title===tt.text&&TITLE_FX[tt.style]?tt.style:own?cd.ts:null;}
   openModal(`<h2>${ic("trophy")} ${esc(a.n.toUpperCase())}${a.tt&&typeof ttCls==="function"?` <span class="lbTT"><span${ttCls(a.tt.style)}>${esc(a.tt.text)}</span></span>`:""}</h2><div class="lead" style="margin-bottom:10px"><b style="color:var(--amber)">${a.pts.toLocaleString("de-DE")} Trainerpunkte</b> · ${a.titles} Champion-Titel · ${a.ach} Erfolge · ${a.own} Pokémon gefangen · ${a.shy} schillernd</div>
    <div class="lbDet">${cd?`<div class="lbCard">${cardHTML(cd)}</div>`:""}<div class="lbDetR"><table class="lbTab"><tr><th>Region</th>${Object.keys(LB_W).map(md=>`<th style="color:${LB_COL[md]}">${LB_N[md]}<small>${LB_W[md]} P.</small></th>`).join("")}<th>Beste Runde</th></tr>
    ${regs.map(rk=>{const P=a.per[rk];return `<tr><td>${REGIONS[rk].n}</td>${Object.keys(LB_W).map(md=>`<td>${P.row[md]?`<b style="color:${LB_COL[md]}">${P.row[md]}×</b>`:"–"}</td>`).join("")}<td>${P.best>20?"Champion":P.best||"–"}</td></tr>`;}).join("")}</table>
    <p class="lbNote">Je Region zählt der erste Titel pro Schwierigkeit voll, jede Wiederholung nur +25 % (höchstens 4×). Spätere Regionen geben etwas mehr. Ohne Titel zählt der Fortschritt anteilig. Dazu: Erfolge (Bronze 1 · Silber 3 · Gold 6 · Platin 10), je gefangenes Pokémon 0,25 und je schillerndes 1 Punkt (alles ×10).</p></div></div>
-   <div class="rbtns" style="margin-top:10px"><button class="pri" id="lbOk">SCHLIESSEN</button></div>`,"wide",true);if(cd)cardHydrate($("mbox"));$("lbOk").onclick=closeModal;}
+   <div class="rbtns" style="margin-top:10px">${typeof CL!=="undefined"&&CL.sess&&USER&&userKey(a.n)!==userKey(USER)&&!(typeof SOC!=="undefined"&&(SOC.fl||[]).some(f=>f.st==="friend"&&userKey(f.name)===userKey(a.n)))?`<button class="btn" id="lbFr">${ic("users")} Freund hinzufügen</button>`:""}<button class="pri" id="lbOk">SCHLIESSEN</button></div>`,"wide",true);if(cd)cardHydrate($("mbox"));$("lbOk").onclick=closeModal;
+  if($("lbFr"))$("lbFr").onclick=async()=>{const b=$("lbFr");b.disabled=true;if(await friendRequest(a.n,a.id)){b.innerHTML=ic("check")+" Anfrage gesendet";hydrateIcons(b);}else b.disabled=false;};}
 
 /* ================================ POKÉDEX ================================
    Wie in Pokémon GO: jede Form zählt einzeln (Entwicklungen und Mega-Formen), schillernd wird je Form getrackt.
@@ -5958,14 +6011,14 @@ const LOCS={
  bachhuegel:{region:"alola",n:"Wasserfallhügel",sub:"Bäche und Teiche",kind:"lake",ground:"grass",cam:[751,752,746,779]},
  wela:{region:"alola",n:"Wela-Vulkanpark",sub:"Heißer Krater",kind:"volcano",ground:"volcano",cam:[757,758,776,741]},
  dschungel:{region:"alola",n:"Dschungel von Akala",sub:"Lianen und Früchte",kind:"forest",ground:"forest",cam:[753,755,761,763,764]},
- konikoni:{region:"alola",n:"Konikoni City",sub:"Laternen und Märkte",kind:"jtown",ground:"plaza",roofs:[0xc84a3a,0x3a6a5a],cam:[777,778,767,780]},
+ konikoni:{region:"alola",n:"Konikoni City",sub:"Laternen und Märkte",kind:"jtown",ground:"plaza",roofs:[0xc84a3a,0x3a6a5a],cam:[777,767,780]},
  kapuruinen:{region:"alola",n:"Ruinen der Schutzpatrone",sub:"Heiligtum der Kapu",kind:"ruins",ground:"grass",legend:"785",cam:[785,786,744,738]},
  malie:{region:"alola",n:"Malie City",sub:"Gärten und Bibliothek",kind:"city",ground:"plaza",roofs:[0xc83a3a,0x2a2a3a],cam:[765,766,774,777]},
  hokulani:{region:"alola",n:"Hokulani-Observatorium",sub:"Sterne über Ula-Ula",kind:"tower",ground:"grass",roofs:[0xe0e4ec,0x4a5a8a],cam:[774,777,738,780]},
- supermarkt:{region:"alola",n:"Verlassener Supermarkt",sub:"Hier spukt es",kind:"ruins",ground:"plaza",dusk:1,cam:[778,770,781,724]},
+ supermarkt:{region:"alola",n:"Verlassener Supermarkt",sub:"Hier spukt es",kind:"ruins",ground:"plaza",dusk:1,cam:[770,781,724]},
  haina:{region:"alola",n:"Haina-Wüste",sub:"Sandsturm",kind:"beach",ground:"sand",roofs:[0xd8b070,0xc87a3a],cam:[769,770,749,745]},
  potown:{region:"alola",n:"Po-Stadt",sub:"Revier von Team Skull",kind:"rocktown",ground:"dirt",dusk:1,roofs:[0x3a3a44,0xc8c8d0],cam:[747,748,757,768]},
- aether:{region:"alola",n:"Æther-Paradies",sub:"Künstliche Insel",kind:"tower",ground:"metal",dusk:1,roofs:[0xf0f4f8,0xd8c060],cam:[772,773,800,778]},
+ aether:{region:"alola",n:"Æther-Paradies",sub:"Künstliche Insel",kind:"tower",ground:"metal",dusk:1,roofs:[0xf0f4f8,0xd8c060],cam:[772,773,800]},
  wasserdorf:{region:"alola",n:"Wasserdorf",sub:"Hausboote auf Poni",kind:"harbor",ground:"plaza",roofs:[0x3a7ab0,0xe0d0b0],cam:[779,780,746,728]},
  ponicanyon:{region:"alola",n:"Poni-Canyon",sub:"Schluchten der Drachen",kind:"rocktown",ground:"dirt",roofs:[0xc87a4a,0x8a5a3a],cam:[782,783,784,745]},
  zehnkarat:{region:"alola",n:"Zehnkarat-Hügel",sub:"Funkelnde Höhle",kind:"cave",ground:"cave",crystal:0xffd0f0,cam:[744,745,774,782]},
@@ -10224,7 +10277,7 @@ $("aGo").onclick=async()=>{const btn=$("aGo");if(btn.disabled)return;const n=$("
 async function clResume(name){if(!name||!LS.get(clTokKey(name),null))return;if(!(await clRefresh(name)))return;
   const changed=await clSync(name);if(changed&&USER&&userKey(USER)===userKey(name)&&!(S&&S.phase&&S.phase!=="over")){META=loadMeta(USER);if($("menu").classList.contains("show"))showMenu();toast("Neuerer Spielstand aus der Cloud geladen","star");}
   setTimeout(clAfterLogin,600);}
-const _signOut0=signOut;signOut=function(){if(CL.sess){clearTimeout(CL.tm);clPush(true);if(!LS.get("pokelings_session",null))LS.del(clTokKey(CL.sess.name));}CL.sess=null;MYTITLE=null;GIFT.q.length=0;return _signOut0();};
+const _signOut0=signOut;signOut=function(){if(CL.sess){clearTimeout(CL.tm);clPush(true);if(!LS.get("pokelings_session",null))LS.del(clTokKey(CL.sess.name));}CL.sess=null;MYTITLE=null;GIFT.q.length=0;try{if(typeof socStop==="function")socStop();}catch(e){}return _signOut0();};
 const _signIn0=signIn;signIn=function(name,remember){const r=_signIn0(name,remember);try{myTitleLocal();}catch(e){}if(name&&(!CL.sess||userKey(CL.sess.name)!==userKey(name))){CL.sess=null;clResume(name);}if(!name)CL.sess=null;return r;};
 // Globale Bestenliste
 async function clBoard(){let r=await clFetch("/rest/v1/board?select=id,name,score,titles,ach,own,shy,per,card&order=score.desc&limit=50",{auth:false,timeout:7000});
@@ -10263,7 +10316,7 @@ async function clMyTitle(){if(!CL.sess||!CL.sess.uid)return;const uid=CL.sess.ui
   if(ch){if(typeof clDirty==="function")clDirty();ttRefresh();}}
 function ttRefresh(){try{if($("modal").classList.contains("show")&&$("mbox").querySelector(".cdWrap"))cardModal(CARD_TAB);}catch(e){}}
 /* nach Anmeldung (Spielstand ist abgeglichen und geladen) */
-function clAfterLogin(){try{clMyTitle();clGifts(true);}catch(e){}}
+function clAfterLogin(){try{clMyTitle();clGifts(true);if(typeof socStart==="function")socStart();}catch(e){}}
 /* Online-Status + Version (fürs Admin-Panel) */
 async function clPing(){if(!CL.sess||document.visibilityState==="hidden")return;if(!(await clReady()))return;clFetch("/rest/v1/rpc/ping",{method:"POST",body:{v:GAME_VER},timeout:6000});}
 setInterval(()=>{try{clPing();}catch(e){}},60000);setInterval(()=>{try{clConfig();}catch(e){}},300000);
@@ -10281,7 +10334,7 @@ async function clGifts(force){if(GIFT.busy||!CL.sess||!USER||userKey(USER)!==use
     LS.set(giftKey(nm),(LS.get(giftKey(nm),null)||[]).concat(r.j)); // erst sichern, dann anwenden (geht nichts verloren)
     if(USER&&userKey(USER)===userKey(nm)&&META)giftApply();}finally{GIFT.busy=false;try{clReplies();}catch(e){}}}
 function giftApply(){if(!USER||!META)return;const k=giftKey(USER),L=LS.get(k,null)||[];if(!L.length)return;const got=[];
-  for(const g of L){const id=+(g.mon!=null?g.mon:g.sp),sh=!!(g.shy!=null?g.shy:g.shiny);if(!SPECIES[id])continue;
+  for(const g of L){const id=+(g.mon!=null?g.mon:g.sp),sh=!!(g.shy!=null?g.shy:g.shiny);if(!SPECIES[id]||(isExcl(id)&&!exclOk()))continue;
     dexUp(id,d=>{d.seen=Math.max(d.seen||0,1);d.owned=(d.owned||0)+1;if(sh)d.shiny=(d.shiny||0)+1;});
     const Ln=SPECIES[id].line;let nu=false;if(Ln&&!Ln.start&&!META.unlocked.includes(Ln.k)){META.unlocked.push(Ln.k);nu=true;}
     got.push({id,sh,msg:String(g.msg||g.note||"").slice(0,120),nu});}
@@ -10339,7 +10392,7 @@ function repShow(g){const seen=()=>{clFetch("/rest/v1/rpc/fb_seen",{method:"POST
 const ADM={name:"requiem-admin",sess:null,list:[],q:"",tab:"players",stats:null};
 const admIsName=n=>/^\s*admin\s*$/i.test(n||"");
 const admReserved=n=>/^(admin|requiem-admin)/i.test((n||"").trim());
-function admSQL(){const em=clEmail(ADM.name);return `-- Pokélings Admin v3 (9.5.1): im Supabase SQL-Editor ausführen. Kann gefahrlos mehrfach laufen.
+function admSQL(){const em=clEmail(ADM.name);return `-- Pokélings Admin v4 (9.6): im Supabase SQL-Editor ausführen. Kann gefahrlos mehrfach laufen.
 create table if not exists public.admins(uid uuid primary key);
 alter table public.admins enable row level security;
 -- niemand außer dem Server darf Admins eintragen (keine Rechte für Spieler/Gäste)
@@ -10511,6 +10564,7 @@ begin
 end $$;
 
 ${admSQL3()}
+${admSQL4()}
 revoke all on function public.adm_log(text,text,text) from public, anon, authenticated;
 revoke all on function public.adm_name(uuid) from public, anon, authenticated;
 do $$ declare f text; begin
@@ -10601,6 +10655,256 @@ do $$ declare f text; begin
   end loop;
 end $$;
 notify pgrst, 'reload schema';`;}
+/* v9.6: Freunde, Einladungen, Chat, Ranked + Admin-Vergabe nur für Fehlende (einzeln ausführbar) */
+function admSQL4(){return `-- v9.6: Freunde, Einladungen, Chat, Ranked, Vergabe-Prüfung (kann gefahrlos mehrfach laufen)
+create or replace function public.pkl_uname(x uuid) returns text language sql security definer set search_path=public,auth as $$
+  select coalesce((select name from public.profiles where id=x),(select raw_user_meta_data->>'name' from auth.users where id=x),'?') $$;
+
+-- Admin: Sammlung eines Spielers (für die Vergabe nur fehlender Pokémon)
+create or replace function public.admin_player_meta(target uuid) returns json language plpgsql security definer set search_path=public as $$
+declare m jsonb;
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  select meta into m from public.profiles where id=target;
+  if m is null then return json_build_object('dex','[]'::json,'unl','[]'::json,'none',true); end if;
+  return json_build_object('dex',(select coalesce(json_agg(e.k::int),'[]'::json) from jsonb_each(coalesce(m->'dex','{}'::jsonb)) e(k,v) where e.k ~ '^[0-9]+$' and coalesce((e.v->>'owned')::numeric,0)>0),
+    'unl',coalesce(m->'unlocked','[]'::jsonb));
+end $$;
+drop function if exists public.admin_gift(uuid,integer,boolean,text);
+create or replace function public.admin_gift(target uuid,mon integer,shy boolean,msg text,lk text) returns integer language plpgsql security definer set search_path=public,auth as $$
+declare n integer:=0;
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  if mon is null or mon<1 or mon>20000 then raise exception 'mon_invalid'; end if;
+  if target is null then
+    insert into public.gifts(uid,sp,shiny,note) select u.id,mon,coalesce(shy,false),left(coalesce(msg,''),120) from auth.users u left join public.profiles p on p.id=u.id
+      where not exists(select 1 from public.admins a where a.uid=u.id)
+        and coalesce((p.meta->'dex'->(mon::text)->>'owned')::numeric,0)<=0
+        and (lk is null or not coalesce(p.meta->'unlocked','[]'::jsonb) ? lk)
+        and not exists(select 1 from public.gifts g where g.uid=u.id and g.sp=mon and g.claimed_at is null);
+    get diagnostics n=row_count;
+    perform public.adm_log('Pokémon an alle',n||' Konten','#'||mon||case when shy then ' schillernd' else '' end);
+  else
+    if exists(select 1 from public.profiles p where p.id=target and (coalesce((p.meta->'dex'->(mon::text)->>'owned')::numeric,0)>0 or (lk is not null and coalesce(p.meta->'unlocked','[]'::jsonb) ? lk))) then raise exception 'already_owned'; end if;
+    if exists(select 1 from public.gifts g where g.uid=target and g.sp=mon and g.claimed_at is null) then raise exception 'already_pending'; end if;
+    insert into public.gifts(uid,sp,shiny,note) values(target,mon,coalesce(shy,false),left(coalesce(msg,''),120));
+    n:=1;
+    perform public.adm_log('Pokémon geschenkt',public.adm_name(target),'#'||mon||case when shy then ' schillernd' else '' end);
+  end if;
+  return n;
+end $$;
+
+-- Freunde
+create table if not exists public.friends(a uuid not null references auth.users(id) on delete cascade,b uuid not null references auth.users(id) on delete cascade,status text not null default 'pending',req_by uuid not null,at timestamptz not null default now(),primary key(a,b),check(a<b));
+alter table public.friends enable row level security;
+revoke all on public.friends from anon, authenticated;
+-- Ranked: Wertung + Partien (id = Einladung oder Ranked-Suche)
+create table if not exists public.ranked(uid uuid primary key references auth.users(id) on delete cascade,rating integer not null default 1000,wins integer not null default 0,losses integer not null default 0,updated_at timestamptz default now());
+alter table public.ranked enable row level security;
+drop policy if exists ranked_read on public.ranked;
+create policy ranked_read on public.ranked for select to anon, authenticated using (true);
+create table if not exists public.ranked_matches(id bigint primary key,a uuid not null,b uuid not null,rep_a smallint,rep_b smallint,rep_at timestamptz,done boolean not null default false,at timestamptz not null default now());
+alter table public.ranked_matches enable row level security;
+revoke all on public.ranked_matches from anon, authenticated;
+create sequence if not exists public.ranked_seq start 1000000000;
+create table if not exists public.rq(uid uuid primary key references auth.users(id) on delete cascade,region text,at timestamptz not null default now(),seen timestamptz not null default now(),match_id bigint,room text,host boolean,opp uuid);
+alter table public.rq enable row level security;
+revoke all on public.rq from anon, authenticated;
+
+create or replace function public.friend_request(n text) returns json language plpgsql security definer set search_path=public,auth as $$
+declare me uuid:=auth.uid(); o uuid; x uuid; y uuid; st text; rb uuid;
+begin
+  if me is null then raise exception 'login_required'; end if;
+  select u.id into o from auth.users u where lower(btrim(coalesce(u.raw_user_meta_data->>'name','')))=lower(btrim(n)) limit 1;
+  if o is null then select p.id into o from public.profiles p where lower(btrim(p.name))=lower(btrim(n)) limit 1; end if;
+  if o is null or exists(select 1 from public.admins ad where ad.uid=o) then raise exception 'not_found'; end if;
+  if o=me then raise exception 'self'; end if;
+  x:=least(me,o); y:=greatest(me,o);
+  select f.status,f.req_by into st,rb from public.friends f where f.a=x and f.b=y;
+  if st='accepted' then return json_build_object('res','already','uid',o); end if;
+  if st='pending' then
+    if rb<>me then update public.friends set status='accepted',at=now() where a=x and b=y; return json_build_object('res','accepted','uid',o); end if;
+    return json_build_object('res','pending','uid',o);
+  end if;
+  if (select count(*) from public.friends f where f.req_by=me and f.status='pending')>=30 then raise exception 'rate_limit'; end if;
+  insert into public.friends(a,b,status,req_by) values(x,y,'pending',me);
+  return json_build_object('res','sent','uid',o);
+end $$;
+create or replace function public.friend_respond(o uuid,ok boolean) returns void language plpgsql security definer set search_path=public as $$
+declare me uuid:=auth.uid();
+begin
+  if me is null then raise exception 'login_required'; end if;
+  if ok then update public.friends set status='accepted',at=now() where a=least(me,o) and b=greatest(me,o) and status='pending' and req_by<>me;
+  else delete from public.friends where a=least(me,o) and b=greatest(me,o); end if;
+end $$;
+create or replace function public.friend_list() returns table(uid uuid,name text,st text,seen timestamptz,ver text,rating integer,card jsonb) language sql security definer set search_path=public,auth as $$
+  select f.o,public.pkl_uname(f.o),case when f.status='accepted' then 'friend' when f.req_by=auth.uid() then 'out' else 'in' end,pr.seen,pr.ver,rk.rating,bd.card
+  from (select case when x.a=auth.uid() then x.b else x.a end as o,x.status,x.req_by from public.friends x where x.a=auth.uid() or x.b=auth.uid()) f
+  left join public.presence pr on pr.uid=f.o left join public.ranked rk on rk.uid=f.o left join public.board bd on bd.id=f.o
+  order by 3,pr.seen desc nulls last $$;
+
+-- Einladungen zu Spaß- und Ranked-Kämpfen
+create table if not exists public.invites(id bigserial primary key,from_uid uuid not null references auth.users(id) on delete cascade,to_uid uuid not null references auth.users(id) on delete cascade,kind text not null default 'fun',room text not null,region text,at timestamptz not null default now(),status text not null default 'open',answered_at timestamptz);
+alter table public.invites enable row level security;
+revoke all on public.invites from anon, authenticated;
+create index if not exists invites_to on public.invites(to_uid,at desc);
+create index if not exists invites_from on public.invites(from_uid,at desc);
+
+create or replace function public.invite_send(o uuid,k text,reg text) returns json language plpgsql security definer set search_path=public as $$
+declare me uuid:=auth.uid(); i bigint; rm text;
+begin
+  if me is null then raise exception 'login_required'; end if;
+  if not exists(select 1 from public.friends f where f.a=least(me,o) and f.b=greatest(me,o) and f.status='accepted') then raise exception 'not_friends'; end if;
+  if (select count(*) from public.invites v where v.from_uid=me and v.at>now()-interval '1 minute')>=6 then raise exception 'rate_limit'; end if;
+  update public.invites set status='expired' where from_uid=me and status='open';
+  rm:='i'||substr(md5(random()::text||clock_timestamp()::text),1,10);
+  insert into public.invites(from_uid,to_uid,kind,room,region) values(me,o,case when k='ranked' then 'ranked' else 'fun' end,rm,left(coalesce(reg,'kanto'),12)) returning id into i;
+  return json_build_object('id',i,'room',rm);
+end $$;
+create or replace function public.invite_answer(iid bigint,ok boolean) returns json language plpgsql security definer set search_path=public as $$
+declare me uuid:=auth.uid(); v public.invites;
+begin
+  select * into v from public.invites where id=iid and to_uid=me;
+  if v.id is null then raise exception 'not_found'; end if;
+  if v.status<>'open' or v.at<now()-interval '30 seconds' then
+    update public.invites set status='expired' where id=iid and status='open';
+    return json_build_object('ok',false,'status','expired');
+  end if;
+  update public.invites set status=case when ok then 'accepted' else 'declined' end,answered_at=now() where id=iid;
+  if ok and v.kind='ranked' then insert into public.ranked_matches(id,a,b) values(iid,v.from_uid,v.to_uid) on conflict do nothing; end if;
+  return json_build_object('ok',true,'status',case when ok then 'accepted' else 'declined' end,'room',v.room,'kind',v.kind,'region',v.region,'from',v.from_uid);
+end $$;
+
+-- Chat unter Freunden
+create table if not exists public.chat(id bigserial primary key,from_uid uuid not null references auth.users(id) on delete cascade,to_uid uuid not null references auth.users(id) on delete cascade,body text not null,at timestamptz not null default now(),seen boolean not null default false);
+alter table public.chat enable row level security;
+revoke all on public.chat from anon, authenticated;
+create index if not exists chat_to on public.chat(to_uid,seen);
+create index if not exists chat_from on public.chat(from_uid,to_uid,id);
+create or replace function public.chat_send(o uuid,txt text) returns bigint language plpgsql security definer set search_path=public as $$
+declare me uuid:=auth.uid(); i bigint;
+begin
+  if me is null then raise exception 'login_required'; end if;
+  if not exists(select 1 from public.friends f where f.a=least(me,o) and f.b=greatest(me,o) and f.status='accepted') then raise exception 'not_friends'; end if;
+  if txt is null or length(btrim(txt))=0 then raise exception 'empty'; end if;
+  if (select count(*) from public.chat c where c.from_uid=me and c.at>now()-interval '1 minute')>=20 then raise exception 'rate_limit'; end if;
+  insert into public.chat(from_uid,to_uid,body) values(me,o,left(btrim(txt),300)) returning id into i;
+  return i;
+end $$;
+create or replace function public.chat_history(o uuid,after_id bigint) returns table(id bigint,mine boolean,body text,at timestamptz) language plpgsql security definer set search_path=public as $$
+#variable_conflict use_column
+declare me uuid:=auth.uid();
+begin
+  if me is null then return; end if;
+  update public.chat c set seen=true where c.to_uid=me and c.from_uid=o and not c.seen;
+  return query select z.id,z.from_uid=me,z.body,z.at from (select x.* from public.chat x where ((x.from_uid=me and x.to_uid=o) or (x.from_uid=o and x.to_uid=me)) and x.id>coalesce(after_id,0) order by x.id desc limit 60) z order by z.id;
+end $$;
+
+-- Ranked: Wertung (Elo), Meldungen beider Seiten, Suche
+create or replace function public.pkl_ranked_apply(mid bigint,w uuid,l uuid) returns integer language plpgsql security definer set search_path=public as $$
+declare rw integer; rl integer; ew float8; d integer;
+begin
+  insert into public.ranked(uid) values(w) on conflict do nothing;
+  insert into public.ranked(uid) values(l) on conflict do nothing;
+  select rating into rw from public.ranked where uid=w; select rating into rl from public.ranked where uid=l;
+  ew:=1.0/(1.0+power(10.0,(rl-rw)/400.0));
+  d:=greatest(1,round(32*(1-ew))::integer);
+  update public.ranked set rating=rating+d,wins=wins+1,updated_at=now() where uid=w;
+  update public.ranked set rating=greatest(0,rating-d),losses=losses+1,updated_at=now() where uid=l;
+  update public.ranked_matches set done=true where id=mid;
+  return d;
+end $$;
+create or replace function public.pkl_ranked_sweep() returns void language plpgsql security definer set search_path=public as $$
+declare r record;
+begin
+  for r in select * from public.ranked_matches m where not m.done and m.rep_at<now()-interval '3 minutes' and m.rep_at>m.at+interval '3 minutes'
+     and ((m.rep_a=1 and m.rep_b is null) or (m.rep_b=1 and m.rep_a is null)) for update skip locked loop
+    if r.rep_a=1 then perform public.pkl_ranked_apply(r.id,r.a,r.b); else perform public.pkl_ranked_apply(r.id,r.b,r.a); end if;
+  end loop;
+  update public.ranked_matches set done=true where not done and at<now()-interval '1 day';
+  delete from public.rq where seen<now()-interval '2 minutes';
+end $$;
+create or replace function public.ranked_report(mid bigint,won boolean) returns json language plpgsql security definer set search_path=public as $$
+declare me uuid:=auth.uid(); m public.ranked_matches; d integer:=0;
+begin
+  if me is null then raise exception 'login_required'; end if;
+  perform public.pkl_ranked_sweep();
+  select * into m from public.ranked_matches where id=mid and (a=me or b=me) for update;
+  if m.id is null then raise exception 'not_found'; end if;
+  if m.done then return json_build_object('done',true,'d',0); end if;
+  if m.a=me then m.rep_a:=case when won then 1 else 0 end; else m.rep_b:=case when won then 1 else 0 end; end if;
+  update public.ranked_matches set rep_a=m.rep_a,rep_b=m.rep_b,rep_at=coalesce(rep_at,now()) where id=mid;
+  if (coalesce(m.rep_a=0,false) or coalesce(m.rep_b=1,false)) and (coalesce(m.rep_b=0,false) or coalesce(m.rep_a=1,false)) then
+    update public.ranked_matches set done=true where id=mid; return json_build_object('done',true,'void',true,'d',0);
+  elsif coalesce(m.rep_a=0,false) then d:=public.pkl_ranked_apply(mid,m.b,m.a);
+  elsif coalesce(m.rep_b=0,false) then d:=public.pkl_ranked_apply(mid,m.a,m.b);
+  else return json_build_object('done',false,'d',0); end if;
+  return json_build_object('done',true,'d',d);
+end $$;
+create or replace function public.ranked_me() returns json language sql security definer set search_path=public as $$
+  select json_build_object('rating',coalesce(r.rating,1000),'wins',coalesce(r.wins,0),'losses',coalesce(r.losses,0),
+    'pos',(select count(*)+1 from public.ranked q where q.rating>coalesce(r.rating,1000) and (q.wins+q.losses)>0))
+  from (select 1) z left join public.ranked r on r.uid=auth.uid() $$;
+create or replace function public.ranked_board() returns table(name text,rating integer,wins integer,losses integer) language sql security definer set search_path=public,auth as $$
+  select public.pkl_uname(r.uid),r.rating,r.wins,r.losses from public.ranked r where (r.wins+r.losses)>0 order by r.rating desc,r.wins desc limit 50 $$;
+create or replace function public.ranked_queue_join(reg text) returns json language plpgsql security definer set search_path=public as $$
+declare me uuid:=auth.uid(); q public.rq; o public.rq; mid bigint; rm text;
+begin
+  if me is null then raise exception 'login_required'; end if;
+  perform public.pkl_ranked_sweep();
+  select * into q from public.rq where uid=me;
+  if q.match_id is not null then
+    delete from public.rq where uid=me;
+    return json_build_object('match',q.match_id,'room',q.room,'host',q.host,'opp',public.pkl_uname(q.opp),'region',q.region);
+  end if;
+  select * into o from public.rq where uid<>me and match_id is null and seen>now()-interval '12 seconds' order by at limit 1 for update skip locked;
+  if o.uid is not null then
+    mid:=nextval('public.ranked_seq');rm:='r'||substr(md5(random()::text||clock_timestamp()::text),1,10);
+    insert into public.ranked_matches(id,a,b) values(mid,o.uid,me);
+    update public.rq set match_id=mid,room=rm,host=true,opp=me where uid=o.uid;
+    delete from public.rq where uid=me;
+    return json_build_object('match',mid,'room',rm,'host',false,'opp',public.pkl_uname(o.uid),'opp_uid',o.uid,'region',o.region);
+  end if;
+  insert into public.rq(uid,region,at,seen) values(me,left(coalesce(reg,'kanto'),12),now(),now()) on conflict(uid) do update set region=excluded.region,seen=now(),match_id=null,room=null,host=null,opp=null;
+  return json_build_object('wait',true);
+end $$;
+create or replace function public.ranked_queue_poll() returns json language plpgsql security definer set search_path=public as $$
+declare me uuid:=auth.uid(); q public.rq;
+begin
+  if me is null then return json_build_object('wait',false); end if;
+  update public.rq set seen=now() where uid=me;
+  select * into q from public.rq where uid=me;
+  if q.uid is null then return json_build_object('wait',false); end if;
+  if q.match_id is not null then delete from public.rq where uid=me; return json_build_object('match',q.match_id,'room',q.room,'host',q.host,'opp',public.pkl_uname(q.opp),'region',q.region); end if;
+  return json_build_object('wait',true);
+end $$;
+create or replace function public.ranked_queue_leave() returns void language sql security definer set search_path=public as $$
+  delete from public.rq where uid=auth.uid() $$;
+
+-- Ein Abruf für alles Soziale (Einladungen, Antworten, Anfragen, ungelesene Nachrichten)
+create or replace function public.social_poll() returns json language plpgsql security definer set search_path=public as $$
+declare me uuid:=auth.uid();
+begin
+  if me is null then return null; end if;
+  return json_build_object(
+    'inv',(select coalesce(json_agg(json_build_object('id',i.id,'from',i.from_uid,'name',public.pkl_uname(i.from_uid),'kind',i.kind,'region',i.region,'room',i.room,'age',extract(epoch from now()-i.at)) order by i.id),'[]'::json) from public.invites i where i.to_uid=me and i.status='open' and i.at>now()-interval '12 seconds'),
+    'sent',(select coalesce(json_agg(json_build_object('id',i.id,'to',i.to_uid,'name',public.pkl_uname(i.to_uid),'status',i.status,'kind',i.kind)),'[]'::json) from public.invites i where i.from_uid=me and i.at>now()-interval '2 minutes' and i.status in ('accepted','declined')),
+    'reqs',(select coalesce(json_agg(json_build_object('uid',f.req_by,'name',public.pkl_uname(f.req_by))),'[]'::json) from public.friends f where (f.a=me or f.b=me) and f.status='pending' and f.req_by<>me),
+    'chat',(select coalesce(json_object_agg(c.from_uid,c.n),'{}'::json) from (select x.from_uid,count(*) n from public.chat x where x.to_uid=me and not x.seen group by x.from_uid) c));
+end $$;
+
+revoke all on function public.pkl_uname(uuid) from public, anon, authenticated;
+revoke all on function public.pkl_ranked_apply(bigint,uuid,uuid) from public, anon, authenticated;
+revoke all on function public.pkl_ranked_sweep() from public, anon, authenticated;
+do $$ declare f text; begin
+  foreach f in array array['admin_player_meta(uuid)','admin_gift(uuid,integer,boolean,text,text)','friend_request(text)','friend_respond(uuid,boolean)','friend_list()','invite_send(uuid,text,text)','invite_answer(bigint,boolean)','chat_send(uuid,text)','chat_history(uuid,bigint)','ranked_report(bigint,boolean)','ranked_me()','ranked_queue_join(text)','ranked_queue_poll()','ranked_queue_leave()','social_poll()'] loop
+    execute 'revoke all on function public.'||f||' from public, anon';
+    execute 'grant execute on function public.'||f||' to authenticated';
+  end loop;
+end $$;
+revoke all on function public.ranked_board() from public;
+grant execute on function public.ranked_board() to anon, authenticated;
+notify pgrst, 'reload schema';`;}
 /* Anfragen als Admin */
 async function admRpc(fn,body){const s=CL.sess;CL.sess=ADM.sess;try{if(Date.now()>ADM.sess.exp-60000){const r=await clFetch("/auth/v1/token?grant_type=refresh_token",{method:"POST",auth:false,body:{refresh_token:ADM.sess.refresh_token}});if(r.ok)ADM.sess=Object.assign({},ADM.sess,{access_token:r.j.access_token,refresh_token:r.j.refresh_token,exp:Date.now()+(r.j.expires_in||3600)*1000});CL.sess=ADM.sess;}
     return await clFetch("/rest/v1/rpc/"+fn,{method:"POST",body:body||{}});}finally{CL.sess=s;}}
@@ -10642,28 +10946,34 @@ async function admPlayers(){const B=$("admBody");const r=await admRpc("admin_sta
     <div class="admSearch"><input id="admQ" placeholder="Spielername suchen …" maxlength="16" autocomplete="off" value="${esc(ADM.q)}"><span id="admCount"></span><button class="btn sm" id="admGiftAll">${ic("ball")} Pokémon an alle</button></div>
     <div id="admList" class="admList"></div>
     <p class="admNote">Nur Online-Konten sind sichtbar. Gast-Spielstände und reine Offline-Konten liegen nur auf dem Gerät des Spielers. „Online" = in den letzten 3 Minuten im Spiel.</p>`;
-  hydrateIcons(B);$("admGiftAll").onclick=()=>admGift(null);let tm=0;$("admQ").addEventListener("input",e=>{clearTimeout(tm);tm=setTimeout(()=>{ADM.q=e.target.value.trim();admLoadList();},300);});admLoadList();}
+  hydrateIcons(B);$("admGiftAll").onclick=()=>admGrant(null,"mon");let tm=0;$("admQ").addEventListener("input",e=>{clearTimeout(tm);tm=setTimeout(()=>{ADM.q=e.target.value.trim();admLoadList();},300);});admLoadList();}
 async function admLoadList(){const L=$("admList");if(!L)return;L.innerHTML=`<p class="empty">Lade Konten …</p>`;const r=await admRpc("admin_list",{q:ADM.q||""});if(!$("admList"))return;
   if(!r.ok){L.innerHTML=admWarn(r);hydrateIcons(L);return;}ADM.list=Array.isArray(r.j)?r.j:[];$("admCount").textContent=ADM.list.length+(ADM.list.length>=200?"+":"")+" Treffer";
   L.innerHTML=ADM.list.length?`<table><thead><tr><th>Name</th><th>Status</th><th>Version</th><th>Erstellt</th><th>Zuletzt aktiv</th><th>Läufe</th><th>Punkte</th><th></th></tr></thead><tbody>${ADM.list.map((a,i)=>{const on=admOnline(a),bn=admBanned(a);
     return `<tr class="${bn?"ban":""}"><td><b>${esc(a.name)}</b>${a.title?`<div class="admTT">${admTT(a.title,a.title_style)}</div>`:""}</td>
     <td>${bn?`<span class="admSt ban" title="${esc(a.ban_reason||"")}">${ic("lock")} gesperrt</span>`:on?`<span class="admSt on">● online</span>`:`<span class="admSt">${admAgo(a.seen||a.updated_at||a.last_sign_in_at)}</span>`}</td>
     <td>${a.ver?`<span class="admVer${verNum(a.ver)<verNum(GAME_VER)?" old":""}">v${esc(a.ver)}</span>`:"–"}</td><td>${admFmt(a.created_at)}</td><td>${admFmt(a.seen||a.updated_at||a.last_sign_in_at)}</td><td>${admNum(a.games)}</td><td>${admNum(a.score)}</td>
-    <td class="admAct"><button class="btn sm" data-rn="${i}" title="Umbenennen">${ic("user")}</button><button class="btn sm" data-tt="${i}" title="Titel vergeben / löschen">${ic("crown")}</button><button class="btn sm" data-gf="${i}" title="Pokémon schenken">${ic("ball")}</button><button class="btn sm" data-pw="${i}" title="Neues Passwort setzen">${ic("lock")}</button><button class="btn sm${bn?" on":""}" data-ban="${i}" title="${bn?"Entsperren":"Sperren"}">${ic(bn?"check":"close")}</button><button class="btn sm" data-bd="${i}" title="Aus der Bestenliste entfernen">${ic("trophy")}</button><button class="btn sm danger" data-del="${i}" title="Konto löschen">${ic("trash")}</button></td></tr>`;}).join("")}</tbody></table>`:`<p class="empty">Keine Konten gefunden.</p>`;
+    <td class="admAct"><button class="btn sm" data-rn="${i}" title="Umbenennen">${ic("user")}</button><button class="btn sm" data-tt="${i}" title="Vergabe: Titel und Pokémon">${ic("crown")}</button><button class="btn sm" data-pw="${i}" title="Neues Passwort setzen">${ic("lock")}</button><button class="btn sm${bn?" on":""}" data-ban="${i}" title="${bn?"Entsperren":"Sperren"}">${ic(bn?"check":"close")}</button><button class="btn sm" data-bd="${i}" title="Aus der Bestenliste entfernen">${ic("trophy")}</button><button class="btn sm danger" data-del="${i}" title="Konto löschen">${ic("trash")}</button></td></tr>`;}).join("")}</tbody></table>`:`<p class="empty">Keine Konten gefunden.</p>`;
   hydrateIcons(L);const A=k=>ADM.list[+k];
-  L.querySelectorAll("[data-rn]").forEach(b=>b.onclick=()=>admRename(A(b.dataset.rn)));L.querySelectorAll("[data-tt]").forEach(b=>b.onclick=()=>admTitle(A(b.dataset.tt)));L.querySelectorAll("[data-gf]").forEach(b=>b.onclick=()=>admGift(A(b.dataset.gf)));L.querySelectorAll("[data-pw]").forEach(b=>b.onclick=()=>admPw(A(b.dataset.pw)));
+  L.querySelectorAll("[data-rn]").forEach(b=>b.onclick=()=>admRename(A(b.dataset.rn)));L.querySelectorAll("[data-tt]").forEach(b=>b.onclick=()=>admGrant(A(b.dataset.tt),"title"));L.querySelectorAll("[data-pw]").forEach(b=>b.onclick=()=>admPw(A(b.dataset.pw)));
   L.querySelectorAll("[data-ban]").forEach(b=>b.onclick=()=>admBan(A(b.dataset.ban)));L.querySelectorAll("[data-bd]").forEach(b=>b.onclick=()=>admBoardDel(A(b.dataset.bd)));L.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>admDel(A(b.dataset.del)));}
-/* eigener Titel mit Schrift-Effekt – Vergeben, Ändern und Löschen in einem Dialog */
-function admTitle(a){if(!a)return;let sty=TITLE_FX[a.title_style]?a.title_style:"chrom";
-  openModal(`<h2>${ic("crown")} TITEL</h2><div class="lead">Eigener Titel für <b>${esc(a.name)}</b>. Er erscheint auf der Kampfkarte, im VS-Bildschirm und in der Bestenliste und wird beim Spieler automatisch angelegt.</div>
+/* Vergabe: Titel (mit Schrift-Effekt) und Pokémon in einem Dialog. Pokémon nur, wenn der Spieler es noch nicht hat und nicht im Labor gekauft hat. */
+function admGrant(a,tab){tab=a?(tab||"title"):"mon";
+  openModal(`<h2>${ic("crown")} VERGABE${a?` · ${esc(a.name)}`:" · ALLE SPIELER"}</h2>
+   ${a?`<div class="dtabs admGTabs"><button data-gt="title" class="${tab==="title"?"on":""}">${ic("crown")} TITEL</button><button data-gt="mon" class="${tab==="mon"?"on":""}">${ic("ball")} POKÉMON</button></div>`:""}<div id="admGB"></div>`,"",true);
+  $("mbox").querySelectorAll("[data-gt]").forEach(b=>b.onclick=()=>{$("mbox").querySelectorAll("[data-gt]").forEach(x=>x.classList.toggle("on",x===b));admGrantBody(a,b.dataset.gt);});
+  admGrantBody(a,tab);}
+function admGrantBody(a,tab){const B=$("admGB");if(!B)return;if(tab==="title")return admTitleBody(a,B);return admGiftBody(a,B);}
+function admTitleBody(a,B){let sty=TITLE_FX[a.title_style]?a.title_style:"chrom";
+  B.innerHTML=`<div class="lead">Erscheint auf der Kampfkarte, im VS-Bildschirm und in der Bestenliste und wird beim Spieler automatisch angelegt.</div>
    <div class="admCur${a.title?"":" none"}"><small>Aktuell</small>${a.title?admTT(a.title,a.title_style):`<span>kein Titel</span>`}<span style="flex:1"></span>${a.title?`<button class="btn sm danger" id="admTr">${ic("trash")} Titel löschen</button>`:""}</div>
    <label class="fld" style="margin-top:10px">${a.title?"NEUER TITEL":"TITEL"} (max. 24 Zeichen)<input id="admTt" maxlength="24" autocomplete="off" value="${esc(a.title||"")}" placeholder="z. B. Entwickler"></label>
    <div class="admFx">${Object.entries(TITLE_FX).map(([k,n])=>`<button class="admFxB${k===sty?" on":""}" data-fx="${k}"><span class="tt tt-${k}">${n}</span></button>`).join("")}</div>
    <div class="admPrev"><small>Vorschau</small><span id="admTp"></span></div><div class="aerr" id="admTe"></div>
    <div class="rbtns" style="margin-top:12px"><button class="pri" id="admTg">${ic("check")} ${a.title?"Ändern":"Vergeben"}</button><button class="btn" id="admTx">Schließen</button></div>
-   <h4 class="cdCat">Alle vergebenen Titel</h4><div class="admTList" id="admTl"><p class="admNote">Lade …</p></div>`,"",true);
+   <h4 class="cdCat">Alle vergebenen Titel</h4><div class="admTList" id="admTl"><p class="admNote">Lade …</p></div>`;hydrateIcons(B);
   const prev=()=>{const v=$("admTt").value.trim()||"Titel";$("admTp").innerHTML=admTT(v,sty);};prev();$("admTt").oninput=prev;
-  $("mbox").querySelectorAll("[data-fx]").forEach(b=>b.onclick=()=>{sty=b.dataset.fx;$("mbox").querySelectorAll("[data-fx]").forEach(x=>x.classList.toggle("on",x===b));prev();});
+  B.querySelectorAll("[data-fx]").forEach(b=>b.onclick=()=>{sty=b.dataset.fx;B.querySelectorAll("[data-fx]").forEach(x=>x.classList.toggle("on",x===b));prev();});
   $("admTx").onclick=closeModal;
   const go=async txt=>{const r=await admRpc("admin_title",{target:a.id,txt,sty});if(!r.ok){$("admTe").innerHTML="Fehlgeschlagen: "+admErr(r);return;}closeModal();toast(txt?`Titel „${txt}“ an ${a.name} vergeben`:`Titel von ${a.name} gelöscht`,"crown");if(typeof TT!=="undefined")TT.t=0;admLoadList();};
   $("admTg").onclick=()=>{const v=$("admTt").value.trim();if(!v){$("admTe").textContent="Bitte einen Titel eingeben (oder oben „Titel löschen“).";return;}go(v);};if($("admTr"))$("admTr").onclick=()=>go("");
@@ -10673,28 +10983,32 @@ function admTitle(a){if(!a)return;let sty=TITLE_FX[a.title_style]?a.title_style:
       if(b.dataset.ok!=="1"){b.dataset.ok="1";b.innerHTML=ic("trash")+" Sicher?";hydrateIcons(b);return;}
       const r2=await admRpc("admin_title",{target:x.id,txt:"",sty:""});if(!r2.ok){toast("Fehlgeschlagen: "+admErr(r2),"close");return;}toast(`Titel von ${x.name} gelöscht`,"trash");if(typeof TT!=="undefined")TT.t=0;
       if(x.id===a.id){closeModal();admLoadList();return;}const row=b.closest(".admTRow");if(row)row.remove();admLoadList();});});}
-/* Pokémon schenken: einzeln oder an alle. Landet beim Spieler im Pokédex (+ Freischaltung für Läufe) */
-const GIFT_FEAT=[778]; // Schnellwahl: Mimigma
-function admGift(a){let sel=SPECIES[778]?778:25,shy=false,q="",sure=false;const all=Object.values(SPECIES).sort((x,y)=>x.id-y.id);
-  openModal(`<h2>${ic("ball")} ${a?"POKÉMON SCHENKEN":"POKÉMON AN ALLE"}</h2><div class="lead">${a?`Geschenk für <b>${esc(a.name)}</b>.`:`Geht an <b>alle Konten</b>.`} Kommt beim nächsten Login mit Einblendung an, landet im Pokédex und wird für Läufe freigeschaltet.</div>
+async function admGiftBody(a,B){B.innerHTML=`<p class="empty">${a?"Lade Sammlung von "+esc(a.name)+" …":"Lade …"}</p>`;
+  let own=new Set(),unl=new Set(),none=false;
+  if(a){const r=await admRpc("admin_player_meta",{target:a.id});if(!$("admGB")||$("admGB")!==B)return;
+    if(!r.ok){B.innerHTML=`<div class="aerr">${/admin_player_meta|function|schema/i.test(JSON.stringify(r.j||""))?"Auf dem Server fehlt noch das Update: unter <b>Server-Setup</b> den Code ausführen.":"Sammlung nicht ladbar: "+admErr(r)}</div>`;return;}
+    own=new Set((r.j&&r.j.dex)||[]);unl=new Set((r.j&&r.j.unl)||[]);none=!!(r.j&&r.j.none);}
+  const has=sp=>own.has(sp.id)||(!sp.line.start&&unl.has(sp.line.k));
+  const all=Object.values(SPECIES).filter(sp=>sp.line&&!sp.line.excl&&!(a&&has(sp))).sort((x,y)=>x.id-y.id);
+  if(!all.length){B.innerHTML=`<p class="empty">${esc(a.name)} hat schon alle Pokémon.</p>`;return;}
+  let sel=all[0].id,shy=false,q="",sure=false;
+  B.innerHTML=`<div class="lead">${a?`Nur Pokémon, die <b>${esc(a.name)}</b> noch nicht hat und nicht im Labor gekauft hat (${all.length}).${none?" Noch kein Online-Spielstand.":""}`:`Geht an <b>alle Konten</b>, die es noch nicht haben.`} Kommt beim nächsten Login mit Einblendung an, landet im Pokédex und wird für Läufe freigeschaltet.</div>
    <div class="admGiftTop"><div class="admGiftPrev" id="admGp"></div><div class="admGiftInfo"><b id="admGn"></b><small id="admGr"></small><button class="btn sm" id="admGs">${ic("shiny")} Schillernd</button></div></div>
-   <div class="admFeat"><span>Schnellwahl</span>${GIFT_FEAT.filter(id=>SPECIES[id]).map(id=>`<button class="btn sm" data-gq="${id}">${ic("star")} ${esc(SPECIES[id].name)}</button>`).join("")}</div>
    <div class="favBar"><input id="admGq" placeholder="Pokémon suchen (Name oder Nr.) …" maxlength="20" autocomplete="off"></div><div class="admGiftGrid" id="admGg"></div>
    <label class="fld" style="margin-top:10px">NACHRICHT AN DEN SPIELER (optional)<input id="admGm" maxlength="120" autocomplete="off" placeholder="z. B. Danke fürs Testen!"></label><div class="aerr" id="admGe"></div>
-   <div class="rbtns" style="margin-top:12px"><button class="pri" id="admGo">${ic("check")} Schenken</button><button class="btn" id="admGx">Abbrechen</button></div>`,"",true);
+   <div class="rbtns" style="margin-top:12px"><button class="pri" id="admGo">${ic("check")} Schenken</button><button class="btn" id="admGx">Abbrechen</button></div>`;
   const prev=()=>{const sp=SPECIES[sel],P=$("admGp");P.innerHTML="";try{P.appendChild(sprAlign(natFit(spriteEl(sel,"",{shiny:shy}),1)));}catch(e){}
     $("admGn").textContent=`#${sel} ${sp.name}`;$("admGr").textContent=((REGIONS[(sp.line&&sp.line.region)||"kanto"]||{}).n||"")+" · "+sp.types.map(t=>TYPES[t]?TYPES[t][0]:t).join(" / ");$("admGs").classList.toggle("on",shy);
     $("admGo").innerHTML=`${ic("check")} ${sp.name}${shy?" (schillernd)":""} ${a?"schenken":"an alle schenken"}`;hydrateIcons($("admGo"));sure=false;
-    $("mbox").querySelectorAll("[data-gs]").forEach(b=>b.classList.toggle("on",+b.dataset.gs===sel));};
+    B.querySelectorAll("[data-gs]").forEach(b=>b.classList.toggle("on",+b.dataset.gs===sel));};
   const grid=()=>{const t=q.trim().toLowerCase(),L=(t?all.filter(sp=>sp.name.toLowerCase().includes(t)||String(sp.id)===t):all).slice(0,40),G=$("admGg");
     G.innerHTML=L.map(sp=>`<button class="favB${sp.id===sel?" on":""}" data-gs="${sp.id}" title="#${sp.id} ${esc(sp.name)}"><span class="fm" data-sp="${sp.id}"></span><small>${esc(sp.name)}</small></button>`).join("")||`<p class="empty">Nichts gefunden.</p>`;
     G.querySelectorAll(".fm[data-sp]").forEach(e=>e.appendChild(sprAlign(natFit(spriteEl(+e.dataset.sp),.9))));G.querySelectorAll("[data-gs]").forEach(b=>b.onclick=()=>{sel=+b.dataset.gs;prev();});};
-  prev();grid();hydrateIcons($("mbox"));let tm=0;$("admGq").oninput=e=>{clearTimeout(tm);tm=setTimeout(()=>{q=e.target.value;grid();},200);};
-  $("mbox").querySelectorAll("[data-gq]").forEach(b=>b.onclick=()=>{sel=+b.dataset.gq;q="";$("admGq").value="";grid();prev();});
+  prev();grid();hydrateIcons(B);let tm=0;$("admGq").oninput=e=>{clearTimeout(tm);tm=setTimeout(()=>{q=e.target.value;grid();},200);};
   $("admGs").onclick=()=>{shy=!shy;prev();};$("admGx").onclick=closeModal;
   $("admGo").onclick=async()=>{const E=$("admGe"),sp=SPECIES[sel];if(!a&&!sure){sure=true;$("admGo").innerHTML=`${ic("check")} Wirklich an ALLE schenken?`;hydrateIcons($("admGo"));return;}
-    const r=await admRpc("admin_gift",{target:a?a.id:null,mon:sel,shy,msg:$("admGm").value.trim()});
-    if(!r.ok){E.innerHTML=/admin_gift|function|schema/i.test(JSON.stringify(r.j||""))?"Auf dem Server fehlt noch das Update: unter <b>Server-Setup</b> den Code ausführen.":"Fehlgeschlagen: "+admErr(r);return;}
+    const r=await admRpc("admin_gift",{target:a?a.id:null,mon:sel,shy,msg:$("admGm").value.trim(),lk:sp.line.start?null:sp.line.k});
+    if(!r.ok){const t=JSON.stringify(r.j||"");E.innerHTML=/already_owned/.test(t)?"Das hat der Spieler schon (oder im Labor gekauft).":/already_pending/.test(t)?"Liegt schon als Geschenk für ihn bereit.":/admin_gift|function|schema/i.test(t)?"Auf dem Server fehlt noch das Update: unter <b>Server-Setup</b> den Code ausführen.":"Fehlgeschlagen: "+admErr(r);return;}
     closeModal();toast(`${sp.name}${shy?" (schillernd)":""} an ${a?a.name:(+r.j||0)+" Spieler"} verschenkt`,"ball");};}
 /* sperren / entsperren */
 function admBan(a){if(!a)return;if(admBanned(a)){openModal(`<h2>${ic("check")} ENTSPERREN?</h2><div class="lead"><b>${esc(a.name)}</b> ist gesperrt bis ${Date.parse(a.banned_until)-Date.now()>3e10?"auf Weiteres (dauerhaft)":admFmt(a.banned_until)}.${a.ban_reason?`<br>Grund: ${esc(a.ban_reason)}`:""}</div><div class="aerr" id="admBe"></div>
@@ -10864,13 +11178,13 @@ const ttKey=n=>"pokelings_tt_"+userKey(n||"");
 function myTitleLocal(){try{const t=USER?LS.get(ttKey(USER),null):null;MYTITLE=t&&t.text?{text:String(t.text).slice(0,24),style:TITLE_FX[t.style]?t.style:null}:null;}catch(e){MYTITLE=null;}}
 /* Sortierung nach Region (Reihenfolge wie REGIONS), darin nach Entwicklungsreihe */
 const favReg=id=>{const L=SPECIES[id]&&SPECIES[id].line;return(L&&L.region)||"kanto";};
-function favList(){const d=(META&&META.dex)||{},RK=Object.keys(REGIONS);return Object.keys(d).map(Number).filter(id=>d[id]&&d[id].owned>0&&SPECIES[id])
+function favList(){const d=(META&&META.dex)||{},RK=Object.keys(REGIONS),xo=exclOk();return Object.keys(d).map(Number).filter(id=>d[id]&&d[id].owned>0&&SPECIES[id]&&(xo||!isExcl(id)))
   .sort((a,b)=>{const ra=RK.indexOf(favReg(a)),rb=RK.indexOf(favReg(b));if(ra!==rb)return ra-rb;const A=SPECIES[a],B=SPECIES[b];return favLineN(A.line)-favLineN(B.line)||A.stage-B.stage||a-b;});}
 const favLineN=L=>L._n||(L._n=Math.min(...L.stages.map(s=>s[0]))); // Pichu-Linie steht bei Pikachu (25), nicht bei 172
 /* Sprite nach sichtbarem Inhalt ausrichten: waagerecht mittig (Mischung aus Umriss und Schwerpunkt), Füße auf den Boden.
    Die GIF-Leinwand ist oft einseitig leer (Schweif, Flügel) – darum saß z. B. Mewtu schief. Nutzt "translate", damit Animationen auf "transform" bleiben. */
 const SPR_AL={};
-function sprAlign(img,flip){if(!img||img.tagName!=="IMG")return img;
+function sprAlign(img,flip){if(img&&img.dataset&&img.dataset.spw){img.dataset.al=flip?"2":"1";return img;}if(!img||img.tagName!=="IMG")return img;
   const go=()=>{try{const w=img.naturalWidth,h=img.naturalHeight;if(!w||!h)return;const key=img.src.length+":"+img.src.slice(-48);let o=SPR_AL[key];
     if(!o){const c=document.createElement("canvas");c.width=w;c.height=h;const x=c.getContext("2d");x.drawImage(img,0,0);const D=x.getImageData(0,0,w,h).data;let l=w,r=-1,b=-1,sx=0,sn=0;
       for(let yy=0;yy<h;yy++)for(let xx=0;xx<w;xx++){const a=D[(yy*w+xx)*4+3];if(a>24){if(xx<l)l=xx;if(xx>r)r=xx;if(yy>b)b=yy;sx+=xx*a;sn+=a;}}
@@ -10879,18 +11193,18 @@ function sprAlign(img,flip){if(!img||img.tagName!=="IMG")return img;
   if(img.complete&&img.naturalWidth)go();else img.addEventListener("load",go,{once:true});return img;}
 function favDefault(){const d=(META&&META.dex)||{};let best=0,bw=-1;for(const id of favList()){const w=d[id].wins||0;if(w>bw){bw=w;best=id;}}return best||25;}
 function cardMeta(){META.card=META.card||{};const C=META.card;if(!C.bg||!CARD_BG[C.bg]||(CARD_BG[C.bg].lock&&!(()=>{try{return CARD_BG[C.bg].lock();}catch(e){return false;}})()))C.bg="std";C.badges=(C.badges||[]).filter(id=>badgeDef(id)).slice(0,3);
-  const d=(META&&META.dex)||{};if(!C.fav||!SPECIES[C.fav]||!(d[C.fav]&&d[C.fav].owned>0))C.fav=favDefault();if(C.favSh&&!(d[C.fav]&&d[C.fav].shiny>0))C.favSh=0;return C;}
+  const d=(META&&META.dex)||{};if(!C.fav||!SPECIES[C.fav]||!(d[C.fav]&&d[C.fav].owned>0)||(isExcl(C.fav)&&!exclOk()))C.fav=favDefault();if(C.favSh&&!(d[C.fav]&&d[C.fav].shiny>0))C.favSh=0;return C;}
 function cardTitles(C){return [...new Set([C.av==="girl"?"Trainerin":"Trainer",...(MYTITLE&&MYTITLE.text?[MYTITLE.text]:[]),...badgeAll().filter(b=>badgeState(b).t>=4).map(b=>b.n.replace(/^Partner: /,"")+(b.cat==="Partner"?"-Meister":""))])];}
 function cardMine(){const C=cardMeta();if(C.title&&!cardTitles(C).includes(C.title))C.title=null;const b=C.badges.map(id=>{const d=badgeDef(id);return[id,d?badgeState(d).t:0];}).filter(x=>x[1]>0);
   const title=C.title||(C.av==="girl"?"Trainerin":"Trainer"),ts=MYTITLE&&MYTITLE.text===title&&TITLE_FX[MYTITLE.style]?MYTITLE.style:null;
   return{name:USER||mpName&&mpName()||"Gast",fav:C.fav,favSh:C.favSh?1:0,bg:C.bg,title,ts,badges:b,ch:Object.values(META.champs||{}).reduce((a,c)=>a+c,0),dw:(META.mp||{}).duelWins||0,dex:_dex().filter(d=>d.owned>0).length};}
 function cardClean(c){if(!c||typeof c!=="object")return null;const n=v=>Math.max(0,Math.min(1e7,v|0)),fav=+c.fav;
-  return{name:String(c.name||"?").slice(0,20),fav:SPECIES[fav]?fav:25,favSh:c.favSh?1:0,bg:CARD_BG[c.bg]?c.bg:"std",title:String(c.title||"Trainer").replace(/[<>]/g,"").slice(0,24),ts:TITLE_FX[c.ts]?c.ts:null,
+  return{name:String(c.name||"?").slice(0,20),fav:SPECIES[fav]&&!(isExcl(fav)&&String(c.name||"").trim().toLowerCase()!=="requiem")?fav:25,favSh:c.favSh?1:0,bg:CARD_BG[c.bg]?c.bg:"std",title:String(c.title||"Trainer").replace(/[<>]/g,"").slice(0,24),ts:TITLE_FX[c.ts]?c.ts:null,
     badges:(Array.isArray(c.badges)?c.badges:[]).slice(0,3).filter(x=>Array.isArray(x)&&badgeDef(String(x[0]))).map(x=>[String(x[0]).slice(0,40),Math.max(1,Math.min(4,x[1]|0))]),ch:n(c.ch),dw:n(c.dw),dex:n(c.dex)};}
 const ttCls=ts=>ts&&TITLE_FX[ts]?` class="tt tt-${ts}"`:"";
 function cardHTML(c,side){c=c||cardMine();const sl=[0,1,2].map(i=>c.badges[i]?badgeHTML(c.badges[i][0],c.badges[i][1]):badgeHTML(null,0)).join("");
   return `<div class="tcard${side?" "+side:""}">${bgHTML(c.bg)}<div class="tcShine"></div>
-   <div class="tcTop"><b${c.name.length>13?' class="long"':""}>${esc(c.name)}</b><small${ttCls(c.ts)}>${esc(c.title)}</small></div>
+   <div class="tcTop"><b${c.name.length>13?' class="long"':""}>${esc(c.name)}</b><small class="${[c.ts&&TITLE_FX[c.ts]?"tt tt-"+c.ts:"",c.title.length>16?"xl":c.title.length>12?"long":""].join(" ").trim()}">${esc(c.title)}</small></div>
    <div class="tcAv"><i class="tcPlat"></i><span class="tcMon" data-sp="${SPECIES[c.fav]?c.fav:25}" data-sh="${c.favSh?1:""}"></span></div>
    <div class="tcBdg">${sl}</div>
    ${c.sub?`<div class="tcStats"><span>${c.sub}</span></div>`:`<div class="tcStats"><span>${ic("crown")}${c.ch}</span><span>${ic("swords")}${c.dw}</span><span>${ic("dex")}${c.dex}</span></div>`}</div>`;}
@@ -10917,8 +11231,8 @@ function cardModal(t){t=t||CARD_TAB;CARD_TAB=t;const C=cardMeta(),me=cardMine();
     <h4 class="cdCat">Titel</h4><div class="cdTitles">${cardTitles(C).map(n=>`<button class="cdT${(C.title||"")===n?" on":""}" data-t="${esc(n)}"><span${MYTITLE&&MYTITLE.text===n?ttCls(MYTITLE.style):""}>${esc(n)}</span></button>`).join("")}</div><p class="cdHint">Titel gibt es nur für Abzeichen auf <b>Platin</b>, also extrem selten.</p>`;}
   openModal(`<h2>${ic("user")} TRAINERKARTE</h2><div class="cdWrap"><div class="cdPrev">${cardHTML(me)}<p class="cdHint" style="text-align:center">So sehen dich Gegner im Live-Duell und in der Bestenliste.</p></div>
     <div class="cdSide"><div class="dtabs"><button data-ct="badges" class="${t==="badges"?"on":""}">ABZEICHEN</button><button data-ct="fav" class="${t==="fav"?"on":""}">LIEBLINGSPOKÉMON</button><button data-ct="look" class="${t==="look"?"on":""}">STIL</button></div><div class="cdBody">${body}</div></div></div>
-    <div class="rbtns" style="margin-top:12px"><button class="btn" id="cdBack">${ic("back")} Zurück</button></div>`,"wide",true);
-  const mb=$("mbox");cardHydrate(mb);$("cdBack").onclick=()=>{closeModal();if(typeof showMenu==="function"&&$("menu").classList.contains("show"))showMenu();};
+    <div class="rbtns" style="margin-top:12px"><button class="btn" id="cdFr">${ic("users")} Freunde</button><button class="btn" id="cdBack">${ic("back")} Zurück</button></div>`,"wide",true);
+  const mb=$("mbox");cardHydrate(mb);if($("cdFr"))$("cdFr").onclick=()=>{if(typeof friendsModal==="function")friendsModal();};$("cdBack").onclick=()=>{closeModal();if(typeof showMenu==="function"&&$("menu").classList.contains("show"))showMenu();};
   mb.querySelectorAll("[data-ct]").forEach(b=>b.onclick=()=>cardModal(b.dataset.ct));
   mb.querySelectorAll(".cdB").forEach(b=>b.onclick=()=>{const id=b.dataset.b,d=badgeDef(id);if(!d||!badgeState(d).t){toast("Noch nicht freigeschaltet","lock");return;}const i=C.badges.indexOf(id);if(i>=0)C.badges.splice(i,1);else{if(C.badges.length>=3)C.badges.shift();C.badges.push(id);}saveMeta();cardModal("badges");});
   mb.querySelectorAll("[data-bg]").forEach(b=>b.onclick=()=>{C.bg=b.dataset.bg;saveMeta();cardModal("look");});
@@ -10947,7 +11261,7 @@ function enemyCard(enc,boss){const nm=boss?boss.name:(enc&&enc.name)||"Trainer",
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="9.5",DUEL_HP=30;
+const MP_VER="9.6",DUEL_HP=30;
 const dayKey=d=>(d||new Date()).toISOString().slice(0,10);
 const mpName=()=>USER||(window.__gName||(window.__gName="Gast-"+(100+Math.floor(VRND()*900))));
 
@@ -11001,7 +11315,7 @@ function geistSnap(board){const out=[];for(const k in board){const[x,y]=k.split(
   out.sort((a,b)=>a.x-b.x||a.y-b.y);return out;}
 /* fremde Daten nie ungeprüft übernehmen */
 function teamClean(team){if(!Array.isArray(team))return[];const used=new Set(),out=[];
-  for(const t of team.slice(0,12)){if(!t||!SPECIES[+t.sp])continue;const x=Math.max(0,Math.min(PCOLS-1,t.x|0)),y=Math.max(0,Math.min(FH-1,t.y|0));if(used.has(x+","+y))continue;used.add(x+","+y);
+  for(const t of team.slice(0,12)){if(!t||!SPECIES[+t.sp]||isExcl(+t.sp))continue;const x=Math.max(0,Math.min(PCOLS-1,t.x|0)),y=Math.max(0,Math.min(FH-1,t.y|0));if(used.has(x+","+y))continue;used.add(x+","+y);
     const c={sp:+t.sp,st:Math.max(0,Math.min(2,t.st|0)),it:(Array.isArray(t.it)?t.it:[]).filter(i=>typeof i==="string"&&IT_BY[i]).slice(0,5),gi:(Array.isArray(t.gi)?t.gi:[]).filter(g=>GIFTS.some(z=>z.id===g)).slice(0,4),sc:(Array.isArray(t.sc)?t.sc:[]).filter(s=>typeof s==="string"&&SPECS[s]).slice(0,3),x,y};
     if(typeof t.se==="string"&&SECRETS[t.se])c.se=t.se;if(typeof t.mf==="string"&&t.mf.length<12)c.mf=t.mf;if(t.sh)c.sh=1;out.push(c);}
   out.sort((a,b)=>a.x-b.x||a.y-b.y);return out;}
@@ -11046,10 +11360,10 @@ function duelConnect(code,host,onReady){mpLeave(true);DU.id=Math.random().toStri
   let ok=false;const to=setTimeout(()=>{if(!ok){mpLeave(true);mpErr("Keine Verbindung zum Duell-Server. Prüfe dein Internet und versuche es nochmal.");}},9000);
   DU.tr=mpTransport("pkl-duel-"+code,duelMsg,st=>{if(st==="joined"){ok=true;clearTimeout(to);onReady();}else if(!ok){clearTimeout(to);mpLeave(true);mpErr("Der Duell-Server hat die Verbindung abgelehnt.");}else if(S&&S.duel&&S.phase!=="over"){DU.lost=true;renderEnc();toast("Verbindung zum Duell unterbrochen","wifi");}});}
 function mpErr(t){openModal(`<h2>${ic("wifi")} LIVE-DUELL</h2><div class="lead">${esc(t)}</div><div class="rbtns" style="margin-top:14px"><button class="btn" id="meBack">${ic("back")} Zurück</button></div>`,"narrow",true);$("meBack").onclick=()=>mpModal();}
-function duelCreate(region){if(typeof CFG!=="undefined"&&CFG.duelsOff){toast("Live-Duelle sind gerade gesperrt","swords");return;}const code=String(1000+Math.floor(VRND()*9000));
+function duelCreate(region){DU.ranked=null;if(typeof CFG!=="undefined"&&CFG.duelsOff){toast("Live-Duelle sind gerade gesperrt","swords");return;}const code=String(1000+Math.floor(VRND()*9000));
   duelConnect(code,true,()=>{openModal(`<h2>${ic("swords")} LIVE-DUELL</h2><div class="lead">Raum erstellt. Gib deinem Gegner diesen Code:</div><div class="duCode">${code}</div><p class="empty" style="text-align:center"><span class="duDots"></span> Warte auf Gegner …<br><small>Region: ${REGIONS[region].n}</small></p><div class="rbtns"><button class="btn" id="duX">${ic("close")} Abbrechen</button></div>`,"narrow");
     $("duX").onclick=()=>{mpLeave(true);mpModal();};DU.pending={region,seed:Math.floor(VRND()*2147483647)};});}
-function duelJoin(code){if(typeof CFG!=="undefined"&&CFG.duelsOff){toast("Live-Duelle sind gerade gesperrt","swords");return;}if(!/^\d{4}$/.test(code)){toast("Der Code hat 4 Ziffern","swords");return;}
+function duelJoin(code){DU.ranked=null;if(typeof CFG!=="undefined"&&CFG.duelsOff){toast("Live-Duelle sind gerade gesperrt","swords");return;}if(!/^\d{4}$/.test(code)){toast("Der Code hat 4 Ziffern","swords");return;}
   duelConnect(code,false,()=>{openModal(`<h2>${ic("swords")} LIVE-DUELL</h2><div class="lead">Verbinde mit Raum <b>${code}</b> …</div><p class="empty" style="text-align:center"><span class="duDots"></span> Suche Gegner</p><div class="rbtns"><button class="btn" id="duX">${ic("close")} Abbrechen</button></div>`,"narrow");
     $("duX").onclick=()=>{mpLeave(true);mpModal();};let n=0;const hi=()=>{if(DU.peer){clearInterval(DU.hello);return;}if(++n>40){clearInterval(DU.hello);mpLeave(true);mpErr(`In Raum ${code} wartet niemand. Prüfe den Code.`);return;}duelSend("hello",{name:mpName(),ul:META.unlocked,card:typeof cardMine==="function"?cardMine():null});};hi();DU.hello=setInterval(hi,1500);});}
 function duelMsg(m){if(!m||m.f===DU.id)return;if(m.to&&m.to!==DU.id)return;
@@ -11067,7 +11381,7 @@ function duelMsg(m){if(!m||m.f===DU.id)return;if(m.to&&m.to!==DU.id)return;
   else if(m.t==="gg"){if(S.phase!=="over")duelFinal(true,"gg");}}
 function duelBegin(region,seed,peerName,pool){needReg(region,()=>duelBegin0(region,seed,peerName,pool));}
 function duelBegin0(region,seed,peerName,pool){closeModal();
-  newRun0("duel",region,{duel:{code:DU.code,host:DU.host,peerName,seed,pool:Array.isArray(pool)?pool:[],hp:[DUEL_HP,DUEL_HP],ready:0,ackd:0,snap:{},opp:{},res:{},hres:{},applied:{},desync:0}});
+  newRun0("duel",region,{duel:{code:DU.code,host:DU.host,ranked:DU.ranked||null,peerName,seed,pool:Array.isArray(pool)?pool:[],hp:[DUEL_HP,DUEL_HP],ready:0,ackd:0,snap:{},opp:{},res:{},hres:{},applied:{},desync:0}});
   META.mp=META.mp||{};META.mp.duels=(META.mp.duels||0)+1;saveMeta();
   clearInterval(DU.iv);DU.iv=setInterval(()=>{if(!S||!S.duel){clearInterval(DU.iv);return;}duelSend("ping",{});if(Date.now()-DU.last>30000&&!DU.lost&&S.phase!=="over"){DU.lost=true;renderEnc();toast(`${S.duel.peerName} antwortet nicht`,"wifi");}},5000);
   clearInterval(DU.tick);DU.tick=setInterval(duelTick,1000);}
@@ -11107,9 +11421,10 @@ function duelNext(){const D=S&&S.duel;if(!D||S.phase!=="result")return;const won
 function duelFinal(win,why){if(!S||!S.duel)return;const D=S.duel;if(S.phase==="over")return;S.phase="over";setMir(false);clearInterval(DU.iv);clearInterval(DU.tick);clearTimeout(DU.rt);
   META.mp=META.mp||{};if(win)META.mp.duelWins=(META.mp.duelWins||0)+1;saveMeta();if(B&&!B.done)B.done=true;enterBattleMode(false);
   const R=$("result");R.innerHTML=`<div class="rWrap"><div class="rHead ${win?"win":"lose"}">${win?"DUELL GEWONNEN!":"DUELL VERLOREN"}</div><div class="rPanel glass"><h4>${why==="left"?esc(D.peerName)+" hat den Raum verlassen.":why==="gg"?esc(D.peerName)+" hat aufgegeben.":why==="lost"?"Kampflos gewonnen.":why==="quit"?"Du hast aufgegeben.":"Gegen "+esc(D.peerName)+" nach "+S.round+" Runden."}</h4>${duelHpHtml()}
-   <div class="rewards"><div class="incRow"><span>Duelle gespielt / gewonnen</span><span>${META.mp.duels||1} / ${META.mp.duelWins||0}</span></div>${D.desync?`<div class="incRow"><span>Testphase: Abweichungen</span><span>${D.desync}</span></div>`:""}</div>
+   <div class="rewards">${D.ranked?`<div class="incRow rkRes" id="rkRes"><span>Ranked</span><span>wird gewertet …</span></div>`:""}<div class="incRow"><span>Duelle gespielt / gewonnen</span><span>${META.mp.duels||1} / ${META.mp.duelWins||0}</span></div>${D.desync?`<div class="incRow"><span>Testphase: Abweichungen</span><span>${D.desync}</span></div>`:""}</div>
    <div class="rbtns"><button class="pri" id="rGo">${ic("menu")} Hauptmenü</button><button class="btn" id="rMp">${ic("users")} Neues Duell</button></div></div></div>`;
-  R.classList.add("show");const out=next=>{R.classList.remove("show");R.innerHTML="";mpLeave(true);S=null;B=null;clearVis();clearFx();$("texts").innerHTML="";showMenu();if(next)mpModal();};$("rGo").onclick=()=>out();$("rMp").onclick=()=>out(true);}
+  R.classList.add("show");if(D.ranked&&typeof rankedReport==="function"){const rid=D.ranked;D.ranked=null;rankedReport(rid,win);}DU.ranked=null;
+  const out=next=>{R.classList.remove("show");R.innerHTML="";mpLeave(true);S=null;B=null;clearVis();clearFx();$("texts").innerHTML="";showMenu();if(next)mpModal();};$("rGo").onclick=()=>out();$("rMp").onclick=()=>out(true);}
 function renderDuelEnc(m){if(!m)return;const D=S.duel,r=S.round,rd=D.ready===r,op=!!D.opp[r],bu=boardUnits().length;
   $("wTitleT").textContent="LIVE-DUELL";$("wTitleS").textContent=`Raum ${D.code} · Runde ${r}`;
   const st=DU.lost?`<span style="color:var(--red)">${esc(D.peerName)} antwortet nicht …</span>`:rd&&op?"Kampf startet …":rd?`Du bist bereit. Warte auf <b>${esc(D.peerName)}</b> …`:op?`<b style="color:var(--amber)">${esc(D.peerName)} ist bereit!</b> Automatisch bereit in <b id="duCd">${duelCdLeft()}</b> s`:`<b>${esc(D.peerName)}</b> stellt sein Team zusammen …`;
@@ -11126,21 +11441,28 @@ function mpModal(){const {D,played,score}=dailyState(),cl=typeof CL!=="undefined
   const regs=Object.keys(REGIONS).filter(k=>!REGIONS[k].soon),last=(META.mp&&META.mp.reg)||"kanto";
   openModal(`<h2>${ic("users")} MEHRSPIELER</h2>
    <div class="mpGrid">
+    <div class="mpCard ranked"><div class="mpH">${ic("trophy")}<div><b>Ranked</b><small>Gewertete Live-Duelle · Ränge</small></div></div>
+     <div class="rkMe" id="rkMe"><small>Lade Wertung …</small></div>
+     <p class="mpNote">Zufälliger Gegner, der gerade auch sucht. Siege bringen Punkte, Niederlagen kosten welche, gegen Stärkere gibt es mehr. Ränge: Bronze, Silber, Gold, Platin, Diamant, Meister. Freunde kannst du unter <b>Freunde</b> direkt zu Ranked einladen.</p>
+     <div class="mpRow"><label>Region</label><select id="rkReg">${regs.map(k=>`<option value="${k}" ${k===last?"selected":""}>${REGIONS[k].n}</option>`).join("")}</select></div>
+     <div class="mpB"><button class="pri hot" id="rkGo">${ic("trophy")} Suchen</button><button class="btn" id="rkB">${ic("trophy")} Bestenliste</button></div></div>
+    <div class="mpCard duel"><div class="mpH">${ic("swords")}<div><b>Live-Duell</b><small>2 Spieler · Raumcode oder Freunde einladen</small></div></div>
+     <p class="mpNote">Beide bauen gleichzeitig ihr Team. Sind beide bereit, kämpfen die Teams gegeneinander. Wer zuerst 0 KP hat, verliert. Ohne Relikte und Labor-Talente.</p>
+     <div class="mpRow"><label>Region</label><select id="mpReg">${regs.map(k=>`<option value="${k}" ${k===last?"selected":""}>${REGIONS[k].n}</option>`).join("")}</select></div>
+     <div class="mpB"><button class="pri" id="mpC">${ic("plus")} Raum erstellen</button></div>
+     <div class="mpRow join"><input id="mpCode" inputmode="numeric" maxlength="4" placeholder="Code" autocomplete="off"><button class="btn" id="mpJ">${ic("arrow")} Beitreten</button></div>
+     <div class="mpB"><button class="btn" id="mpFr">${ic("users")} Freunde einladen</button></div></div>
     <div class="mpCard daily"><div class="mpH">${ic("cal")}<div><b>Tagesherausforderung</b><small>${dd} · für alle gleich</small></div></div>
      <div class="mpReg">${ic(REGIONS[D.region].ic||"ball")} ${REGIONS[D.region].n}</div>
      <div class="mpRules">${D.rules.map(k=>`<span>${ic(DAILY_RULES[k].ic)}<b>${DAILY_RULES[k].n}</b><small>${ruleTxt(k,D)}</small></span>`).join("")}</div>
      <p class="mpNote">${played?(score!=null?`Heute geschafft: <b>${score}</b> Punkte. Weitere Läufe sind Übung.`:"Dein gewerteter Versuch läuft schon oder wurde abgebrochen. Weitere Läufe sind Übung."):"Ein gewerteter Versuch pro Tag. Gleicher Startpartner und gleiche Shops für alle."}${cl?"":"<br><small>Für die Online-Bestenliste mit Cloud-Konto anmelden.</small>"}</p>
      <div class="mpB"><button class="pri hot" id="mpD">${ic("play")} ${played?"Übungslauf":"Starten"}</button><button class="btn" id="mpDB">${ic("trophy")} Bestenliste</button></div></div>
-    <div class="mpCard duel"><div class="mpH">${ic("swords")}<div><b>Live-Duell</b><small>Testphase · 2 Spieler · Raumcode</small></div></div>
-     <p class="mpNote">Beide bauen gleichzeitig ihr Team. Sind beide bereit, kämpfen die Teams gegeneinander. Wer zuerst 0 KP hat, verliert. Ohne Relikte und Labor-Talente.</p>
-     <div class="mpRow"><label>Region</label><select id="mpReg">${regs.map(k=>`<option value="${k}" ${k===last?"selected":""}>${REGIONS[k].n}</option>`).join("")}</select></div>
-     <div class="mpB"><button class="pri" id="mpC">${ic("plus")} Raum erstellen</button></div>
-     <div class="mpRow join"><input id="mpCode" inputmode="numeric" maxlength="4" placeholder="Code" autocomplete="off"><button class="btn" id="mpJ">${ic("arrow")} Beitreten</button></div></div>
     <div class="mpCard ghost"><div class="mpH">${ic("ghost")}<div><b>Geisterkämpfe</b><small>Echte Teams anderer Spieler</small></div></div>
      <p class="mpNote">In jeder 3. Runde kann einer der drei Wege ein <b>Geisterkampf</b> sein: das gespeicherte Team eines anderen Spielers aus derselben Runde. Prämie +7 Gold.${cl?" Dein Team wird beim Kampfstart als Geist hochgeladen.":"<br><small>Ohne Cloud-Konto wird dein Team nicht hochgeladen. Geister anderer triffst du trotzdem.</small>"}</p>
      <div class="stSeg" id="mpG"><button data-v="1" class="${geistOn()?"on":""}">An</button><button data-v="0" class="${geistOn()?"":"on"}">Aus</button></div></div>
    </div>`,"wide mpM",true);
   $("mpD").onclick=()=>{closeModal();startDaily();};$("mpDB").onclick=dailyBoard;
+  if($("rkGo"))$("rkGo").onclick=()=>rankedSearch();if($("rkB"))$("rkB").onclick=()=>rankedBoard();if($("mpFr"))$("mpFr").onclick=()=>friendsModal("list");try{rankedMeInto($("rkMe"));}catch(e){}
   $("mpC").onclick=()=>{const rg=$("mpReg").value;META.mp=META.mp||{};META.mp.reg=rg;saveMeta();duelCreate(rg);};
   const j=()=>duelJoin(($("mpCode").value||"").trim());$("mpJ").onclick=j;$("mpCode").onkeydown=e=>{if(e.key==="Enter")j();};
   $("mpG").querySelectorAll("button").forEach(b=>b.onclick=()=>{META.geist=b.dataset.v==="1";saveMeta();$("mpG").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));});}
@@ -11155,7 +11477,7 @@ function needAll(cb){const ks=window.__SPRM?Object.keys(__SPRM).filter(k=>!__SPR
   let n=0;ks.reduce((p,k)=>p.then(()=>__sprLoad(k)).then(()=>{n++;const e=$("naN");if(e)e.textContent=n+"/"+ks.length;}),Promise.resolve()).then(()=>{closeModal();cb();});}
 function newRun(mode,region,o){const rk=REGIONS[region]?region:"kanto";LS.set("pokelings_lastreg",rk);needReg(rk,()=>newRun0(mode,region,o));}
 function dexModal(t){needAll(()=>dexModal0(t));}
-function sprRegionLoaded(r){for(const k in sprIdx)if(sprIdx[k]==="ph")delete sprIdx[k];try{if(S&&S.region===r&&S.phase==="shop")render();}catch(e){}}
+function sprRegionLoaded(r){for(const k in sprIdx)if(sprIdx[k]==="ph")delete sprIdx[k];try{sprSwapWaiting();}catch(e){}try{if(S&&S.region===r&&S.phase==="shop")render();}catch(e){}}
 /* Nach dem Start leise im Hintergrund weiterladen: zuerst die zuletzt gespielte Region, bei Datensparmodus nur diese */
 setTimeout(()=>{if(!window.__SPRM)return;const save=!!(navigator.connection&&navigator.connection.saveData),last=LS.get("pokelings_lastreg","kanto");
   const order=[...new Set([last,...Object.keys(__SPRM)])].filter(k=>__SPRM[k]);let ch=Promise.resolve();
@@ -11181,6 +11503,201 @@ function tutorial(){if(!S)return;let i=0;const old=$("tut");if(old)old.remove();
     const el=s.sel&&document.querySelector(s.sel);if(el&&el.offsetParent!==null){const r0=el.getBoundingClientRect(),z=UIZ,r={left:r0.left/z,top:r0.top/z,width:r0.width/z,height:r0.height/z,bottom:r0.bottom/z},IH=innerHeight/z;Object.assign(ring.style,{display:"block",left:r.left-6+"px",top:r.top-6+"px",width:r.width+12+"px",height:r.height+12+"px"});
       const below=r.top<IH*.5;box.style.top=below?Math.min(IH-box.offsetHeight-10,r.bottom+16)+"px":"";box.style.bottom=below?"":Math.max(10,IH-r.top+16)+"px";}
     else{ring.style.display="none";box.style.top="";box.style.bottom="18%";}},250);}
+
+/* ================================ FREUNDE · EINLADUNGEN · CHAT · RANKED (v9.6) ================================
+   Echtzeit: Jeder angemeldete Spieler hört auf seinem eigenen Kanal (Supabase Realtime wie die Duelle).
+   Über den Kanal kommt nur ein "schau nach" – die echten Daten (Einladungen nur von Freunden, Anfragen, Chat)
+   holt der Client geprüft vom Server (social_poll). Ohne Kanal fragt er alle 20 s nach. */
+const SOC={tr:null,uid:null,iv:0,rt:0,kt:0,last:0,busy:false,first:true,inv:new Set(),sent:new Set(),reqs:new Set(),chat:{},reqN:0,fl:null,ban:null,banQ:[],wait:null,waitT:0,tab:"list",chatWith:null,chatLast:0,chatIv:0,rq:null,reg:null};
+const RANK_T=[[1700,"Meister","#ff5ad8"],[1500,"Diamant","#7cf0ff"],[1300,"Platin","#c8f0ff"],[1100,"Gold","#ffd84a"],[900,"Silber","#cfd6e6"],[0,"Bronze","#e09a5a"]];
+const rankOf=r=>RANK_T.find(t=>(r==null?1000:r)>=t[0]);
+const rankChip=(r,sm)=>{const t=rankOf(r);return `<span class="rkChip${sm?" sm":""}" style="--rc:${t[2]}">${ic("trophy")}${t[1]} <b>${r==null?1000:r}</b></span>`;};
+const socAgo=d=>{if(!d)return"lange nicht online";const s=(Date.now()-Date.parse(d))/1000;if(s<180)return"online";if(s<3600)return"vor "+Math.round(s/60)+" Min.";if(s<86400)return"vor "+Math.round(s/3600)+" Std.";return"vor "+Math.round(s/86400)+" Tg.";};
+const socOn=d=>!!d&&Date.now()-Date.parse(d)<180000;
+const socErr=r=>JSON.stringify((r&&r.j)||"");
+async function socRpc(fn,body){if(typeof CL==="undefined"||!CL.sess)return{ok:false,status:0,j:null};if(!(await clReady()))return{ok:false,status:0,j:null};return clFetch("/rest/v1/rpc/"+fn,{method:"POST",body:body||{},timeout:9000});}
+const socMissing=r=>/function|schema|Could not find/i.test(socErr(r));
+
+/* ---------- eigener Kanal + Abfrage ---------- */
+function socStart(){if(typeof CL==="undefined"||!CL.sess||!CL.sess.uid)return;if(SOC.uid===CL.sess.uid&&SOC.tr)return;socStop();SOC.uid=CL.sess.uid;SOC.first=true;socListen();
+  SOC.iv=setInterval(()=>{if(document.visibilityState!=="hidden")socPoll();},20000);setTimeout(socPoll,1500);}
+function socListen(){const u=SOC.uid;if(!u)return;
+  try{SOC.tr=mpTransport("pkl-u-"+u,m=>{if(m&&m.t==="ping")socKick(m.k);},st=>{if(st==="joined")return;try{if(SOC.tr)SOC.tr.close();}catch(e){}SOC.tr=null;clearTimeout(SOC.rt);SOC.rt=setTimeout(()=>{if(SOC.uid===u&&!SOC.tr)socListen();},7000);});}catch(e){}}
+function socStop(){clearInterval(SOC.iv);clearTimeout(SOC.rt);clearTimeout(SOC.kt);try{if(SOC.tr)SOC.tr.close();}catch(e){}
+  Object.assign(SOC,{tr:null,uid:null,first:true,chat:{},reqN:0,fl:null,banQ:[]});SOC.inv.clear();SOC.sent.clear();SOC.reqs.clear();socBanClose(true);socBadges();}
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible"&&SOC.uid)socPoll();});
+function socKick(k){if(k==="rq")rankedPollNow();if(k==="chat"&&SOC.chatWith)chatFetch();clearTimeout(SOC.kt);SOC.kt=setTimeout(socPoll,Date.now()-SOC.last<900?900:30);}
+/* Ping an einen anderen Spieler: kurz seinem Kanal beitreten, "schau nach" senden, wieder gehen */
+function socPing(uid,k){if(!uid)return;try{let t=null;t=mpTransport("pkl-u-"+uid,()=>{},st=>{if(st==="joined"&&t){t.send({t:"ping",k});setTimeout(()=>{try{t.close();}catch(e){}},800);}});setTimeout(()=>{try{t&&t.close();}catch(e){}},8000);}catch(e){}}
+async function socPoll(){if(SOC.busy||typeof CL==="undefined"||!CL.sess)return;SOC.busy=true;SOC.last=Date.now();
+  try{const r=await socRpc("social_poll");if(!r.ok||!r.j)return;const j=r.j,first=SOC.first;SOC.first=false;
+    for(const v of j.inv||[]){if(SOC.inv.has(v.id))continue;SOC.inv.add(v.id);if((+v.age||0)<10)socBanQueue({type:"inv",v});}
+    for(const v of j.sent||[]){if(SOC.sent.has(v.id))continue;SOC.sent.add(v.id);if(!first)socAnswered(v);}
+    const rq=j.reqs||[];SOC.reqN=rq.length;for(const q of rq){if(SOC.reqs.has(q.uid))continue;SOC.reqs.add(q.uid);socBanQueue({type:"req",q});}
+    const c=j.chat||{};if(!first)for(const k in c){if((c[k]|0)>(SOC.chat[k]|0)&&SOC.chatWith!==k)socChatNote(k);}SOC.chat=c;
+    socBadges();if(SOC.tab&&$("frBody")&&!first)friendsRefresh(true);}finally{SOC.busy=false;}}
+function socUnread(){let n=0;for(const k in SOC.chat)if(k!==SOC.chatWith)n+=SOC.chat[k]|0;return n;}
+function socBadges(){const n=SOC.reqN+socUnread(),b=$("mFrN");if(b){b.textContent=n>9?"9+":String(n);b.style.display=n?"":"none";}
+  const t1=$("frTabReq");if(t1)t1.textContent=SOC.reqN?String(SOC.reqN):"";}
+async function socNameOf(uid){const f=(SOC.fl||[]).find(x=>x.uid===uid);if(f)return f.name;await friendsLoad();const g=(SOC.fl||[]).find(x=>x.uid===uid);return g?g.name:"Ein Freund";}
+async function socChatNote(uid){const nm=await socNameOf(uid);toast(`Neue Nachricht von ${nm}`,"chat");try{sfx("pop");}catch(e){}}
+
+/* ---------- Einblendung oben (Einladung / Anfrage) mit weißer Zeitleiste ---------- */
+function socBanQueue(it){SOC.banQ.push(it);if(!SOC.ban)socBanNext();}
+function socBanNext(){if(SOC.ban)return;const it=SOC.banQ.shift();if(!it)return;SOC.ban=it;
+  let el=$("socBan");if(!el){el=document.createElement("div");el.id="socBan";document.body.appendChild(el);}
+  let secs=10,onYes,onNo,onTime;
+  if(it.type==="inv"){const v=it.v,rk=v.kind==="ranked";secs=Math.max(3,Math.round(10-(+v.age||0)));
+    el.className="socBan"+(rk?" rk":"");el.innerHTML=`<div class="sbMain"><span class="sbIc">${ic(rk?"trophy":"swords")}</span><div class="sbTx"><b>${esc(v.name)}</b><span>lädt dich zu einem <b>${rk?"Ranked-Kampf":"Spaßkampf"}</b> ein${v.region&&REGIONS[v.region]?" · "+esc(REGIONS[v.region].n):""}</span></div>
+      <button class="sbNo" title="Ablehnen">${ic("close")}</button><button class="sbYes">${ic("check")} Annehmen</button></div><i class="sbBar"></i>`;
+    onYes=()=>socInvAnswer(v,true);onNo=()=>socInvAnswer(v,false);onTime=()=>socInvAnswer(v,false,true);}
+  else{const q=it.q;secs=12;el.className="socBan fr";el.innerHTML=`<div class="sbMain"><span class="sbIc">${ic("users")}</span><div class="sbTx"><b>${esc(q.name)}</b><span>möchte dein Freund sein</span></div>
+      <button class="sbNo" title="Ablehnen">${ic("close")}</button><button class="sbYes">${ic("check")} Annehmen</button></div><i class="sbBar"></i>`;
+    onYes=()=>{socBanClose();friendRespond(q.uid,q.name,true);};onNo=()=>{socBanClose();friendRespond(q.uid,q.name,false);};onTime=()=>socBanClose();}
+  el.querySelector(".sbBar").style.animationDuration=secs+"s";hydrateIcons(el);
+  const to=setTimeout(onTime,secs*1000);el.querySelector(".sbYes").onclick=()=>{clearTimeout(to);onYes();};el.querySelector(".sbNo").onclick=()=>{clearTimeout(to);onNo();};
+  el.classList.remove("show");void el.offsetWidth;el.classList.add("show");try{sfx("pop");}catch(e){}}
+function socBanClose(silent){const el=$("socBan");if(el){el.classList.remove("show");setTimeout(()=>{if(el.parentNode&&!el.classList.contains("show"))el.remove();},320);}SOC.ban=null;if(!silent)setTimeout(socBanNext,380);}
+
+/* ---------- laufenden Einzelspieler-Lauf sichern (beim Annehmen / Einladen) ---------- */
+function socSaveRun(){try{if(typeof S==="undefined"||!S||S.duel||!S.phase||S.phase==="over")return false;
+  if(typeof B!=="undefined"&&B&&!B.done){B.done=true;try{if(typeof cineStop==="function")cineStop();}catch(e){}try{clearZones();clearVis();clearFx();}catch(e){}$("texts").innerHTML="";
+    const d=LS.get(saveKey(),null);if(d&&d.S){delete d.S.pending;LS.set(saveKey(),d);}}
+  else if(S.phase==="shop")save();
+  else{const d=LS.get(saveKey(),null);if(d&&d.S&&d.S.pending){delete d.S.pending;LS.set(saveKey(),d);}}
+  const vs=$("vs");if(vs){vs.classList.remove("show","out");vs.innerHTML="";}const R=$("result");if(R){R.classList.remove("show");R.innerHTML="";}
+  try{enterBattleMode(false);}catch(e){}S=null;B=null;return true;}catch(e){console.warn(e);return false;}}
+
+/* ---------- Einladungen ---------- */
+async function socInvAnswer(v,ok,auto){socBanClose();
+  if(ok&&typeof CFG!=="undefined"&&CFG.duelsOff){toast("Live-Duelle sind gerade gesperrt","swords");ok=false;}
+  if(ok&&typeof S!=="undefined"&&S&&S.duel&&S.phase!=="over"){toast("Du bist gerade in einem Duell","swords");ok=false;}
+  const r=await socRpc("invite_answer",{iid:v.id,ok:!!ok});socPing(v.from,"ans");
+  if(!ok){if(auto)toast(`Einladung von ${v.name} verpasst`,"info");return;}
+  if(!r.ok||!r.j||!r.j.ok){toast("Die Einladung ist abgelaufen","info");return;}
+  if(socSaveRun())toast("Dein Lauf ist gespeichert, weiter später mit „Weiterspielen“","check");
+  if($("modal").classList.contains("show"))closeModal();
+  duelJoinRoom(r.j.room,v.name,r.j.kind==="ranked"?v.id:null);}
+function duelJoinRoom(room,name,rid){DU.ranked=rid||null;
+  duelConnect(room,false,()=>{openModal(`<h2>${ic(rid?"trophy":"swords")} ${rid?"RANKED":"LIVE-DUELL"}</h2><div class="lead">Verbinde mit <b>${esc(name)}</b> …</div><p class="empty" style="text-align:center"><span class="duDots"></span> einen Moment</p><div class="rbtns"><button class="btn" id="duX">${ic("close")} Abbrechen</button></div>`,"narrow");
+    $("duX").onclick=()=>{mpLeave(true);DU.ranked=null;closeModal();showMenu();};let n=0;
+    const hi=()=>{if(DU.peer){clearInterval(DU.hello);return;}if(++n>20){clearInterval(DU.hello);mpLeave(true);DU.ranked=null;mpErr(`${name} ist nicht mehr da.`);return;}duelSend("hello",{name:mpName(),ul:META.unlocked,card:typeof cardMine==="function"?cardMine():null});};hi();DU.hello=setInterval(hi,1500);});}
+async function socInvite(f,kind){if(typeof CFG!=="undefined"&&CFG.duelsOff){toast("Live-Duelle sind gerade gesperrt","swords");return;}
+  if(typeof S!=="undefined"&&S&&S.duel&&S.phase!=="over"){toast("Du bist schon in einem Duell","swords");return;}
+  const reg=SOC.reg||(META.mp&&META.mp.reg)||"kanto";
+  const r=await socRpc("invite_send",{o:f.uid,k:kind,reg});
+  if(!r.ok||!r.j){const t=socErr(r);toast(/not_friends/.test(t)?"Ihr seid keine Freunde (mehr)":/rate_limit/.test(t)?"Zu viele Einladungen, kurz warten":socMissing(r)?"Freunde sind auf dem Server noch nicht eingerichtet":"Einladung fehlgeschlagen","info");return;}
+  socSaveRun();const id=r.j.id,rid=kind==="ranked"?id:null;DU.ranked=rid;SOC.wait={id,name:f.name,uid:f.uid};
+  duelConnect(r.j.room,true,()=>{DU.ranked=rid;DU.pending={region:reg,seed:Math.floor(VRND()*2147483647)};
+    openModal(`<h2>${ic(rid?"trophy":"swords")} ${rid?"RANKED-EINLADUNG":"EINLADUNG"}</h2><div class="lead" id="socWl">Warte auf <b>${esc(f.name)}</b> …</div><div class="socWait"><i></i></div><p class="empty" style="text-align:center"><small>${rid?"Ranked · ":"Spaßkampf · "}Region: ${esc((REGIONS[reg]||{n:reg}).n)}</small></p><div class="rbtns"><button class="btn" id="duX">${ic("close")} Abbrechen</button></div>`,"narrow");
+    $("duX").onclick=()=>{socWaitEnd();mpLeave(true);DU.ranked=null;friendsModal();};
+    socPing(f.uid,"inv");clearTimeout(SOC.waitT);
+    SOC.waitT=setTimeout(()=>{if(SOC.wait&&SOC.wait.id===id&&!DU.peer){socWaitEnd();mpLeave(true);DU.ranked=null;toast(`${f.name} hat nicht reagiert`,"info");friendsModal();}},15000);});}
+function socWaitEnd(){clearTimeout(SOC.waitT);SOC.wait=null;}
+function socAnswered(v){const w=SOC.wait&&SOC.wait.id===v.id;
+  if(v.status==="declined"){toast(`${v.name} hat abgelehnt`,"close");if(w&&!DU.peer){socWaitEnd();mpLeave(true);DU.ranked=null;closeModal();friendsModal();}}
+  else if(v.status==="accepted"&&w){const el=$("socWl");if(el)el.innerHTML=`<b>${esc(v.name)}</b> hat angenommen, verbinde …`;}}
+
+/* ---------- Freunde ---------- */
+async function friendsLoad(){const r=await socRpc("friend_list");if(r.ok&&Array.isArray(r.j)){SOC.fl=r.j;return r.j;}SOC.flErr=r;return null;}
+async function friendRequest(name,uidHint){name=String(name||"").trim();if(!name){toast("Bitte einen Namen eingeben","info");return false;}
+  if(typeof USER!=="undefined"&&USER&&userKey(name)===userKey(USER)){toast("Das bist du selbst","info");return false;}
+  const r=await socRpc("friend_request",{n:name});
+  if(!r.ok){const t=socErr(r);toast(/not_found/.test(t)?"Diesen Spieler gibt es nicht":/self/.test(t)?"Das bist du selbst":/rate_limit/.test(t)?"Zu viele offene Anfragen":socMissing(r)?"Freunde sind auf dem Server noch nicht eingerichtet":"Anfrage fehlgeschlagen","info");return false;}
+  const res=r.j&&r.j.res,uid=(r.j&&r.j.uid)||uidHint;
+  toast(res==="accepted"?`Ihr seid jetzt Freunde: ${name}`:res==="already"?`${name} ist schon dein Freund`:res==="pending"?`Anfrage an ${name} läuft schon`:`Anfrage an ${name} gesendet`,"users");
+  if(res==="sent"||res==="accepted")socPing(uid,"fr");return true;}
+async function friendRespond(uid,name,ok){const r=await socRpc("friend_respond",{o:uid,ok:!!ok});if(!r.ok){toast("Fehlgeschlagen","close");return;}
+  SOC.reqs.delete(uid);if(ok){toast(`Ihr seid jetzt Freunde: ${name}`,"users");socPing(uid,"fr");}socPoll();friendsRefresh();}
+function friendsModal(tab){if(typeof CL==="undefined"||!CL.sess){openModal(`<h2>${ic("users")} FREUNDE</h2><div class="lead">Freunde gibt es mit einem <b>Online-Konto</b>. Melde dich an oder registriere dich (kostenlos, ohne E-Mail).</div><div class="rbtns" style="margin-top:12px"><button class="pri" id="frOk">OK</button></div>`,"narrow",true);$("frOk").onclick=closeModal;return;}
+  SOC.tab=tab||SOC.tab||"list";SOC.chatWith=null;clearInterval(SOC.chatIv);
+  openModal(`<h2>${ic("users")} FREUNDE</h2><div class="frHead"><span>${ic("user")} <b>${esc(USER||"")}</b></span><span id="frRank"></span></div>
+   <div class="dtabs frTabs"><button data-ft="list" class="${SOC.tab==="list"?"on":""}">FREUNDE</button><button data-ft="req" class="${SOC.tab==="req"?"on":""}">ANFRAGEN <em id="frTabReq">${SOC.reqN||""}</em></button><button data-ft="add" class="${SOC.tab==="add"?"on":""}">HINZUFÜGEN</button></div>
+   <div id="frBody"><p class="empty">Lade …</p></div><div class="rbtns" style="margin-top:10px"><button class="btn" id="frBack">${ic("back")} Zurück</button></div>`,"wide frM",true);
+  hydrateIcons($("mbox"));$("frBack").onclick=()=>{SOC.tab=null;closeModal();};
+  $("mbox").querySelectorAll("[data-ft]").forEach(b=>b.onclick=()=>{SOC.tab=b.dataset.ft;$("mbox").querySelectorAll("[data-ft]").forEach(x=>x.classList.toggle("on",x===b));friendsRefresh();});
+  socRpc("ranked_me").then(r=>{const e=$("frRank");if(e&&r.ok&&r.j){e.innerHTML=rankChip(r.j.rating);hydrateIcons(e);}});
+  friendsRefresh();}
+async function friendsRefresh(quiet){const B=$("frBody");if(!B)return;const tab=SOC.tab||"list";
+  if(tab==="add"){if(quiet)return;B.innerHTML=`<div class="frAdd"><p class="cdHint">Gib den Benutzernamen ein. Sobald er annimmt, könnt ihr euch zu Spaß- oder Ranked-Kämpfen einladen und chatten.</p>
+      <div class="favBar"><input id="frName" maxlength="16" placeholder="Benutzername" autocomplete="off"><button class="pri" id="frSend">${ic("plus")} Anfrage senden</button></div>
+      <p class="cdHint">${ic("info")} Tipp: In der Bestenliste einen Trainer antippen und dort „Freund hinzufügen“ wählen.</p></div>`;hydrateIcons(B);
+    const go=async()=>{if(await friendRequest($("frName").value)){$("frName").value="";}};$("frSend").onclick=go;$("frName").onkeydown=e=>{if(e.key==="Enter")go();};setTimeout(()=>{try{$("frName").focus();}catch(e){}},50);return;}
+  if(!quiet&&!SOC.fl)B.innerHTML=`<p class="empty">Lade …</p>`;const L=await friendsLoad();if(!$("frBody")||SOC.tab!==tab)return;
+  if(!L){B.innerHTML=`<p class="empty">${socMissing(SOC.flErr)?"Freunde sind auf dem Server noch nicht eingerichtet.":"Liste konnte nicht geladen werden."}</p>`;return;}
+  const fav=f=>{const c=f.card&&typeof cardClean==="function"?cardClean(f.card):null;return c?c.fav:25;};
+  if(tab==="list"){const F=L.filter(f=>f.st==="friend");const regs=Object.keys(REGIONS).filter(k=>!REGIONS[k].soon),cur=SOC.reg||(META.mp&&META.mp.reg)||"kanto";
+    B.innerHTML=F.length?`<div class="frTop"><label>Region für Einladungen</label><select id="frReg">${regs.map(k=>`<option value="${k}" ${k===cur?"selected":""}>${REGIONS[k].n}</option>`).join("")}</select></div>
+      <div class="frList">${F.map((f,i)=>{const on=socOn(f.seen),un=SOC.chat[f.uid]|0;return `<div class="frRow${on?" on":""}"><span class="frMon" data-sp="${fav(f)}"></span><div class="frInfo"><b>${esc(f.name)}</b><small><i class="frDot"></i>${on?"online":socAgo(f.seen)}</small></div>${rankChip(f.rating,1)}
+        <div class="frAct"><button class="btn sm" data-iv="${i}" data-k="fun" title="Zum Spaßkampf einladen">${ic("swords")} Spaß</button><button class="btn sm" data-iv="${i}" data-k="ranked" title="Zum Ranked-Kampf einladen">${ic("trophy")} Ranked</button><button class="btn sm" data-ch="${i}" title="Chat">${ic("chat")}${un?`<em>${un}</em>`:""}</button><button class="btn sm danger" data-rm="${i}" title="Entfernen">${ic("trash")}</button></div></div>`;}).join("")}</div>`
+      :`<p class="empty">Noch keine Freunde. Unter <b>HINZUFÜGEN</b> eine Anfrage senden.</p>`;
+    hydrateIcons(B);B.querySelectorAll(".frMon[data-sp]").forEach(e=>{try{e.appendChild(sprAlign(natFit(spriteEl(+e.dataset.sp),.95),true));}catch(x){}});
+    if($("frReg"))$("frReg").onchange=e=>{SOC.reg=e.target.value;META.mp=META.mp||{};META.mp.reg=SOC.reg;saveMeta();};
+    B.querySelectorAll("[data-iv]").forEach(b=>b.onclick=()=>{const f=F[+b.dataset.iv];if(f)socInvite(f,b.dataset.k);});
+    B.querySelectorAll("[data-ch]").forEach(b=>b.onclick=()=>{const f=F[+b.dataset.ch];if(f)chatModal(f);});
+    B.querySelectorAll("[data-rm]").forEach(b=>b.onclick=async()=>{const f=F[+b.dataset.rm];if(!f)return;if(b.dataset.ok!=="1"){b.dataset.ok="1";b.innerHTML=ic("trash")+" Sicher?";hydrateIcons(b);return;}
+      const r=await socRpc("friend_respond",{o:f.uid,ok:false});if(r.ok){toast(`${f.name} entfernt`,"trash");friendsRefresh();}else toast("Fehlgeschlagen","close");});return;}
+  // Anfragen
+  const I=L.filter(f=>f.st==="in"),O=L.filter(f=>f.st==="out");
+  B.innerHTML=`<h4 class="cdCat">Eingehend</h4>${I.length?`<div class="frList">${I.map((f,i)=>`<div class="frRow"><span class="frMon" data-sp="${fav(f)}"></span><div class="frInfo"><b>${esc(f.name)}</b><small>möchte dein Freund sein</small></div><div class="frAct"><button class="pri sm" data-ya="${i}">${ic("check")} Annehmen</button><button class="btn sm" data-na="${i}">${ic("close")} Ablehnen</button></div></div>`).join("")}</div>`:`<p class="cdHint">Keine offenen Anfragen.</p>`}
+    <h4 class="cdCat">Gesendet</h4>${O.length?`<div class="frList">${O.map((f,i)=>`<div class="frRow"><span class="frMon" data-sp="${fav(f)}"></span><div class="frInfo"><b>${esc(f.name)}</b><small>wartet auf Antwort</small></div><div class="frAct"><button class="btn sm" data-wd="${i}">${ic("close")} Zurückziehen</button></div></div>`).join("")}</div>`:`<p class="cdHint">Keine gesendeten Anfragen.</p>`}`;
+  hydrateIcons(B);B.querySelectorAll(".frMon[data-sp]").forEach(e=>{try{e.appendChild(sprAlign(natFit(spriteEl(+e.dataset.sp),.95),true));}catch(x){}});
+  B.querySelectorAll("[data-ya]").forEach(b=>b.onclick=()=>{const f=I[+b.dataset.ya];if(f)friendRespond(f.uid,f.name,true);});
+  B.querySelectorAll("[data-na]").forEach(b=>b.onclick=()=>{const f=I[+b.dataset.na];if(f)friendRespond(f.uid,f.name,false);});
+  B.querySelectorAll("[data-wd]").forEach(b=>b.onclick=async()=>{const f=O[+b.dataset.wd];if(!f)return;const r=await socRpc("friend_respond",{o:f.uid,ok:false});if(r.ok){toast("Anfrage zurückgezogen","close");friendsRefresh();}});}
+
+/* ---------- Chat ---------- */
+function chatModal(f){SOC.chatWith=f.uid;SOC.chatLast=0;SOC.chatF=f;clearInterval(SOC.chatIv);
+  openModal(`<h2>${ic("chat")} CHAT · ${esc(f.name)}</h2><div class="chatList" id="chatList"><p class="empty">Lade …</p></div>
+   <div class="chatIn"><input id="chatT" maxlength="300" placeholder="Nachricht an ${esc(f.name)} …" autocomplete="off"><button class="pri" id="chatGo">${ic("check")} Senden</button></div>
+   <div class="rbtns" style="margin-top:10px"><button class="btn" id="chatBack">${ic("back")} Zu den Freunden</button></div>`,"frM",()=>{SOC.chatWith=null;clearInterval(SOC.chatIv);});
+  hydrateIcons($("mbox"));$("chatBack").onclick=()=>{SOC.chatWith=null;clearInterval(SOC.chatIv);friendsModal("list");};
+  const send=async()=>{const T=$("chatT"),v=T.value.trim();if(!v)return;T.value="";const r=await socRpc("chat_send",{o:f.uid,txt:v});
+    if(!r.ok){const t=socErr(r);toast(/rate_limit/.test(t)?"Zu viele Nachrichten, kurz warten":/not_friends/.test(t)?"Ihr seid keine Freunde mehr":"Senden fehlgeschlagen","info");T.value=v;return;}socPing(f.uid,"chat");chatFetch();};
+  $("chatGo").onclick=send;$("chatT").onkeydown=e=>{if(e.key==="Enter")send();};setTimeout(()=>{try{$("chatT").focus();}catch(e){}},60);
+  chatFetch(true);SOC.chatIv=setInterval(()=>{if(SOC.chatWith===f.uid&&document.visibilityState!=="hidden")chatFetch();},3500);}
+async function chatFetch(first){const uid=SOC.chatWith;if(!uid||SOC.chatBusy)return;SOC.chatBusy=true;
+  try{const r=await socRpc("chat_history",{o:uid,after_id:SOC.chatLast||0});const L=$("chatList");if(!L||SOC.chatWith!==uid)return;
+    if(!r.ok){if(first)L.innerHTML=`<p class="empty">${socMissing(r)?"Chat ist auf dem Server noch nicht eingerichtet.":"Chat konnte nicht geladen werden."}</p>`;return;}
+    const M=Array.isArray(r.j)?r.j:[];if(first||!SOC.chatLast)L.innerHTML=M.length?"":`<p class="empty chatEmpty">Noch keine Nachrichten. Sag Hallo!</p>`;
+    if(M.length){const e=L.querySelector(".chatEmpty");if(e)e.remove();}
+    for(const m of M){if(m.id<=SOC.chatLast)continue;SOC.chatLast=m.id;const d=new Date(m.at);L.insertAdjacentHTML("beforeend",`<div class="chatM${m.mine?" me":""}"><span>${esc(m.body)}</span><small>${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}</small></div>`);}
+    if(M.length)L.scrollTop=L.scrollHeight;if(SOC.chat[uid]){delete SOC.chat[uid];socBadges();}}finally{SOC.chatBusy=false;}}
+
+/* ---------- Ranked: Suche, Wertung, Bestenliste ---------- */
+async function rankedSearch(){if(typeof CL==="undefined"||!CL.sess){toast("Ranked geht nur mit Online-Konto","info");return;}if(typeof CFG!=="undefined"&&CFG.duelsOff){toast("Live-Duelle sind gerade gesperrt","swords");return;}
+  const reg=$("rkReg")?$("rkReg").value:((META.mp&&META.mp.reg)||"kanto");META.mp=META.mp||{};META.mp.reg=reg;saveMeta();rankedCancel(false);
+  const t0=Date.now();SOC.rq={t0,reg,on:true,busy:false};
+  openModal(`<h2>${ic("trophy")} RANKED</h2><div class="lead">Suche einen Gegner …</div><div class="rkSearch"><span class="duDots"></span><b id="rkT">0:00</b></div><p class="empty" style="text-align:center"><small>Region: ${esc((REGIONS[reg]||{n:reg}).n)} · gefunden wird, wer gerade ebenfalls sucht</small></p><div class="rbtns"><button class="btn" id="rkX">${ic("close")} Abbrechen</button></div>`,"narrow");
+  $("rkX").onclick=()=>rankedCancel(true);
+  SOC.rq.tk=setInterval(()=>{const s=Math.floor((Date.now()-t0)/1000),el=$("rkT");if(el)el.textContent=Math.floor(s/60)+":"+String(s%60).padStart(2,"0");},1000);
+  const r=await socRpc("ranked_queue_join",{reg});if(!SOC.rq||SOC.rq.t0!==t0)return;
+  if(!r.ok){rankedCancel(false);mpErr(socMissing(r)?"Ranked ist auf dem Server noch nicht eingerichtet.":"Ranked-Suche fehlgeschlagen.");return;}
+  if(r.j&&r.j.match)return rankedGo(r.j);SOC.rq.iv=setInterval(rankedPollNow,2500);}
+async function rankedPollNow(){const q=SOC.rq;if(!q||!q.on||q.busy)return;q.busy=true;
+  try{const r=await socRpc("ranked_queue_poll");if(SOC.rq!==q)return;if(r.ok&&r.j&&r.j.match)return rankedGo(r.j);
+    if(r.ok&&r.j&&r.j.wait===false){const r2=await socRpc("ranked_queue_join",{reg:q.reg});if(SOC.rq===q&&r2.ok&&r2.j&&r2.j.match)return rankedGo(r2.j);}}finally{q.busy=false;}}
+function rankedCancel(leave){const q=SOC.rq;if(q){clearInterval(q.iv);clearInterval(q.tk);q.on=false;}SOC.rq=null;if(leave){socRpc("ranked_queue_leave");closeModal();mpModal();}}
+function rankedGo(m){rankedCancel(false);if(m.opp_uid)socPing(m.opp_uid,"rq");const reg=REGIONS[m.region]?m.region:"kanto";socSaveRun();
+  if(m.host){DU.ranked=m.match;duelConnect(m.room,true,()=>{DU.ranked=m.match;DU.pending={region:reg,seed:Math.floor(VRND()*2147483647)};
+      openModal(`<h2>${ic("trophy")} RANKED</h2><div class="lead">Gegner gefunden: <b>${esc(m.opp||"?")}</b></div><p class="empty" style="text-align:center"><span class="duDots"></span> verbinde …</p><div class="rbtns"><button class="btn" id="duX">${ic("close")} Abbrechen</button></div>`,"narrow");
+      $("duX").onclick=()=>{mpLeave(true);DU.ranked=null;mpModal();};
+      setTimeout(()=>{if(DU.ranked===m.match&&!DU.peer&&DU.tr){mpLeave(true);DU.ranked=null;mpErr(`${m.opp||"Der Gegner"} ist nicht mehr da. Bitte nochmal suchen.`);}},30000);});}
+  else duelJoinRoom(m.room,m.opp||"Gegner",m.match);}
+async function rankedReport(mid,win){const before=await socRpc("ranked_me"),r=await socRpc("ranked_report",{mid,won:!!win});
+  const show=(t)=>{const e=$("rkRes");if(e){e.innerHTML=`<span>Ranked</span><span>${t}</span>`;hydrateIcons(e);}};
+  if(!r.ok){show("Wertung fehlgeschlagen");return;}
+  if(r.j&&r.j.void){show("Ergebnisse widersprechen sich, nicht gewertet");return;}
+  const after=await socRpc("ranked_me");const ra=after.ok&&after.j?after.j.rating:null;
+  if(r.j&&r.j.done){show(`${win?"+":"−"}${r.j.d|0} · ${rankChip(ra)}`);return;}
+  show("Wartet auf die Meldung des Gegners …");
+  setTimeout(async()=>{const a2=await socRpc("ranked_me"),b=before.ok&&before.j?before.j.rating:null;if(a2.ok&&a2.j&&b!=null&&a2.j.rating!==b){const d=a2.j.rating-b;show(`${d>0?"+":"−"}${Math.abs(d)} · ${rankChip(a2.j.rating)}`);}},6000);}
+async function rankedBoard(){openModal(`<h2>${ic("trophy")} RANKED-BESTENLISTE</h2><div id="rkBd"><p class="empty">Lade …</p></div><div class="rbtns" style="margin-top:10px"><button class="btn" id="rkBx">${ic("back")} Zurück</button></div>`,"",true);
+  $("rkBx").onclick=()=>mpModal();const r=await clFetch("/rest/v1/rpc/ranked_board",{method:"POST",auth:false,body:{},timeout:8000});const B=$("rkBd");if(!B)return;
+  if(!r.ok||!Array.isArray(r.j)){B.innerHTML=`<p class="empty">${socMissing(r)?"Ranked ist auf dem Server noch nicht eingerichtet.":"Bestenliste nicht ladbar."}</p>`;return;}
+  B.innerHTML=r.j.length?`<div class="rkList">${r.j.map((x,i)=>`<div class="rkRow${typeof USER!=="undefined"&&USER&&userKey(x.name)===userKey(USER)?" me":""}"><span class="rkPos">${i+1}</span><b>${esc(x.name)}</b>${rankChip(x.rating,1)}<small>${x.wins} S · ${x.losses} N</small></div>`).join("")}</div>`:`<p class="empty">Noch keine Ranked-Kämpfe. Sei der Erste!</p>`;hydrateIcons(B);}
+function rankedMeInto(el){if(!el)return;if(typeof CL==="undefined"||!CL.sess){el.innerHTML=`<small>Nur mit Online-Konto</small>`;return;}
+  socRpc("ranked_me").then(r=>{if(!el.isConnected)return;if(r.ok&&r.j){el.innerHTML=`${rankChip(r.j.rating)}<small>${r.j.wins} Siege · ${r.j.losses} Niederlagen${r.j.wins+r.j.losses?` · Platz ${r.j.pos}`:""}</small>`;hydrateIcons(el);}else el.innerHTML=`<small>${socMissing(r)?"Ranked wird gerade eingerichtet.":"Wertung nicht ladbar."}</small>`;});}
 
 /* ================================ KAMPF-SIMULATION (Siegchance) ================================
    Statt einer Schätzformel wird jeder mögliche Kampf mehrfach unsichtbar mit der echten Kampflogik durchgerechnet.
@@ -11238,8 +11755,14 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="9.5.1"; // Duell-Kompatibilität hängt an MP_VER (mp.js)
+const GAME_VER="9.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js)
 const PATCH=[
+ {v:"9.6",d:"29.10.2026",t:"Freunde & Ranked",items:[
+  ["users","Freunde: Anfragen senden (auch über einen Trainer in der Bestenliste oder deine Trainerkarte), annehmen oder ablehnen und sehen, wer gerade online ist."],
+  ["swords","Einladungen zu Spaß- oder Ranked-Kämpfen ploppen beim Freund sofort oben auf, mit einer 10-Sekunden-Leiste zum Annehmen oder Ablehnen. Läuft gerade ein eigener Lauf, wird er beim Annehmen gespeichert und du machst später unter „Weiterspielen“ weiter."],
+  ["trophy","Ranked unter Mehrspieler: Gegner suchen, Punkte gewinnen oder verlieren, Ränge von Bronze bis Meister und eine eigene Ranked-Bestenliste."],
+  ["chat","Chat mit deinen Freunden."],
+  ["ball","Pokémon auf Kampfkarten und Abzeichen mit Pokémon laden jetzt zuverlässig, auch im VS-Bildschirm vor echten Kämpfen."]]},
  {v:"9.5.1",d:"29.10.2026",t:"Feinschliff",items:[
   ["heart","Lieblingspokémon: Die Auswahl ist jetzt nach Regionen sortiert (Kanto, Johto, Hoenn …), Entwicklungen stehen zusammen. Oben kannst du nach Region filtern."],
   ["ball","Pokémon stehen auf der Trainerkarte und im VS-Bildschirm jetzt mittig auf ihrem Platz, auch wenn das Bild einseitig ist (z. B. Mewtu mit Schweif)."],
@@ -11767,13 +12290,13 @@ function vsSplash(cb){
    <div class="v4VS"><i class="bu"></i><i class="ri"></i>${spk}<b>VS</b></div>
    <i class="v4Fl"></i></div></div>
    <div class="v4T" title="Kampf beginnt"><svg viewBox="0 0 40 40" aria-hidden="true"><circle class="trk" cx="20" cy="20" r="16"/><circle class="prg" cx="20" cy="20" r="16"/></svg><span><b>5</b><b>4</b><b>3</b><b>2</b><b>1</b></span></div>`;
-  hydrateIcons(vs);
+  if(typeof cardHydrate==="function")cardHydrate(vs);else hydrateIcons(vs);
   const putFav=(sel,id,sh,fl)=>{const b=vs.querySelector(sel);if(b)try{const im=natFit(spriteEl(SPECIES[id]?id:25,"",{shiny:!!sh}),1);b.appendChild(typeof sprAlign==="function"?sprAlign(im,fl):im);}catch(e){}};
   putFav(".v4Fav.L .bob",me.fav,me.favSh,true);if(S.duel)putFav(".v4Fav.R .bob",op.fav,op.favSh,false);
   vs.querySelectorAll(".v4m .sp[data-k]").forEach(e=>{const u=show[+e.dataset.k];if(u)try{e.appendChild(natFit(spriteEl(u),1));}catch(x){}});
   $("bMine").textContent=(USER||"DU").toUpperCase();$("bMineS").textContent=`${boardUnits().length} Pokémon`;$("bEnemy").textContent=(S.duel?op.name:boss?boss.name:enc.name).toUpperCase();$("bEnemyS").textContent=S.duel?"Live-Duell":D.n+(S.revanche?" · Revanche":"");
   vs.onclick=null;vs.classList.add("show");sfx("vs");setTimeout(()=>{if(vs.classList.contains("show")){sfx("crit",.05);sfx("boom",.25);}},320);
-  let done=false;const fin=()=>{if(done)return;done=true;vs.classList.add("out");setTimeout(()=>{vs.classList.remove("show","out");vs.innerHTML="";cb();},window.__fast?0:360);};
+  let done=false;const S0=S;const fin=()=>{if(done)return;done=true;vs.classList.add("out");setTimeout(()=>{vs.classList.remove("show","out");vs.innerHTML="";if(!S||S!==S0)return;cb();},window.__fast?0:360);};
   setTimeout(fin,window.__fast?10:5000);
 }
 function fight(){if(S&&S.duel){duelReady();return;}if(typeof geistUpload==="function")geistUpload();if(!S||S.phase!=="shop"||!boardUnits().length||!S.enc||S.enc.type==="event")return;S.pending=true;save();delete S.pending;S.phase="intro";setTab("raster");syncArena();enterBattleMode(true);setView("battle");render();megaWarm();vsSplash(startBattle);}
