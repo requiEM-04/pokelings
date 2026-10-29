@@ -2353,6 +2353,15 @@ body.battle #simChip{display:none!important}
 .pnV{margin-bottom:14px;padding:10px 12px;border:2px solid rgba(255,255,255,.08);border-radius:10px;background:rgba(255,255,255,.03)}.pnV.new{border-color:rgba(92,242,255,.35);background:rgba(92,242,255,.05)}
 .pnH{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}.pnH b{font-family:var(--px);font-size:13px;color:var(--cyan)}.pnH span{font-weight:700;color:#fff}.pnH small{margin-left:auto;color:var(--muted)}
 .pnV ul{margin:0;padding:0;list-style:none}.pnV li{display:flex;gap:8px;align-items:flex-start;font-size:13px;line-height:1.45;margin:5px 0;color:#d8deea}.pnV li .ic{width:15px;height:15px;flex:none;margin-top:2px;color:var(--amber)}
+body.duelB .cine-skip{display:none!important}
+
+/* Live-Duell: feste Arena statt Wegkarte, Duell-Box im Raster */
+#duelBox{display:none;position:absolute;left:50%;top:64px;transform:translateX(-50%);width:min(440px,46%);z-index:7;padding:10px 12px}
+body.duelMode #duelBox{display:block}body.duelMode.battle #duelBox{display:none!important}
+body.duelMode .tab[data-tab="enc"],body.duelMode #toEnc{display:none!important}
+#duelBox #encHead,#duelBox .duRules{display:none}#duelBox .duSt{margin:6px 0;font-size:13px;text-align:center}#duelBox #encFoot{display:flex;gap:8px;align-items:center;margin-top:6px}
+@media (max-width:760px){#duelBox{width:calc(100% - 20px);top:auto;bottom:250px}}
+@media (max-height:520px){#duelBox{width:300px;top:auto;bottom:60px;padding:6px 8px}#duelBox .duSt{font-size:11px;margin:3px 0}}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -2405,6 +2414,7 @@ uiScale();addEventListener("resize",uiScale);</script>
         <div class="ov rasterOnly" id="rSide"></div>
         <button class="ibtn ov glass rasterOnly" id="infoTgl" title="Infos ein/aus"><svg class="ic" viewBox="0 0 24 24" data-i="help"></svg><span>INFO</span></button>
         <button class="pri hot rasterOnly" id="toEnc">ZUR BEGEGNUNG <svg class="ic" viewBox="0 0 24 24" data-i="swords"></svg></button>
+        <div class="ov rasterOnly glass" id="duelBox"></div>
         <div class="ov rasterOnly" id="arenaDockHost"></div>
         <div class="ov" id="bTags"><div class="htag" style="--tagc:var(--cyan)"><b id="bMine">DU</b><small id="bMineS"></small></div><div class="htag" style="--tagc:var(--pink);text-align:right;border-left:1px solid var(--line);border-right:3px solid var(--pink)"><b id="bEnemy">GEGNER</b><small id="bEnemyS"></small></div></div>
         <div class="ov" id="battleTop"><div class="t" id="hpMine"><i></i></div><div id="timer">45</div><div class="t" id="hpEnemy"><i></i></div></div>
@@ -4017,22 +4027,22 @@ const MECH={
 /* Mechanik-Pools je Rolle: [Schlüssel, Wert Unterklasse, Wert Aufstieg] */
 const RPOOL={
  tank:[["bulwark",5,4],["quake",7,6],["lastStand",.25,.2],["grow",.012,.012],["pull",1,1],["fShelter",.18,.12],["fFlank",15,12]],
- warrior:[["combo",4,3],["parry",.18,.14],["warcry",.15,.12],["fPack",.07,.05],["bleed",.015,.012]],
- assassin:[["bleed",.02,.015],["markT",.15,.12],["opener",.5,.4],["fLone",.3,.2],["combo",4,3]],
- marksman:[["ricochet",.5,.4],["focusFire",.06,.05],["fDiag",.12,.1],["markT",.12,.1]],
+ warrior:[["combo",4,3],["parry",.18,.14],["warcry",.15,.12],["fPack",.06,.04],["bleed",.012,.01]],
+ assassin:[["bleed",.014,.012],["markT",.15,.12],["opener",.5,.4],["fLone",.25,.15],["combo",4,3]],
+ marksman:[["ricochet",.4,.3],["focusFire",.06,.05],["fDiag",.12,.1],["markT",.12,.1]],
  mage:[["echoCast",.4,.35],["manaShield",.2,.15],["fLey",20,15],["hex",.4,.35]],
- support:[["haste",.15,.12],["sanctuary",.2,.15],["fCross",.012,.01],["fAngel",.15,.12]],
+ support:[["haste",.15,.12],["sanctuary",.2,.15],["fCross",.01,.008],["fAngel",.15,.12]],
  stoerer:[["hex",.5,.4],["silence",2.5,2],["fRow",.1,.08],["markT",.12,.1]],
- berserk:[["frenzy",.03,.025],["lastStand",.25,.2],["bleed",.02,.015],["fSpear",.15,.12]]};
+ berserk:[["frenzy",.03,.025],["lastStand",.25,.2],["bleed",.014,.012],["fSpear",.15,.12]]};
 /* 3. Unterklasse: [Namensteil, Formation, Wert, Bonus, Icon, Aufstieg 1 Name, Aufstieg 1 Effekte] */
 const CDEF={tank:["bastion","fShelter",.18,{hp:.12},"def",[["Festungswall",{fShelter:.1,def:15}],["Schildmauer",{fShelter:.06,fFlank:12}]]],
- warrior:["rudel","fPack",.07,{hp:.08},"swords",[["Rudelführer",{fPack:.04,atk:.08}],["Leitwolf",{fPack:.03,warcry:.1}]]],
- assassin:["pirscher","fLone",.3,{dodge:.08},"eye",[["Schattenwolf",{fLone:.15,crit:.1}],["Phantomjäger",{fLone:.1,opener:.35}]]],
+ warrior:["rudel","fPack",.06,{hp:.08},"swords",[["Rudelführer",{fPack:.03,atk:.08}],["Leitwolf",{fPack:.02,warcry:.1}]]],
+ assassin:["pirscher","fLone",.25,{dodge:.08},"eye",[["Schattenwolf",{fLone:.12,crit:.08}],["Phantomjäger",{fLone:.1,opener:.35}]]],
  marksman:["späher","fDiag",.12,{range:.5},"aim",[["Feuerleiter",{fDiag:.08,as:.12}],["Zielwacht",{fDiag:.06,markT:.08}]]],
  mage:["weber","fLey",20,{ab:.12},"spark",[["Leyknoten",{fLey:15,manaCut:.1}],["Leyquelle",{fLey:10,echoCast:.25}]]],
- support:["segen","fCross",.012,{heal:.15},"heart",[["Lebensquell",{fCross:.008,def:10}],["Schutzkreis",{fCross:.006,fAngel:.1}]]],
+ support:["segen","fCross",.01,{heal:.15},"heart",[["Lebensquell",{fCross:.006,def:10}],["Schutzkreis",{fCross:.006,fAngel:.1}]]],
  stoerer:["schleier","fRow",.1,{mana:15},"swirl",[["Nebelwand",{fRow:.06,dodge:.08}],["Irrlicht",{fRow:.05,hex:.3}]]],
- berserk:["speer","fSpear",.15,{ls:.06},"fang",[["Sturmspitze",{fSpear:.1,atk:.1}],["Blutspitze",{fSpear:.08,bleed:.012}]]]};
+ berserk:["speer","fSpear",.15,{ls:.06},"fang",[["Sturmspitze",{fSpear:.1,atk:.1}],["Blutspitze",{fSpear:.08,bleed:.01}]]]};
 const CDEF_EN={bastion:"bastion",rudel:"pack",pirscher:"stalker","späher":"scout",weber:"weaver",segen:"blessing",schleier:"veil",speer:"spear"};
 (function(){if(typeof LSPEC==="undefined")return;
   const mk=(id,lk,role,n,icn,eff,from)=>{const s={id,n,ic:icn,line:lk,role,m:{},fx:{},v2:1};if(from)s.from=from;for(const k in eff)(SPEC_MKEYS.has(k)?s.m:s.fx)[k]=eff[k];SPECS[id]=s;return s;};
@@ -4052,16 +4062,27 @@ const CDEF_EN={bastion:"bastion",rudel:"pack",pirscher:"stalker","späher":"scou
       s.m=m;s.fx={};s.fx[pk[0]]=asc?pk[2]:pk[1];s.remix=1;}
     // b) 3. Aufstieg für A und B (eigene Mechanik, Typ-Note im Namen)
     for(const ab of ["a","b"]){const base=SPECS[lk+"_"+ab];if(!base)continue;const sib=[SPECS[lk+"_"+ab+"1"],SPECS[lk+"_"+ab+"2"]].filter(Boolean);
-      const ex=new Set([base,...sib].map(mechOf).filter(Boolean));let i=(h>>>(ab==="a"?3:9))%pool.length,pk=pool[i],g=0;
-      while(g++<pool.length&&(ex.has(pk[0])||FORM[pk[0]]&&ex.has(pk[0]))){i++;pk=pool[i%pool.length];}
+      const ex=new Set([base,...sib].map(mechOf).filter(Boolean));const cp=pool.filter(p=>!FORM[p[0]]);let i=(h>>>(ab==="a"?3:9))%cp.length,pk=cp[i],g=0;
+      while(g++<cp.length&&ex.has(pk[0])){i++;pk=cp[i%cp.length];}
       const mn=MECH[pk[0]].n,nm=/\s/.test(mn)?TP[ty]+"-"+mn:TP[ty]+mn.toLowerCase();const eff={};eff[pk[0]]=pk[2];Object.assign(eff,ab==="a"?{atk:.06}:{hp:.08});
       mk(lk+"_"+ab+"3",lk,role,nm,MECH[pk[0]].ic,eff,lk+"_"+ab).tp=ty;}
-    // c) 3. Unterklasse: Formation + Typ-Note, mit zwei Aufstiegen
-    const C=CDEF[role];if(!C)continue;const ce={};ce[C[1]]=C[2];Object.assign(ce,C[3]);for(const a in TFLAV[ty])ce[a]=(ce[a]||0)+TFLAV[ty][a];
-    const cs=mk(lk+"_c",lk,role,TP[ty]+C[0],C[4],ce);cs.tp=ty;cs.cn=C[0];
-    const c1=C[5][((h>>>11)^(h>>>23))&1];mk(lk+"_c1",lk,role,c1[0],"flag",c1[1],lk+"_c");
-    const np=pool.filter(p=>!FORM[p[0]]);const p2=np[(h>>>6)%np.length];const e2={};e2[p2[0]]=p2[2];e2.hp=.06;
-    mk(lk+"_c2",lk,role,MECH[p2[0]].n,MECH[p2[0]].ic,e2,lk+"_c");
+    // c) 3. Unterklasse: eigene Mechanik + Typ-Note (nur ein Teil der Linien bekommt eine Formation)
+    const C=CDEF[role];if(!C)continue;
+    const lineUsed=new Set(["a","a1","a2","a3","b","b1","b2","b3"].map(x=>SPECS[lk+"_"+x]).filter(Boolean).map(mechOf).filter(Boolean));
+    const names=new Set(["a","a1","a2","a3","b","b1","b2","b3"].map(x=>SPECS[lk+"_"+x]).filter(Boolean).map(x=>x.n));
+    const combat=pool.filter(p=>!FORM[p[0]]);
+    const pickC=(ex,salt)=>{const fr=combat.filter(p=>!ex.has(p[0])&&!lineUsed.has(p[0]));const L2=fr.length?fr:combat.filter(p=>!ex.has(p[0]));return (L2.length?L2:combat)[(h>>>salt)%(L2.length||combat.length)];};
+    const isForm=true;let cKey,cs;
+    if(isForm){const ce={};ce[C[1]]=C[2];Object.assign(ce,C[3]);for(const a in TFLAV[ty])ce[a]=(ce[a]||0)+TFLAV[ty][a];cs=mk(lk+"_c",lk,role,TP[ty]+C[0],C[4],ce);cs.cn=C[0];cKey=C[1];}
+    else{const pc=pickC(new Set(),4);cKey=pc[0];const ce={};ce[cKey]=pc[1];Object.assign(ce,C[3]);for(const a in TFLAV[ty])ce[a]=(ce[a]||0)+TFLAV[ty][a];
+      const mn=MECH[cKey].n;let nm=/\s/.test(mn)?TP[ty]+"-"+mn:TP[ty]+mn.toLowerCase();if(names.has(nm))nm=mn+" ("+TP[ty]+")";cs=mk(lk+"_c",lk,role,nm,MECH[cKey].ic,ce);}
+    cs.tp=ty;
+    const INTV=new Set(["bulwark","quake","combo","pull"]);let c1Key;
+    if(isForm){const c1=C[5][((h>>>11)^(h>>>23))&1];mk(lk+"_c1",lk,role,c1[0],"flag",c1[1],lk+"_c");c1Key=Object.keys(c1[1]).find(k=>MECH[k]&&!FORM[k])||cKey;}
+    else if(!INTV.has(cKey)){const pv=pool.find(p=>p[0]===cKey);const e1={};e1[cKey]=pv[2];Object.assign(e1,{atk:.05,hp:.05});mk(lk+"_c1",lk,role,MECH[cKey].n+" II",MECH[cKey].ic,e1,lk+"_c");c1Key=cKey;}
+    else{const p1=pickC(new Set([cKey]),8);c1Key=p1[0];const e1={};e1[c1Key]=p1[2];e1.atk=.06;mk(lk+"_c1",lk,role,MECH[c1Key].n,MECH[c1Key].ic,e1,lk+"_c");}
+    const p2=pickC(new Set([cKey,c1Key]),13);const e2={};e2[p2[0]]=p2[2];e2.hp=.06;
+    mk(lk+"_c2",lk,role,MECH[p2[0]].n+(SPECS[lk+"_c1"].n===MECH[p2[0]].n?" II":""),MECH[p2[0]].ic,e2,lk+"_c");
     LSPEC[lk]=[lk+"_a",lk+"_b",lk+"_c"];}
   // englische Namen der neuen Klassen
   if(typeof LSPEC_EN!=="undefined")Object.assign(LSPEC_EN,{Bollwerk:"Bulwark",Gegenbeben:"Counterquake","Letztes Gefecht":"Last Stand",Wachstum:"Growth",Fangseil:"Lasso",Doppelschlag:"Double Strike",Parade:"Parry",Schlachtruf:"War Cry",Aderlass:"Bloodletting",Todesmal:"Death Mark","Überfall":"Ambush",Abpraller:"Ricochet",Fokusfeuer:"Focus Fire",Nachhallzauber:"Echo Spell",Manaschild:"Mana Shield",Fluch:"Hex",Verstummen:"Silence",Eilsegen:"Haste Blessing",Zuflucht:"Sanctuary",Raserei:"Frenzy",Festungswall:"Fortress Wall","Rudelführer":"Pack Leader",Schattenwolf:"Shadow Wolf",Feuerleiter:"Fire Director",Leyknoten:"Ley Node",Lebensquell:"Wellspring",Nebelwand:"Mist Wall",Sturmspitze:"Storm Tip",Schildmauer:"Shield Wall",Leitwolf:"Alpha Wolf","Phantomjäger":"Phantom Hunter",Zielwacht:"Target Watch",Leyquelle:"Ley Spring",Schutzkreis:"Ward Circle",Irrlicht:"Will-o-Wisp",Blutspitze:"Blood Tip"});
@@ -4277,14 +4298,14 @@ function settingsModal(){
     ${line("eye","Grafik","Auto passt sich deinem Gerät an",seg("stGfx",[["hoch","Hoch"],["mittel","Mittel"],["niedrig","Niedrig"],["auto","Auto"]],typeof GFX!=="undefined"?GFX.mode:"auto"))}
     ${line("dex","Sprache","Language",seg("stLang",[["de","Deutsch"],["en","English"]],LANG))}${line("grid","Große Bildschirme","Über 1920×1080 alles mitwachsen lassen",seg("stUiz",[["on","An"],["off","Aus"]],(()=>{try{return localStorage.getItem("pokelings_uiz")==="off"?"off":"on";}catch(e){return "on";}})()))}</div>
    <div class="stGrp"><h4>${ic("help")} Spiel</h4><div class="stChips">
-    <button id="sHelp">${ic("help")} Anleitung</button>${inMenu?"":`<button id="sTut">${ic("play")} Tutorial</button>`}${inMenu?`<button id="sIntro">${ic("play")} Intro ansehen</button>`:""}<button id="sLegal">${ic("info")} Musik, Rechte &amp; Datenschutz</button></div></div>
+    <button id="sHelp">${ic("help")} Anleitung</button><button id="sPatch">${ic("scroll")} Patchnotes v${typeof GAME_VER!=="undefined"?GAME_VER:""}</button>${inMenu?"":`<button id="sTut">${ic("play")} Tutorial</button>`}${inMenu?`<button id="sIntro">${ic("play")} Intro ansehen</button>`:""}<button id="sLegal">${ic("info")} Musik, Rechte &amp; Datenschutz</button></div></div>
    <div class="stGrp"><h4>${ic("user")} Konto</h4><div class="stAcc"><span>${USER?`Angemeldet als <b>${esc(USER)}</b><br><small class="clSt ${typeof CL!=="undefined"&&CL.sess?"on":""}">${typeof CL!=="undefined"&&CL.sess?"☁ Cloud-Sync aktiv · auf allen Geräten":"Nur auf diesem Gerät gespeichert"}</small>`:"Nicht angemeldet (Gast)"}</span><span class="stAccB"><button id="sSaveNow" class="ok">${ic("check")} Jetzt speichern</button><button id="sOut">${ic("logout")} ${USER?"Abmelden":"Zum Login"}</button></span></div></div>
    <div class="stSave"><button class="g" id="sBkExp">${ic("pack")}<div><b>Spielstände sichern</b><small>Alle Konten als Datei speichern</small></div></button>
     <button class="b" id="sBkImp">${ic("up")}<div><b>Spielstände laden</b><small>Sicherung einspielen</small></div></button></div>`,"narrow pauseM setL",true);
   if($("sSaveNow"))$("sSaveNow").onclick=()=>saveNow($("sSaveNow"));
   const wire=(id,f)=>$("mbox").querySelectorAll("#"+id+" button").forEach(b=>b.onclick=()=>{$("mbox").querySelectorAll("#"+id+" button").forEach(x=>x.classList.toggle("on",x===b));f(b.dataset.v);});
   wire("stSfx",x=>{SFX.setVol(+x);sfx("coin");});wire("stMus",x=>BGM.set(+x));wire("stGfx",x=>gfxSet(x));wire("stLang",x=>{if(x!==LANG)setLang(x);});wire("stUiz",x=>{try{localStorage.setItem("pokelings_uiz",x);}catch(e){}uiScale();dispatchEvent(new Event("resize"));});
-  $("sHelp").onclick=help;if($("sTut"))$("sTut").onclick=()=>{closeModal();tutorial();};if($("sIntro"))$("sIntro").onclick=()=>{closeModal();sfx("click");playIntro(()=>{if(typeof showMenu==="function")showMenu();});};
+  $("sHelp").onclick=help;if($("sPatch"))$("sPatch").onclick=()=>{closeModal();patchNotes();};if($("sTut"))$("sTut").onclick=()=>{closeModal();tutorial();};if($("sIntro"))$("sIntro").onclick=()=>{closeModal();sfx("click");playIntro(()=>{if(typeof showMenu==="function")showMenu();});};
   $("sLegal").onclick=()=>legalModal();$("sBkExp").onclick=()=>backupExport();$("sBkImp").onclick=()=>backupImport();$("sOut").onclick=()=>{closeModal();signOut();};
 }
 let modalClose=null;
@@ -7573,7 +7594,7 @@ function shopCam(dt){if(!SB.on||!GL||!GL.camOv)return;SB.t+=dt;const t=SB.t,a=SB
   GL.camOv.pos.set(Math.sin(a)*R,h,Math.cos(a)*R-1.5);GL.camOv.look.set(Math.sin(a)*1.5,.9,-4.2);GL.camOv.k=1;GL.camOv.cur=1;}
 function setTab(t){
   if(!S)return;
-  if(["battle","intro","result","ko"].includes(S.phase))t="raster";
+  if(["battle","intro","result","ko"].includes(S.phase))t="raster";if(S.duel&&t==="enc")t="raster";
   tab=t;document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("on",b.dataset.tab===t));
   ["vShop","vRaster","vEnc"].forEach((v,i)=>$(v).classList.toggle("on",["shop","raster","enc"][i]===t));
   shopBg(t==="shop");
@@ -7582,7 +7603,7 @@ function setTab(t){
   if(t==="enc"){requestAnimationFrame(()=>{resizeWorld();refreshWorld();});if(S.phase==="shop"&&!S.paths&&!BOSSES[S.round])autoRoll();}
   if(typeof simChip==="function")simChip();
 }
-function render(){if(typeof achCheck==="function")setTimeout(achCheck,0);
+function render(){if(typeof achCheck==="function")setTimeout(achCheck,0);document.body.classList.toggle("duelMode",!!(S&&S.duel));if(S&&S.duel&&S.phase==="shop"&&typeof renderDuelEnc==="function")try{renderDuelEnc($("duelBox"));}catch(e){}
   if(!S)return;if(typeof BGM!=="undefined"&&BGM.region)BGM.region(S.enc&&S.enc.loc==="spukwald"?"spuk":(S.region||"kanto"));buildBench();
   const lv=level(),cap=capFor(),bu=boardUnits().length;
   $("sRound").textContent=S.round;$("sGold").textContent=S.gold;$("sInc").textContent="+"+income();goldFx();$("sMode").textContent=MODES[S.mode].n;
@@ -8519,7 +8540,7 @@ function run(sc){
       const sv=t>.8&&t<R;if(sv!==lastSkip){lastSkip=sv;skip.style.display=sv?"block":"none";}
       if(!(typeof sk==="number")&&t>=END)finish();}
     function input(e){if(done)return;if(e.type==="keydown"){if(!(e.key===" "||e.key==="Enter"||e.key==="Escape"))return;}
-      e.preventDefault();e.stopPropagation();if(!started||tc<.8)return;
+      e.preventDefault();e.stopPropagation();if(!started||tc<.8)return;if(typeof S!=="undefined"&&S&&S.duel&&typeof B!=="undefined"&&B&&!B.done)return;
       if(tc<R)t0=performance.now()-Math.max(R+.05,END-.8)*1000;else finish();}
     function finish(){if(done)return;done=true;cancelAnimationFrame(raf);clearInterval(guard);window.removeEventListener("keydown",input,true);ov.removeEventListener("pointerdown",input);LIVE.delete(api);
       ov.classList.add("out");setTimeout(()=>{ov.remove();if(restorePos!==null)host.style.position=restorePos;resolve();},sc.fade||380);}
@@ -9602,7 +9623,7 @@ const _rLb0=renderLeaderboard;renderLeaderboard=function(rows,src){_rLb0(rows,sr
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="8.6",DUEL_HP=20;
+const MP_VER="8.8",DUEL_HP=20;
 const dayKey=d=>(d||new Date()).toISOString().slice(0,10);
 const mpName=()=>USER||(window.__gName||(window.__gName="Gast-"+(100+Math.floor(VRND()*900))));
 
@@ -9677,7 +9698,8 @@ function geistInject(inner){if(!S||S.duel||!geistOn()||S.phase!=="shop"||!S.path
 /* ================================ LIVE-DUELL ================================ */
 const DU={tr:null,id:null,peer:null,last:0,lost:false,iv:0,hello:0,rt:0,cd:0,tick:0};
 function setMir(on){MIR=!!on;document.body.classList.toggle("mir",MIR);}
-function duelLoc(){const P=(typeof LOC_POOL!=="undefined"&&LOC_POOL.length)?LOC_POOL:[HOME_LOC];return P[(S.duel.seed+S.round*7)%P.length];}
+const DUEL_ARENA={kanto:"saffronia",johto:"dukatia",hoenn:"prachtpolis",sinnoh:"sliga",unova:"eliga",kalos:"kliga",alola:"mliga"};
+function duelLoc(){const a=DUEL_ARENA[S.region||"kanto"];if(a&&typeof LOCS!=="undefined"&&LOCS[a])return a;const P=(typeof LOC_POOL!=="undefined"&&LOC_POOL.length)?LOC_POOL:[HOME_LOC];return P[(S.duel.seed)%P.length];}
 /* Verbindung: Supabase Realtime (Broadcast) oder lokal zwischen zwei Tabs (?mp=local, zum Testen) */
 function mpTransport(topic,onMsg,onState){
   if(/[?&]mp=local/.test(location.search)&&typeof BroadcastChannel!=="undefined"){const bc=new BroadcastChannel("pkl-"+topic);bc.onmessage=e=>onMsg(e.data);setTimeout(()=>onState("joined"),60);return{send:p=>bc.postMessage(p),close:()=>bc.close()};}
@@ -9698,7 +9720,7 @@ function mpLeave(silent){clearInterval(DU.iv);clearInterval(DU.hello);clearTimeo
   Object.assign(DU,{tr:null,peer:null,lost:false,cd:0});setMir(false);}
 function duelConnect(code,host,onReady){mpLeave(true);DU.id=Math.random().toString(36).slice(2,10);DU.peer=null;DU.last=Date.now();DU.code=code;DU.host=host;DU.pending=null;
   let ok=false;const to=setTimeout(()=>{if(!ok){mpLeave(true);mpErr("Keine Verbindung zum Duell-Server. Prüfe dein Internet und versuche es nochmal.");}},9000);
-  DU.tr=mpTransport("pkl-duel-"+code,duelMsg,st=>{if(st==="joined"){ok=true;clearTimeout(to);onReady();}else if(!ok){clearTimeout(to);mpLeave(true);mpErr("Der Duell-Server hat die Verbindung abgelehnt.");}else if(S&&S.duel&&S.phase!=="over"){DU.lost=true;if(tab==="enc")renderEnc();toast("Verbindung zum Duell unterbrochen","wifi");}});}
+  DU.tr=mpTransport("pkl-duel-"+code,duelMsg,st=>{if(st==="joined"){ok=true;clearTimeout(to);onReady();}else if(!ok){clearTimeout(to);mpLeave(true);mpErr("Der Duell-Server hat die Verbindung abgelehnt.");}else if(S&&S.duel&&S.phase!=="over"){DU.lost=true;renderEnc();toast("Verbindung zum Duell unterbrochen","wifi");}});}
 function mpErr(t){openModal(`<h2>${ic("wifi")} LIVE-DUELL</h2><div class="lead">${esc(t)}</div><div class="rbtns" style="margin-top:14px"><button class="btn" id="meBack">${ic("back")} Zurück</button></div>`,"narrow",true);$("meBack").onclick=()=>mpModal();}
 function duelCreate(region){const code=String(1000+Math.floor(VRND()*9000));
   duelConnect(code,true,()=>{openModal(`<h2>${ic("swords")} LIVE-DUELL</h2><div class="lead">Raum erstellt. Gib deinem Gegner diesen Code:</div><div class="duCode">${code}</div><p class="empty" style="text-align:center"><span class="duDots"></span> Warte auf Gegner …<br><small>Region: ${REGIONS[region].n}</small></p><div class="rbtns"><button class="btn" id="duX">${ic("close")} Abbrechen</button></div>`,"narrow");
@@ -9708,12 +9730,13 @@ function duelJoin(code){if(!/^\d{4}$/.test(code)){toast("Der Code hat 4 Ziffern"
     $("duX").onclick=()=>{mpLeave(true);mpModal();};let n=0;const hi=()=>{if(DU.peer){clearInterval(DU.hello);return;}if(++n>40){clearInterval(DU.hello);mpLeave(true);mpErr(`In Raum ${code} wartet niemand. Prüfe den Code.`);return;}duelSend("hello",{name:mpName(),ul:META.unlocked});};hi();DU.hello=setInterval(hi,1500);});}
 function duelMsg(m){if(!m||m.f===DU.id)return;if(m.to&&m.to!==DU.id)return;
   if(DU.peer&&m.f!==DU.peer){if(m.t==="hello"&&DU.host)DU.tr.send({t:"full",f:DU.id,to:m.f});return;}
-  DU.last=Date.now();if(DU.lost&&S&&S.duel){DU.lost=false;if(tab==="enc")renderEnc();}
+  DU.last=Date.now();if(DU.lost&&S&&S.duel){DU.lost=false;renderEnc();}
   if(m.t==="hello"&&DU.host&&!DU.peer&&DU.pending){DU.peer=m.f;const P=DU.pending,nm=String(m.name||"Gast").slice(0,20),ul=Array.isArray(m.ul)?m.ul:[],pl=META.unlocked.filter(k=>ul.includes(k));duelSend("start",{seed:P.seed,region:P.region,name:mpName(),pool:pl});if(m.v!==MP_VER)toast("Hinweis: Dein Gegner hat eine andere Spielversion. Bitte beide neu laden (Strg+F5).","info");duelBegin(P.region,P.seed,nm,pl);return;}
   if(m.t==="start"&&!DU.host&&!DU.peer){DU.peer=m.f;clearInterval(DU.hello);if(m.v!==MP_VER)toast("Hinweis: Dein Gegner hat eine andere Spielversion. Bitte beide neu laden (Strg+F5).","info");duelBegin(REGIONS[m.region]?m.region:"kanto",m.seed|0,String(m.name||"Gast").slice(0,20),(Array.isArray(m.pool)?m.pool:[]).filter(k=>META.unlocked.includes(k)));return;}
   if(m.t==="full"){mpLeave(true);mpErr("Dieser Raum ist schon voll.");return;}
   const D=S&&S.duel;if(!D)return;
-  if(m.t==="ready"){const r=m.r|0;D.opp[r]=teamClean(m.team);duelSend("ack",{r});if(r===S.round&&D.ready!==r&&!DU.cd)DU.cd=Date.now()+60000;if(tab==="enc")renderEnc();duelCheck();}
+  if(m.t==="ready"){const r=m.r|0;D.opp[r]=teamClean(m.team);duelSend("ack",{r});if(r===S.round&&D.ready!==r&&!DU.cd)DU.cd=Date.now()+60000;renderEnc();duelCheck();}
+  else if(m.t==="spd"){const v=m.s|0;if([1,2,3].includes(v)&&v!==speed){setSpeed(v,true);toast(`${D.peerName}: Tempo ${v}×`,"fast");}}
   else if(m.t==="ack"){if((m.r|0)===S.round)D.ackd=m.r|0;}
   else if(m.t==="res"&&!D.host){D.hres[m.r|0]={hw:!!m.hw,dmg:m.dmg|0,sum:String(m.sum)};if(D.res[m.r|0])duelFix(m.r|0);}
   else if(m.t==="bye"){if(S.phase!=="over"){toast(`${D.peerName} hat das Duell verlassen`,"flag");duelFinal(true,"left");}}
@@ -9722,7 +9745,7 @@ function duelBegin(region,seed,peerName,pool){needReg(region,()=>duelBegin0(regi
 function duelBegin0(region,seed,peerName,pool){closeModal();
   newRun0("duel",region,{duel:{code:DU.code,host:DU.host,peerName,seed,pool:Array.isArray(pool)?pool:[],hp:[DUEL_HP,DUEL_HP],ready:0,ackd:0,snap:{},opp:{},res:{},hres:{},applied:{},desync:0}});
   META.mp=META.mp||{};META.mp.duels=(META.mp.duels||0)+1;saveMeta();
-  clearInterval(DU.iv);DU.iv=setInterval(()=>{if(!S||!S.duel){clearInterval(DU.iv);return;}duelSend("ping",{});if(Date.now()-DU.last>30000&&!DU.lost&&S.phase!=="over"){DU.lost=true;if(tab==="enc")renderEnc();toast(`${S.duel.peerName} antwortet nicht`,"wifi");}},5000);
+  clearInterval(DU.iv);DU.iv=setInterval(()=>{if(!S||!S.duel){clearInterval(DU.iv);return;}duelSend("ping",{});if(Date.now()-DU.last>30000&&!DU.lost&&S.phase!=="over"){DU.lost=true;renderEnc();toast(`${S.duel.peerName} antwortet nicht`,"wifi");}},5000);
   clearInterval(DU.tick);DU.tick=setInterval(duelTick,1000);}
 function duelIntro(){toast(`Live-Duell gegen ${S.duel.peerName}: Team bauen, dann unter ROUTE auf BEREIT`,"swords");const n=Array.isArray(S.duel.pool)?S.duel.pool.length:0;setTimeout(()=>toast(`Faires Duell: Skillbaum aus · im Shop nur Start-Pokémon${n?` + ${n} gekaufte, die ihr beide habt`:""}`,"info"),1800);}
 const duelCdLeft=()=>Math.max(0,Math.ceil((DU.cd-Date.now())/1000));
@@ -9732,7 +9755,7 @@ function duelReady(){if(!S||!S.duel||S.phase!=="shop")return;const D=S.duel,r=S.
   D.ready=r;D.snap[r]=teamClean(geistSnap(S.board));DU.cd=0;sfx("coin");duelSendReady();render();duelCheck();}
 function duelSendReady(){const D=S&&S.duel;clearTimeout(DU.rt);if(!D||D.ready!==S.round||D.ackd===S.round||!DU.tr)return;duelSend("ready",{r:S.round,team:D.snap[S.round]});DU.rt=setTimeout(duelSendReady,2500);}
 function duelCheck(){const D=S&&S.duel;if(!D||S.phase!=="shop"||D.ready!==S.round||!D.opp[S.round])return;
-  S.enemies=teamUnits(D.opp[S.round],800000,true);S.phase="intro";setTab("raster");syncArena();enterBattleMode(true);setView("battle");render();megaWarm();vsSplash(startBattle);}
+  S.enemies=teamUnits(D.opp[S.round],800000,true);S.phase="intro";setTab("raster");syncArena();enterBattleMode(true);setView("battle");render();megaWarm();if(D.host)duelSend("spd",{s:speed});vsSplash(startBattle);}
 function duelFighters(){const D=S.duel,r=S.round,mine=D.snap[r],opp=D.opp[r],hT=D.host?mine:opp,gT=D.host?opp:mine;
   const hU=teamUnits(hT,900000,false),gU=teamUnits(gT,950000,true),rng=mkRng((D.seed^Math.imul(r,2654435761))|0),F=[];RNG=rng;
   try{const hc=SYN_ON?synCounts(hU):null,gc=SYN_ON?synCounts(gU):null;for(const u of hU)F.push(fighter(u,"mine",u.x,u.y,hc));for(const u of gU)F.push(fighter(u,"enemy",u.x,u.y,gc));}finally{RNG=null;}
@@ -9763,7 +9786,7 @@ function duelFinal(win,why){if(!S||!S.duel)return;const D=S.duel;if(S.phase==="o
    <div class="rewards"><div class="incRow"><span>Duelle gespielt / gewonnen</span><span>${META.mp.duels||1} / ${META.mp.duelWins||0}</span></div>${D.desync?`<div class="incRow"><span>Testphase: Abweichungen</span><span>${D.desync}</span></div>`:""}</div>
    <div class="rbtns"><button class="pri" id="rGo">${ic("menu")} Hauptmenü</button><button class="btn" id="rMp">${ic("users")} Neues Duell</button></div></div></div>`;
   R.classList.add("show");const out=next=>{R.classList.remove("show");R.innerHTML="";mpLeave(true);S=null;B=null;clearVis();clearFx();$("texts").innerHTML="";showMenu();if(next)mpModal();};$("rGo").onclick=()=>out();$("rMp").onclick=()=>out(true);}
-function renderDuelEnc(m){const D=S.duel,r=S.round,rd=D.ready===r,op=!!D.opp[r],bu=boardUnits().length;
+function renderDuelEnc(m){m=$("duelBox")||m;if(!m)return;const D=S.duel,r=S.round,rd=D.ready===r,op=!!D.opp[r],bu=boardUnits().length;
   $("wTitleT").textContent="LIVE-DUELL";$("wTitleS").textContent=`Raum ${D.code} · Runde ${r}`;
   const st=DU.lost?`<span style="color:var(--red)">${esc(D.peerName)} antwortet nicht …</span>`:rd&&op?"Kampf startet …":rd?`Du bist bereit. Warte auf <b>${esc(D.peerName)}</b> …`:op?`<b style="color:var(--amber)">${esc(D.peerName)} ist bereit!</b> Automatisch bereit in <b id="duCd">${duelCdLeft()}</b> s`:`<b>${esc(D.peerName)}</b> stellt sein Team zusammen …`;
   m.innerHTML=`<div id="encHead"><h2>LIVE-DUELL</h2><span class="diff" style="--dc:#ff4d6d">${ic("swords")} Testphase</span></div>${duelHpHtml()}
@@ -9891,8 +9914,16 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER=typeof MP_VER!=="undefined"?MP_VER:"8.6";
+const GAME_VER=typeof MP_VER!=="undefined"?MP_VER:"8.8";
 const PATCH=[
+ {v:"8.8",d:"29.10.2026",t:"Duell-Arena & Balancing",items:[
+  ["school","Neue 3. Aufstiege setzen auf eigene Kampf-Mechaniken (z. B. Bollwerk, Parade, Todesmal, Fluch). Die 3. Unterklasse bleibt die Formations-Klasse."],
+  ["swords","Live-Duell: feste Arena je Region statt wechselnder Orte. Keine Wegkarte mehr, Bereit und Duell-Leben stehen direkt im Raster."],
+  ["dice","Balancing: Rudel, Einzelgänger, Heilkreis, Abpraller und Aderlass etwas abgeschwächt. Fluch, Parade und Verstummen haben eine Obergrenze."],
+  ["gear","Patchnotes jetzt auch in den Einstellungen."]]},
+ {v:"8.7",d:"29.10.2026",t:"Synchrone Duelle",items:[
+  ["swords","Live-Duell: Das Kampf-Intro und Mega-Szenen lassen sich nicht mehr überspringen, damit beide Spieler synchron bleiben."],
+  ["fast","Live-Duell: Stellt einer das Tempo auf 2× oder 3×, läuft der Kampf bei beiden so schnell."]]},
  {v:"8.6",d:"29.10.2026",t:"Faire Duelle, Formation & Klassen 2.0",items:[
   ["swords","Multiplayer fair: Im Live-Duell und in der Tagesherausforderung ist der Skillbaum aus. Im Duell gibt es im Shop nur Start-Pokémon plus die gekauften, die ihr beide habt."],
   ["dice","Siegchance neu: Statt einer Schätzung wird jeder Kampf 24× mit der echten Kampflogik durchgerechnet. Im Raster siehst du live, ob eine Umstellung hilft."],
@@ -10253,7 +10284,7 @@ function hit(f,t,pow,crit,type,critB,ult,basicA){
   if(f.blindT>0&&f.abil!=="adlerauge"&&Math.random()<.35){popAt(fw(t,1.2),"Daneben!","s","#e8c88a");return 0;}
   if(t.phaseT>0||(t.dodge&&f.abil!=="adlerauge"&&!f.sure&&Math.random()<t.dodge)){popAt(fw(t,1.2),"Ausgewichen","s","#d7ccff");return 0;}
   if(t.bwR){t.bwR=false;t.bwT=0;popAt(fw(t,1.3),"Geblockt!","s","#9fd8ff");if(GL)ringFx(fw(t,.04),0x9fd8ff,.9,.3);return 0;}
-  if(t.sx&&t.sx.parry&&!ult&&f.range<1.7&&dist(f,t)<1.7&&Math.random()<t.sx.parry){const cd=Math.max(1,Math.round(DMG*t.atk*.6*(60/(60+f.def))));popAt(fw(t,1.3),"Pariert!","s","#ffd0a0");raw(f,cd);t.dmg+=cd;if(!f.alive)onKill(t,f);return 0;}
+  if(t.sx&&t.sx.parry&&!ult&&f.range<1.7&&dist(f,t)<1.7&&Math.random()<Math.min(.3,t.sx.parry)){const cd=Math.max(1,Math.round(DMG*t.atk*.6*(60/(60+f.def))));popAt(fw(t,1.3),"Pariert!","s","#ffd0a0");raw(f,cd);t.dmg+=cd;if(!f.alive)onKill(t,f);return 0;}
   if(t.abil==="schwebe"&&type==="ground"){abilPop(t);return 0;}
   if(t.abil==="h2o"&&type==="water"){abilPop(t);heal(t,t.maxhp*.08,false,t);return 0;}
   let m=eff(type,tyOf(t));if(m===0){if(basicA)m=.5;else{popAt(fw(t,1.25),"IMMUN","s","#c9cfdf");return 0;}}
@@ -10301,8 +10332,8 @@ function hit(f,t,pow,crit,type,critB,ult,basicA){
   d=Math.max(1,Math.round(d));
   f.dmg+=d;t.taken+=d;if(f.side==="mine"&&d>(B.maxHit||0))B.maxHit=d;raw(t,d);
   if(t.alive&&t.sx){if(t.sx.quake){t.qN=(t.qN||0)+1;if(t.qN>=t.sx.quake){t.qN=0;quakeHit(t);}}if(t.sx.frenzy&&(t.frN||0)<10){t.frN=(t.frN||0)+1;t.as*=1+t.sx.frenzy;}}
-  if(t.alive&&basicA){if(sx.bleed){t.bleedT=3;t.bleedD=Math.max(t.bleedD||0,t.maxhp*sx.bleed);}if(sx.markT){t.markV=Math.max(t.markT>0?(t.markV||0):0,sx.markT);t.markT=4;}if(sx.hex){t.hexT=4;t.hexV=Math.max(t.hexV||0,sx.hex);}}
-  if(ult&&t.alive&&sx.silence&&!(t.sx&&t.sx.ccImm)){if(!(t.silT>0))t.silM=t.mana;t.silT=sx.silence;}
+  if(t.alive&&basicA){if(sx.bleed){t.bleedT=3;t.bleedD=Math.max(t.bleedD||0,t.maxhp*sx.bleed);}if(sx.markT){t.markV=Math.max(t.markT>0?(t.markV||0):0,sx.markT);t.markT=4;}if(sx.hex){t.hexT=4;t.hexV=Math.max(t.hexV||0,Math.min(.6,sx.hex));}}
+  if(ult&&t.alive&&sx.silence&&!(t.sx&&t.sx.ccImm)){if(!(t.silT>0))t.silM=t.mana;t.silT=Math.min(3.5,sx.silence);}
   // Rollen-Passiv: Störer rauben Energie und verlangsamen, Berserker saugen unter 50 % KP Leben
   if(basicA===1&&f.role==="stoerer"&&t.alive){const sp=f.side==="mine"&&perk("s_stoerer");const dr=Math.min(t.mana,sp?10:6);t.mana-=dr;f.stS=(f.stS||0)+1;if(f.stS>=(sp?2:3)&&!(t.sx&&t.sx.ccImm)){f.stS=0;t.slowT=Math.max(t.slowT,1.2);popAt(fw(t,1.4),"Gelähmt","s","#7ff0e4");}}
   if(f.role==="berserk"&&f.alive&&f.hp<f.maxhp*.5)heal(f,d*.1,true,f);
@@ -10341,7 +10372,7 @@ function heal(f,a,silent,src){if(!f.alive)return;a*=fatigueHeal();if(f.hexT>0)a*
   if(src&&src!==f&&src.sx){if(src.sx.cleanse){f.burnT=0;f.poisT=0;f.slowT=0;}if(src.sx.healShield)f.shield=Math.min(f.maxhp*.6,f.shield+a*src.sx.healShield*(f.shMul||1));}if(src)src.healed+=g;if(src&&src!==f&&src.sx&&src.sx.haste&&!f.hasteOn&&g>=1&&B){f.hasteOn=1;const hv=src.sx.haste;f.as*=1+hv;later(3,()=>{f.as/=1+hv;f.hasteOn=0;});}if(!silent&&g>=1)popAt(fw(f,1.2),"+"+Math.round(g),"s","#7dffb0");}
 
 /* ================================ RUNDENABLAUF ================================ */
-function enterBattleMode(on){document.body.classList.toggle("battle",on);if(typeof BGM!=="undefined")BGM.duck(on?.6:1);requestAnimationFrame(()=>{resize();});}
+function enterBattleMode(on){document.body.classList.toggle("battle",on);document.body.classList.toggle("duelB",!!(on&&S&&S.duel));if(typeof BGM!=="undefined")BGM.duck(on?.6:1);requestAnimationFrame(()=>{resize();});}
 function vsSplash(cb){
   const boss=BOSSES[S.round],vs=$("vs"),enc=S.enc,D=DIFF[enc.type];
   const mine=boardUnits(),en=S.enemies||[],wc=(()=>{try{return winChance(en,enc&&enc.type);}catch(e){return .5;}})(),wv=Math.round(wc*100),wcol=wc>=.9?"#4dffa6":wc>=.65?"#5cf2ff":wc>=.35?"#ffd84a":"#ff5a5a";
@@ -10372,7 +10403,7 @@ function vsSplash(cb){
   $("bMine").textContent=(USER||"DU").toUpperCase();$("bMineS").textContent=`${mine.length} Pokémon`;$("bEnemy").textContent=(boss?boss.name:enc.name).toUpperCase();$("bEnemyS").textContent=D.n+(S.revanche?" · Revanche":"");
   vs.classList.add("show");sfx("vs");setTimeout(()=>{if(vs.classList.contains("show")){sfx("crit",.05);sfx("boom",.25);}},430);
   let done=false;const fin=()=>{if(done)return;done=true;vs.classList.add("out");setTimeout(()=>{vs.classList.remove("show","out");cb();},window.__fast?0:380);};
-  vs.onclick=fin;setTimeout(fin,window.__fast?10:2500);
+  if(!S.duel)vs.onclick=fin;else{const sk=vs.querySelector(".vsSkip");if(sk)sk.remove();}setTimeout(fin,window.__fast?10:2500);
 }
 function fight(){if(S&&S.duel){duelReady();return;}if(typeof geistUpload==="function")geistUpload();if(!S||S.phase!=="shop"||!boardUnits().length||!S.enc||S.enc.type==="event")return;S.pending=true;save();delete S.pending;S.phase="intro";setTab("raster");syncArena();enterBattleMode(true);setView("battle");render();megaWarm();vsSplash(startBattle);}
 function megaWarm(){try{const us=[...boardUnits(),...(S.enemies||[])].filter(u=>(u.items||[]).includes("mega")&&MEGA[u.sp]);if(!us.length||typeof CINE==="undefined"||!CINE.warm)return;const keys=[];for(const u of us){const mf=megaForm(u.sp,roleOf(u),u.megaF);keys.push(sprKey(u.sp,u.shiny));if(mf)keys.push(sprKey(u.sp,u.shiny,mf.k));}setTimeout(()=>CINE.warm(keys),30);}catch(e){}}
@@ -10487,7 +10518,7 @@ $("toRaster").onclick=()=>{setTab("raster");render();};
 $("toEnc").onclick=()=>{setTab("enc");render();};$("infoTgl").onclick=()=>{document.body.classList.toggle("infoOpen");sfx("click",.04);};
 $("goldChip").onclick=e=>{e.stopPropagation();$("incPop").classList.toggle("show");};
 document.addEventListener("click",()=>$("incPop").classList.remove("show"));
-const setSpeed=v=>{speed=v;$("bSpeed").querySelector("span").textContent=speed+"×";};
+const setSpeed=(v,remote)=>{speed=v;$("bSpeed").querySelector("span").textContent=speed+"×";if(!remote&&typeof S!=="undefined"&&S&&S.duel&&typeof duelSend==="function")duelSend("spd",{s:v});};
 $("bSpeed").onclick=()=>{setSpeed(speed===1?2:speed===2?3:1);sfx("click");};
 $("bZoomIn").onclick=()=>camZoom(-1);$("bPause").onclick=pauseMenu;$("bZoomOut").onclick=()=>camZoom(1);
 $("btnHelp").onclick=help;
