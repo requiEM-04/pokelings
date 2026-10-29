@@ -2675,7 +2675,7 @@ body.duelB .cine-skip{display:none!important}
 #vs.v4 .v4B.L{left:22px}#vs.v4 .v4B.R{right:22px}
 #vs.v4 .v4b{width:clamp(40px,calc(4.4*var(--vw,1vw)),70px);height:clamp(44px,calc(4.9*var(--vw,1vw)),78px);opacity:0;animation:v4bPop .26s cubic-bezier(.2,1.6,.4,1) both}
 #vs.v4 .v4b.b1{animation-delay:.52s}#vs.v4 .v4b.b2{animation-delay:.62s}#vs.v4 .v4b.b3{animation-delay:.72s}
-#vs.v4 .v4b>i .ic{width:48%;height:48%}#vs.v4 .v4b>i::after{inset:10%}#vs.v4 .v4b .bsp img{width:62%!important;height:62%!important}
+#vs.v4 .v4b>i .ic{width:48%;height:48%}#vs.v4 .v4b>i::after{inset:10%}#vs.v4 .v4b .bsp{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:1}#vs.v4 .v4b .bsp img,#vs.v4 .v4b .bsp canvas{width:64%!important;height:64%!important;object-fit:contain;translate:none!important;image-rendering:pixelated}
 #vs.v4 .v4b::before{content:"";position:absolute;inset:0;z-index:3;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.9) 50%,transparent 65%);background-size:300% 100%;background-position:120% 0;animation:v4shine .45s ease-out both}
 #vs.v4 .v4b.b1::before{animation-delay:.78s}#vs.v4 .v4b.b2::before{animation-delay:.88s}#vs.v4 .v4b.b3::before{animation-delay:.98s}
 @keyframes v4bPop{0%{opacity:0;transform:translateY(46px) scale(.2)}60%{opacity:1;transform:translateY(-8px) scale(1.14)}100%{opacity:1;transform:none}}@keyframes v4shine{from{background-position:120% 0}to{background-position:-60% 0}}
@@ -2805,6 +2805,32 @@ body.duelB .cine-skip{display:none!important}
 #menuBtns .mbtn.lbOnly{display:none}
 #menu:has(#admWrap) #mLb{display:none}
 @media (max-width:1240px){#mLb.mLb{display:none}#menuBtns .mbtn.lbOnly{display:flex}}
+/* ===== v9.8: Menü + Bestenliste passen auf Laptops (geringe Bildschirmhöhe, z. B. 1366×768 oder 150 % Skalierung) ===== */
+#mLb.mLb{width:min(340px,calc((100% - 540px)/2 - 24px))}
+@media (max-height:880px){
+  .big1 .lg{font-size:36px}.big1 .ic{width:42px;height:42px}
+  .tagline{margin:6px 0 8px}.tagline span{padding:4px 12px 3px}
+  #menu .who{padding:3px 14px;font-size:15px;margin-bottom:8px;border-width:3px}
+  #menuBtns{padding:5px 6px}#menuBtns .mbtn{margin:0;padding:5px 12px 5px 32px;gap:12px}
+  #menuBtns .mbtn .mi{width:32px;height:32px;border-width:2px}#menuBtns .mbtn .mi .ic{width:18px;height:18px}
+  #menuBtns .mbtn b{font-size:11px}#menuBtns .mbtn small{font-size:13px;line-height:1.25}
+  .menuLoc{margin-top:6px;font-size:13px;padding:2px 10px}
+  #menu .fanNote{font-size:10px;bottom:4px}
+  #mLb.mLb{padding:12px;gap:6px;max-height:calc(100% - 90px)}
+  #mLb .lbRow{padding:5px 8px;gap:8px}#mLb .lbRank{width:24px;height:24px;font-size:10px}
+  #mLb .lbMain b{font-size:13px}#mLb .lbMain{gap:2px}#mLb .lbRegs i{width:15px;height:15px;font-size:6px}
+  #mLb .lbPts{font-size:12px}#mLb .lbMain small{font-size:10px}
+}
+@media (max-height:740px){
+  .big1 .lg{font-size:28px}.big1 .ic{width:32px;height:32px}.big1{margin-bottom:0}
+  .tagline{margin:4px 0 6px}.tagline span{font-size:8px}
+  #menu .who{font-size:13px;margin-bottom:6px}
+  #menuBtns .mbtn{padding:3px 10px 3px 30px}#menuBtns .mbtn .mi{width:28px;height:28px}#menuBtns .mbtn .mi .ic{width:16px;height:16px}
+  #menuBtns .mbtn small{font-size:12px}
+  .menuLoc{display:none}
+  #mLb .lbMain small{display:none}
+}
+@media (max-height:620px){#menuBtns .mbtn small{display:none}#menuBtns .mbtn{padding:4px 10px 4px 30px}}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -8678,10 +8704,10 @@ function migrateItems(){if(!S)return;let refund=0;const fix=id=>{if(IT_BY[id])re
   for(const u of allUnits()){u.items=(u.items||[]).map(fix).filter(Boolean);if(u.spec)u.spec=u.spec.filter(k=>SPECS[k]);}S.bag=(S.bag||[]).map(fix).filter(Boolean);
   if(S.shop&&S.shop.item&&!IT_BY[S.shop.item.id])S.shop.item=rollItemShop();if(refund)S.gold+=refund;}
 function fuseUnits(keep,gone){if(keep&&gone&&!keep.nick&&gone.nick)keep.nick=gone.nick;const shy0=[!!keep.shiny,!!gone.shiny];try{META.stats=META.stats||{};META.stats.fusions=(META.stats.fusions||0)+1;}catch(e){}
-  removeU(gone);if((gone.spec||[]).length>(keep.spec||[]).length)keep.spec=gone.spec.slice();if(!keep.secret&&gone.secret)keep.secret=gone.secret;if(keep.crypto||gone.crypto){const c=Math.min(keep.crypto||0,gone.crypto||0);if(c)keep.crypto=c;else{delete keep.crypto;toast(`${SPECIES[keep.sp].name}: Die Fusion hat das Crypto-Herz geöffnet!`,"heart");}}keep.gifts=(keep.gifts||[]).concat(gone.gifts||[]);{let seen=0;keep.gifts=keep.gifts.map(g=>g==="g_slot"?(seen++?"g_hp":g):g);}if(!!gone.shiny!==!!keep.shiny){const sh=Math.random()<Math.min(1,.5+.25*(S.shyLose||0));S.shyLose=sh?0:(S.shyLose||0)+1;if(sh)keep.shiny=true;else delete keep.shiny;setTimeout(()=>toast(sh?`${SPECIES[keep.sp].name} bleibt schillernd!`:`${SPECIES[keep.sp].name} hat seinen Schimmer verloren`,sh?"shiny":"merge"),250);}else if(gone.shiny)keep.shiny=true;
+  removeU(gone);if((gone.spec||[]).length>(keep.spec||[]).length)keep.spec=gone.spec.slice();if(!keep.secret&&gone.secret)keep.secret=gone.secret;if(keep.crypto||gone.crypto){const c=Math.min(keep.crypto||0,gone.crypto||0);if(c)keep.crypto=c;else{delete keep.crypto;toast(`${SPECIES[keep.sp].name}: Die Fusion hat das Crypto-Herz geöffnet!`,"heart");}}keep.gifts=(keep.gifts||[]).concat(gone.gifts||[]);{let seen=0;keep.gifts=keep.gifts.map(g=>g==="g_slot"?(seen++?"g_hp":g):g);}let tm=null;if(!!gone.shiny!==!!keep.shiny){const sh=Math.random()<Math.min(1,.5+.25*(S.shyLose||0));S.shyLose=sh?0:(S.shyLose||0)+1;if(sh)keep.shiny=true;else delete keep.shiny;tm=[sh?"shy1":"shy0"];}else if(gone.shiny)keep.shiny=true;
   const from=keep.sp,its=(keep.items||[]).concat(gone.items||[]);evolve(keep);keep.items=[];
   for(const id of its){if(keep.items.length<itemSlots(keep))keep.items.push(id);else toBag(id);}
-  S.fuseQ.push({uid:keep.uid,from,shy:shy0});if(GL){const l=locate(keep);if(l&&l.w==="board"){const[x,y]=l.k.split(",").map(Number);equipFx(x,y,0xffc94a);}}
+  S.fuseQ.push({uid:keep.uid,from,shy:shy0,tm});if(GL){const l=locate(keep);if(l&&l.w==="board"){const[x,y]=l.k.split(",").map(Number);equipFx(x,y,0xffc94a);}}
   merges();
 }
 function merges(){if(S.fuseQ.length&&!$("modal").classList.contains("show")&&!cineBusy)showFusion();}
@@ -8691,10 +8717,13 @@ function fuseThen(cb){if(S.fuseQ.length){fuseCb=cb;showFusion();}else cb();}
 function showFusion(){
   if(!S.fuseQ.length){const cb=fuseCb;fuseCb=null;render();if(cb)cb();return;}
   const q=S.fuseQ[0],u=allUnits().find(x=>x.uid===q.uid);if(!u){S.fuseQ.shift();return showFusion();}
+  const fuseNote=()=>{if(!q.tm)return;const sh=q.tm[0]==="shy1",nm=SPECIES[u.sp].name;q.tm=null;setTimeout(()=>toast(sh?`${nm} bleibt schillernd!`:`${nm} hat seinen Schimmer verloren`,sh?"shiny":"merge"),120);};
   if(!q.played&&!window.__autoPick&&typeof playEvolution==="function"){q.played=true;cineBusy=true;const sp0=SPECIES[q.from],sp1=SPECIES[u.sp],col=TYPES[sp1.types[0]][1];
-    const pr=q.from!==u.sp?playEvolution({from:sprKey(q.from,u.shiny),to:sprKey(u.sp,u.shiny),name:sp0.name,toName:sp1.name,color:col,shiny:!!u.shiny}):playStarUp({sp:sprKey(u.sp,u.shiny),name:sp1.name,stars:u.stars,color:col});
+    const shy0=q.shy?!!(q.shy[0]&&q.shy[1]):!!u.shiny;
+    const pr=q.from!==u.sp?playEvolution({from:sprKey(q.from,shy0),to:sprKey(u.sp,u.shiny),name:sp0.name,toName:sp1.name,color:col,shiny:!!u.shiny}):playStarUp({sp:sprKey(u.sp,u.shiny),sp0:sprKey(u.sp,shy0),name:sp1.name,stars:u.stars,color:col,shiny:!!u.shiny});
     sfx(q.from!==u.sp?"evoStart":"pop");const tEnd=q.from!==u.sp?4500:720;setTimeout(()=>{if(document.querySelector(".cine-ov"))sfx("evoDone");},tEnd);
-    pr.catch(()=>{}).then(()=>{cineBusy=false;render();showFusion();});return;}
+    pr.catch(()=>{}).then(()=>{cineBusy=false;render();fuseNote();showFusion();});return;}
+  fuseNote();
   const so=specOpts(roleOf(u),u.spec,u);
   if(so.length){const lvl=(u.spec||[]).length,sp=SPECIES[u.sp],evo=q.from!==u.sp,R=ROLES[roleOf(u)];
     const applyS=s=>{u.spec=(u.spec||[]).concat(s.id);S.fuseQ.shift();save();};
@@ -9192,7 +9221,7 @@ function run(sc){
   return new Promise(resolve=>{
     let host=sc.host||document.body,restorePos=null;
     if(sc.abs&&host!==document.body&&getComputedStyle(host).position==="static"){restorePos=host.style.position;host.style.position="relative";}
-    const ov=document.createElement("div");ov.className="cine-ov cine-in "+(sc.abs?"cine-abs ":"")+(sc.cls||"");
+    const ov=document.createElement("div");ov.className="cine-ov "+(sc.instant?"":"cine-in ")+(sc.abs?"cine-abs ":"")+(sc.cls||"");if(sc.bg)ov.style.background=sc.bg;
     ov.innerHTML='<div class="cine-imgs"></div><canvas></canvas><div class="cine-box"><span class="cine-txt"></span><i class="cine-arr"></i></div><div class="cine-skip">ÜBERSPRINGEN</div>';
     (sc.abs?host:document.body).appendChild(ov);
     const canvas=ov.querySelector("canvas"),ctx=canvas.getContext("2d"),box=ov.querySelector(".cine-box"),txt=ov.querySelector(".cine-txt"),arr=ov.querySelector(".cine-arr"),skip=ov.querySelector(".cine-skip");
@@ -9269,8 +9298,8 @@ function evoScene(o){
   const burst=[...Array(56)].map(()=>({a:r()*TAU,v:350+r()*1300,L:.6+r()*.9,s:10+r()*34,spin:(r()-.5)*9,c:r()<.55,g:r()<.3}));
   const rays=[...Array(26)].map(()=>({a:r()*TAU,w:.006+r()*.018,L:.4+r()*.8,d:(r()-.5)*.3}));
   const rings=[{R:.27,tilt:-.38,e:.24,w:2.1},{R:.32,tilt:.52,e:.2,w:-2.6},{R:.37,tilt:1.45,e:.17,w:3.1}];
-  let A,B;
-  return {R,hold:1.5,
+  let A,B;const shy=!!o.shiny;
+  return {R,hold:1.5,instant:true,bg:`radial-gradient(circle at 50% 42.5%,${rgba(pal.c0,1)} 0,${rgba(pal.c1,1)} 32%,${rgba(pal.c2,1)} 75%,${rgba(pal.c3,1)} 100%)`,
     load:h=>[loadSpr(o.from,h,tint),loadSpr(o.to,h,tint)],
     init:([a,b])=>{A=a;B=b;},
     render(ctx,t,st){
@@ -9316,8 +9345,8 @@ function evoScene(o){
         drawGlow(ctx,B,rgba(tintG,1),cx,cy+by,k*pop,false,.12+.3*wv,1.04);
         ctx.globalCompositeOperation="source-over";drawSpr(ctx,B,cx,cy+by,k*pop,false,1);drawSil(ctx,B,"#fff",cx,cy+by,k*pop,false,wv*.95);
         ctx.globalCompositeOperation="lighter";
-        // Funkelnde Sterne um die neue Form
-        if(d>.35){const bw=B.w*k,bh=B.h*k;for(let i=0;i<16;i++){const per=.85+hash(i*3)*.6,ph=hash(i*3+1),q=(d/per+ph),cyc=Math.floor(q),f=q-cyc;const h1=hash(i*131+cyc*17),h2=hash(i*71+cyc*29+5);
+        // Funkelnde Sterne um die neue Form (nur Shiny)
+        if(shy&&d>.35){const bw=B.w*k,bh=B.h*k;for(let i=0;i<16;i++){const per=.85+hash(i*3)*.6,ph=hash(i*3+1),q=(d/per+ph),cyc=Math.floor(q),f=q-cyc;const h1=hash(i*131+cyc*17),h2=hash(i*71+cyc*29+5);
           const a=h1*TAU,rr=.5+.45*h2,x=cx+Math.cos(a)*bw*.62*rr,y=cy+by+Math.sin(a)*bh*.62*rr;tex(ctx,i%3?SW:ST,x,y,(18+26*hash(i*9+cyc))*U*Math.sin(f*PI),Math.sin(f*PI)*ss(.35,.8,d),f*1.5);}}}
       ringPass(true);
       // Funken waehrend der Verwandlung
@@ -9327,7 +9356,7 @@ function evoScene(o){
         rayBurst(ctx,cx,cy,rays,cl(d/1.1),MX,tintL,.45*Math.pow(1-cl(d/1.1),1.6));
         [[0,1],[.12,.8],[.3,.6]].forEach(([dl,s])=>{const p=(d-dl)/.95;if(p<0||p>1)return;shock(ctx,cx,cy,eOut(p)*MX*.9*s,(1-p)*26*U,tintL,(1-p)*1,.88);});
         for(const b of burst){const p=d/b.L;if(p<0||p>1)continue;const kd=3.2,dist=b.v*U*(1-Math.exp(-kd*d))/kd,x=cx+Math.cos(b.a)*dist,y=cy+Math.sin(b.a)*dist*.9+(b.g?d*d*260*U:0);
-          tex(ctx,b.c?ST:SW,x,y,b.s*U*(1-p*.6)*1.5,(1-p)*(1-p)*1.1,b.spin*d);}}
+          if(shy)tex(ctx,b.c?ST:SW,x,y,b.s*U*(1-p*.6)*1.5,(1-p)*(1-p)*1.1,b.spin*d);else tex(ctx,b.c?LG:WG,x,y,b.s*U*(1-p*.6)*.9,(1-p)*(1-p)*.95,0);}}
       ctx.globalCompositeOperation="source-over";
       vignette(ctx,st,cx,cy,.72);
       let fl=0;if(t<tF)fl=.5*eIn(lin(tF-.45,tF,t));else fl=t<tF+.06?.95:.95*Math.exp(-(t-tF-.06)*7);
@@ -9350,9 +9379,9 @@ function starScene(o){
   const burst=[...Array(70)].map(()=>({a:r()*TAU,v:300+r()*1000,L:.55+r()*.7,s:10+r()*28,spin:(r()-.5)*8,gs:r()<.45}));
   const rays=[...Array(18)].map(()=>({a:r()*TAU,w:.008+r()*.02,L:.4+r()*.6,d:(r()-.5)*.3}));
   const conf=[...Array(40)].map(()=>({x:r(),ts:tMg+.1+r()*.9,v:.25+r()*.35,s:12+r()*16,sw:r()*TAU,rs:(r()-.5)*6}));
-  let A;
-  return {R,hold:.9,
-    load:h=>[loadSpr(o.sp,h,tint)],init:([a])=>{A=a;},
+  let A,A0;const shy=!!o.shiny;
+  return {R,hold:.9,instant:true,bg:`radial-gradient(circle at 50% 42%,${rgba(pal.c0,1)} 0,${rgba(pal.c1,1)} 32%,${rgba(pal.c2,1)} 75%,${rgba(pal.c3,1)} 100%)`,
+    load:h=>[loadSpr(o.sp,h,tint),loadSpr(o.sp0||o.sp,h,tint)],init:([a,a0])=>{A=a;A0=a0||a;},
     render(ctx,t,st){const {W,H,U}=st,MX=Math.hypot(W,H)/2,cx=W/2,cy=H*.42;const k=spriteScale(A,H*.34,W*.32);
       const I=.3+.7*gauss(t,tMg,.35)+.25*ss(tMg,tMg+.4,t);
       backdrop(ctx,st,t,I,pal,cx,cy,t*.25);
@@ -9361,22 +9390,22 @@ function starScene(o){
       if(t<tMg){// zwei Kopien gleiten zusammen
         const u=eIn(lin(.12,tMg,t)),off=W*.36*(1-u),w=ss(.25,tMg,t),a0=ss(0,.18,t);
         for(const sd of [-1,1]){const x=cx+sd*off,fl=sd<0;
-          for(let j=3;j>=1;j--){drawSil(ctx,A,rgba(goldL,1),x+sd*j*28*U*u*2,cy,k,fl,.16*(4-j)/3*u*a0);}
-          drawGlow(ctx,A,rgba(gold,1),x,cy,k,fl,(.3+.7*w)*a0,1.05);
-          ctx.globalCompositeOperation="source-over";drawSpr(ctx,A,x,cy,k,fl,a0);ctx.globalCompositeOperation="lighter";drawSil(ctx,A,"#fff",x,cy,k,fl,w*.85*a0);}
+          for(let j=3;j>=1;j--){drawSil(ctx,A0,rgba(goldL,1),x+sd*j*28*U*u*2,cy,k,fl,.16*(4-j)/3*u*a0);}
+          drawGlow(ctx,A0,rgba(gold,1),x,cy,k,fl,(.3+.7*w)*a0,1.05);
+          ctx.globalCompositeOperation="source-over";drawSpr(ctx,A0,x,cy,k,fl,a0);ctx.globalCompositeOperation="lighter";drawSil(ctx,A0,"#fff",x,cy,k,fl,w*.85*a0);}
       }else{const d=t-tMg,pop=1+.22*Math.exp(-d*6)*Math.cos(d*16),wv=1-ss(.05,.5,d),by=Math.sin(d*2.6)*4*U*ss(.4,1,d);
         drawGlow(ctx,A,rgba(gold,1),cx,cy+by,k*pop,false,.45+.6*wv,1.06);ctx.globalCompositeOperation="source-over";drawSpr(ctx,A,cx,cy+by,k*pop,false,1);
         ctx.globalCompositeOperation="lighter";drawSil(ctx,A,"#fff",cx,cy+by,k*pop,false,wv);
         rayBurst(ctx,cx,cy,rays,cl(d/.9),MX,gold,.7*Math.pow(1-cl(d/.9),1.6));
         [[0,1],[.12,.7]].forEach(([dl,s])=>{const p=(d-dl)/.8;if(p<0||p>1)return;shock(ctx,cx,cy,eOut(p)*MX*.75*s,(1-p)*20*U,gold,1-p,.9);});
-        for(const b of burst){const p=d/b.L;if(p<0||p>1)continue;const kd=3.4,dist=b.v*U*(1-Math.exp(-kd*d))/kd;tex(ctx,b.gs?GS:SW,cx+Math.cos(b.a)*dist,cy+Math.sin(b.a)*dist*.9+d*d*200*U,b.s*U*1.4*(1-p*.5),(1-p)*(1-p),b.spin*d);}
+        for(const b of burst){const p=d/b.L;if(p<0||p>1)continue;const kd=3.4,dist=b.v*U*(1-Math.exp(-kd*d))/kd;const bx=cx+Math.cos(b.a)*dist,by2=cy+Math.sin(b.a)*dist*.9+d*d*200*U;if(shy)tex(ctx,b.gs?GS:SW,bx,by2,b.s*U*1.4*(1-p*.5),(1-p)*(1-p),b.spin*d);else tex(ctx,b.gs?GG:WG,bx,by2,b.s*U*.85*(1-p*.5),(1-p)*(1-p)*.9,0);}
         // Sterne ploppen auf
         const top=cy-A.h*k*.5-56*U,gap=86*U,GT=goldStarTex();ctx.globalCompositeOperation="source-over";
         for(let i=0;i<n;i++){const ti=.2+i*.17,q=d-ti;if(q<0)continue;const s=eBack(q/.32),x=cx+(i-(n-1)/2)*gap,y=top-Math.sin((i+.5)/n*PI)*14*U+Math.sin(t*3+i)*3*U;
           ctx.globalCompositeOperation="lighter";tex(ctx,GS,x,y,150*U*gauss(q,.08,.12)+1,1,q*3);tex(ctx,GG,x,y,140*U,.35+.2*Math.sin(t*5+i));
           ctx.globalCompositeOperation="source-over";tex(ctx,GT,x,y,92*U*s,1,(1-cl(q/.32))*-2.2);}
         ctx.globalCompositeOperation="lighter";
-        for(const c of conf){const q=t-c.ts;if(q<0||q>1.6)continue;const x=c.x*W+Math.sin(q*3+c.sw)*20*U,y=-20*U+q*c.v*H*1.2;tex(ctx,GS,x,y,c.s*U*1.3,(1-q/1.6),q*c.rs);}
+        if(shy)for(const c of conf){const q=t-c.ts;if(q<0||q>1.6)continue;const x=c.x*W+Math.sin(q*3+c.sw)*20*U,y=-20*U+q*c.v*H*1.2;tex(ctx,GS,x,y,c.s*U*1.3,(1-q/1.6),q*c.rs);}
       }
       ctx.globalCompositeOperation="source-over";vignette(ctx,st,cx,cy,.7);
       const fl=t<tMg?.5*eIn(lin(tMg-.25,tMg,t)):t<tMg+.05?.95:.95*Math.exp(-(t-tMg-.05)*7.5);if(fl>.004){ctx.globalAlpha=fl;ctx.fillStyle="#fff";ctx.fillRect(0,0,W,H);ctx.globalAlpha=1;}
@@ -9504,6 +9533,109 @@ function megaScene(o){
     }};
 }
 
+/* ================================ 5) Z-ATTACKE (v9.8) ================================
+   Eigenes Z-Emblem (goldener Ring mit kantigem Z, kein offizielles Logo) und eigene Attacken-Namen.
+   Ablauf ~3,5 s: abdunkeln → Z-Emblem + goldene Energie strömt ins Pokémon → Typ-Attacke übers Feld → Einschlag. */
+function zEmblemTex(){if(TX.zemb)return TX.zemb;const S=512,m=S/2,c=cv(S,S),x=c.getContext("2d");
+  x.globalAlpha=.6;x.drawImage(glowTex([255,210,90]),0,0,S,S);x.globalAlpha=1;
+  x.lineWidth=S*.05;x.strokeStyle="#ffe27a";x.beginPath();x.arc(m,m,S*.34,0,TAU);x.stroke();
+  x.lineWidth=S*.012;x.strokeStyle="#fff";x.beginPath();x.arc(m,m,S*.4,0,TAU);x.stroke();x.beginPath();x.arc(m,m,S*.28,0,TAU);x.stroke();
+  for(let i=0;i<16;i++){const a=i/16*TAU,r1=S*(i%2?.44:.47);x.lineWidth=S*(i%2?.008:.016);x.strokeStyle=i%2?"rgba(255,240,180,.7)":"#fff";x.beginPath();x.moveTo(m+Math.cos(a)*S*.41,m+Math.sin(a)*S*.41);x.lineTo(m+Math.cos(a)*r1,m+Math.sin(a)*r1);x.stroke();}
+  const z=[[-.17,-.17],[.17,-.17],[.17,-.1],[-.06,.1],[.17,.1],[.17,.17],[-.17,.17],[-.17,.1],[.06,-.1],[-.17,-.1]];
+  x.beginPath();z.forEach(([px,py],i)=>{const X=m+px*S,Y=m+py*S;i?x.lineTo(X,Y):x.moveTo(X,Y);});x.closePath();
+  const g=x.createLinearGradient(0,m-S*.17,0,m+S*.17);g.addColorStop(0,"#fffbe0");g.addColorStop(.5,"#ffd23f");g.addColorStop(1,"#d88a10");x.fillStyle=g;x.fill();
+  x.lineJoin="miter";x.lineWidth=S*.014;x.strokeStyle="#fff";x.stroke();
+  x.globalCompositeOperation="lighter";x.globalAlpha=.8;x.drawImage(glowTex(WHITE),m-S*.1,m-S*.1,S*.2,S*.2);return TX.zemb=c;}
+const Z_ARCH={electric:"beam",psychic:"beam",dragon:"beam",fairy:"beam",ice:"beam",fire:"meteor",rock:"meteor",steel:"meteor",water:"wave",poison:"wave",ghost:"wave",grass:"storm",bug:"storm",flying:"storm",ground:"quake",fighting:"quake",normal:"burst",dark:"burst"};
+const Z_NAMES={normal:"Grenzenloser Ansturm",fire:"Sonnenfall-Inferno",water:"Tiefsee-Tsunami",electric:"Gigavolt-Speer",grass:"Urwald-Sturm",ice:"Ewiges Eisgewitter",fighting:"Titanen-Faust",poison:"Giftflut-Abgrund",ground:"Kontinentalbeben",
+  flying:"Himmelsorkan",psychic:"Gedankenspirale",bug:"Schwarmgewitter",rock:"Meteor-Bergsturz",ghost:"Schattenreich-Griff",dragon:"Drachenkönigs-Odem",dark:"Schwarzes Loch",steel:"Stahlkometen-Sturz",fairy:"Sternenstaub-Finale"};
+function zScene(o){
+  const type=Z_ARCH[o.type]?o.type:"normal",arch=Z_ARCH[type],tint=hexRgb(o.color||"#ffd040"),tintL=mixc(tint,WHITE,.5),gold=[255,206,80],goldL=[255,236,160];
+  const name=o.name||"Pokémon",zName=o.zName||Z_NAMES[type],mine=o.side!=="enemy";
+  const m1=mine?`${name} entfesselt die volle Z-Kraft!`:`${name} des Gegners entfesselt die Z-Kraft!`,m2=`${zName}!`;
+  const tBar=.3,tE=.25,tGo=1.25,tHit=2.15,T1=.25,CPS1=46,T2=tHit,CPS2=30,R=Math.max(T2+chars(m2)/CPS2+.25,tHit+.9);
+  const r=mkRng(7000+type.length*31);
+  const streams=[...Array(90)].map((_,i)=>({ts:.3+i/90*(tGo-.45)+r()*.06,L:.45+r()*.3,a:r()*TAU,r0:.35+r()*.35,dir:r()<.5?-1:1,sw:2+r()*2,sz:2+r()*4}));
+  const burst=[...Array(70)].map(()=>({a:r()*TAU,v:350+r()*1300,L:.6+r()*.7,s:10+r()*30,spin:(r()-.5)*9,c:r()<.6,g:r()<.35}));
+  const rays=[...Array(24)].map(()=>({a:r()*TAU,w:.006+r()*.02,L:.4+r()*.8,d:(r()-.5)*.35}));
+  const parts=[...Array(80)].map(()=>({a:r()*TAU,rr:r(),h:r(),sp:.6+r()*1.6,s:8+r()*22,ph:r()*TAU,y:r()}));
+  const cracks=[...Array(10)].map((_,i)=>{const a=i/10*TAU+r()*.4;let x=0,y=0,h=a;const pts=[[0,0]];for(let j=0;j<7;j++){h+=(r()-.5)*1;const L=.05+r()*.06;x+=Math.cos(h)*L;y+=Math.sin(h)*L*.45;pts.push([x,y]);}return {pts,ts:tGo+.05+i*.04};});
+  let A;
+  return {R,hold:.7,abs:!!o.abs,cls:"cine-mega cine-z",font:(w,h)=>Math.round(cl(Math.min(w/70,h/44),9,14)),
+    load:h=>[loadSpr(o.sp,h,tint)],init:([a])=>{A=a;},
+    render(ctx,t,st){const {W,H,U}=st,MX=Math.hypot(W,H)/2,hb=H*.13;
+      const P0=mine?[W*.27,H*.6]:[W*.73,H*.42],P1=mine?[W*.74,H*.44]:[W*.26,H*.6],k=spriteScale(A,H*.3,W*.28);
+      const dim=ss(0,tBar,t);ctx.clearRect(0,0,W,H);ctx.fillStyle=`rgba(6,4,14,${.82*dim})`;ctx.fillRect(0,0,W,H);
+      // Erschütterung
+      const shk=(t>tGo&&t<tGo+.2?8*U:0)+(t>tHit?26*U*Math.exp(-(t-tHit)*5):0)+(arch==="quake"&&t>tGo&&t<tHit?10*U*ss(tGo,tHit,t):0);
+      const sx=shk*(Math.sin(t*93)*.6+Math.sin(t*141)*.4),sy=shk*(Math.cos(t*79)*.6+Math.sin(t*117)*.4);
+      ctx.save();ctx.translate(sx,sy);ctx.globalCompositeOperation="lighter";
+      const GG=glowTex(gold),GL=glowTex(goldL),TG=glowTex(tint),TL=glowTex(tintL),WG=glowTex(WHITE),TS=starTex(tintL),GS=starTex(goldL);
+      // goldene Bühne hinter dem Pokémon
+      const chg=ss(tE,tGo,t)*(t<tHit?1:Math.exp(-(t-tHit)*2));tex(ctx,GG,P0[0],P0[1],H*(.7+.5*chg),(.25+.45*chg)*dim);
+      // Z-Emblem
+      // Z-Emblem: erst groß in der Mitte, dann fliegt es ins Pokémon
+      const zA=ss(tE,tE+.18,t)*(1-ss(tGo-.22,tGo-.02,t)),zM=eIO(lin(tE+.55,tGo-.2,t)),zx=lerp(W/2,P0[0],zM),zy=lerp(H*.44,P0[1],zM),zs=H*lerp(.78,.26,zM)*eBack(lin(tE,tE+.35,t));
+      if(zA>.01){const ZE=zEmblemTex();tex(ctx,GG,zx,zy,zs*1.6,zA*.55);tex(ctx,ZE,zx,zy,zs,zA,Math.sin(t*2.2)*.1*(1-zM));tex(ctx,ZE,zx,zy,zs*1.7,zA*.22*(1-zM),-t*.8);}
+      const zHit=gauss(t,tGo-.12,.07);if(zHit>.02){tex(ctx,WG,P0[0],P0[1],H*.5*zHit,zHit);shock(ctx,P0[0],P0[1],H*.35*(1-zHit)+H*.05,8*U,goldL,zHit,.9);}
+      // goldene Energie strömt ins Pokémon
+      if(t<tGo+.05)for(const p of streams){const u=(t-p.ts)/p.L;if(u<0||u>1)continue;const al=ss(0,.15,u)*(1-ss(.85,1,u));const rr=p.r0*MX*(1-u*u),a=p.a+p.dir*u*u*p.sw,x=P0[0]+Math.cos(a)*rr,y=P0[1]+Math.sin(a)*rr*.8;
+        tex(ctx,u>.5?GL:GG,x,y,p.sz*U*(2.4+2*u),al*.9);}
+      // Pokémon (Ausfallschritt beim Angriff)
+      const lunge=t>tGo-.1&&t<tGo+.35?Math.sin(lin(tGo-.1,tGo+.35,t)*PI)*W*.03*(mine?1:-1):0,bob=Math.sin(t*2.4)*4*U,px=P0[0]+lunge,py=P0[1]+bob;
+      const pa=ss(.02,.25,t)*(t>R+.4?0:1);drawGlow(ctx,A,rgba(gold,1),px,py,k,mine,(.35+.6*chg+.4*gauss(t,tGo,.12))*pa,1.06);
+      ctx.globalCompositeOperation="source-over";drawSpr(ctx,A,px,py,k,mine,pa);ctx.globalCompositeOperation="lighter";drawSil(ctx,A,"#fff3c0",px,py,k,mine,(.15*chg+.85*gauss(t,tGo,.1))*pa);
+      // ---------- Typ-Attacke ----------
+      const go=lin(tGo,tHit,t),live=t>=tGo&&t<tHit+.45,fade=t<tHit?1:1-ss(tHit,tHit+.45,t);
+      if(live){
+        if(arch==="beam"){const ext=eOut(lin(tGo,tGo+.3,t)),ex=lerp(P0[0],P1[0],ext),ey=lerp(P0[1],P1[1],ext),th=(26+10*Math.sin(t*40))*U*(1+.5*gauss(t,tHit,.1))*fade;
+          const seg=(lw,col,a)=>{ctx.strokeStyle=rgba(col,a);ctx.lineWidth=lw;ctx.lineCap="round";ctx.beginPath();ctx.moveTo(P0[0],P0[1]);ctx.lineTo(ex,ey);ctx.stroke();};
+          seg(th*3.2,tint,.18);seg(th*1.6,tint,.45);seg(th*.75,tintL,.8);seg(th*.28,WHITE,1);
+          const dx=ex-P0[0],dy=ey-P0[1],D=Math.hypot(dx,dy)||1,nx=-dy/D,ny=dx/D;
+          if(type==="electric"){const f=Math.floor(t*30);for(let b=0;b<3;b++){ctx.strokeStyle=rgba(b?tintL:WHITE,.9*fade);ctx.lineWidth=(b?2:3.5)*U;ctx.beginPath();for(let j=0;j<=14;j++){const q=j/14,off=(j%14===0?0:(hash(f*31+j*7+b*101)-.5))*70*U;const X=P0[0]+dx*q+nx*off,Y=P0[1]+dy*q+ny*off;j?ctx.lineTo(X,Y):ctx.moveTo(X,Y);}ctx.stroke();}}
+          if(type==="psychic"||type==="fairy"){for(let j=0;j<8;j++){const q=(t*1.6+j/8)%1,X=P0[0]+dx*q,Y=P0[1]+dy*q;if(type==="psychic"){ctx.strokeStyle=rgba(tintL,.7*fade);ctx.lineWidth=3*U;ctx.beginPath();ctx.ellipse(X,Y,th*1.4,th*2.4,Math.atan2(dy,dx),0,TAU);ctx.stroke();}else tex(ctx,TS,X+nx*Math.sin(t*9+j)*th,Y+ny*Math.sin(t*9+j)*th,th*2.4,fade,t*3+j);}}
+          if(type==="dragon"){for(let s2=0;s2<2;s2++){ctx.strokeStyle=rgba(s2?tintL:WHITE,.75*fade);ctx.lineWidth=5*U;ctx.beginPath();for(let j=0;j<=30;j++){const q=j/30*ext,w=Math.sin(q*18-t*14+s2*PI)*th*1.3;const X=P0[0]+(dx/(ext||1))*q+nx*w,Y=P0[1]+(dy/(ext||1))*q+ny*w;j?ctx.lineTo(X,Y):ctx.moveTo(X,Y);}ctx.stroke();}}
+          tex(ctx,TL,ex,ey,th*7,fade);tex(ctx,WG,ex,ey,th*3,fade);tex(ctx,TL,P0[0],P0[1],th*5,fade*.8);}
+        else if(arch==="meteor"){const st0=[P1[0]+(mine?-1:1)*W*.22,-H*.05],q=.6*go+.4*eIn(go),mx=lerp(st0[0],P1[0],q),my=lerp(st0[1],P1[1],q),sz=(140+160*go)*U;
+          if(t<tHit){for(let j=10;j>=1;j--){const gj=Math.max(0,go-j*.035),qq=.6*gj+.4*eIn(gj);tex(ctx,j%2?TG:TL,lerp(st0[0],P1[0],qq),lerp(st0[1],P1[1],qq),sz*(1.4-j*.08),.5*(1-j/11));}
+            tex(ctx,TG,mx,my,sz*3.2,.8);tex(ctx,TL,mx,my,sz*1.6,1);tex(ctx,WG,mx,my,sz*.7,1);
+            if(type!=="fire"){ctx.fillStyle=rgba(mixc(tint,[60,50,40],.45),1);ctx.beginPath();for(let j=0;j<9;j++){const a=j/9*TAU+t*2,rr=sz*.42*(.8+.3*hash(j*13));ctx.lineTo(mx+Math.cos(a)*rr,my+Math.sin(a)*rr);}ctx.closePath();ctx.globalCompositeOperation="source-over";ctx.fill();ctx.globalCompositeOperation="lighter";tex(ctx,TL,mx,my,sz*.9,.5);}}}
+        else if(arch==="wave"){const fx=mine?lerp(-W*.15,P1[0]+W*.1,eIO(go)):lerp(W*1.15,P1[0]-W*.1,eIO(go)),top=H*.28,amp=40*U;
+          ctx.save();ctx.globalCompositeOperation="source-over";const gr=ctx.createLinearGradient(0,top,0,H);gr.addColorStop(0,rgba(tintL,.85*fade));gr.addColorStop(.4,rgba(tint,.75*fade));gr.addColorStop(1,rgba(mixc(tint,[0,0,20],.6),.8*fade));ctx.fillStyle=gr;
+          ctx.beginPath();const x0=mine?-W*.2:W*1.2;ctx.moveTo(x0,H);for(let j=0;j<=40;j++){const q=j/40,X=lerp(x0,fx,q),Y=top+H*.18*(1-Math.pow(q,3))+Math.sin(q*14-t*10)*amp*(.4+q);ctx.lineTo(X,Y);}ctx.lineTo(fx,H);ctx.closePath();ctx.fill();ctx.restore();
+          for(let j=0;j<24;j++){const q=hash(j*17),X=lerp(x0,fx,.75+.25*q),Y=top+Math.sin(q*14-t*10)*amp+(hash(j*5)-.5)*60*U;tex(ctx,j%2?WG:TL,X,Y,(16+20*hash(j*3))*U,.8*fade);}
+          if(type==="ghost"){for(let j=0;j<5;j++){const X=lerp(x0,fx,.3+j*.15),Y=top-30*U-Math.abs(Math.sin(t*5+j))*50*U;tex(ctx,glowTex([90,40,140]),X,Y,90*U,.7*fade);tex(ctx,TL,X,Y-20*U,30*U,fade);}}}
+        else if(arch==="storm"){const gw=eOut(lin(tGo,tGo+.5,t)),rot=t*7;for(let lv=0;lv<9;lv++){const yy=P1[1]+H*.22-lv*H*.06,rw=(40+lv*22)*U*gw;ctx.strokeStyle=rgba(lv%2?tintL:WHITE,.35*fade);ctx.lineWidth=3*U;ctx.beginPath();ctx.ellipse(P1[0]+Math.sin(t*6+lv)*10*U,yy,rw,rw*.28,0,0,TAU);ctx.stroke();}
+          for(const p of parts){const ang=p.a+rot*p.sp,lv=p.y,yy=P1[1]+H*.22-lv*H*.5,rw=(40+lv*190)*U*gw,X=P1[0]+Math.cos(ang)*rw,Y=yy+Math.sin(ang)*rw*.28;
+            if(type==="grass"||type==="bug"){ctx.save();ctx.translate(X,Y);ctx.rotate(ang*2);ctx.fillStyle=rgba(p.h<.5?tint:tintL,.85*fade);ctx.beginPath();ctx.ellipse(0,0,p.s*.5*U,p.s*.22*U,0,0,TAU);ctx.globalCompositeOperation="source-over";ctx.fill();ctx.globalCompositeOperation="lighter";ctx.restore();}
+            else tex(ctx,p.h<.5?WG:TL,X,Y,p.s*U*1.6,.8*fade);}}
+        else if(arch==="quake"){const cg=lin(tGo,tHit-.2,t);ctx.lineCap="round";for(const c of cracks){const q=cl((t-c.ts)/.5);if(q<=0)continue;const n=1+q*(c.pts.length-1);ctx.strokeStyle=rgba(tintL,.95*fade);ctx.lineWidth=5*U;ctx.beginPath();
+            for(let j=0;j<n&&j<c.pts.length;j++){const X=P1[0]+c.pts[j][0]*W*.9,Y=P1[1]+H*.08+c.pts[j][1]*W*.9;j?ctx.lineTo(X,Y):ctx.moveTo(X,Y);}ctx.stroke();}
+          tex(ctx,TG,P1[0],P1[1]+H*.08,H*.9*cg,.5*fade);
+          if(type==="fighting"){const q=eOut(lin(tGo,tHit-.05,t)),fx=lerp(P0[0],P1[0],q),fy=lerp(P0[1],P1[1],q);tex(ctx,TG,fx,fy,(220+200*q)*U,.7*fade);tex(ctx,TL,fx,fy,(130+120*q)*U,fade);tex(ctx,WG,fx,fy,(70+70*q)*U,fade);
+            for(let j=0;j<16;j++){const a=Math.atan2(P1[1]-P0[1],P1[0]-P0[0])+(hash(j*7)-.5)*.6,L=(80+160*hash(j*3))*U;ctx.strokeStyle=rgba(WHITE,.5*fade);ctx.lineWidth=2*U;ctx.beginPath();ctx.moveTo(fx-Math.cos(a)*L*.2,fy-Math.sin(a)*L*.2);ctx.lineTo(fx-Math.cos(a)*L,fy-Math.sin(a)*L);ctx.stroke();}}}
+        else{const gr2=eOut(go)*(t<tHit?1:1+2*(t-tHit)),RR=H*.22*gr2;
+          if(type==="dark"){ctx.globalCompositeOperation="source-over";const g2=ctx.createRadialGradient(P1[0],P1[1],0,P1[0],P1[1],RR);g2.addColorStop(0,`rgba(0,0,0,${.95*fade})`);g2.addColorStop(.7,`rgba(20,0,40,${.9*fade})`);g2.addColorStop(1,"rgba(0,0,0,0)");ctx.fillStyle=g2;ctx.beginPath();ctx.arc(P1[0],P1[1],RR,0,TAU);ctx.fill();ctx.globalCompositeOperation="lighter";
+            tex(ctx,glowTex([150,70,255]),P1[0],P1[1],RR*3.2,.75*fade);ctx.strokeStyle=rgba([210,150,255],.95*fade);ctx.lineWidth=6*U;ctx.beginPath();ctx.arc(P1[0],P1[1],RR*.92,0,TAU);ctx.stroke();
+            for(let j=0;j<4;j++){ctx.strokeStyle=rgba([170,90,255],.7*fade);ctx.lineWidth=4*U;ctx.beginPath();ctx.ellipse(P1[0],P1[1],RR*(1.15+j*.14),RR*(1.15+j*.14)*.35,t*2+j,0,TAU);ctx.stroke();}
+            for(let j=0;j<26;j++){const a=hash(j*7)*TAU-t*(2+hash(j)*2),rr=RR*(1.3+hash(j*3)*1.4)*(1-((t*.8+hash(j*5))%1)*.7);tex(ctx,glowTex([200,140,255]),P1[0]+Math.cos(a)*rr,P1[1]+Math.sin(a)*rr*.45,14*U,.8*fade);}}
+          else{tex(ctx,WG,P1[0],P1[1],RR*2.4,.9*fade);tex(ctx,TL,P1[0],P1[1],RR*3.4,.6*fade);rayBurst(ctx,P1[0],P1[1],rays,cl(go),MX*.6,tintL,.6*fade);}}
+      }
+      // ---------- Einschlag ----------
+      if(t>=tHit){const d=t-tHit;rayBurst(ctx,P1[0],P1[1],rays,cl(d/1),MX,tintL,.85*Math.pow(1-cl(d/1),1.5));
+        [[0,1],[.1,.75],[.24,.55]].forEach(([dl,s2])=>{const p=(d-dl)/.9;if(p<0||p>1)return;shock(ctx,P1[0],P1[1],eOut(p)*MX*.85*s2,(1-p)*26*U,tintL,1-p,.85);});
+        for(const b of burst){const p=d/b.L;if(p<0||p>1)continue;const kd=3,dist=b.v*U*(1-Math.exp(-kd*d))/kd;tex(ctx,b.c?TS:GS,P1[0]+Math.cos(b.a)*dist,P1[1]+Math.sin(b.a)*dist*.9+(b.g?d*d*240*U:0),b.s*U*1.5*(1-p*.5),(1-p)*(1-p)*1.1,b.spin*d);}
+        tex(ctx,TG,P1[0],P1[1],H*1.4*eOut(d/.6),.7*Math.exp(-d*2.2));}
+      ctx.restore();
+      // Vignette, Blitz, Kinobalken, Text
+      ctx.globalCompositeOperation="source-over";let g=ctx.createRadialGradient(W/2,H/2,MX*.35,W/2,H/2,MX);g.addColorStop(0,"rgba(0,0,0,0)");g.addColorStop(1,`rgba(0,0,8,${.7*dim})`);ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+      let fl=Math.max(.55*gauss(t,tGo,.06),t<tHit?.6*eIn(lin(tHit-.18,tHit,t)):(t<tHit+.05?1:Math.exp(-(t-tHit-.05)*6)));if(fl>.004){ctx.globalAlpha=cl(fl);ctx.fillStyle=t>=tHit&&t<tHit+.25?rgba(mixc(WHITE,tintL,.25),1):"#fff";ctx.fillRect(0,0,W,H);ctx.globalAlpha=1;}
+      const bh=hb*eOut(lin(0,tBar,t));ctx.fillStyle="#000";ctx.fillRect(0,0,W,bh);ctx.fillRect(0,H-bh,W,bh);
+      ctx.globalCompositeOperation="lighter";ctx.fillStyle=rgba(gold,.7*dim);ctx.fillRect(0,bh-2*U,W,2*U);ctx.fillRect(0,H-bh,W,2*U);ctx.globalCompositeOperation="source-over";
+      st.box(ss(.15,.4,t),(1-eOut(lin(.15,.45,t)))*14);if(t<T2)st.say(typed(m1,T1,CPS1,t));else st.say(typed(m2,T2,CPS2,t));
+    }};
+}
+
 /* ================================ 4) SHINY-FUNKELN (DOM, billig) ================================ */
 function sparkleAt(host,x,y,scale){if(window.__fast||!host)return;injectCss();const s=scale||1,d=document.createElement("div");d.className="cine-spk";d.style.left=x+"px";d.style.top=y+"px";d.style.setProperty("--s",s);
   let h='<i class="c" style="--a:0deg"></i>';for(let i=0;i<8;i++)h+=`<i class="${i%2?"b":""}" style="--a:${i*45+22}deg;--d:${(i%2?22:32)*s}px;animation-delay:${i%2?.06:0}s"></i>`;
@@ -9514,8 +9646,10 @@ return {
   evo:o=>{try{const s=evoScene(o||{});return run(s);}catch(e){console.warn("cine",e);return Promise.resolve();}},
   star:o=>{try{const s=starScene(o||{});return run(s);}catch(e){console.warn("cine",e);return Promise.resolve();}},
   mega:(o,host)=>{try{const s=megaScene(o||{});s.host=host||(typeof $==="function"&&$("arena"))||document.body;return run(s);}catch(e){console.warn("cine",e);return Promise.resolve();}},
+  z:(o,host)=>{try{const s=zScene(o||{});s.host=host||document.body;s.abs=!!host;return run(s);}catch(e){console.warn("cine",e);return Promise.resolve();}},
   sparkle:(h,x,y,s)=>{try{sparkleAt(h,x,y,s);}catch(e){}},
   stop:()=>{for(const a of [...LIVE])a.finish();},
+  dbg:{scene:(n,o)=>({z:zScene,evo:evoScene,mega:megaScene,star:starScene})[n](o||{}),tick:()=>{FRAME++;}}, // nur für Vorschau-Videos
   css:injectCss,
   warm:keys=>{try{injectCss();emblemTex();goldStarTex();glowTex(WHITE);for(let h=0;h<360;h+=30){hueGlow(h);hueStar(h);}}catch(e){}
     try{const D=typeof SPRITE_DATA!=="undefined"?SPRITE_DATA:{};for(let k of keys||[]){k=String(k);const u=D[k]||(k[0]==="s"?D[k.slice(1)]:null);if(!u||WARM[k])continue;const im=new Image();im.src=u;WARM[k]=im;if(im.decode)im.decode().catch(()=>{});}}catch(e){}}};
@@ -9524,6 +9658,7 @@ const WARM={};
 function playEvolution(o){return CINE.evo(o);}
 function playStarUp(o){return CINE.star(o);}
 function playMega(o,host){return CINE.mega(o,host);}
+function playZMove(o,host){return CINE.z(o,host);}
 function sparkleAt(host,x,y,scale){CINE.sparkle(host,x,y,scale);}
 function cineStop(){CINE.stop();}
 const megaAuraCss="mega-aura";
@@ -10215,6 +10350,7 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Bauz": "Rowlet", "Arboretoss": "Da
 if(typeof EN!=="undefined")Object.assign(EN,{"Mehrspieler": "Multiplayer", "Tagesherausforderung · Live-Duell · Geisterkämpfe": "Daily Challenge · Live Duel · Ghost Battles", "Tagesherausforderung": "Daily Challenge", "für alle gleich": "same for everyone", "Live-Duell": "Live Duel", "Testphase · 2 Spieler · Raumcode": "Test phase · 2 players · room code", "Raum erstellen": "Create room", "Beitreten": "Join", "Bestenliste": "Leaderboard", "Starten": "Start", "Übungslauf": "Practice run", "Geisterkämpfe": "Ghost Battles", "Echte Teams anderer Spieler": "Real teams of other players", "Geisterkampf": "Ghost Battle", "An": "On", "Aus": "Off", "Region": "Region", "BEREIT": "READY", "BEREIT ✓": "READY ✓", "Aufgeben": "Give up", "Kampflos gewinnen": "Win by forfeit", "LIVE-DUELL": "LIVE DUEL", "Testphase": "Test phase", "Warte auf Gegner …": "Waiting for opponent …", "Abbrechen": "Cancel", "DUELL GEWONNEN!": "DUEL WON!", "DUELL VERLOREN": "DUEL LOST", "Neues Duell": "New duel", "Hauptmenü": "Main menu", "Tutorial": "Tutorial", "Überspringen": "Skip", "Los geht's": "Let's go", "TAGES-BESTENLISTE": "DAILY LEADERBOARD", "Goldregen": "Gold Rain", "Typ des Tages": "Type of the Day", "Würfelglück": "Lucky Rolls", "Harte Gegner": "Tough Foes", "Schillernder Tag": "Shiny Day", "Startpaket": "Starter Pack", "Schnelllerner": "Fast Learner", "Tagespunkte": "Daily points", "Tagespunkte (Übung)": "Daily points (practice)", "WEITER ZUM SHOP": "ON TO THE SHOP", "Duell-KP": "Duel HP"});
 /* v9.6–9.7.5: Freunde, Ranked, Chat, Feedback, Geschenke, Täglicher Run, Bestenliste im Menü */
 if(typeof EN!=="undefined")Object.assign(EN,{"Singleplayer · Täglicher Run · Region & Schwierigkeit": "Singleplayer · Daily Run · Region & difficulty", "Ranked · Live-Duell · Geisterkämpfe": "Ranked · Live Duel · Ghost Battles", "Freunde": "Friends", "FREUNDE": "FRIENDS", "Anfragen · Einladen · Chat": "Requests · Invite · Chat", "Trainerpunkte · Ranked": "Trainer points · Ranked", "Trainerpunkte": "Trainer points", "Trainerkarte": "Trainer card", "TRAINERKARTE": "TRAINER CARD", "Lieblingspokémon · Hintergrund · 3 Abzeichen": "Favorite Pokémon · Background · 3 badges", "ABZEICHEN": "BADGES", "LIEBLINGSPOKÉMON": "FAVORITE POKÉMON", "STIL": "STYLE", "Hintergrund": "Background", "Titel": "Title", "Lieblingspokémon": "Favorite Pokémon", "Pokémon suchen …": "Search Pokémon …", "Mehr anzeigen": "Show more", "Alle": "All", "Nichts gefunden.": "Nothing found.", "So sehen dich Gegner im Live-Duell und in der Bestenliste.": "This is how opponents see you in live duels and on the leaderboard.", "Dein Lieblingspokémon steht auf deiner Kampfkarte, im VS-Bildschirm und in der Bestenliste.": "Your favorite Pokémon appears on your battle card, on the VS screen and on the leaderboard.", "Wählbar ist jedes Pokémon, das du schon einmal hattest": "You can pick any Pokémon you have ever owned", "Titel gibt es nur für Abzeichen auf": "Titles are only awarded for badges at", ", also extrem selten.": ", so they are extremely rare.", "ANFRAGEN": "REQUESTS", "HINZUFÜGEN": "ADD", "Region für Einladungen": "Region for invites", "Spaß": "Fun", "Noch keine Freunde.": "No friends yet.", "eine Anfrage senden.": "send a request.", "Eingehend": "Incoming", "Gesendet": "Sent", "Keine offenen Anfragen.": "No open requests.", "Keine gesendeten Anfragen.": "No sent requests.", "möchte dein Freund sein": "wants to be your friend", "wartet auf Antwort": "waiting for an answer", "Annehmen": "Accept", "Ablehnen": "Decline", "Zurückziehen": "Withdraw", "Anfrage senden": "Send request", "Freund hinzufügen": "Add friend", "Anfrage gesendet": "Request sent", "Entfernen": "Remove", "Sicher?": "Sure?", "Gib den Benutzernamen ein. Sobald er annimmt, könnt ihr euch zu Spaß- oder Ranked-Kämpfen einladen und chatten.": "Enter the username. Once they accept, you can invite each other to fun or ranked battles and chat.", "Tipp: In der Bestenliste einen Trainer antippen und dort „Freund hinzufügen“ wählen.": "Tip: tap a trainer on the leaderboard and choose “Add friend”.", "Einladung zum": "Invitation to a", "Spaßkampf": "fun battle", "Ranked-Kampf": "ranked battle", "EINLADUNG": "INVITATION", "RANKED-EINLADUNG": "RANKED INVITATION", "Warte auf": "Waiting for", "hat angenommen, verbinde …": "accepted, connecting …", "hat abgelehnt": "declined", "hat nicht reagiert": "did not respond", "Die Einladung ist abgelaufen": "The invitation has expired", "Dein Lauf ist gespeichert, weiter später mit „Weiterspielen“": "Your run is saved, continue later with “Continue”", "Nachricht an": "Message to", "Senden": "Send", "Zu den Freunden": "Back to friends", "Noch keine Nachrichten. Sag Hallo!": "No messages yet. Say hi!", "Neue Nachricht von": "New message from", "Gewertete Live-Duelle · Ränge": "Rated live duels · ranks", "Suchen": "Search", "Suche einen Gegner …": "Searching for an opponent …", "gefunden wird, wer gerade ebenfalls sucht": "matches players who are searching right now", "Gegner gefunden:": "Opponent found:", "verbinde …": "connecting …", "RANKED-BESTENLISTE": "RANKED LEADERBOARD", "Noch keine Ranked-Kämpfe. Sei der Erste!": "No ranked battles yet. Be the first!", "Siege": "wins", "Niederlagen": "losses", "Platz": "Rank", "Silber": "Silver", "Platin": "Platinum", "Diamant": "Diamond", "Meister": "Master", "Wartet auf die Meldung des Gegners …": "Waiting for the opponent's report …", "Ergebnisse widersprechen sich, nicht gewertet": "Results contradict each other, not rated", "wird gewertet …": "being rated …", "Wertung fehlgeschlagen": "Rating failed", "Lade Wertung …": "Loading rating …", "Nur mit Online-Konto": "Online account only", "Zufälliger Gegner, der gerade auch sucht. Siege bringen Punkte, Niederlagen kosten welche, gegen Stärkere gibt es mehr. Ränge: Bronze, Silber, Gold, Platin, Diamant, Meister. Freunde kannst du unter": "Random opponent who is also searching right now. Wins earn points, losses cost some, beating stronger players gives more. Ranks: Bronze, Silver, Gold, Platinum, Diamond, Master. Invite friends to ranked under", "direkt zu Ranked einladen.": "directly.", "2 Spieler · Raumcode oder Freunde einladen": "2 players · room code or invite friends", "Freunde einladen": "Invite friends", "Täglicher Run": "Daily Run", "TÄGLICHER RUN": "DAILY RUN", "TÄGLICHER RUN · BESTENLISTE": "DAILY RUN · LEADERBOARD", "für alle gleich · neuer Run jeden Tag um 0 Uhr": "same for everyone · new run every day at midnight", "Freies Spiel: Region wählen": "Free play: choose region", "FEEDBACK": "FEEDBACK", "Fehler gefunden, eine Idee oder einfach Lob? Schreib es hier rein. Ich lese alles und antworte dir im Spiel.": "Found a bug, have an idea or just want to say something nice? Write it here. I read everything and reply in the game.", "Fehler": "Bug", "Idee": "Idea", "Lob": "Praise", "Sonstiges": "Other", "Was ist passiert? Was hast du kurz davor gemacht?": "What happened? What did you do right before?", "Was würdest du dir wünschen?": "What would you like to see?", "Deine Nachricht …": "Your message …", "Mitgeschickt:": "Sent along:", "Danke! Dein Feedback ist angekommen.": "Thanks! Your feedback has arrived.", "Feedback senden": "Send feedback", "Feedback, Fehler oder Ideen senden": "Send feedback, bugs or ideas", "ANTWORT AUF DEIN FEEDBACK": "REPLY TO YOUR FEEDBACK", "Du hast geschrieben": "You wrote", "Gelesen": "Got it", "Nochmal schreiben": "Write again", "Bitte schreib etwas mehr.": "Please write a little more.", "GESCHENK FÜR DICH": "A GIFT FOR YOU", "Steht jetzt in deinem Pokédex und ist als Lieblingspokémon wählbar.": "It's now in your Pokédex and can be chosen as your favorite Pokémon.", "Als Lieblingspokémon": "Set as favorite", "Super!": "Great!", "schillernd": "shiny", "BESTENLISTE": "LEADERBOARD", "Jetzt aktualisieren": "Refresh now", "gerade aktualisiert": "just updated", "Noch keine Trainer.": "No trainers yet.", "Ranked-Bestenliste nicht erreichbar.": "Ranked leaderboard unavailable.", "Unter Mehrspieler → Ranked geht's los!": "Go to Multiplayer → Ranked to start!"});
+if(typeof EN!=="undefined")Object.assign(EN,{"freigeschaltet · Statistik · Verlauf":"unlocked · Stats · History","Titel ·":"titles ·","Erfolge":"Achievements","Anleitung · Sound · Grafik · Abmelden":"Guide · Sound · Graphics · Log out","Anleitung · Sound · Grafik · Login":"Guide · Sound · Graphics · Login"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -11738,7 +11874,7 @@ async function menuLbLoad(el,quiet){if(!el||MLB.busy)return;MLB.busy=true;const 
     else{let rows=null,src="local";try{rows=await clBoard();if(rows&&rows.length)src="cloud";}catch(e){}if(!rows||!rows.length)rows=lbRows();if(!L.isConnected)return;
       L.innerHTML=rows.length?lbRowsHtml(rows,10):`<p class="empty">Noch keine Trainer.</p>`;L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>lbDetail(rows.find(r=>r.n===b.dataset.n)));}
     hydrateIcons(L);MLB.t=Date.now();menuLbAge();}finally{MLB.busy=false;if(R)R.classList.remove("spin");}}
-function menuLbAge(){document.querySelectorAll(".mLbAge").forEach(e=>{if(!MLB.t){e.textContent="";return;}const s=Math.round((Date.now()-MLB.t)/1000);e.textContent=s<10?"gerade aktualisiert":`aktualisiert vor ${s<60?s+" s":Math.round(s/60)+" Min."} · automatisch jede Minute`;});}
+function menuLbAge(){document.querySelectorAll(".mLbAge").forEach(e=>{if(!MLB.t){e.textContent="";return;}const s=Math.round((Date.now()-MLB.t)/1000),en=typeof LANG!=="undefined"&&LANG==="en",v=s<60?s+" s":Math.round(s/60)+" min";e.textContent=s<10?(en?"just updated":"gerade aktualisiert"):en?`updated ${v} ago · refreshes every minute`:`aktualisiert vor ${v} · automatisch jede Minute`;});}
 function menuLbMount(){const M=$("menu");if(!M)return;let el=$("mLb");if(!el){el=document.createElement("div");el.id="mLb";el.className="glass mLb";M.appendChild(el);el.innerHTML=menuLbFrame();menuLbWire(el);}
   if(Date.now()-MLB.t>20000)menuLbLoad(el,!!MLB.t);
   clearInterval(MLB.iv);MLB.iv=setInterval(()=>{menuLbAge();const vis=$("menu").classList.contains("show")&&document.visibilityState!=="hidden"&&!(typeof ADM!=="undefined"&&ADM.sess);
@@ -11802,8 +11938,15 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="9.7.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="9.8.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"9.8.5",d:"29.10.2026",t:"Schnellfix",items:[
+  ["badge","VS-Karte: Abzeichen mit Pokémon sitzen jetzt mittig im Sechseck."],
+  ["merge","Fusion: das Entwicklungsfenster erscheint sofort. Ob ein Shiny schillernd bleibt, siehst du erst am Ende der Animation, nicht schon vorher auf dem Feld."],
+  ["shiny","Entwicklung und Sterne-Aufstieg: Funkel-Sterne gibt es nur noch bei Shinys."]]},
+ {v:"9.8",d:"29.10.2026",t:"Schnellfix",items:[
+  ["grid","Menü und Bestenliste passen jetzt auch auf Laptops und kleinere Bildschirme, ohne zu scrollen oder sich zu überlappen."],
+  ["dex","Englisch: weitere Menütexte übersetzt."]]},
  {v:"9.7.5",d:"29.10.2026",t:"Schnellfix",items:[
   ["trophy","Bestenliste jetzt auch im Menü: rechts am Rand (auf kleinen Bildschirmen als Menüpunkt), mit Trainerpunkten und Ranked. Sie aktualisiert sich jede Minute von selbst, oder sofort per Knopf."],
   ["dex","Englisch: Freunde, Ranked, Chat, Feedback, täglicher Run und Trainerkarte sind jetzt übersetzt."]]},
