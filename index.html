@@ -6998,7 +6998,7 @@ function animWorld(dt){
 /* ================================ RUN-STATE ================================ */
 let S=null,uidC=1,tab="shop",selUid=null;
 const mkUnit=(sp,stars=0,shiny=false)=>({uid:uidC++,sp,stars,items:[],gifts:[],...(shiny?{shiny:true}:{}),...(typeof SECRETS!=="undefined"&&Math.random()<SECRET_CH?{secret:pick(Object.keys(SECRETS))}:{})});
-const shinyChance=()=>SHINY_BASE*(1+perk("shinycharm"))*(S&&S.daily&&S.daily.rules.includes("shiny")?10:1);
+const shinyChance=()=>SHINY_BASE*(1+perk("shinycharm"));
 const hasRelic=id=>!!(S&&S.relics.includes(id));
 const level=()=>{let l=1;for(let i=0;i<LV_XP.length;i++)if(S.xp>=LV_XP[i])l=i+1;return l;};
 const capFor=()=>level()+2+(hasRelic("pack")?1:0);
@@ -9232,7 +9232,6 @@ const DAILY_RULES={
  type:{n:"Typ des Tages",ic:"star",d:"{T}-Pokémon im Team haben +20 % KP und Angriff"},
  roll:{n:"Würfelglück",ic:"dice",d:"Neu würfeln im Shop kostet immer nur 1 Gold"},
  hard:{n:"Harte Gegner",ic:"skull",d:"Gegner +12 % stärker, dafür +2 Gold pro Sieg"},
- shiny:{n:"Schillernder Tag",ic:"shiny",d:"Schillernde Pokémon sind 10× häufiger"},
  item:{n:"Startpaket",ic:"pack",d:"Du startest mit einem seltenen Item"},
  xp:{n:"Schnelllerner",ic:"dumbbell",d:"+1 EP nach jedem Sieg"}
 };
@@ -9244,7 +9243,7 @@ function ruleTxt(k,D){const R=DAILY_RULES[k];return R.d.replace("{T}",(TYPES[D.t
 function dailyState(){const D=dailyInfo(),M=META.daily||{};return{D,played:M.day===D.day,score:M.day===D.day?M.score:null};}
 function startDaily(){const {D,played}=dailyState();const go=()=>{if(!played){META.daily={day:D.day,used:1};saveMeta();}newRun("normal",D.region,{daily:Object.assign({},D,{scored:!played})});};
   const sv=LS.get(saveKey(),null);if(sv&&sv.S&&sv.S.round>1){openModal(`<h2>${ic("cal")} TAGESHERAUSFORDERUNG</h2><div class="lead">Dein laufendes Spiel (Runde ${sv.S.round}) wird dabei beendet.</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="dGo">${ic("play")} Trotzdem starten</button><button class="btn" id="dNo">Abbrechen</button></div>`,"narrow",true);$("dGo").onclick=()=>{closeModal();go();};$("dNo").onclick=()=>mpModal();}else go();}
-function dailyIntro(){const D=S.daily;toast(`Tagesherausforderung ${D.day.split("-").reverse().join(".")}${D.scored?"":" · Übungslauf"} · ${D.rules.map(k=>DAILY_RULES[k].n).join(" · ")}`,"cal");}
+function dailyIntro(){const D=S.daily;toast(`Tagesherausforderung ${D.day.split("-").reverse().join(".")}${D.scored?"":" · Übungslauf"} · ${D.rules.filter(k=>DAILY_RULES[k]).map(k=>DAILY_RULES[k].n).join(" · ")}`,"cal");}
 function dailyScore(win,reached){return Math.max(0,(reached-1)*100+S.wins*10+S.bosses*25+(win?300:0)-S.revives*40);}
 function dailyFinish(win,reached){const D=S.daily,sc=dailyScore(win,reached);
   if(D.scored&&META.daily&&META.daily.day===D.day){META.daily.score=sc;META.daily.round=Math.min(20,S.round);META.daily.champ=!!win;META.mp=META.mp||{};META.mp.dailyBest=Math.max(META.mp.dailyBest||0,sc);META.mp.dailies=(META.mp.dailies||0)+1;
