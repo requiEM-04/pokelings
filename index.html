@@ -2852,6 +2852,27 @@ body.duelB .cine-skip{display:none!important}
 .lAch{display:flex;align-items:center;justify-content:center;gap:5px;margin-top:6px;padding:4px 6px;border-radius:6px;background:rgba(184,107,255,.16);border:1px solid rgba(184,107,255,.5);font-size:11px;color:#d9c4ff;line-height:1.2;text-align:left}
 .lAch .ic{width:13px;height:13px;flex:none;color:#c99bff}.lAch b{display:block;color:#fff;font-size:11px}
 .labc.achXg::after{content:"★ ERFOLG";position:absolute;top:6px;left:6px;font:6px var(--px);color:#c99bff;letter-spacing:.5px}
+/* ===== v1.0.2: Ranked-Ränge Bronze 1 bis Mythisch – Rang-Abzeichen, Fortschritt, Rangleiter ===== */
+.rkChip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px 3px 4px;border-radius:14px;font:700 12px var(--ui);color:#fff;background:linear-gradient(180deg,color-mix(in srgb,var(--rc) 22%,#1a2033),#121725);border:2px solid color-mix(in srgb,var(--rc) 75%,#0b0d13);box-shadow:0 0 12px color-mix(in srgb,var(--rc) 28%,transparent),inset 0 1px 0 rgba(255,255,255,.12);white-space:nowrap}
+.rkChip em{font-style:normal;color:var(--rc);font-weight:800;letter-spacing:.2px}
+.rkChip b{font:600 11px var(--ui);color:#d6dcf0;background:rgba(255,255,255,.08);padding:1px 6px;border-radius:8px}
+.rkEm{position:relative;display:grid;place-items:center;width:20px;height:22px;flex:none;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:linear-gradient(160deg,#ffffff 0,var(--rc) 38%,var(--rd) 100%)}
+.rkEm span{font:8px var(--px);color:#0b0d13;text-shadow:0 1px 0 rgba(255,255,255,.55);margin-top:1px}
+.rkEm.myth{width:20px;height:20px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);background:linear-gradient(160deg,#ffffff 0,#ecd6ff 18%,#a35cff 55%,#3a0f6e 100%);animation:bdgMyth 2.2s ease-in-out infinite}
+.rkChip.myth{border-color:#b86bff;background:linear-gradient(180deg,#2c1452,#140a26);box-shadow:0 0 16px rgba(184,107,255,.55),inset 0 1px 0 rgba(255,255,255,.15)}
+.rkChip.sm{padding:2px 8px 2px 3px;font-size:11px;gap:5px;border-width:1.5px}.rkChip.sm .rkEm{width:16px;height:18px}.rkChip.sm .rkEm.myth{width:16px;height:16px}.rkChip.sm .rkEm span{font-size:7px}.rkChip.sm b{font-size:10px;padding:0 5px}
+.rkProg{position:relative;width:100%;height:18px;border-radius:9px;background:#121725;border:2px solid #0b0d13;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.rkProg i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,color-mix(in srgb,var(--rc) 55%,#000),var(--rc));box-shadow:0 0 10px color-mix(in srgb,var(--rc) 60%,transparent)}
+.rkProg span{position:relative;display:block;text-align:center;font:700 10px/14px var(--ui);color:#fff;text-shadow:0 1px 2px #000,0 0 3px #000}
+.rkProg.myth i{background:linear-gradient(90deg,#5a1fb0,#c48bff,#5a1fb0);background-size:200% 100%;animation:ttRain 3s linear infinite}
+.rkLad{display:flex;gap:3px;width:100%}
+.rkLad i{flex:1;height:6px;border-radius:3px;background:color-mix(in srgb,var(--rc) 20%,#1a1f2e)}
+.rkLad i:nth-child(3n){margin-right:3px}
+.rkLad i.done{background:color-mix(in srgb,var(--rc) 70%,#1a1f2e)}
+.rkLad i.on{background:var(--rc);box-shadow:0 0 8px var(--rc)}
+.rkLad i.myth{flex:1.8;background:linear-gradient(90deg,#3a1a6a,#6a3aa8)}.rkLad i.myth.on{background:linear-gradient(90deg,#b86bff,#ecd6ff);box-shadow:0 0 10px #b86bff}
+.rkMe{row-gap:8px}
+.frHead{justify-content:flex-start;padding-right:64px}.frRank{margin-left:6px}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -5370,9 +5391,9 @@ const ACH=[
  {id:"duel1",cat:"mp",t:2,ic:"swords",n:"Herausforderer",d:"Gewinne ein Live-Duell.",prog:()=>[_mp("duelWins"),1]},
  {id:"ranked1",cat:"mp",t:2,ic:"trophy",n:"Gewertet",d:"Gewinne einen Ranked-Kampf.",prog:()=>[_mp("rkW"),1]},
  {id:"daily30",cat:"mp",t:3,ic:"cal",n:"Gewohnheitstier",d:"Spiele 30 Tägliche Runs.",prog:()=>[META.dailyN||0,30]},
- {id:"rkgold",cat:"mp",t:3,ic:"trophy",n:"Goldliga",d:"Erreiche im Ranked die Liga Gold.",chk:()=>_mp("rkBest")>=1100},
+ {id:"rkgold",cat:"mp",t:3,ic:"trophy",n:"Goldliga",d:"Erreiche im Ranked den Rang Gold.",chk:()=>_mp("rkBest")>=1240},
  {id:"duel25",cat:"mp",t:4,ic:"swords",n:"Duellmeister",d:"Gewinne 25 Live-Duelle.",prog:()=>[_mp("duelWins"),25]},
- {id:"rkmaster",cat:"mp",t:5,ic:"crown",n:"Meisterklasse",d:"Erreiche im Ranked die Liga Meister.",chk:()=>_mp("rkBest")>=1700,rw:"zekrom"}
+ {id:"rkmaster",cat:"mp",t:5,ic:"crown",n:"Gipfelstürmer",d:"Erreiche im Ranked den Rang Mythisch.",chk:()=>_mp("rkBest")>=1480,rw:"zekrom"}
 ];
 const ACH_BY={};ACH.forEach(a=>ACH_BY[a.id]=a);
 /* Exklusive Pokémon: Linie -> Erfolg; im Labor nicht kaufbar */
@@ -10498,7 +10519,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{
  "Nobelpreis":"Nobel Prize","Erforsche den Skillbaum im Forschungslabor komplett.":"Complete the lab's skill tree.","Mythos":"Myth","Bringe ein Abzeichen auf die Stufe Mythisch.":"Bring a badge to the Mythic tier.",
  "Wochenplan":"Weekly Plan","Spiele 7 Tägliche Runs.":"Play 7 Daily Runs.","Herausforderer":"Challenger","Gewinne ein Live-Duell.":"Win a live duel.","Gewertet":"Ranked In","Gewinne einen Ranked-Kampf.":"Win a ranked battle.","Gewohnheitstier":"Creature of Habit","Spiele 30 Tägliche Runs.":"Play 30 Daily Runs.",
  "Werde in Kalos Champion.":"Become champion in Kalos.","Werde in Alola Champion.":"Become champion in Alola.","Habe Monargoras und Amagarga gleichzeitig im Team.":"Have Tyrantrum and Aurorus in your team at once.","Habe 4 Fee-Pokémon gleichzeitig im Raster.":"Have 4 Fairy Pokémon on the grid at once.","Habe 2 Kapu-Pokémon gleichzeitig im Team.":"Have 2 Tapu Pokémon in your team at once.","Werde im Nuzlocke-Modus Champion.":"Become champion in Nuzlocke mode.",
- "Goldliga":"Gold League","Erreiche im Ranked die Liga Gold.":"Reach the Gold league in ranked.","Duellmeister":"Duel Master","Gewinne 25 Live-Duelle.":"Win 25 live duels.","Meisterklasse":"Master Class","Erreiche im Ranked die Liga Meister.":"Reach the Master league in ranked."
+ "Goldliga":"Gold League","Erreiche im Ranked den Rang Gold.":"Reach the Gold rank in ranked.","Duellmeister":"Duel Master","Gewinne 25 Live-Duelle.":"Win 25 live duels.","Gipfelstürmer":"Summit Climber","Erreiche im Ranked den Rang Mythisch.":"Reach the Mythic rank in ranked.",
+ "Höchster Rang erreicht":"Highest rank reached","Bronze 1 bis Platin 3, dann Mythisch":"Bronze 1 to Platinum 3, then Mythic","Jeder startet bei":"Everyone starts at","Siege bringen Elo, Niederlagen kosten welche, gegen Stärkere gibt es mehr. Alle 40 Elo steigst du eine Stufe auf: Bronze 1–3, Silber 1–3, Gold 1–3, Platin 1–3, ganz oben":"Wins give Elo, losses cost some, and stronger opponents give more. Every 40 Elo you climb a step: Bronze 1–3, Silver 1–3, Gold 1–3, Platinum 1–3, and at the very top"
 });
 
 /* ================================ CLOUD (Supabase) ================================
@@ -11768,7 +11790,7 @@ function mpModal(){const {D,played,score}=dailyState(),cl=typeof CL!=="undefined
    <div class="mpGrid">
     <div class="mpCard ranked"><div class="mpH">${ic("trophy")}<div><b>Ranked</b><small>Gewertete Live-Duelle · Ränge</small></div></div>
      <div class="rkMe" id="rkMe"><small>Lade Wertung …</small></div>
-     <p class="mpNote">Zufälliger Gegner, der gerade auch sucht. Siege bringen Punkte, Niederlagen kosten welche, gegen Stärkere gibt es mehr. Ränge: Bronze, Silber, Gold, Platin, Diamant, Meister. Freunde kannst du unter <b>Freunde</b> direkt zu Ranked einladen.</p>
+     <p class="mpNote">Zufälliger Gegner, der gerade auch sucht. Jeder startet bei <b>Bronze 1</b>. Siege bringen Elo, Niederlagen kosten welche, gegen Stärkere gibt es mehr. Alle 40 Elo steigst du eine Stufe auf: Bronze 1–3, Silber 1–3, Gold 1–3, Platin 1–3, ganz oben <b style="color:#c48bff">Mythisch</b>. Freunde kannst du unter <b>Freunde</b> direkt zu Ranked einladen.</p>
      <div class="mpRow"><label>Region</label><select id="rkReg">${regs.map(k=>`<option value="${k}" ${k===last?"selected":""}>${REGIONS[k].n}</option>`).join("")}</select></div>
      <div class="mpB"><button class="pri hot" id="rkGo">${ic("trophy")} Suchen</button><button class="btn" id="rkB">${ic("trophy")} Bestenliste</button></div></div>
     <div class="mpCard duel"><div class="mpH">${ic("swords")}<div><b>Live-Duell</b><small>2 Spieler · Raumcode oder Freunde einladen</small></div></div>
@@ -11828,9 +11850,16 @@ function tutorial(){if(!S)return;let i=0;const old=$("tut");if(old)old.remove();
    Über den Kanal kommt nur ein "schau nach" – die echten Daten (Einladungen nur von Freunden, Anfragen, Chat)
    holt der Client geprüft vom Server (social_poll). Ohne Kanal fragt er alle 20 s nach. */
 const SOC={tr:null,uid:null,iv:0,rt:0,kt:0,last:0,busy:false,first:true,inv:new Set(),sent:new Set(),reqs:new Set(),chat:{},reqN:0,fl:null,ban:null,banQ:[],wait:null,waitT:0,tab:"list",chatWith:null,chatLast:0,chatIv:0,rq:null,reg:null};
-const RANK_T=[[1700,"Meister","#ff5ad8"],[1500,"Diamant","#7cf0ff"],[1300,"Platin","#c8f0ff"],[1100,"Gold","#ffd84a"],[900,"Silber","#cfd6e6"],[0,"Bronze","#e09a5a"]];
-const rankOf=r=>RANK_T.find(t=>(r==null?1000:r)>=t[0]);
-const rankChip=(r,sm)=>{const t=rankOf(r);return `<span class="rkChip${sm?" sm":""}" style="--rc:${t[2]}">${ic("trophy")}${t[1]} <b>${r==null?1000:r}</b></span>`;};
+/* Ranked-Ränge: jeder startet bei Bronze 1 (Elo 1000). Je 40 Elo eine Stufe: Bronze 1–3, Silber 1–3, Gold 1–3, Platin 1–3, ab 1480 Mythisch.
+   Die Elo selbst rechnet der Server (Sieg gegen Stärkere bringt mehr, Niederlage gegen Schwächere kostet mehr). */
+const RANK_DIV=40,RANK_BASE=1000,RANK_MYTH=RANK_BASE+12*RANK_DIV,RANK_L=[["Bronze","#e5a066","#6e3814"],["Silber","#e3e9f4","#566176"],["Gold","#ffd84a","#8a5600"],["Platin","#8cf2ff","#17667c"]];
+function rankOf(r){r=r==null?RANK_BASE:r;if(r>=RANK_MYTH)return{n:"Mythisch",base:"Mythisch",div:0,c:"#c48bff",d:"#3a0f6e",myth:1,lo:RANK_MYTH,hi:null,i:12};
+  const i=Math.min(11,Math.max(0,Math.floor((r-RANK_BASE)/RANK_DIV))),t=RANK_L[Math.floor(i/3)],dv=i%3+1;return{n:t[0]+" "+dv,base:t[0],div:dv,c:t[1],d:t[2],lo:RANK_BASE+i*RANK_DIV,hi:RANK_BASE+(i+1)*RANK_DIV,i};}
+const rankEm=t=>`<i class="rkEm${t.myth?" myth":""}" style="--rc:${t.c};--rd:${t.d}"><span>${t.myth?"":t.div}</span></i>`;
+const rankChip=(r,sm)=>{const t=rankOf(r),v=r==null?RANK_BASE:r;return `<span class="rkChip${sm?" sm":""}${t.myth?" myth":""}" style="--rc:${t.c};--rd:${t.d}" title="${t.n} · ${v} Elo">${rankEm(t)}<em${t.myth?' class="tt-geist"':""}>${t.n}</em><b>${v}</b></span>`;};
+function rankProg(r){const t=rankOf(r),v=r==null?RANK_BASE:r;if(t.myth)return `<div class="rkProg myth"><i style="width:100%"></i><span>Höchster Rang erreicht</span></div>`;
+  const p=Math.max(0,Math.min(1,(v-t.lo)/(t.hi-t.lo)));return `<div class="rkProg" style="--rc:${t.c}"><i style="width:${Math.round(p*100)}%"></i><span>${typeof L2==="function"?L2(`noch ${Math.max(1,t.hi-v)} Elo bis ${rankOf(t.hi).n}`,`${Math.max(1,t.hi-v)} Elo to ${rankOf(t.hi).n}`):`noch ${Math.max(1,t.hi-v)} Elo bis ${rankOf(t.hi).n}`}</span></div>`;}
+function rankLadder(r){const cur=rankOf(r).i;return `<div class="rkLad" title="Bronze 1 bis Platin 3, dann Mythisch">${Array.from({length:13},(_,i)=>{const t=rankOf(RANK_BASE+i*RANK_DIV);return `<i class="${i<cur?"done":i===cur?"on":""}${t.myth?" myth":""}" style="--rc:${t.c}" title="${t.n} ab ${t.lo} Elo"></i>`;}).join("")}</div>`;}
 const socAgo=d=>{if(!d)return"lange nicht online";const s=(Date.now()-Date.parse(d))/1000;if(s<180)return"online";if(s<3600)return"vor "+Math.round(s/60)+" Min.";if(s<86400)return"vor "+Math.round(s/3600)+" Std.";return"vor "+Math.round(s/86400)+" Tg.";};
 const socOn=d=>!!d&&Date.now()-Date.parse(d)<180000;
 const socErr=r=>JSON.stringify((r&&r.j)||"");
@@ -11930,7 +11959,7 @@ async function friendRespond(uid,name,ok){const r=await socRpc("friend_respond",
   SOC.reqs.delete(uid);if(ok){toast(`Ihr seid jetzt Freunde: ${name}`,"users");socPing(uid,"fr");}socPoll();friendsRefresh();}
 function friendsModal(tab){if(typeof CL==="undefined"||!CL.sess){openModal(`<h2>${ic("users")} FREUNDE</h2><div class="lead">Freunde gibt es mit einem <b>Online-Konto</b>. Melde dich an oder registriere dich (kostenlos, ohne E-Mail).</div><div class="rbtns" style="margin-top:12px"><button class="pri" id="frOk">OK</button></div>`,"narrow",true);$("frOk").onclick=closeModal;return;}
   SOC.tab=tab||SOC.tab||"list";SOC.chatWith=null;clearInterval(SOC.chatIv);
-  openModal(`<h2>${ic("users")} FREUNDE</h2><div class="frHead"><span>${ic("user")} <b>${esc(USER||"")}</b></span><span id="frRank"></span></div>
+  openModal(`<h2>${ic("users")} FREUNDE</h2><div class="frHead"><span>${ic("user")} <b>${esc(USER||"")}</b></span><span id="frRank" class="frRank"></span></div>
    <div class="dtabs frTabs"><button data-ft="list" class="${SOC.tab==="list"?"on":""}">FREUNDE</button><button data-ft="req" class="${SOC.tab==="req"?"on":""}">ANFRAGEN <em id="frTabReq">${SOC.reqN||""}</em></button><button data-ft="add" class="${SOC.tab==="add"?"on":""}">HINZUFÜGEN</button></div>
    <div id="frBody"><p class="empty">Lade …</p></div><div class="rbtns" style="margin-top:10px"><button class="btn" id="frBack">${ic("back")} Zurück</button></div>`,"wide frM",true);
   hydrateIcons($("mbox"));$("frBack").onclick=()=>{SOC.tab=null;closeModal();};
@@ -12017,7 +12046,7 @@ async function rankedBoard(){openModal(`<h2>${ic("trophy")} RANKED-BESTENLISTE</
   if(!r.ok||!Array.isArray(r.j)){B.innerHTML=`<p class="empty">${socMissing(r)?"Ranked ist auf dem Server noch nicht eingerichtet.":"Bestenliste nicht ladbar."}</p>`;return;}
   B.innerHTML=r.j.length?`<div class="rkList">${r.j.map((x,i)=>`<div class="rkRow${typeof USER!=="undefined"&&USER&&userKey(x.name)===userKey(USER)?" me":""}"><span class="rkPos">${i+1}</span><b>${esc(x.name)}</b>${rankChip(x.rating,1)}<small>${x.wins} S · ${x.losses} N</small></div>`).join("")}</div>`:`<p class="empty">Noch keine Ranked-Kämpfe. Sei der Erste!</p>`;hydrateIcons(B);}
 function rankedMeInto(el){if(!el)return;if(typeof CL==="undefined"||!CL.sess){el.innerHTML=`<small>Nur mit Online-Konto</small>`;return;}
-  socRpc("ranked_me").then(r=>{if(r.ok&&r.j)rkNote(r.j.rating,false);if(!el.isConnected)return;if(r.ok&&r.j){el.innerHTML=`${rankChip(r.j.rating)}<small>${r.j.wins} Siege · ${r.j.losses} Niederlagen${r.j.wins+r.j.losses?` · Platz ${r.j.pos}`:""}</small>`;hydrateIcons(el);}else el.innerHTML=`<small>${socMissing(r)?"Ranked wird gerade eingerichtet.":"Wertung nicht ladbar."}</small>`;});}
+  socRpc("ranked_me").then(r=>{if(r.ok&&r.j)rkNote(r.j.rating,false);if(!el.isConnected)return;if(r.ok&&r.j){el.innerHTML=`${rankChip(r.j.rating)}<small>${r.j.wins} Siege · ${r.j.losses} Niederlagen${r.j.wins+r.j.losses?` · Platz ${r.j.pos}`:""}</small>${rankProg(r.j.rating)}${rankLadder(r.j.rating)}`;hydrateIcons(el);}else el.innerHTML=`<small>${socMissing(r)?"Ranked wird gerade eingerichtet.":"Wertung nicht ladbar."}</small>`;});}
 
 /* ---------- Bestenliste im Menü: rechts am Rand (große Bildschirme) bzw. als Menüpunkt; aktualisiert sich jede Minute + Knopf ---------- */
 const MLB={tab:"pts",t:0,iv:0,busy:false};
@@ -12097,8 +12126,13 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.0.1.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.0.2"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.0.2",d:"30.10.2026",t:"Ranked-Ränge",items:[
+  ["trophy","Ranked neu: Jeder startet bei Bronze 1. Alle 40 Elo steigst du eine Stufe auf: Bronze 1–3, Silber 1–3, Gold 1–3, Platin 1–3, ganz oben Mythisch."],
+  ["star","Neue Rang-Abzeichen. Im Mehrspieler-Menü siehst du, wie viel Elo bis zur nächsten Stufe fehlt, dazu die ganze Rangleiter."],
+  ["users","Freunde: Dein Rang steht jetzt neben deinem Namen und rutscht nicht mehr unter den Schließen-Knopf."],
+  ["crown","Die Ranked-Erfolge Goldliga und Gipfelstürmer passen jetzt zu den neuen Rängen."]]},
  {v:"1.0.1.5",d:"30.10.2026",t:"Schnellfix",items:[
   ["info","Der Hinweis „Neue Version verfügbar“ kam fälschlich, obwohl du schon die neueste Version hattest. Behoben."]]},
  {v:"1.0.1",d:"30.10.2026",t:"Erfolge, Stufe Mythisch & Partnerwahl",items:[
