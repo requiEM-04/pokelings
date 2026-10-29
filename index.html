@@ -7403,7 +7403,7 @@ const boardUnits=()=>Object.values(S.board);
 const allUnits=()=>[...boardUnits(),...S.bench.filter(Boolean)];
 function unitCost(u){const sp=SPECIES[u.sp];return COST[sp.line.tier]*2**sp.stage*2**u.stars;}
 const interestCap=()=>3+perk("interest")+(hasRelic("magnet")?2:0);
-function incomeParts(){const p=[["Grundeinkommen",MODES[S.mode].base]];const it=S.noInterest?0:Math.min(interestCap(),Math.floor(S.gold/10));if(it)p.push([`Zinsen (1 je 10 Gold, max. ${interestCap()})`,it]);const st=S.streak>=3?2:S.streak>=2?1:0;if(st)p.push([`Siegesserie (${S.streak})`,st]);if(hasRelic("amulet"))p.push(["Münzamulett",2]);return p;}
+function incomeParts(){if(S&&S.duel)return [["Duell: gleiches Gold für beide (Sieger +1)",MODES[S.mode].base+2]];const p=[["Grundeinkommen",MODES[S.mode].base]];const it=S.noInterest?0:Math.min(interestCap(),Math.floor(S.gold/10));if(it)p.push([`Zinsen (1 je 10 Gold, max. ${interestCap()})`,it]);const st=S.streak>=3?2:S.streak>=2?1:0;if(st)p.push([`Siegesserie (${S.streak})`,st]);if(hasRelic("amulet"))p.push(["Münzamulett",2]);return p;}
 const income=()=>incomeParts().reduce((a,p)=>a+p[1],0);
 const shopRollCost=()=>S&&S.daily&&S.daily.rules.includes("roll")?1:hasRelic("lucky")&&S.shopRolls===0?0:1+(perk("haggle")?Math.floor(S.shopRolls/2):S.shopRolls);
 const encRollCost=()=>Math.max(1,2*(S.encRolls+1)-perk("carto"));
@@ -9622,7 +9622,7 @@ const _rLb0=renderLeaderboard;renderLeaderboard=function(rows,src){_rLb0(rows,sr
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="8.8",DUEL_HP=20;
+const MP_VER="8.9",DUEL_HP=20;
 const dayKey=d=>(d||new Date()).toISOString().slice(0,10);
 const mpName=()=>USER||(window.__gName||(window.__gName="Gast-"+(100+Math.floor(VRND()*900))));
 
@@ -9774,11 +9774,11 @@ function duelHpHtml(){const D=S.duel,bar=(n,v,c)=>`<div class="duP"><b>${esc(n)}
 function duelResult(r){const D=S.duel,A=D.applied[r];if(!A)return;if(D.hp[0]<=0||D.hp[1]<=0)return duelFinal(D.hp[1]<=0,"hp");
   const R=$("result"),won=A.me;
   R.innerHTML=`<div class="rWrap"><div class="rHead ${won?"win":"lose"}">${won?"SIEG!":"NIEDERLAGE"}</div><div class="rPanel glass"><h4>Live-Duell · Runde ${r}</h4>${duelHpHtml()}
-   <div class="rewards"><div class="incRow"><span>${won?esc(D.peerName)+" verliert":"Du verlierst"}</span><span style="color:var(--red)">−${A.dmg} KP</span></div><div class="incRow"><span>Gold nächste Runde</span><span>+${income()+(won?3:1)}</span></div><div class="incRow"><span>Erfahrung</span><span style="color:var(--cyan)">+2 EP</span></div></div>
+   <div class="rewards"><div class="incRow"><span>${won?esc(D.peerName)+" verliert":"Du verlierst"}</span><span style="color:var(--red)">−${A.dmg} KP</span></div><div class="incRow"><span>Gold nächste Runde</span><span>+${income()+(won?1:0)}${won?"":` <small style="color:var(--muted)">(Sieger +1)</small>`}</span></div><div class="incRow"><span>Erfahrung</span><span style="color:var(--cyan)">+2 EP</span></div></div>
    <div class="rbtns"><button class="pri" id="rGo">WEITER ZUM SHOP ${ic("arrow")}</button><button class="btn" id="rRep">${ic("dex")} Kampfbericht</button></div></div></div>`;
   R.classList.add("show");$("rRep").onclick=report;$("rGo").onclick=duelNext;}
 function duelNext(){const D=S&&S.duel;if(!D||S.phase!=="result")return;const won=S.results[S.round-1]==="w";setMir(false);const R=$("result");R.classList.remove("show");R.innerHTML="";enterBattleMode(false);clearZones();
-  S.gold+=income()+(won?3:1);S.streak=won?(S.streak||0)+1:0;gainXP(2);S.round++;S.phase="shop";B=null;$("texts").innerHTML="";clearVis();clearFx();rollShop();setupRound();setView("raster",true);D.ready=0;DU.cd=D.opp[S.round]?Date.now()+60000:0;setTab("shop");render();merges();}
+  S.gold+=income()+(won?1:0);S.streak=won?(S.streak||0)+1:0;gainXP(2);S.round++;S.phase="shop";B=null;$("texts").innerHTML="";clearVis();clearFx();rollShop();setupRound();setView("raster",true);D.ready=0;DU.cd=D.opp[S.round]?Date.now()+60000:0;setTab("shop");render();merges();}
 function duelFinal(win,why){if(!S||!S.duel)return;const D=S.duel;if(S.phase==="over")return;S.phase="over";setMir(false);clearInterval(DU.iv);clearInterval(DU.tick);clearTimeout(DU.rt);
   META.mp=META.mp||{};if(win)META.mp.duelWins=(META.mp.duelWins||0)+1;saveMeta();if(B&&!B.done)B.done=true;enterBattleMode(false);
   const R=$("result");R.innerHTML=`<div class="rWrap"><div class="rHead ${win?"win":"lose"}">${win?"DUELL GEWONNEN!":"DUELL VERLOREN"}</div><div class="rPanel glass"><h4>${why==="left"?esc(D.peerName)+" hat den Raum verlassen.":why==="gg"?esc(D.peerName)+" hat aufgegeben.":why==="lost"?"Kampflos gewonnen.":why==="quit"?"Du hast aufgegeben.":"Gegen "+esc(D.peerName)+" nach "+S.round+" Runden."}</h4>${duelHpHtml()}
@@ -9913,8 +9913,12 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER=typeof MP_VER!=="undefined"?MP_VER:"8.8";
+const GAME_VER=typeof MP_VER!=="undefined"?MP_VER:"8.9";
 const PATCH=[
+ {v:"8.9",d:"29.10.2026",t:"Faires Duell-Gold",items:[
+  ["coin","Live-Duell: Beide bekommen nach jeder Runde gleich viel Gold, der Verlierer nur 1 Münze weniger. Keine Zinsen und keine Siegesserie mehr."],
+  ["swords","Live-Duell: Die VS-Anzeige zu Kampfbeginn ist gesperrt, Mega-Szenen lassen sich wieder überspringen."],
+  ["scroll","Patchnotes öffnen sich nur noch bei einem neuen Update. Unten links lassen sie sich jederzeit öffnen."]]},
  {v:"8.8",d:"29.10.2026",t:"Duell-Arena & Balancing",items:[
   ["school","Neue 3. Aufstiege setzen auf eigene Kampf-Mechaniken (z. B. Bollwerk, Parade, Todesmal, Fluch). Die 3. Unterklasse bleibt die Formations-Klasse."],
   ["swords","Live-Duell: feste Arena je Region statt wechselnder Orte. Keine Wegkarte mehr, Bereit und Duell-Leben stehen direkt im Raster."],
