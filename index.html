@@ -10586,7 +10586,7 @@ async function clBoard(){let r=await clFetch("/rest/v1/board?select=id,name,scor
 const _rLb0=renderLeaderboard;renderLeaderboard=function(rows,src){_rLb0(rows,src);if(!rows)clBoard().then(cr=>{if(cr&&cr.length&&$("auth").classList.contains("show"))_rLb0(cr,"cloud");});};
 /* ===== v9.5: Server-Einstellungen (Nachricht an alle, Mindestversion, Sperren), eigene Titel, Online-Status ===== */
 const CFG={motd:null,minver:null,duelsOff:false,signupOff:false,t:0};
-const verNum=v=>String(v||"0").split(".").map(x=>parseInt(x,10)||0).reduce((a,x,i)=>a+x/Math.pow(1000,i),0);
+const verNum=v=>{const p=String(v||"0").replace(/^v/i,"").split(".").map(x=>parseInt(x,10)||0);if(p[0]<5)p[0]+=9;return p.reduce((a,x,i)=>a+x/Math.pow(1000,i),0);};
 async function clConfig(force){if(!force&&Date.now()-CFG.t<60000)return CFG;CFG.t=Date.now();
   const r=await clFetch("/rest/v1/config?select=k,v",{auth:false,timeout:7000});if(!r.ok||!Array.isArray(r.j))return CFG;
   const m={};for(const x of r.j)m[x.k]=x.v;CFG.motd=m.motd&&m.motd.text?m.motd:null;CFG.minver=m.minver&&m.minver.v?String(m.minver.v):null;CFG.duelsOff=!!(m.duels&&m.duels.off);CFG.signupOff=!!(m.signup&&m.signup.off);
@@ -11397,11 +11397,11 @@ async function admServer(){const B=$("admBody");const [m,st]=await Promise.all([
   if(!m){B.innerHTML=admWarn({status:"config fehlt"});hydrateIcons(B);return;}const v=k=>(m[k]&&m[k].v)||{};const vers=st.ok&&st.j&&st.j.versions||{};
   const tog=(k,lbl,d)=>`<div class="admTog"><div><b>${lbl}</b><small>${d}</small></div><button class="btn sm${v(k).off?" on":""}" data-tog="${k}">${v(k).off?ic("lock")+" gesperrt":ic("check")+" offen"}</button></div>`;
   B.innerHTML=`<div class="admGrid2"><div class="admBox"><h4>${ic("gear")} Mindestversion</h4><p class="admNote">Wer eine ältere Version spielt, bekommt einen Hinweis zum Neuladen (wichtig, damit Duelle zusammenpassen). Diese Seite ist v${esc(GAME_VER)}.</p>
-      <div class="admRow"><input id="admMv" maxlength="8" value="${esc(v("minver").v||"")}" placeholder="z. B. ${esc(GAME_VER)}"><button class="pri" id="admMvG">${ic("check")} Setzen</button><button class="btn" id="admMvN">${ic("dice")} Auf v${esc(GAME_VER)}</button><button class="btn" id="admMvX">Aus</button></div></div>
+      <div class="admRow"><input id="admMv" maxlength="10" value="${esc(v("minver").v||"")}" placeholder="z. B. ${esc(GAME_VER)}"><button class="pri" id="admMvG">${ic("check")} Setzen</button><button class="btn" id="admMvN">${ic("dice")} Auf v${esc(GAME_VER)}</button><button class="btn" id="admMvX">Aus</button></div></div>
     <div class="admBox"><h4>${ic("lock")} Sperren</h4>${tog("duels","Live-Duelle","Niemand kann ein Duell erstellen oder beitreten.")}${tog("signup","Neue Konten","Registrieren ist gesperrt, Anmelden geht weiter.")}</div>
     <div class="admBox"><h4>${ic("users")} Versionen (letzte 7 Tage)</h4>${Object.keys(vers).length?`<div class="admVers">${Object.entries(vers).sort((a,b)=>verNum(b[0])-verNum(a[0])).map(([k,n])=>`<span class="admVer${verNum(k)<verNum(GAME_VER)?" old":""}">v${esc(k)} <b>${n}</b></span>`).join("")}</div>`:`<p class="admNote">Noch keine Daten (kommt, sobald Spieler mit v9.5 online sind).</p>`}</div></div>`;
   hydrateIcons(B);const setV=async val=>{const r=await admRpc("admin_config",{key:"minver",val:val?{v:val}:null});if(!r.ok){toast("Fehlgeschlagen","close");return;}toast(val?`Mindestversion v${val}`:"Mindestversion aus","check");admServer();};
-  $("admMvG").onclick=()=>{const x=$("admMv").value.trim().replace(/^v/i,"");if(!/^\d+(\.\d+){0,2}$/.test(x)){toast("Version z. B. 9.5","info");return;}setV(x);};$("admMvN").onclick=()=>setV(GAME_VER);$("admMvX").onclick=()=>setV(null);
+  $("admMvG").onclick=()=>{const x=$("admMv").value.trim().replace(/^v/i,"");if(!/^\d+(\.\d+){0,3}$/.test(x)){toast("Version z. B. 1.0.1","info");return;}setV(x);};$("admMvN").onclick=()=>setV(GAME_VER);$("admMvX").onclick=()=>setV(null);
   B.querySelectorAll("[data-tog]").forEach(b=>b.onclick=async()=>{const k=b.dataset.tog,off=!v(k).off;const r=await admRpc("admin_config",{key:k,val:{off}});if(!r.ok){toast("Fehlgeschlagen","close");return;}toast((k==="duels"?"Live-Duelle ":"Neue Konten ")+(off?"gesperrt":"wieder offen"),off?"lock":"check");if(typeof clConfig==="function")clConfig(true);admServer();});}
 /* ---------- PROTOKOLL ---------- */
 async function admLog(){const B=$("admBody");const r=await admRpc("admin_log_list");if(!B||ADM.tab!=="log")return;if(!r.ok){B.innerHTML=admWarn(r);hydrateIcons(B);return;}const L=Array.isArray(r.j)?r.j:[];
@@ -12097,8 +12097,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.0.1"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.0.1.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.0.1.5",d:"30.10.2026",t:"Schnellfix",items:[
+  ["info","Der Hinweis „Neue Version verfügbar“ kam fälschlich, obwohl du schon die neueste Version hattest. Behoben."]]},
  {v:"1.0.1",d:"30.10.2026",t:"Erfolge, Stufe Mythisch & Partnerwahl",items:[
   ["trophy","Erfolge überarbeitet: jetzt 74 statt 37, nach Kategorien sortiert und filterbar (offen, erreicht, mit Pokémon)."],
   ["ball","22 Erfolge schalten ein exklusives Pokémon frei, zum Beispiel jeder Champion-Titel einer Region, Mew für den kompletten Pokédex oder Darkrai für den Herrn der Albträume. Diese Pokémon gibt es nicht mehr im Labor. Wer eins schon gekauft hat, behält es, und wer den Erfolg schon hat, bekommt das Pokémon sofort."],
