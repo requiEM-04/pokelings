@@ -5075,14 +5075,8 @@ function playIntro(done){
   document.addEventListener("keydown",key,true);o.addEventListener("pointerdown",key);
   stage(0);
   const A=3200;at(A,()=>{stage(1);music=introMusic();});at(A+1300,()=>cls(o.querySelector(".yBoot"),"go"));
-  // Y2K-Tunnel mit Wortblitzen im Takt
-  const C=A+B*8;const WORDS=["SAMMELN","FUSIONIEREN","ENTWICKELN","KÄMPFEN",Object.keys(REGIONS).length+" REGIONEN","1 TEAM","SCHNAPP SIE","DIR ALLE!"];
-  at(C,()=>{stage(2);flash(250);});
-  WORDS.forEach((w,k)=>at(C+k*B,()=>{words.innerHTML=`<b class="${k%2?"r":"l"}" style="font-size:min(150px,calc(11*var(--vw,1vw)),${Math.round(150/Math.max(5,w.length))}vw)">${w}</b>`;cls(words,"go");}));
-  // Duell: echte Choreografie (Web Animations), 8 Schläge
-  const D=C+B*8;at(D,()=>{stage(3);flash(200,"#ff4ad8");});
-  introDuel(o,(b,f)=>at(D+b*B,f),B,flash);
-  at(D+B*DUEL_N,()=>flash(500));at(D+B*DUEL_N+200,title);
+  // v9.6.5: Wortblitze ("SAMMELN …") und Kampfszene entfernt – nach dem Fan-Projekt-Schriftzug direkt zum Titelbild
+  const C=A+B*8;at(C,()=>flash(500));at(C+200,title);
 }
 function introDuel(o,at,B,flash){
   const cam=o.querySelector(".zCam"),shk=o.querySelector(".zShake"),fx=o.querySelector(".zFx"),L=o.querySelector(".zMon.L"),Rm=o.querySelector(".zMon.R"),
@@ -11755,8 +11749,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="9.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js)
+const GAME_VER="9.6.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"9.6.5",d:"29.10.2026",t:"Schnellfix",items:[
+  ["play","Intro gekürzt: Die Wortblitze und die Kampfszene sind raus, nach dem Fan-Projekt-Schriftzug geht es direkt zum Titelbild."]]},
  {v:"9.6",d:"29.10.2026",t:"Freunde & Ranked",items:[
   ["users","Freunde: Anfragen senden (auch über einen Trainer in der Bestenliste oder deine Trainerkarte), annehmen oder ablehnen und sehen, wer gerade online ist."],
   ["swords","Einladungen zu Spaß- oder Ranked-Kämpfen ploppen beim Freund sofort oben auf, mit einer 10-Sekunden-Leiste zum Annehmen oder Ablehnen. Läuft gerade ein eigener Lauf, wird er beim Annehmen gespeichert und du machst später unter „Weiterspielen“ weiter."],
