@@ -2345,6 +2345,14 @@ body.battle #simChip{display:none!important}
 .fHint>b{display:flex;align-items:center;gap:6px;font-family:var(--px);font-size:10px;color:#fff;margin-bottom:3px}.fHint>b .ic{width:13px;height:13px}
 .fHint span{font-weight:700}
 .choice.spec .fbadge{position:absolute;bottom:8px;right:8px;display:inline-flex;align-items:center;gap:4px;font-family:var(--px);font-size:8px;padding:3px 5px;border-radius:4px;background:rgba(124,200,255,.16);color:#9fd8ff;border:1px solid rgba(124,200,255,.4)}.choice.spec .fbadge .ic{width:10px;height:10px}
+
+/* Version & Patchnotes */
+#verTag{position:fixed;left:4px;bottom:2px;z-index:60;font:500 10px/1.2 var(--ui);color:rgba(220,228,245,.55);background:rgba(10,12,20,.35);border:0;border-radius:4px;padding:2px 5px;cursor:pointer;letter-spacing:.2px}
+#verTag:hover{color:#fff;background:rgba(10,12,20,.75)}body.battle #verTag{display:none}
+.pnList{max-height:min(calc(62*var(--vh,1vh)),560px);overflow:auto;padding-right:4px}
+.pnV{margin-bottom:14px;padding:10px 12px;border:2px solid rgba(255,255,255,.08);border-radius:10px;background:rgba(255,255,255,.03)}.pnV.new{border-color:rgba(92,242,255,.35);background:rgba(92,242,255,.05)}
+.pnH{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}.pnH b{font-family:var(--px);font-size:13px;color:var(--cyan)}.pnH span{font-weight:700;color:#fff}.pnH small{margin-left:auto;color:var(--muted)}
+.pnV ul{margin:0;padding:0;list-style:none}.pnV li{display:flex;gap:8px;align-items:flex-start;font-size:13px;line-height:1.45;margin:5px 0;color:#d8deea}.pnV li .ic{width:15px;height:15px;flex:none;margin-top:2px;color:var(--amber)}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -4243,7 +4251,7 @@ function signOut(){if(S&&S.phase==="shop")save();LS.del("pokelings_session");try
 function showMenu(){
   if(S&&S.duel){mpLeave(true);S=null;B=null;}
   if(S&&S.phase==="shop")save();
-  showScreen("menu");
+  showScreen("menu");if(typeof patchAuto==="function")patchAuto();
   const sv=LS.get(saveKey(),null);const total=Object.values(META.champs).reduce((a,b)=>a+b,0);
   $("menuWho").innerHTML=`<span>${ic("user")} ${esc(USER||"Gast")}</span><span style="color:var(--gem)">${ic("gem")} ${META.gems}${gemEventMul()>1?` <small style="font-size:10px;background:var(--gem);color:#0b0d13;border-radius:6px;padding:1px 5px;margin-left:3px">+${Math.round((gemEventMul()-1)*100)} % HEUTE</small>`:""}</span><span style="color:var(--amber)">${ic("trophy")} ${total}</span>`;
   const mb=(id,icn,t,s,main)=>`<button class="mbtn ${main?"main":""}" id="${id}"><span class="mi">${ic(icn)}</span><div><b>${t}</b><small>${s}</small></div></button>`;
@@ -9881,6 +9889,37 @@ function autoSave(why){try{if(!META||!USER&&!LS.get("pokelings_session",null)&&!
 setInterval(()=>autoSave("timer"),20000);
 addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload",()=>autoSave("hide"));
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
+
+/* ================================ VERSION & PATCHNOTES ================================ */
+const GAME_VER=typeof MP_VER!=="undefined"?MP_VER:"8.6";
+const PATCH=[
+ {v:"8.6",d:"29.10.2026",t:"Faire Duelle, Formation & Klassen 2.0",items:[
+  ["swords","Multiplayer fair: Im Live-Duell und in der Tagesherausforderung ist der Skillbaum aus. Im Duell gibt es im Shop nur Start-Pokémon plus die gekauften, die ihr beide habt."],
+  ["dice","Siegchance neu: Statt einer Schätzung wird jeder Kampf 24× mit der echten Kampflogik durchgerechnet. Im Raster siehst du live, ob eine Umstellung hilft."],
+  ["check","Automatisch speichern: alle 20 Sekunden, beim Tab-Wechsel und beim Schließen."],
+  ["grid","Formation: Beim Ziehen leuchten die Felder farbig auf, auf die ein Formations-Bonus wirkt. Der Raster-Infokasten listet alle aktiven Formationen."],
+  ["school","Klassen 2.0: 3 Unterklassen und je 3 Aufstiege statt 2. Neue Unterklasse mit Formation und Typ-Note für jede Linie."],
+  ["spark","20 neue Mechaniken, z. B. Bollwerk, Gegenbeben, Letztes Gefecht, Parade, Schlachtruf, Todesmal, Nachhallzauber, Fluch und Raserei. Doppelte Standardklassen wurden neu verteilt."],
+  ["badge","Level-Anzeige zeigt jetzt, wie viele EP bis zum nächsten Level fehlen."],
+  ["scroll","Patchnotes und Versionsanzeige unten links."]]},
+ {v:"8.5",d:"29.10.2026",t:"Begegnungskarte, Edelsteine & Komfort",items:[
+  ["route","Begegnungskarte überarbeitet: wilde Pokémon zum Anklicken (zählen im Pokédex als gesehen), Vogelschwärme, Wetter je Region, Nebel über späteren Routen, Laufanimation, Titelkarten. Bosse stehen auf ihrem Feld."],
+  ["gem","Alles, was Edelsteine kostet, ist billiger (1× statt 1,5×). Nach jedem Lauf gibt es mehr Edelsteine, auch beim Aufgeben. Heute +5 % Edelstein-Bonus."],
+  ["user","Spitznamen: Im Infofenster kannst du deinen Pokémon eigene Namen geben."],
+  ["merge","Shop empfiehlt mit SAMMELN Pokémon von Linien, die du schon hast, damit du sie später fusionieren kannst."],
+  ["shop","Kaufen per Tippen auf die Karte. Musik-Einstellung im Pausemenü direkt unter Sound."],
+  ["lens","Große Bildschirme: Die Oberfläche wird auf großen Monitoren hochskaliert. Abschaltbar unter Einstellungen → Große Bildschirme."],
+  ["shiny","Schillernd-Tagesregel entfernt (war zu stark zum Farmen)."]]},
+ {v:"8.0–8.4",d:"Oktober 2026",t:"Alola & Multiplayer-Test",items:[
+  ["users","Live-Duelle (Testphase) und Tagesherausforderung mit Rangliste."],
+  ["star","Neue Region Alola, neue Karten, Musik je Region, Tutorial und bessere Leistung auf dem Handy."]]}];
+function patchNotes(){const h=PATCH.map((p,i)=>`<div class="pnV${i?"":" new"}"><div class="pnH"><b>v${p.v}</b><span>${esc(p.t)}</span><small>${p.d}</small></div><ul>${p.items.map(([icn,tx])=>`<li>${ic(icn)}<span>${esc(tx)}</span></li>`).join("")}</ul></div>`).join("");
+  openModal(`<h2>${ic("scroll")} PATCHNOTES</h2><div class="pnList">${h}</div><div class="rbtns" style="margin-top:12px"><button class="btn pri" id="pnOk">${ic("check")} Weiter</button></div>`,"",true);
+  $("pnOk").onclick=()=>closeModal();try{LS.set("pokelings_ver",GAME_VER);}catch(e){}}
+(function(){const t=document.createElement("button");t.id="verTag";t.title="Patchnotes anzeigen";t.textContent="v"+GAME_VER+" · Patchnotes";t.onclick=e=>{e.stopPropagation();patchNotes();};
+  const add=()=>{document.body.appendChild(t);};if(document.body)add();else addEventListener("DOMContentLoaded",add);})();
+/* neue Version: Patchnotes einmal automatisch im Menü zeigen */
+function patchAuto(){try{if(window.__noIntro||window.__autoPick)return;if(LS.get("pokelings_ver",null)===GAME_VER)return;setTimeout(()=>{if($("menu")&&$("menu").classList.contains("show")&&!$("modal").classList.contains("show"))patchNotes();},900);}catch(e){}}
 
 /* ================================ KAMPF: 2 ATTACKEN + EIGENE KI ================================ */
 let B=null,speed=1;
