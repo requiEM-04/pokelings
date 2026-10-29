@@ -4153,8 +4153,8 @@ function register(name,pw,pw2){
   acc[k]={name,salt,hash:pwHash(pw,salt),created:Date.now()};LS.set("pokelings_accounts",acc);return null;
 }
 function login(name,pw){const a=accounts()[userKey(name)];if(!a)return"Unbekannter Benutzername.";if(pwHash(pw,a.salt)!==a.hash)return"Falsches Passwort.";return null;}
-const perk=id=>(typeof S!=="undefined"&&S&&S.duel)?0:(META&&META.perks[id])||0;
-const pool=()=>LINES.filter(L=>L.region===((S&&S.region)||"kanto")&&(META.unlocked.includes(L.k)||L.start));
+const perk=id=>(typeof S!=="undefined"&&S&&(S.duel||S.daily))?0:(META&&META.perks[id])||0;
+const pool=()=>LINES.filter(L=>L.region===((S&&S.region)||"kanto")&&(L.start||(S&&S.duel&&Array.isArray(S.duel.pool)?S.duel.pool.includes(L.k):META.unlocked.includes(L.k))));
 const johtoUnlocked=()=>!!(META&&(((META.champs||{}).normal||0)+((META.champs||{}).hard||0)+((META.champs||{}).night||0)>0||(META.reg&&META.reg.kanto&&Object.values(META.reg.kanto.champs||{}).some(v=>v>0))));
 const hoennUnlocked=()=>!!(META&&META.reg&&META.reg.johto&&Object.values(META.reg.johto.champs||{}).some(v=>v>0));
 const sinnohUnlocked=()=>!!(META&&META.reg&&META.reg.hoenn&&Object.values(META.reg.hoenn.champs||{}).some(v=>v>0));
@@ -7410,7 +7410,7 @@ function gainXP(n){const before=level();S.xp+=n;const after=level();if(after>bef
 function newRun0(mode,region,o){
   hideScreens();closeModal();const reg=setRegion(region||"kanto");o=o||{};if(o.duel)BOSSES={};
   S={gridV:2,mode,region:reg,rollsTotal:0,round:1,gold:MODES[mode].base+1+2*perk("gold"),xp:0,board:{},bench:Array(benchSize()).fill(null),bag:[],relics:[],shop:{mons:[],item:null},shopRolls:0,phase:"shop",enemies:[],enc:null,encIdx:null,paths:null,encRolls:0,results:[],history:{},wins:0,streak:0,revives:0,revanche:false,bosses:0,elites:0,fuseQ:[],seed:Math.floor(Math.random()*1e9),locs:{}};
-  if(o.daily){S.daily=o.daily;S.rs=o.daily.seed;if(o.daily.rules.includes("gold"))S.gold+=6;}if(o.duel){S.duel=o.duel;S.seed=o.duel.seed;S.gold=MODES.duel.base+1;S.bench=Array(benchSize()).fill(null);}
+  if(o.daily){S.daily=o.daily;S.rs=o.daily.seed;S.gold=MODES[mode].base+1;S.bench=Array(benchSize()).fill(null);if(o.daily.rules.includes("gold"))S.gold+=6;}if(o.duel){S.duel=o.duel;S.seed=o.duel.seed;S.gold=MODES.duel.base+1;S.bench=Array(benchSize()).fill(null);}
   uidC=1;rollShop();if(S.daily&&S.daily.rules.includes("item"))dseed(()=>toBag(pickItem(["r"])),"item");setupRound();selUid=null;B=null;clearVis();clearFx();$("texts").innerHTML="";$("result").classList.remove("show");document.body.classList.remove("battle");setView("raster",true);
   showInfoEmpty();save();setTab("shop");render();
   starterChoice(()=>{const after=()=>{if(S&&S.daily)dailyIntro();else if(S&&S.duel)duelIntro();else if(!LS.get("pokelings_tut1",false)&&!window.__autoPick){LS.set("pokelings_tut1",true);LS.set("pokelings_seen6",true);tutorial();}else if(!LS.get("pokelings_seen6",false)){LS.set("pokelings_seen6",true);help();}};if(perk("relicstart")&&!S.duel)relicChoice("Reliktjäger: Wähle dein Start-Relikt",after);else after();});
@@ -9594,7 +9594,7 @@ const _rLb0=renderLeaderboard;renderLeaderboard=function(rows,src){_rLb0(rows,sr
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="8.5",DUEL_HP=20;
+const MP_VER="8.6",DUEL_HP=20;
 const dayKey=d=>(d||new Date()).toISOString().slice(0,10);
 const mpName=()=>USER||(window.__gName||(window.__gName="Gast-"+(100+Math.floor(VRND()*900))));
 
@@ -9697,12 +9697,12 @@ function duelCreate(region){const code=String(1000+Math.floor(VRND()*9000));
     $("duX").onclick=()=>{mpLeave(true);mpModal();};DU.pending={region,seed:Math.floor(VRND()*2147483647)};});}
 function duelJoin(code){if(!/^\d{4}$/.test(code)){toast("Der Code hat 4 Ziffern","swords");return;}
   duelConnect(code,false,()=>{openModal(`<h2>${ic("swords")} LIVE-DUELL</h2><div class="lead">Verbinde mit Raum <b>${code}</b> …</div><p class="empty" style="text-align:center"><span class="duDots"></span> Suche Gegner</p><div class="rbtns"><button class="btn" id="duX">${ic("close")} Abbrechen</button></div>`,"narrow");
-    $("duX").onclick=()=>{mpLeave(true);mpModal();};let n=0;const hi=()=>{if(DU.peer){clearInterval(DU.hello);return;}if(++n>40){clearInterval(DU.hello);mpLeave(true);mpErr(`In Raum ${code} wartet niemand. Prüfe den Code.`);return;}duelSend("hello",{name:mpName()});};hi();DU.hello=setInterval(hi,1500);});}
+    $("duX").onclick=()=>{mpLeave(true);mpModal();};let n=0;const hi=()=>{if(DU.peer){clearInterval(DU.hello);return;}if(++n>40){clearInterval(DU.hello);mpLeave(true);mpErr(`In Raum ${code} wartet niemand. Prüfe den Code.`);return;}duelSend("hello",{name:mpName(),ul:META.unlocked});};hi();DU.hello=setInterval(hi,1500);});}
 function duelMsg(m){if(!m||m.f===DU.id)return;if(m.to&&m.to!==DU.id)return;
   if(DU.peer&&m.f!==DU.peer){if(m.t==="hello"&&DU.host)DU.tr.send({t:"full",f:DU.id,to:m.f});return;}
   DU.last=Date.now();if(DU.lost&&S&&S.duel){DU.lost=false;if(tab==="enc")renderEnc();}
-  if(m.t==="hello"&&DU.host&&!DU.peer&&DU.pending){DU.peer=m.f;const P=DU.pending,nm=String(m.name||"Gast").slice(0,20);duelSend("start",{seed:P.seed,region:P.region,name:mpName()});if(m.v!==MP_VER)toast("Hinweis: Dein Gegner hat eine andere Spielversion. Bitte beide neu laden (Strg+F5).","info");duelBegin(P.region,P.seed,nm);return;}
-  if(m.t==="start"&&!DU.host&&!DU.peer){DU.peer=m.f;clearInterval(DU.hello);if(m.v!==MP_VER)toast("Hinweis: Dein Gegner hat eine andere Spielversion. Bitte beide neu laden (Strg+F5).","info");duelBegin(REGIONS[m.region]?m.region:"kanto",m.seed|0,String(m.name||"Gast").slice(0,20));return;}
+  if(m.t==="hello"&&DU.host&&!DU.peer&&DU.pending){DU.peer=m.f;const P=DU.pending,nm=String(m.name||"Gast").slice(0,20),ul=Array.isArray(m.ul)?m.ul:[],pl=META.unlocked.filter(k=>ul.includes(k));duelSend("start",{seed:P.seed,region:P.region,name:mpName(),pool:pl});if(m.v!==MP_VER)toast("Hinweis: Dein Gegner hat eine andere Spielversion. Bitte beide neu laden (Strg+F5).","info");duelBegin(P.region,P.seed,nm,pl);return;}
+  if(m.t==="start"&&!DU.host&&!DU.peer){DU.peer=m.f;clearInterval(DU.hello);if(m.v!==MP_VER)toast("Hinweis: Dein Gegner hat eine andere Spielversion. Bitte beide neu laden (Strg+F5).","info");duelBegin(REGIONS[m.region]?m.region:"kanto",m.seed|0,String(m.name||"Gast").slice(0,20),(Array.isArray(m.pool)?m.pool:[]).filter(k=>META.unlocked.includes(k)));return;}
   if(m.t==="full"){mpLeave(true);mpErr("Dieser Raum ist schon voll.");return;}
   const D=S&&S.duel;if(!D)return;
   if(m.t==="ready"){const r=m.r|0;D.opp[r]=teamClean(m.team);duelSend("ack",{r});if(r===S.round&&D.ready!==r&&!DU.cd)DU.cd=Date.now()+60000;if(tab==="enc")renderEnc();duelCheck();}
@@ -9710,13 +9710,13 @@ function duelMsg(m){if(!m||m.f===DU.id)return;if(m.to&&m.to!==DU.id)return;
   else if(m.t==="res"&&!D.host){D.hres[m.r|0]={hw:!!m.hw,dmg:m.dmg|0,sum:String(m.sum)};if(D.res[m.r|0])duelFix(m.r|0);}
   else if(m.t==="bye"){if(S.phase!=="over"){toast(`${D.peerName} hat das Duell verlassen`,"flag");duelFinal(true,"left");}}
   else if(m.t==="gg"){if(S.phase!=="over")duelFinal(true,"gg");}}
-function duelBegin(region,seed,peerName){needReg(region,()=>duelBegin0(region,seed,peerName));}
-function duelBegin0(region,seed,peerName){closeModal();
-  newRun0("duel",region,{duel:{code:DU.code,host:DU.host,peerName,seed,hp:[DUEL_HP,DUEL_HP],ready:0,ackd:0,snap:{},opp:{},res:{},hres:{},applied:{},desync:0}});
+function duelBegin(region,seed,peerName,pool){needReg(region,()=>duelBegin0(region,seed,peerName,pool));}
+function duelBegin0(region,seed,peerName,pool){closeModal();
+  newRun0("duel",region,{duel:{code:DU.code,host:DU.host,peerName,seed,pool:Array.isArray(pool)?pool:[],hp:[DUEL_HP,DUEL_HP],ready:0,ackd:0,snap:{},opp:{},res:{},hres:{},applied:{},desync:0}});
   META.mp=META.mp||{};META.mp.duels=(META.mp.duels||0)+1;saveMeta();
   clearInterval(DU.iv);DU.iv=setInterval(()=>{if(!S||!S.duel){clearInterval(DU.iv);return;}duelSend("ping",{});if(Date.now()-DU.last>30000&&!DU.lost&&S.phase!=="over"){DU.lost=true;if(tab==="enc")renderEnc();toast(`${S.duel.peerName} antwortet nicht`,"wifi");}},5000);
   clearInterval(DU.tick);DU.tick=setInterval(duelTick,1000);}
-function duelIntro(){toast(`Live-Duell gegen ${S.duel.peerName}: Team bauen, dann unter ROUTE auf BEREIT`,"swords");}
+function duelIntro(){toast(`Live-Duell gegen ${S.duel.peerName}: Team bauen, dann unter ROUTE auf BEREIT`,"swords");const n=Array.isArray(S.duel.pool)?S.duel.pool.length:0;setTimeout(()=>toast(`Faires Duell: Skillbaum aus · im Shop nur Start-Pokémon${n?` + ${n} gekaufte, die ihr beide habt`:""}`,"info"),1800);}
 const duelCdLeft=()=>Math.max(0,Math.ceil((DU.cd-Date.now())/1000));
 function duelTick(){if(!S||!S.duel){clearInterval(DU.tick);return;}const D=S.duel;
   if(DU.cd&&S.phase==="shop"&&D.ready!==S.round){const l=duelCdLeft(),e=$("duCd");if(e)e.textContent=l;if(l<=0&&boardUnits().length){DU.cd=0;duelReady();toast("Zeit abgelaufen: automatisch bereit","swords");}}}
