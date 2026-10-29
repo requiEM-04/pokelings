@@ -2318,6 +2318,10 @@ input.nick{font:inherit;color:inherit;background:rgba(255,255,255,.06);border:1p
 input.nick:hover{border-color:rgba(255,216,74,.7)}input.nick:focus{border-style:solid;border-color:#ffd84a;background:rgba(0,0,0,.35)}
 input.nick::placeholder{color:inherit;opacity:1}input.nick.big{width:11em}
 .nickSp{display:block;font-size:11px;color:var(--muted);font-family:var(--ui);letter-spacing:0;margin-top:1px}
+
+/* Empfehlung: gleiche Linie für spätere Fusion */
+.card .mg.rc{background:#5cf2ff;color:#05252b;animation:none}
+#shopRow .card.recom{box-shadow:0 0 0 2px rgba(92,242,255,.55),0 0 18px rgba(92,242,255,.18)}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -7417,14 +7421,16 @@ function renderShop(){
   const NB=nextBossTypes();
   const g=$("shopRow");g.innerHTML="";g.style.setProperty("--n",S.shop.mons.length+1);
   const owned={};for(const u of allUnits())if(u.stars===0)owned[u.sp]=(owned[u.sp]||0)+1;
+  /* Empfehlung: gleiche Entwicklungslinie schon im Team (z. B. Glurak ★1) → zum späteren Fusionieren sammeln */
+  const lineOwn={};for(const u of allUnits()){const k=SPECIES[u.sp].line.k,v=SPECIES[u.sp].stage*3+(u.stars||0);if(!lineOwn[k]||v>lineOwn[k].v)lineOwn[k]={u,v};}
   S.shop.mons.forEach((it,i)=>{
     const c=document.createElement("div");
     if(!it){c.className="card empty";c.innerHTML=`<div class="sold">GEKAUFT</div>`;g.appendChild(c);return;}
     const sp=SPECIES[it.id],L=sp.line,cost=COST[L.tier],shy=!!it.shiny,st=stats({sp:it.id,stars:0,items:[],gifts:[]}),rar=RAR[L.tier];
-    c.className=`card r${L.tier}`+(shy?" shiny":"")+(S.gold<cost?" poor":"")+(owned[it.id]?" merge":"")+(it.frozen?" frozen":"");
+    c.className=`card r${L.tier}`+(shy?" shiny":"")+(S.gold<cost?" poor":"")+(owned[it.id]?" merge":"")+(!owned[it.id]&&lineOwn[L.k]?" recom":"")+(it.frozen?" frozen":"");
     c.style.setProperty("--rc",rar.c);c.style.setProperty("--tc",TYPES[sp.types[0]][1]);c.style.setProperty("--ac",TYPES[L.ab.t][1]);
     c.innerHTML=`<div class="top"><span>${rar.n.toUpperCase()}</span><button class="lockb ${it.frozen?"on":""}" title="Für nächste Runde aufheben">${ic(it.frozen?"lock":"unlock")}</button></div>
-      <div class="pic"></div>${shy?`<div class="shy">${ic("shiny")}SCHILLERND</div>`:""}${owned[it.id]?`<div class="mg" title="Du hast schon eins: kaufen und aufeinanderziehen">${ic("merge")}FUSION</div>`:""}
+      <div class="pic"></div>${shy?`<div class="shy">${ic("shiny")}SCHILLERND</div>`:""}${owned[it.id]?`<div class="mg" title="Du hast schon eins: kaufen und aufeinanderziehen">${ic("merge")}FUSION</div>`:lineOwn[L.k]?`<div class="mg rc" title="Du hast schon ${esc(unitName(lineOwn[L.k].u))}${lineOwn[L.k].u.stars?" "+"★".repeat(lineOwn[L.k].u.stars):""}: sammeln, entwickeln und später fusionieren">${ic("up")}SAMMELN</div>`:""}
       <div class="nm ${owned[it.id]?"own":""}">${sp.name}</div>
       <div class="tags">${roleTag(L.role)}</div><div class="tags">${pills(sp.types)}</div>${NB&&[L.m1.t,L.ab.t].some(t=>eff(t,NB.types)>1)?`<div class="vsB" title="Sehr effektiv gegen ${esc(NB.sp)} (${esc(NB.name)}, Runde ${NB.r})">${ic("swords")} stark gegen ${esc(NB.sp)}</div>`:""}
       <div class="stats">${statCell("hp",st.hp,"#4dffa6","KP")}${statCell("atk",st.atk,"#ff8a7a","Angriff")}${statCell("def",st.def,"#8fc2ff","Verteidigung")}${statCell("bolt",st.as.toFixed(2),"#ffe14d","Angriffe pro Sekunde")}${statCell("aim",st.range,"#c9a2ff","Reichweite")}${statCell("drop",st.mana,"#5cf2ff","Energie für die Spezialattacke")}</div>
