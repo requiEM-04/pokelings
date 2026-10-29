@@ -2373,6 +2373,7 @@ body.duelMode #wlabels,body.duelMode #wToken,body.duelMode #wwrap .wCard{display
 .admAct{display:flex;gap:6px;justify-content:flex-end}.admAct .btn{padding:5px 8px}.admAct .btn .ic{width:14px;height:14px}.admAct .btn.danger{color:#ff8a7a;border-color:rgba(255,90,90,.45)}
 .admNote{margin:10px 0 0;font-size:11px;color:var(--dim)}
 @media (max-width:760px){.admList td:nth-child(2),.admList th:nth-child(2),.admList td:nth-child(7),.admList th:nth-child(7){display:none}}
+body.duelB .cine-skip{display:none!important}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -5270,6 +5271,102 @@ function camZoom(d){if(!GL)return;GL.zoom=GL.zoom||{battle:1,raster:1};const v=G
   const up=()=>{dr=null;ar.classList.remove("camdrag");};ar.addEventListener("pointerup",up);ar.addEventListener("pointercancel",up);
   ar.addEventListener("dblclick",()=>{if(GL&&GL.view==="battle"){GL.tilt=0;GL.yaw=0;}});})();
 
+/* ================================ RETRO-NPCS (eigene Pixel-Figuren) ================================
+   Kleine 16×24-Pixelmenschen, prozedural gezeichnet: Schiedsrichter, Trainer, Kameraleute, Verkäufer,
+   Cheerleader, Forscher, Wanderer, Senioren und viele verschiedene Zuschauer. Jede Figur hat 2 Bilder
+   (Arme unten / jubelnd). Gezeichnet werden alle Figuren einer Map als EIN instanziertes Billboard-Mesh. */
+const NPC={tex:null,mat:null,defs:null,COLS:8,W:16,H:24};
+const NPC_ROLE={ref:0,trainerB:1,trainerR:2,camera:3,vendor:4,cheerB:5,cheerR:6,scientist:7,hiker:8,elder:9,coach:10,announcer:11,crowd0:12};
+function npcDefs(){if(NPC.defs)return NPC.defs;const R=rng(90210),pk=a=>a[Math.floor(R()*a.length)];
+  const SK=["#f8d8b8","#f0c090","#e0a878","#c88a58","#a86a40","#7a4a2a","#5a3420"],HR=["#2a1a10","#5a3418","#8a5a2a","#d8b048","#c84a2a","#1a1a1a","#9a9aa4","#ece4d4","#3a5ad8","#d84a9a","#4ab060","#e87a2a"];
+  const SH=["#e0402e","#2a6ad8","#ffd23f","#38b048","#8a4ad8","#ff8ad0","#f4f4ee","#3a3a44","#ff9a3a","#4ad8d0","#c8a070","#7a2a3a"],PA=["#2a3a6a","#3a3a44","#5a4a3a","#7a7a84","#2a2a30","#c8b890","#4a5a2a"];
+  const HAIRS=["short","long","spiky","bald","pony","bun","short","long"],HATS=["cap","beanie","cap","bigcap"];
+  const D=[
+   {skin:"#f0c090",hair:"#2a1a10",hs:"short",shirt:"ref",pants:"#1a1a20",shoes:"#1a1a20",role:"ref"},
+   {skin:"#f8d8b8",hair:"#2a1a10",hs:"short",hat:"cap",hatC:"#2a6ad8",shirt:"#2a6ad8",shirt2:"#f4f4ee",pants:"#2a3a6a",shoes:"#d83a2a",role:"trainer",pack:"#d8b048"},
+   {skin:"#e0a878",hair:"#5a3418",hs:"pony",hat:"cap",hatC:"#e0402e",shirt:"#e0402e",shirt2:"#f4f4ee",pants:"#3a3a44",shoes:"#2a6ad8",role:"trainer",pack:"#4ab060"},
+   {skin:"#c88a58",hair:"#1a1a1a",hs:"short",hat:"beanie",hatC:"#3a3a44",shirt:"#4a5a6a",pants:"#2a2a30",shoes:"#1a1a20",role:"camera"},
+   {skin:"#f8d8b8",hair:"#d8b048",hs:"short",hat:"cap",hatC:"#f4f4ee",shirt:"#ff9a3a",shirt2:"#f4f4ee",pants:"#5a4a3a",shoes:"#3a2a1a",role:"vendor"},
+   {skin:"#f0c090",hair:"#d8b048",hs:"pony",shirt:"#2a6ad8",shirt2:"#f4f4ee",skirt:"#2a6ad8",shoes:"#f4f4ee",role:"cheer",pom:"#5cf2ff"},
+   {skin:"#a86a40",hair:"#2a1a10",hs:"bun",shirt:"#e0402e",shirt2:"#f4f4ee",skirt:"#e0402e",shoes:"#f4f4ee",role:"cheer",pom:"#ffd23f"},
+   {skin:"#f8d8b8",hair:"#9a9aa4",hs:"spiky",shirt:"#f4f4ee",pants:"#5a4a3a",shoes:"#3a2a1a",role:"coat",glasses:1},
+   {skin:"#c88a58",hair:"#5a3418",hs:"short",hat:"bigcap",hatC:"#7a5a2a",shirt:"#4a7a3a",pants:"#5a4a3a",shoes:"#3a2a1a",role:"hiker",beard:1,pack:"#8a5a2a"},
+   {skin:"#e0a878",hair:"#ece4d4",hs:"bald",shirt:"#7a5a8a",pants:"#5a5a64",shoes:"#2a2a30",role:"elder",cane:1},
+   {skin:"#7a4a2a",hair:"#1a1a1a",hs:"short",hat:"cap",hatC:"#ffd23f",shirt:"#3a3a44",shirt2:"#ffd23f",pants:"#2a2a30",shoes:"#f4f4ee",role:"coach"},
+   {skin:"#f0c090",hair:"#c84a2a",hs:"long",shirt:"#8a4ad8",shirt2:"#f4f4ee",pants:"#2a2a30",shoes:"#1a1a20",role:"announcer",mic:1}];
+  while(D.length<12+44){const girl=R()<.45,hs=pk(HAIRS),h=R()<.3?pk(HATS):null;
+    D.push({skin:pk(SK),hair:pk(HR),hs:girl&&hs==="bald"?"long":hs,hat:h,hatC:pk(SH),shirt:pk(SH),shirt2:R()<.4?pk(SH):null,pants:pk(PA),skirt:girl&&R()<.35?pk(SH):null,shoes:pk(["#2a2a30","#f4f4ee","#8a4a2a","#d83a2a","#2a6ad8"]),
+      role:"fan",scarf:R()<.3?pk(["#2a6ad8","#e0402e"]):null,flag:R()<.25?pk(["#2a6ad8","#e0402e","#ffd23f"]):null,glasses:R()<.15,beard:!girl&&R()<.12});}
+  return NPC.defs=D;}
+function npcDraw(g,ox,oy,P,f){const W=NPC.W,H=NPC.H,G=[...Array(H)].map(()=>Array(W).fill(null));
+  const r=(x,y,w,h,c)=>{if(!c)return;for(let j=y;j<y+h;j++)for(let i=x;i<x+w;i++)if(i>=0&&i<W&&j>=0&&j<H)G[j][i]=c;},p=(x,y,c)=>r(x,y,1,1,c);
+  const dk=c=>{const n=parseInt(c.slice(1),16);const k=v=>Math.max(0,Math.round(v*.72));return"#"+((k(n>>16&255)<<16)|(k(n>>8&255)<<8)|k(n&255)).toString(16).padStart(6,"0");};
+  const up=f===1&&P.role!=="ref"&&P.role!=="camera"&&P.role!=="elder";
+  // Rucksack hinter dem Körper
+  if(P.pack)r(3,9,10,7,P.pack);
+  // Beine / Rock
+  if(P.skirt){r(5,17,2,5,P.skin);r(9,17,2,5,P.skin);r(4,16,8,3,P.skirt);}else{r(5,17,3,5,P.pants);r(8,17,3,5,P.pants);}
+  r(5,22,3,1,P.shoes);r(8,22,3,1,P.shoes);
+  // Körper
+  if(P.shirt==="ref"){for(let x=4;x<12;x++)r(x,9,1,8,x%2?"#f4f4ee":"#1a1a20");}
+  else{r(4,9,8,8,P.shirt);if(P.shirt2&&P.role!=="fan"){r(7,9,2,8,P.shirt2);}else if(P.shirt2){r(4,12,8,2,P.shirt2);}}
+  if(P.role==="coat")r(4,9,8,11,"#f4f4ee"),r(7,9,2,3,"#8ab0d8");
+  if(P.pack){r(5,9,1,6,dk(P.pack));r(10,9,1,6,dk(P.pack));}
+  if(P.scarf)r(5,9,6,1,P.scarf),p(9,10,P.scarf);
+  // Arme
+  const armC=P.shirt==="ref"?"#1a1a20":P.role==="coat"?"#f4f4ee":P.shirt;
+  if(up){r(3,4,1,6,armC);r(12,4,1,6,armC);p(3,3,P.skin);p(12,3,P.skin);}
+  else if(f===1&&P.role==="ref"){r(3,10,1,5,armC);r(12,4,1,6,armC);p(3,15,P.skin);p(12,3,P.skin);p(13,2,"#ffd23f");}
+  else{r(3,10,1,5,armC);r(12,10,1,5,armC);p(3,15,P.skin);p(12,15,P.skin);}
+  // Kopf
+  r(5,2,6,7,P.skin);p(6,5,"#1a1a24");p(9,5,"#1a1a24");if(f===1&&up)r(7,7,2,1,"#a83a3a");else p(7,7,dk(P.skin));
+  if(P.glasses){r(5,5,2,1,"#3a3a44");r(9,5,2,1,"#3a3a44");p(7,5,"#3a3a44");p(8,5,"#3a3a44");}
+  if(P.beard)r(5,7,6,2,P.hair);
+  const hs=P.hs;
+  if(hs!=="bald"){r(5,1,6,2,P.hair);r(4,2,1,3,P.hair);r(11,2,1,3,P.hair);}else{r(4,4,1,2,P.hair);r(11,4,1,2,P.hair);}
+  if(hs==="long"){r(4,2,1,7,P.hair);r(11,2,1,7,P.hair);}
+  if(hs==="spiky"){p(5,0,P.hair);p(7,0,P.hair);p(9,0,P.hair);p(10,0,P.hair);}
+  if(hs==="pony"){r(11,3,2,5,P.hair);}
+  if(hs==="bun"){r(7,0,2,1,P.hair);}
+  if(P.hat==="cap"){r(4,1,8,2,P.hatC);r(4,3,8,1,dk(P.hatC));if(P.role==="trainer"||P.role==="coach")r(7,1,2,1,"#f4f4ee");}
+  if(P.hat==="beanie"){r(4,0,8,3,P.hatC);p(7,0,"#f4f4ee");p(8,0,"#f4f4ee");}
+  if(P.hat==="bigcap"){r(3,2,10,1,dk(P.hatC));r(5,0,6,2,P.hatC);}
+  // Requisiten
+  if(P.role==="camera"){r(10,4,5,3,"#2a2a30");p(14,5,"#8ad0ff");r(11,7,1,2,"#2a2a30");if(f===1)p(10,3,"#e0402e");}
+  if(P.role==="vendor"){const ty=up?2:13;r(1,ty,14,1,"#8a5a2a");p(3,ty-1,"#ffd23f");p(6,ty-1,"#e0402e");p(9,ty-1,"#f4f4ee");p(12,ty-1,"#4ab060");}
+  if(P.pom){if(up){r(1,1,3,3,P.pom);r(12,1,3,3,P.pom);}else{r(1,14,3,3,P.pom);r(12,14,3,3,P.pom);}}
+  if(P.cane)r(13,13,1,10,"#7a4a2a"),p(12,13,"#7a4a2a");
+  if(P.mic){if(up)r(12,1,2,2,"#2a2a30");else r(12,13,2,2,"#2a2a30");}
+  if(P.flag&&up){r(12,0,1,3,"#c8c8d0");r(13,0,3,2,P.flag);}
+  // Umriss
+  const O=[...Array(H)].map(()=>Array(W).fill(false));for(let y=0;y<H;y++)for(let x=0;x<W;x++)if(!G[y][x]&&[[1,0],[-1,0],[0,1],[0,-1]].some(([a,b])=>G[y+b]&&G[y+b][x+a]))O[y][x]=true;
+  for(let y=0;y<H;y++)for(let x=0;x<W;x++){const c=G[y][x]||(O[y][x]?"#14141c":null);if(c){g.fillStyle=c;g.fillRect(ox+x,oy+y,1,1);}}}
+function npcAtlas(){if(NPC.tex)return NPC.tex;const D=npcDefs(),C=NPC.COLS,rows=Math.ceil(D.length/C),cv=document.createElement("canvas");cv.width=C*2*NPC.W;cv.height=rows*NPC.H;const g=cv.getContext("2d");
+  D.forEach((P,i)=>{for(let f=0;f<2;f++)npcDraw(g,((i%C)*2+f)*NPC.W,Math.floor(i/C)*NPC.H,P,f);});
+  const t=new THREE.CanvasTexture(cv);t.magFilter=THREE.NearestFilter;t.minFilter=THREE.NearestFilter;t.generateMipmaps=false;NPC.rows=rows;NPC.cv=cv;return NPC.tex=t;}
+function npcMat(tint){const tex=npcAtlas();const m=new THREE.ShaderMaterial({fog:true,
+  uniforms:THREE.UniformsUtils.merge([THREE.UniformsLib.fog,{map:{value:null},tint:{value:new THREE.Color(tint||0xffffff)},grid:{value:new THREE.Vector2(NPC.COLS*2,NPC.rows)}}]),
+  vertexShader:`attribute vec2 aCell;attribute vec2 aAnim;uniform float uT;uniform vec2 grid;varying vec2 vUv;
+#include <fog_pars_vertex>
+void main(){vec4 c=modelViewMatrix*instanceMatrix*vec4(0.,0.,0.,1.);float sx=length(instanceMatrix[0].xyz),sy=length(instanceMatrix[1].xyz);
+ float fr=aAnim.x>0.?step(.5,fract(uT*aAnim.x+aAnim.y)):0.;float hop=aAnim.x>1.2?fr*.06:0.;
+ vec4 mvPosition=c+vec4(position.x*sx,(position.y+hop)*sy,0.,0.);
+ vUv=vec2((aCell.x*2.+fr+uv.x)/grid.x,1.-(aCell.y+1.-uv.y)/grid.y);
+ gl_Position=projectionMatrix*mvPosition;
+#include <fog_vertex>
+}`,
+  fragmentShader:`uniform sampler2D map;uniform vec3 tint;varying vec2 vUv;
+#include <fog_pars_fragment>
+void main(){vec4 t=texture2D(map,vUv);if(t.a<.5)discard;gl_FragColor=vec4(t.rgb*tint,1.);
+#include <fog_fragment>
+}`});m.uniforms.map.value=tex;m.uniforms.uT=(typeof KU!=="undefined"?KU.t:{value:0});return m;}
+/* Figuren in eine Map setzen: list = [{x,y,z,id,s,sp,ph}] (sp = Jubel-Tempo, 0 = ruhig) */
+function kNpcs(k,list){if(!list.length)return null;npcAtlas();const geo=new THREE.PlaneGeometry(.667,1).translate(0,.5,0);const n=list.length;
+  const cell=new Float32Array(n*2),anim=new Float32Array(n*2);const mat=npcMat(k.tint);const mesh=new THREE.InstancedMesh(geo,mat,n);const M=new THREE.Matrix4(),Q=new THREE.Quaternion(),V=new THREE.Vector3(),Sc=new THREE.Vector3();
+  list.forEach((o,i)=>{const id=o.id%npcDefs().length;cell[i*2]=id%NPC.COLS;cell[i*2+1]=Math.floor(id/NPC.COLS);anim[i*2]=o.sp||0;anim[i*2+1]=o.ph||0;const s=o.s||1;M.compose(V.set(o.x,o.y||0,o.z),Q,Sc.set(s,s,s));mesh.setMatrixAt(i,M);});
+  geo.setAttribute("aCell",new THREE.InstancedBufferAttribute(cell,2));geo.setAttribute("aAnim",new THREE.InstancedBufferAttribute(anim,2));
+  mesh.frustumCulled=false;mesh.renderOrder=1;k.g.add(mesh);if(k.disp){k.disp.push(geo,mat);}return mesh;}
+
 let CAM_EXCLUDE=[]; // Arten, die gerade als Gegner kämpfen (keine Doppelgänger im Hintergrund)
 /* ================================ KANTO-ORTE (3D-Dioramen) ================================ */
 const LOCS={
@@ -6602,43 +6699,59 @@ function bSpuk(k,L,id){const R=k.R;k.layers=["forest","forest","grass"];k.gtint=
     {sp:609,x:2.6,z:-12.6,mode:"float",s:1.2},{sp:710,x:-4.8,z:-5,mode:"hop",s:1.1},{sp:708,x:5.6,z:-6.2,mode:"hop",s:1.2},{sp:354,x:9.4,z:-6,mode:"float",s:1.2},{sp:607,x:-0.2,z:-7.6,mode:"hop",s:1},{sp:355,x:2.8,z:-1.6,mode:"float",s:1.1},{sp:302,x:-8,z:-6.4,mode:"hop",s:1}];
   k.usedCam=k.cams.map(c=>c.sp);
   ambient(k,{bfly:0,ffly:46,birds:false});dress(k,{grass:16,flowers:2,rocks:6,gcol:0x24443a,fcols:[0x9a7ad8,0x6ad8c0]});}
-/* ---------------- Duell-Arena (Live-Duell): großes Stadion mit Tribünen, Flutlicht und Anzeigetafel ---------------- */
-function bStadium(k,L,id){const R=k.R;k.layers=["plaza","grass","asphalt"];k.rep=[.5,.33,.25];k.cloud=0;k.H=()=>0;k.vig=.25;
-  mRect(k,0,0,13.4,8.6,0,"r",1,1);mRect(k,0,0,17.4,12.4,0,"g",.55,1);
-  const W=0xf4f4ee;// Spielfeld-Linien
-  for(const s of[-1,1]){k.p("box","unlit",0,.014,s*3.9,12.6,.01,.08,0,W);k.p("box","unlit",s*6.3,.014,0,.08,.01,7.8,0,W);}
-  k.p("box","unlit",0,.014,0,.08,.01,7.8,0,W);
-  for(let i=0;i<10;i++)k.p("box","matte",-5.85+i*1.3,0,0,1.3,.008,8.2,0,i%2?0x3d9444:0x47a54e);k.p("box","matte",0,0,0,13.6,.004,8.8,0,0x3a8a40);
-  for(const s of[-1,1]){k.p("box","unlit",s*5.1,.015,0,.06,.01,3.2,0,W);for(const z of[-1.6,1.6])k.p("box","unlit",s*5.7,.015,z,1.2,.01,.06,0,W);}
-  // Bande mit Werbeflächen (blau = deine Seite, rot = Gegner)
-  const ad=[0x2a6ad8,0xe0402e,0xffd23f,0x38b048,0x8a4ad8];
-  for(let i=0;i<9;i++){const x=-8+i*2;k.p("box","matte",x,0,-5.5,1.96,.55,.18,0,0x2a2e3a);k.p("box","unlit",x,.08,-5.4,1.8,.38,.02,0,ad[i%ad.length]);}
-  for(const s of[-1,1])for(let i=0;i<5;i++){const z=-4.4+i*2.2;k.p("box","matte",s*8.9,0,z,.18,.55,2.16,0,0x2a2e3a);k.p("box","unlit",s*8.8,.08,z,.02,.38,1.96,0,s<0?0x2a6ad8:0xe0402e);}
-  // Tribünen hinten
-  const step=0xb8b4ac,step2=0xa09c94,crowd=[0xe0402e,0x2a6ad8,0xffd23f,0xf4f4ee,0x38b048,0xff8ad0,0x8a4ad8,0xff9a3a,0x3a3a44];
-  const rows=6,nPer=k.n(34);
-  for(let r=0;r<rows;r++){const z=-6.4-r*1.1,y=r*.55;k.p("box","matte",0,0,z,24,y+.55,1.1,0,r%2?step:step2);
-    for(let i=0;i<nPer;i++){const x=-11.4+i*(22.8/(nPer-1))+(R()-.5)*.25;if(R()<.12)continue;const c=pick2(R,crowd);k.p("box","matte",x,y+.55,z+.1,.3,.34,.26,0,c);k.p("sph","matte",x,y+.98,z+.1,.13,.13,.13,0,pick2(R,[0xf0c8a0,0xc89070,0x8a5a3a,0xf8dcc0]));}}
-  k.block(-12,-13.5,12,-5.8);
-  // Tribünen seitlich (vorne offen, damit der Blick frei bleibt)
-  for(const s of[-1,1]){for(let r=0;r<5;r++){const x=s*(10+r*1.1),y=r*.55;k.p("box","matte",x,0,-1.2,1.1,y+.55,9.6,0,r%2?step:step2);
-      for(let i=0;i<k.n(14);i++){const z=-5.6+i*(8.8/13)+(R()-.5)*.2;if(R()<.15)continue;k.p("box","matte",x,y+.55,z,.26,.34,.3,0,pick2(R,crowd));k.p("sph","matte",x,y+.98,z,.13,.13,.13,0,pick2(R,[0xf0c8a0,0xc89070,0x8a5a3a,0xf8dcc0]));}}
-    k.block(s<0?-16:9.4,-6,s<0?-9.4:16,3.6);}
-  // Dach-Kante und Außenmauer
-  k.p("box","matte",0,3.85,-12.4,25,.35,1.6,0,0x5a6070);for(const s of[-1,1])k.p("box","matte",s*15.4,0,-1.2,.6,3.4,10,0,0x8a8e98);
-  k.p("box","matte",0,0,-13.3,25,4,.6,0,0x8a8e98);
-  // Anzeigetafel
-  k.at(0,0,-13.6,0);k.p("box","metal",-3.2,0,0,.3,5.8,.3,0,0x3a3e48);k.p("box","metal",3.2,0,0,.3,5.8,.3,0,0x3a3e48);k.p("box","matte",0,4.4,0,7.4,2.6,.5,0,0x1a1e28);
-  k.p("plane","sign:LIVE-DUELL:#14182a:#ffd84a",0,5.25,.27,6.4,1.1,1);k.p("box","unlit",-2.2,4.62,.27,2.4,.4,.02,0,0x2a6ad8);k.p("box","unlit",2.2,4.62,.27,2.4,.4,.02,0,0xe0402e);k.end();
-  // Flutlichtmasten
-  const fl=[[-14.2,-11.6],[14.2,-11.6],[-15.6,3.4],[15.6,3.4]];
-  for(const[x,z] of fl){k.p("cyl8","metal",x,0,z,.22,8.6,.22,0,0x5a6070);k.at(x,8.6,z,Math.atan2(-x,-z+1));k.p("box","matte",0,0,0,2.4,1.3,.3,0,0x2a2e36);for(let i=0;i<3;i++)for(let j=0;j<2;j++)k.p("box","glowS",-.75+i*.75,.3+j*.55,.17,.6,.4,.04,0,0xfff6d0);k.end();
-    k.pt("add",3,0,x,9.1,z,2.4,0xfff0c0,1);}
-  k.lights.push([0,-6,0xfff0d0],[-8,2,0xfff0d0],[8,2,0xfff0d0]);
-  // Fahnen in Teamfarben
-  for(let i=0;i<6;i++){const x=-11+i*4.4;k.p("cyl6","metal",x,3.3,-12.2,.04,2.2,.04,0,0xc8ccd4);k.p("box","matte",x+.38,4.7,-12.2,.72,.5,.03,0,i%2?0xe0402e:0x2a6ad8);}
-  // Pokébälle als Deko vorne an den Ecken
-  for(const s of[-1,1]){k.at(s*7.6,0,5.6,0);k.p("sph","matte",0,.42,0,.42,.42,.42,0,0xe8e8ec);k.p("hemi","matte",0,.42,0,.43,.43,.43,0,0xe0402e);k.p("box","matte",0,.4,0,.88,.05,.88,0,0x1a1a20);k.end();}
+/* ---------------- Duell-Arena (Live-Duell): Stadion mit runden Ecken, Tribünenringen, Dach, Videowand und Pixel-Publikum ---------------- */
+function bStadium(k,L,id){const R=k.R;k.layers=["plaza","grass","asphalt"];k.rep=[.5,.33,.25];k.cloud=0;k.H=()=>0;k.vig=.22;
+  // Laufbahn + Rasen mit Mähstreifen + Linien
+  k.p("box","matte",0,0,0,19.2,.004,13.2,0,0xb4553c);for(const s of[-1,1])k.p("box","unlit",0,.006,s*6.3,18.6,.004,.05,0,0xf0e0d0);
+  k.p("box","matte",0,0,0,14,.006,9.2,0,0x3a8a40);for(let i=0;i<10;i++)k.p("box","matte",-5.85+i*1.3,0,0,1.3,.008,8.4,0,i%2?0x3d9444:0x47a54e);
+  const W=0xf4f4ee;for(const s of[-1,1]){k.p("box","unlit",0,.014,s*4.0,12.8,.01,.08,0,W);k.p("box","unlit",s*6.4,.014,0,.08,.01,8,0,W);
+    k.p("box","unlit",s*5.2,.015,0,.06,.01,3.4,0,W);for(const z of[-1.7,1.7])k.p("box","unlit",s*5.8,.015,z,1.2,.01,.06,0,W);}
+  k.p("box","unlit",0,.014,0,.08,.01,8,0,W);
+  for(const[x,z] of[[-6.4,-4],[6.4,-4],[-6.4,4],[6.4,4]]){k.p("cyl6","metal",x,0,z,.03,.75,.03,0,0xf4f4ee);k.p("box","unlit",x+.14,.55,z,.26,.18,.01,0,x<0?0x2a6ad8:0xe0402e);}
+  // Bande mit Werbeflächen
+  const ad=[0x2a6ad8,0xe0402e,0xffd23f,0x38b048,0x8a4ad8,0xff8ad0];
+  for(let i=0;i<10;i++){const x=-9+i*2;k.p("box","matte",x,0,-6.75,1.96,.5,.16,0,0x22262f);k.p("box","unlit",x,.07,-6.66,1.8,.34,.02,0,ad[i%ad.length]);}
+  for(const s of[-1,1])for(let i=0;i<5;i++){const z=-5.2+i*2.2;k.p("box","matte",s*9.75,0,z,.16,.5,2.16,0,0x22262f);k.p("box","unlit",s*9.66,.07,z,.02,.34,1.96,0,s<0?0x2a6ad8:0xe0402e);}
+  // Tribünen: Ring aus Rückseite, runden Ecken und Seiten
+  const rows=7,RH=.48,RD=.95,seatA=[0x2a6ad8,0x3a7ae8],seatB=[0xe0402e,0xf05040],seatN=[0xe8c040,0xd8b030],stepC=[0xbab6ae,0xa8a49c];
+  const fans=[],nF=k.n(10)/10;let fid=0;const fan=(x,y,z)=>{if(R()>.88*nF)return;fans.push({x,y,z,id:NPC_ROLE.crowd0+Math.floor(R()*44),s:.62+R()*.08,sp:R()<.55?1.4+R()*1.6:.25+R()*.3,ph:R()});};
+  const row=(x,z,len,ry,r)=>{const y=r*RH;k.at(x,0,z,ry);k.p("box","matte",0,0,0,len,y+RH,RD,0,stepC[r%2]);
+      const segs=Math.max(1,Math.round(len/2.4));for(let i=0;i<segs;i++){const sx=-len/2+(i+.5)*len/segs;const col=x<-1?seatA:x>1?seatB:seatN;k.p("box","matte",sx,y+RH,RD*.12,len/segs-.08,.14,.32,0,col[(i+r)%2]);}
+      k.end();const c=Math.cos(ry),s=Math.sin(ry);const n=Math.max(1,Math.floor(len/.52));for(let i=0;i<n;i++){const t=-len/2+(i+.5)*len/n;fan(x+t*c,y+RH+.12,z-t*s+.05);}};
+  for(let r=0;r<rows;r++){const z=-7.6-r*RD;row(0,z,19.2,0,r);
+    for(const s of[-1,1]){row(s*(11.6+r*RD),-1.4,8.4,-s*Math.PI/2,r);
+      // Ecke: 3 Segmente im Viertelkreis
+      const cx=s*9.6,cz=-5.6,rad=2.0+r*RD;for(let j=0;j<3;j++){const a=(j+.5)/3*Math.PI/2;const x=cx+s*Math.sin(a)*rad,z=cz-Math.cos(a)*rad;row(x,z,rad*.56,-s*a,r);}}}
+  k.block(-16,-16,16,-7);for(const s of[-1,1])k.block(s<0?-19:11,-8,s<0?-11:19,3);
+  // Treppen-Aufgänge
+  for(const x of[-5,0,5])for(let r=0;r<rows;r++)k.p("box","matte",x,0,-7.6-r*RD,.7,r*RH+RH+.02,RD,0,0xd8d4cc);
+  // Außenwand + Dach über der Haupttribüne
+  k.p("box","matte",0,0,-14.6,26,4.2,.6,0,0x7a7e88);for(const s of[-1,1])k.p("box","matte",s*17.6,0,-3,.6,4,11,0,0x7a7e88);
+  for(let i=0;i<7;i++){const x=-12+i*4;k.p("cyl8","metal",x,0,-14,.16,6.2,.16,0,0xc8ccd4);}
+  k.at(0,6.1,-11.2,0);k.p("box","metal",0,0,0,27,.22,7.4,0,0xe8ecf0,-.12);for(let i=0;i<14;i++)k.p("box","metal",-13+i*2,-.1,0,.12,.12,7.2,0,0xa8acb4,-.12);k.end();
+  // Videowand
+  k.at(0,0,-14.2,0);k.p("box","metal",0,6.2,0,8.6,3.4,.5,0,0x1a1e28);k.p("plane","sign:LIVE-DUELL:#101426:#ffd84a",0,7.55,.27,7.6,1.2,1);
+  k.p("box","unlit",-2.1,6.55,.27,3.6,.6,.02,0,0x2a6ad8);k.p("box","unlit",2.1,6.55,.27,3.6,.6,.02,0,0xe0402e);k.p("plane","sign:VS:#101426:#ffffff",0,6.55,.29,1,.6,1);k.end();
+  // Trainerbänke mit Glasdach
+  for(const s of[-1,1]){const x=s*4.2,z=-6.0;k.p("box","matte",x,0,z,2.6,.42,.5,0,0x3a3e48);k.p("box","matte",x,.42,z,2.5,.1,.42,0,s<0?0x2a6ad8:0xe0402e);
+    k.p("box","glass",x,1.25,z-.05,2.8,.05,.8,0,0x9fd8ff);for(const dx of[-1.3,1.3])k.p("cyl6","metal",x+dx,0,z-.3,.03,1.25,.03,0,0xc8ccd4);}
+  // Flutlicht (Gittermasten)
+  for(const[x,z] of[[-15.4,-12.6],[15.4,-12.6],[-16.6,2.2],[16.6,2.2]]){for(const[dx,dz] of[[-.3,-.3],[.3,-.3],[-.3,.3],[.3,.3]])k.p("cyl6","metal",x+dx,0,z+dz,.05,9.4,.05,0,0x8a8e98);
+    for(let h=1;h<9;h+=1.2){k.p("box","metal",x,h,z-.3,.62,.04,.04,0,0x8a8e98);k.p("box","metal",x,h,z+.3,.62,.04,.04,0,0x8a8e98);}
+    k.at(x,9.4,z,Math.atan2(-x,-z+2));k.p("box","matte",0,0,0,2.8,1.5,.3,0,0x2a2e36);for(let i=0;i<4;i++)for(let j=0;j<2;j++)k.p("box","glowS",-1.05+i*.7,.25+j*.62,.17,.56,.44,.04,0,0xfff6d0);k.end();k.pt("add",3,0,x,10.1,z,2.6,0xfff0c0,1);}
+  k.lights.push([0,-7,0xfff0d0],[-9,1,0xfff0d0],[9,1,0xfff0d0]);
+  // Fahnen am Dach
+  for(let i=0;i<9;i++){const x=-12+i*3;k.p("cyl6","metal",x,6.2,-7.7,.03,1.6,.03,0,0xc8ccd4);k.p("box","matte",x+.32,7.2,-7.7,.6,.42,.03,0,[0x2a6ad8,0xe0402e,0xffd23f][i%3]);}
+  // Pokébälle an der Front
+  for(const s of[-1,1]){k.at(s*8.6,0,6.6,0);k.p("sph","matte",0,.45,0,.45,.45,.45,0,0xe8e8ec);k.p("hemi","matte",0,.46,0,.46,.46,.46,0,0xe0402e);k.p("box","matte",0,.43,0,.94,.05,.94,0,0x1a1a20);k.end();}
+  // Figuren am Spielfeldrand: Schiedsrichter, Trainer, Kameraleute, Cheerleader, Verkäufer, Ansager
+  const P=(id,x,z,s,sp,ph)=>fans.push({x,y:0,z,id,s:s||.9,sp:sp||0,ph:ph||0});
+  P(NPC_ROLE.ref,0,-4.6,.92,.35);P(NPC_ROLE.trainerB,-7.4,-5.3,.95,.6);P(NPC_ROLE.trainerR,7.4,-5.3,.95,.6,.5);P(NPC_ROLE.coach,-5.2,-5.45,.85,.2);P(NPC_ROLE.coach,5.2,-5.45,.85,.2,.4);
+  P(NPC_ROLE.camera,-9.0,-6.0,.9,.3);P(NPC_ROLE.camera,9.0,-6.0,.9,.3,.5);P(NPC_ROLE.camera,-8.6,5.2,.9,.3,.2);
+  P(NPC_ROLE.cheerB,-7.6,5.4,.85,2.2);P(NPC_ROLE.cheerB,-6.8,5.7,.85,2.2,.5);P(NPC_ROLE.cheerR,6.8,5.7,.85,2.2,.25);P(NPC_ROLE.cheerR,7.6,5.4,.85,2.2,.75);
+  P(NPC_ROLE.vendor,-2.5,-7.2,.62,.5);P(NPC_ROLE.vendor,5.0,-9.1,.62,.5,.3);P(NPC_ROLE.announcer,1.8,-6.3,.85,.6);
+  P(NPC_ROLE.scientist,-10.6,4.6,.85,.15);P(NPC_ROLE.hiker,10.8,4.8,.85,.15,.6);P(NPC_ROLE.elder,-11.4,5.6,.8,.1);
+  try{if(typeof kNpcs==="function")kNpcs(k,fans);}catch(e){console.warn("npcs",e);}
   ambient(k,{bfly:false});}
 const LOC_BUILD={spukwald:bSpuk,dukatia:bDukatia,ebenholz:bEbenholz,strudelinseln:bJCave,drachenhoehle:bJCave};
 
@@ -8603,7 +8716,7 @@ function run(sc){
       const sv=t>.8&&t<R;if(sv!==lastSkip){lastSkip=sv;skip.style.display=sv?"block":"none";}
       if(!(typeof sk==="number")&&t>=END)finish();}
     function input(e){if(done)return;if(e.type==="keydown"){if(!(e.key===" "||e.key==="Enter"||e.key==="Escape"))return;}
-      e.preventDefault();e.stopPropagation();if(!started||tc<.8)return;
+      e.preventDefault();e.stopPropagation();if(!started||tc<.8)return;if(typeof S!=="undefined"&&S&&S.duel&&typeof B!=="undefined"&&B&&!B.done)return;
       if(tc<R)t0=performance.now()-Math.max(R+.05,END-.8)*1000;else finish();}
     function finish(){if(done)return;done=true;cancelAnimationFrame(raf);clearInterval(guard);window.removeEventListener("keydown",input,true);ov.removeEventListener("pointerdown",input);LIVE.delete(api);
       ov.classList.add("out");setTimeout(()=>{ov.remove();if(restorePos!==null)host.style.position=restorePos;resolve();},sc.fade||380);}
@@ -9811,7 +9924,7 @@ function admSetup(){openModal(`<h2>${ic("gear")} SERVER-SETUP</h2><div class="le
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="9.0",DUEL_HP=20;
+const MP_VER="9.1",DUEL_HP=20;
 const dayKey=d=>(d||new Date()).toISOString().slice(0,10);
 const mpName=()=>USER||(window.__gName||(window.__gName="Gast-"+(100+Math.floor(VRND()*900))));
 
@@ -10102,8 +10215,12 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER=typeof MP_VER!=="undefined"?MP_VER:"9.0";
+const GAME_VER=typeof MP_VER!=="undefined"?MP_VER:"9.1";
 const PATCH=[
+ {v:"9.1",d:"29.10.2026",t:"Neues Stadion & Pixel-Publikum",items:[
+  ["swords","Duell-Stadion komplett neu gebaut: runde Tribünenringe in Teamfarben, Laufbahn, Dach mit Fahnen, Videowand, Trainerbänke, Eckfahnen und Flutlicht-Gittermasten."],
+  ["users","Hunderte Retro-Pixelfiguren: jubelndes Publikum mit Fahnen und Schals, dazu Schiedsrichter, Trainer, Kameraleute, Cheerleader, Verkäufer, Ansager und mehr."],
+  ["mega","Live-Duell: Mega-Szenen lassen sich nicht überspringen, damit beide Spieler synchron bleiben."]]},
  {v:"9.0",d:"29.10.2026",t:"Duell-Stadion",items:[
   ["swords","Live-Duell: eigenes Stadion mit Tribünen, Publikum, Flutlicht und Anzeigetafel, als Kampfort und als Karte unter BEGEGNUNG (Blick von oben ins Stadion)."],
   ["flag","Live-Duell: Gibt einer auf, erscheint die Meldung sofort beim Gegner."]]},
