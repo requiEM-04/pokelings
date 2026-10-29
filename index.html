@@ -2473,6 +2473,42 @@ body.duelB .cine-skip{display:none!important}
 .avConfirm{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;margin-top:6px}.avConfirm span{flex-basis:100%;text-align:center;font-size:14px}
 @media (max-width:560px){.avBig{width:140px;height:200px}.avBig img{width:110px;height:138px;margin-left:-55px}.avBig .avSpot{width:110px;margin-left:-55px}}
 .tcTop b.long{font-size:10px;white-space:normal;line-height:1.3}
+/* Synthwave-Bühne (Intro, Figurwahl, Partnerwahl) */
+.synthBg{position:absolute;inset:0;z-index:0;overflow:hidden;background:radial-gradient(ellipse at 50% 38%,#1a2a6a 0,#0c1240 45%,#060824 100%)}
+.synthBg i{position:absolute;display:block}
+.synthBg .sStars{inset:0 0 40% 0;background:radial-gradient(circle,#fff 0 1px,transparent 1.6px) 0 0/90px 70px,radial-gradient(circle,#cfe0ff 0 1px,transparent 1.6px) 40px 30px/130px 110px;opacity:.75;animation:tw 4s ease-in-out infinite}
+.synthBg .sStars.s2{background:radial-gradient(circle,#fff 0 1.4px,transparent 2px) 20px 10px/170px 140px;animation-delay:-2s}
+.synthBg .sGrid{left:-50%;right:-50%;top:58%;height:80%;transform-origin:50% 0;transform:perspective(380px) rotateX(64deg);
+  background:linear-gradient(transparent 96%,rgba(110,120,255,.9) 96%) 0 0/100% 46px,linear-gradient(90deg,transparent 97%,rgba(110,120,255,.9) 97%) 0 0/60px 100%;animation:gridMove 2.4s linear infinite;box-shadow:inset 0 30px 60px #060824}
+.synthBg .sHaze{left:0;right:0;top:50%;height:16%;background:linear-gradient(transparent,rgba(120,130,255,.25),transparent)}
+@keyframes gridMove{to{background-position:0 46px,0 0}}
+.stageOv{position:fixed;inset:0;z-index:720;overflow:hidden;user-select:none;cursor:pointer;animation:stIn .4s ease-out}.stageOv.out{opacity:0;transition:opacity .35s}
+.sBeam{position:absolute;left:50%;bottom:16%;width:240px;height:calc(120*var(--vh,1vh));margin-left:-120px;background:linear-gradient(180deg,rgba(150,180,255,.05),rgba(170,200,255,.38) 70%,rgba(200,225,255,.55));pointer-events:none}
+.sPlat{position:absolute;left:50%;bottom:calc(16% - 34px);width:250px;height:70px;margin-left:-125px;border-radius:50%;background:radial-gradient(ellipse,#ffffff 0,#cfe4ff 38%,#7a8cff 62%,transparent 72%);box-shadow:0 10px 40px rgba(120,140,255,.6)}
+.sSolo{position:absolute;inset:0;z-index:2}.sSolo .sMon{position:absolute;left:50%;bottom:16%;transform:translateX(-50%);width:260px;height:260px;display:flex;align-items:flex-end;justify-content:center}
+.sSolo .sMon img,.sSolo .sMon canvas{image-rendering:pixelated}
+.sPill{position:absolute;left:50%;top:4%;transform:translateX(-50%);z-index:4;padding:14px 80px;border-radius:40px;background:linear-gradient(180deg,#ffffff,#e4e8f6);border:4px solid #8a90d8;font-family:var(--px);font-size:22px;color:#2a2a6a;white-space:nowrap}
+.sDuo{position:absolute;inset:0;z-index:2}
+.sSide{position:absolute;bottom:22%;width:40%;height:70%;cursor:pointer}.sSide.boy{left:5%}.sSide.girl{right:5%}
+.sSide .sBeam{bottom:0;opacity:0;transition:opacity .25s}.sSide .sPlat{bottom:-30px}
+.sSide img{position:absolute;left:50%;bottom:4px;width:200px;height:250px;margin-left:-100px;image-rendering:pixelated;filter:brightness(.35) saturate(.6);transition:filter .25s}
+.sSide img.f1{opacity:0}.sSide.on .sBeam{opacity:1}.sSide.on img{filter:none}.sSide.on img.f1{animation:tcCheer 1s steps(1) infinite}.sSide.on img.f0{animation:tcCheer0 1s steps(1) infinite}
+.sBtns{position:absolute;left:0;right:0;bottom:6%;display:flex;justify-content:space-around;z-index:3}
+.sBtn{min-width:220px;padding:14px 26px;border-radius:30px;border:4px solid rgba(255,255,255,.75);font-family:var(--px);font-size:20px;color:#fff;cursor:pointer;text-shadow:0 2px 0 rgba(0,0,0,.35);box-shadow:0 4px 0 rgba(0,0,0,.35)}
+.sBtn.boy{background:linear-gradient(180deg,#8ab0ff,#4a62d8)}.sBtn.girl{background:linear-gradient(180deg,#ff9ac0,#e0507a)}.sBtn.on{outline:4px solid #fff;outline-offset:3px}
+.sBtn.yes{background:linear-gradient(180deg,#7ae08a,#2e9a48);min-width:120px;font-size:15px;padding:9px 18px}.sBtn.no{background:linear-gradient(180deg,#9aa0b8,#5a6078);min-width:120px;font-size:15px;padding:9px 18px}
+.sDlg{position:absolute;left:8%;right:8%;bottom:3%;z-index:5;min-height:150px;padding:26px 34px;border-radius:10px;border:6px solid #d8402e;background:repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0 10px,transparent 10px 20px),linear-gradient(180deg,#4a3a5a,#2e2440);box-shadow:0 6px 0 rgba(0,0,0,.4),inset 0 0 0 3px #7a2a2a;color:#fff;font-family:var(--px);font-size:26px;line-height:1.5}
+.sDlg.low{display:none}
+.sDlg .sdArr{position:absolute;right:28px;bottom:22px;width:0;height:0;border-left:13px solid transparent;border-right:13px solid transparent;border-top:16px solid #ff7a4a;opacity:0}.sDlg.done .sdArr{opacity:1;animation:bob 1s ease-in-out infinite}
+.sDlg .sdYN{position:absolute;right:30px;top:-62px;display:flex;gap:10px}.sDlg b{color:#ffd84a}
+@media (max-width:760px),(max-height:520px){.sPill{font-size:15px;padding:10px 34px}.sBtn{min-width:140px;font-size:14px;padding:10px 16px}.sDlg{font-size:16px;min-height:90px;padding:16px 20px}.sSide img{width:120px;height:150px;margin-left:-60px}.sBeam{width:150px;margin-left:-75px}.sPlat{width:160px;margin-left:-80px}.sSolo .sMon{width:170px;height:170px}}
+/* Partnerwahl auf der Bühne */
+#stScene.synth{background:#060824}#stScene.synth .synthBg{z-index:-1}
+#stScene.synth .psShow .sBeam{bottom:30px;width:230px;margin-left:-115px;z-index:0}
+#stScene.synth .psPod{background:radial-gradient(ellipse,#ffffff 0,#cfe4ff 38%,#7a8cff 62%,transparent 72%)!important;box-shadow:0 10px 40px rgba(120,140,255,.6)!important}
+#stScene.synth .psPick .pod{background:radial-gradient(ellipse,#ffffff 0,#cfe4ff 38%,#7a8cff 62%,transparent 72%)!important}
+#stScene.synth .psPick{background:rgba(20,24,60,.55);border-color:rgba(140,150,255,.45)}
+.sSolo .sMon{bottom:32%}.sSolo .sBeam{bottom:32%}.sSolo .sPlat{bottom:calc(32% - 34px)}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -4382,7 +4418,7 @@ function signOut(){if(S&&S.phase==="shop")save();LS.del("pokelings_session");try
 function showMenu(){
   if(S&&S.duel){mpLeave(true);S=null;B=null;}
   if(S&&S.phase==="shop")save();
-  showScreen("menu");if(typeof avatarCheck==="function")avatarCheck();if(typeof patchAuto==="function")patchAuto();
+  showScreen("menu");if(typeof GL!=="undefined"&&GL&&GL.ftMesh){GL.scene.remove(GL.ftMesh);GL.ftMesh=null;}if(typeof avatarCheck==="function")avatarCheck();if(typeof patchAuto==="function")patchAuto();
   const sv=LS.get(saveKey(),null);const total=Object.values(META.champs).reduce((a,b)=>a+b,0);
   $("menuWho").innerHTML=`<span>${ic("user")} ${esc(USER||"Gast")}</span><span style="color:var(--gem)">${ic("gem")} ${META.gems}${gemEventMul()>1?` <small style="font-size:10px;background:var(--gem);color:#0b0d13;border-radius:6px;padding:1px 5px;margin-left:3px">+${Math.round((gemEventMul()-1)*100)} % HEUTE</small>`:""}</span><span style="color:var(--amber)">${ic("trophy")} ${total}</span>`;
   const mb=(id,icn,t,s,main)=>`<button class="mbtn ${main?"main":""}" id="${id}"><span class="mi">${ic(icn)}</span><div><b>${t}</b><small>${s}</small></div></button>`;
@@ -5396,6 +5432,10 @@ function npcDefs(){if(NPC.defs)return NPC.defs;const R=rng(90210),pk=a=>a[Math.f
   while(D.length<12+44){const girl=R()<.45,hs=pk(HAIRS),h=R()<.3?pk(HATS):null;
     D.push({skin:pk(SK),hair:pk(HR),hs:girl&&hs==="bald"?"long":hs,hat:h,hatC:pk(SH),shirt:pk(SH),shirt2:R()<.4?pk(SH):null,pants:pk(PA),skirt:girl&&R()<.35?pk(SH):null,shoes:pk(["#2a2a30","#f4f4ee","#8a4a2a","#d83a2a","#2a6ad8"]),
       role:"fan",scarf:R()<.3?pk(["#2a6ad8","#e0402e"]):null,flag:R()<.25?pk(["#2a6ad8","#e0402e","#ffd23f"]):null,glasses:R()<.15,beard:!girl&&R()<.12});}
+  // Rüpel (eigene Schurken-Designs) und die beiden Spielerfiguren
+  NPC_ROLE.gruntM=D.length;D.push({skin:"#f0c090",hair:"#2a1a10",hs:"short",hat:"cap",hatC:"#2a2a30",shirt:"#2a2a30",shirt2:"#c83030",pants:"#2a2a30",shoes:"#c83030",role:"grunt"});
+  NPC_ROLE.gruntF=D.length;D.push({skin:"#f8d8b8",hair:"#c84a2a",hs:"pony",hat:"cap",hatC:"#2a2a30",shirt:"#2a2a30",shirt2:"#c83030",skirt:"#2a2a30",shoes:"#c83030",role:"grunt"});
+  if(typeof AVATAR!=="undefined"){NPC_ROLE.boy=D.length;D.push(AVATAR.boy);NPC_ROLE.girl=D.length;D.push(AVATAR.girl);}
   return NPC.defs=D;}
 function npcDraw(g,ox,oy,P,f){const W=NPC.W,H=NPC.H,G=[...Array(H)].map(()=>Array(W).fill(null));
   const r=(x,y,w,h,c)=>{if(!c)return;for(let j=y;j<y+h;j++)for(let i=x;i<x+w;i++)if(i>=0&&i<W&&j>=0&&j<H)G[j][i]=c;},p=(x,y,c)=>r(x,y,1,1,c);
@@ -5481,6 +5521,17 @@ function kNpcs(k,list){if(!list.length)return null;npcAtlas();const geo=new THRE
   list.forEach((o,i)=>{const id=o.id%npcDefs().length;cell[i*2]=id%NPC.COLS;cell[i*2+1]=Math.floor(id/NPC.COLS);anim[i*2]=o.sp||0;anim[i*2+1]=o.ph||0;const s=o.s||1;M.compose(V.set(o.x,o.y||0,o.z),Q,Sc.set(s,s,s));mesh.setMatrixAt(i,M);});
   geo.setAttribute("aCell",new THREE.InstancedBufferAttribute(cell,2));geo.setAttribute("aAnim",new THREE.InstancedBufferAttribute(anim,2));
   mesh.frustumCulled=false;mesh.renderOrder=1;k.g.add(mesh);if(k.disp){k.disp.push(geo,mat);}return mesh;}
+
+/* Trainer neben dem Spielfeld: du links, der Gegner rechts (auch im Einzelspieler) */
+function enemyNpcId(enc,boss){const nm=boss?boss.name:(enc&&enc.name)||"",ty=enc&&enc.type||"mid",h=strHash(nm+"|"+((typeof S!=="undefined"&&S&&S.region)||""));npcDefs();
+  if(/rüpel|rocket|schurk|bande/i.test(nm))return h%2?NPC_ROLE.gruntF:NPC_ROLE.gruntM;if(/wanderer|bergsteiger/i.test(nm))return NPC_ROLE.hiker;if(/forscher|hacker|wissen/i.test(nm))return NPC_ROLE.scientist;
+  if(ty==="boss"||ty==="elite")return [NPC_ROLE.trainerB,NPC_ROLE.trainerR,NPC_ROLE.coach,NPC_ROLE.hiker,NPC_ROLE.scientist,NPC_ROLE.elder][h%6];return NPC_ROLE.crowd0+(h%44);}
+function fieldTrainers(){try{if(!GL||!GL.scene)return;if(GL.ftMesh){GL.scene.remove(GL.ftMesh);GL.ftMesh.geometry.dispose();GL.ftMesh.material.dispose();GL.ftMesh=null;}
+  if(typeof S==="undefined"||!S||!S.enc||S.enc.type==="event")return;npcDefs();const C=(typeof cardMeta==="function"?cardMeta():{});
+  const me=C.av==="girl"?NPC_ROLE.girl:NPC_ROLE.boy;let op;
+  if(S.duel){const pc=typeof DU!=="undefined"&&DU.peerCard;op=pc&&pc.av==="girl"?NPC_ROLE.girl:pc&&/^npc:/.test(pc.av)?+pc.av.slice(4):NPC_ROLE.boy;}else op=enemyNpcId(S.enc,BOSSES[S.round]);
+  let L=me,Rr=op;if(S.duel&&!S.duel.host){L=op;Rr=me;}
+  const k={g:GL.scene,tint:0xffffff,disp:null};const m=kNpcs(k,[{x:-GXo-1.6,y:0,z:0,id:L,s:1.15,sp:.5,ph:0},{x:GXo+1.6,y:0,z:0,id:Rr,s:1.15,sp:.5,ph:.5}]);GL.ftMesh=m;}catch(e){console.warn("fieldTrainers",e);}}
 
 let CAM_EXCLUDE=[]; // Arten, die gerade als Gegner kämpfen (keine Doppelgänger im Hintergrund)
 /* ================================ KANTO-ORTE (3D-Dioramen) ================================ */
@@ -7790,11 +7841,11 @@ function starterChoice(cb){
   const opts=starterOpts(3+perk("partner")),n=opts.length,prof=PROF[S.region]||PROF.kanto;
   let cur=-1,ask=false,typer=0,yn=0,state="pick";
   const sc=document.createElement("div");sc.id="stScene";sc.className="ps";
-  sc.innerHTML=`<div class="stVig"></div><div class="stTitle"><span>${ic("ball")} WÄHLE DEINEN PARTNER</span></div>
-   <div class="psStage"><div class="psShow"><div class="psPod"></div><div class="psBurst"></div><div class="psSpk"></div><div class="psMon"></div></div><div class="stDex psDex"></div></div>
+  sc.classList.add("synth");sc.innerHTML=`${typeof synthBg==="function"?synthBg():""}<div class="stVig"></div><div class="stTitle"><span>${ic("ball")} WÄHLE DEINEN PARTNER</span></div>
+   <div class="psStage"><div class="psShow"><i class="sBeam"></i><div class="psPod"></div><div class="psBurst"></div><div class="psSpk"></div><div class="psMon"></div></div><div class="stDex psDex"></div></div>
    <div class="psRow">${opts.map((o,i)=>{const sp=SPECIES[o.L.stages[0][0]];return `<button class="psPick${o.shiny?" shy":""}" data-i="${i}" style="--rc:${RAR[o.L.tier].c};--tc:${TYPES[sp.types[0]][1]}"><i class="cur"></i><span class="pod"></span><span class="mon" data-sp="${sp.id}"></span>${o.shiny?`<span class="sy">${ic("shiny")}</span>`:""}<small>${sp.name}</small><span class="tps">${pills(sp.types)}</span></button>`;}).join("")}</div>
 `;
-  document.body.appendChild(sc);hydrateIcons&&hydrateIcons(sc);if(typeof sceneBg==="function")sceneBg(HOME_LOC);
+  document.body.appendChild(sc);hydrateIcons&&hydrateIcons(sc);if(typeof sceneBg==="function"&&!sc.classList.contains("synth"))sceneBg(HOME_LOC);
   const hideR=()=>{const a=sc.querySelector(".psShow"),d=sc.querySelector(".psDex"),W=innerWidth,H=innerHeight;if(!a)return;const r=a.getBoundingClientRect(),q=d&&d.getBoundingClientRect();
     window.__camHideR=[Math.min(r.left,q?q.left:r.left)/W-.03,r.top/H-.04,Math.max(r.right,q?q.right:r.right)/W+.03,(r.bottom/H)+.06];};setTimeout(hideR,60);addEventListener("resize",hideR);sc._hideR=hideR;
   sc.querySelectorAll(".psPick .mon").forEach((e,k)=>e.appendChild(natFit(spriteEl(+e.dataset.sp,"",{shiny:opts[k].shiny}),1.25)));
@@ -8117,7 +8168,7 @@ function eventOptions0(){const g=4+Math.floor(S.round/2),st=Math.max(3,Math.min(
   const rn=(EV_REG[S.region||"kanto"]||{});return out.map(e=>({...e,n:rn[e.id]||e.n,d:e.d.replace("{g}",g).replace(/\{s\}/g,st).replace("{s3}",st*3).replace("{t}",tr),g,st,tr}));}
 function pickLocs(n){const recent=new Set(Object.values(S.locs||{}).slice(-3));const c=shuffle(LOC_POOL.filter(k=>!recent.has(k)));return c.slice(0,n);}
 function arenaLoc(){if(!S)return[HOME_LOC,1];const id=S.enc&&S.enc.loc?S.enc.loc:(S.locs&&S.locs[S.round-1])||HOME_LOC;return[id,(S.seed||1)+S.round*977+(S.encIdx||0)*31+(S.enc&&S.enc.loc?7:0)];}
-function syncArena(){if(GL&&S){const[l,sd]=arenaLoc();CAM_EXCLUDE=(S.enc&&S.enc.type==='boss'&&S.enemies||[]).filter(e=>SPECIES[e.sp].line.leg).map(e=>e.sp);setArenaLoc(l,sd);}}
+function syncArena(){if(GL&&S){const[l,sd]=arenaLoc();CAM_EXCLUDE=(S.enc&&S.enc.type==='boss'&&S.enemies||[]).filter(e=>SPECIES[e.sp].line.leg).map(e=>e.sp);setArenaLoc(l,sd);if(typeof fieldTrainers==="function")fieldTrainers();}}
 function setupRound(){S.locs=S.locs||{};S.enc=null;S.encIdx=null;S.paths=null;S.encRolls=0;S.shopRolls=0;S.enemies=[];S.revanche=false;if(S.duel){S.enc={type:"duel",name:S.duel.peerName,loc:duelLoc()};}else if(BOSSES[S.round]){S.enc={type:"boss",name:BOSSES[S.round].name,loc:BOSS_LOC[S.round]};S.enemies=genEnemies(S.enc);S.enc.enemies=S.enemies;}if(S.enc)setTimeout(()=>{if(S&&S.phase==="shop"&&S.enc)syncArena();},150);if(typeof geistPrep==="function")geistPrep();}
 function rollPaths0(){
   const r=S.round;if(BOSSES[r])return;const o=encOdds(r),types=[];let g=0;
@@ -10117,12 +10168,31 @@ function cardHTML(c,side){c=c||cardMine();const sl=[0,1,2].map(i=>c.badges[i]?ba
    ${c.sub?`<div class="tcStats"><span>${c.sub}</span></div>`:`<div class="tcStats"><span>${ic("crown")}${c.ch}</span><span>${ic("swords")}${c.dw}</span><span>${ic("dex")}${c.dex}</span></div>`}</div>`;}
 function cardHydrate(root){hydrateIcons(root);root.querySelectorAll(".bsp[data-sp]").forEach(e=>{if(!e.firstChild)try{e.appendChild(spriteEl(+e.dataset.sp));}catch(x){}});}
 /* Figur wählen (auch bei bestehenden Konten einmal) */
-function avatarPick(cb){let sel=null;const draw=()=>{openModal(`<div class="avIntro"><h2>${ic("user")} BIST DU EIN JUNGE ODER EIN MÄDCHEN?</h2><div class="lead">Deine Figur steht auf deiner Trainerkarte und tritt im VS-Bildschirm gegen deine Gegner an. <b>Die Wahl ist endgültig.</b></div>
-   <div class="avStage">${["boy","girl"].map(a=>`<button class="avBig${sel===a?" on":""}${sel&&sel!==a?" dim":""}" data-av="${a}"><i class="avSpot"></i><img class="f0" src="${avatarURL(a,0)}" alt=""><img class="f1" src="${avatarURL(a,1)}" alt=""><b>${a==="boy"?"JUNGE":"MÄDCHEN"}</b></button>`).join("")}</div>
-   ${sel?`<div class="avConfirm"><span>Du bist also ${sel==="boy"?"ein <b>Junge</b>":"ein <b>Mädchen</b>"}? Das lässt sich später nicht mehr ändern.</span><button class="pri" id="avYes">${ic("check")} Ja, genau!</button><button class="btn" id="avNo">Nochmal</button></div>`:`<p class="cdHint" style="text-align:center">Tippe auf eine Figur.</p>`}</div>`,"narrow avM",false);
-    $("mbox").querySelectorAll(".avBig").forEach(b=>b.onclick=()=>{sel=b.dataset.av;draw();});
-    if($("avYes"))$("avYes").onclick=()=>{const C=cardMeta();C.av=sel;C.avLocked=1;C.title=sel==="girl"?"Trainerin":"Trainer";saveMeta();closeModal();toast("Willkommen, "+(sel==="girl"?"Trainerin":"Trainer")+"!","user");cb&&cb();};
-    if($("avNo"))$("avNo").onclick=()=>{sel=null;draw();};};draw();}
+/* Bühne im Synthwave-Stil (Sterne, Gitterboden, Lichtkegel) */
+const synthBg=()=>`<div class="synthBg"><i class="sStars"></i><i class="sStars s2"></i><i class="sGrid"></i><i class="sHaze"></i></div>`;
+function stageSkip(el){if(el.classList.contains("done"))return false;clearInterval(el._ty);el.querySelector(".sdTxt").innerHTML=el._full;el.classList.add("done");const d=el._done;el._done=null;d&&d();return true;}
+function stageTalk(el,t,done){clearInterval(el._ty);el.classList.remove("done");el._full=t;el._done=done;const plain=t.replace(/<[^>]+>/g,"");let k=0;el.querySelector(".sdTxt").textContent="";
+  if(window.__fast){el.querySelector(".sdTxt").innerHTML=t;el.classList.add("done");el._done=null;done&&done();return;}
+  el._ty=setInterval(()=>{k+=1;if(k>=plain.length){clearInterval(el._ty);el.querySelector(".sdTxt").innerHTML=t;el.classList.add("done");el._done=null;done&&done();}else el.querySelector(".sdTxt").textContent=plain.slice(0,k);},14);}
+/* Figurwahl als Intro: Willkommen → Wer bist du? → Bestätigen (nur ein einziges Mal) */
+function avatarPick(cb){const old=$("avScene");if(old)old.remove();const sc=document.createElement("div");sc.id="avScene";sc.className="stageOv";
+  sc.innerHTML=`${synthBg()}<div class="sPill" style="display:none">Wer bist du?</div>
+   <div class="sSolo"><i class="sBeam"></i><i class="sPlat"></i><span class="sMon"></span></div>
+   <div class="sDuo" style="display:none">${["boy","girl"].map(a=>`<div class="sSide ${a}" data-av="${a}"><i class="sBeam"></i><i class="sPlat"></i><img class="f0" src="${avatarURL(a,0)}" alt=""><img class="f1" src="${avatarURL(a,1)}" alt=""></div>`).join("")}
+     <div class="sBtns"><button class="sBtn boy" data-av="boy">JUNGE</button><button class="sBtn girl" data-av="girl">MÄDCHEN</button></div></div>
+   <div class="sDlg"><span class="sdTxt"></span><i class="sdArr"></i><div class="sdYN" style="display:none"><button class="sBtn yes">JA</button><button class="sBtn no">NEIN</button></div></div>`;
+  document.body.appendChild(sc);try{sc.querySelector(".sMon").appendChild(natFit(spriteEl(25),1.6));}catch(e){}
+  const dlg=sc.querySelector(".sDlg");let step=0,sel=null;const yn=sc.querySelector(".sdYN");
+  const say=(t,cb2)=>stageTalk(dlg,t,cb2);
+  const pick=a=>{sel=a;sc.querySelectorAll(".sSide").forEach(e=>e.classList.toggle("on",e.dataset.av===a));sc.querySelectorAll(".sBtns .sBtn").forEach(e=>e.classList.toggle("on",e.dataset.av===a));};
+  const choose=()=>{step=2;sc.querySelector(".sSolo").style.display="none";sc.querySelector(".sDuo").style.display="";sc.querySelector(".sPill").style.display="";dlg.classList.add("low");say("Bist du ein Junge oder ein Mädchen?");pick("boy");};
+  const confirmA=a=>{pick(a);step=3;dlg.classList.remove("low");yn.style.display="";say(`Du bist also ${a==="boy"?"ein <b>Junge</b>":"ein <b>Mädchen</b>"}? Das lässt sich später nie mehr ändern.`);};
+  sc.querySelectorAll(".sSide,.sBtns .sBtn").forEach(e=>{e.onmouseenter=()=>{if(step===2)pick(e.dataset.av);};e.onclick=ev=>{ev.stopPropagation();if(step===2||step===3){yn.style.display="none";confirmA(e.dataset.av);}};});
+  yn.querySelector(".yes").onclick=ev=>{ev.stopPropagation();if(!sel)return;const C=cardMeta();C.av=sel;C.avLocked=1;C.title=sel==="girl"?"Trainerin":"Trainer";saveMeta();yn.style.display="none";step=4;
+    say(`Willkommen, ${sel==="girl"?"Trainerin":"Trainer"}! Deine Trainerkarte ist bereit.`,()=>setTimeout(()=>{sc.classList.add("out");setTimeout(()=>{sc.remove();cb&&cb();},350);},900));};
+  yn.querySelector(".no").onclick=ev=>{ev.stopPropagation();yn.style.display="none";choose();};
+  sc.onclick=()=>{if(stageSkip(dlg))return;if(step===0){step=1;say("Bevor dein Abenteuer beginnt, möchte ich wissen, wer du bist.");}else if(step===1)choose();};
+  say("Willkommen in der Welt der Pokémon!");}
 function avatarCheck(){try{if(!META||window.__noIntro||window.__autoPick)return;if(META.card&&META.card.av)return;setTimeout(()=>{if($("menu").classList.contains("show")&&!$("modal").classList.contains("show")&&!(META.card&&META.card.av))avatarPick();},350);}catch(e){}}
 /* Trainerkarte bearbeiten */
 let CARD_TAB="badges";
@@ -10132,11 +10202,10 @@ function cardModal(t){t=t||CARD_TAB;CARD_TAB=t;const C=cardMeta(),me=cardMine();
       return `<h4 class="cdCat">${cat}</h4><div class="cdGrid">${L.map(b=>{const s=badgeState(b),on=C.badges.includes(b.id),pr=s.next?Math.min(1,s.v/s.next):1;
         return `<button class="cdB${on?" on":""}${s.t?"":" lock"}" data-b="${b.id}">${badgeHTML(b.id,Math.max(1,s.t),"sm")}${s.t?"":`<span class="cdL">${ic("lock")}</span>`}<div><b>${esc(b.n)} ${s.t?ROMAN[s.t]:""}</b><small>${esc(b.d)}</small>
           <span class="cdBar"><i style="width:${Math.round(pr*100)}%;background:${s.t?TIER[s.t].c:"#6a7088"}"></i></span><small class="cdN">${Math.floor(s.v).toLocaleString("de-DE")}${s.next?` / ${s.next.toLocaleString("de-DE")} → ${TIER[s.t+1].n}`:" · MAX"}</small></div></button>`;}).join("")}</div>`;}).join("");}
-  else if(t==="look"){body=`<h4 class="cdCat">Figur</h4><div class="avLocked"><img src="${avatarURL(C.av||"boy",0)}" alt=""><div><b>${C.av==="girl"?"Mädchen":"Junge"}</b><small>${ic("lock")} Beim ersten Start festgelegt, kann nicht mehr geändert werden.</small></div></div>
-    <h4 class="cdCat">Hintergrund</h4><div class="cdBgs">${Object.entries(CARD_BG).map(([k,b])=>{const ok=!b.lock||b.lock();return `<button class="cdBg${C.bg===k?" on":""}${ok?"":" lock"}" data-bg="${k}" ${ok?"":"disabled"}><i class="bgThumb">${bgHTML(k)}</i><b>${b.n}</b>${ok?"":`<small>${ic("lock")} ${b.ld}</small>`}</button>`;}).join("")}</div>
+  else if(t==="look"){body=`<h4 class="cdCat">Hintergrund</h4><div class="cdBgs">${Object.entries(CARD_BG).map(([k,b])=>{const ok=!b.lock||b.lock();return `<button class="cdBg${C.bg===k?" on":""}${ok?"":" lock"}" data-bg="${k}" ${ok?"":"disabled"}><i class="bgThumb">${bgHTML(k)}</i><b>${b.n}</b>${ok?"":`<small>${ic("lock")} ${b.ld}</small>`}</button>`;}).join("")}</div>
     <h4 class="cdCat">Titel</h4><div class="cdTitles">${[C.av==="girl"?"Trainerin":"Trainer",...badgeAll().filter(b=>badgeState(b).t>=4).map(b=>b.n.replace(/^Partner: /,"")+(b.cat==="Partner"?"-Meister":""))].filter((v,i,a)=>a.indexOf(v)===i).map(n=>`<button class="cdT${(C.title||"")===n?" on":""}" data-t="${esc(n)}">${esc(n)}</button>`).join("")}</div><p class="cdHint">Titel gibt es nur für Abzeichen auf <b>Platin</b>, also extrem selten.</p>`;}
   openModal(`<h2>${ic("user")} TRAINERKARTE</h2><div class="cdWrap"><div class="cdPrev">${cardHTML(me)}<p class="cdHint" style="text-align:center">So sehen dich Gegner im Live-Duell.</p></div>
-    <div class="cdSide"><div class="dtabs"><button data-ct="badges" class="${t==="badges"?"on":""}">ABZEICHEN</button><button data-ct="look" class="${t==="look"?"on":""}">FIGUR & STIL</button></div><div class="cdBody">${body}</div></div></div>
+    <div class="cdSide"><div class="dtabs"><button data-ct="badges" class="${t==="badges"?"on":""}">ABZEICHEN</button><button data-ct="look" class="${t==="look"?"on":""}">STIL</button></div><div class="cdBody">${body}</div></div></div>
     <div class="rbtns" style="margin-top:12px"><button class="btn" id="cdBack">${ic("back")} Zurück</button></div>`,"wide",true);
   const mb=$("mbox");cardHydrate(mb);$("cdBack").onclick=()=>{closeModal();if(typeof showMenu==="function"&&$("menu").classList.contains("show"))showMenu();};
   mb.querySelectorAll("[data-ct]").forEach(b=>b.onclick=()=>cardModal(b.dataset.ct));
@@ -10146,7 +10215,7 @@ function cardModal(t){t=t||CARD_TAB;CARD_TAB=t;const C=cardMeta(),me=cardMine();
 
 /* Gegnerkarte im normalen Modus (Trainer, Elite, Boss) */
 function enemyCard(enc,boss){const nm=boss?boss.name:(enc&&enc.name)||"Trainer",ty=enc&&enc.type||"mid",h=strHash(nm+"|"+(S&&S.region));
-  const id=ty==="boss"||ty==="elite"?[NPC_ROLE.trainerB,NPC_ROLE.trainerR,NPC_ROLE.coach,NPC_ROLE.hiker,NPC_ROLE.scientist,NPC_ROLE.elder][h%6]:NPC_ROLE.crowd0+(h%44);
+  const id=enemyNpcId(enc,boss);
   const bg={easy:"std",mid:"sunrise",hard:"sturm",elite:"spuk",boss:"goldchamp"}[ty]||"std";
   const pool=BADGE_FIX.filter(b=>b.id!=="coll");const n=ty==="boss"?3:ty==="elite"?2:ty==="hard"?1:0,bd=[];for(let i=0;i<n;i++){const b=pool[(h>>>(i*5))%pool.length];if(!bd.some(x=>x[0]===b.id))bd.push([b.id,Math.min(4,1+Math.floor((S&&S.round||1)/6)+(ty==="boss"?1:0))]);}
   return{name:nm,av:"npc:"+id,bg,title:(DIFF[ty]?DIFF[ty].n:"Trainer"),badges:bd,sub:`${ic("flag")} Runde ${S?S.round:1} · ${(S&&S.enemies||[]).length} Pokémon`};}
@@ -10155,7 +10224,7 @@ function enemyCard(enc,boss){const nm=boss?boss.name:(enc&&enc.name)||"Trainer",
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="9.3",DUEL_HP=30;
+const MP_VER="9.4",DUEL_HP=30;
 const dayKey=d=>(d||new Date()).toISOString().slice(0,10);
 const mpName=()=>USER||(window.__gName||(window.__gName="Gast-"+(100+Math.floor(VRND()*900))));
 
@@ -10446,8 +10515,13 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER=typeof MP_VER!=="undefined"?MP_VER:"9.3";
+const GAME_VER=typeof MP_VER!=="undefined"?MP_VER:"9.4";
 const PATCH=[
+ {v:"9.4",d:"29.10.2026",t:"Intro-Bühne & Trainer am Spielfeld",items:[
+  ["user","Neues Intro im Synthwave-Stil: Sternenhimmel, leuchtender Gitterboden und Lichtkegel. Pikachu begrüßt dich, dann wählst du auf zwei Podesten Junge oder Mädchen (nur ein einziges Mal)."],
+  ["ball","Die Partnerwahl zu Beginn jedes Laufs steht jetzt ebenfalls auf der Bühne mit Lichtkegel und leuchtenden Podesten."],
+  ["swords","Trainer am Spielfeld: Deine Figur steht links neben dem Feld, der gegnerische Trainer rechts, auch im Einzelspieler (Wanderer, Forscher, Rüpel, Arenaleiter …)."],
+  ["gear","Trainerkarte: Das Feld „Figur“ ist entfernt, die Wahl ist fest."]]},
  {v:"9.3",d:"29.10.2026",t:"Kampfkarten überall & neue Hintergründe",items:[
   ["user","Neue, detailliertere Pixel-Figuren (eigene Designs) für Trainerkarte, Gegner und Stadion-Publikum. Junge oder Mädchen wählst du nur ein einziges Mal, die Wahl ist endgültig."],
   ["swords","Kampfkarten jetzt auch im normalen Modus: Vor jedem Kampf fliegen deine Karte und die Karte des gegnerischen Trainers herein, Bosse mit Abzeichen."],
