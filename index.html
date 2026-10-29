@@ -2789,6 +2789,12 @@ body.duelB .cine-skip{display:none!important}
 .chatIn{display:flex;gap:8px;margin-top:8px}.chatIn input{flex:1;height:42px;padding:0 12px;border-radius:8px;border:2px solid rgba(255,255,255,.14);background:#0b0d13;color:#fff;font:15px var(--ui)}.chatIn .pri{white-space:nowrap}
 /* Admin-Vergabe */
 .admGTabs{margin:6px 0 10px}.admGTabs button{display:inline-flex;align-items:center;gap:6px}.admGTabs .ic{width:14px;height:14px}
+/* ===== v9.7: Täglicher Run unter Neues Spiel ===== */
+.dyCard{display:flex;flex-direction:column;gap:9px;margin:4px 0 12px;padding:14px;border-radius:14px;background:linear-gradient(180deg,rgba(92,242,255,.1),rgba(255,255,255,.02));border:1px solid rgba(92,242,255,.35);position:relative;overflow:hidden}
+.dyCard:before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:#5cf2ff}
+.dyH{display:flex;align-items:center;gap:10px}.dyH>.ic{width:26px;height:26px;color:#5cf2ff;flex:none}.dyH>div{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}.dyH b{font:15px var(--px);color:#fff}.dyH small{font-size:11px;color:var(--muted)}
+.dyReg{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:12px;background:rgba(92,242,255,.14);color:#bff8ff;font:700 12px var(--ui);white-space:nowrap}.dyReg .ic{width:14px;height:14px}
+.ngSub{display:flex;align-items:center;gap:8px;margin:6px 0 8px;font-family:var(--px);font-size:11px;color:var(--amber)}.ngSub .ic{width:14px;height:14px}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -4720,8 +4726,8 @@ function showMenu(){
   const sv=LS.get(saveKey(),null);const total=Object.values(META.champs).reduce((a,b)=>a+b,0);
   $("menuWho").innerHTML=`<span>${ic("user")} ${esc(USER||"Gast")}</span><span style="color:var(--gem)">${ic("gem")} ${META.gems}${gemEventMul()>1?` <small style="font-size:10px;background:var(--gem);color:#0b0d13;border-radius:6px;padding:1px 5px;margin-left:3px">+${Math.round((gemEventMul()-1)*100)} % HEUTE</small>`:""}</span><span style="color:var(--amber)">${ic("trophy")} ${total}</span>`;
   const mb=(id,icn,t,s,main)=>`<button class="mbtn ${main?"main":""}" id="${id}"><span class="mi">${ic(icn)}</span><div><b>${t}</b><small>${s}</small></div></button>`;
-  $("menuBtns").innerHTML=(sv&&sv.S?mb("mCont","play","Weiterspielen",`${sv.S.daily?"Tagesherausforderung":MODES[sv.S.mode].n} · Runde ${sv.S.round}`,1):"")+
-   mb("mNew","plus","Neues Spiel","Schwierigkeit & Partner wählen",!(sv&&sv.S))+mb("mMp","swords","Mehrspieler","Ranked · Live-Duell · Tagesherausforderung · Geister")+mb("mFr","users","Freunde","Anfragen · Einladen · Chat")+mb("mLab","lab","Forschungslabor","Dauerhafte Verbesserungen & neue Pokémon")+mb("mDex","dex","Pokédex","Sammlung · Schillernde · Mega-Formen")+mb("mCard","user","Trainerkarte","Lieblingspokémon · Hintergrund · 3 Abzeichen")+mb("mAch","trophy","Erfolge",(()=>{const n=Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length;return n+"/"+ACH.length+" freigeschaltet · Statistik · Verlauf";})())+mb("mSet","gear","Einstellungen","Anleitung · Sound · Grafik · "+(USER?"Abmelden":"Login"));
+  $("menuBtns").innerHTML=(sv&&sv.S?mb("mCont","play","Weiterspielen",`${sv.S.daily?"Täglicher Run":MODES[sv.S.mode].n} · Runde ${sv.S.round}`,1):"")+
+   mb("mNew","plus","Neues Spiel","Singleplayer · Täglicher Run · Region & Schwierigkeit",!(sv&&sv.S))+mb("mMp","swords","Mehrspieler","Ranked · Live-Duell · Geisterkämpfe")+mb("mFr","users","Freunde","Anfragen · Einladen · Chat")+mb("mLab","lab","Forschungslabor","Dauerhafte Verbesserungen & neue Pokémon")+mb("mDex","dex","Pokédex","Sammlung · Schillernde · Mega-Formen")+mb("mCard","user","Trainerkarte","Lieblingspokémon · Hintergrund · 3 Abzeichen")+mb("mAch","trophy","Erfolge",(()=>{const n=Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length;return n+"/"+ACH.length+" freigeschaltet · Statistik · Verlauf";})())+mb("mSet","gear","Einstellungen","Anleitung · Sound · Grafik · "+(USER?"Abmelden":"Login"));
   if($("mCont"))$("mCont").onclick=()=>{const rk=(S&&S.phase!=="over"&&S.region)||(sv&&sv.S&&sv.S.region)||"kanto";needReg(rk,()=>{hideScreens();if(!S||S.phase==="over")loadGame();setTab("shop");render();});};
   $("mNew").onclick=chooseMode;$("mMp").onclick=()=>mpModal();if($("mFr")){$("mFr").insertAdjacentHTML("beforeend",`<em class="mBadge" id="mFrN" style="display:none"></em>`);$("mFr").onclick=()=>friendsModal();try{socBadges();}catch(e){}}$("mLab").onclick=()=>labScreen();$("mDex").onclick=()=>dexModal("dex");$("mAch").onclick=()=>achModal();if($("mCard"))$("mCard").onclick=()=>cardModal();$("mSet").onclick=settingsModal;
   const bs=[...$("menuBtns").querySelectorAll(".mbtn")];bs.forEach((b,i)=>{b.onmouseenter=()=>menuSel(i);});menuSel(0);
@@ -4798,7 +4804,9 @@ function chooseMode(){
   if(!regUnlocked(modeRegion))modeRegion="kanto";const has=LS.get(saveKey(),null);
   const reg=Object.entries(REGIONS).map(([k,r])=>regCardHtml(k,r,REG_ART[k]||REG_ART.kanto,regUnlocked(k),false)).join("")+Object.entries(SOON_REG).map(([k,r])=>regCardHtml(k,r,r,false,true)).join("");
   openModal(`<div class="ngHead"><h2>${ic("flag")} NEUES SPIEL</h2><div class="ngSteps"><span class="on"><b>1</b>Region</span><i></i><span><b>2</b>Schwierigkeit</span></div></div>
+    ${typeof dailyCardHtml==="function"?dailyCardHtml():""}<h4 class="ngSub">${ic("flag")} Freies Spiel: Region wählen</h4>
     ${has?`<div class="ngWarn">${ic("info")} Ein laufendes Spiel wird überschrieben.</div>`:""}<div class="regList">${reg}</div>`,"wide newGame",true);
+  if($("dyGo"))$("dyGo").onclick=()=>{closeModal();startDaily();};if($("dyB"))$("dyB").onclick=()=>dailyBoard();
   $("mbox").querySelectorAll(".rcM[data-sp]").forEach(e=>e.appendChild(spriteEl(+e.dataset.sp)));
   $("mbox").querySelectorAll(".regCard").forEach(b=>b.onclick=()=>{if(b.disabled){sfx("deny");return;}modeRegion=b.dataset.r;sfx("click");chooseDiff();});
 }
@@ -10348,7 +10356,7 @@ const FB_KINDS=[["bug","skull","Fehler"],["idee","star","Idee"],["lob","heart","
 function fbDevice(){const u=navigator.userAgent||"";const br=/Edg\//.test(u)?"Edge":/OPR\/|Opera/.test(u)?"Opera":/Firefox\//.test(u)?"Firefox":/Chrome\//.test(u)?"Chrome":/Safari\//.test(u)?"Safari":"Browser";
   const dev=/iPad|Tablet/i.test(u)?"Tablet":/Mobi|Android|iPhone/i.test(u)?"Handy":"PC";const os=/Windows/.test(u)?"Windows":/Android/.test(u)?"Android":/iPhone|iPad/.test(u)?"iOS":/Mac OS/.test(u)?"macOS":/Linux/.test(u)?"Linux":"";
   return br+" · "+dev+(os?" · "+os:"");}
-function fbWhere(){try{if(S&&S.phase&&S.phase!=="over")return(S.daily?"Tagesherausforderung":S.duel?"Live-Duell":(MODES[S.mode]||{}).n||"Lauf")+" · "+((REGIONS[S.region||"kanto"]||{}).n||"")+" · Runde "+(S.round||1);}catch(e){}
+function fbWhere(){try{if(S&&S.phase&&S.phase!=="over")return(S.daily?"Täglicher Run":S.duel?"Live-Duell":(MODES[S.mode]||{}).n||"Lauf")+" · "+((REGIONS[S.region||"kanto"]||{}).n||"")+" · Runde "+(S.round||1);}catch(e){}
   return $("auth")&&$("auth").classList.contains("show")?"Startbildschirm":"Menü";}
 const fbPh=k=>k==="bug"?"Was ist passiert? Was hast du kurz davor gemacht?":k==="idee"?"Was würdest du dir wünschen?":"Deine Nachricht …";
 function feedbackModal(){
@@ -10887,6 +10895,10 @@ begin
     'chat',(select coalesce(json_object_agg(c.from_uid,c.n),'{}'::json) from (select x.from_uid,count(*) n from public.chat x where x.to_uid=me and not x.seen group by x.from_uid) c));
 end $$;
 
+-- Server-Uhrzeit (täglicher Run wechselt um 0 Uhr deutscher Zeit, unabhängig von der Geräte-Uhr)
+create or replace function public.server_now() returns timestamptz language sql stable as $$ select now() $$;
+grant execute on function public.server_now() to anon, authenticated;
+
 revoke all on function public.pkl_uname(uuid) from public, anon, authenticated;
 revoke all on function public.pkl_ranked_apply(bigint,uuid,uuid) from public, anon, authenticated;
 revoke all on function public.pkl_ranked_sweep() from public, anon, authenticated;
@@ -11126,7 +11138,7 @@ const BADGE_FIX=[
  {id:"fuse",cat:"Sammeln",n:"Fusionsmeister",ic:"merge",d:"Fusionen",v:()=>_st().fusions||0,T:[100,750,3000,10000]},
  {id:"gem",cat:"Sammeln",n:"Edelstein-Magnat",ic:"gem",d:"Gesammelte Edelsteine",v:()=>META.gemsTotal||0,T:[1000,10000,40000,120000]},
  {id:"achv",cat:"Sammeln",n:"Perfektionist",ic:"star",d:"Freigeschaltete Erfolge",v:()=>Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length,T:[10,25,40,ACH.length]},
- {id:"daily",cat:"Sammeln",n:"Tagesheld",ic:"cal",d:"Gespielte Tagesherausforderungen",v:()=>META.dailyN||0,T:[5,30,100,365]},
+ {id:"daily",cat:"Sammeln",n:"Tagesheld",ic:"cal",d:"Gespielte tägliche Runs",v:()=>META.dailyN||0,T:[5,30,100,365]},
  {id:"vet",cat:"Sammeln",n:"Veteran",ic:"play",d:"Spielzeit in Stunden",v:()=>Math.floor((_st().time||0)/60),T:[5,25,100,300]},
  {id:"coll",cat:"Sammeln",n:"Abzeichen-Sammler",ic:"badge",d:"Erreichte Abzeichen-Stufen (alle zusammen)",v:()=>badgeTierSum(),T:[10,30,60,100]}];
 const BADGE_BY={};BADGE_FIX.forEach(b=>BADGE_BY[b.id]=b);
@@ -11256,7 +11268,14 @@ function enemyCard(enc,boss){const nm=boss?boss.name:(enc&&enc.name)||"Trainer",
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
 const MP_VER="9.6",DUEL_HP=30;
-const dayKey=d=>(d||new Date()).toISOString().slice(0,10);
+/* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
+   ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
+const SRVT={off:0,ok:false};
+const BERLIN_DAY=typeof Intl!=="undefined"?new Intl.DateTimeFormat("sv-SE",{timeZone:"Europe/Berlin",year:"numeric",month:"2-digit",day:"2-digit"}):null;
+const dayKey=d=>{const t=d||new Date(Date.now()+SRVT.off);try{if(BERLIN_DAY)return BERLIN_DAY.format(t).slice(0,10);}catch(e){}return t.toISOString().slice(0,10);};
+async function srvTime(){try{if(typeof clFetch!=="function")return;const t0=Date.now(),r=await clFetch("/rest/v1/rpc/server_now",{method:"POST",auth:false,body:{},timeout:7000}),t1=Date.now();
+  if(r.ok&&r.j){const s=Date.parse(String(r.j).replace(/(\.\d{3})\d+/,"$1"));if(s>0){SRVT.off=s-(t0+t1)/2;SRVT.ok=true;}}}catch(e){}}
+setTimeout(srvTime,800);
 const mpName=()=>USER||(window.__gName||(window.__gName="Gast-"+(100+Math.floor(VRND()*900))));
 
 /* ---------- gleicher Zufall ---------- */
@@ -11284,16 +11303,21 @@ function dailyInfo(day){day=day||dayKey();const h=strHash("pkl-daily|"+day),R=mk
 function ruleTxt(k,D){const R=DAILY_RULES[k];return R.d.replace("{T}",(TYPES[D.ty]||["?"])[0]);}
 function dailyState(){const D=dailyInfo(),M=META.daily||{};return{D,played:M.day===D.day,score:M.day===D.day?M.score:null};}
 function startDaily(){const {D,played}=dailyState();const go=()=>{if(!played){META.daily={day:D.day,used:1};META.dailyN=(META.dailyN||0)+1;saveMeta();}newRun("normal",D.region,{daily:Object.assign({},D,{scored:!played})});};
-  const sv=LS.get(saveKey(),null);if(sv&&sv.S&&sv.S.round>1){openModal(`<h2>${ic("cal")} TAGESHERAUSFORDERUNG</h2><div class="lead">Dein laufendes Spiel (Runde ${sv.S.round}) wird dabei beendet.</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="dGo">${ic("play")} Trotzdem starten</button><button class="btn" id="dNo">Abbrechen</button></div>`,"narrow",true);$("dGo").onclick=()=>{closeModal();go();};$("dNo").onclick=()=>mpModal();}else go();}
-function dailyIntro(){const D=S.daily;toast(`Tagesherausforderung ${D.day.split("-").reverse().join(".")}${D.scored?"":" · Übungslauf"} · ${D.rules.filter(k=>DAILY_RULES[k]).map(k=>DAILY_RULES[k].n).join(" · ")}`,"cal");}
+  const sv=LS.get(saveKey(),null);if(sv&&sv.S&&sv.S.round>1){openModal(`<h2>${ic("cal")} TÄGLICHER RUN</h2><div class="lead">Dein laufendes Spiel (Runde ${sv.S.round}) wird dabei beendet.</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="dGo">${ic("play")} Trotzdem starten</button><button class="btn" id="dNo">Abbrechen</button></div>`,"narrow",true);$("dGo").onclick=()=>{closeModal();go();};$("dNo").onclick=()=>chooseMode();}else go();}
+function dailyIntro(){const D=S.daily;toast(`Täglicher Run ${D.day.split("-").reverse().join(".")}${D.scored?"":" · Übungslauf"} · ${D.rules.filter(k=>DAILY_RULES[k]).map(k=>DAILY_RULES[k].n).join(" · ")}`,"cal");}
 function dailyScore(win,reached){return Math.max(0,(reached-1)*100+S.wins*10+S.bosses*25+(win?300:0)-S.revives*40);}
 function dailyFinish(win,reached){const D=S.daily,sc=dailyScore(win,reached);
   if(D.scored&&META.daily&&META.daily.day===D.day){META.daily.score=sc;META.daily.round=Math.min(20,S.round);META.daily.champ=!!win;META.mp=META.mp||{};META.mp.dailyBest=Math.max(META.mp.dailyBest||0,sc);META.mp.dailies=(META.mp.dailies||0)+1;
     if(typeof CL!=="undefined"&&CL.sess)(async()=>{try{if(!(await clReady()))return;await clFetch("/rest/v1/daily_runs",{method:"POST",headers:{Prefer:"return=minimal"},body:{day:D.day,name:USER,score:sc,round:Math.min(20,S.round),region:D.region,champ:!!win,team:boardUnits().map(u=>u.sp).slice(0,10)}});}catch(e){}})();}
   return `<div class="incRow" style="color:var(--cyan)"><span>${ic("cal","","width:14px;height:14px")} Tagespunkte${D.scored?"":" (Übung)"}</span><span>${sc}</span></div>`;}
+function dailyCardHtml(){const {D,played,score}=dailyState(),dd=D.day.split("-").reverse().join("."),cl=typeof CL!=="undefined"&&!!CL.sess;
+  return `<div class="dyCard"><div class="dyH">${ic("cal")}<div><b>Täglicher Run</b><small>${dd} · für alle gleich · neuer Run jeden Tag um 0 Uhr</small></div><span class="dyReg">${ic(REGIONS[D.region].ic||"ball")} ${REGIONS[D.region].n}</span></div>
+    <div class="mpRules">${D.rules.map(k=>`<span>${ic(DAILY_RULES[k].ic)}<b>${DAILY_RULES[k].n}</b><small>${ruleTxt(k,D)}</small></span>`).join("")}</div>
+    <p class="mpNote">${played?(score!=null?`Heute geschafft: <b>${score}</b> Punkte. Weitere Läufe sind Übung.`:"Dein gewerteter Versuch läuft schon oder wurde abgebrochen. Weitere Läufe sind Übung."):"Ein gewerteter Versuch pro Tag. Gleicher Startpartner und gleiche Shops für alle."}${cl?"":" <small>Für die Online-Bestenliste mit Cloud-Konto anmelden.</small>"}</p>
+    <div class="mpB"><button class="pri hot" id="dyGo">${ic("play")} ${played?"Übungslauf":"Starten"}</button><button class="btn" id="dyB">${ic("trophy")} Bestenliste</button></div></div>`;}
 async function dailyBoard(){const D=dailyInfo();
-  openModal(`<h2>${ic("trophy")} TAGES-BESTENLISTE</h2><div class="lead">${D.day.split("-").reverse().join(".")} · ${REGIONS[D.region].n}</div><div id="dbList" class="dbList"><p class="empty">Lade …</p></div><div class="rbtns" style="margin-top:12px"><button class="btn" id="dbBack">${ic("back")} Zurück</button></div>`,"narrow",true);
-  $("dbBack").onclick=()=>mpModal();
+  openModal(`<h2>${ic("trophy")} TÄGLICHER RUN · BESTENLISTE</h2><div class="lead">${D.day.split("-").reverse().join(".")} · ${REGIONS[D.region].n}</div><div id="dbList" class="dbList"><p class="empty">Lade …</p></div><div class="rbtns" style="margin-top:12px"><button class="btn" id="dbBack">${ic("back")} Zurück</button></div>`,"narrow",true);
+  $("dbBack").onclick=()=>chooseMode();
   const r=typeof clFetch==="function"?await clFetch(`/rest/v1/daily_runs?select=name,score,round,region,champ,team&day=eq.${D.day}&order=score.desc&limit=50`,{auth:false}):{ok:false};
   const el=$("dbList");if(!el)return;
   if(!r.ok||!Array.isArray(r.j)){el.innerHTML=`<p class="empty">Bestenliste gerade nicht erreichbar.${META.daily&&META.daily.day===D.day&&META.daily.score!=null?`<br>Dein Ergebnis heute: <b>${META.daily.score}</b> Punkte`:""}</p>`;return;}
@@ -11446,16 +11470,10 @@ function mpModal(){const {D,played,score}=dailyState(),cl=typeof CL!=="undefined
      <div class="mpB"><button class="pri" id="mpC">${ic("plus")} Raum erstellen</button></div>
      <div class="mpRow join"><input id="mpCode" inputmode="numeric" maxlength="4" placeholder="Code" autocomplete="off"><button class="btn" id="mpJ">${ic("arrow")} Beitreten</button></div>
      <div class="mpB"><button class="btn" id="mpFr">${ic("users")} Freunde einladen</button></div></div>
-    <div class="mpCard daily"><div class="mpH">${ic("cal")}<div><b>Tagesherausforderung</b><small>${dd} · für alle gleich</small></div></div>
-     <div class="mpReg">${ic(REGIONS[D.region].ic||"ball")} ${REGIONS[D.region].n}</div>
-     <div class="mpRules">${D.rules.map(k=>`<span>${ic(DAILY_RULES[k].ic)}<b>${DAILY_RULES[k].n}</b><small>${ruleTxt(k,D)}</small></span>`).join("")}</div>
-     <p class="mpNote">${played?(score!=null?`Heute geschafft: <b>${score}</b> Punkte. Weitere Läufe sind Übung.`:"Dein gewerteter Versuch läuft schon oder wurde abgebrochen. Weitere Läufe sind Übung."):"Ein gewerteter Versuch pro Tag. Gleicher Startpartner und gleiche Shops für alle."}${cl?"":"<br><small>Für die Online-Bestenliste mit Cloud-Konto anmelden.</small>"}</p>
-     <div class="mpB"><button class="pri hot" id="mpD">${ic("play")} ${played?"Übungslauf":"Starten"}</button><button class="btn" id="mpDB">${ic("trophy")} Bestenliste</button></div></div>
     <div class="mpCard ghost"><div class="mpH">${ic("ghost")}<div><b>Geisterkämpfe</b><small>Echte Teams anderer Spieler</small></div></div>
      <p class="mpNote">In jeder 3. Runde kann einer der drei Wege ein <b>Geisterkampf</b> sein: das gespeicherte Team eines anderen Spielers aus derselben Runde. Prämie +7 Gold.${cl?" Dein Team wird beim Kampfstart als Geist hochgeladen.":"<br><small>Ohne Cloud-Konto wird dein Team nicht hochgeladen. Geister anderer triffst du trotzdem.</small>"}</p>
      <div class="stSeg" id="mpG"><button data-v="1" class="${geistOn()?"on":""}">An</button><button data-v="0" class="${geistOn()?"":"on"}">Aus</button></div></div>
    </div>`,"wide mpM",true);
-  $("mpD").onclick=()=>{closeModal();startDaily();};$("mpDB").onclick=dailyBoard;
   if($("rkGo"))$("rkGo").onclick=()=>rankedSearch();if($("rkB"))$("rkB").onclick=()=>rankedBoard();if($("mpFr"))$("mpFr").onclick=()=>friendsModal("list");try{rankedMeInto($("rkMe"));}catch(e){}
   $("mpC").onclick=()=>{const rg=$("mpReg").value;META.mp=META.mp||{};META.mp.reg=rg;saveMeta();duelCreate(rg);};
   const j=()=>duelJoin(($("mpCode").value||"").trim());$("mpJ").onclick=j;$("mpCode").onkeydown=e=>{if(e.key==="Enter")j();};
@@ -11749,8 +11767,11 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="9.6.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="9.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"9.7",d:"29.10.2026",t:"Täglicher Run",items:[
+  ["cal","Der tägliche Run steht jetzt unter Neues Spiel (Singleplayer), ganz oben. Er wechselt jede Nacht um 0 Uhr deutscher Zeit von selbst, ganz ohne Update. Das Datum kommt beim Laden der Seite vom Server, eine falsch gestellte Geräte-Uhr spielt keine Rolle."],
+  ["swords","Mehrspieler zeigt jetzt Ranked, Live-Duell und Geisterkämpfe."]]},
  {v:"9.6.5",d:"29.10.2026",t:"Schnellfix",items:[
   ["play","Intro gekürzt: Die Wortblitze und die Kampfszene sind raus, nach dem Fan-Projekt-Schriftzug geht es direkt zum Titelbild."]]},
  {v:"9.6",d:"29.10.2026",t:"Freunde & Ranked",items:[
