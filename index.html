@@ -3039,6 +3039,65 @@ body.duelB .cine-skip{display:none!important}
 .lbChamp{display:inline-flex;align-items:center;gap:5px;color:var(--c);text-shadow:0 0 10px color-mix(in srgb,var(--c) 45%,transparent)}
 .lbChamp .ic{width:14px;height:14px}
 .lbChamp small{font-size:11px;font-weight:700;opacity:.85}
+/* ===== v1.0.5: Kürbisnacht (Halloween-Edition 2026, nur als Geschenk) ===== */
+.bg-halloween{background:linear-gradient(180deg,#120624 0,#2a0e44 32%,#561c52 55%,#b2441c 75%,#3a1410 100%)}
+.bg-halloween .hsky{inset:0;background:radial-gradient(ellipse at 76% 20%,rgba(255,170,60,.3),transparent 46%),radial-gradient(ellipse at 18% 68%,rgba(140,60,200,.22),transparent 55%)}
+.bg-halloween .hmoon{right:7%;top:5%;width:31cqw;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 38% 36%,#fff3c4 0,#ffc85a 46%,#f08a22 82%,#d86a14 100%);box-shadow:0 0 5cqw rgba(255,170,60,.65),0 0 14cqw rgba(255,120,30,.35);--lo:.92;--sc:1.025;animation:cbPulse 5s ease-in-out infinite}
+.bg-halloween .hmoon .cr{position:absolute;border-radius:50%;background:rgba(196,96,18,.3)}
+.bg-halloween .hmoon .c1{left:22%;top:30%;width:18%;height:18%}.bg-halloween .hmoon .c2{left:58%;top:52%;width:12%;height:12%}.bg-halloween .hmoon .c3{left:38%;top:70%;width:9%;height:9%}
+.bg-halloween .witch{left:-32%;top:13%;width:25cqw;height:auto;animation:hwWitch 16s linear infinite}
+@keyframes hwWitch{0%{transform:translate(0,0) rotate(-4deg)}25%{transform:translate(40cqw,-3cqh) rotate(2deg)}50%{transform:translate(80cqw,1cqh) rotate(-3deg)}75%{transform:translate(120cqw,-2cqh) rotate(2deg)}100%{transform:translate(170cqw,0) rotate(-4deg)}}
+.bg-halloween .hcloud{height:8cqh;background:radial-gradient(ellipse at 50% 55%,rgba(44,14,58,.88) 0,rgba(44,14,58,.6) 38%,rgba(44,14,58,0) 70%)}
+.bg-halloween .hcloud.c1{right:-6%;top:21%;width:46cqw;animation:cbDrift 14s ease-in-out infinite alternate}
+.bg-halloween .hcloud.c2{right:20%;top:30%;width:30cqw;opacity:.8;animation:cbDrift 19s ease-in-out infinite alternate-reverse}
+.bg-halloween .bat{left:-12%;top:var(--y);width:var(--s,5cqw);height:auto;animation:cbAcross var(--d,13s) linear var(--dl,0s) infinite}
+.bg-halloween .bat path{animation:cbFlap .2s ease-in-out infinite alternate;transform-origin:50% 50%}
+.bg-halloween .hwin rect{animation:cbFlick 3s infinite}.bg-halloween .hwin rect:nth-child(2){animation-duration:4.2s;animation-delay:-1.3s}.bg-halloween .hwin rect:nth-child(3){animation-duration:2.6s;animation-delay:-.6s}.bg-halloween .hwin rect:nth-child(4){animation-duration:5s;animation-delay:-2s}
+.bg-halloween .web{left:0;top:0;width:27cqw;height:auto}
+.bg-halloween .spid{left:21%;top:0;width:5cqw;animation:hwSpid 7s ease-in-out infinite}
+.bg-halloween .spid .thr{position:absolute;left:50%;bottom:88%;width:1px;height:44cqh;background:linear-gradient(transparent,rgba(232,220,255,.6))}
+.bg-halloween .spid svg{display:block;width:100%;height:auto}
+@keyframes hwSpid{0%,100%{transform:translateY(1cqh)}42%{transform:translateY(17cqh)}50%{transform:translateY(15.5cqh) rotate(5deg)}58%{transform:translateY(17cqh) rotate(-4deg)}}
+.bg-halloween .hghost{width:var(--s,10cqw);aspect-ratio:.82;background:linear-gradient(180deg,#fff,rgba(236,226,255,.8) 68%,rgba(236,226,255,.12));opacity:var(--o,.8);clip-path:polygon(0 42%,4% 22%,14% 8%,30% 1%,50% 0,70% 1%,86% 8%,96% 22%,100% 42%,100% 100%,84% 88%,67% 100%,50% 88%,33% 100%,17% 88%,0 100%);animation:hwGhost var(--d,4s) ease-in-out var(--dl,0s) infinite}
+.bg-halloween .hghost::before{content:"";position:absolute;left:22%;top:28%;width:56%;height:20%;background:radial-gradient(circle at 22% 50%,#1a0a2a 0 30%,transparent 34%),radial-gradient(circle at 78% 50%,#1a0a2a 0 30%,transparent 34%)}
+.bg-halloween .hghost::after{content:"";position:absolute;left:41%;top:52%;width:18%;height:13%;border-radius:50%;background:#1a0a2a;opacity:.85}
+@keyframes hwGhost{0%,100%{transform:translate(0,0) rotate(-3deg)}50%{transform:translate(3cqw,-5cqh) rotate(3deg)}}
+.bg-halloween .hfog{left:-25%;bottom:6%;width:150%;height:26%;background:radial-gradient(ellipse at 25% 70%,rgba(255,150,80,.22),transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(190,140,255,.25),transparent 62%);animation:cbDrift 13s ease-in-out infinite alternate}
+.bg-halloween .hfog.f2{bottom:-4%;opacity:.8;animation-duration:18s;animation-direction:alternate-reverse}
+.bg-halloween .hleaf{border-radius:70% 0 70% 0}
+.bg-halloween .pkglow{bottom:-8%;width:42cqw;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,170,50,.5),transparent 62%);--lo:.7;animation:cbPulse 2.8s ease-in-out infinite}
+.bg-halloween .pkglow.g1{left:-6%}.bg-halloween .pkglow.g2{right:-8%;width:34cqw;animation-delay:-1.2s}.bg-halloween .pkglow.g3{left:30%;width:28cqw;animation-delay:-.6s}
+.bg-halloween .pk{bottom:2%;height:auto}
+.bg-halloween .pk.p1{left:3%;width:27cqw}.bg-halloween .pk.p2{right:4%;width:21cqw;bottom:4%}.bg-halloween .pk.p3{left:39%;width:15cqw;bottom:1%}
+.bg-halloween .pk .pkg{fill:#c9540a}
+.bg-halloween .pk .face path{fill:#ffe27a}
+.bg-halloween .pk .face{animation:hwCandle 2.6s infinite}
+.bg-halloween .pk.p2 .face{animation-duration:3.3s;animation-delay:-1s}.bg-halloween .pk.p3 .face{animation-duration:2.1s;animation-delay:-.4s}
+@keyframes hwCandle{0%,100%{opacity:1}20%{opacity:.78}24%{opacity:.96}50%{opacity:.68}54%{opacity:1}72%{opacity:.84}}
+/* Editor: Edition-Band und verliehene Abzeichen */
+.cdBg i.bgThumb .cdEd{position:absolute;right:4px;top:4px;z-index:3;padding:2px 6px;border-radius:5px;background:linear-gradient(135deg,#ff8a1e,#b04cff);color:#fff;font:700 9px/1.2 var(--ui,system-ui);font-style:normal;box-shadow:0 0 8px rgba(255,138,30,.5)}
+.cdB .cdGv{color:#ffd84a;display:flex;align-items:center;gap:4px}.cdB .cdGv .ic{width:11px;height:11px}
+/* v1.0.5: Geschenk-Fenster für Titel, Hintergründe und verliehene Abzeichen */
+.evGift .evBg{position:relative;width:min(260px,80%);aspect-ratio:250/200;margin:10px auto 4px;border-radius:12px;overflow:hidden;border:3px solid #0b0d13;box-shadow:0 0 0 2px rgba(255,255,255,.25),0 0 30px rgba(255,170,60,.35);animation:giftPop .55s cubic-bezier(.2,1.5,.4,1) both}
+.evGift .evBg .tcBg{position:absolute;inset:0}
+.evGift .evEd{position:absolute;right:6px;top:6px;z-index:3;padding:3px 8px;border-radius:6px;background:linear-gradient(135deg,#ff8a1e,#b04cff);color:#fff;font:700 11px/1.2 var(--ui,system-ui);font-style:normal}
+.evGift .evTitle{margin:18px auto 6px;font-family:var(--px);font-size:20px;animation:giftPop .55s cubic-bezier(.2,1.5,.4,1) both}
+.evGift .evBadge{display:flex;justify-content:center;margin:14px auto 4px;animation:giftPop .55s cubic-bezier(.2,1.5,.4,1) both}
+.evGift .evBadge .bdg{transform:scale(1.6);margin:18px 0}
+/* Admin: Geschenke an alle, Abzeichen verleihen */
+.admBgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:8px;max-height:300px;overflow:auto;margin-top:8px;padding-right:4px}
+.admBgs .cdBg small{font-size:9px}
+.admQuick{display:flex;gap:6px;margin:8px 0 4px}
+.admBGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;max-height:240px;overflow:auto;margin-top:6px;padding-right:4px}
+.admBItem{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;background:#151a28;border:2px solid rgba(255,255,255,.08);color:#fff;cursor:pointer;text-align:left;font-size:12px}
+.admBItem.on{border-color:var(--cyan);background:rgba(92,242,255,.08)}
+.admBItem span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.admTiers{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:10px}
+.admTierB{padding:8px 4px;border-radius:8px;background:#151a28;border:2px solid rgba(255,255,255,.08);color:var(--bc);font-weight:800;font-size:12px;cursor:pointer}
+.admTierB.on{border-color:var(--bc);background:color-mix(in srgb,var(--bc) 14%,#151a28)}
+.admBPrev .bdg{flex:none}.admBPrev b{font-size:14px}
+.admTRow.off{opacity:.5}.admTRow small{font-size:11px;color:var(--muted)}
+.admBRow .bdg{flex:none}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -5686,7 +5745,7 @@ function lbTitle(a){if(!a)return null;const def=t=>!t||/^Trainer(in)?$/.test(t);
   const c=a.card&&typeof cardClean==="function"?cardClean(a.card):null;
   if(!c)return a.tt&&a.tt.text?{text:a.tt.text,style:TITLE_FX[a.tt.style]?a.tt.style:null}:null;
   if(def(c.title))return null;
-  const st=a.tt&&a.tt.text===c.title&&TITLE_FX[a.tt.style]?a.tt.style:isT5Title(c.title)?"geist":null;
+  const st=a.tt&&a.tt.text===c.title&&TITLE_FX[a.tt.style]?a.tt.style:(typeof evTitleStyle==="function"&&evTitleStyle(c.title))||(isT5Title(c.title)?"geist":null);
   return {text:c.title,style:st};}
 const lbTTHtml=a=>{const t=lbTitle(a);return t&&typeof ttCls==="function"?`<span class="lbTT"><span${ttCls(t.style)}>${esc(t.text)}</span></span>`:"";};
 function lbRowsHtml(rows,n){return rows.slice(0,n||10).map((a,i)=>`<button class="lbRow r${i+1}" data-n="${esc(a.n)}"><span class="lbRank">${i+1}</span><div class="lbMain"><div class="lbNm"><b>${esc(a.n)}</b>${lbTTHtml(a)}</div>
@@ -10779,6 +10838,16 @@ if(typeof EN!=="undefined")Object.assign(EN,{
  "Champion I (1 Champion-Titel)":"Champion I (1 champion title)","Perfektionist I (10 Erfolge)":"Perfectionist I (10 achievements)","Champion III (40 Champion-Titel)":"Champion III (40 champion titles)","Bossbrecher III (500 Bosse)":"Boss Breaker III (500 bosses)","Pokédex-Profi III (400 Pokémon)":"Pokédex Pro III (400 Pokémon)","Veteran III (100 Stunden)":"Veteran III (100 hours)","Duellkönig III (50 Duell-Siege)":"Duel King III (50 duel wins)","Albtraumjäger III (10× Albtraum-Champion)":"Nightmare Hunter III (10× Nightmare champion)","Glitzerjäger III (75 Schillernde)":"Shiny Hunter III (75 shinies)","Abzeichen-Sammler III (60 Stufen)":"Badge Collector III (60 tiers)","Tagesheld III (100 Tägliche Runs)":"Daily Hero III (100 daily runs)","Unaufhaltsam IV (20 Siege in Folge)":"Unstoppable IV (20 wins in a row)","Ranked: Platin 1 erreichen":"Ranked: reach Platinum 1","Vernichter IV (150.000 besiegte Gegner)":"Annihilator IV (150,000 defeated foes)","Glitzerjäger IV (200 Schillernde)":"Shiny Hunter IV (200 shinies)","Mega-Meister IV (1.000 Mega-Entwicklungen)":"Mega Master IV (1,000 Mega Evolutions)","Champion IV (100 Champion-Titel)":"Champion IV (100 champion titles)","5 Abzeichen auf Platin":"5 badges at Platinum","Champion V (250 Champion-Titel)":"Champion V (250 champion titles)","1 Abzeichen auf Mythisch":"1 badge at Mythic","Ranked Mythisch oder 3 Abzeichen auf Mythisch":"Ranked Mythic or 3 badges at Mythic"
 });
 
+/* v1.0.5: Abzeichen-Namen, Geschenk-Fenster */
+if(typeof EN!=="undefined")Object.assign(EN,{
+ "Weltenbummler":"Globetrotter","Albtraumjäger":"Nightmare Hunter","Eiserner Wille":"Iron Will","Duellkönig":"Duel King","Unaufhaltsam":"Unstoppable","Kritiker":"Crit Master","Mega-Meister":"Mega Master","Makellos":"Flawless","Bossbrecher":"Boss Breaker","Vernichter":"Annihilator","Einschlag":"Impact","Pokédex-Profi":"Pokédex Pro","Glitzerjäger":"Shiny Hunter","Fusionsmeister":"Fusion Master","Edelstein-Magnat":"Gem Tycoon","Perfektionist":"Perfectionist","Tagesheld":"Daily Hero",
+ "NEUER HINTERGRUND":"NEW BACKGROUND","NEUER TITEL":"NEW TITLE","ABZEICHEN VERLIEHEN":"BADGE AWARDED","Gleich verwenden":"Use now","Auf die Karte legen":"Put on my card","Titel für deine Trainerkarte":"Title for your trainer card",
+ "Ein neuer Hintergrund für deine Trainerkarte. Du findest ihn unter Trainerkarte → Stil.":"A new background for your trainer card. You'll find it under Trainer Card → Style.",
+ "Er steht ab jetzt in deiner Titel-Auswahl unter Trainerkarte → Stil.":"It is now in your title selection under Trainer Card → Style.",
+ "Dir wurde ein Abzeichen verliehen. Leg es unter Trainerkarte → Abzeichen in eines der 3 Felder.":"You were awarded a badge. Put it into one of the 3 slots under Trainer Card → Badges.",
+ "Kürbisnacht":"Pumpkin Night","Halloween 2026":"Halloween 2026","Geschenk zur Halloween-Edition 2026":"Gift of the Halloween Edition 2026","Geschenk zur Halloween-Edition 2026.":"Gift of the Halloween Edition 2026.","Verliehen:":"Awarded:"
+});
+
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
    Login nur mit Benutzername: intern eine Pseudo-Adresse aus dem Namens-Hash, das Passwort wird vorher gehasht. */
@@ -10894,11 +10963,11 @@ async function clMyTitle(){if(!CL.sess||!CL.sess.uid)return;const uid=CL.sess.ui
   if(ch){if(typeof clDirty==="function")clDirty();ttRefresh();}}
 function ttRefresh(){try{if($("modal").classList.contains("show")&&$("mbox").querySelector(".cdWrap"))cardModal(CARD_TAB);}catch(e){}}
 /* nach Anmeldung (Spielstand ist abgeglichen und geladen) */
-function clAfterLogin(){try{clMyTitle();clGifts(true);if(typeof socStart==="function")socStart();}catch(e){}}
+function clAfterLogin(){try{clMyTitle();clGifts(true);evLoad(true);clBadgeGifts(true);if(typeof socStart==="function")socStart();}catch(e){}}
 /* Online-Status + Version (fürs Admin-Panel) */
 async function clPing(){if(!CL.sess||document.visibilityState==="hidden")return;if(!(await clReady()))return;clFetch("/rest/v1/rpc/ping",{method:"POST",body:{v:GAME_VER},timeout:6000});}
 setInterval(()=>{try{clPing();}catch(e){}},60000);setInterval(()=>{try{clConfig();}catch(e){}},300000);
-(()=>{const _ss=showScreen;showScreen=function(nm){const r=_ss.apply(this,arguments);try{motdShow();clConfig();if(nm==="menu")setTimeout(()=>{giftShow();clGifts();},700);}catch(e){}return r;};
+(()=>{const _ss=showScreen;showScreen=function(nm){const r=_ss.apply(this,arguments);try{motdShow();clConfig();if(nm==="menu")setTimeout(()=>{giftShow();clGifts();evLoad();clBadgeGifts();},700);}catch(e){}return r;};
   const _cm=closeModal;closeModal=function(){const r=_cm.apply(this,arguments);if(GIFT.q.length)setTimeout(giftShow,350);return r;};
   const _cd=cardModal;cardModal=function(){const r=_cd.apply(this,arguments);try{if(CL.sess&&Date.now()-TT.t>120000)clMyTitle();}catch(e){}return r;};
   const _hs=hideScreens;hideScreens=function(){const r=_hs.apply(this,arguments);const el=$("motd");if(el)el.remove();return r;};})();
@@ -10917,15 +10986,46 @@ function giftApply(){if(!USER||!META)return;const k=giftKey(USER),L=LS.get(k,nul
     const Ln=SPECIES[id].line;let nu=false;if(Ln&&!Ln.start&&!META.unlocked.includes(Ln.k)){META.unlocked.push(Ln.k);nu=true;}
     got.push({id,sh,msg:String(g.msg||g.note||"").slice(0,120),nu});}
   saveMeta();LS.del(k);if(got.length){GIFT.q.push(...got);giftShow();}}
-function giftShow(){if(!GIFT.q.length||!USER)return;const free=$("menu").classList.contains("show")&&!$("modal").classList.contains("show")&&!(typeof ADM!=="undefined"&&ADM.sess);
+function giftShow(){if(!GIFT.q.length||(!USER&&GIFT.q[0].type!=="ev"))return;const free=$("menu").classList.contains("show")&&!$("modal").classList.contains("show")&&!(typeof ADM!=="undefined"&&ADM.sess);
   if(!free){if(!GIFT.note&&!$("menu").classList.contains("show")){GIFT.note=1;toast("Du hast ein Geschenk bekommen – im Menü wartet es auf dich!","star");}return;}
-  GIFT.note=0;const g=GIFT.q.shift();if(g.type==="reply")return repShow(g);const sp=SPECIES[g.id],R=REGIONS[(sp.line&&sp.line.region)||"kanto"];
+  GIFT.note=0;const g=GIFT.q.shift();if(g.type==="reply")return repShow(g);if(g.type==="ev")return evShow(g);const sp=SPECIES[g.id],R=REGIONS[(sp.line&&sp.line.region)||"kanto"];
   openModal(`<div class="giftBox"><i class="giftRays"></i><small class="giftK">${ic("star")} GESCHENK FÜR DICH</small><div class="giftMon" id="giftMon"></div>
     <h2>${esc(sp.name)}${g.sh?` <span class="giftSh">${ic("shiny")} schillernd</span>`:""}</h2>
     ${g.msg?`<p class="giftMsg">„${esc(g.msg)}“</p>`:""}<p class="lead">Steht jetzt in deinem Pokédex und ist als Lieblingspokémon wählbar.${g.nu&&R?` Ab sofort kann es dir auch in ${esc(R.n)}-Läufen im Laden begegnen.`:""}</p>
     <div class="rbtns"><button class="pri" id="giftFav">${ic("heart")} Als Lieblingspokémon</button><button class="btn" id="giftOk">Super!</button></div></div>`,"narrow",true);
   try{$("giftMon").appendChild(sprAlign(natFit(spriteEl(g.id,"",{shiny:g.sh}),1),false));}catch(e){}try{sfx("sparkle");}catch(e){}
   $("giftOk").onclick=closeModal;$("giftFav").onclick=()=>{try{META.card=META.card||{};META.card.fav=g.id;META.card.favSh=g.sh?1:0;saveMeta();toast(`${sp.name} ist jetzt dein Lieblingspokémon`,"heart");}catch(e){}closeModal();};}
+/* ===== Geschenke an alle (Titel, Hintergründe): öffentliche Liste, jedes Geschenk einmal pro Spielstand ===== */
+const EVG={list:null,t:0,busy:false},EVG_KEY="pokelings_evg";
+function evList(){if(EVG.list)return EVG.list;try{EVG.list=LS.get(EVG_KEY,null)||[];}catch(e){EVG.list=[];}return EVG.list;}
+/* Effekt eines geschenkten Titels (auch für fremde Karten in der Bestenliste) */
+function evTitleStyle(t){const g=evList().find(x=>x&&x.kind==="title"&&x.val===t);return g&&TITLE_FX[g.style]?g.style:null;}
+async function evLoad(force){if(EVG.busy)return;if(!force&&Date.now()-EVG.t<120000){evApply();return;}EVG.busy=true;EVG.t=Date.now();
+  try{const r=await clFetch("/rest/v1/rpc/event_gifts_list",{method:"POST",auth:false,body:{},timeout:8000});if(r.ok&&Array.isArray(r.j)){EVG.list=r.j;LS.set(EVG_KEY,r.j);}}catch(e){}finally{EVG.busy=false;}evApply();}
+function evApply(){if(!META)return;const E=META.ev=META.ev||{got:[],bg:[],tt:[]};E.got=E.got||[];E.bg=E.bg||[];E.tt=E.tt||[];const nw=[];
+  for(const g of evList()){if(!g||!g.active||E.got.includes(g.id))continue;
+    if(g.kind==="bg"){if(!CARD_BG[g.val])continue;E.got.push(g.id);if(!E.bg.includes(g.val))E.bg.push(g.val);nw.push({type:"ev",kind:"bg",val:g.val,msg:g.note||""});}
+    else if(g.kind==="title"){const t=String(g.val||"").replace(/[<>]/g,"").slice(0,24);if(!t)continue;E.got.push(g.id);if(!E.tt.some(x=>x.t===t))E.tt.push({t,s:TITLE_FX[g.style]?g.style:null});nw.push({type:"ev",kind:"title",val:t,style:g.style,msg:g.note||""});}}
+  if(nw.length){saveMeta();GIFT.q.push(...nw);giftShow();}}
+/* Verliehene Abzeichen (nur Online-Konto): Serverstand ist maßgeblich, Anzeige nur auf der Trainerkarte */
+const BGT={t:0,busy:false};
+async function clBadgeGifts(force){if(BGT.busy||!CL.sess||!USER||userKey(USER)!==userKey(CL.sess.name)||!META||CL.syncing)return;if(!force&&Date.now()-BGT.t<120000)return;BGT.t=Date.now();BGT.busy=true;
+  try{if(!(await clReady()))return;const r=await clFetch("/rest/v1/rpc/badge_mine",{method:"POST",body:{},timeout:8000});if(!r.ok||!Array.isArray(r.j))return;
+    const m={};for(const x of r.j)if(x&&typeof x.badge==="string"&&badgeDef(x.badge))m[x.badge]=Math.max(1,Math.min(5,x.tier|0));
+    const old=META.bgift||{};if(JSON.stringify(old)===JSON.stringify(m))return;const add=Object.keys(m).filter(k=>(old[k]||0)<m[k]);
+    META.bgift=m;if(META.card&&Array.isArray(META.card.badges))META.card.badges=META.card.badges.filter(id=>{const d=badgeDef(id);return d&&badgeShowT(d)>0;});saveMeta();
+    for(const k of add)GIFT.q.push({type:"ev",kind:"badge",val:k,tier:m[k]});giftShow();}finally{BGT.busy=false;}}
+function evShow(g){const box=(k,inner,h,lead,useTxt)=>{openModal(`<div class="giftBox evGift"><i class="giftRays"></i><small class="giftK">${ic("star")} ${k}</small>${inner}<h2>${h}</h2>${g.msg?`<p class="giftMsg">„${esc(g.msg)}“</p>`:""}<p class="lead">${lead}</p>
+    <div class="rbtns"><button class="pri" id="evUse">${ic("user")} ${useTxt}</button><button class="btn" id="evOk">Super!</button></div></div>`,"narrow",true);try{sfx("sparkle");}catch(e){}$("evOk").onclick=next;};
+  const next=()=>{closeModal();if(GIFT.q.length)setTimeout(giftShow,350);};
+  try{META.card=META.card||{};const C=META.card;
+    if(g.kind==="bg"){const b=CARD_BG[g.val];if(!b)return giftShow();box("NEUER HINTERGRUND",`<div class="evBg">${bgHTML(g.val)}${b.ed?`<em class="evEd">${esc(b.ed)}</em>`:""}</div>`,esc(b.n),"Ein neuer Hintergrund für deine Trainerkarte. Du findest ihn unter Trainerkarte → Stil.","Gleich verwenden");
+      $("evUse").onclick=()=>{C.bg=g.val;saveMeta();next();toast(`Hintergrund „${b.n}“ ist jetzt auf deiner Karte`,"star");};}
+    else if(g.kind==="title"){box("NEUER TITEL",`<div class="evTitle"><span${ttCls(TITLE_FX[g.style]?g.style:null)}>${esc(g.val)}</span></div>`,"Titel für deine Trainerkarte","Er steht ab jetzt in deiner Titel-Auswahl unter Trainerkarte → Stil.","Gleich verwenden");
+      $("evUse").onclick=()=>{C.title=g.val;saveMeta();next();toast(`Titel „${g.val}“ ist jetzt auf deiner Karte`,"crown");};}
+    else if(g.kind==="badge"){const d=badgeDef(g.val);if(!d)return giftShow();box("ABZEICHEN VERLIEHEN",`<div class="evBadge">${badgeHTML(g.val,g.tier)}</div>`,`${esc(d.n)} · ${TIER[g.tier].n}`,"Dir wurde ein Abzeichen verliehen. Leg es unter Trainerkarte → Abzeichen in eines der 3 Felder.","Auf die Karte legen");
+      cardHydrate($("mbox"));$("evUse").onclick=()=>{C.badges=(C.badges||[]).filter(x=>x!==g.val);if(C.badges.length>=3)C.badges.shift();C.badges.push(g.val);saveMeta();next();toast(`${d.n} liegt jetzt auf deiner Karte`,"badge");};}
+    hydrateIcons($("mbox"));}catch(e){}}
 /* ===== Feedback an den Entwickler (nur mit Online-Konto) + Antworten im Spiel ===== */
 const FB={kind:"bug"};
 const FB_KINDS=[["bug","skull","Fehler"],["idee","star","Idee"],["lob","heart","Lob"],["sonst","chat","Sonstiges"]];
@@ -11143,6 +11243,7 @@ end $$;
 
 ${admSQL3()}
 ${admSQL4()}
+${admSQL5()}
 revoke all on function public.adm_log(text,text,text) from public, anon, authenticated;
 revoke all on function public.adm_name(uuid) from public, anon, authenticated;
 do $$ declare f text; begin
@@ -11487,6 +11588,61 @@ end $$;
 revoke all on function public.ranked_board() from public;
 grant execute on function public.ranked_board() to anon, authenticated;
 notify pgrst, 'reload schema';`;}
+/* v1.0.5: Geschenke an alle (Titel, Hintergründe) + verliehene Abzeichen je Spieler */
+function admSQL5(){return `-- v1.0.5: Geschenke an alle (Titel, Hintergründe) und verliehene Abzeichen (kann gefahrlos mehrfach laufen)
+create table if not exists public.event_gifts(id bigserial primary key,kind text not null,val text not null,style text,note text,at timestamptz not null default now(),active boolean not null default true);
+alter table public.event_gifts enable row level security;
+revoke all on public.event_gifts from anon, authenticated;
+create or replace function public.event_gifts_list() returns table(id bigint,kind text,val text,style text,note text,active boolean,at timestamptz) language sql security definer stable set search_path=public as $$
+  select e.id,e.kind,e.val,e.style,e.note,e.active,e.at from public.event_gifts e order by e.id $$;
+create or replace function public.admin_event_gift(gkind text,gval text,gstyle text,gnote text) returns bigint language plpgsql security definer set search_path=public,auth as $$
+declare i bigint;
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  if gkind is null or gkind not in ('title','bg') then raise exception 'kind_invalid'; end if;
+  if gval is null or length(btrim(gval))<1 or length(btrim(gval))>24 then raise exception 'val_invalid'; end if;
+  if exists(select 1 from public.event_gifts e where e.kind=gkind and e.val=btrim(gval) and e.active) then raise exception 'already_active'; end if;
+  insert into public.event_gifts(kind,val,style,note) values(gkind,btrim(gval),nullif(btrim(coalesce(gstyle,'')),''),left(coalesce(gnote,''),120)) returning id into i;
+  perform public.adm_log(case when gkind='title' then 'Titel an alle' else 'Hintergrund an alle' end,'alle',btrim(gval)||coalesce(' · '||nullif(btrim(coalesce(gstyle,'')),''),''));
+  return i;
+end $$;
+create or replace function public.admin_event_gift_off(gid bigint) returns void language plpgsql security definer set search_path=public,auth as $$
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  update public.event_gifts set active=false where id=gid;
+  perform public.adm_log('Geschenk an alle beendet','alle','#'||gid);
+end $$;
+create table if not exists public.badge_gifts(uid uuid not null references auth.users(id) on delete cascade,badge text not null,tier integer not null,at timestamptz not null default now(),primary key(uid,badge));
+alter table public.badge_gifts enable row level security;
+revoke all on public.badge_gifts from anon, authenticated;
+create or replace function public.admin_badge(target uuid,bid text,btier integer) returns void language plpgsql security definer set search_path=public,auth as $$
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  if target is null or bid is null or length(bid)<2 or length(bid)>40 then raise exception 'invalid'; end if;
+  if coalesce(btier,0)<=0 then
+    delete from public.badge_gifts where uid=target and badge=bid;
+    perform public.adm_log('Abzeichen entfernt',public.adm_name(target),bid);
+  else
+    insert into public.badge_gifts(uid,badge,tier) values(target,bid,least(5,btier)) on conflict(uid,badge) do update set tier=excluded.tier,at=now();
+    perform public.adm_log('Abzeichen verliehen',public.adm_name(target),bid||' · Stufe '||least(5,btier));
+  end if;
+end $$;
+create or replace function public.admin_badge_list(target uuid) returns table(badge text,tier integer) language plpgsql security definer stable set search_path=public as $$
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  return query select b.badge,b.tier from public.badge_gifts b where b.uid=target order by b.at;
+end $$;
+create or replace function public.badge_mine() returns table(badge text,tier integer) language sql security definer stable set search_path=public as $$
+  select b.badge,b.tier from public.badge_gifts b where b.uid=auth.uid() $$;
+revoke all on function public.event_gifts_list() from public;
+grant execute on function public.event_gifts_list() to anon, authenticated;
+do $$ declare f text; begin
+  foreach f in array array['admin_event_gift(text,text,text,text)','admin_event_gift_off(bigint)','admin_badge(uuid,text,integer)','admin_badge_list(uuid)','badge_mine()'] loop
+    execute 'revoke all on function public.'||f||' from public, anon';
+    execute 'grant execute on function public.'||f||' to authenticated';
+  end loop;
+end $$;
+notify pgrst, 'reload schema';`;}
 /* Anfragen als Admin */
 async function admRpc(fn,body){const s=CL.sess;CL.sess=ADM.sess;try{if(Date.now()>ADM.sess.exp-60000){const r=await clFetch("/auth/v1/token?grant_type=refresh_token",{method:"POST",auth:false,body:{refresh_token:ADM.sess.refresh_token}});if(r.ok)ADM.sess=Object.assign({},ADM.sess,{access_token:r.j.access_token,refresh_token:r.j.refresh_token,exp:Date.now()+(r.j.expires_in||3600)*1000});CL.sess=ADM.sess;}
     return await clFetch("/rest/v1/rpc/"+fn,{method:"POST",body:body||{}});}finally{CL.sess=s;}}
@@ -11525,7 +11681,7 @@ async function admLoad(){const B=$("admBody");if(!B)return;B.innerHTML=`<p class
 async function admPlayers(){const B=$("admBody");const r=await admRpc("admin_stats");if(!B||ADM.tab!=="players")return;
   if(!r.ok){B.innerHTML=admWarn(r);hydrateIcons(B);return;}ADM.stats=r.j||{};const s=ADM.stats,t=(icn,l,v,c)=>`<div class="admTile" style="--c:${c}">${ic(icn)}<b>${admNum(v)}</b><small>${l}</small></div>`;
   B.innerHTML=`<div class="admStats">${t("users","Konten",s.accounts,"#5cf2ff")+t("bolt","online jetzt",s.online,"#4dffa6")+t("star","neu (7 Tage)",s.new7,"#ffd84a")+t("cal","aktiv heute",s.active1,"#7cc8ff")+t("lock","gesperrt",s.banned,"#ff4d6d")}</div>
-    <div class="admSearch"><input id="admQ" placeholder="Spielername suchen …" maxlength="16" autocomplete="off" value="${esc(ADM.q)}"><span id="admCount"></span><button class="btn sm" id="admGiftAll">${ic("ball")} Pokémon an alle</button></div>
+    <div class="admSearch"><input id="admQ" placeholder="Spielername suchen …" maxlength="16" autocomplete="off" value="${esc(ADM.q)}"><span id="admCount"></span><button class="btn sm" id="admGiftAll">${ic("star")} Geschenke an alle</button></div>
     <div id="admList" class="admList"></div>
     <p class="admNote">Nur Online-Konten sind sichtbar. Gast-Spielstände und reine Offline-Konten liegen nur auf dem Gerät des Spielers. „Online" = in den letzten 3 Minuten im Spiel.</p>`;
   hydrateIcons(B);$("admGiftAll").onclick=()=>admGrant(null,"mon");let tm=0;$("admQ").addEventListener("input",e=>{clearTimeout(tm);tm=setTimeout(()=>{ADM.q=e.target.value.trim();admLoadList();},300);});admLoadList();}
@@ -11535,17 +11691,68 @@ async function admLoadList(){const L=$("admList");if(!L)return;L.innerHTML=`<p c
     return `<tr class="${bn?"ban":""}"><td><b>${esc(a.name)}</b>${a.title?`<div class="admTT">${admTT(a.title,a.title_style)}</div>`:""}</td>
     <td>${bn?`<span class="admSt ban" title="${esc(a.ban_reason||"")}">${ic("lock")} gesperrt</span>`:on?`<span class="admSt on">● online</span>`:`<span class="admSt">${admAgo(a.seen||a.updated_at||a.last_sign_in_at)}</span>`}</td>
     <td>${a.ver?`<span class="admVer${verNum(a.ver)<verNum(GAME_VER)?" old":""}">v${esc(a.ver)}</span>`:"–"}</td><td>${admFmt(a.created_at)}</td><td>${admFmt(a.seen||a.updated_at||a.last_sign_in_at)}</td><td>${admNum(a.games)}</td><td>${admNum(a.score)}</td>
-    <td class="admAct"><button class="btn sm" data-rn="${i}" title="Umbenennen">${ic("user")}</button><button class="btn sm" data-tt="${i}" title="Vergabe: Titel und Pokémon">${ic("crown")}</button><button class="btn sm" data-pw="${i}" title="Neues Passwort setzen">${ic("lock")}</button><button class="btn sm${bn?" on":""}" data-ban="${i}" title="${bn?"Entsperren":"Sperren"}">${ic(bn?"check":"close")}</button><button class="btn sm" data-bd="${i}" title="Aus der Bestenliste entfernen">${ic("trophy")}</button><button class="btn sm danger" data-del="${i}" title="Konto löschen">${ic("trash")}</button></td></tr>`;}).join("")}</tbody></table>`:`<p class="empty">Keine Konten gefunden.</p>`;
+    <td class="admAct"><button class="btn sm" data-rn="${i}" title="Umbenennen">${ic("user")}</button><button class="btn sm" data-tt="${i}" title="Vergabe: Titel, Pokémon und Abzeichen">${ic("crown")}</button><button class="btn sm" data-pw="${i}" title="Neues Passwort setzen">${ic("lock")}</button><button class="btn sm${bn?" on":""}" data-ban="${i}" title="${bn?"Entsperren":"Sperren"}">${ic(bn?"check":"close")}</button><button class="btn sm" data-bd="${i}" title="Aus der Bestenliste entfernen">${ic("trophy")}</button><button class="btn sm danger" data-del="${i}" title="Konto löschen">${ic("trash")}</button></td></tr>`;}).join("")}</tbody></table>`:`<p class="empty">Keine Konten gefunden.</p>`;
   hydrateIcons(L);const A=k=>ADM.list[+k];
   L.querySelectorAll("[data-rn]").forEach(b=>b.onclick=()=>admRename(A(b.dataset.rn)));L.querySelectorAll("[data-tt]").forEach(b=>b.onclick=()=>admGrant(A(b.dataset.tt),"title"));L.querySelectorAll("[data-pw]").forEach(b=>b.onclick=()=>admPw(A(b.dataset.pw)));
   L.querySelectorAll("[data-ban]").forEach(b=>b.onclick=()=>admBan(A(b.dataset.ban)));L.querySelectorAll("[data-bd]").forEach(b=>b.onclick=()=>admBoardDel(A(b.dataset.bd)));L.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>admDel(A(b.dataset.del)));}
 /* Vergabe: Titel (mit Schrift-Effekt) und Pokémon in einem Dialog. Pokémon nur, wenn der Spieler es noch nicht hat und nicht im Labor gekauft hat. */
-function admGrant(a,tab){tab=a?(tab||"title"):"mon";
+function admGrant(a,tab){tab=tab||(a?"title":"mon");const T=a?[["title","crown","TITEL"],["mon","ball","POKÉMON"],["badge","badge","ABZEICHEN"]]:[["mon","ball","POKÉMON"],["etitle","crown","TITEL"],["ebg","star","HINTERGRUND"]];
   openModal(`<h2>${ic("crown")} VERGABE${a?` · ${esc(a.name)}`:" · ALLE SPIELER"}</h2>
-   ${a?`<div class="dtabs admGTabs"><button data-gt="title" class="${tab==="title"?"on":""}">${ic("crown")} TITEL</button><button data-gt="mon" class="${tab==="mon"?"on":""}">${ic("ball")} POKÉMON</button></div>`:""}<div id="admGB"></div>`,"",true);
+   <div class="dtabs admGTabs">${T.map(([k,i,n])=>`<button data-gt="${k}" class="${tab===k?"on":""}">${ic(i)} ${n}</button>`).join("")}</div><div id="admGB"></div>`,"",true);
   $("mbox").querySelectorAll("[data-gt]").forEach(b=>b.onclick=()=>{$("mbox").querySelectorAll("[data-gt]").forEach(x=>x.classList.toggle("on",x===b));admGrantBody(a,b.dataset.gt);});
   admGrantBody(a,tab);}
-function admGrantBody(a,tab){const B=$("admGB");if(!B)return;if(tab==="title")return admTitleBody(a,B);return admGiftBody(a,B);}
+function admGrantBody(a,tab){const B=$("admGB");if(!B)return;if(tab==="etitle")return admEvTitleBody(B);if(tab==="ebg")return admEvBgBody(B);if(tab==="badge"&&a)return admBadgeBody(a,B);if(tab==="title"&&a)return admTitleBody(a,B);return admGiftBody(a,B);}
+/* ---------- Geschenke an alle: Titel und Hintergründe ---------- */
+function admEvErr(r){const t=JSON.stringify((r&&r.j)||"");return /already_active/.test(t)?"Dieses Geschenk ist schon aktiv.":/val_invalid/.test(t)?"Bitte 1 bis 24 Zeichen.":/function|schema|event_gift/i.test(t)?"Auf dem Server fehlt noch das Update: unter <b>Server-Setup</b> den Code ausführen.":"Fehlgeschlagen: "+admErr(r);}
+async function admEvList(el){if(!el)return;const r=await clFetch("/rest/v1/rpc/event_gifts_list",{method:"POST",auth:false,body:{},timeout:8000});if(!el.isConnected)return;
+  if(!r.ok||!Array.isArray(r.j)){el.innerHTML=`<p class="admNote">${admEvErr(r)}</p>`;return;}const L=r.j.slice().reverse();
+  el.innerHTML=L.length?L.map(g=>`<div class="admTRow${g.active?"":" off"}">${ic(g.kind==="bg"?"star":"crown")}${g.kind==="bg"?`<b>${esc((CARD_BG[g.val]||{n:g.val}).n)}</b><small>Hintergrund</small>`:`${admTT(g.val,g.style)}<small>Titel</small>`}<small>${admFmt(g.at)}${g.active?"":" · beendet"}</small><span style="flex:1"></span>${g.active?`<button class="btn sm danger" data-evoff="${g.id}" title="Nicht mehr an neue Spieler verteilen (wer es hat, behält es)">${ic("close")} Beenden</button>`:""}</div>`).join(""):`<p class="admNote">Noch keine Geschenke an alle.</p>`;hydrateIcons(el);
+  el.querySelectorAll("[data-evoff]").forEach(b=>b.onclick=async()=>{if(b.dataset.ok!=="1"){b.dataset.ok="1";b.innerHTML=ic("close")+" Sicher?";hydrateIcons(b);return;}const r2=await admRpc("admin_event_gift_off",{gid:+b.dataset.evoff});if(!r2.ok){toast("Fehlgeschlagen: "+admErr(r2),"close");return;}toast("Geschenk beendet","check");admEvList(el);});}
+function admEvTitleBody(B){let sty="geist";
+  B.innerHTML=`<div class="lead">Der Titel landet bei allen Spielern in der Titel-Auswahl ihrer Trainerkarte, mit Effekt. Neue Spieler bekommen ihn, solange das Geschenk aktiv ist. Beim nächsten Spielstart erscheint ein Geschenk-Fenster.</div>
+   <label class="fld" style="margin-top:6px">TITEL (max. 24 Zeichen)<input id="admEt" maxlength="24" autocomplete="off" placeholder="z. B. Halloween 2026"></label>
+   <div class="admFx">${Object.entries(TITLE_FX).map(([k,n])=>`<button class="admFxB${k===sty?" on":""}" data-fx="${k}"><span class="tt tt-${k}">${n}</span></button>`).join("")}</div>
+   <div class="admPrev"><small>Vorschau</small><span id="admEp"></span></div>
+   <label class="fld">NACHRICHT IM GESCHENK-FENSTER (optional)<input id="admEn" maxlength="120" autocomplete="off" placeholder="z. B. Fröhliches Halloween!"></label><div class="aerr" id="admEe"></div>
+   <div class="rbtns" style="margin-top:10px"><button class="pri" id="admEg">${ic("star")} An alle verschenken</button><button class="btn" id="admEx">Schließen</button></div>
+   <h4 class="cdCat">Geschenke an alle</h4><div class="admTList" id="admEl"><p class="admNote">Lade …</p></div>`;hydrateIcons(B);
+  const prev=()=>{$("admEp").innerHTML=admTT($("admEt").value.trim()||"Titel",sty);};prev();$("admEt").oninput=prev;
+  B.querySelectorAll("[data-fx]").forEach(b=>b.onclick=()=>{sty=b.dataset.fx;B.querySelectorAll("[data-fx]").forEach(x=>x.classList.toggle("on",x===b));prev();});$("admEx").onclick=closeModal;
+  $("admEg").onclick=async()=>{const v=$("admEt").value.trim().replace(/[<>]/g,"");if(!v){$("admEe").textContent="Bitte einen Titel eingeben.";return;}const r=await admRpc("admin_event_gift",{gkind:"title",gval:v,gstyle:sty,gnote:$("admEn").value.trim()});
+    if(!r.ok){$("admEe").innerHTML=admEvErr(r);return;}toast(`Titel „${v}“ an alle verschenkt`,"crown");$("admEt").value="";prev();admEvList($("admEl"));};
+  admEvList($("admEl"));}
+function admEvBgBody(B){const keys=Object.keys(CARD_BG).filter(k=>k!=="std");let sel=keys.find(k=>CARD_BG[k].gift)||keys[0];
+  B.innerHTML=`<div class="lead">Der Hintergrund wird bei allen Spielern freigeschaltet. Geschenk-Hintergründe (Edition) gibt es nur so. Neue Spieler bekommen ihn, solange das Geschenk aktiv ist.</div>
+   <div class="admBgs">${keys.map(k=>{const b=CARD_BG[k];return `<button class="cdBg${k===sel?" on":""}" data-ebg="${k}"><i class="bgThumb">${bgHTML(k)}${b.gift?`<em class="cdEd">${esc(b.ed||"Edition")}</em>`:""}</i><b>${esc(b.n)}</b><small>${esc(b.gift?"nur als Geschenk":b.ld||"")}</small></button>`;}).join("")}</div>
+   <label class="fld" style="margin-top:8px">NACHRICHT IM GESCHENK-FENSTER (optional)<input id="admEn" maxlength="120" autocomplete="off" placeholder="z. B. Fröhliches Halloween!"></label><div class="aerr" id="admEe"></div>
+   <div class="rbtns" style="margin-top:10px"><button class="pri" id="admEg">${ic("star")} An alle verschenken</button><button class="btn" id="admEx">Schließen</button></div>
+   <h4 class="cdCat">Geschenke an alle</h4><div class="admTList" id="admEl"><p class="admNote">Lade …</p></div>`;hydrateIcons(B);
+  B.querySelectorAll("[data-ebg]").forEach(b=>b.onclick=()=>{sel=b.dataset.ebg;B.querySelectorAll("[data-ebg]").forEach(x=>x.classList.toggle("on",x===b));});$("admEx").onclick=closeModal;
+  $("admEg").onclick=async()=>{const r=await admRpc("admin_event_gift",{gkind:"bg",gval:sel,gstyle:"",gnote:$("admEn").value.trim()});if(!r.ok){$("admEe").innerHTML=admEvErr(r);return;}toast(`Hintergrund „${CARD_BG[sel].n}“ an alle verschenkt`,"star");admEvList($("admEl"));};
+  admEvList($("admEl"));}
+/* ---------- Abzeichen verleihen (je Spieler, nur Anzeige auf der Trainerkarte) ---------- */
+function admBadgeBody(a,B){let sel="p_mimigma",tier=5,q="";
+  const all=[...BADGE_FIX.map(b=>b.id),...Object.keys(TYPES).map(t=>"t_"+t),...LINES.map(L=>"p_"+L.k)].map(id=>badgeDef(id)).filter(Boolean);
+  B.innerHTML=`<div class="lead">Verleiht ein Abzeichen auf einer festen Stufe. Es erscheint auf der Trainerkarte des Spielers (VS-Bildschirm, Bestenliste), zählt aber nicht für Erfolge, Titel oder Hintergründe.</div>
+   <div class="admQuick"><button class="btn sm" id="admBqM">${ic("ghost")} Mimigma · Mythisch</button></div>
+   <div class="favBar"><input id="admBq" placeholder="Abzeichen suchen (z. B. Mimigma, Champion, Feuer) …" maxlength="24" autocomplete="off"></div><div class="admBGrid" id="admBg"></div>
+   <div class="admTiers">${[1,2,3,4,5].map(t=>`<button class="admTierB${t===tier?" on":""}" data-tr="${t}" style="--bc:${TIER[t].c}">${ROMAN[t]} · ${TIER[t].n}</button>`).join("")}</div>
+   <div class="admPrev admBPrev"><small>Vorschau</small><span id="admBp"></span></div><div class="aerr" id="admBe"></div>
+   <div class="rbtns" style="margin-top:10px"><button class="pri" id="admBgo">${ic("check")} Verleihen</button><button class="btn" id="admBx">Schließen</button></div>
+   <h4 class="cdCat">Verliehene Abzeichen von ${esc(a.name)}</h4><div class="admTList" id="admBl"><p class="admNote">Lade …</p></div>`;hydrateIcons(B);
+  const prev=()=>{const d=badgeDef(sel);$("admBp").innerHTML=d?`${badgeHTML(sel,tier)}<b>${esc(d.n)}</b><small>${TIER[tier].n}</small>`:"";cardHydrate($("admBp"));};
+  const grid=()=>{const ql=q.toLowerCase();const L=all.filter(d=>!ql||d.n.toLowerCase().includes(ql)||d.id.toLowerCase().includes(ql)).slice(0,48);
+    $("admBg").innerHTML=L.map(d=>`<button class="admBItem${d.id===sel?" on":""}" data-bid="${esc(d.id)}">${badgeHTML(d.id,tier,"sm")}<span>${esc(d.n.replace(/^Partner: /,""))}</span></button>`).join("")||`<p class="admNote">Nichts gefunden.</p>`;cardHydrate($("admBg"));
+    $("admBg").querySelectorAll("[data-bid]").forEach(b=>b.onclick=()=>{sel=b.dataset.bid;$("admBg").querySelectorAll("[data-bid]").forEach(x=>x.classList.toggle("on",x===b));prev();});};
+  const setT=t=>{tier=t;B.querySelectorAll("[data-tr]").forEach(x=>x.classList.toggle("on",+x.dataset.tr===t));grid();prev();};
+  B.querySelectorAll("[data-tr]").forEach(b=>b.onclick=()=>setT(+b.dataset.tr));
+  let tm=0;$("admBq").oninput=e=>{clearTimeout(tm);tm=setTimeout(()=>{q=e.target.value.trim();grid();},180);};
+  $("admBqM").onclick=()=>{sel="p_mimigma";q="Mimigma";$("admBq").value=q;setT(5);};$("admBx").onclick=closeModal;
+  const list=async()=>{const el=$("admBl");if(!el)return;const r=await admRpc("admin_badge_list",{target:a.id});if(!el.isConnected)return;if(!r.ok){el.innerHTML=`<p class="admNote">${admEvErr(r)}</p>`;return;}const L=Array.isArray(r.j)?r.j:[];
+    el.innerHTML=L.length?L.map(x=>{const d=badgeDef(x.badge);return `<div class="admTRow admBRow">${badgeHTML(x.badge,x.tier,"sm")}<b>${esc(d?d.n:x.badge)}</b><small>${TIER[x.tier]?TIER[x.tier].n:""}</small><span style="flex:1"></span><button class="btn sm danger" data-brm="${esc(x.badge)}">${ic("trash")}</button></div>`;}).join(""):`<p class="admNote">Noch keine verliehenen Abzeichen.</p>`;cardHydrate(el);hydrateIcons(el);
+    el.querySelectorAll("[data-brm]").forEach(b=>b.onclick=async()=>{if(b.dataset.ok!=="1"){b.dataset.ok="1";b.innerHTML=ic("trash")+" Sicher?";hydrateIcons(b);return;}const r2=await admRpc("admin_badge",{target:a.id,bid:b.dataset.brm,btier:0});if(!r2.ok){toast("Fehlgeschlagen: "+admErr(r2),"close");return;}toast("Abzeichen entfernt","trash");list();});};
+  $("admBgo").onclick=async()=>{const r=await admRpc("admin_badge",{target:a.id,bid:sel,btier:tier});if(!r.ok){$("admBe").innerHTML=admEvErr(r);return;}const d=badgeDef(sel);toast(`${d?d.n:sel} (${TIER[tier].n}) an ${a.name} verliehen`,"badge");list();};
+  grid();prev();list();}
 function admTitleBody(a,B){let sty=TITLE_FX[a.title_style]?a.title_style:"chrom";
   B.innerHTML=`<div class="lead">Erscheint auf der Kampfkarte, im VS-Bildschirm und in der Bestenliste und wird beim Spieler automatisch angelegt.</div>
    <div class="admCur${a.title?"":" none"}"><small>Aktuell</small>${a.title?admTT(a.title,a.title_style):`<span>kein Titel</span>`}<span style="flex:1"></span>${a.title?`<button class="btn sm danger" id="admTr">${ic("trash")} Titel löschen</button>`:""}</div>
@@ -11728,14 +11935,20 @@ function badgeDef(id){if(BADGE_BY[id])return BADGE_BY[id];
     return{id,cat:"Partner",n:"Partner: "+last[1],ic:"heart",sp:last[0],d:`Siege mit ${last[1]} (ganze Linie) im Team`,v:()=>L.stages.reduce((a,s)=>a+(((META.dex||{})[s[0]]||{}).wins||0),0),T:[25,100,300,800,2000],t5n:last[1]+"-Legende"};}
   return null;}
 const badgeTier=(b,v)=>{let n=0;for(const t of b.T)if(v>=t)n++;return n;};
+/* Geschenke an alle (Titel, Hintergründe) und verliehene Abzeichen (nur Anzeige auf der Karte, zählen nicht für Erfolge) */
+const evHas=(k,v)=>{try{const E=META&&META.ev;if(!E)return false;return k==="bg"?(E.bg||[]).includes(v):(E.tt||[]).some(t=>t.t===v);}catch(e){return false;}};
+const bGiftT=id=>{try{return Math.max(0,Math.min(5,(((META&&META.bgift)||{})[id])|0));}catch(e){return 0;}};
+const badgeShowT=b=>{if(!b)return 0;let t=0;try{t=badgeState(b).t;}catch(e){}return Math.max(t,bGiftT(b.id));};
 function badgeTierSum(){let s=0;for(const b of BADGE_FIX)if(b.id!=="coll")try{s+=badgeState(b).t;}catch(e){}for(const t in TYPES){const b=badgeDef("t_"+t);s+=badgeState(b).t;}return s;}
 function badgeAll(){const out=[];for(const b of BADGE_FIX)out.push(b);for(const t in TYPES)out.push(badgeDef("t_"+t));
-  const lines=[];for(const L of LINES){const b=badgeDef("p_"+L.k);const v=b.v();if(v>0)lines.push([b,v]);}lines.sort((a,b)=>b[1]-a[1]).slice(0,40).forEach(x=>out.push(x[0]));return out;}
+  const lines=[];for(const L of LINES){const b=badgeDef("p_"+L.k);const v=b.v();if(v>0)lines.push([b,v]);}lines.sort((a,b)=>b[1]-a[1]).slice(0,40).forEach(x=>out.push(x[0]));
+  for(const id in ((META&&META.bgift)||{})){if(!out.some(b=>b.id===id)){const d=badgeDef(id);if(d)out.push(d);}}return out;}
 function badgeState(b){let v=0;try{v=b.v();}catch(e){}let t=badgeTier(b,v),v5=null;const next=b.T[t]||null;
   if(b.v5&&t>=b.T.length){try{v5=b.v5();}catch(e){v5=0;}if(v5>=b.T5)t=b.T.length+1;}return{v,t,next,v5};}
 /* Titel auf Stufe V (Mythisch) */
 const badgeT5n=b=>b.t5n||b.n+"-Legende";
 function titleFxOf(name){if(!name)return null;if(typeof MYTITLE!=="undefined"&&MYTITLE&&MYTITLE.text===name&&TITLE_FX[MYTITLE.style])return MYTITLE.style;
+  try{const et=((META&&META.ev&&META.ev.tt)||[]).find(t=>t.t===name);if(et)return TITLE_FX[et.s]?et.s:null;}catch(e){}
   try{if(badgeAll().some(b=>badgeT5n(b)===name&&badgeState(b).t>=5))return "geist";}catch(e){}return null;}
 /* Medaille als HTML */
 function badgeHTML(id,tier,size){const b=badgeDef(id);if(!b||!tier)return `<div class="bdg empty${size?" "+size:""}"><i></i></div>`;const T=TIER[tier];
@@ -11779,10 +11992,24 @@ const CARD_BG={
  prisma:{n:"Platin-Prisma",html:`<i class="prism"></i><i class="sweep"></i>${_parts("shard",7,i=>`left:${rr(4,84)}%;top:${rr(4,84)}%;--s:${rr(7,14,1)}cqw;--d:${rr(6,11)}s;--dl:-${rr(0,10)}s`)}${_spk(10,4,96,["#ffffff","#e6faff"])}`,lock:()=>badgeAll().filter(b=>badgeState(b).t>=4).length>=5,ld:"5 Abzeichen auf Platin"},
  halle:{n:"Ruhmeshalle",html:`<i class="wall"></i><i class="floor"></i><i class="carpet"></i>${_parts("pillar",6,i=>`left:${[2,18,34,58,74,90][i]}%`)}<i class="spot sp1"></i><i class="spot sp2"></i><i class="glowH"></i>${_ups(14,["#ffe8a0","#fff6d0","#ffd23f"],.4,.9,5,9,4,96,";--o:.85;--g:6px")}`,lock:()=>badgeState(BADGE_BY.champ).t>=5,ld:"Champion V (250 Champion-Titel)"},
  geist:{n:"Geisterreich",html:`<i class="void"></i><i class="runes"></i><i class="runes r2"></i>${_stars(16,0,80,["#d9b3ff","#ffffff"])}<i class="fog f1"></i><i class="fog f2"></i>${_parts("wisp",8,()=>`--x:${rr(4,92)}%;--s:${rr(3,5,1)}cqw;--d:${rr(4,7)}s;--dl:-${rr(0,7)}s;--dx:${rr(-6,6)}cqw`)}${_parts("spirit",4,()=>`--x:${rr(8,80)}%;--s:${rr(10,16,1)}cqw;--d:${rr(8,12)}s;--dl:-${rr(0,12)}s`)}`,lock:()=>badgeAll().some(b=>badgeState(b).t>=5),ld:"1 Abzeichen auf Mythisch"},
- mythos:{n:"Mythos",html:`<i class="neb"></i><i class="aurM a1"></i><i class="aurM a2"></i><i class="rays"></i>${_stars(22,0,100,["#ffffff","#e6c8ff","#ffc8f0"])}<i class="dia"><b class="f1"></b><b class="f2"></b><b class="f3"></b><b class="f4"></b><b class="f5"></b><b class="sh"></b></i>${_ups(14,["#e6c8ff","#ffffff","#c48bff","#ff9ae0"],.4,1,4,7,6,94,";--g:8px")}`,lock:()=>((META.mp||{}).rkBest||0)>=1480||badgeAll().filter(b=>badgeState(b).t>=5).length>=3,ld:"Ranked Mythisch oder 3 Abzeichen auf Mythisch"}};
+ mythos:{n:"Mythos",html:`<i class="neb"></i><i class="aurM a1"></i><i class="aurM a2"></i><i class="rays"></i>${_stars(22,0,100,["#ffffff","#e6c8ff","#ffc8f0"])}<i class="dia"><b class="f1"></b><b class="f2"></b><b class="f3"></b><b class="f4"></b><b class="f5"></b><b class="sh"></b></i>${_ups(14,["#e6c8ff","#ffffff","#c48bff","#ff9ae0"],.4,1,4,7,6,94,";--g:8px")}`,lock:()=>((META.mp||{}).rkBest||0)>=1480||badgeAll().filter(b=>badgeState(b).t>=5).length>=3,ld:"Ranked Mythisch oder 3 Abzeichen auf Mythisch"},
+ /* Geschenk-Hintergründe: nur per Geschenk, im Editor erst sichtbar, wenn man sie hat */
+ halloween:{n:"Kürbisnacht",gift:1,ed:"Halloween 2026",ld:"Geschenk zur Halloween-Edition 2026",html:`<i class="hsky"></i>${_stars(20,0,46,["#fff4d6","#ffd9a0","#e9d6ff"])}<i class="hmoon"><b class="cr c1"></b><b class="cr c2"></b><b class="cr c3"></b></i>
+  <svg class="witch" viewBox="0 0 64 30"><g fill="#120716"><path d="M0 19.5 L9 21 L9 23.2 L0 25.5 L2.2 22.5Z"/><path d="M8 21.4 L58 20.2 L58 21.7 L8 23.1Z"/><path d="M23 21.5 Q24 14 30 12.4 L35 12 Q37 16 36 21.2Z"/><path d="M23.5 20 Q17 15 12.5 17.5 Q18 17.2 22.6 21Z"/><circle cx="33.8" cy="10.2" r="2.7"/><path d="M29.4 8.6 L39.2 8.2 L39.2 9.4 L29.4 9.8Z M31.4 8.6 L36.8 8.4 L35.2 -.2 Q34 3 31.4 8.6Z"/><path d="M35.6 15.2 L42.5 18.6 L42 19.8 L35 16.6Z"/></g></svg>
+  <i class="hcloud c1"></i><i class="hcloud c2"></i>
+  ${[[14,4.6,13,2],[24,3.6,17,9],[9,3,11,5],[32,4,15,13]].map(([y,s,d,dl])=>`<svg class="bat" viewBox="0 0 24 10" style="--y:${y}%;--s:${s}cqw;--d:${d}s;--dl:-${dl}s"><path d="M12 4 Q9 0 6 3 Q3 1 0 4 Q4 4 6 7 Q9 5 12 9 Q15 5 18 7 Q20 4 24 4 Q21 1 18 3 Q15 0 12 4Z" fill="#0c0510"/></svg>`).join("")}
+  ${_sv(`<path d="M0 100 L0 66 Q12 60 26 63 Q40 57 54 60 Q70 55 84 59 Q93 57 100 60 L100 100Z" fill="#241034"/><g fill="#170a22"><path d="M54 62 V49 H67 V62Z"/><path d="M52 50 L60.5 41.5 L69 50Z"/><path d="M65 62 V43 H71 V62Z"/><path d="M64.2 43.6 L68 34 L71.8 43.6Z"/><path d="M57.5 46 V42 H59.2 V44.4Z"/></g><g class="hwin"><rect x="56.2" y="52" width="2.4" height="3" fill="#ffb43a"/><rect x="62.4" y="52" width="2.4" height="3" fill="#ffb43a"/><rect x="67.2" y="45.6" width="1.8" height="2.6" fill="#ffd36a"/><rect x="67.2" y="51" width="1.8" height="2.6" fill="#ffb43a"/></g><path d="M58.8 62 V57.6 Q60.5 56 62.2 57.6 V62Z" fill="#0b0510"/><path d="M0 100 L0 80 Q16 73 34 78 Q52 72 70 77 Q86 73 100 76 L100 100Z" fill="#12081a"/><g fill="#0b0510"><path d="M74 81 V76.4 Q76 73.6 78 76.4 V81Z M81 82 V77.6 Q83.4 74.6 85.8 77.6 V82Z M89 81 V77 Q90.8 74.8 92.6 77 V81Z"/><rect x="95" y="73.6" width="1.4" height="8"/><rect x="93.4" y="75.6" width="4.6" height="1.3"/></g><g stroke="#0b0510" stroke-width=".7"><path d="M66 82 V77 M69 81.6 V76.6 M72 81.4 V76.4 M65 78.4 H73"/></g><path d="M9 82 Q10 66 8 56 Q12 64 13 70 Q15 58 21 50 Q17 60 15.6 70 Q20 64 25 63 Q18 68 15.2 74 Q15 80 16 82Z M8 56 Q4 50 2 51 Q6 52 8.4 57.4Z M21 50 Q24 46 27 46.4 Q23.4 47.6 21.4 50.6Z" fill="#0d0613"/>`)}
+  <svg class="web" viewBox="0 0 30 30"><g stroke="#e8dcff" stroke-width=".35" fill="none" opacity=".55"><path d="M0 0 L30 4 M0 0 L26 14 M0 0 L18 22 M0 0 L8 29 M0 0 L1.5 30"/><path d="M7.4 1 Q6.6 4.6 3.6 6.6 Q2 8.2 1.8 8.2 M14.6 2 Q12.6 9 7.2 13 Q4.4 15.4 3.4 16.2 M21.6 2.9 Q19 13 11 19.4 Q7 23 5.6 24.4"/></g></svg>
+  <i class="spid"><i class="thr"></i><svg viewBox="0 0 20 18"><g fill="#120716"><ellipse cx="10" cy="10" rx="4.2" ry="5"/><circle cx="10" cy="4.6" r="2.6"/><path d="M6 8 Q1 5 0 9 M6 10 Q1 10 0 14 M6.4 12 Q2 14 1.6 18 M14 8 Q19 5 20 9 M14 10 Q19 10 20 14 M13.6 12 Q18 14 18.4 18" stroke="#120716" stroke-width="1.1" fill="none"/></g><circle cx="9" cy="4.2" r=".6" fill="#ff6a2a"/><circle cx="11" cy="4.2" r=".6" fill="#ff6a2a"/></svg></i>
+  ${_parts("hghost",3,i=>`left:${[16,70,44][i]}%;top:${[30,36,46][i]}%;--s:${[11,9,7.5][i]}cqw;--d:${rr(3.4,4.8)}s;--dl:-${rr(0,4)}s;--o:${[.82,.7,.55][i]}`)}
+  <i class="hfog f1"></i><i class="hfog f2"></i>
+  ${_ups(10,["#ffb03a","#ff7a1a","#ffd36a","#c58bff"],.4,.9,4.5,7.5,4,96,";--g:6px;--o:.85")}
+  ${_downs(9,"hleaf",["#e0702a","#c04a1a","#f0a030","#8a3a1a"],1.3,2.2,6,10,";--ar:.72")}
+  <i class="pkglow g1"></i><i class="pkglow g2"></i><i class="pkglow g3"></i><svg class="pk p1" viewBox="0 0 44 38"><ellipse class="pkg" cx="22" cy="23" rx="21" ry="15"/><ellipse cx="11.5" cy="23" rx="10" ry="13.5" fill="#e8650e"/><ellipse cx="32.5" cy="23" rx="10" ry="13.5" fill="#e8650e"/><ellipse cx="22" cy="23" rx="12" ry="14.5" fill="#ff8a1e"/><ellipse cx="22" cy="23" rx="5" ry="14" fill="#ff9d34"/><path d="M8 17 Q11 13 15 14 M29 14 Q34 13 36 17" stroke="#ffb860" stroke-width=".9" fill="none" opacity=".7"/><path d="M21 9.5 Q19.5 4 23.5 1.5 L25.2 3.4 Q22.8 5.4 24 9.5Z" fill="#3f5c22"/><path d="M24 4.5 Q29 2 31 5" stroke="#4f7a2a" stroke-width="1.1" fill="none"/><g class="face"><path d="M10.5 18.5 L17 18.5 L13.8 12.8Z M27 18.5 L33.5 18.5 L30.2 12.8Z M20 22 L24 22 L22 25Z M9.5 26 Q22 36.5 34.5 26 L31.6 27.2 L29.8 30.4 L27.4 27.8 L25 31.4 L22 28.4 L19 31.4 L16.6 27.8 L14.2 30.4 L12.4 27.2Z"/></g></svg><svg class="pk p2" viewBox="0 0 44 38"><ellipse class="pkg" cx="22" cy="23" rx="21" ry="15"/><ellipse cx="11.5" cy="23" rx="10" ry="13.5" fill="#e8650e"/><ellipse cx="32.5" cy="23" rx="10" ry="13.5" fill="#e8650e"/><ellipse cx="22" cy="23" rx="12" ry="14.5" fill="#ff8a1e"/><ellipse cx="22" cy="23" rx="5" ry="14" fill="#ff9d34"/><path d="M8 17 Q11 13 15 14 M29 14 Q34 13 36 17" stroke="#ffb860" stroke-width=".9" fill="none" opacity=".7"/><path d="M21 9.5 Q19.5 4 23.5 1.5 L25.2 3.4 Q22.8 5.4 24 9.5Z" fill="#3f5c22"/><path d="M24 4.5 Q29 2 31 5" stroke="#4f7a2a" stroke-width="1.1" fill="none"/><g class="face"><path d="M10.5 18.5 L17 18.5 L13.8 12.8Z M27 18.5 L33.5 18.5 L30.2 12.8Z M20 22 L24 22 L22 25Z M9.5 26 Q22 36.5 34.5 26 L31.6 27.2 L29.8 30.4 L27.4 27.8 L25 31.4 L22 28.4 L19 31.4 L16.6 27.8 L14.2 30.4 L12.4 27.2Z"/></g></svg><svg class="pk p3" viewBox="0 0 44 38"><ellipse class="pkg" cx="22" cy="23" rx="21" ry="15"/><ellipse cx="11.5" cy="23" rx="10" ry="13.5" fill="#e8650e"/><ellipse cx="32.5" cy="23" rx="10" ry="13.5" fill="#e8650e"/><ellipse cx="22" cy="23" rx="12" ry="14.5" fill="#ff8a1e"/><ellipse cx="22" cy="23" rx="5" ry="14" fill="#ff9d34"/><path d="M8 17 Q11 13 15 14 M29 14 Q34 13 36 17" stroke="#ffb860" stroke-width=".9" fill="none" opacity=".7"/><path d="M21 9.5 Q19.5 4 23.5 1.5 L25.2 3.4 Q22.8 5.4 24 9.5Z" fill="#3f5c22"/><path d="M24 4.5 Q29 2 31 5" stroke="#4f7a2a" stroke-width="1.1" fill="none"/><g class="face"><path d="M10.5 18.5 L17 18.5 L13.8 12.8Z M27 18.5 L33.5 18.5 L30.2 12.8Z M20 22 L24 22 L22 25Z M9.5 26 Q22 36.5 34.5 26 L31.6 27.2 L29.8 30.4 L27.4 27.8 L25 31.4 L22 28.4 L19 31.4 L16.6 27.8 L14.2 30.4 L12.4 27.2Z"/></g></svg>`}};
 function bgHTML(k){const b=CARD_BG[k]||CARD_BG.std;return `<div class="tcBg bg-${CARD_BG[k]?k:"std"}">${b.html}</div>`;}
 /* wofür es den Hintergrund gibt (Tooltip im Karten-Editor und auf Trainerkarten) */
-function bgWhy(k,ok){const b=CARD_BG[k]||CARD_BG.std;if(!b.ld)return "Standard-Hintergrund für alle Trainer.";return (ok===false?"Noch gesperrt. Freischalten: ":"Freigeschaltet für: ")+b.ld;}
+function bgWhy(k,ok){const b=CARD_BG[k]||CARD_BG.std;if(!b.ld)return "Standard-Hintergrund für alle Trainer.";if(b.gift)return b.ld+".";return (ok===false?"Noch gesperrt. Freischalten: ":"Freigeschaltet für: ")+b.ld;}
+const bgOk=k=>{const b=CARD_BG[k];if(!b)return false;if(evHas("bg",k))return true;if(b.gift)return false;if(!b.lock)return true;try{return !!b.lock();}catch(e){return false;}};
 /* Lieblingspokémon statt Trainerfigur (v9.5): frei wählbar aus allen Pokémon, die man je besessen hat */
 const TITLE_FX={chrom:"Chrom",gold:"Gold",regenbogen:"Regenbogen",feuer:"Feuer",eis:"Eis",neon:"Neon",galaxie:"Galaxie",smaragd:"Smaragd",geist:"Geist"};
 let MYTITLE=null; // vom Admin vergebener eigener Titel {text,style}, kommt aus der Cloud (lokal je Konto zwischengespeichert)
@@ -11804,10 +12031,10 @@ function sprAlign(img,flip){if(img&&img.dataset&&img.dataset.spw){img.dataset.al
     img.style.translate=`${(flip?-o.x:o.x).toFixed(2)}% ${o.y.toFixed(2)}%`;}catch(e){}};
   if(img.complete&&img.naturalWidth)go();else img.addEventListener("load",go,{once:true});return img;}
 function favDefault(){const d=(META&&META.dex)||{};let best=0,bw=-1;for(const id of favList()){const w=d[id].wins||0;if(w>bw){bw=w;best=id;}}return best||25;}
-function cardMeta(){META.card=META.card||{};const C=META.card;if(!C.bg||!CARD_BG[C.bg]||(CARD_BG[C.bg].lock&&!(()=>{try{return CARD_BG[C.bg].lock();}catch(e){return false;}})()))C.bg="std";C.badges=(C.badges||[]).filter(id=>badgeDef(id)).slice(0,3);
+function cardMeta(){META.card=META.card||{};const C=META.card;if(!C.bg||!bgOk(C.bg))C.bg="std";C.badges=(C.badges||[]).filter(id=>badgeDef(id)).slice(0,3);
   const d=(META&&META.dex)||{};if(!C.fav||!SPECIES[C.fav]||!(d[C.fav]&&d[C.fav].owned>0)||(isExcl(C.fav)&&!exclOk()))C.fav=favDefault();if(C.favSh&&!(d[C.fav]&&d[C.fav].shiny>0))C.favSh=0;return C;}
-function cardTitles(C){const bs=badgeAll().map(b=>[b,badgeState(b).t]);return [...new Set([C.av==="girl"?"Trainerin":"Trainer",...(MYTITLE&&MYTITLE.text?[MYTITLE.text]:[]),...bs.filter(x=>x[1]>=5).map(x=>badgeT5n(x[0])),...bs.filter(x=>x[1]>=4).map(([b])=>b.n.replace(/^Partner: /,"")+(b.cat==="Partner"?"-Meister":""))])];}
-function cardMine(){const C=cardMeta();if(C.title&&!cardTitles(C).includes(C.title))C.title=null;const b=C.badges.map(id=>{const d=badgeDef(id);return[id,d?badgeState(d).t:0];}).filter(x=>x[1]>0);
+function cardTitles(C){const bs=badgeAll().map(b=>[b,badgeState(b).t]);return [...new Set([C.av==="girl"?"Trainerin":"Trainer",...(MYTITLE&&MYTITLE.text?[MYTITLE.text]:[]),...(((META&&META.ev&&META.ev.tt)||[]).map(t=>t.t)),...bs.filter(x=>x[1]>=5).map(x=>badgeT5n(x[0])),...bs.filter(x=>x[1]>=4).map(([b])=>b.n.replace(/^Partner: /,"")+(b.cat==="Partner"?"-Meister":""))])];}
+function cardMine(){const C=cardMeta();if(C.title&&!cardTitles(C).includes(C.title))C.title=null;const b=C.badges.map(id=>{const d=badgeDef(id);return[id,d?badgeShowT(d):0];}).filter(x=>x[1]>0);
   const title=C.title||(C.av==="girl"?"Trainerin":"Trainer"),ts=titleFxOf(title);
   return{name:USER||mpName&&mpName()||"Gast",fav:C.fav,favSh:C.favSh?1:0,bg:C.bg,title,ts,badges:b,ch:Object.values(META.champs||{}).reduce((a,c)=>a+c,0),dw:(META.mp||{}).duelWins||0,dex:_dex().filter(d=>d.owned>0).length};}
 function cardClean(c){if(!c||typeof c!=="object")return null;const n=v=>Math.max(0,Math.min(1e7,v|0)),fav=+c.fav;
@@ -11830,24 +12057,24 @@ function avatarCheck(){} // Figurwahl entfernt (v9.5)
 let CARD_TAB="badges",FAV_Q="",FAV_N=60,FAV_R="all";
 function favMatches(){const q=FAV_Q.trim().toLowerCase();let L=favList();if(FAV_R!=="all")L=L.filter(id=>favReg(id)===FAV_R);return q?L.filter(id=>SPECIES[id].name.toLowerCase().includes(q)||String(id)===q):L;}
 function cardModal(t){t=t||CARD_TAB;CARD_TAB=t;const C=cardMeta(),me=cardMine();let body="";
-  if(t==="badges"){const all=badgeAll(),cats=["Champion","Kampf","Sammeln","Typen","Partner"];const got=all.filter(b=>badgeState(b).t>0).length;
+  if(t==="badges"){const all=badgeAll(),cats=["Champion","Kampf","Sammeln","Typen","Partner"];const got=all.filter(b=>badgeShowT(b)>0).length;
     body=`<p class="cdHint">Tippe ein freigeschaltetes Abzeichen an, um es in eines der 3 Felder zu legen (nochmal tippen = entfernen). ${got} von ${all.length} Abzeichen freigeschaltet.</p>`+cats.map(cat=>{const L=all.filter(b=>b.cat===cat);if(!L.length)return"";
-      return `<h4 class="cdCat">${cat}</h4><div class="cdGrid">${L.map(b=>{const s=badgeState(b),on=C.badges.includes(b.id),pr=s.next?Math.min(1,s.v/s.next):b.v5&&s.t===4?Math.min(1,(s.v5||0)/b.T5):1;
+      return `<h4 class="cdCat">${cat}</h4><div class="cdGrid">${L.map(b=>{const s0=badgeState(b),gt=bGiftT(b.id),gv=gt>s0.t,s=gv?Object.assign({},s0,{t:gt}):s0,on=C.badges.includes(b.id),pr=gv?1:s.next?Math.min(1,s.v/s.next):b.v5&&s.t===4?Math.min(1,(s.v5||0)/b.T5):1;
         return `<button class="cdB${on?" on":""}${s.t?"":" lock"}" data-b="${b.id}">${badgeHTML(b.id,Math.max(1,s.t),"sm")}${s.t?"":`<span class="cdL">${ic("lock")}</span>`}<div><b>${esc(b.n)} ${s.t?ROMAN[s.t]:""}</b><small>${esc(b.d)}</small>
-          <span class="cdBar"><i style="width:${Math.round(pr*100)}%;background:${s.t?TIER[s.t].c:"#6a7088"}"></i></span><small class="cdN">${Math.floor(s.v).toLocaleString("de-DE")}${s.next?` / ${s.next.toLocaleString("de-DE")} → ${TIER[s.t+1].n}`:b.v5&&s.t===4?` · ${esc(b.d5)}: ${(s.v5||0).toLocaleString("de-DE")} / ${b.T5} → ${TIER[5].n}`:" · MAX"}</small>${s.t>=5?`<small class="cdT5">${ic("ghost")} Titel: <span class="tt tt-geist">${esc(badgeT5n(b))}</span></small>`:""}</div></button>`;}).join("")}</div>`;}).join("");}
+          <span class="cdBar"><i style="width:${Math.round(pr*100)}%;background:${s.t?TIER[s.t].c:"#6a7088"}"></i></span>${gv?`<small class="cdN cdGv">${ic("star")} Verliehen: ${TIER[gt].n}</small>`:`<small class="cdN">${Math.floor(s.v).toLocaleString("de-DE")}${s.next?` / ${s.next.toLocaleString("de-DE")} → ${TIER[s.t+1].n}`:b.v5&&s.t===4?` · ${esc(b.d5)}: ${(s.v5||0).toLocaleString("de-DE")} / ${b.T5} → ${TIER[5].n}`:" · MAX"}</small>${s.t>=5?`<small class="cdT5">${ic("ghost")} Titel: <span class="tt tt-geist">${esc(badgeT5n(b))}</span></small>`:""}`}</div></button>`;}).join("")}</div>`;}).join("");}
   else if(t==="fav"){const all=favList(),d=META.dex||{},rc={};for(const id of all){const r=favReg(id);rc[r]=(rc[r]||0)+1;}if(FAV_R!=="all"&&!rc[FAV_R])FAV_R="all";
     body=`<p class="cdHint">Dein Lieblingspokémon steht auf deiner Kampfkarte, im VS-Bildschirm und in der Bestenliste. Wählbar ist jedes Pokémon, das du schon einmal hattest (${all.length}).</p>
      <div class="favBar"><input id="favQ" placeholder="Pokémon suchen …" maxlength="20" autocomplete="off" value="${esc(FAV_Q)}">${d[C.fav]&&d[C.fav].shiny>0?`<button class="btn sm${C.favSh?" on":""}" id="favSh">${ic("shiny")} Schillernd</button>`:""}</div>
      <div class="favRegs"><button class="${FAV_R==="all"?"on":""}" data-fr="all">Alle <small>${all.length}</small></button>${Object.keys(REGIONS).filter(r=>rc[r]).map(r=>`<button class="${FAV_R===r?"on":""}" data-fr="${r}">${esc(REGIONS[r].n)} <small>${rc[r]}</small></button>`).join("")}</div>
      <div class="favList"></div><div class="rbtns" style="margin-top:8px"><button class="btn sm" id="favMore" style="display:none">${ic("plus")} Mehr anzeigen</button></div>`;}
-  else if(t==="look"){body=`<h4 class="cdCat">Hintergrund</h4><div class="cdBgs">${Object.entries(CARD_BG).map(([k,b])=>{const ok=!b.lock||b.lock();return `<button class="cdBg${C.bg===k?" on":""}${ok?"":" lock"}" data-bg="${k}" data-tn="${esc(b.n)}" data-td="${esc(bgWhy(k,ok))}" data-tk="HINTERGRUND" data-tc="#9fe8ff"><i class="bgThumb">${bgHTML(k)}${ok?`<em class="cdWhy">${ic(b.ld?"trophy":"star")}<span>${esc(b.ld||"Für alle Trainer")}</span></em>`:""}</i><b>${b.n}</b>${ok?"":`<small>${ic("lock")} ${b.ld}</small>`}</button>`;}).join("")}</div>
+  else if(t==="look"){body=`<h4 class="cdCat">Hintergrund</h4><div class="cdBgs">${Object.entries(CARD_BG).filter(([k,b])=>!b.gift||bgOk(k)).map(([k,b])=>{const ok=bgOk(k);return `<button class="cdBg${C.bg===k?" on":""}${ok?"":" lock"}" data-bg="${k}" data-tn="${esc(b.n)}" data-td="${esc(bgWhy(k,ok))}" data-tk="HINTERGRUND" data-tc="#9fe8ff"><i class="bgThumb">${bgHTML(k)}${ok?`<em class="cdWhy">${ic(b.gift?"star":b.ld?"trophy":"star")}<span>${esc(b.ld||"Für alle Trainer")}</span></em>`:""}${b.gift?`<em class="cdEd">${esc(b.ed||"Edition")}</em>`:""}</i><b>${b.n}</b>${ok?"":`<small>${ic("lock")} ${b.ld}</small>`}</button>`;}).join("")}</div>
     <h4 class="cdCat">Titel</h4><div class="cdTitles">${cardTitles(C).map(n=>`<button class="cdT${(C.title||"")===n?" on":""}" data-t="${esc(n)}"><span${ttCls(titleFxOf(n))}>${esc(n)}</span></button>`).join("")}</div><p class="cdHint">Titel gibt es für Abzeichen auf <b>Platin</b>. Auf <b style="color:#c99bff">Mythisch</b> kommt ein eigener Titel im lila Geister-Look dazu.</p>`;}
   openModal(`<h2>${ic("user")} TRAINERKARTE</h2><div class="cdWrap"><div class="cdPrev">${cardHTML(me)}<p class="cdHint" style="text-align:center">So sehen dich Gegner im Live-Duell und in der Bestenliste.</p></div>
     <div class="cdSide"><div class="dtabs"><button data-ct="badges" class="${t==="badges"?"on":""}">ABZEICHEN</button><button data-ct="fav" class="${t==="fav"?"on":""}">LIEBLINGSPOKÉMON</button><button data-ct="look" class="${t==="look"?"on":""}">STIL</button></div><div class="cdBody">${body}</div></div></div>
     <div class="rbtns" style="margin-top:12px"><button class="btn" id="cdFr">${ic("users")} Freunde</button><button class="btn" id="cdBack">${ic("back")} Zurück</button></div>`,"wide",true);
   const mb=$("mbox");cardHydrate(mb);if($("cdFr"))$("cdFr").onclick=()=>{if(typeof friendsModal==="function")friendsModal();};$("cdBack").onclick=()=>{closeModal();if(typeof showMenu==="function"&&$("menu").classList.contains("show"))showMenu();};
   mb.querySelectorAll("[data-ct]").forEach(b=>b.onclick=()=>cardModal(b.dataset.ct));
-  mb.querySelectorAll(".cdB").forEach(b=>b.onclick=()=>{const id=b.dataset.b,d=badgeDef(id);if(!d||!badgeState(d).t){toast("Noch nicht freigeschaltet","lock");return;}const i=C.badges.indexOf(id);if(i>=0)C.badges.splice(i,1);else{if(C.badges.length>=3)C.badges.shift();C.badges.push(id);}saveMeta();cardModal("badges");});
+  mb.querySelectorAll(".cdB").forEach(b=>b.onclick=()=>{const id=b.dataset.b,d=badgeDef(id);if(!d||!badgeShowT(d)){toast("Noch nicht freigeschaltet","lock");return;}const i=C.badges.indexOf(id);if(i>=0)C.badges.splice(i,1);else{if(C.badges.length>=3)C.badges.shift();C.badges.push(id);}saveMeta();cardModal("badges");});
   mb.querySelectorAll("[data-bg]").forEach(b=>b.onclick=()=>{if(b.classList.contains("lock")){sfx("deny");return;}C.bg=b.dataset.bg;saveMeta();cardModal("look");});
   mb.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{C.title=b.dataset.t;saveMeta();cardModal("look");});
   if(t==="fav"){const grid=mb.querySelector(".favList"),more=$("favMore");
@@ -12405,8 +12632,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.0.4"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.0.5",d:"30.10.2026",t:"Kleinigkeiten",items:[
+  ["dex","Englisch: Abzeichen-Namen übersetzt."]]},
  {v:"1.0.4",d:"30.10.2026",t:"Schnellfix",items:[
   ["trophy","Bestenliste, Trainer-Details: Jede Region trägt jetzt ihren Orden in der Farbe der höchsten Schwierigkeit, auf der du dort Champion bist (Albtraum lila, Nuzlocke gold, Schwer orange, Normal türkis, Leicht grün). Auch „Champion“ unter „Beste Runde“ leuchtet in dieser Farbe und nennt die Schwierigkeit."]]},
  {v:"1.0.3.5",d:"30.10.2026",t:"Schnellfix",items:[
