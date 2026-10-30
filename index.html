@@ -2382,8 +2382,8 @@ body.duelB .cine-skip{display:none!important}
 .tcTop{position:relative;z-index:2;margin-top:12px;width:calc(100% - 24px);padding:6px 10px;border-radius:10px;background:rgba(10,12,22,.72);border:2px solid rgba(255,255,255,.18);text-align:center}
 .tcTop b{display:block;font-family:var(--px);font-size:14px;letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tcTop small{display:block;font-size:11px;color:#ffd84a;font-weight:700;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}.tcTop small.long{font-size:10px}.tcTop small.xl{font-size:9px;letter-spacing:-.01em}
 .tcAv{position:relative;z-index:2;flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center}
-.tcAv img{position:absolute;bottom:20px;left:50%;width:144px;height:180px;margin-left:-72px;image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(0,0,0,.35))}
-.tcAv img.f1{opacity:0;animation:tcCheer 1.1s steps(1) infinite}.tcAv img.f0{animation:tcCheer0 1.1s steps(1) infinite}
+.tcAv>img{position:absolute;bottom:20px;left:50%;width:144px;height:180px;margin-left:-72px;image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(0,0,0,.35))}
+.tcAv>img.f1{opacity:0;animation:tcCheer 1.1s steps(1) infinite}.tcAv>img.f0{animation:tcCheer0 1.1s steps(1) infinite}
 @keyframes tcCheer{0%,55%{opacity:0}56%,100%{opacity:1}}@keyframes tcCheer0{0%,55%{opacity:1}56%,100%{opacity:0}}
 .tcPlat{position:absolute;bottom:12px;left:50%;width:150px;height:26px;margin-left:-75px;border-radius:50%;background:radial-gradient(rgba(0,0,0,.45),transparent 70%)}
 .tcBdg{position:relative;z-index:2;display:flex;gap:8px;margin-bottom:8px}
@@ -2417,7 +2417,7 @@ body.duelB .cine-skip{display:none!important}
 .vsCards .tcard.L{animation:tcInL .55s cubic-bezier(.2,1.4,.4,1) both;transform:rotate(-4deg)}.vsCards .tcard.R{animation:tcInR .55s cubic-bezier(.2,1.4,.4,1) .12s both;transform:rotate(4deg)}
 @keyframes tcInL{from{transform:translateX(calc(-60*var(--vw,1vw))) rotate(-14deg)}to{transform:translateX(0) rotate(-4deg)}}@keyframes tcInR{from{transform:translateX(calc(60*var(--vw,1vw))) rotate(14deg)}to{transform:translateX(0) rotate(4deg)}}
 #vs.out .vsCards .tcard{transition:transform .35s,opacity .35s;opacity:0}
-@media (max-width:760px){.vsCards{padding:0 calc(2*var(--vw,1vw))}.vsCards .tcard{width:150px;height:230px}.vsCards .tcAv img{width:80px;height:100px;margin-left:-40px;bottom:14px}.vsCards .tcTop b{font-size:10px}.vsCards .bdg{width:34px;height:38px}.vsCards .tcStats{display:none}}
+@media (max-width:760px){.vsCards{padding:0 calc(2*var(--vw,1vw))}.vsCards .tcard{width:150px;height:230px}.vsCards .tcAv>img{width:80px;height:100px;margin-left:-40px;bottom:14px}.vsCards .tcTop b{font-size:10px}.vsCards .bdg{width:34px;height:38px}.vsCards .tcStats{display:none}}
 .cdB .bdg{flex:none}#vs.isDuel .vsFoot .wc{display:none}
 /* Kartenhintergründe (animiert) */
 @keyframes spin{to{transform:rotate(360deg)}}@keyframes drift{from{left:-30%}to{left:110%}}@keyframes pulse{50%{opacity:.5;transform:scale(1.15)}}
@@ -3098,6 +3098,228 @@ body.duelB .cine-skip{display:none!important}
 .admBPrev .bdg{flex:none}.admBPrev b{font-size:14px}
 .admTRow.off{opacity:.5}.admTRow small{font-size:11px;color:var(--muted)}
 .admBRow .bdg{flex:none}
+
+/* ===== v1.0.6: Sprites sauber fixiert (Karte, Abzeichen, Listen) ===== */
+.tcMon img{position:relative;left:auto;bottom:auto;margin:0;flex:none;max-width:none}
+/* Pokémon in Abzeichen: Inhalt mittig (zugeschnittene Leinwand statt GIF-Rand) */
+.bsp canvas.spTrim,.bsp img.spTrim{width:72%!important;height:72%!important;object-fit:contain;translate:none!important;image-rendering:pixelated;filter:drop-shadow(0 1px 0 rgba(0,0,0,.45))}
+.bdg.sm .bsp canvas.spTrim,.bdg.sm .bsp img.spTrim{width:74%!important;height:74%!important}
+/* v1.0.6: Hintergrund-Kacheln: Bedingung immer sichtbar, Schloss vor gesperrten */
+.cdBg b{display:flex;align-items:center;gap:5px}
+.cdBg b .ic{width:13px;height:13px;flex:none;color:#ffd84a}
+.cdBg small{display:block;font-size:10px;line-height:1.3;color:var(--muted)}
+.cdBg small.ok{color:#9fe8ff;display:flex;gap:4px;align-items:flex-start}
+.cdBg small.ok .ic{width:11px;height:11px;flex:none;color:#4dffa6;margin-top:1px}
+.cdBg.lock i.bgThumb{filter:grayscale(.55) brightness(.62)}
+.cdBg.lock{opacity:.8}
+.cdBg .cdLv{position:absolute;left:4px;top:4px;z-index:3;padding:1px 5px;border-radius:5px;font:700 9px/1.3 var(--ui,system-ui);font-style:normal;letter-spacing:.5px;background:rgba(8,10,20,.72);color:#cfd6ee}
+.cdBg .cdLv.l2{color:#7cc8ff}.cdBg .cdLv.l3{color:#ffd84a}.cdBg .cdLv.l4{color:#c99bff}.cdBg .cdLv.l5{color:#ffb547;text-shadow:0 0 6px rgba(255,170,40,.7)}
+/* v1.0.6: Platzhalter-Karte in der Bestenliste */
+.tcMon.tcPh{align-items:center}
+.tcMon.tcPh b{font:900 72px/1 var(--px);color:rgba(255,255,255,.18);text-shadow:0 4px 0 rgba(0,0,0,.35)}
+.lbPh{margin:8px 0 0;max-width:250px;font-size:12px;line-height:1.4;color:var(--muted);display:flex;gap:6px}
+.lbPh .ic{width:14px;height:14px;flex:none;margin-top:1px}
+/* ===== v1.0.6: Gegner-Kampfkarte im VS-Bildschirm (Einzelspieler & Geisterkampf) ===== */
+#vs.v4 .v4R.en .v4RDim{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(6,7,16,.35) 0,rgba(6,7,16,0) 30%,rgba(6,7,16,0) 52%,rgba(6,7,16,.55) 78%,rgba(6,7,16,.82) 100%),radial-gradient(ellipse at 78% 82%,rgba(255,255,255,.1),transparent 45%)}
+#vs.v4 .v4R.en .v4Emb{position:absolute;z-index:1;right:4%;top:18%;font:900 clamp(120px,calc(22*var(--vw,1vw)),340px)/1 var(--px);color:rgba(255,40,80,.16);text-shadow:0 0 40px rgba(255,40,90,.35);transform:rotate(-8deg);animation:v4emb 2.4s ease-in-out infinite}
+@keyframes v4emb{0%,100%{opacity:.75}50%{opacity:1}}
+#vs.v4 .v4R.en-boss .v4BossRim{position:absolute;inset:0;z-index:2;pointer-events:none;box-shadow:inset 0 0 0 4px rgba(255,210,63,.55),inset 0 0 90px rgba(255,190,40,.35);animation:v4rim 1.6s ease-in-out infinite}
+@keyframes v4rim{0%,100%{box-shadow:inset 0 0 0 4px rgba(255,210,63,.45),inset 0 0 70px rgba(255,190,40,.25)}50%{box-shadow:inset 0 0 0 4px rgba(255,230,120,.8),inset 0 0 120px rgba(255,190,40,.45)}}
+#vs.v4 .v4R.en-ghost .tcBg{filter:saturate(.85) hue-rotate(-8deg)}
+#vs.v4 .v4R.en-ghost::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at 70% 60%,rgba(160,120,255,.22),transparent 60%);animation:v4emb 3s ease-in-out infinite}
+#vs.v4 .v4P em.gh{background:#6a4ac8;display:inline-flex;align-items:center;gap:5px;animation:none}
+#vs.v4 .v4P em.gh .ic{width:12px;height:12px}
+#vs.v4 .v4P em.ev{background:#c0203a;animation:none}
+#vs.v4 .v4P.vGh{border-right-color:#a98bff}
+#vs.v4 .v4P.vEv{border-right-color:#ff2a4a}
+#vs.v4 .v4P.R.boss{border-right-color:#ffd23f}
+#vs.v4 .v4P.boss em{background:linear-gradient(180deg,#ffe27a,#f0a818);color:#2a1800;animation:v4bossEm 1.2s ease-in-out infinite}
+@keyframes v4bossEm{0%,100%{box-shadow:0 0 0 rgba(255,200,60,0)}50%{box-shadow:0 0 16px rgba(255,200,60,.85)}}
+#vs.v4 .v4P .v4Bi{display:flex;justify-content:flex-end;gap:clamp(8px,calc(.9*var(--vw,1vw)),14px);margin-top:10px}
+#vs.v4 .v4P .v4Bi .v4b{width:clamp(34px,calc(3.6*var(--vw,1vw)),58px);height:clamp(38px,calc(4*var(--vw,1vw)),64px)}
+/* ===== v1.0.6: Geschenk-Fenster mit mehr Luft ===== */
+#mbox.gift{max-width:500px;padding:26px 28px 24px}
+.giftBox{padding:0}
+.giftRays{top:112px}
+.giftK{padding:6px 12px 5px;border-radius:999px;background:rgba(255,210,63,.1);border:1px solid rgba(255,210,63,.35);font-size:9px;letter-spacing:.12em;margin:0 0 20px}
+.giftStage{display:flex;justify-content:center;margin:0 auto 22px}
+.giftStage .giftMon{margin:0 auto}
+#mbox .giftH{margin:0 0 14px;font-family:var(--px);font-weight:400;font-size:clamp(14px,calc(1.4*var(--vw,1vw)),17px);line-height:1.35;color:#fff;text-shadow:2px 2px 0 #0b0d13;display:flex;flex-direction:column;align-items:center;gap:7px}
+#mbox .giftH small{font-size:10px;color:var(--amber);text-shadow:1px 1px 0 #000}
+.giftWhere{display:flex;justify-content:center;margin:-12px 0 24px}.giftWhere .giftPath{padding:5px 12px;border-radius:8px;border:1px solid rgba(92,242,255,.25);font-size:13px}
+.giftMsg{margin:0 auto 16px;max-width:32ch;padding:10px 16px;border-radius:10px;background:rgba(255,246,208,.06);border:1px solid rgba(255,246,208,.14);line-height:1.45}
+.giftLead{margin:0 auto 24px;max-width:40ch;font-size:14px;line-height:1.6;color:var(--muted);text-wrap:balance}
+.giftPath{display:inline-flex;align-items:center;gap:5px;padding:1px 8px;border-radius:6px;background:rgba(92,242,255,.1);color:#d8f6ff;font-weight:700;white-space:nowrap;vertical-align:baseline}.giftPath .ic{width:12px;height:12px}
+.giftBtns{display:flex;flex-direction:column;gap:10px;max-width:360px;margin:0 auto}.giftBtns button{width:100%;justify-content:center}
+.evPlate{position:relative;width:min(360px,100%);height:120px;border-radius:12px;overflow:hidden;border:3px solid #0b0d13;box-shadow:0 0 0 2px rgba(255,255,255,.22),0 10px 30px rgba(0,0,0,.45),0 0 34px rgba(255,190,60,.22);display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end;gap:6px;padding:0 18px 16px;text-align:left;animation:giftPop .55s cubic-bezier(.2,1.5,.4,1) both}
+.evPlate .tcBg{position:absolute;inset:0}
+.evPlDim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,7,16,0) 15%,rgba(6,7,16,.82))}
+.evPlN{position:relative;font-family:var(--px);font-weight:400;font-size:11px;color:#dfe6ff;text-shadow:2px 2px 0 #000}
+.evPlate{height:auto;min-height:120px;padding-top:30px}
+.evPlate .tt{position:relative;font-family:var(--px);font-size:clamp(15px,calc(1.6*var(--vw,1vw)),19px);line-height:1.3;max-width:100%;overflow-wrap:anywhere}
+.evGift .evBadge{margin:6px auto}.evGift .evBadge .bdg{transform:scale(1.7);margin:22px 0}
+.evGift .evBg{margin:0 auto}
+@media (max-width:560px){#mbox.gift{padding:20px 16px 18px}.evPlate{height:108px;padding:0 14px 12px}}
+/* ===== v1.0.6: Admin-Vergabe aufgeräumt ===== */
+.admLead{display:flex;gap:8px;align-items:flex-start;margin:0 0 14px;padding:9px 12px;border-radius:8px;background:rgba(92,242,255,.06);border:1px solid rgba(92,242,255,.18);font-size:13px;line-height:1.5;color:#c9d3ea}.admLead .ic{width:15px;height:15px;flex:none;margin-top:2px;color:var(--cyan)}
+.admGCols{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:18px;align-items:start}
+.admSec{margin:0 0 14px}.admSec:last-child{margin-bottom:0}
+.admSec h5{display:flex;align-items:baseline;gap:8px;margin:0 0 7px;font-family:var(--px);font-weight:400;font-size:9px;color:var(--amber);letter-spacing:.04em;text-shadow:1px 1px 0 #000}.admSec h5 small{font-family:var(--ui);font-size:11px;color:var(--dim);letter-spacing:0;text-shadow:none}
+.admLang{display:flex;flex-direction:column;gap:6px}
+.admLang label{display:flex;align-items:center;height:40px;border-radius:6px;border:2px solid #0b0d13;background:#f8f8f0;overflow:hidden;box-shadow:inset 0 3px 0 #d8d8c8}
+.admLang label:focus-within{box-shadow:inset 0 3px 0 #d8d8c8,0 0 0 2px var(--amber)}
+.admLang i{flex:none;align-self:stretch;display:flex;align-items:center;justify-content:center;width:40px;font:400 9px var(--px);font-style:normal;color:#fff;background:#2c3550}.admLang i.en{background:#3a5a9a}
+.admLang input{flex:1;min-width:0;height:100%;padding:0 10px;border:0;background:transparent;color:#202028;font:16px var(--ui);outline:none}
+.admLang em{flex:none;padding:0 10px;font:11px var(--ui);font-style:normal;color:#8a8a96}
+.admGForm .admFx{display:flex;flex-wrap:wrap;gap:6px;margin:0}
+.admGForm .admFxB{padding:8px 12px;font-size:9px}
+.admGSide{position:sticky;top:0;display:flex;flex-direction:column;gap:10px;padding:12px;border-radius:10px;background:#0e1220;border:2px solid rgba(255,255,255,.08)}
+.admGSide h5{margin:0}
+.admPlate{position:relative;height:104px;border-radius:10px;overflow:hidden;border:2px solid #0b0d13;box-shadow:0 0 0 1px rgba(255,255,255,.18);display:flex;flex-direction:column;justify-content:flex-end;gap:5px;padding:0 14px 12px}
+.admPlate .tcBg{position:absolute;inset:0}.admPlate .evPlDim{position:absolute;inset:0}
+.admPlate b{position:relative;font:400 10px var(--px);color:#dfe6ff;text-shadow:2px 2px 0 #000}
+.admPlate{height:auto;min-height:104px;padding-top:26px}.admPlate .tt{position:relative;font-family:var(--px);font-size:16px;line-height:1.3;overflow-wrap:anywhere}
+.admPvL{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.admPvL button{height:30px;border-radius:6px;border:2px solid rgba(255,255,255,.1);background:#151a28;color:#aab3cc;font:700 12px var(--ui);cursor:pointer}.admPvL button.on{border-color:var(--cyan);color:#fff;background:rgba(92,242,255,.1)}
+.admHint{font-size:11.5px;line-height:1.45;color:var(--dim)}
+.admPvMsg{font-size:12.5px;font-style:italic;color:#fff6d0;line-height:1.4;padding:7px 10px;border-radius:8px;background:rgba(255,246,208,.05);border:1px solid rgba(255,246,208,.1)}
+.admGFoot{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin:16px 0 0;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)}
+.admGFoot .aerr{flex:1;margin:0;text-align:left}
+.admGFoot .pri{min-width:240px}
+.admHist{margin-top:18px}
+.admTRow .admEnT{font-size:11px;color:var(--dim)}.admTRow .admEnT b{min-width:0;font-size:11px;color:#9fb6e8}
+@media (max-width:820px){.admGCols{grid-template-columns:1fr}.admGSide{position:static}.admGFoot .pri{min-width:0;flex:1}}
+/* ===== v1.0.6: Abzeichen neu gestaltet (alle Stufen) + Stufe VI „Bernstein“ ===== */
+.bdg{transition:transform .18s cubic-bezier(.2,1.4,.4,1)}
+.cdB:hover .bdg,.tcB .bdg:hover{transform:translateY(-2px) scale(1.05)}
+.bdg>i::after{background:radial-gradient(circle at 50% 28%,color-mix(in srgb,var(--bc) 20%,#1a1f34) 0,#12162a 74%)}
+.bdg>i::before{content:"";position:absolute;inset:0;z-index:0;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:linear-gradient(180deg,rgba(255,255,255,.55),transparent 18%,transparent 82%,rgba(0,0,0,.35));pointer-events:none}
+.bdg.t1>i{background:linear-gradient(160deg,#ffe2c4 0,#e09a5a 22%,#a8622c 62%,#3e1e0a 100%)}.bdg.t1>i .ic{color:#eaa96c}
+.bdg.t2>i{background:linear-gradient(160deg,#ffffff 0,#eef3fa 20%,#a9b5c8 55%,#3a4252 100%)}.bdg.t2>i .ic{color:#e4ebf6}
+.bdg.t3>i{background:linear-gradient(160deg,#fffbe0 0,#ffe27a 18%,#ffc21a 44%,#c27a06 74%,#4a2c00 100%)}.bdg.t3>i .ic{color:#ffd84a}
+.bdg.t3{filter:drop-shadow(0 0 4px rgba(255,200,40,.28))}
+.bdg.t4>i{background:linear-gradient(160deg,#ffffff 0,#dcfcff 16%,#8af0ff 40%,#3aa0c8 72%,#0a3248 100%)}.bdg.t4>i .ic{color:#b8f6ff}
+/* Glanzstreifen: höhere Stufe = öfter */
+.bdg .bSh{position:absolute;inset:0;z-index:3;pointer-events:none;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.6) 47%,rgba(255,255,255,.12) 52%,transparent 60%);background-size:320% 100%;background-position:130% 0;opacity:0}
+.bdg.t2 .bSh{opacity:.8;animation:bShine 8s ease-in-out infinite}
+.bdg.t3 .bSh{opacity:1;animation:bShine 5.5s ease-in-out infinite}
+.bdg.t4 .bSh{opacity:1;animation:bShine 3.8s ease-in-out infinite}
+.bdg.t5 .bSh,.bdg.t6 .bSh{opacity:1;animation:bShine 3s ease-in-out infinite}
+@keyframes bShine{0%,64%{background-position:130% 0}100%{background-position:-30% 0}}
+/* Funken: Mythisch funkelt, Bernstein sprüht Glut nach oben */
+.bdg .bPx{position:absolute;inset:-8px;z-index:5;pointer-events:none}
+.bdg .bPx s{position:absolute;width:3px;height:3px;border-radius:1px;opacity:0;text-decoration:none}
+.bdg.t5 .bPx s{background:#f2e2ff;box-shadow:0 0 4px #b86bff,0 0 8px rgba(184,107,255,.8);animation:bPxTw 2.2s ease-in-out infinite}
+.bdg.t5 .bPx s:nth-child(1){left:6%;top:22%}.bdg.t5 .bPx s:nth-child(2){right:4%;top:36%;animation-delay:.55s}.bdg.t5 .bPx s:nth-child(3){left:14%;bottom:12%;animation-delay:1.1s}.bdg.t5 .bPx s:nth-child(4){right:12%;top:6%;animation-delay:1.65s}
+@keyframes bPxTw{0%,100%{opacity:0;transform:scale(.2) rotate(0)}45%{opacity:1;transform:scale(1.25) rotate(45deg)}70%{opacity:.6;transform:scale(.8) rotate(90deg)}}
+.bdg.t6 .bPx s{bottom:14%;background:#ffe08a;box-shadow:0 0 4px #ff9a1a,0 0 9px rgba(255,120,0,.9);animation:bPxUp 2.3s linear infinite}
+.bdg.t6 .bPx s:nth-child(1){left:14%}.bdg.t6 .bPx s:nth-child(2){left:30%;animation-delay:.33s;animation-duration:2.7s}.bdg.t6 .bPx s:nth-child(3){left:46%;animation-delay:.9s}.bdg.t6 .bPx s:nth-child(4){left:62%;animation-delay:.15s;animation-duration:2.9s}
+.bdg.t6 .bPx s:nth-child(5){left:76%;animation-delay:1.3s}.bdg.t6 .bPx s:nth-child(6){left:88%;animation-delay:.6s;animation-duration:2.5s}.bdg.t6 .bPx s:nth-child(7){left:22%;animation-delay:1.7s;animation-duration:3.1s}
+@keyframes bPxUp{0%{transform:translate(0,0) scale(1);opacity:0}12%{opacity:1}55%{transform:translate(3px,-26px) scale(.8)}100%{transform:translate(-2px,-48px) scale(.3);opacity:0}}
+/* Stufe VI „Bernstein“: geschmolzenes Bernstein, kreisender Glutring, Krone und Glut */
+.bdg.t6{isolation:isolate}
+.bdg.t6>i{background:linear-gradient(160deg,#fff6d6 0,#ffd98a 12%,#ffae2b 34%,#e86a00 62%,#6a2400 86%,#2a0c00 100%);animation:bdgAmb 2s ease-in-out infinite}
+.bdg.t6>i::after{background:radial-gradient(circle at 50% 80%,rgba(255,140,30,.6) 0,rgba(140,46,0,.42) 30%,#1c0b03 64%)}
+.bdg.t6>i::before{inset:4px;z-index:1;background:conic-gradient(from var(--bga),rgba(255,170,40,0) 0,rgba(255,190,70,.5) 16%,rgba(255,90,0,0) 34%,rgba(255,220,120,.4) 58%,rgba(255,120,0,0) 78%);animation:bdgSpin 5s linear infinite;mix-blend-mode:screen}
+.bdg.t6>i>*{z-index:2;filter:drop-shadow(0 0 3px rgba(255,190,80,.95)) drop-shadow(0 0 7px rgba(255,110,0,.6))}.bdg.t6>i .ic{color:#ffe7a8}
+.bdg.t6::before{content:"";position:absolute;inset:-5px;z-index:-1;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:conic-gradient(from var(--bga),#6a2200 0,#ffd27a 10%,#ff8a00 20%,#6a2200 32%,#6a2200 50%,#fff2c0 60%,#ffae2b 70%,#6a2200 82%);animation:bdgSpin 1.8s linear infinite}
+.bdg.t6::after{content:"";position:absolute;inset:-14px;z-index:-2;border-radius:50%;background:radial-gradient(circle,rgba(255,160,40,.7),rgba(255,90,0,.28) 45%,transparent 68%);animation:bdgAura 1.7s ease-in-out infinite;pointer-events:none}
+.bdg .bCr{position:absolute;left:50%;top:-9px;width:46%;height:25%;transform:translateX(-50%);z-index:4;pointer-events:none;filter:drop-shadow(0 1px 0 #2a0e00) drop-shadow(0 0 5px rgba(255,170,40,.95));animation:bCrB 2.2s ease-in-out infinite}
+.bdg .bCr::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#fffbe6 0,#ffd257 42%,#e07e00 100%);clip-path:polygon(0 100%,3% 26%,27% 62%,50% 0,73% 62%,97% 26%,100% 100%)}
+.bdg.t6 em{background:linear-gradient(90deg,#ffe8a8,#ff9a1a,#ffe8a8);color:#2a1000}
+@keyframes bdgAmb{0%,100%{filter:brightness(1) drop-shadow(0 0 4px #ff9a1a)}50%{filter:brightness(1.3) drop-shadow(0 0 10px #ffb84a) drop-shadow(0 0 20px rgba(255,110,0,.75))}}
+@keyframes bCrB{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-2px)}}
+#vs.v4 .v4b.t6::before{animation:bdgSpin 1.8s linear infinite;background:conic-gradient(from var(--bga),#6a2200 0,#ffd27a 10%,#ff8a00 20%,#6a2200 32%,#6a2200 50%,#fff2c0 60%,#ffae2b 70%,#6a2200 82%);background-size:auto;background-position:0 0;inset:-5px;z-index:-1}
+.bdg.sm .bCr{top:-7px}.bdg.sm .bPx{inset:-5px}
+.cdB.lock .bdg *{animation:none!important}.cdB.lock .bdg .bPx{display:none}
+@media (prefers-reduced-motion:reduce){.bdg *,.bdg::before,.bdg::after{animation:none!important}}
+/* ===== v1.0.6: Einmaliger Hinweis (Kurz erklärt) ===== */
+#mbox.intro{max-width:760px;padding:28px 30px 22px}
+.ioHead{text-align:center;margin:0 0 20px}
+.ioK{display:inline-flex;align-items:center;gap:6px;padding:6px 12px 5px;border-radius:999px;background:rgba(92,242,255,.08);border:1px solid rgba(92,242,255,.28);font-family:var(--px);font-size:9px;letter-spacing:.12em;color:var(--cyan)}.ioK .ic{width:12px;height:12px}
+#mbox .ioHead h2{justify-content:center;margin:14px 0 8px;font-size:clamp(16px,calc(2*var(--vw,1vw)),22px);color:#fff}
+.ioSub{margin:0 auto;max-width:52ch;font-size:15px;line-height:1.55;color:#c9d3ea;text-wrap:balance}
+.ioSteps{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ioSteps .ioS:last-child{grid-column:1/-1}
+.ioS{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:10px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);opacity:0;animation:ioIn .35s ease-out forwards}
+.ioS:nth-child(2){animation-delay:.06s}.ioS:nth-child(3){animation-delay:.12s}.ioS:nth-child(4){animation-delay:.18s}.ioS:nth-child(5){animation-delay:.24s}
+@keyframes ioIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ioN{flex:none;width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#2a3556,#161c30);border:2px solid #0b0d13;box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}.ioN .ic{width:18px;height:18px;color:var(--amber)}
+.ioS b{display:block;font-family:var(--px);font-weight:400;font-size:10px;color:#fff;margin:2px 0 6px;letter-spacing:.03em}
+.ioS p{margin:0;font-size:13.5px;line-height:1.5;color:#aeb8d2}.ioS p b{display:inline;font-family:var(--ui);font-weight:700;font-size:inherit;color:#fff;margin:0;letter-spacing:0}
+.ioCard{display:grid;grid-template-columns:auto minmax(0,1fr);gap:20px;align-items:center}
+.ioCardL{display:flex;justify-content:center;padding:6px}
+.ioCardL .tcard{animation:giftPop .55s cubic-bezier(.2,1.5,.4,1) both}
+.ioList{display:flex;flex-direction:column;gap:8px}
+.ioFoot{display:flex;align-items:center;justify-content:center;gap:7px;margin:18px 0 0;font-size:13px;color:var(--muted)}.ioFoot .ic{width:14px;height:14px;color:var(--cyan)}
+.ioNav{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08)}
+.ioDots{display:flex;align-items:center;gap:7px}.ioDots i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.18);transition:all .2s}.ioDots i.on{width:24px;border-radius:5px;background:var(--amber)}.ioDots small{margin-left:6px;font-size:12px;color:var(--dim)}
+.ioNav .pri{min-width:200px;justify-content:center}
+@media (max-width:700px){#mbox.intro{padding:20px 14px 16px}.ioSteps{grid-template-columns:1fr}.ioCard{grid-template-columns:1fr}.ioNav .pri{min-width:0;flex:1}}
+/* ===== v1.0.6: Hintergründe – Stufen 1–5 (je schwerer, desto mehr Effekt), neue und überarbeitete Motive ===== */
+/* Stufe 4: Lichtschimmer · Stufe 5: Lichtschimmer + leuchtender Rahmen + Funkeln */
+.tcBg .lvFx{inset:0;z-index:6;pointer-events:none;background:linear-gradient(115deg,transparent 36%,rgba(255,255,255,.22) 46%,rgba(255,255,255,.06) 52%,transparent 60%);background-size:300% 100%;animation:lvSweep 7s ease-in-out infinite}
+.tcBg .lvFx.l5{background:linear-gradient(115deg,transparent 34%,rgba(255,255,255,.34) 45%,rgba(255,240,210,.1) 52%,transparent 60%);background-size:300% 100%;animation:lvSweep 4.5s ease-in-out infinite,lvEdge 6s linear infinite}
+@keyframes lvSweep{0%,58%{background-position:130% 0}100%{background-position:-40% 0}}
+@keyframes lvEdge{0%{box-shadow:inset 0 0 0 .6cqw rgba(255,200,90,.55),inset 0 0 5cqw rgba(255,170,60,.35)}33%{box-shadow:inset 0 0 0 .6cqw rgba(200,140,255,.55),inset 0 0 5cqw rgba(170,100,255,.35)}66%{box-shadow:inset 0 0 0 .6cqw rgba(120,230,255,.55),inset 0 0 5cqw rgba(90,200,255,.35)}100%{box-shadow:inset 0 0 0 .6cqw rgba(255,200,90,.55),inset 0 0 5cqw rgba(255,170,60,.35)}}
+#vs.v4 .tcBg .lvFx.l5{animation:lvSweep 4.5s ease-in-out infinite;box-shadow:none}
+/* Sternennacht (Stufe 1): ruhig, nur funkelnde Sterne */
+.bg-sternennacht{background:linear-gradient(180deg,#070c26 0,#162050 52%,#2a3a72 100%)}
+.bg-sternennacht .moonS{right:14%;top:10%;width:15cqw;aspect-ratio:1;border-radius:50%;box-shadow:inset -3.4cqw 1.6cqw 0 0 #fff4d2;filter:drop-shadow(0 0 2.5cqw rgba(255,240,200,.45))}
+/* Herbstwald (Stufe 2): fallendes Laub */
+.bg-herbst{background:linear-gradient(180deg,#ffe0a8 0,#f8aa6a 42%,#d8703c 100%)}
+.bg-herbst .sunH{left:16%;top:12%;width:24cqw;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#fff6d0 0 28%,rgba(255,224,150,.65) 42%,transparent 70%);--lo:.85;animation:cbPulse 6s ease-in-out infinite}
+.bg-herbst .leafH{border-radius:70% 0 70% 0}
+/* Gewittersturm (Stufe 3): Wolkenbänke, Blitze erhellen Himmel und Hügel, Regen mit Spritzern */
+.bg-sturm{background:linear-gradient(180deg,#0d1020 0,#1c2236 48%,#2a3246 100%)}
+.bg-sturm .skyS{inset:0;background:radial-gradient(ellipse at 56% 18%,rgba(200,210,255,.5),transparent 55%);opacity:0;animation:flashA 4.6s infinite}
+.bg-sturm .cloudD{background:radial-gradient(ellipse,#454e66 0,#2c3346 50%,transparent 72%)}
+.bg-sturm .d4{left:-20%;top:22%;width:75cqw;opacity:.55;animation-duration:26s}
+.bg-sturm .rain{z-index:3}
+.bg-sturm .lit{left:0;right:0;bottom:0;height:34%;z-index:2;background:linear-gradient(180deg,rgba(210,220,255,.35),transparent);opacity:0;animation:flashA 4.6s infinite}
+.bg-sturm .spl{bottom:7%;z-index:3;width:2.2cqw;height:1cqw;border-radius:50%;border:.3cqw solid rgba(190,210,240,.55);border-bottom:0;opacity:0;animation:splA var(--d,.7s) linear var(--dl,0s) infinite}
+@keyframes splA{0%{transform:scale(.2);opacity:0}20%{opacity:.9}100%{transform:scale(1.4);opacity:0}}
+/* Kristallhöhle (Stufe 3): echte Tropfsteine, Kristallteich */
+.bg-kristall .cave{inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(90,220,255,.18),transparent 60%)}
+.bg-kristall .pool{left:22%;right:22%;bottom:4%;height:7%;border-radius:50%;background:radial-gradient(ellipse,rgba(160,240,255,.55),rgba(90,200,255,.15) 60%,transparent 72%);--lo:.6;animation:cbPulse 3.4s ease-in-out infinite}
+/* Schillerhain (Stufe 4): leuchtender Zauberwald, bunte Glühwürmchen, schillernde Funken */
+.bg-hain{background:linear-gradient(180deg,#0e4a50 0,#0b3238 46%,#051c1e 100%)}
+.bg-hain .glowH{left:50%;top:40%;width:110cqw;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,rgba(140,255,220,.32),rgba(80,200,200,.1) 34%,transparent 58%);--lo:.7;animation:cbPulse 4.6s ease-in-out infinite}
+.bg-hain .beam{background:linear-gradient(180deg,rgba(220,255,240,.4),rgba(200,255,240,0))}.bg-hain .b3{left:78%;width:10cqw;animation-delay:-3.4s}
+.bg-hain .mist{left:-10%;right:-10%;bottom:6%;height:24%;background:radial-gradient(ellipse at 50% 100%,rgba(190,255,235,.35),transparent 70%);animation:cbDrift 12s ease-in-out infinite alternate}
+.bg-hain .pond{left:28%;right:28%;bottom:3%;height:6%;border-radius:50%;background:radial-gradient(ellipse,rgba(255,255,255,.6),rgba(150,255,230,.25) 50%,transparent 72%);--lo:.55;animation:cbPulse 2.8s ease-in-out infinite}
+.bg-hain .fly{background:var(--c,#fff6a0);box-shadow:0 0 2cqw .6cqw color-mix(in srgb,var(--c,#fff6a0) 75%,transparent)}
+/* Platin-Prisma (Stufe 4): Lichtstrahl bricht im Prisma zu einem kreisenden Regenbogenfächer */
+.bg-prisma{background:radial-gradient(circle at 46% 54%,#1c2440 0,#0c1022 60%,#05070f 100%)}
+.bg-prisma .pBg{inset:0;background:radial-gradient(circle at 46% 54%,rgba(140,220,255,.18),transparent 55%)}
+.bg-prisma .fan{left:46%;top:54%;width:220cqw;aspect-ratio:1;translate:-50% -50%;background:conic-gradient(from 60deg,transparent 0 2deg,rgba(255,80,120,.55) 4deg,rgba(255,200,60,.55) 9deg,rgba(80,255,150,.5) 14deg,rgba(80,200,255,.55) 19deg,rgba(190,110,255,.55) 24deg,transparent 28deg 360deg);-webkit-mask:radial-gradient(circle,transparent 3%,#000 5%,#000 30%,transparent 46%);mask:radial-gradient(circle,transparent 3%,#000 5%,#000 30%,transparent 46%);filter:blur(.3cqw);animation:pFan 9s ease-in-out infinite alternate}
+@keyframes pFan{from{transform:rotate(-14deg)}to{transform:rotate(26deg)}}
+.bg-prisma .beamIn{left:-4%;top:52%;width:52cqw;height:1.4cqw;transform-origin:100% 50%;transform:rotate(-12deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.9));filter:drop-shadow(0 0 1.4cqw #fff);--lo:.75;animation:cbPulse 2.2s ease-in-out infinite}
+.bg-prisma .pTri{left:46%;top:54%;width:22cqw;aspect-ratio:1.05;translate:-50% -56%;clip-path:polygon(50% 0,100% 100%,0 100%);background:linear-gradient(160deg,rgba(255,255,255,.85),rgba(190,240,255,.35) 45%,rgba(120,160,255,.25) 70%,rgba(255,255,255,.6));box-shadow:inset 0 0 2cqw #fff}
+.bg-prisma .shard{background:linear-gradient(135deg,rgba(255,255,255,.85),hsla(var(--h,200deg),100%,75%,.35));filter:drop-shadow(0 0 .8cqw hsla(var(--h,200deg),100%,70%,.6))}
+.bg-prisma .sweep{background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.28) 45%,transparent 60%);background-size:250% 100%}
+/* Galaxie (Stufe 4): zwei Spiralen, wandernde Nebel, Komet */
+.bg-galaxie .n2{inset:-30%;opacity:.7;background:radial-gradient(ellipse at 62% 30%,rgba(255,140,200,.35),transparent 36%),radial-gradient(ellipse at 22% 78%,rgba(120,180,255,.3),transparent 38%);animation:cbSpinR 120s linear infinite}
+.bg-galaxie .sp2{left:58%;top:70%;width:22cqw;opacity:.75;animation-duration:30s}
+.bg-galaxie .moonG{right:34%;top:30%;width:5cqw;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 32%,#e8f0ff,#7a8ab8 60%,#2a3050);box-shadow:inset -.8cqw -.4cqw 1cqw rgba(0,0,0,.5)}
+.bg-galaxie .comet{left:-10%;top:18%;width:18cqw;height:.6cqw;border-radius:50%;background:linear-gradient(90deg,transparent,rgba(180,230,255,.7),#fff);filter:drop-shadow(0 0 1cqw #bfe8ff);opacity:0;animation:comet 9s ease-in-out infinite}
+@keyframes comet{0%,55%{transform:translate(0,0) rotate(14deg);opacity:0}60%{opacity:1}90%{opacity:1}100%{transform:translate(125cqw,32cqh) rotate(14deg);opacity:0}}
+/* Bernsteinglut (Stufe 5): geschmolzenes Bernstein, Strahlenkranz, kreisende Ringe, Krone, Glutsturm */
+.bg-bernstein{background:radial-gradient(circle at 50% 56%,#5c2600 0,#2a0e02 45%,#0c0400 100%)}
+.bg-bernstein .amCore{left:50%;top:56%;width:120cqw;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,rgba(255,196,90,.8) 0,rgba(255,124,20,.38) 17%,rgba(160,50,0,.16) 33%,transparent 52%);--lo:.72;--sc:1.1;animation:cbPulse 2.4s ease-in-out infinite}
+.bg-bernstein .amRays{left:50%;top:56%;width:200cqw;aspect-ratio:1;translate:-50% -50%;background:repeating-conic-gradient(from 0deg,rgba(255,206,100,.24) 0 5deg,transparent 5deg 16deg);-webkit-mask:radial-gradient(circle,#000 6%,transparent 52%);mask:radial-gradient(circle,#000 6%,transparent 52%);animation:cbSpin 34s linear infinite}
+.bg-bernstein .ar2{width:160cqw;opacity:.55;background:repeating-conic-gradient(from 8deg,rgba(255,150,40,.3) 0 3deg,transparent 3deg 22deg);animation:cbSpinR 22s linear infinite}
+.bg-bernstein .amRing{left:50%;top:56%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;border:.5cqw solid rgba(255,206,110,.55);box-shadow:0 0 2cqw rgba(255,150,40,.6),inset 0 0 2cqw rgba(255,150,40,.4)}
+.bg-bernstein .r1{width:54cqw;border-style:dashed;animation:cbSpin 14s linear infinite}
+.bg-bernstein .r2{width:74cqw;border-width:.3cqw;opacity:.7;animation:cbSpinR 22s linear infinite}
+.bg-bernstein .r3{width:94cqw;border-width:.2cqw;border-style:dotted;opacity:.45;animation:cbSpin 40s linear infinite}
+.bg-bernstein .amHex{left:50%;top:56%;width:30cqw;aspect-ratio:.9;translate:-50% -50%;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:linear-gradient(160deg,#fff6d6 0,#ffd98a 12%,#ffae2b 34%,#e86a00 62%,#6a2400 100%);animation:amBeat 2.4s ease-in-out infinite}
+.bg-bernstein .amHex b{position:absolute;inset:7%;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:radial-gradient(circle at 50% 74%,rgba(255,160,40,.85),rgba(150,50,0,.55) 34%,#1e0c03 72%)}
+.bg-bernstein .amCrown{left:50%;top:55%;width:15cqw;translate:-50% -50%;filter:drop-shadow(0 0 1cqw rgba(255,190,80,1)) drop-shadow(0 0 3cqw rgba(255,120,0,.8));animation:amBeat 2.4s ease-in-out infinite}
+@keyframes amBeat{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.bg-bernstein .amFlare{inset:0;background:radial-gradient(circle at 50% 56%,rgba(255,244,210,.9),rgba(255,180,60,.3) 22%,transparent 45%);opacity:0;animation:amFlare 5.2s ease-in-out infinite}
+@keyframes amFlare{0%,84%,100%{opacity:0}89%{opacity:.9}}
+.bg-bernstein .heatA{left:0;right:0;bottom:0;height:40%;background:linear-gradient(0deg,rgba(255,110,0,.35),transparent);animation:cbPulse 1.8s ease-in-out infinite;--lo:.6}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -4057,11 +4279,11 @@ const REGIONS={kanto:{n:"Kanto",d:"Teil 1 · Alabastia bis Mewtu",ic:"ball"},joh
 function setRegion(r){r=REGIONS[r]?r:"kanto";BOSSES=BOSSES_BY[r];if(typeof setRegionLocs==="function")setRegionLocs(r);return r;}
 
 const DIFF={
- easy:{n:"Leichter Kampf",ic:"e1",col:"#4dffa6",bm:.6,dn:-1,reward:2,d:"Wenige, schwache Gegner."},
- mid:{n:"Mittlerer Kampf",ic:"e2",col:"#ffd23f",bm:.82,dn:0,reward:4,d:"Ein fairer Kampf."},
- hard:{n:"Schwerer Kampf",ic:"e3",col:"#ff8a3d",bm:.9,dn:1,reward:6,d:"Starke Gegner, gute Prämie."},
- elite:{n:"Elite-Kampf",ic:"skull",col:"#c27cff",bm:.95,dn:1,reward:9,prize:"item",d:"Verstärkte Gegner mit Fusionsgaben. Belohnung: Item nach Wahl."},
- rocket:{n:"Team Rocket",ic:"rocket",col:"#c04cff",bm:.74,dn:0,reward:6,prize:"crypto",d:"Rüpel mit Crypto-Pokémon: stärker, aber verwundbar. Belohnung: Erlöse eines davon für dein Team."},
+ easy:{n:"Leichter Kampf",ic:"e1",col:"#4dffa6",bm:.62,dn:-1,reward:2,d:"Wenige, schwache Gegner."},
+ mid:{n:"Mittlerer Kampf",ic:"e2",col:"#ffd23f",bm:.94,dn:0,reward:4,d:"Ein fairer Kampf."},
+ hard:{n:"Schwerer Kampf",ic:"e3",col:"#ff8a3d",bm:.98,dn:1,reward:6,d:"Starke Gegner, gute Prämie."},
+ elite:{n:"Elite-Kampf",ic:"skull",col:"#c27cff",bm:1.05,dn:1,reward:9,prize:"item",d:"Verstärkte Gegner mit Fusionsgaben. Belohnung: Item nach Wahl."},
+ rocket:{n:"Team Rocket",ic:"rocket",col:"#c04cff",bm:.8,dn:0,reward:6,prize:"crypto",d:"Rüpel mit Crypto-Pokémon: stärker, aber verwundbar. Belohnung: Erlöse eines davon für dein Team."},
  event:{n:"Ereignis",ic:"qbox",col:"#5cf2ff",d:"Kein Kampf. Wähle eine Belohnung."},
  ghost:{n:"Geisterkampf",ic:"ghost",col:"#a9b8ff",reward:7,d:"Das echte Team eines anderen Spielers aus dieser Runde."},
  duel:{n:"Live-Duell",ic:"swords",col:"#ff4d6d",reward:0,d:"Ein echter Gegner."},
@@ -4069,12 +4291,12 @@ const DIFF={
 };
 function encOdds(r){const o=r<=1?{easy:100,mid:0,hard:0,elite:0,event:0}:r<=2?{easy:60,mid:30,hard:0,elite:0,event:10}:r<=4?{easy:35,mid:40,hard:12,elite:0,event:13}:r<=9?{easy:22,mid:38,hard:20,elite:8,event:12}:r<=14?{easy:14,mid:36,hard:26,elite:12,event:12}:{easy:10,mid:32,hard:30,elite:16,event:12};const rk=r>=4?(r<=9?9:12):0;o.rocket=rk;o.mid=Math.max(0,o.mid-rk);return o;}
 const MODES={
- easy:{n:"Leicht",ic:"leaf",enemy:.85,revive:.08,gem:.5,base:6,d:"Schwächere Gegner, sanfte Revanchen. Zum Ausprobieren."},
- normal:{n:"Normal",ic:"ball",enemy:1,revive:.12,gem:1,base:5,d:"Die Standard-Erfahrung."},
- hard:{n:"Schwer",ic:"skull",enemy:1.15,revive:.18,gem:1.6,base:5,d:"Stärkere Gegner, harte Revanchen.",unlock:"Runde 10 auf Normal in dieser Region"},
- night:{n:"Albtraum",ic:"ghost",enemy:1.32,revive:.25,gem:2.5,base:4,d:"Nur für echte Geisterjäger.",unlock:"Champion auf Schwer in dieser Region"},
+ easy:{n:"Leicht",ic:"leaf",enemy:.85,bud:.95,boss:.9,revive:.06,gem:.5,base:6,d:"Schwächere Gegner und Bosse, sanfte Revanchen. Zum Ausprobieren."},
+ normal:{n:"Normal",ic:"ball",enemy:1,bud:1,boss:1,revive:.1,gem:1,base:5,d:"Die Standard-Erfahrung."},
+ hard:{n:"Schwer",ic:"skull",enemy:1.1,bud:1.15,boss:1.1,bossR:{5:1.25,10:1.03,15:1.1,20:1.25},revive:.15,gem:1.6,base:5,eIt:[8,17],eGift:[6,99],eForm:1,d:"Stärkere Gegner in Formation, ab Runde 8 mit Items und früher mit Fusionsgaben. Härtere Revanchen.",unlock:"Runde 10 auf Normal in dieser Region"},
+ night:{n:"Albtraum",ic:"ghost",enemy:1.2,bud:1.05,boss:1.2,bossR:{5:1.05,10:.9,15:1,20:1.08},tk:{mid:.97,elite:.93},revive:.2,gem:2.5,base:4,eIt:[5,17],eGift:[3,16],eForm:1,d:"Gegner in Formation, mit Items ab Runde 5 (ab 17 zwei) und mehr Fusionsgaben, stärkere Bosse, wenig Gold. Nur für echte Geisterjäger.",unlock:"Champion auf Schwer in dieser Region"},
  duel:{n:"Duell",ic:"swords",enemy:1,revive:0,gem:0,base:5,hidden:1,d:"Live-Duell"},
- nuzlocke:{n:"Nuzlocke",ic:"heart",enemy:1.12,revive:.18,gem:3,base:5,perma:1,d:"Gegner stärker als auf Normal, und besiegte Pokémon sind für den Rest des Laufs weg. Dafür dreifache Edelsteine.",unlock:"Champion auf Schwer in dieser Region"}
+ nuzlocke:{n:"Nuzlocke",ic:"heart",enemy:1.05,bud:1.05,boss:1.05,revive:.15,gem:3,base:5,perma:1,eIt:[10,99],eForm:1,d:"Gegner etwas stärker als auf Normal und in Formation, besiegte Pokémon sind für den Rest des Laufs weg. Dafür dreifache Edelsteine.",unlock:"Champion auf Schwer in dieser Region"}
 };
 const LV_XP=[0,4,9,15,23,33,45,60];
 const ODDS_LV={1:[70,30,0,0,0],2:[56,38,6,0,0],3:[46,40,14,0,0],4:[42,40,18,0,0],5:[28,36,26,8,2],6:[18,30,32,16,4],7:[12,24,34,23,7],8:[8,18,32,30,12]};
@@ -4111,7 +4333,7 @@ function sprChunk(key){const i=parseInt(String(key).replace(/^s/,""),10);if(!(i>
 function phWait(id,cls,o,sp,key){const el=phEl(sp),ch=sprChunk(key);
   if(ch&&window.__SPRM&&__SPRM[ch]&&!__SPRM[ch].done){el.dataset.spw=id;if(cls)el.dataset.spc=cls;if(o&&o.shiny)el.dataset.sps=1;if(o&&o.mega)el.dataset.spm=o.mega;try{__sprLoad(ch);}catch(e){}}return el;}
 function sprSwapWaiting(){document.querySelectorAll("[data-spw]").forEach(el=>{try{const im=spriteEl(+el.dataset.spw,el.dataset.spc||"",{shiny:!!el.dataset.sps,mega:el.dataset.spm||undefined});if(!im||im.tagName!=="IMG")return;
-  if(el.dataset.nf)natFit(im,+el.dataset.nf,!!el.dataset.nb);if(el.dataset.al&&typeof sprAlign==="function")sprAlign(im,el.dataset.al==="2");el.replaceWith(im);}catch(e){}});}
+  if(el.dataset.nf)natFit(im,+el.dataset.nf,!!el.dataset.nb);if(el.dataset.al&&typeof sprAlign==="function")sprAlign(im,el.dataset.al==="2");if(el.dataset.tr&&typeof sprTrim==="function")sprTrim(im);el.replaceWith(im);}catch(e){}});}
 function phEl(sp){const d=document.createElement("div");d.className="ph";d.style.background=`radial-gradient(circle at 40% 35%,${TYPES[sp.types[0]][1]},#141836)`;d.textContent=sp.name.slice(0,2);return d;}
 const pill=t=>`<span class="tp" style="--tc:${TYPES[t][1]}">${TYPES[t][0]}</span>`;
 const pills=ts=>ts.map(pill).join(" ");
@@ -5055,6 +5277,7 @@ function showMenu(){
   $("mNew").onclick=chooseMode;$("mMp").onclick=()=>mpModal();if($("mLbB")){$("mLbB").classList.add("lbOnly");$("mLbB").onclick=()=>menuLbModal();}try{menuLbMount();}catch(e){}if($("mFr")){$("mFr").insertAdjacentHTML("beforeend",`<em class="mBadge" id="mFrN" style="display:none"></em>`);$("mFr").onclick=()=>friendsModal();try{socBadges();}catch(e){}}$("mLab").onclick=()=>labScreen();$("mDex").onclick=()=>dexModal("dex");$("mAch").onclick=()=>achModal();if($("mCard"))$("mCard").onclick=()=>cardModal();$("mSet").onclick=settingsModal;
   const bs=[...$("menuBtns").querySelectorAll(".mbtn")];bs.forEach((b,i)=>{b.onmouseenter=()=>menuSel(i);});menuSel(0);
   menuFit();try{achRewardSync();_achT=0;achCheck();}catch(e){}
+  if(typeof introNeed==="function"&&introNeed())setTimeout(()=>{try{introShow();}catch(e){}},650);
 }
 /* v9.9: Menü + Bestenliste wachsen mit der Fensterhöhe mit (gleichmäßig skaliert statt gestaucht, nie größer als in Full HD) */
 function menuFit(){try{const M=$("menu"),w=M&&M.querySelector(".mwrap"),lb=$("mLb");if(!w||!M.classList.contains("show")||w.style.display==="none")return;
@@ -5757,11 +5980,13 @@ function renderLeaderboard(rows,src){const el=$("lbList");if(!el)return;rows=row
    lbRowsHtml(rows);
   hydrateIcons(el);el.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>lbDetail(rows.find(r=>r.n===b.dataset.n)));}
 function lbDetail(a){if(!a)return;const regs=Object.keys(REGIONS);let cd=a.card&&typeof cardClean==="function"?cardClean(a.card):null;
+  // noch keine Kampfkarte hochgeladen (älterer Spielstand): neutrale Karte, bis der Spieler wieder online spielt
+  if(!cd)cd={name:String(a.n||"?").slice(0,20),title:"",ts:null,bg:"std",fav:0,favSh:0,badges:[],ch:a.titles||0,dw:0,dex:a.own||0,ph:1};
   // eigene Karte immer live; Titel-Effekt nur, wenn der Titel laut Server wirklich vergeben ist
   let own=false;try{if(typeof CL!=="undefined"&&CL.sess&&a.id&&a.id===CL.sess.uid&&USER&&typeof cardMine==="function"){cd=cardMine();own=true;}}catch(e){}
   if(cd&&!own){const t=lbTitle(a);cd.ts=t&&t.text===cd.title?t.style:null;}
   openModal(`<h2>${ic("trophy")} ${esc(a.n.toUpperCase())}${lbTTHtml(a)?" "+lbTTHtml(a):""}</h2><div class="lead" style="margin-bottom:10px"><b style="color:var(--amber)">${a.pts.toLocaleString("de-DE")} Trainerpunkte</b> · ${a.titles} Champion-Titel · ${a.ach} Erfolge · ${a.own} Pokémon gefangen · ${a.shy} schillernd</div>
-   <div class="lbDet">${cd?`<div class="lbCard">${cardHTML(cd)}</div>`:""}<div class="lbDetR"><table class="lbTab"><tr><th>Region</th>${Object.keys(LB_W).map(md=>`<th style="color:${LB_COL[md]}">${LB_N[md]}<small>${LB_W[md]} P.</small></th>`).join("")}<th>Beste Runde</th></tr>
+   <div class="lbDet">${cd?`<div class="lbCard">${cardHTML(cd)}${cd.ph?`<p class="lbPh">${ic("info")} Noch keine Kampfkarte: Sie erscheint, sobald ${esc(cd.name)} wieder mit Konto spielt.</p>`:""}</div>`:""}<div class="lbDetR"><table class="lbTab"><tr><th>Region</th>${Object.keys(LB_W).map(md=>`<th style="color:${LB_COL[md]}">${LB_N[md]}<small>${LB_W[md]} P.</small></th>`).join("")}<th>Beste Runde</th></tr>
    ${regs.map(rk=>{const P=a.per[rk],c=P.top?LB_COL[P.top]:null;return `<tr><td><span class="lbRegC"><i style="--c:${c||"#3a4258"}"${c?"":' class="off"'}>${REGIONS[rk].s||REGIONS[rk].n[0]}</i>${REGIONS[rk].n}</span></td>${Object.keys(LB_W).map(md=>`<td>${P.row[md]?`<b style="color:${LB_COL[md]}">${P.row[md]}×</b>`:"–"}</td>`).join("")}<td>${c?`<b class="lbChamp" style="--c:${c}">${ic("crown")} Champion <small>${LB_N[P.top]}</small></b>`:P.best>20?"Champion":P.best?"Runde "+P.best:"–"}</td></tr>`;}).join("")}</table>
    <p class="lbNote">Je Region zählt der erste Titel pro Schwierigkeit voll, jede Wiederholung nur +25 % (höchstens 4×). Spätere Regionen geben etwas mehr. Ohne Titel zählt der Fortschritt anteilig. Dazu: Erfolge (Bronze 1 · Silber 3 · Gold 6 · Platin 10), je gefangenes Pokémon 0,25 und je schillerndes 1 Punkt (alles ×10).</p></div></div>
    <div class="rbtns" style="margin-top:10px">${typeof CL!=="undefined"&&CL.sess&&USER&&userKey(a.n)!==userKey(USER)&&!(typeof SOC!=="undefined"&&(SOC.fl||[]).some(f=>f.st==="friend"&&userKey(f.name)===userKey(a.n)))?`<button class="btn" id="lbFr">${ic("users")} Freund hinzufügen</button>`:""}<button class="pri" id="lbOk">SCHLIESSEN</button></div>`,"wide",true);if(cd)cardHydrate($("mbox"));$("lbOk").onclick=closeModal;
@@ -8851,7 +9076,7 @@ function expCap(r){return expPLv(r)+2;}
 function expLevel(r){return clamp(expPLv(r)+1,1,8);}
 const unitVal=r=>2+(r-1)*.62;
 /* ===== Gegnerstärke (v1.0.3): alle Stellschrauben an einem Ort, per Bot-Läufen kalibriert ===== */
-const BAL={bud:.85,fl:1,early:.88,l0:99,ls:0,lt:1,hl:1,ramp1:.02,ramp2:.012,bAd:0,bLo:.85,bHi:1.15};
+const BAL={bud:1,fl:.8,early:.92,l0:9,ls:.03,lt:.74,hl:1,ramp1:.015,ramp2:.008,bAd:.5,bLo:.85,bHi:1.15};
 /* Rundenprofil: frühe Runden etwas sanfter, ab Runde 10 sinkt das Budget langsam (späte Gegner haben mehr Sterne, Gaben und Werte-Bonus) */
 const budR=r=>r<=5?BAL.early:r<=BAL.l0?1:Math.max(BAL.lt,1-BAL.ls*(r-BAL.l0));
 const modeOf=()=>MODES[(S&&S.mode)||"normal"]||MODES.normal;
@@ -8860,6 +9085,11 @@ function playerVal(){return boardUnits().reduce((a,u)=>a+unitCost(u)+(u.items||[
 /* erwarteter Teamwert eines durchschnittlichen Spielers in Runde r (aus Bot-Läufen gemessen, Bossrunden 5/10/15/20) */
 const EXPV=[[1,3],[5,25],[10,58],[15,100],[20,125]];
 function expVal(r){for(let i=1;i<EXPV.length;i++){const[a,va]=EXPV[i-1],[b,vb]=EXPV[i];if(r<=b)return va+(vb-va)*(Math.max(r,a)-a)/(b-a);}return EXPV[EXPV.length-1][1];}
+/* Bosse je Region und Runde abgestimmt (Bot-Läufe gegen echte Spielstände, Ziel auf Normal: R5 ~92 %, R10 ~78 %, R15 ~78 %, R20 ~70 %).
+   Schwer und Albtraum haben zusätzlich je Runde einen eigenen Faktor (MODES.bossR), abgestimmt mit voll ausgebauten Spielständen. */
+const BOSS_K={kanto:{5:1.17,10:.9,15:1.03,20:1.2},johto:{5:1,10:.9,15:1.04,20:.92},hoenn:{5:1.2,10:.93,15:.97,20:.87},sinnoh:{5:1.16,10:.93,15:.87,20:1.13},
+ unova:{5:1.02,10:1.06,15:1.19,20:1.02},kalos:{5:.92,10:1.15,15:1.4,20:1.14},alola:{5:1.2,10:.93,15:1.38,20:1.4}};
+const bossK=r=>((BOSS_K[(S&&S.region)||"kanto"]||{})[r])||1;
 /* Bosse passen sich etwas an: schwaches Team → etwas schwächerer Boss, starkes Team → etwas stärker (keine Wand, kein Spaziergang) */
 function bossAdapt(r){if(!BAL.bAd)return 1;const v=playerVal(),e=expVal(r);if(!v||!e)return 1;return clamp(Math.pow(v/e,BAL.bAd),BAL.bLo,BAL.bHi);}
 /* Items für Gegner (Schwer, Albtraum, Nuzlocke) */
@@ -8868,14 +9098,14 @@ function enemyItems(r,n){const out=[];for(let i=0;i<n;i++){const x=Math.random()
 const giftId=()=>pick(GIFTS.filter(g=>g.id!=="g_slot")).id;
 function genEnemies(p){
   const r=S.round,boss=BOSSES[r],M=modeOf();let list=[];
-  if(boss){const bm=(M.boss||1)*bossAdapt(r),gx=modeStep(M.eGift,r),ix=modeStep(M.eIt,r);
+  if(boss){const bm=(M.boss||1)*((M.bossR||{})[r]||1)*bossAdapt(r)*bossK(r),gx=modeStep(M.eGift,r),ix=modeStep(M.eIt,r);
     list=boss.units.map(([sp,st,x,y,m,fl])=>{fl=fl||"";const raid=fl.includes("r"),its=[...(fl.includes("m")&&MEGA[sp]?["mega"]:[]),...(fl.includes("z")?["zkristall"]:[]),...(raid?[]:enemyItems(r,ix))];
       return Object.assign(mkUnit(sp,st),{x:exOld(x),y:eyOld(y),mult:m*bm,gifts:raid?[]:Array.from({length:(r>=10?1:0)+(r>=16?1:0)+gx},giftId),items:its},fl.includes("c")||raid?{crypto:1}:{},raid?{raid:1}:{});});}
   else{
     const D=DIFF[p.type],lvE=expLevel(r);
     const bu=boardUnits(),pv=playerVal();
     const hard=p.type==="hard"||p.type==="elite",n=clamp(Math.max(expCap(r),bu.length)+D.dn,2,10);
-    let budget=Math.max(expCap(r)*unitVal(r)*BAL.fl,pv*BAL.bud)*D.bm*(M.bud||1)*budR(r)*(hard&&r>=16?BAL.hl:hard&&r>=14?(1+BAL.hl)/2:1);
+    let budget=Math.max(expCap(r)*unitVal(r)*BAL.fl,pv*BAL.bud)*D.bm*(M.bud||1)*((M.tk||{})[p.type]||1)*budR(r)*(hard&&r>=16?BAL.hl:hard&&r>=14?(1+BAL.hl)/2:1);
     const rr=r+(hard?1:0),myMax=bu.reduce((a,u)=>Math.max(a,SPECIES[u.sp].stage),0),myStars=bu.reduce((a,u)=>Math.max(a,u.stars),0);
     const maxSt=Math.max(rr>=8?2:rr>=3?1:0,Math.min(2,myMax-(hard?0:1))),maxStars=Math.max(rr>=18?2:rr>=13?1:0,myStars-(hard?0:1));
     const giftN=(r>=16?2:r>=9?1:0)+(p.type==="elite"?1:0)+modeStep(M.eGift,r),itN=modeStep(M.eIt,r);
@@ -10847,6 +11077,34 @@ if(typeof EN!=="undefined")Object.assign(EN,{
  "Dir wurde ein Abzeichen verliehen. Leg es unter Trainerkarte → Abzeichen in eines der 3 Felder.":"You were awarded a badge. Put it into one of the 3 slots under Trainer Card → Badges.",
  "Kürbisnacht":"Pumpkin Night","Halloween 2026":"Halloween 2026","Geschenk zur Halloween-Edition 2026":"Gift of the Halloween Edition 2026","Geschenk zur Halloween-Edition 2026.":"Gift of the Halloween Edition 2026.","Verliehen:":"Awarded:"
 });
+/* v1.0.6: Kurz erklärt, Geschenk-Fenster, VS-Gegnerkarte, Stufe Bernstein, Hintergründe 1–5 */
+if(typeof EN!=="undefined")Object.assign(EN,{
+ "KURZ ERKLÄRT":"QUICK GUIDE","Willkommen bei Pokélings":"Welcome to Pokélings","Stell dir ein Team zusammen, lass es automatisch kämpfen und werde in Runde 20 Champion deiner Region.":"Build a team, let it battle on its own and become your region's champion in round 20.",
+ "Laden":"Shop","Kauf Pokémon und Items. Zieh":"Buy Pokémon and items. Drag","2 gleiche Pokémon":"2 identical Pokémon","aufeinander: Sie fusionieren und entwickeln sich.":"onto each other: they fuse and evolve.",
+ "Aufstellung":"Formation","Stell dein Team aufs Feld.":"Place your team on the field.","Rechts ist vorne":"Right is the front","(Tanks, Krieger), links hinten (Schützen, Magier).":"(tanks, warriors), left is the back (marksmen, mages).",
+ "Weg wählen":"Choose a path","Wähl einen von 3 Wegen. Die":"Pick one of 3 paths. The","zeigt das Risiko, dann kämpft dein Team von allein.":"shows the risk, then your team fights on its own.",
+ "Ziel":"Goal","Bosse":"Bosses","warten in Runde 5, 10, 15 und 20. Du hast nur ein Leben, eine Revanche macht die Gegner stärker.":"await in rounds 5, 10, 15 and 20. You only have one life, and a rematch makes the foes stronger.",
+ "Fortschritt":"Progress","Mit den":"With the","Edelsteinen":"gems","aus jedem Lauf verbesserst du im Forschungslabor dauerhaft dein Team.":"from every run you permanently upgrade your team in the research lab.",
+ "Alles Weitere steht jederzeit unter":"Everything else is always under","Einstellungen → Anleitung":"Settings → How to play",
+ "Deine Kampfkarte":"Your battle card","So sehen dich andere Spieler: im VS-Bildschirm, im Live-Duell, bei Geisterkämpfen und in der Bestenliste.":"This is how other players see you: on the VS screen, in live duels, in ghost battles and on the leaderboard.",
+ "Jedes Pokémon, das du schon einmal hattest.":"Any Pokémon you have ever owned.","Schaltest du mit Erfolgen frei. Je schwerer die Bedingung, desto spektakulärer.":"Unlocked through achievements. The harder the condition, the more spectacular.",
+ "3 Abzeichen":"3 badges","Von Bronze bis Bernstein. Die Stufe steigt mit deinen Leistungen.":"From bronze to amber. The tier rises with your achievements.","Selten: für Abzeichen auf Mythisch und zu besonderen Anlässen.":"Rare: for badges at Mythic and on special occasions.",
+ "Gestalten kannst du sie im Menü unter":"You can customize it in the menu under","Weiter":"Next",
+ "NEUER TITEL":"NEW TITLE","NEUER HINTERGRUND":"NEW BACKGROUND","ABZEICHEN VERLIEHEN":"BADGE AWARDED","Gleich verwenden":"Use now","Auf die Karte legen":"Put on my card",
+ "Er steht ab jetzt in deiner Titel-Auswahl. Du findest ihn hier:":"It's now in your title selection. You'll find it here:","Ein neuer Hintergrund für deine Trainerkarte. Du findest ihn hier:":"A new background for your trainer card. You'll find it here:",
+ "Dir wurde ein Abzeichen verliehen. Leg es in eines der 3 Felder deiner Karte:":"You've been awarded a badge. Put it in one of the 3 slots on your card:","Trainerkarte → Stil":"Trainer card → Style","Trainerkarte → Abzeichen":"Trainer card → Badges",
+ "GEISTERKAMPF":"GHOST BATTLE","Team Galaktik":"Team Galactic","TEAM GALAKTIK":"TEAM GALACTIC","Bernstein":"Amber","BERNSTEIN":"AMBER","Kein Titel":"No title",
+ "Abzeichen auf Mythisch":"Badges at Mythic","Regionen mit Albtraum- und Nuzlocke-Champion":"Regions with a Nightmare and Nuzlocke championship",
+ "Noch keine Kampfkarte: Sie erscheint, sobald":"No battle card yet: it appears as soon as","wieder mit Konto spielt.":"plays with an account again.",
+ "Sternennacht":"Starry Night","Herbstwald":"Autumn Forest","Bernsteinglut":"Amber Blaze",
+ "Ersten Lauf beenden":"Finish your first run","Ersten Boss besiegen":"Defeat your first boss","30 Pokémon im Pokédex":"30 Pokémon in the Pokédex","Champion I (erster Champion-Titel)":"Champion I (first champion title)",
+ "Tagesheld I (5 Tägliche Runs)":"Daily Hero I (5 daily runs)","Unaufhaltsam II (10 Siege in Folge)":"Unstoppable II (10 wins in a row)","Pokédex-Profi I (100 Pokémon)":"Pokédex Pro I (100 Pokémon)",
+ "Veteran II (25 Stunden Spielzeit)":"Veteran II (25 hours played)","Duellkönig II (15 Duell-Siege)":"Duel King II (15 duel wins)","Bossbrecher II (150 Bosse)":"Boss Breaker II (150 bosses)",
+ "Albtraumjäger I (1× Albtraum-Champion)":"Nightmare Hunter I (1× Nightmare champion)","Glitzerjäger II (25 Schillernde)":"Shiny Hunter II (25 shinies)","Ranked: Gold 1 erreichen":"Ranked: reach Gold 1",
+ "1 Abzeichen auf Bernstein":"1 badge at Amber"});
+
+/* v1.0.6: Patchnotes und Modus-Beschreibungen */
+if(typeof EN!=="undefined")Object.assign(EN,{"Großes Update: Schwierigkeit, Hintergründe & Abzeichen": "Big update: difficulty, backgrounds & badges", "Schwierigkeit neu abgestimmt, getestet mit tausenden Bot-Kämpfen gegen echte Spielstände. Leichte und mittlere Wege bleiben fair, schwere Wege und Elite fordern mehr.": "Difficulty rebalanced, tested with thousands of bot battles against real save files. Easy and medium paths stay fair, hard paths and elite demand more.", "Bosse sind je Region und Runde einzeln abgestimmt und passen sich etwas an dein Team an: kein Spaziergang, keine Wand. Auf Schwer und Albtraum hat jeder Boss zusätzlich eine eigene Stufe.": "Bosses are tuned per region and round and adapt slightly to your team: no walk in the park, no wall. On Hard and Nightmare every boss also has its own level.", "Schwer, Albtraum und Nuzlocke: Gegner stellen sich in Formation auf, tragen Items und haben mehr Fusionsgaben. Items gibt es auf Schwer ab Runde 8, auf Albtraum ab Runde 5 (ab 17 zwei), auf Nuzlocke ab Runde 10.": "Hard, Nightmare and Nuzlocke: foes line up in formation, carry items and have more fusion gifts. Items appear from round 8 on Hard, from round 5 on Nightmare (two from 17) and from round 10 on Nuzlocke.", "Hintergründe in 5 Stufen von leicht bis extrem: Je schwerer die Bedingung, desto spektakulärer der Hintergrund. Stufe 4 und 5 haben zusätzlich Lichteffekte, Stufe 5 einen leuchtenden Rahmen.": "Backgrounds in 5 levels from easy to extreme: the harder the condition, the more spectacular the background. Levels 4 and 5 add light effects, level 5 a glowing frame.", "3 neue Hintergründe: Sternennacht, Herbstwald und Bernsteinglut. Gewittersturm, Kristallhöhle, Schillerhain, Platin-Prisma und Galaxie sind neu gestaltet.": "3 new backgrounds: Starry Night, Autumn Forest and Amber Blaze. Thunderstorm, Crystal Cave, Shiny Grove, Platinum Prism and Galaxy have been redesigned.", "Viele Hintergründe sind leichter zu bekommen, z. B. Wiesenwind nach dem ersten Lauf und Morgenroute nach dem ersten Boss. Was du schon hast, bleibt.": "Many backgrounds are easier to get, e.g. Meadow Breeze after your first run and Morning Route after your first boss. Anything you already have stays.", "Karten-Editor: Die Bedingung steht jetzt unter jedem Hintergrund, gesperrte haben ein Schloss. Alles ist nach Stufe sortiert.": "Card editor: the condition is now shown below every background, locked ones have a lock. Everything is sorted by level.", "Neue Abzeichen-Stufe VI „Bernstein“ über Mythisch: geschmolzenes Bernstein mit Krone, Glutring und Funken. Jedes Abzeichen hat dafür ein eigenes Ziel, z. B. 500 Champion-Titel.": "New badge tier VI “Amber” above Mythic: molten amber with a crown, a ring of embers and sparks. Every badge has its own goal for it, e.g. 500 champion titles.", "Alle Abzeichen neu gestaltet: echter Metall-Look je Stufe, Glanz, der bei höheren Stufen öfter läuft, Mythisch funkelt.": "All badges redesigned: a real metal look per tier, a shine that runs more often on higher tiers, Mythic sparkles.", "VS-Bildschirm im Einzelspieler: Gegner haben jetzt eine eigene Kampfkarte mit Hintergrund, Abzeichen und Siegchance. Bosse leuchten golden, Schurkenteams zeigen ihr Zeichen.": "VS screen in singleplayer: foes now have their own battle card with background, badges and win chance. Bosses glow golden, villain teams show their emblem.", "Geisterkämpfe zeigen die echte, aktuelle Kampfkarte des Spielers.": "Ghost battles show the player's real, current battle card.", "Bestenliste: Spieler ohne Kampfkarte bekommen einen Platzhalter. Ihre Karte erscheint, sobald sie wieder mit Konto spielen.": "Leaderboard: players without a battle card get a placeholder. Their card appears as soon as they play with an account again.", "Lieblingspokémon sitzt auf der Kampfkarte wieder richtig, Pokémon in Abzeichen sind sauber mittig.": "Your favorite Pokémon sits correctly on the battle card again, Pokémon in badges are neatly centered.", "Neu: „Kurz erklärt“ zeigt einmalig, wie das Spiel und die Kampfkarte funktionieren.": "New: “Quick guide” explains the game and the battle card once.", "Englisch: alle neuen Texte übersetzt.": "English: all new texts translated.", "Stärkere Gegner in Formation, ab Runde 8 mit Items und früher mit Fusionsgaben. Härtere Revanchen.": "Stronger foes in formation, with items from round 8 and fusion gifts earlier. Harsher rematches.", "Gegner in Formation, mit Items ab Runde 5 (ab 17 zwei) und mehr Fusionsgaben, stärkere Bosse, wenig Gold. Nur für echte Geisterjäger.": "Foes in formation, with items from round 5 (two from 17) and more fusion gifts, stronger bosses, little gold. Only for true ghost hunters.", "Gegner etwas stärker als auf Normal und in Formation, besiegte Pokémon sind für den Rest des Laufs weg. Dafür dreifache Edelsteine.": "Foes a bit stronger than on Normal and in formation, defeated Pokémon are gone for the rest of the run. In return, triple gems."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -10861,7 +11119,7 @@ async function clFetch(path,o){o=o||{};const h=Object.assign({apikey:CLOUD.key,"
   try{const r=await fetch(CLOUD.url+path,{method:o.method||"GET",headers:h,body:o.body!==undefined?JSON.stringify(o.body):undefined,signal:ctl&&ctl.signal,keepalive:!!o.keep});
     const tx=await r.text();let j=null;try{j=tx?JSON.parse(tx):null;}catch(e){}return{ok:r.ok,status:r.status,j};}
   catch(e){return{ok:false,status:0,net:true,j:null};}finally{clearTimeout(to);}}
-function clSetSess(j,name,remember){if(!j||!j.access_token)return false;CL.sess={access_token:j.access_token,refresh_token:j.refresh_token,uid:(j.user&&j.user.id)||(CL.sess&&CL.sess.uid),exp:Date.now()+(j.expires_in||3600)*1000,name};
+function clSetSess(j,name,remember){if(!j||!j.access_token)return false;CL.sess={access_token:j.access_token,refresh_token:j.refresh_token,uid:(j.user&&j.user.id)||(CL.sess&&CL.sess.uid),created:(j.user&&j.user.created_at)||(CL.sess&&CL.sess.name===name&&CL.sess.created)||null,exp:Date.now()+(j.expires_in||3600)*1000,name};
   if(remember!==false)LS.set(clTokKey(name),{rt:j.refresh_token,uid:CL.sess.uid});setTimeout(()=>{try{clPing();}catch(e){}},400);return true;}
 async function clSignin(name,pw){const r=await clFetch("/auth/v1/token?grant_type=password",{method:"POST",auth:false,body:{email:clEmail(name),password:clPw(name,pw)}});return r;}
 async function clSignup(name,pw){return clFetch("/auth/v1/signup",{method:"POST",auth:false,body:{email:clEmail(name),password:clPw(name,pw),data:{name}}});}
@@ -10963,7 +11221,7 @@ async function clMyTitle(){if(!CL.sess||!CL.sess.uid)return;const uid=CL.sess.ui
   if(ch){if(typeof clDirty==="function")clDirty();ttRefresh();}}
 function ttRefresh(){try{if($("modal").classList.contains("show")&&$("mbox").querySelector(".cdWrap"))cardModal(CARD_TAB);}catch(e){}}
 /* nach Anmeldung (Spielstand ist abgeglichen und geladen) */
-function clAfterLogin(){try{clMyTitle();clGifts(true);evLoad(true);clBadgeGifts(true);if(typeof socStart==="function")socStart();}catch(e){}}
+function clAfterLogin(){try{CL.noCard=false;clMyTitle();clGifts(true);evLoad(true);clBadgeGifts(true);if(typeof socStart==="function")socStart();setTimeout(()=>{try{if(CL.sess)clPush();}catch(e){}},2500);}catch(e){}}
 /* Online-Status + Version (fürs Admin-Panel) */
 async function clPing(){if(!CL.sess||document.visibilityState==="hidden")return;if(!(await clReady()))return;clFetch("/rest/v1/rpc/ping",{method:"POST",body:{v:GAME_VER},timeout:6000});}
 setInterval(()=>{try{clPing();}catch(e){}},60000);setInterval(()=>{try{clConfig();}catch(e){}},300000);
@@ -10989,41 +11247,51 @@ function giftApply(){if(!USER||!META)return;const k=giftKey(USER),L=LS.get(k,nul
 function giftShow(){if(!GIFT.q.length||(!USER&&GIFT.q[0].type!=="ev"))return;const free=$("menu").classList.contains("show")&&!$("modal").classList.contains("show")&&!(typeof ADM!=="undefined"&&ADM.sess);
   if(!free){if(!GIFT.note&&!$("menu").classList.contains("show")){GIFT.note=1;toast("Du hast ein Geschenk bekommen – im Menü wartet es auf dich!","star");}return;}
   GIFT.note=0;const g=GIFT.q.shift();if(g.type==="reply")return repShow(g);if(g.type==="ev")return evShow(g);const sp=SPECIES[g.id],R=REGIONS[(sp.line&&sp.line.region)||"kanto"];
-  openModal(`<div class="giftBox"><i class="giftRays"></i><small class="giftK">${ic("star")} GESCHENK FÜR DICH</small><div class="giftMon" id="giftMon"></div>
-    <h2>${esc(sp.name)}${g.sh?` <span class="giftSh">${ic("shiny")} schillernd</span>`:""}</h2>
-    ${g.msg?`<p class="giftMsg">„${esc(g.msg)}“</p>`:""}<p class="lead">Steht jetzt in deinem Pokédex und ist als Lieblingspokémon wählbar.${g.nu&&R?` Ab sofort kann es dir auch in ${esc(R.n)}-Läufen im Laden begegnen.`:""}</p>
-    <div class="rbtns"><button class="pri" id="giftFav">${ic("heart")} Als Lieblingspokémon</button><button class="btn" id="giftOk">Super!</button></div></div>`,"narrow",true);
+  openModal(`<div class="giftBox"><i class="giftRays"></i><small class="giftK">${ic("star")} GESCHENK FÜR DICH</small><div class="giftStage"><div class="giftMon" id="giftMon"></div></div>
+    <h3 class="giftH">${esc(sp.name)}${g.sh?` <span class="giftSh">${ic("shiny")} schillernd</span>`:""}</h3>
+    ${g.msg?`<p class="giftMsg">„${esc(g.msg)}“</p>`:""}<p class="giftLead">Steht jetzt in deinem Pokédex und ist als Lieblingspokémon wählbar.${g.nu&&R?` Ab sofort kann es dir auch in ${esc(R.n)}-Läufen im Laden begegnen.`:""}</p>
+    <div class="giftBtns"><button class="pri" id="giftFav">${ic("heart")} Als Lieblingspokémon</button><button class="btn" id="giftOk">Super!</button></div></div>`,"narrow gift",true);
   try{$("giftMon").appendChild(sprAlign(natFit(spriteEl(g.id,"",{shiny:g.sh}),1),false));}catch(e){}try{sfx("sparkle");}catch(e){}
   $("giftOk").onclick=closeModal;$("giftFav").onclick=()=>{try{META.card=META.card||{};META.card.fav=g.id;META.card.favSh=g.sh?1:0;saveMeta();toast(`${sp.name} ist jetzt dein Lieblingspokémon`,"heart");}catch(e){}closeModal();};}
 /* ===== Geschenke an alle (Titel, Hintergründe): öffentliche Liste, jedes Geschenk einmal pro Spielstand ===== */
 const EVG={list:null,t:0,busy:false},EVG_KEY="pokelings_evg";
-function evList(){if(EVG.list)return EVG.list;try{EVG.list=LS.get(EVG_KEY,null)||[];}catch(e){EVG.list=[];}return EVG.list;}
+function evList(){if(EVG.list)return EVG.list;try{EVG.list=LS.get(EVG_KEY,null)||[];}catch(e){EVG.list=[];}evI18n();return EVG.list;}
+/* Englische Fassung geschenkter Titel: wer auf Englisch spielt, sieht sie überall (Karte, Bestenliste, VS). Ohne Englisch bleibt der deutsche Titel. */
+function evI18n(){if(typeof EN==="undefined")return;const add=(de,en)=>{de=String(de||"").trim();en=String(en||"").replace(/[<>]/g,"").trim().slice(0,24);if(!de||!en||de===en||EN[de]!==undefined)return;EN[de]=en;try{TR.cache.delete(de);}catch(e){}};
+  for(const g of EVG.list||[])if(g&&g.kind==="title"&&g.val_en)add(g.val,g.val_en);
+  try{for(const x of (META&&META.ev&&META.ev.tt)||[])if(x&&x.en)add(x.t,x.en);}catch(e){}}
 /* Effekt eines geschenkten Titels (auch für fremde Karten in der Bestenliste) */
 function evTitleStyle(t){const g=evList().find(x=>x&&x.kind==="title"&&x.val===t);return g&&TITLE_FX[g.style]?g.style:null;}
+/* Geschenke an alle gelten nur für Online-Konten, die beim Verschenken schon existierten (keine Gäste, keine später erstellten Konten) */
+function evCreated(){try{if(!CL.sess||!USER||userKey(USER)!==userKey(CL.sess.name)||!CL.sess.created)return null;const t=Date.parse(CL.sess.created);return isFinite(t)?t:null;}catch(e){return null;}}
+async function evAcct(){try{if(!CL.sess||CL.sess.created||!USER||userKey(USER)!==userKey(CL.sess.name))return;if(!(await clReady()))return;const r=await clFetch("/auth/v1/user",{method:"GET",timeout:8000});if(r.ok&&r.j&&r.j.created_at&&CL.sess)CL.sess.created=r.j.created_at;}catch(e){}}
 async function evLoad(force){if(EVG.busy)return;if(!force&&Date.now()-EVG.t<120000){evApply();return;}EVG.busy=true;EVG.t=Date.now();
-  try{const r=await clFetch("/rest/v1/rpc/event_gifts_list",{method:"POST",auth:false,body:{},timeout:8000});if(r.ok&&Array.isArray(r.j)){EVG.list=r.j;LS.set(EVG_KEY,r.j);}}catch(e){}finally{EVG.busy=false;}evApply();}
-function evApply(){if(!META)return;const E=META.ev=META.ev||{got:[],bg:[],tt:[]};E.got=E.got||[];E.bg=E.bg||[];E.tt=E.tt||[];const nw=[];
-  for(const g of evList()){if(!g||!g.active||E.got.includes(g.id))continue;
+  try{await evAcct();const r=await clFetch("/rest/v1/rpc/event_gifts_list",{method:"POST",auth:false,body:{},timeout:8000});if(r.ok&&Array.isArray(r.j)){EVG.list=r.j;LS.set(EVG_KEY,r.j);evI18n();}}catch(e){}finally{EVG.busy=false;}evApply();}
+function evApply(){if(!META)return;const cr=evCreated();if(!cr)return;const E=META.ev=META.ev||{got:[],bg:[],tt:[]};E.got=E.got||[];E.bg=E.bg||[];E.tt=E.tt||[];const nw=[];
+  for(const g of evList()){if(!g||!g.active||E.got.includes(g.id))continue;const ga=Date.parse(g.at);if(!isFinite(ga)||ga<cr)continue;
     if(g.kind==="bg"){if(!CARD_BG[g.val])continue;E.got.push(g.id);if(!E.bg.includes(g.val))E.bg.push(g.val);nw.push({type:"ev",kind:"bg",val:g.val,msg:g.note||""});}
-    else if(g.kind==="title"){const t=String(g.val||"").replace(/[<>]/g,"").slice(0,24);if(!t)continue;E.got.push(g.id);if(!E.tt.some(x=>x.t===t))E.tt.push({t,s:TITLE_FX[g.style]?g.style:null});nw.push({type:"ev",kind:"title",val:t,style:g.style,msg:g.note||""});}}
-  if(nw.length){saveMeta();GIFT.q.push(...nw);giftShow();}}
+    else if(g.kind==="title"){const t=String(g.val||"").replace(/[<>]/g,"").slice(0,24);if(!t)continue;const en=String(g.val_en||"").replace(/[<>]/g,"").trim().slice(0,24)||undefined;E.got.push(g.id);
+      if(!E.tt.some(x=>x.t===t))E.tt.push({t,s:TITLE_FX[g.style]?g.style:null,en});nw.push({type:"ev",kind:"title",val:t,en,style:g.style,msg:g.note||"",msgEn:g.note_en||""});}}
+  if(nw.length){saveMeta();evI18n();GIFT.q.push(...nw);giftShow();}}
 /* Verliehene Abzeichen (nur Online-Konto): Serverstand ist maßgeblich, Anzeige nur auf der Trainerkarte */
 const BGT={t:0,busy:false};
 async function clBadgeGifts(force){if(BGT.busy||!CL.sess||!USER||userKey(USER)!==userKey(CL.sess.name)||!META||CL.syncing)return;if(!force&&Date.now()-BGT.t<120000)return;BGT.t=Date.now();BGT.busy=true;
   try{if(!(await clReady()))return;const r=await clFetch("/rest/v1/rpc/badge_mine",{method:"POST",body:{},timeout:8000});if(!r.ok||!Array.isArray(r.j))return;
-    const m={};for(const x of r.j)if(x&&typeof x.badge==="string"&&badgeDef(x.badge))m[x.badge]=Math.max(1,Math.min(5,x.tier|0));
+    const m={};for(const x of r.j)if(x&&typeof x.badge==="string"&&badgeDef(x.badge))m[x.badge]=Math.max(1,Math.min(TIER_MAX,x.tier|0));
     const old=META.bgift||{};if(JSON.stringify(old)===JSON.stringify(m))return;const add=Object.keys(m).filter(k=>(old[k]||0)<m[k]);
     META.bgift=m;if(META.card&&Array.isArray(META.card.badges))META.card.badges=META.card.badges.filter(id=>{const d=badgeDef(id);return d&&badgeShowT(d)>0;});saveMeta();
     for(const k of add)GIFT.q.push({type:"ev",kind:"badge",val:k,tier:m[k]});giftShow();}finally{BGT.busy=false;}}
-function evShow(g){const box=(k,inner,h,lead,useTxt)=>{openModal(`<div class="giftBox evGift"><i class="giftRays"></i><small class="giftK">${ic("star")} ${k}</small>${inner}<h2>${h}</h2>${g.msg?`<p class="giftMsg">„${esc(g.msg)}“</p>`:""}<p class="lead">${lead}</p>
-    <div class="rbtns"><button class="pri" id="evUse">${ic("user")} ${useTxt}</button><button class="btn" id="evOk">Super!</button></div></div>`,"narrow",true);try{sfx("sparkle");}catch(e){}$("evOk").onclick=next;};
+function evShow(g){const en=LANG==="en",msg=en&&g.msgEn?g.msgEn:g.msg;
+  const box=(k,stage,h,lead,useTxt,where)=>{openModal(`<div class="giftBox evGift"><i class="giftRays"></i><small class="giftK">${ic("star")} ${k}</small><div class="giftStage">${stage}</div>${h?`<h3 class="giftH">${h}</h3>`:""}${msg?`<p class="giftMsg">„${esc(msg)}“</p>`:""}<p class="giftLead">${lead}</p>${where?`<div class="giftWhere"><span class="giftPath">${ic("user")} ${where}</span></div>`:""}
+    <div class="giftBtns"><button class="pri" id="evUse">${ic("user")} ${useTxt}</button><button class="btn" id="evOk">Super!</button></div></div>`,"narrow gift",true);try{sfx("sparkle");}catch(e){}$("evOk").onclick=next;};
   const next=()=>{closeModal();if(GIFT.q.length)setTimeout(giftShow,350);};
   try{META.card=META.card||{};const C=META.card;
-    if(g.kind==="bg"){const b=CARD_BG[g.val];if(!b)return giftShow();box("NEUER HINTERGRUND",`<div class="evBg">${bgHTML(g.val)}${b.ed?`<em class="evEd">${esc(b.ed)}</em>`:""}</div>`,esc(b.n),"Ein neuer Hintergrund für deine Trainerkarte. Du findest ihn unter Trainerkarte → Stil.","Gleich verwenden");
+    if(g.kind==="bg"){const b=CARD_BG[g.val];if(!b)return giftShow();box("NEUER HINTERGRUND",`<div class="evBg">${bgHTML(g.val)}${b.ed?`<em class="evEd">${esc(b.ed)}</em>`:""}</div>`,esc(b.n),"Ein neuer Hintergrund für deine Trainerkarte. Du findest ihn hier:","Gleich verwenden","Trainerkarte → Stil");
       $("evUse").onclick=()=>{C.bg=g.val;saveMeta();next();toast(`Hintergrund „${b.n}“ ist jetzt auf deiner Karte`,"star");};}
-    else if(g.kind==="title"){box("NEUER TITEL",`<div class="evTitle"><span${ttCls(TITLE_FX[g.style]?g.style:null)}>${esc(g.val)}</span></div>`,"Titel für deine Trainerkarte","Er steht ab jetzt in deiner Titel-Auswahl unter Trainerkarte → Stil.","Gleich verwenden");
-      $("evUse").onclick=()=>{C.title=g.val;saveMeta();next();toast(`Titel „${g.val}“ ist jetzt auf deiner Karte`,"crown");};}
-    else if(g.kind==="badge"){const d=badgeDef(g.val);if(!d)return giftShow();box("ABZEICHEN VERLIEHEN",`<div class="evBadge">${badgeHTML(g.val,g.tier)}</div>`,`${esc(d.n)} · ${TIER[g.tier].n}`,"Dir wurde ein Abzeichen verliehen. Leg es unter Trainerkarte → Abzeichen in eines der 3 Felder.","Auf die Karte legen");
+    else if(g.kind==="title"){const tv=en&&g.en?g.en:g.val,bgk=C.bg&&CARD_BG[C.bg]&&(typeof bgOk!=="function"||bgOk(C.bg))?C.bg:"std";
+      box("NEUER TITEL",`<div class="evPlate">${bgHTML(bgk)}<i class="evPlDim"></i><b class="evPlN">${esc((typeof cardMine==="function"&&cardMine().name)||USER||"Trainer")}</b><span${ttCls(TITLE_FX[g.style]?g.style:null)||' class="tt"'}>${esc(tv)}</span></div>`,"","Er steht ab jetzt in deiner Titel-Auswahl. Du findest ihn hier:","Gleich verwenden","Trainerkarte → Stil");
+      $("evUse").onclick=()=>{C.title=g.val;saveMeta();next();toast(`Titel „${tv}“ ist jetzt auf deiner Karte`,"crown");};}
+    else if(g.kind==="badge"){const d=badgeDef(g.val);if(!d)return giftShow();box("ABZEICHEN VERLIEHEN",`<div class="evBadge">${badgeHTML(g.val,g.tier)}</div>`,`${esc(d.n)} <small>${TIER[g.tier].n}</small>`,"Dir wurde ein Abzeichen verliehen. Leg es in eines der 3 Felder deiner Karte:","Auf die Karte legen","Trainerkarte → Abzeichen");
       cardHydrate($("mbox"));$("evUse").onclick=()=>{C.badges=(C.badges||[]).filter(x=>x!==g.val);if(C.badges.length>=3)C.badges.shift();C.badges.push(g.val);saveMeta();next();toast(`${d.n} liegt jetzt auf deiner Karte`,"badge");};}
     hydrateIcons($("mbox"));}catch(e){}}
 /* ===== Feedback an den Entwickler (nur mit Online-Konto) + Antworten im Spiel ===== */
@@ -11589,23 +11857,38 @@ revoke all on function public.ranked_board() from public;
 grant execute on function public.ranked_board() to anon, authenticated;
 notify pgrst, 'reload schema';`;}
 /* v1.0.5: Geschenke an alle (Titel, Hintergründe) + verliehene Abzeichen je Spieler */
-function admSQL5(){return `-- v1.0.5: Geschenke an alle (Titel, Hintergründe) und verliehene Abzeichen (kann gefahrlos mehrfach laufen)
-create table if not exists public.event_gifts(id bigserial primary key,kind text not null,val text not null,style text,note text,at timestamptz not null default now(),active boolean not null default true);
-alter table public.event_gifts enable row level security;
-revoke all on public.event_gifts from anon, authenticated;
-create or replace function public.event_gifts_list() returns table(id bigint,kind text,val text,style text,note text,active boolean,at timestamptz) language sql security definer stable set search_path=public as $$
-  select e.id,e.kind,e.val,e.style,e.note,e.active,e.at from public.event_gifts e order by e.id $$;
-create or replace function public.admin_event_gift(gkind text,gval text,gstyle text,gnote text) returns bigint language plpgsql security definer set search_path=public,auth as $$
-declare i bigint;
+/* v1.0.6: Geschenke an alle zweisprachig (Titel und Nachricht optional auf Englisch) */
+function admSQLGiftFns(){return `alter table public.event_gifts add column if not exists val_en text;
+alter table public.event_gifts add column if not exists note_en text;
+drop function if exists public.event_gifts_list();
+create function public.event_gifts_list() returns table(id bigint,kind text,val text,style text,note text,active boolean,at timestamptz,val_en text,note_en text) language sql security definer stable set search_path=public as $$
+  select e.id,e.kind,e.val,e.style,e.note,e.active,e.at,e.val_en,e.note_en from public.event_gifts e order by e.id $$;
+drop function if exists public.admin_event_gift(text,text,text,text);
+create or replace function public.admin_event_gift(gkind text,gval text,gstyle text,gnote text,gval_en text default null,gnote_en text default null) returns bigint language plpgsql security definer set search_path=public,auth as $$
+declare i bigint; ve text:=nullif(btrim(coalesce(gval_en,'')),''); ne text:=nullif(left(btrim(coalesce(gnote_en,'')),120),'');
 begin
   if not public.is_admin() then raise exception 'forbidden'; end if;
   if gkind is null or gkind not in ('title','bg') then raise exception 'kind_invalid'; end if;
   if gval is null or length(btrim(gval))<1 or length(btrim(gval))>24 then raise exception 'val_invalid'; end if;
+  if ve is not null and length(ve)>24 then raise exception 'val_invalid'; end if;
   if exists(select 1 from public.event_gifts e where e.kind=gkind and e.val=btrim(gval) and e.active) then raise exception 'already_active'; end if;
-  insert into public.event_gifts(kind,val,style,note) values(gkind,btrim(gval),nullif(btrim(coalesce(gstyle,'')),''),left(coalesce(gnote,''),120)) returning id into i;
-  perform public.adm_log(case when gkind='title' then 'Titel an alle' else 'Hintergrund an alle' end,'alle',btrim(gval)||coalesce(' · '||nullif(btrim(coalesce(gstyle,'')),''),''));
+  insert into public.event_gifts(kind,val,style,note,val_en,note_en) values(gkind,btrim(gval),nullif(btrim(coalesce(gstyle,'')),''),left(coalesce(gnote,''),120),ve,ne) returning id into i;
+  perform public.adm_log(case when gkind='title' then 'Titel an alle' else 'Hintergrund an alle' end,'alle',btrim(gval)||coalesce(' / EN: '||ve,'')||coalesce(' · '||nullif(btrim(coalesce(gstyle,'')),''),''));
   return i;
-end $$;
+end $$;`;}
+/* Nur das Update von v1.0.6 (für bestehende Server) */
+function admSQL6(){return `-- v1.0.6: Geschenke an alle zweisprachig (kann gefahrlos mehrfach laufen)
+${admSQLGiftFns()}
+revoke all on function public.event_gifts_list() from public;
+grant execute on function public.event_gifts_list() to anon, authenticated;
+revoke all on function public.admin_event_gift(text,text,text,text,text,text) from public, anon;
+grant execute on function public.admin_event_gift(text,text,text,text,text,text) to authenticated;
+notify pgrst, 'reload schema';`;}
+function admSQL5(){return `-- v1.0.5/1.0.6: Geschenke an alle (Titel, zweisprachig) und verliehene Abzeichen (kann gefahrlos mehrfach laufen)
+create table if not exists public.event_gifts(id bigserial primary key,kind text not null,val text not null,style text,note text,at timestamptz not null default now(),active boolean not null default true);
+alter table public.event_gifts enable row level security;
+revoke all on public.event_gifts from anon, authenticated;
+${admSQLGiftFns()}
 create or replace function public.admin_event_gift_off(gid bigint) returns void language plpgsql security definer set search_path=public,auth as $$
 begin
   if not public.is_admin() then raise exception 'forbidden'; end if;
@@ -11637,7 +11920,7 @@ create or replace function public.badge_mine() returns table(badge text,tier int
 revoke all on function public.event_gifts_list() from public;
 grant execute on function public.event_gifts_list() to anon, authenticated;
 do $$ declare f text; begin
-  foreach f in array array['admin_event_gift(text,text,text,text)','admin_event_gift_off(bigint)','admin_badge(uuid,text,integer)','admin_badge_list(uuid)','badge_mine()'] loop
+  foreach f in array array['admin_event_gift(text,text,text,text,text,text)','admin_event_gift_off(bigint)','admin_badge(uuid,text,integer)','admin_badge_list(uuid)','badge_mine()'] loop
     execute 'revoke all on function public.'||f||' from public, anon';
     execute 'grant execute on function public.'||f||' to authenticated';
   end loop;
@@ -11696,49 +11979,55 @@ async function admLoadList(){const L=$("admList");if(!L)return;L.innerHTML=`<p c
   L.querySelectorAll("[data-rn]").forEach(b=>b.onclick=()=>admRename(A(b.dataset.rn)));L.querySelectorAll("[data-tt]").forEach(b=>b.onclick=()=>admGrant(A(b.dataset.tt),"title"));L.querySelectorAll("[data-pw]").forEach(b=>b.onclick=()=>admPw(A(b.dataset.pw)));
   L.querySelectorAll("[data-ban]").forEach(b=>b.onclick=()=>admBan(A(b.dataset.ban)));L.querySelectorAll("[data-bd]").forEach(b=>b.onclick=()=>admBoardDel(A(b.dataset.bd)));L.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>admDel(A(b.dataset.del)));}
 /* Vergabe: Titel (mit Schrift-Effekt) und Pokémon in einem Dialog. Pokémon nur, wenn der Spieler es noch nicht hat und nicht im Labor gekauft hat. */
-function admGrant(a,tab){tab=tab||(a?"title":"mon");const T=a?[["title","crown","TITEL"],["mon","ball","POKÉMON"],["badge","badge","ABZEICHEN"]]:[["mon","ball","POKÉMON"],["etitle","crown","TITEL"],["ebg","star","HINTERGRUND"]];
+function admGrant(a,tab){tab=tab||(a?"title":"mon");const T=a?[["title","crown","TITEL"],["mon","ball","POKÉMON"],["badge","badge","ABZEICHEN"]]:[["mon","ball","POKÉMON"],["etitle","crown","TITEL"]];
   openModal(`<h2>${ic("crown")} VERGABE${a?` · ${esc(a.name)}`:" · ALLE SPIELER"}</h2>
    <div class="dtabs admGTabs">${T.map(([k,i,n])=>`<button data-gt="${k}" class="${tab===k?"on":""}">${ic(i)} ${n}</button>`).join("")}</div><div id="admGB"></div>`,"",true);
   $("mbox").querySelectorAll("[data-gt]").forEach(b=>b.onclick=()=>{$("mbox").querySelectorAll("[data-gt]").forEach(x=>x.classList.toggle("on",x===b));admGrantBody(a,b.dataset.gt);});
   admGrantBody(a,tab);}
-function admGrantBody(a,tab){const B=$("admGB");if(!B)return;if(tab==="etitle")return admEvTitleBody(B);if(tab==="ebg")return admEvBgBody(B);if(tab==="badge"&&a)return admBadgeBody(a,B);if(tab==="title"&&a)return admTitleBody(a,B);return admGiftBody(a,B);}
+function admGrantBody(a,tab){const B=$("admGB");if(!B)return;if(tab==="etitle")return admEvTitleBody(B);if(tab==="badge"&&a)return admBadgeBody(a,B);if(tab==="title"&&a)return admTitleBody(a,B);return admGiftBody(a,B);}
 /* ---------- Geschenke an alle: Titel und Hintergründe ---------- */
 function admEvErr(r){const t=JSON.stringify((r&&r.j)||"");return /already_active/.test(t)?"Dieses Geschenk ist schon aktiv.":/val_invalid/.test(t)?"Bitte 1 bis 24 Zeichen.":/function|schema|event_gift/i.test(t)?"Auf dem Server fehlt noch das Update: unter <b>Server-Setup</b> den Code ausführen.":"Fehlgeschlagen: "+admErr(r);}
 async function admEvList(el){if(!el)return;const r=await clFetch("/rest/v1/rpc/event_gifts_list",{method:"POST",auth:false,body:{},timeout:8000});if(!el.isConnected)return;
   if(!r.ok||!Array.isArray(r.j)){el.innerHTML=`<p class="admNote">${admEvErr(r)}</p>`;return;}const L=r.j.slice().reverse();
-  el.innerHTML=L.length?L.map(g=>`<div class="admTRow${g.active?"":" off"}">${ic(g.kind==="bg"?"star":"crown")}${g.kind==="bg"?`<b>${esc((CARD_BG[g.val]||{n:g.val}).n)}</b><small>Hintergrund</small>`:`${admTT(g.val,g.style)}<small>Titel</small>`}<small>${admFmt(g.at)}${g.active?"":" · beendet"}</small><span style="flex:1"></span>${g.active?`<button class="btn sm danger" data-evoff="${g.id}" title="Nicht mehr an neue Spieler verteilen (wer es hat, behält es)">${ic("close")} Beenden</button>`:""}</div>`).join(""):`<p class="admNote">Noch keine Geschenke an alle.</p>`;hydrateIcons(el);
+  el.innerHTML=L.length?L.map(g=>`<div class="admTRow${g.active?"":" off"}">${ic(g.kind==="bg"?"star":"crown")}${g.kind==="bg"?`<b>${esc((CARD_BG[g.val]||{n:g.val}).n)}</b><small>Hintergrund</small>`:`${admTT(g.val,g.style)}${g.val_en&&g.val_en!==g.val?`<span class="admEnT">EN <b>${esc(g.val_en)}</b></span>`:""}`}<small>${admFmt(g.at)}${g.active?"":" · beendet"}</small><span style="flex:1"></span>${g.active?`<button class="btn sm danger" data-evoff="${g.id}" title="Beenden: wer es noch nicht abgeholt hat, bekommt es nicht mehr (wer es hat, behält es)">${ic("close")} Beenden</button>`:""}</div>`).join(""):`<p class="admNote">Noch keine Geschenke an alle.</p>`;hydrateIcons(el);
   el.querySelectorAll("[data-evoff]").forEach(b=>b.onclick=async()=>{if(b.dataset.ok!=="1"){b.dataset.ok="1";b.innerHTML=ic("close")+" Sicher?";hydrateIcons(b);return;}const r2=await admRpc("admin_event_gift_off",{gid:+b.dataset.evoff});if(!r2.ok){toast("Fehlgeschlagen: "+admErr(r2),"close");return;}toast("Geschenk beendet","check");admEvList(el);});}
-function admEvTitleBody(B){let sty="geist";
-  B.innerHTML=`<div class="lead">Der Titel landet bei allen Spielern in der Titel-Auswahl ihrer Trainerkarte, mit Effekt. Neue Spieler bekommen ihn, solange das Geschenk aktiv ist. Beim nächsten Spielstart erscheint ein Geschenk-Fenster.</div>
-   <label class="fld" style="margin-top:6px">TITEL (max. 24 Zeichen)<input id="admEt" maxlength="24" autocomplete="off" placeholder="z. B. Halloween 2026"></label>
-   <div class="admFx">${Object.entries(TITLE_FX).map(([k,n])=>`<button class="admFxB${k===sty?" on":""}" data-fx="${k}"><span class="tt tt-${k}">${n}</span></button>`).join("")}</div>
-   <div class="admPrev"><small>Vorschau</small><span id="admEp"></span></div>
-   <label class="fld">NACHRICHT IM GESCHENK-FENSTER (optional)<input id="admEn" maxlength="120" autocomplete="off" placeholder="z. B. Fröhliches Halloween!"></label><div class="aerr" id="admEe"></div>
-   <div class="rbtns" style="margin-top:10px"><button class="pri" id="admEg">${ic("star")} An alle verschenken</button><button class="btn" id="admEx">Schließen</button></div>
-   <h4 class="cdCat">Geschenke an alle</h4><div class="admTList" id="admEl"><p class="admNote">Lade …</p></div>`;hydrateIcons(B);
-  const prev=()=>{$("admEp").innerHTML=admTT($("admEt").value.trim()||"Titel",sty);};prev();$("admEt").oninput=prev;
-  B.querySelectorAll("[data-fx]").forEach(b=>b.onclick=()=>{sty=b.dataset.fx;B.querySelectorAll("[data-fx]").forEach(x=>x.classList.toggle("on",x===b));prev();});$("admEx").onclick=closeModal;
-  $("admEg").onclick=async()=>{const v=$("admEt").value.trim().replace(/[<>]/g,"");if(!v){$("admEe").textContent="Bitte einen Titel eingeben.";return;}const r=await admRpc("admin_event_gift",{gkind:"title",gval:v,gstyle:sty,gnote:$("admEn").value.trim()});
-    if(!r.ok){$("admEe").innerHTML=admEvErr(r);return;}toast(`Titel „${v}“ an alle verschenkt`,"crown");$("admEt").value="";prev();admEvList($("admEl"));};
-  admEvList($("admEl"));}
-function admEvBgBody(B){const keys=Object.keys(CARD_BG).filter(k=>k!=="std");let sel=keys.find(k=>CARD_BG[k].gift)||keys[0];
-  B.innerHTML=`<div class="lead">Der Hintergrund wird bei allen Spielern freigeschaltet. Geschenk-Hintergründe (Edition) gibt es nur so. Neue Spieler bekommen ihn, solange das Geschenk aktiv ist.</div>
-   <div class="admBgs">${keys.map(k=>{const b=CARD_BG[k];return `<button class="cdBg${k===sel?" on":""}" data-ebg="${k}"><i class="bgThumb">${bgHTML(k)}${b.gift?`<em class="cdEd">${esc(b.ed||"Edition")}</em>`:""}</i><b>${esc(b.n)}</b><small>${esc(b.gift?"nur als Geschenk":b.ld||"")}</small></button>`;}).join("")}</div>
-   <label class="fld" style="margin-top:8px">NACHRICHT IM GESCHENK-FENSTER (optional)<input id="admEn" maxlength="120" autocomplete="off" placeholder="z. B. Fröhliches Halloween!"></label><div class="aerr" id="admEe"></div>
-   <div class="rbtns" style="margin-top:10px"><button class="pri" id="admEg">${ic("star")} An alle verschenken</button><button class="btn" id="admEx">Schließen</button></div>
-   <h4 class="cdCat">Geschenke an alle</h4><div class="admTList" id="admEl"><p class="admNote">Lade …</p></div>`;hydrateIcons(B);
-  B.querySelectorAll("[data-ebg]").forEach(b=>b.onclick=()=>{sel=b.dataset.ebg;B.querySelectorAll("[data-ebg]").forEach(x=>x.classList.toggle("on",x===b));});$("admEx").onclick=closeModal;
-  $("admEg").onclick=async()=>{const r=await admRpc("admin_event_gift",{gkind:"bg",gval:sel,gstyle:"",gnote:$("admEn").value.trim()});if(!r.ok){$("admEe").innerHTML=admEvErr(r);return;}toast(`Hintergrund „${CARD_BG[sel].n}“ an alle verschenkt`,"star");admEvList($("admEl"));};
+function admEvTitleBody(B){let sty="geist",pv="de";
+  B.innerHTML=`<p class="admLead">${ic("info")}<span>Geht an alle Konten, die es <b>jetzt</b> gibt. Später erstellte Konten und Gäste bekommen ihn nicht. Beim nächsten Spielstart erscheint ein Geschenk-Fenster.</span></p>
+   <div class="admGCols"><div class="admGForm">
+    <div class="admSec"><h5>TITEL <small>max. 24 Zeichen · Englisch optional</small></h5><div class="admLang">
+     <label><i>DE</i><input id="admEt" maxlength="24" autocomplete="off" placeholder="z. B. Halloween 2026"><em id="admEtC">0/24</em></label>
+     <label><i class="en">EN</i><input id="admEtE" maxlength="24" autocomplete="off" placeholder="optional, z. B. Halloween 2026"><em id="admEtEC">0/24</em></label></div></div>
+    <div class="admSec"><h5>EFFEKT</h5><div class="admFx">${Object.entries(TITLE_FX).map(([k,n])=>`<button class="admFxB${k===sty?" on":""}" data-fx="${k}"><span class="tt tt-${k}">${n}</span></button>`).join("")}</div></div>
+    <div class="admSec"><h5>NACHRICHT IM GESCHENK-FENSTER <small>optional</small></h5><div class="admLang">
+     <label><i>DE</i><input id="admEn" maxlength="120" autocomplete="off" placeholder="z. B. Fröhliches Halloween!"></label>
+     <label><i class="en">EN</i><input id="admEnE" maxlength="120" autocomplete="off" placeholder="optional, z. B. Happy Halloween!"></label></div></div>
+   </div><div class="admGSide"><h5>VORSCHAU</h5>
+    <div class="admPvL"><button data-pv="de" class="on">Deutsch</button><button data-pv="en">English</button></div>
+    <div class="admPlate">${bgHTML("galaxie")}<i class="evPlDim"></i><b>Trainername</b><span id="admEp"></span></div>
+    <div class="admPvMsg" id="admEpM" hidden></div><small class="admHint" id="admEpH"></small></div></div>
+   <div class="admGFoot"><div class="aerr" id="admEe"></div><button class="pri" id="admEg">${ic("star")} An alle verschenken</button></div>
+   <div class="admSec admHist"><h5>BISHERIGE GESCHENKE AN ALLE</h5><div class="admTList" id="admEl"><p class="admNote">Lade …</p></div></div>`;hydrateIcons(B);
+  const V=id=>$(id).value.trim();
+  const prev=()=>{const de=V("admEt"),en=V("admEtE"),m=V("admEn"),me=V("admEnE");$("admEtC").textContent=de.length+"/24";$("admEtEC").textContent=en.length+"/24";
+    const t=pv==="en"?(en||de):de;$("admEp").innerHTML=admTT(t||"Titel",sty);const mm=pv==="en"?(me||m):m;const M=$("admEpM");M.hidden=!mm;M.textContent=mm?`„${mm}“`:"";
+    $("admEpH").textContent=pv==="en"?(en?"So sehen ihn Spieler mit englischer Spielsprache.":"Kein englischer Titel: Spieler mit englischer Spielsprache sehen den deutschen."):"So sehen ihn Spieler mit deutscher Spielsprache.";};
+  prev();["admEt","admEtE","admEn","admEnE"].forEach(id=>$(id).oninput=prev);
+  B.querySelectorAll("[data-pv]").forEach(b=>b.onclick=()=>{pv=b.dataset.pv;B.querySelectorAll("[data-pv]").forEach(x=>x.classList.toggle("on",x===b));prev();});
+  B.querySelectorAll("[data-fx]").forEach(b=>b.onclick=()=>{sty=b.dataset.fx;B.querySelectorAll("[data-fx]").forEach(x=>x.classList.toggle("on",x===b));prev();});
+  $("admEg").onclick=async()=>{const cl=x=>x.replace(/[<>]/g,"");const v=cl(V("admEt")),ve=cl(V("admEtE")),n=V("admEn"),ne=V("admEnE");$("admEe").textContent="";
+    if(!v){$("admEe").textContent="Bitte einen deutschen Titel eingeben.";$("admEt").focus();return;}
+    const body={gkind:"title",gval:v,gstyle:sty,gnote:n};if(ve&&ve!==v)body.gval_en=ve;if(ne)body.gnote_en=ne;
+    const btn=$("admEg");btn.disabled=true;try{const r=await admRpc("admin_event_gift",body);if(!r.ok){$("admEe").innerHTML=admEvErr(r);return;}}finally{btn.disabled=false;}
+    toast(`Titel „${v}“ an alle verschenkt`,"crown");["admEt","admEtE","admEn","admEnE"].forEach(id=>$(id).value="");prev();admEvList($("admEl"));};
   admEvList($("admEl"));}
 /* ---------- Abzeichen verleihen (je Spieler, nur Anzeige auf der Trainerkarte) ---------- */
-function admBadgeBody(a,B){let sel="p_mimigma",tier=5,q="";
-  const all=[...BADGE_FIX.map(b=>b.id),...Object.keys(TYPES).map(t=>"t_"+t),...LINES.map(L=>"p_"+L.k)].map(id=>badgeDef(id)).filter(Boolean);
-  B.innerHTML=`<div class="lead">Verleiht ein Abzeichen auf einer festen Stufe. Es erscheint auf der Trainerkarte des Spielers (VS-Bildschirm, Bestenliste), zählt aber nicht für Erfolge, Titel oder Hintergründe.</div>
-   <div class="admQuick"><button class="btn sm" id="admBqM">${ic("ghost")} Mimigma · Mythisch</button></div>
-   <div class="favBar"><input id="admBq" placeholder="Abzeichen suchen (z. B. Mimigma, Champion, Feuer) …" maxlength="24" autocomplete="off"></div><div class="admBGrid" id="admBg"></div>
+function admBadgeBody(a,B){let sel="champ",tier=5,q="";
+  const all=[...BADGE_FIX.map(b=>b.id),...Object.keys(TYPES).map(t=>"t_"+t),...LINES.filter(L=>!L.excl).map(L=>"p_"+L.k)].map(id=>badgeDef(id)).filter(Boolean);
+  B.innerHTML=`<p class="admLead">${ic("info")}<span>Verleiht ein Abzeichen auf einer festen Stufe. Es erscheint auf der Trainerkarte des Spielers (VS-Bildschirm, Bestenliste), zählt aber nicht für Erfolge, Titel oder Hintergründe.</span></p>
+   <div class="favBar"><input id="admBq" placeholder="Abzeichen suchen (z. B. Champion, Feuer, Glurak) …" maxlength="24" autocomplete="off"></div><div class="admBGrid" id="admBg"></div>
    <div class="admTiers">${[1,2,3,4,5].map(t=>`<button class="admTierB${t===tier?" on":""}" data-tr="${t}" style="--bc:${TIER[t].c}">${ROMAN[t]} · ${TIER[t].n}</button>`).join("")}</div>
-   <div class="admPrev admBPrev"><small>Vorschau</small><span id="admBp"></span></div><div class="aerr" id="admBe"></div>
-   <div class="rbtns" style="margin-top:10px"><button class="pri" id="admBgo">${ic("check")} Verleihen</button><button class="btn" id="admBx">Schließen</button></div>
+   <div class="admPrev admBPrev"><small>Vorschau</small><span id="admBp"></span></div>
+   <div class="admGFoot"><div class="aerr" id="admBe"></div><button class="pri" id="admBgo">${ic("check")} Verleihen</button></div>
    <h4 class="cdCat">Verliehene Abzeichen von ${esc(a.name)}</h4><div class="admTList" id="admBl"><p class="admNote">Lade …</p></div>`;hydrateIcons(B);
   const prev=()=>{const d=badgeDef(sel);$("admBp").innerHTML=d?`${badgeHTML(sel,tier)}<b>${esc(d.n)}</b><small>${TIER[tier].n}</small>`:"";cardHydrate($("admBp"));};
   const grid=()=>{const ql=q.toLowerCase();const L=all.filter(d=>!ql||d.n.toLowerCase().includes(ql)||d.id.toLowerCase().includes(ql)).slice(0,48);
@@ -11747,23 +12036,21 @@ function admBadgeBody(a,B){let sel="p_mimigma",tier=5,q="";
   const setT=t=>{tier=t;B.querySelectorAll("[data-tr]").forEach(x=>x.classList.toggle("on",+x.dataset.tr===t));grid();prev();};
   B.querySelectorAll("[data-tr]").forEach(b=>b.onclick=()=>setT(+b.dataset.tr));
   let tm=0;$("admBq").oninput=e=>{clearTimeout(tm);tm=setTimeout(()=>{q=e.target.value.trim();grid();},180);};
-  $("admBqM").onclick=()=>{sel="p_mimigma";q="Mimigma";$("admBq").value=q;setT(5);};$("admBx").onclick=closeModal;
   const list=async()=>{const el=$("admBl");if(!el)return;const r=await admRpc("admin_badge_list",{target:a.id});if(!el.isConnected)return;if(!r.ok){el.innerHTML=`<p class="admNote">${admEvErr(r)}</p>`;return;}const L=Array.isArray(r.j)?r.j:[];
     el.innerHTML=L.length?L.map(x=>{const d=badgeDef(x.badge);return `<div class="admTRow admBRow">${badgeHTML(x.badge,x.tier,"sm")}<b>${esc(d?d.n:x.badge)}</b><small>${TIER[x.tier]?TIER[x.tier].n:""}</small><span style="flex:1"></span><button class="btn sm danger" data-brm="${esc(x.badge)}">${ic("trash")}</button></div>`;}).join(""):`<p class="admNote">Noch keine verliehenen Abzeichen.</p>`;cardHydrate(el);hydrateIcons(el);
     el.querySelectorAll("[data-brm]").forEach(b=>b.onclick=async()=>{if(b.dataset.ok!=="1"){b.dataset.ok="1";b.innerHTML=ic("trash")+" Sicher?";hydrateIcons(b);return;}const r2=await admRpc("admin_badge",{target:a.id,bid:b.dataset.brm,btier:0});if(!r2.ok){toast("Fehlgeschlagen: "+admErr(r2),"close");return;}toast("Abzeichen entfernt","trash");list();});};
   $("admBgo").onclick=async()=>{const r=await admRpc("admin_badge",{target:a.id,bid:sel,btier:tier});if(!r.ok){$("admBe").innerHTML=admEvErr(r);return;}const d=badgeDef(sel);toast(`${d?d.n:sel} (${TIER[tier].n}) an ${a.name} verliehen`,"badge");list();};
   grid();prev();list();}
 function admTitleBody(a,B){let sty=TITLE_FX[a.title_style]?a.title_style:"chrom";
-  B.innerHTML=`<div class="lead">Erscheint auf der Kampfkarte, im VS-Bildschirm und in der Bestenliste und wird beim Spieler automatisch angelegt.</div>
+  B.innerHTML=`<p class="admLead">${ic("info")}<span>Erscheint auf der Kampfkarte, im VS-Bildschirm und in der Bestenliste und wird beim Spieler automatisch angelegt.</span></p>
    <div class="admCur${a.title?"":" none"}"><small>Aktuell</small>${a.title?admTT(a.title,a.title_style):`<span>kein Titel</span>`}<span style="flex:1"></span>${a.title?`<button class="btn sm danger" id="admTr">${ic("trash")} Titel löschen</button>`:""}</div>
-   <label class="fld" style="margin-top:10px">${a.title?"NEUER TITEL":"TITEL"} (max. 24 Zeichen)<input id="admTt" maxlength="24" autocomplete="off" value="${esc(a.title||"")}" placeholder="z. B. Entwickler"></label>
-   <div class="admFx">${Object.entries(TITLE_FX).map(([k,n])=>`<button class="admFxB${k===sty?" on":""}" data-fx="${k}"><span class="tt tt-${k}">${n}</span></button>`).join("")}</div>
-   <div class="admPrev"><small>Vorschau</small><span id="admTp"></span></div><div class="aerr" id="admTe"></div>
-   <div class="rbtns" style="margin-top:12px"><button class="pri" id="admTg">${ic("check")} ${a.title?"Ändern":"Vergeben"}</button><button class="btn" id="admTx">Schließen</button></div>
+   <div class="admGForm" style="margin-top:14px"><div class="admSec"><h5>${a.title?"NEUER TITEL":"TITEL"} <small>max. 24 Zeichen</small></h5><div class="admLang"><label><i>DE</i><input id="admTt" maxlength="24" autocomplete="off" value="${esc(a.title||"")}" placeholder="z. B. Entwickler"></label></div></div>
+   <div class="admSec"><h5>EFFEKT</h5><div class="admFx">${Object.entries(TITLE_FX).map(([k,n])=>`<button class="admFxB${k===sty?" on":""}" data-fx="${k}"><span class="tt tt-${k}">${n}</span></button>`).join("")}</div></div></div>
+   <div class="admPrev"><small>Vorschau</small><span id="admTp"></span></div>
+   <div class="admGFoot"><div class="aerr" id="admTe"></div><button class="pri" id="admTg">${ic("check")} ${a.title?"Ändern":"Vergeben"}</button></div>
    <h4 class="cdCat">Alle vergebenen Titel</h4><div class="admTList" id="admTl"><p class="admNote">Lade …</p></div>`;hydrateIcons(B);
   const prev=()=>{const v=$("admTt").value.trim()||"Titel";$("admTp").innerHTML=admTT(v,sty);};prev();$("admTt").oninput=prev;
   B.querySelectorAll("[data-fx]").forEach(b=>b.onclick=()=>{sty=b.dataset.fx;B.querySelectorAll("[data-fx]").forEach(x=>x.classList.toggle("on",x===b));prev();});
-  $("admTx").onclick=closeModal;
   const go=async txt=>{const r=await admRpc("admin_title",{target:a.id,txt,sty});if(!r.ok){$("admTe").innerHTML="Fehlgeschlagen: "+admErr(r);return;}closeModal();toast(txt?`Titel „${txt}“ an ${a.name} vergeben`:`Titel von ${a.name} gelöscht`,"crown");if(typeof TT!=="undefined")TT.t=0;admLoadList();};
   $("admTg").onclick=()=>{const v=$("admTt").value.trim();if(!v){$("admTe").textContent="Bitte einen Titel eingeben (oder oben „Titel löschen“).";return;}go(v);};if($("admTr"))$("admTr").onclick=()=>go("");
   admRpc("admin_list",{q:""}).then(r=>{const el=$("admTl");if(!el)return;if(!r.ok){el.innerHTML=`<p class="admNote">Liste konnte nicht geladen werden.</p>`;return;}const L=(Array.isArray(r.j)?r.j:[]).filter(x=>x.title);
@@ -11781,11 +12068,11 @@ async function admGiftBody(a,B){B.innerHTML=`<p class="empty">${a?"Lade Sammlung
   const all=Object.values(SPECIES).filter(sp=>sp.line&&!sp.line.excl&&!(a&&has(sp))).sort((x,y)=>x.id-y.id);
   if(!all.length){B.innerHTML=`<p class="empty">${esc(a.name)} hat schon alle Pokémon.</p>`;return;}
   let sel=all[0].id,shy=false,q="",sure=false;
-  B.innerHTML=`<div class="lead">${a?`Nur Pokémon, die <b>${esc(a.name)}</b> noch nicht hat und nicht im Labor gekauft hat (${all.length}).${none?" Noch kein Online-Spielstand.":""}`:`Geht an <b>alle Konten</b>, die es noch nicht haben.`} Kommt beim nächsten Login mit Einblendung an, landet im Pokédex und wird für Läufe freigeschaltet.</div>
+  B.innerHTML=`<p class="admLead">${ic("info")}<span>${a?`Nur Pokémon, die <b>${esc(a.name)}</b> noch nicht hat und nicht im Labor gekauft hat (${all.length}).${none?" Noch kein Online-Spielstand.":""}`:`Geht an <b>alle Konten</b>, die es noch nicht haben.`} Kommt beim nächsten Login mit Einblendung an, landet im Pokédex und wird für Läufe freigeschaltet.</span></p>
    <div class="admGiftTop"><div class="admGiftPrev" id="admGp"></div><div class="admGiftInfo"><b id="admGn"></b><small id="admGr"></small><button class="btn sm" id="admGs">${ic("shiny")} Schillernd</button></div></div>
    <div class="favBar"><input id="admGq" placeholder="Pokémon suchen (Name oder Nr.) …" maxlength="20" autocomplete="off"></div><div class="admGiftGrid" id="admGg"></div>
-   <label class="fld" style="margin-top:10px">NACHRICHT AN DEN SPIELER (optional)<input id="admGm" maxlength="120" autocomplete="off" placeholder="z. B. Danke fürs Testen!"></label><div class="aerr" id="admGe"></div>
-   <div class="rbtns" style="margin-top:12px"><button class="pri" id="admGo">${ic("check")} Schenken</button><button class="btn" id="admGx">Abbrechen</button></div>`;
+   <div class="admSec" style="margin-top:14px"><h5>NACHRICHT ${a?"AN DEN SPIELER":"IM GESCHENK-FENSTER"} <small>optional</small></h5><div class="admLang"><label><i>DE</i><input id="admGm" maxlength="120" autocomplete="off" placeholder="z. B. Danke fürs Testen!"></label></div></div>
+   <div class="admGFoot"><div class="aerr" id="admGe"></div><button class="pri" id="admGo">${ic("check")} Schenken</button></div>`;
   const prev=()=>{const sp=SPECIES[sel],P=$("admGp");P.innerHTML="";try{P.appendChild(sprAlign(natFit(spriteEl(sel,"",{shiny:shy}),1)));}catch(e){}
     $("admGn").textContent=`#${sel} ${sp.name}`;$("admGr").textContent=((REGIONS[(sp.line&&sp.line.region)||"kanto"]||{}).n||"")+" · "+sp.types.map(t=>TYPES[t]?TYPES[t][0]:t).join(" / ");$("admGs").classList.toggle("on",shy);
     $("admGo").innerHTML=`${ic("check")} ${sp.name}${shy?" (schillernd)":""} ${a?"schenken":"an alle schenken"}`;hydrateIcons($("admGo"));sure=false;
@@ -11794,7 +12081,7 @@ async function admGiftBody(a,B){B.innerHTML=`<p class="empty">${a?"Lade Sammlung
     G.innerHTML=L.map(sp=>`<button class="favB${sp.id===sel?" on":""}" data-gs="${sp.id}" title="#${sp.id} ${esc(sp.name)}"><span class="fm" data-sp="${sp.id}"></span><small>${esc(sp.name)}</small></button>`).join("")||`<p class="empty">Nichts gefunden.</p>`;
     G.querySelectorAll(".fm[data-sp]").forEach(e=>e.appendChild(sprAlign(natFit(spriteEl(+e.dataset.sp),.9))));G.querySelectorAll("[data-gs]").forEach(b=>b.onclick=()=>{sel=+b.dataset.gs;prev();});};
   prev();grid();hydrateIcons(B);let tm=0;$("admGq").oninput=e=>{clearTimeout(tm);tm=setTimeout(()=>{q=e.target.value;grid();},200);};
-  $("admGs").onclick=()=>{shy=!shy;prev();};$("admGx").onclick=closeModal;
+  $("admGs").onclick=()=>{shy=!shy;prev();};
   $("admGo").onclick=async()=>{const E=$("admGe"),sp=SPECIES[sel];if(!a&&!sure){sure=true;$("admGo").innerHTML=`${ic("check")} Wirklich an ALLE schenken?`;hydrateIcons($("admGo"));return;}
     const r=await admRpc("admin_gift",{target:a?a.id:null,mon:sel,shy,msg:$("admGm").value.trim(),lk:sp.line.start?null:sp.line.k});
     if(!r.ok){const t=JSON.stringify(r.j||"");E.innerHTML=/already_owned/.test(t)?"Das hat der Spieler schon (oder im Labor gekauft).":/already_pending/.test(t)?"Liegt schon als Geschenk für ihn bereit.":/admin_gift|function|schema/i.test(t)?"Auf dem Server fehlt noch das Update: unter <b>Server-Setup</b> den Code ausführen.":"Fehlgeschlagen: "+admErr(r);return;}
@@ -11900,51 +12187,53 @@ function admSetup(){openModal(`<h2>${ic("gear")} SERVER-SETUP</h2><div class="le
    Eigene Trainerkarte (Lieblingspokémon, Hintergrund, Titel, 3 Abzeichen) – erscheint im VS-Bildschirm und in der Bestenliste.
    Abzeichen haben 5 Stufen (Bronze, Silber, Gold, Platin, Mythisch) und sind echte Grind-Ziele: Typen, Partner-Pokémon, Kampf, Champion, Sammeln.
    v1.0.1: Stufe V "Mythisch" (lila) über Platin – jedes Abzeichen auf Mythisch schaltet einen eigenen Titel im Geister-Look frei. */
-const TIER=[null,{n:"Bronze",c:"#d8904e"},{n:"Silber",c:"#d2dbe8"},{n:"Gold",c:"#ffd23f"},{n:"Platin",c:"#8af0ff"},{n:"Mythisch",c:"#b86bff"}];
-const ROMAN=["","I","II","III","IV","V"];
+const TIER=[null,{n:"Bronze",c:"#d8904e"},{n:"Silber",c:"#d2dbe8"},{n:"Gold",c:"#ffd23f"},{n:"Platin",c:"#8af0ff"},{n:"Mythisch",c:"#b86bff"},{n:"Bernstein",c:"#ffae2b"}];
+const ROMAN=["","I","II","III","IV","V","VI"];
+const TIER_MAX=6;
 const _st=()=>(META&&META.stats)||{},_dex=()=>Object.values((META&&META.dex)||{});
 const _DEXN=LINES.reduce((a,L)=>a+L.stages.length,0);
 const _nightRegs=()=>Object.keys(REGIONS).filter(rk=>((META.reg&&META.reg[rk]&&META.reg[rk].champs)||{}).night>0).length;
 /* T = Schwellen für I–V; Abzeichen mit natürlicher Obergrenze (Regionen, Siegesserie, Pokédex) erreichen V über eine Zusatzaufgabe (v5/T5). t5n = Titel auf Mythisch */
 const BADGE_FIX=[
- {id:"champ",cat:"Champion",n:"Champion",ic:"crown",d:"Champion-Titel (alle Modi und Regionen)",v:()=>Object.values(META.champs||{}).reduce((a,b)=>a+b,0),T:[1,10,40,100,250],t5n:"Ewiger Champion"},
- {id:"world",cat:"Champion",n:"Weltenbummler",ic:"route",d:"Regionen, in denen du Champion bist",v:()=>Object.keys(REGIONS).filter(r=>_champR(r)>0).length,T:[1,3,5,7],v5:_nightRegs,T5:7,d5:"Regionen mit Albtraum-Champion",t5n:"Weltenlegende"},
- {id:"nightm",cat:"Champion",n:"Albtraumjäger",ic:"ghost",d:"Champion-Titel auf Albtraum",v:()=>(META.champs||{}).night||0,T:[1,3,10,30,75],t5n:"Albtraumfürst"},
- {id:"iron",cat:"Champion",n:"Eiserner Wille",ic:"heart",d:"Champion-Titel im Nuzlocke-Modus",v:()=>(META.champs||{}).nuzlocke||0,T:[1,3,10,30,75],t5n:"Unzerbrechlich"},
- {id:"duel",cat:"Champion",n:"Duellkönig",ic:"swords",d:"Gewonnene Live-Duelle",v:()=>(META.mp||{}).duelWins||0,T:[3,15,50,150,400],t5n:"Duellgott"},
- {id:"streak",cat:"Champion",n:"Unaufhaltsam",ic:"fast",d:"Längste Siegesserie in einem Lauf",v:()=>_st().bestStreak||0,T:[5,10,15,20],v5:()=>_st().perfectRuns||0,T5:5,d5:"Perfekte Läufe (Champion ohne Niederlage)",t5n:"Unbesiegbar"},
- {id:"se",cat:"Kampf",n:"Volltreffer",ic:"bolt",d:"Sehr effektive Treffer",v:()=>_st().se||0,T:[500,3000,15000,50000,150000],t5n:"Meisterstratege"},
- {id:"crit",cat:"Kampf",n:"Kritiker",ic:"crit",d:"Kritische Treffer",v:()=>_st().crits||0,T:[300,2000,10000,40000,120000],t5n:"Todesauge"},
- {id:"mega",cat:"Kampf",n:"Mega-Meister",ic:"mega",d:"Mega-Entwicklungen",v:()=>_dex().reduce((a,d)=>a+(d.mega||0),0),T:[10,75,300,1000,2500],t5n:"Mega-Legende"},
- {id:"flaw",cat:"Kampf",n:"Makellos",ic:"def",d:"Kämpfe ohne eigenen K.O. gewonnen",v:()=>_st().flawless||0,T:[50,300,1000,3000,8000],t5n:"Unantastbar"},
- {id:"boss",cat:"Kampf",n:"Bossbrecher",ic:"trophy",d:"Besiegte Bosse",v:()=>_st().bosses||0,T:[25,150,500,1500,4000],t5n:"Titanenbezwinger"},
- {id:"ko",cat:"Kampf",n:"Vernichter",ic:"skull",d:"Besiegte Gegner",v:()=>_st().kos||0,T:[1000,10000,50000,150000,400000],t5n:"Zerstörer"},
- {id:"hit",cat:"Kampf",n:"Einschlag",ic:"atk",d:"Stärkster einzelner Treffer",v:()=>_st().maxHit||0,T:[2000,8000,25000,80000,200000],t5n:"Meteorfaust"},
- {id:"dex",cat:"Sammeln",n:"Pokédex-Profi",ic:"dex",d:"Verschiedene Pokémon gefangen",v:()=>_dex().filter(d=>d.owned>0).length,T:[100,250,400,_DEXN],v5:()=>_dex().filter(d=>d.shiny>0).length,T5:100,d5:"Verschiedene Pokémon schillernd gefangen",t5n:"Pokédex-Legende"},
- {id:"shiny",cat:"Sammeln",n:"Glitzerjäger",ic:"shiny",d:"Schillernde Pokémon gefunden",v:()=>_dex().reduce((a,d)=>a+(d.shiny||0),0),T:[5,25,75,200,500],t5n:"Glanzgeist"},
- {id:"fuse",cat:"Sammeln",n:"Fusionsmeister",ic:"merge",d:"Fusionen",v:()=>_st().fusions||0,T:[100,750,3000,10000,25000],t5n:"Fusionsalchemist"},
- {id:"gem",cat:"Sammeln",n:"Edelstein-Magnat",ic:"gem",d:"Gesammelte Edelsteine",v:()=>META.gemsTotal||0,T:[1000,10000,40000,120000,300000],t5n:"Juwelenhort"},
- {id:"achv",cat:"Sammeln",n:"Perfektionist",ic:"star",d:"Freigeschaltete Erfolge",v:()=>Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length,T:[10,25,45,ACH.length-10,ACH.length],t5n:"Vollendet"},
- {id:"daily",cat:"Sammeln",n:"Tagesheld",ic:"cal",d:"Gespielte tägliche Runs",v:()=>META.dailyN||0,T:[5,30,100,365,600],t5n:"Zeitlos"},
- {id:"vet",cat:"Sammeln",n:"Veteran",ic:"play",d:"Spielzeit in Stunden",v:()=>Math.floor((_st().time||0)/60),T:[5,25,100,300,600],t5n:"Altmeister"},
- {id:"coll",cat:"Sammeln",n:"Abzeichen-Sammler",ic:"badge",d:"Erreichte Abzeichen-Stufen (alle zusammen)",v:()=>badgeTierSum(),T:[10,30,60,100,160],t5n:"Mythensammler"}];
+ {id:"champ",cat:"Champion",n:"Champion",ic:"crown",d:"Champion-Titel (alle Modi und Regionen)",v:()=>Object.values(META.champs||{}).reduce((a,b)=>a+b,0),T:[1,10,40,100,250],T6:500,t5n:"Ewiger Champion"},
+ {id:"world",cat:"Champion",n:"Weltenbummler",ic:"route",d:"Regionen, in denen du Champion bist",v:()=>Object.keys(REGIONS).filter(r=>_champR(r)>0).length,T:[1,3,5,7],v5:_nightRegs,T5:7,d5:"Regionen mit Albtraum-Champion",v6:()=>Object.keys(REGIONS).filter(rk=>{const c=(META.reg&&META.reg[rk]&&META.reg[rk].champs)||{};return c.night>0&&c.nuzlocke>0;}).length,T6:7,d6:"Regionen mit Albtraum- und Nuzlocke-Champion",t5n:"Weltenlegende"},
+ {id:"nightm",cat:"Champion",n:"Albtraumjäger",ic:"ghost",d:"Champion-Titel auf Albtraum",v:()=>(META.champs||{}).night||0,T:[1,3,10,30,75],T6:200,t5n:"Albtraumfürst"},
+ {id:"iron",cat:"Champion",n:"Eiserner Wille",ic:"heart",d:"Champion-Titel im Nuzlocke-Modus",v:()=>(META.champs||{}).nuzlocke||0,T:[1,3,10,30,75],T6:200,t5n:"Unzerbrechlich"},
+ {id:"duel",cat:"Champion",n:"Duellkönig",ic:"swords",d:"Gewonnene Live-Duelle",v:()=>(META.mp||{}).duelWins||0,T:[3,15,50,150,400],T6:1000,t5n:"Duellgott"},
+ {id:"streak",cat:"Champion",n:"Unaufhaltsam",ic:"fast",d:"Längste Siegesserie in einem Lauf",v:()=>_st().bestStreak||0,T:[5,10,15,20],v5:()=>_st().perfectRuns||0,T5:5,d5:"Perfekte Läufe (Champion ohne Niederlage)",v6:()=>_st().perfectRuns||0,T6:25,d6:"Perfekte Läufe (Champion ohne Niederlage)",t5n:"Unbesiegbar"},
+ {id:"se",cat:"Kampf",n:"Volltreffer",ic:"bolt",d:"Sehr effektive Treffer",v:()=>_st().se||0,T:[500,3000,15000,50000,150000],T6:500000,t5n:"Meisterstratege"},
+ {id:"crit",cat:"Kampf",n:"Kritiker",ic:"crit",d:"Kritische Treffer",v:()=>_st().crits||0,T:[300,2000,10000,40000,120000],T6:400000,t5n:"Todesauge"},
+ {id:"mega",cat:"Kampf",n:"Mega-Meister",ic:"mega",d:"Mega-Entwicklungen",v:()=>_dex().reduce((a,d)=>a+(d.mega||0),0),T:[10,75,300,1000,2500],T6:8000,t5n:"Mega-Legende"},
+ {id:"flaw",cat:"Kampf",n:"Makellos",ic:"def",d:"Kämpfe ohne eigenen K.O. gewonnen",v:()=>_st().flawless||0,T:[50,300,1000,3000,8000],T6:25000,t5n:"Unantastbar"},
+ {id:"boss",cat:"Kampf",n:"Bossbrecher",ic:"trophy",d:"Besiegte Bosse",v:()=>_st().bosses||0,T:[25,150,500,1500,4000],T6:12000,t5n:"Titanenbezwinger"},
+ {id:"ko",cat:"Kampf",n:"Vernichter",ic:"skull",d:"Besiegte Gegner",v:()=>_st().kos||0,T:[1000,10000,50000,150000,400000],T6:1200000,t5n:"Zerstörer"},
+ {id:"hit",cat:"Kampf",n:"Einschlag",ic:"atk",d:"Stärkster einzelner Treffer",v:()=>_st().maxHit||0,T:[2000,8000,25000,80000,200000],T6:500000,t5n:"Meteorfaust"},
+ {id:"dex",cat:"Sammeln",n:"Pokédex-Profi",ic:"dex",d:"Verschiedene Pokémon gefangen",v:()=>_dex().filter(d=>d.owned>0).length,T:[100,250,400,_DEXN],v5:()=>_dex().filter(d=>d.shiny>0).length,T5:100,d5:"Verschiedene Pokémon schillernd gefangen",v6:()=>_dex().filter(d=>d.shiny>0).length,T6:300,d6:"Verschiedene Pokémon schillernd gefangen",t5n:"Pokédex-Legende"},
+ {id:"shiny",cat:"Sammeln",n:"Glitzerjäger",ic:"shiny",d:"Schillernde Pokémon gefunden",v:()=>_dex().reduce((a,d)=>a+(d.shiny||0),0),T:[5,25,75,200,500],T6:1500,t5n:"Glanzgeist"},
+ {id:"fuse",cat:"Sammeln",n:"Fusionsmeister",ic:"merge",d:"Fusionen",v:()=>_st().fusions||0,T:[100,750,3000,10000,25000],T6:80000,t5n:"Fusionsalchemist"},
+ {id:"gem",cat:"Sammeln",n:"Edelstein-Magnat",ic:"gem",d:"Gesammelte Edelsteine",v:()=>META.gemsTotal||0,T:[1000,10000,40000,120000,300000],T6:1000000,t5n:"Juwelenhort"},
+ {id:"achv",cat:"Sammeln",n:"Perfektionist",ic:"star",d:"Freigeschaltete Erfolge",v:()=>Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length,T:[10,25,45,ACH.length-10,ACH.length],v6:()=>badgeAll().filter(x=>x.id!=="achv"&&badgeState(x).t>=5).length,T6:15,d6:"Abzeichen auf Mythisch",t5n:"Vollendet"},
+ {id:"daily",cat:"Sammeln",n:"Tagesheld",ic:"cal",d:"Gespielte tägliche Runs",v:()=>META.dailyN||0,T:[5,30,100,365,600],T6:1500,t5n:"Zeitlos"},
+ {id:"vet",cat:"Sammeln",n:"Veteran",ic:"play",d:"Spielzeit in Stunden",v:()=>Math.floor((_st().time||0)/60),T:[5,25,100,300,600],T6:1500,t5n:"Altmeister"},
+ {id:"coll",cat:"Sammeln",n:"Abzeichen-Sammler",ic:"badge",d:"Erreichte Abzeichen-Stufen (alle zusammen)",v:()=>badgeTierSum(),T:[10,30,60,100,160],T6:240,t5n:"Mythensammler"}];
 const BADGE_BY={};BADGE_FIX.forEach(b=>BADGE_BY[b.id]=b);
 function badgeDef(id){if(BADGE_BY[id])return BADGE_BY[id];
-  if(id&&id.startsWith("t_")){const t=id.slice(2);if(!TYPES[t])return null;return{id,cat:"Typen",n:TYPES[t][0]+"-Experte",ic:"ball",col:TYPES[t][1],d:`Siege mit ${TYPES[t][0]}-Pokémon im Team`,v:()=>((_st().typeW||{})[t])||0,T:[25,100,300,1000,2500],t5n:TYPES[t][0]+"-Großmeister"};}
+  if(id&&id.startsWith("t_")){const t=id.slice(2);if(!TYPES[t])return null;return{id,cat:"Typen",n:TYPES[t][0]+"-Experte",ic:"ball",col:TYPES[t][1],d:`Siege mit ${TYPES[t][0]}-Pokémon im Team`,v:()=>((_st().typeW||{})[t])||0,T:[25,100,300,1000,2500],T6:8000,t5n:TYPES[t][0]+"-Großmeister"};}
   if(id&&id.startsWith("p_")){const L=LINE_BY[id.slice(2)];if(!L)return null;const last=L.stages[L.stages.length-1];
-    return{id,cat:"Partner",n:"Partner: "+last[1],ic:"heart",sp:last[0],d:`Siege mit ${last[1]} (ganze Linie) im Team`,v:()=>L.stages.reduce((a,s)=>a+(((META.dex||{})[s[0]]||{}).wins||0),0),T:[25,100,300,800,2000],t5n:last[1]+"-Legende"};}
+    return{id,cat:"Partner",n:"Partner: "+last[1],ic:"heart",sp:last[0],d:`Siege mit ${last[1]} (ganze Linie) im Team`,v:()=>L.stages.reduce((a,s)=>a+(((META.dex||{})[s[0]]||{}).wins||0),0),T:[25,100,300,800,2000],T6:6000,t5n:last[1]+"-Legende"};}
   return null;}
 const badgeTier=(b,v)=>{let n=0;for(const t of b.T)if(v>=t)n++;return n;};
 /* Geschenke an alle (Titel, Hintergründe) und verliehene Abzeichen (nur Anzeige auf der Karte, zählen nicht für Erfolge) */
 const evHas=(k,v)=>{try{const E=META&&META.ev;if(!E)return false;return k==="bg"?(E.bg||[]).includes(v):(E.tt||[]).some(t=>t.t===v);}catch(e){return false;}};
-const bGiftT=id=>{try{return Math.max(0,Math.min(5,(((META&&META.bgift)||{})[id])|0));}catch(e){return 0;}};
+const bGiftT=id=>{try{return Math.max(0,Math.min(TIER_MAX,(((META&&META.bgift)||{})[id])|0));}catch(e){return 0;}};
 const badgeShowT=b=>{if(!b)return 0;let t=0;try{t=badgeState(b).t;}catch(e){}return Math.max(t,bGiftT(b.id));};
 function badgeTierSum(){let s=0;for(const b of BADGE_FIX)if(b.id!=="coll")try{s+=badgeState(b).t;}catch(e){}for(const t in TYPES){const b=badgeDef("t_"+t);s+=badgeState(b).t;}return s;}
 function badgeAll(){const out=[];for(const b of BADGE_FIX)out.push(b);for(const t in TYPES)out.push(badgeDef("t_"+t));
   const lines=[];for(const L of LINES){const b=badgeDef("p_"+L.k);const v=b.v();if(v>0)lines.push([b,v]);}lines.sort((a,b)=>b[1]-a[1]).slice(0,40).forEach(x=>out.push(x[0]));
   for(const id in ((META&&META.bgift)||{})){if(!out.some(b=>b.id===id)){const d=badgeDef(id);if(d)out.push(d);}}return out;}
-function badgeState(b){let v=0;try{v=b.v();}catch(e){}let t=badgeTier(b,v),v5=null;const next=b.T[t]||null;
-  if(b.v5&&t>=b.T.length){try{v5=b.v5();}catch(e){v5=0;}if(v5>=b.T5)t=b.T.length+1;}return{v,t,next,v5};}
+function badgeState(b){let v=0;try{v=b.v();}catch(e){}let t=badgeTier(b,v),v5=null,v6=null;const next=b.T[t]||null;
+  if(b.v5&&t>=b.T.length){try{v5=b.v5();}catch(e){v5=0;}if(v5>=b.T5)t=b.T.length+1;}
+  if(t>=5&&b.T6!=null){v6=v;if(b.v6){try{v6=b.v6();}catch(e){v6=0;}}if(v6>=b.T6)t=6;}return{v,t,next,v5,v6};}
 /* Titel auf Stufe V (Mythisch) */
 const badgeT5n=b=>b.t5n||b.n+"-Legende";
 function titleFxOf(name){if(!name)return null;if(typeof MYTITLE!=="undefined"&&MYTITLE&&MYTITLE.text===name&&TITLE_FX[MYTITLE.style])return MYTITLE.style;
@@ -11953,7 +12242,8 @@ function titleFxOf(name){if(!name)return null;if(typeof MYTITLE!=="undefined"&&M
 /* Medaille als HTML */
 function badgeHTML(id,tier,size){const b=badgeDef(id);if(!b||!tier)return `<div class="bdg empty${size?" "+size:""}"><i></i></div>`;const T=TIER[tier];
   const inner=b.sp?`<span class="bsp" data-sp="${b.sp}"></span>`:ic(b.ic,"",b.col?`color:${b.col}`:"");
-  return `<div class="bdg t${tier}${size?" "+size:""}" style="--bc:${T.c}" data-tn="${esc(b.n)} ${ROMAN[tier]}" data-td="${esc(T.n)} · ${esc(b.d)}" data-tc="${T.c}"><i>${inner}</i><em>${ROMAN[tier]}</em></div>`;}
+  const fx=tier>=5?`<u class="bPx">${"<s></s>".repeat(tier>=6?7:4)}</u>`:"";
+  return `<div class="bdg t${tier}${size?" "+size:""}" style="--bc:${T.c}" data-tn="${esc(b.n)} ${ROMAN[tier]}" data-td="${esc(T.n)} · ${esc(b.d)}" data-tc="${T.c}"><i>${inner}</i><b class="bSh"></b>${tier>=6?`<b class="bCr"></b>`:""}${fx}<em>${ROMAN[tier]}</em></div>`;}
 /* Figuren (eigene Pixel-Trainer) */
 const AVATAR={boy:{skin:"#f0c090",hair:"#2a1a10",hs:"short",hat:"cap",hatC:"#e0402e",shirt:"#2a6ad8",shirt2:"#f4f4ee",pants:"#3a3a44",shoes:"#e0402e",role:"trainer",pack:"#d8b048"},
  girl:{skin:"#f8d8b8",hair:"#8a5a2a",hs:"long",hat:"sunhat",hatC:"#e0402e",shirt:"#e0402e",shirt2:"#f4f4ee",skirt:"#2a6ad8",shoes:"#f4f4ee",role:"trainer",pack:"#ffd23f"}};
@@ -11972,29 +12262,32 @@ const _birds=(n,col,y0,y1)=>Array.from({length:n},()=>`<svg class="cb-bird" view
 const _sv=b=>`<svg class="bgSvg" viewBox="0 0 100 100" preserveAspectRatio="none">${b}</svg>`;
 const CARD_BG={
  std:{n:"Standard",html:`<i class="glow"></i><i class="lines"></i>`},
- wiese:{n:"Wiesenwind",html:`<i class="sun"></i><i class="cloud c1"></i>${_sv(`<path d="M0 70 Q30 58 60 66 T100 62 V100 H0Z" fill="#9ade82"/><path d="M0 81 Q35 73 70 79 T100 77 V100 H0Z" fill="#5fbf59"/>`)}${_parts("blade",18,i=>`left:${(i*5.7+rr(0,2.5,1)*1).toFixed(1)}%;--h:${rr(8,16)}cqh;--d:${rr(2.2,3.6)}s;--dl:-${rr(0,3)}s;--a:${rr(4,9)}deg`)}${_parts("cb-blow",6,()=>`--y:${rr(18,66)}%;--s:${rr(1.4,2.2,2)}cqw;--d:${rr(8,12)}s;--dl:-${rr(0,11)}s;--dy:${rr(4,16)}cqh;--c:${rp(["#ffffff","#ffe0ee","#fff6c0"])}`)}`,lock:()=>badgeState(BADGE_BY.champ).t>=1,ld:"Champion I (1 Champion-Titel)"},
- abend:{n:"Abendrot",html:`<i class="sun"></i><i class="cloud c1"></i><i class="cloud c2"></i><i class="sea"></i>${_parts("glit",6,i=>`top:${(69+i*4.6).toFixed(1)}%;--w:${rr(14,32)}%;--d:${rr(2,3.4)}s;--dl:-${rr(0,3)}s`)}${_birds(2,"#3a2040",14,34)}`,lock:()=>badgeState(BADGE_BY.achv).t>=1,ld:"Perfektionist I (10 Erfolge)"},
- sunrise:{n:"Morgenroute",html:`<i class="sun"><i class="rays"></i></i><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i>${_sv(`<path d="M0 60 Q20 50 42 56 T82 52 T100 54 V100 H0Z" fill="#b3dd92"/><path d="M0 69 Q28 59 55 67 T100 63 V100 H0Z" fill="#74c562"/><path d="M0 80 Q30 72 62 78 T100 76 V100 H0Z" fill="#3f9f46"/><path d="M45 100 Q50 88 47 80 Q51 73 58 70 L61 70 Q55 75 53 81 Q57 91 55 100Z" fill="#ead9aa"/>`)}${_birds(3,"#4a3a4a",10,30)}${_ups(8,["#fffbe0","#ffffff"],.5,.9,6,10,2,96,";--o:.7")}`,lock:()=>badgeState(BADGE_BY.champ).t>=3,ld:"Champion III (40 Champion-Titel)"},
- vulkan:{n:"Vulkanherz",html:`<i class="smoke s1"></i><i class="smoke s2"></i><i class="smoke s3"></i><i class="glowC"></i>${_sv(`<path d="M0 100 L0 74 L26 60 L40 40 L46 43 L54 43 L60 40 L74 60 L100 72 L100 100Z" fill="#2c0d0b"/><path class="lava" d="M47 44 Q44 56 38 64 Q33 72 29 86"/><path class="lava l2" d="M53 44 Q57 58 63 66 Q70 76 75 92"/><path d="M40 40 L46 43 L54 43 L60 40 L56 46 L44 46Z" fill="#ff8a2a"/><path d="M0 100 L0 91 Q50 85 100 93 V100Z" fill="#150605"/>`)}${_ups(14,["#ffb03a","#ff7a2a","#ffd36a"],.5,1.2,2.6,4.6,20,80,";--g:8px")}`,lock:()=>badgeState(BADGE_BY.boss).t>=3,ld:"Bossbrecher III (500 Bosse)"},
- tiefsee:{n:"Tiefsee",html:`<i class="caust"></i><i class="lrays"></i>${_sv(`<path d="M0 100 L0 87 Q20 83 40 87 T80 85 T100 87 V100Z" fill="#c9a86a" opacity=".32"/><path d="M0 100 Q10 86 8 74 Q15 86 14 100Z M80 100 Q88 82 86 68 Q95 84 92 100Z M58 100 Q61 92 60 86 Q65 93 64 100Z" fill="#14604a"/><path d="M0 100 L0 93 Q50 87 100 95 V100Z" fill="#0a2a4a"/>`)}${_parts("kelp",5,i=>`left:${[6,18,72,84,46][i]}%;--h:${rr(26,44)}cqh;--d:${rr(3.5,5)}s;--dl:-${rr(0,4)}s`)}${Array.from({length:3},(_,i)=>`<svg class="fish" viewBox="0 0 20 10" style="--y:${rr(22,64)}%;--s:${rr(6,10,1)}cqw;--d:${rr(11,17)}s;--dl:-${rr(0,16)}s"><path d="M0 5 Q6 0 12 5 Q6 10 0 5Z M11 5 L19 1 L17 5 L19 9Z" fill="${rp(["#ffb84a","#7ad8ff","#ff7a9a"])}" opacity=".85"/></svg>`).join("")}${_parts("cb-up bub",12,()=>`--x:${rr(4,96)}%;--s:${rr(.8,2,2)}cqw;--d:${rr(4,7)}s;--dl:-${rr(0,7)}s;--dx:${rr(-4,4)}cqw`)}`,lock:()=>badgeState(BADGE_BY.dex).t>=3,ld:"Pokédex-Profi III (400 Pokémon)"},
- aurora:{n:"Polarlicht",html:`${_stars(26,0,55)}<i class="aur a1"></i><i class="aur a2"></i><i class="aur a3"></i><i class="shoot"></i>${_sv(`<path d="M0 100 L0 72 L20 54 L32 66 L52 46 L70 62 L84 52 L100 60 L100 100Z" fill="#cfdff3"/><path d="M20 54 L26 62 L22 66 L32 66Z M52 46 L58 56 L54 58 L62 60 L70 62Z" fill="#a9bcd8"/><path d="M0 100 L0 84 L40 76 L70 82 L100 78 L100 100Z" fill="#f2f7ff"/>`)}${_downs(14,"snow",["#ffffff"],.5,1,7,12,";--o:.85")}`,lock:()=>badgeState(BADGE_BY.vet).t>=3,ld:"Veteran III (100 Stunden)"},
- sturm:{n:"Gewittersturm",html:`<i class="cloudD d1"></i><i class="cloudD d2"></i><i class="cloudD d3"></i><i class="rain r1"></i><i class="rain r2"></i><svg class="bolt" viewBox="0 0 40 100"><path d="M24 0 L10 42 H20 L12 100 L32 34 H21 L30 0Z" fill="#fff8c0"/><path d="M15 50 L5 66 L12 63 L6 80" stroke="#fff8c0" stroke-width="2.4" fill="none" stroke-linejoin="round"/></svg><svg class="bolt b2" viewBox="0 0 40 100"><path d="M22 0 L12 38 H19 L13 70 L28 30 H20 L27 0Z" fill="#e8f0ff"/></svg><i class="flashO"></i>${_sv(`<path d="M0 100 L0 86 L18 82 L30 88 L50 80 L72 87 L100 82 V100Z" fill="#11151d"/>`)}`,lock:()=>badgeState(BADGE_BY.duel).t>=3,ld:"Duellkönig III (50 Duell-Siege)"},
- spuk:{n:"Spukturm",html:`<i class="moon"></i><i class="mcloud"></i>${_sv(`<path d="M36 100 V42 L42 33 V22 L50 10 L58 22 V33 L64 42 V100Z" fill="#1a0e2a"/><path d="M0 100 L0 88 Q20 80 36 86 L36 100Z M64 100 L64 86 Q80 80 100 87 V100Z" fill="#120a1e"/><rect class="swin" x="47" y="30" width="6" height="8" fill="#ffd84a"/><rect class="swin w2" x="44" y="52" width="4" height="6" fill="#ffd84a"/>`)}${Array.from({length:3},()=>`<svg class="bat" viewBox="0 0 24 10" style="--y:${rr(10,40)}%;--s:${rr(5,8,1)}cqw;--d:${rr(9,14)}s;--dl:-${rr(0,13)}s"><path d="M12 4 Q9 0 6 3 Q3 1 0 4 Q4 4 6 7 Q9 5 12 9 Q15 5 18 7 Q20 4 24 4 Q21 1 18 3 Q15 0 12 4Z" fill="#0c0614"/></svg>`).join("")}${_parts("ghosty",3,i=>`left:${[10,68,30][i]}%;top:${[38,28,60][i]}%;--d:${rr(3,4.4)}s;--dl:-${rr(0,3)}s`)}<i class="fog f1"></i><i class="fog f2"></i>`,lock:()=>badgeState(BADGE_BY.nightm).t>=3,ld:"Albtraumjäger III (10× Albtraum-Champion)"},
- kristall:{n:"Kristallhöhle",html:`<i class="beams"></i>${_sv(`<path d="M0 0 L0 34 Q8 22 6 10 L14 0Z M100 0 L100 30 Q92 20 95 8 L86 0Z" fill="#081422"/><path d="M0 100 L0 80 Q20 74 40 82 T100 80 V100Z" fill="#081422"/>`)}${_sv(`<g class="cg c1"><path d="M6 100 L12 66 L18 100Z M15 100 L23 56 L31 100Z" fill="#6ad8ff"/><path d="M12 66 L14 100 L10 100Z M23 56 L25 100 L21 100Z" fill="#e6fbff" opacity=".7"/></g><g class="cg c2"><path d="M70 100 L78 62 L86 100Z M82 100 L90 72 L97 100Z" fill="#c78bff"/><path d="M78 62 L80 100 L76 100Z" fill="#f2e4ff" opacity=".7"/></g><g class="cg c3"><path d="M40 100 L46 80 L52 100Z M2 0 L8 18 L14 0Z M72 0 L80 14 L88 0Z" fill="#ff8ad0"/></g>`)}${_spk(10,8,90,["#ffffff","#bff4ff","#f0d6ff"])}${_ups(8,["#9fe8ff","#e0c6ff"],.4,.8,6,10,10,90,";--o:.6")}`,lock:()=>badgeState(BADGE_BY.shiny).t>=3,ld:"Glitzerjäger III (75 Schillernde)"},
- galaxie:{n:"Galaxie",html:`<i class="nebula"></i><i class="spiral"></i>${_stars(34,0,100,["#ffffff","#cfe4ff","#ffe8c8"])}<i class="planet"><i class="ring"></i></i><i class="shoot s1"></i><i class="shoot s2"></i>`,lock:()=>badgeState(BADGE_BY.coll).t>=3,ld:"Abzeichen-Sammler III (60 Stufen)"},
- sakura:{n:"Sakura-Schrein",html:`<i class="sun"></i>${_sv(`<path d="M0 100 L0 66 L30 54 L46 38 L54 38 L70 54 L100 64 L100 100Z" fill="#c7a6c9" opacity=".8"/><path d="M46 38 L54 38 L60 44 L55 43 L50 46 L45 43 L40 44Z" fill="#fff"/><path d="M0 100 L0 82 Q50 74 100 84 V100Z" fill="#7a4a6a"/><g fill="#c8203a"><rect x="30" y="60" width="40" height="3"/><rect x="27" y="57" width="46" height="2.4" rx="1"/><rect x="34" y="65" width="32" height="2"/><rect x="36" y="60" width="3" height="28"/><rect x="61" y="60" width="3" height="28"/></g>`)}${_sv(`<path d="M0 2 Q14 8 22 4 Q30 1 42 6" stroke="#4a2030" stroke-width="1.6" fill="none"/><path d="M14 6 Q16 12 21 15" stroke="#4a2030" stroke-width="1.1" fill="none"/><path d="M100 10 Q88 14 80 10 Q72 8 64 13" stroke="#4a2030" stroke-width="1.4" fill="none"/>`)}${[[1,1],[6,4],[11,6],[16,5],[21,3],[26,2],[31,3],[36,4],[40,5],[17,10],[20,13],[13,9],[97,8],[91,10],[85,10],[79,8],[73,9],[67,11]].map(([x,y])=>`<i class="bloom" style="left:${x-2}%;top:${y-1.5}%;--s:${rr(4,6.5,1)}cqw"></i>`).join("")}${_downs(14,"petal",["#ffd0e2","#ffb8d4","#fff0f6"],1.4,2.4,6,10,";--o:.95")}`,lock:()=>badgeState(BADGE_BY.daily).t>=3,ld:"Tagesheld III (100 Tägliche Runs)"},
- sand:{n:"Sandsturm",html:`<i class="sun"></i><i class="haze"></i>${_sv(`<path d="M8 100 V58 H14 V100Z M20 100 V64 H26 V100Z M6 58 H28 V55 H6Z M70 100 V50 H77 V100Z M66 50 H82 V46 H66Z" fill="#9a6a3a" opacity=".75"/><path d="M0 70 Q25 60 50 68 T100 62 V100 H0Z" fill="#e8b46a"/><path d="M0 80 Q30 70 60 78 T100 74 V100 H0Z" fill="#d49a4e"/><path d="M0 90 Q40 84 70 89 T100 87 V100 H0Z" fill="#b97a34"/>`)}${_parts("streak",11,()=>`--y:${rr(30,94)}%;--w:${rr(12,30)}%;--d:${rr(1.1,2.2)}s;--dl:-${rr(0,2)}s`)}${_parts("cb-blow grain",10,()=>`--y:${rr(30,90)}%;--s:${rr(.5,1,2)}cqw;--d:${rr(2.4,4)}s;--dl:-${rr(0,4)}s;--dy:${rr(-6,6)}cqh;--c:#fff0c8;--o:.8`)}`,lock:()=>badgeState(BADGE_BY.streak).t>=4,ld:"Unaufhaltsam IV (20 Siege in Folge)"},
- neon:{n:"Neonstadt",html:`<i class="sun"></i>${_sv(`<path d="M0 66 V48 H8 V40 H14 V52 H20 V34 H28 V46 H34 V30 H40 V56 H46 V42 H54 V26 H60 V48 H66 V38 H74 V52 H80 V36 H88 V50 H94 V44 H100 V66Z" fill="#14082a"/>`)}${_parts("nw",18,()=>`left:${rr(4,94)}%;top:${rr(30,60)}%;--d:${rr(1.4,4)}s;--dl:-${rr(0,4)}s;--c:${rp(["#ff4ad8","#4af2ff","#ffd84a"])}`)}<i class="grid"></i><i class="hglow"></i>`,lock:()=>((META.mp||{}).rkBest||0)>=1360,ld:"Ranked: Platin 1 erreichen"},
- drache:{n:"Drachenhort",html:`<i class="heat"></i>${_sv(`<path d="M0 0 L0 44 Q10 30 8 16 Q16 26 22 10 L26 0Z M100 0 L100 38 Q92 26 94 12 Q86 22 82 6 L78 0Z" fill="#170606"/><path d="M0 100 L0 78 Q14 70 28 78 Q40 68 52 76 Q66 66 80 76 Q90 70 100 74 V100Z" fill="#1c0707"/>`)}<i class="eye e1"></i><i class="eye e2"></i><i class="breath"></i>${_ups(16,["#ff9a2a","#ffcf4a","#ff5a1a"],.5,1.2,2.4,4.4,6,94,";--g:8px")}`,lock:()=>badgeState(BADGE_BY.ko).t>=4,ld:"Vernichter IV (150.000 besiegte Gegner)"},
- hain:{n:"Schillerhain",html:`<i class="beam b1"></i><i class="beam b2"></i>${_sv(`<path d="M0 100 V30 Q4 20 8 30 V100Z M18 100 V18 Q23 6 28 18 V100Z M76 100 V24 Q81 12 86 24 V100Z M92 100 V36 Q96 28 100 36 V100Z" fill="#0b2a2a" opacity=".55"/><path d="M0 100 V44 Q6 32 12 44 V100Z M30 100 V34 Q36 22 42 34 V100Z M62 100 V40 Q68 28 74 40 V100Z" fill="#071c1e"/><path d="M0 100 L0 86 Q50 80 100 88 V100Z" fill="#05140f"/>`)}${_parts("fly",14,()=>`--x:${rr(4,94)}%;--y:${rr(20,88)}%;--d:${rr(5,9)}s;--dl:-${rr(0,9)}s;--fx:${rr(-10,10)}cqw;--fy:${rr(-10,10)}cqh`)}${_spk(8,6,70,["#fff6a0","#ffffff","#a0fff0"])}`,lock:()=>badgeState(BADGE_BY.shiny).t>=4,ld:"Glitzerjäger IV (200 Schillernde)"},
- megawirbel:{n:"Mega-Wirbel",html:`<i class="vx v1"></i><i class="vx v2"></i><i class="vx v3"></i><i class="core"></i><i class="orb o1"><b></b></i><i class="orb o2"><b></b></i><i class="orb o3"><b></b></i>${_ups(12,["#ff5a7a","#ffd23f","#5cff8a","#4ad6ff","#c27cff"],.5,1,3,5,10,90,";--g:8px")}`,lock:()=>badgeState(BADGE_BY.mega).t>=4,ld:"Mega-Meister IV (1.000 Mega-Entwicklungen)"},
- goldchamp:{n:"Goldener Champion",html:`<i class="grays"></i><i class="spot sp1"></i><i class="spot sp2"></i><i class="crownG"></i>${_downs(18,"conf",["#e0402e","#2a6ad8","#ffffff","#38b048","#ff8ad0","#ffd23f"],1,1.6,3.2,5.4,";--ar:.55")}${_spk(8,10,80,["#ffffff","#fff3b0"])}`,lock:()=>badgeState(BADGE_BY.champ).t>=4,ld:"Champion IV (100 Champion-Titel)"},
- prisma:{n:"Platin-Prisma",html:`<i class="prism"></i><i class="sweep"></i>${_parts("shard",7,i=>`left:${rr(4,84)}%;top:${rr(4,84)}%;--s:${rr(7,14,1)}cqw;--d:${rr(6,11)}s;--dl:-${rr(0,10)}s`)}${_spk(10,4,96,["#ffffff","#e6faff"])}`,lock:()=>badgeAll().filter(b=>badgeState(b).t>=4).length>=5,ld:"5 Abzeichen auf Platin"},
- halle:{n:"Ruhmeshalle",html:`<i class="wall"></i><i class="floor"></i><i class="carpet"></i>${_parts("pillar",6,i=>`left:${[2,18,34,58,74,90][i]}%`)}<i class="spot sp1"></i><i class="spot sp2"></i><i class="glowH"></i>${_ups(14,["#ffe8a0","#fff6d0","#ffd23f"],.4,.9,5,9,4,96,";--o:.85;--g:6px")}`,lock:()=>badgeState(BADGE_BY.champ).t>=5,ld:"Champion V (250 Champion-Titel)"},
- geist:{n:"Geisterreich",html:`<i class="void"></i><i class="runes"></i><i class="runes r2"></i>${_stars(16,0,80,["#d9b3ff","#ffffff"])}<i class="fog f1"></i><i class="fog f2"></i>${_parts("wisp",8,()=>`--x:${rr(4,92)}%;--s:${rr(3,5,1)}cqw;--d:${rr(4,7)}s;--dl:-${rr(0,7)}s;--dx:${rr(-6,6)}cqw`)}${_parts("spirit",4,()=>`--x:${rr(8,80)}%;--s:${rr(10,16,1)}cqw;--d:${rr(8,12)}s;--dl:-${rr(0,12)}s`)}`,lock:()=>badgeAll().some(b=>badgeState(b).t>=5),ld:"1 Abzeichen auf Mythisch"},
- mythos:{n:"Mythos",html:`<i class="neb"></i><i class="aurM a1"></i><i class="aurM a2"></i><i class="rays"></i>${_stars(22,0,100,["#ffffff","#e6c8ff","#ffc8f0"])}<i class="dia"><b class="f1"></b><b class="f2"></b><b class="f3"></b><b class="f4"></b><b class="f5"></b><b class="sh"></b></i>${_ups(14,["#e6c8ff","#ffffff","#c48bff","#ff9ae0"],.4,1,4,7,6,94,";--g:8px")}`,lock:()=>((META.mp||{}).rkBest||0)>=1480||badgeAll().filter(b=>badgeState(b).t>=5).length>=3,ld:"Ranked Mythisch oder 3 Abzeichen auf Mythisch"},
+ wiese:{n:"Wiesenwind",lv:1,html:`<i class="sun"></i><i class="cloud c1"></i>${_sv(`<path d="M0 70 Q30 58 60 66 T100 62 V100 H0Z" fill="#9ade82"/><path d="M0 81 Q35 73 70 79 T100 77 V100 H0Z" fill="#5fbf59"/>`)}${_parts("blade",18,i=>`left:${(i*5.7+rr(0,2.5,1)*1).toFixed(1)}%;--h:${rr(8,16)}cqh;--d:${rr(2.2,3.6)}s;--dl:-${rr(0,3)}s;--a:${rr(4,9)}deg`)}${_parts("cb-blow",6,()=>`--y:${rr(18,66)}%;--s:${rr(1.4,2.2,2)}cqw;--d:${rr(8,12)}s;--dl:-${rr(0,11)}s;--dy:${rr(4,16)}cqh;--c:${rp(["#ffffff","#ffe0ee","#fff6c0"])}`)}`,lock:()=>(META.games||0)>=1,ld:"Ersten Lauf beenden"},
+ abend:{n:"Abendrot",lv:2,html:`<i class="sun"></i><i class="cloud c1"></i><i class="cloud c2"></i><i class="sea"></i>${_parts("glit",6,i=>`top:${(69+i*4.6).toFixed(1)}%;--w:${rr(14,32)}%;--d:${rr(2,3.4)}s;--dl:-${rr(0,3)}s`)}${_birds(2,"#3a2040",14,34)}`,lock:()=>badgeState(BADGE_BY.achv).t>=1,ld:"Perfektionist I (10 Erfolge)"},
+ sunrise:{n:"Morgenroute",lv:1,html:`<i class="sun"><i class="rays"></i></i><i class="cloud c1"></i><i class="cloud c2"></i><i class="cloud c3"></i>${_sv(`<path d="M0 60 Q20 50 42 56 T82 52 T100 54 V100 H0Z" fill="#b3dd92"/><path d="M0 69 Q28 59 55 67 T100 63 V100 H0Z" fill="#74c562"/><path d="M0 80 Q30 72 62 78 T100 76 V100 H0Z" fill="#3f9f46"/><path d="M45 100 Q50 88 47 80 Q51 73 58 70 L61 70 Q55 75 53 81 Q57 91 55 100Z" fill="#ead9aa"/>`)}${_birds(3,"#4a3a4a",10,30)}${_ups(8,["#fffbe0","#ffffff"],.5,.9,6,10,2,96,";--o:.7")}`,lock:()=>(_st().bosses||0)>=1,ld:"Ersten Boss besiegen"},
+ vulkan:{n:"Vulkanherz",lv:3,html:`<i class="smoke s1"></i><i class="smoke s2"></i><i class="smoke s3"></i><i class="glowC"></i>${_sv(`<path d="M0 100 L0 74 L26 60 L40 40 L46 43 L54 43 L60 40 L74 60 L100 72 L100 100Z" fill="#2c0d0b"/><path class="lava" d="M47 44 Q44 56 38 64 Q33 72 29 86"/><path class="lava l2" d="M53 44 Q57 58 63 66 Q70 76 75 92"/><path d="M40 40 L46 43 L54 43 L60 40 L56 46 L44 46Z" fill="#ff8a2a"/><path d="M0 100 L0 91 Q50 85 100 93 V100Z" fill="#150605"/>`)}${_ups(14,["#ffb03a","#ff7a2a","#ffd36a"],.5,1.2,2.6,4.6,20,80,";--g:8px")}`,lock:()=>badgeState(BADGE_BY.boss).t>=2,ld:"Bossbrecher II (150 Bosse)"},
+ tiefsee:{n:"Tiefsee",lv:2,html:`<i class="caust"></i><i class="lrays"></i>${_sv(`<path d="M0 100 L0 87 Q20 83 40 87 T80 85 T100 87 V100Z" fill="#c9a86a" opacity=".32"/><path d="M0 100 Q10 86 8 74 Q15 86 14 100Z M80 100 Q88 82 86 68 Q95 84 92 100Z M58 100 Q61 92 60 86 Q65 93 64 100Z" fill="#14604a"/><path d="M0 100 L0 93 Q50 87 100 95 V100Z" fill="#0a2a4a"/>`)}${_parts("kelp",5,i=>`left:${[6,18,72,84,46][i]}%;--h:${rr(26,44)}cqh;--d:${rr(3.5,5)}s;--dl:-${rr(0,4)}s`)}${Array.from({length:3},(_,i)=>`<svg class="fish" viewBox="0 0 20 10" style="--y:${rr(22,64)}%;--s:${rr(6,10,1)}cqw;--d:${rr(11,17)}s;--dl:-${rr(0,16)}s"><path d="M0 5 Q6 0 12 5 Q6 10 0 5Z M11 5 L19 1 L17 5 L19 9Z" fill="${rp(["#ffb84a","#7ad8ff","#ff7a9a"])}" opacity=".85"/></svg>`).join("")}${_parts("cb-up bub",12,()=>`--x:${rr(4,96)}%;--s:${rr(.8,2,2)}cqw;--d:${rr(4,7)}s;--dl:-${rr(0,7)}s;--dx:${rr(-4,4)}cqw`)}`,lock:()=>badgeState(BADGE_BY.dex).t>=1,ld:"Pokédex-Profi I (100 Pokémon)"},
+ aurora:{n:"Polarlicht",lv:3,html:`${_stars(26,0,55)}<i class="aur a1"></i><i class="aur a2"></i><i class="aur a3"></i><i class="shoot"></i>${_sv(`<path d="M0 100 L0 72 L20 54 L32 66 L52 46 L70 62 L84 52 L100 60 L100 100Z" fill="#cfdff3"/><path d="M20 54 L26 62 L22 66 L32 66Z M52 46 L58 56 L54 58 L62 60 L70 62Z" fill="#a9bcd8"/><path d="M0 100 L0 84 L40 76 L70 82 L100 78 L100 100Z" fill="#f2f7ff"/>`)}${_downs(14,"snow",["#ffffff"],.5,1,7,12,";--o:.85")}`,lock:()=>badgeState(BADGE_BY.vet).t>=2,ld:"Veteran II (25 Stunden Spielzeit)"},
+ sturm:{n:"Gewittersturm",lv:3,html:`<i class="skyS"></i><i class="cloudD d1"></i><i class="cloudD d2"></i><i class="cloudD d3"></i><i class="cloudD d4"></i><svg class="bolt" viewBox="0 0 40 100"><path d="M24 0 L10 42 H20 L12 100 L32 34 H21 L30 0Z" fill="#fff8c0"/><path d="M15 50 L5 66 L12 63 L6 80" stroke="#fff8c0" stroke-width="2.4" fill="none" stroke-linejoin="round"/></svg><svg class="bolt b2" viewBox="0 0 40 100"><path d="M22 0 L12 38 H19 L13 70 L28 30 H20 L27 0Z" fill="#e8f0ff"/></svg><i class="flashO"></i><i class="rain r1"></i><i class="rain r2"></i>${_sv(`<path d="M0 100 L0 82 L10 78 L18 83 L28 74 L36 80 L44 77 L50 70 L56 76 L66 72 L74 79 L84 75 L92 80 L100 77 V100Z" fill="#0c0f18"/><path d="M0 100 L0 91 Q50 85 100 92 V100Z" fill="#070910"/>`)}<i class="lit"></i>${_parts("spl",9,()=>`left:${rr(3,95)}%;--d:${rr(.5,.9)}s;--dl:-${rr(0,1)}s`)}`,lock:()=>badgeState(BADGE_BY.duel).t>=2,ld:"Duellkönig II (15 Duell-Siege)"},
+ spuk:{n:"Spukturm",lv:3,html:`<i class="moon"></i><i class="mcloud"></i>${_sv(`<path d="M36 100 V42 L42 33 V22 L50 10 L58 22 V33 L64 42 V100Z" fill="#1a0e2a"/><path d="M0 100 L0 88 Q20 80 36 86 L36 100Z M64 100 L64 86 Q80 80 100 87 V100Z" fill="#120a1e"/><rect class="swin" x="47" y="30" width="6" height="8" fill="#ffd84a"/><rect class="swin w2" x="44" y="52" width="4" height="6" fill="#ffd84a"/>`)}${Array.from({length:3},()=>`<svg class="bat" viewBox="0 0 24 10" style="--y:${rr(10,40)}%;--s:${rr(5,8,1)}cqw;--d:${rr(9,14)}s;--dl:-${rr(0,13)}s"><path d="M12 4 Q9 0 6 3 Q3 1 0 4 Q4 4 6 7 Q9 5 12 9 Q15 5 18 7 Q20 4 24 4 Q21 1 18 3 Q15 0 12 4Z" fill="#0c0614"/></svg>`).join("")}${_parts("ghosty",3,i=>`left:${[10,68,30][i]}%;top:${[38,28,60][i]}%;--d:${rr(3,4.4)}s;--dl:-${rr(0,3)}s`)}<i class="fog f1"></i><i class="fog f2"></i>`,lock:()=>badgeState(BADGE_BY.nightm).t>=1,ld:"Albtraumjäger I (1× Albtraum-Champion)"},
+ kristall:{n:"Kristallhöhle",lv:3,html:`<i class="beams"></i><i class="cave"></i>${_sv(`<path d="M0 0 H100 V8 L96 14 L92 9 L88 20 L83 10 L78 16 L72 8 L66 13 L60 7 L54 15 L48 8 L42 12 L36 6 L30 17 L25 9 L20 14 L14 7 L9 18 L5 10 L0 15Z" fill="#071220"/><path d="M0 100 L0 82 Q20 76 40 83 T100 81 V100Z" fill="#071220"/>`)}${_sv(`<g class="cg c1"><path d="M4 100 L11 64 L18 100Z M14 100 L23 52 L32 100Z" fill="#5ad0ff"/><path d="M11 64 L13 100 L9 100Z M23 52 L25.5 100 L20.5 100Z" fill="#e6fbff" opacity=".75"/></g><g class="cg c2"><path d="M68 100 L77 58 L86 100Z M81 100 L90 70 L98 100Z" fill="#b98bff"/><path d="M77 58 L79.5 100 L74.5 100Z M90 70 L91.6 100 L88.4 100Z" fill="#f2e4ff" opacity=".75"/></g><g class="cg c3"><path d="M38 100 L45 78 L52 100Z M54 100 L58 86 L62 100Z" fill="#7affd8"/><path d="M45 78 L46.4 100 L43.6 100Z" fill="#eafff8" opacity=".75"/></g><g class="cg c1"><path d="M30 17 L32 27 L34 16Z M54 15 L56 24 L58 14Z M88 20 L89.6 28 L91 19Z" fill="#8fe6ff" opacity=".85"/></g>`)}<i class="pool"></i>${_spk(12,8,92,["#ffffff","#bff4ff","#f0d6ff","#c8fff0"])}${_ups(10,["#9fe8ff","#e0c6ff","#a8ffe6"],.4,.8,6,10,10,90,";--o:.6")}`,lock:()=>badgeState(BADGE_BY.shiny).t>=2,ld:"Glitzerjäger II (25 Schillernde)"},
+ galaxie:{n:"Galaxie",lv:4,html:`<i class="nebula"></i><i class="nebula n2"></i><i class="spiral"></i><i class="spiral sp2"></i>${_stars(40,0,100,["#ffffff","#cfe4ff","#ffe8c8"])}${_spk(8,4,96,["#ffffff","#d8e8ff","#ffe8f6"],1.4,2.6)}<i class="planet"><i class="ring"></i></i><i class="moonG"></i><i class="comet"></i><i class="shoot s1"></i><i class="shoot s2"></i>`,lock:()=>badgeState(BADGE_BY.coll).t>=3,ld:"Abzeichen-Sammler III (60 Stufen)"},
+ sakura:{n:"Sakura-Schrein",lv:2,html:`<i class="sun"></i>${_sv(`<path d="M0 100 L0 66 L30 54 L46 38 L54 38 L70 54 L100 64 L100 100Z" fill="#c7a6c9" opacity=".8"/><path d="M46 38 L54 38 L60 44 L55 43 L50 46 L45 43 L40 44Z" fill="#fff"/><path d="M0 100 L0 82 Q50 74 100 84 V100Z" fill="#7a4a6a"/><g fill="#c8203a"><rect x="30" y="60" width="40" height="3"/><rect x="27" y="57" width="46" height="2.4" rx="1"/><rect x="34" y="65" width="32" height="2"/><rect x="36" y="60" width="3" height="28"/><rect x="61" y="60" width="3" height="28"/></g>`)}${_sv(`<path d="M0 2 Q14 8 22 4 Q30 1 42 6" stroke="#4a2030" stroke-width="1.6" fill="none"/><path d="M14 6 Q16 12 21 15" stroke="#4a2030" stroke-width="1.1" fill="none"/><path d="M100 10 Q88 14 80 10 Q72 8 64 13" stroke="#4a2030" stroke-width="1.4" fill="none"/>`)}${[[1,1],[6,4],[11,6],[16,5],[21,3],[26,2],[31,3],[36,4],[40,5],[17,10],[20,13],[13,9],[97,8],[91,10],[85,10],[79,8],[73,9],[67,11]].map(([x,y])=>`<i class="bloom" style="left:${x-2}%;top:${y-1.5}%;--s:${rr(4,6.5,1)}cqw"></i>`).join("")}${_downs(14,"petal",["#ffd0e2","#ffb8d4","#fff0f6"],1.4,2.4,6,10,";--o:.95")}`,lock:()=>badgeState(BADGE_BY.daily).t>=1,ld:"Tagesheld I (5 Tägliche Runs)"},
+ sand:{n:"Sandsturm",lv:2,html:`<i class="sun"></i><i class="haze"></i>${_sv(`<path d="M8 100 V58 H14 V100Z M20 100 V64 H26 V100Z M6 58 H28 V55 H6Z M70 100 V50 H77 V100Z M66 50 H82 V46 H66Z" fill="#9a6a3a" opacity=".75"/><path d="M0 70 Q25 60 50 68 T100 62 V100 H0Z" fill="#e8b46a"/><path d="M0 80 Q30 70 60 78 T100 74 V100 H0Z" fill="#d49a4e"/><path d="M0 90 Q40 84 70 89 T100 87 V100 H0Z" fill="#b97a34"/>`)}${_parts("streak",11,()=>`--y:${rr(30,94)}%;--w:${rr(12,30)}%;--d:${rr(1.1,2.2)}s;--dl:-${rr(0,2)}s`)}${_parts("cb-blow grain",10,()=>`--y:${rr(30,90)}%;--s:${rr(.5,1,2)}cqw;--d:${rr(2.4,4)}s;--dl:-${rr(0,4)}s;--dy:${rr(-6,6)}cqh;--c:#fff0c8;--o:.8`)}`,lock:()=>badgeState(BADGE_BY.streak).t>=2,ld:"Unaufhaltsam II (10 Siege in Folge)"},
+ neon:{n:"Neonstadt",lv:3,html:`<i class="sun"></i>${_sv(`<path d="M0 66 V48 H8 V40 H14 V52 H20 V34 H28 V46 H34 V30 H40 V56 H46 V42 H54 V26 H60 V48 H66 V38 H74 V52 H80 V36 H88 V50 H94 V44 H100 V66Z" fill="#14082a"/>`)}${_parts("nw",18,()=>`left:${rr(4,94)}%;top:${rr(30,60)}%;--d:${rr(1.4,4)}s;--dl:-${rr(0,4)}s;--c:${rp(["#ff4ad8","#4af2ff","#ffd84a"])}`)}<i class="grid"></i><i class="hglow"></i>`,lock:()=>((META.mp||{}).rkBest||0)>=1240,ld:"Ranked: Gold 1 erreichen"},
+ drache:{n:"Drachenhort",lv:4,html:`<i class="heat"></i>${_sv(`<path d="M0 0 L0 44 Q10 30 8 16 Q16 26 22 10 L26 0Z M100 0 L100 38 Q92 26 94 12 Q86 22 82 6 L78 0Z" fill="#170606"/><path d="M0 100 L0 78 Q14 70 28 78 Q40 68 52 76 Q66 66 80 76 Q90 70 100 74 V100Z" fill="#1c0707"/>`)}<i class="eye e1"></i><i class="eye e2"></i><i class="breath"></i>${_ups(16,["#ff9a2a","#ffcf4a","#ff5a1a"],.5,1.2,2.4,4.4,6,94,";--g:8px")}`,lock:()=>badgeState(BADGE_BY.ko).t>=4,ld:"Vernichter IV (150.000 besiegte Gegner)"},
+ hain:{n:"Schillerhain",lv:4,html:`<i class="glowH"></i><i class="beam b1"></i><i class="beam b2"></i><i class="beam b3"></i>${_sv(`<path d="M0 100 V30 Q4 20 8 30 V100Z M18 100 V18 Q23 6 28 18 V100Z M76 100 V24 Q81 12 86 24 V100Z M92 100 V36 Q96 28 100 36 V100Z" fill="#0b3a34" opacity=".55"/><path d="M0 100 V44 Q6 32 12 44 V100Z M30 100 V34 Q36 22 42 34 V100Z M62 100 V40 Q68 28 74 40 V100Z" fill="#06221f"/><path d="M0 100 L0 84 Q50 77 100 86 V100Z" fill="#041611"/>`)}<i class="mist"></i><i class="pond"></i>${_parts("fly",22,()=>`--x:${rr(4,94)}%;--y:${rr(18,88)}%;--d:${rr(5,9)}s;--dl:-${rr(0,9)}s;--fx:${rr(-10,10)}cqw;--fy:${rr(-10,10)}cqh;--c:${rp(["#fff6a0","#a0fff0","#ffd0f4","#c8ffa0"])}`)}${_spk(14,6,80,["#fff6a0","#ffffff","#a0fff0","#ffc8f0","#c8ffa0"],1.8,3.6)}${_ups(10,["#d8fff0","#fff6c8"],.3,.6,7,11,6,94,";--o:.7")}`,lock:()=>badgeState(BADGE_BY.shiny).t>=4,ld:"Glitzerjäger IV (200 Schillernde)"},
+ megawirbel:{n:"Mega-Wirbel",lv:4,html:`<i class="vx v1"></i><i class="vx v2"></i><i class="vx v3"></i><i class="core"></i><i class="orb o1"><b></b></i><i class="orb o2"><b></b></i><i class="orb o3"><b></b></i>${_ups(12,["#ff5a7a","#ffd23f","#5cff8a","#4ad6ff","#c27cff"],.5,1,3,5,10,90,";--g:8px")}`,lock:()=>badgeState(BADGE_BY.mega).t>=4,ld:"Mega-Meister IV (1.000 Mega-Entwicklungen)"},
+ goldchamp:{n:"Goldener Champion",lv:4,html:`<i class="grays"></i><i class="spot sp1"></i><i class="spot sp2"></i><i class="crownG"></i>${_downs(18,"conf",["#e0402e","#2a6ad8","#ffffff","#38b048","#ff8ad0","#ffd23f"],1,1.6,3.2,5.4,";--ar:.55")}${_spk(8,10,80,["#ffffff","#fff3b0"])}`,lock:()=>badgeState(BADGE_BY.champ).t>=4,ld:"Champion IV (100 Champion-Titel)"},
+ prisma:{n:"Platin-Prisma",lv:4,html:`<i class="pBg"></i><i class="fan"></i><i class="beamIn"></i><i class="pTri"></i><i class="sweep"></i>${_parts("shard",8,i=>`left:${rr(4,86)}%;top:${rr(4,80)}%;--s:${rr(6,12,1)}cqw;--d:${rr(6,11)}s;--dl:-${rr(0,10)}s;--h:${rr(0,360,0)}deg`)}${_spk(14,4,96,["#ffffff","#e6faff","#ffe6fa","#fffbe0"])}`,lock:()=>badgeAll().filter(b=>badgeState(b).t>=4).length>=5,ld:"5 Abzeichen auf Platin"},
+ halle:{n:"Ruhmeshalle",lv:5,html:`<i class="wall"></i><i class="floor"></i><i class="carpet"></i>${_parts("pillar",6,i=>`left:${[2,18,34,58,74,90][i]}%`)}<i class="spot sp1"></i><i class="spot sp2"></i><i class="glowH"></i>${_ups(14,["#ffe8a0","#fff6d0","#ffd23f"],.4,.9,5,9,4,96,";--o:.85;--g:6px")}`,lock:()=>badgeState(BADGE_BY.champ).t>=5,ld:"Champion V (250 Champion-Titel)"},
+ geist:{n:"Geisterreich",lv:5,html:`<i class="void"></i><i class="runes"></i><i class="runes r2"></i>${_stars(16,0,80,["#d9b3ff","#ffffff"])}<i class="fog f1"></i><i class="fog f2"></i>${_parts("wisp",8,()=>`--x:${rr(4,92)}%;--s:${rr(3,5,1)}cqw;--d:${rr(4,7)}s;--dl:-${rr(0,7)}s;--dx:${rr(-6,6)}cqw`)}${_parts("spirit",4,()=>`--x:${rr(8,80)}%;--s:${rr(10,16,1)}cqw;--d:${rr(8,12)}s;--dl:-${rr(0,12)}s`)}`,lock:()=>badgeAll().some(b=>badgeState(b).t>=5),ld:"1 Abzeichen auf Mythisch"},
+ mythos:{n:"Mythos",lv:5,html:`<i class="neb"></i><i class="aurM a1"></i><i class="aurM a2"></i><i class="rays"></i>${_stars(22,0,100,["#ffffff","#e6c8ff","#ffc8f0"])}<i class="dia"><b class="f1"></b><b class="f2"></b><b class="f3"></b><b class="f4"></b><b class="f5"></b><b class="sh"></b></i>${_ups(14,["#e6c8ff","#ffffff","#c48bff","#ff9ae0"],.4,1,4,7,6,94,";--g:8px")}`,lock:()=>((META.mp||{}).rkBest||0)>=1480||badgeAll().filter(b=>badgeState(b).t>=5).length>=3,ld:"Ranked Mythisch oder 3 Abzeichen auf Mythisch"},
+ sternennacht:{n:"Sternennacht",lv:1,html:`${_stars(26,0,64,["#ffffff","#dfe8ff","#fff4d6"])}<i class="moonS"></i>${_sv(`<path d="M0 76 Q22 66 46 72 T100 68 V100 H0Z" fill="#18214a"/><path d="M73.4 73 V69 M74.6 73 V69" stroke="#0f1636" stroke-width="1"/><path d="M74 50 L78 58 L76.2 58 L79.4 64 L77.4 64 L80.6 70 L67.4 70 L70.6 64 L68.6 64 L71.8 58 L70 58Z" fill="#0f1636"/><path d="M0 87 Q30 79 60 85 T100 83 V100 H0Z" fill="#0c1230"/>`)}`,lock:()=>_dex().filter(d=>d.owned>0).length>=30,ld:"30 Pokémon im Pokédex"},
+ herbst:{n:"Herbstwald",lv:2,html:`<i class="sunH"></i>${_sv(`<path d="M0 60 Q5 50 10 56 Q15 46 21 54 Q27 44 33 53 Q39 45 45 54 Q51 47 57 55 Q63 45 69 53 Q75 44 81 54 Q87 48 93 55 Q97 50 100 54 V100 H0Z" fill="#c85a2a" opacity=".5"/><path d="M0 70 Q6 60 12 67 Q18 57 25 65 Q32 56 38 66 Q45 58 51 67 Q58 57 64 66 Q71 58 77 67 Q84 58 90 66 Q95 61 100 65 V100 H0Z" fill="#9a3a1a"/><path d="M14 100 V68 M38 100 V70 M64 100 V69 M88 100 V70" stroke="#4a1a0a" stroke-width="1.6"/><path d="M0 84 Q25 79 50 83 T100 82 V100 H0Z" fill="#5a2410"/><path d="M0 92 Q40 88 70 91 T100 90 V100 H0Z" fill="#3e1808"/>`)}${_downs(14,"leafH",["#e0702a","#c04a1a","#f0a030","#d8902a","#b83a1a"],1.4,2.4,6,10,";--ar:.72")}${_birds(2,"#5a2a20",12,30)}`,lock:()=>badgeState(BADGE_BY.champ).t>=1,ld:"Champion I (erster Champion-Titel)"},
+ bernstein:{n:"Bernsteinglut",lv:5,html:`<i class="amCore"></i><i class="amRays"></i><i class="amRays ar2"></i><i class="amRing r1"></i><i class="amRing r2"></i><i class="amRing r3"></i><i class="amHex"><b></b></i><svg class="amCrown" viewBox="0 0 40 26"><path d="M2 24 L4 7 L13 15 L20 2 L27 15 L36 7 L38 24Z" fill="#ffe7a8"/><path d="M2 24 L4 7 L13 15 L20 2 L20 24Z" fill="#fff6d6" opacity=".55"/><circle cx="20" cy="2.5" r="2" fill="#fff6d6"/><circle cx="4" cy="7" r="1.6" fill="#fff6d6"/><circle cx="36" cy="7" r="1.6" fill="#fff6d6"/></svg><i class="amFlare"></i>${_ups(24,["#ffd27a","#ffae2b","#ff7a1a","#fff2c0"],.5,1.3,2.6,5.4,2,96,";--g:7px")}${_spk(12,6,92,["#fff2c0","#ffd27a","#ffffff"],1.8,3.4)}<i class="heatA"></i>`,lock:()=>badgeAll().some(b=>badgeState(b).t>=6),ld:"1 Abzeichen auf Bernstein"},
  /* Geschenk-Hintergründe: nur per Geschenk, im Editor erst sichtbar, wenn man sie hat */
- halloween:{n:"Kürbisnacht",gift:1,ed:"Halloween 2026",ld:"Geschenk zur Halloween-Edition 2026",html:`<i class="hsky"></i>${_stars(20,0,46,["#fff4d6","#ffd9a0","#e9d6ff"])}<i class="hmoon"><b class="cr c1"></b><b class="cr c2"></b><b class="cr c3"></b></i>
+ halloween:{n:"Kürbisnacht",gift:1,over:1,ed:"Halloween 2026",ld:"Geschenk zur Halloween-Edition 2026",html:`<i class="hsky"></i>${_stars(20,0,46,["#fff4d6","#ffd9a0","#e9d6ff"])}<i class="hmoon"><b class="cr c1"></b><b class="cr c2"></b><b class="cr c3"></b></i>
   <svg class="witch" viewBox="0 0 64 30"><g fill="#120716"><path d="M0 19.5 L9 21 L9 23.2 L0 25.5 L2.2 22.5Z"/><path d="M8 21.4 L58 20.2 L58 21.7 L8 23.1Z"/><path d="M23 21.5 Q24 14 30 12.4 L35 12 Q37 16 36 21.2Z"/><path d="M23.5 20 Q17 15 12.5 17.5 Q18 17.2 22.6 21Z"/><circle cx="33.8" cy="10.2" r="2.7"/><path d="M29.4 8.6 L39.2 8.2 L39.2 9.4 L29.4 9.8Z M31.4 8.6 L36.8 8.4 L35.2 -.2 Q34 3 31.4 8.6Z"/><path d="M35.6 15.2 L42.5 18.6 L42 19.8 L35 16.6Z"/></g></svg>
   <i class="hcloud c1"></i><i class="hcloud c2"></i>
   ${[[14,4.6,13,2],[24,3.6,17,9],[9,3,11,5],[32,4,15,13]].map(([y,s,d,dl])=>`<svg class="bat" viewBox="0 0 24 10" style="--y:${y}%;--s:${s}cqw;--d:${d}s;--dl:-${dl}s"><path d="M12 4 Q9 0 6 3 Q3 1 0 4 Q4 4 6 7 Q9 5 12 9 Q15 5 18 7 Q20 4 24 4 Q21 1 18 3 Q15 0 12 4Z" fill="#0c0510"/></svg>`).join("")}
@@ -12006,7 +12299,7 @@ const CARD_BG={
   ${_ups(10,["#ffb03a","#ff7a1a","#ffd36a","#c58bff"],.4,.9,4.5,7.5,4,96,";--g:6px;--o:.85")}
   ${_downs(9,"hleaf",["#e0702a","#c04a1a","#f0a030","#8a3a1a"],1.3,2.2,6,10,";--ar:.72")}
   <i class="pkglow g1"></i><i class="pkglow g2"></i><i class="pkglow g3"></i><svg class="pk p1" viewBox="0 0 44 38"><ellipse class="pkg" cx="22" cy="23" rx="21" ry="15"/><ellipse cx="11.5" cy="23" rx="10" ry="13.5" fill="#e8650e"/><ellipse cx="32.5" cy="23" rx="10" ry="13.5" fill="#e8650e"/><ellipse cx="22" cy="23" rx="12" ry="14.5" fill="#ff8a1e"/><ellipse cx="22" cy="23" rx="5" ry="14" fill="#ff9d34"/><path d="M8 17 Q11 13 15 14 M29 14 Q34 13 36 17" stroke="#ffb860" stroke-width=".9" fill="none" opacity=".7"/><path d="M21 9.5 Q19.5 4 23.5 1.5 L25.2 3.4 Q22.8 5.4 24 9.5Z" fill="#3f5c22"/><path d="M24 4.5 Q29 2 31 5" stroke="#4f7a2a" stroke-width="1.1" fill="none"/><g class="face"><path d="M10.5 18.5 L17 18.5 L13.8 12.8Z M27 18.5 L33.5 18.5 L30.2 12.8Z M20 22 L24 22 L22 25Z M9.5 26 Q22 36.5 34.5 26 L31.6 27.2 L29.8 30.4 L27.4 27.8 L25 31.4 L22 28.4 L19 31.4 L16.6 27.8 L14.2 30.4 L12.4 27.2Z"/></g></svg><svg class="pk p2" viewBox="0 0 44 38"><ellipse class="pkg" cx="22" cy="23" rx="21" ry="15"/><ellipse cx="11.5" cy="23" rx="10" ry="13.5" fill="#e8650e"/><ellipse cx="32.5" cy="23" rx="10" ry="13.5" fill="#e8650e"/><ellipse cx="22" cy="23" rx="12" ry="14.5" fill="#ff8a1e"/><ellipse cx="22" cy="23" rx="5" ry="14" fill="#ff9d34"/><path d="M8 17 Q11 13 15 14 M29 14 Q34 13 36 17" stroke="#ffb860" stroke-width=".9" fill="none" opacity=".7"/><path d="M21 9.5 Q19.5 4 23.5 1.5 L25.2 3.4 Q22.8 5.4 24 9.5Z" fill="#3f5c22"/><path d="M24 4.5 Q29 2 31 5" stroke="#4f7a2a" stroke-width="1.1" fill="none"/><g class="face"><path d="M10.5 18.5 L17 18.5 L13.8 12.8Z M27 18.5 L33.5 18.5 L30.2 12.8Z M20 22 L24 22 L22 25Z M9.5 26 Q22 36.5 34.5 26 L31.6 27.2 L29.8 30.4 L27.4 27.8 L25 31.4 L22 28.4 L19 31.4 L16.6 27.8 L14.2 30.4 L12.4 27.2Z"/></g></svg><svg class="pk p3" viewBox="0 0 44 38"><ellipse class="pkg" cx="22" cy="23" rx="21" ry="15"/><ellipse cx="11.5" cy="23" rx="10" ry="13.5" fill="#e8650e"/><ellipse cx="32.5" cy="23" rx="10" ry="13.5" fill="#e8650e"/><ellipse cx="22" cy="23" rx="12" ry="14.5" fill="#ff8a1e"/><ellipse cx="22" cy="23" rx="5" ry="14" fill="#ff9d34"/><path d="M8 17 Q11 13 15 14 M29 14 Q34 13 36 17" stroke="#ffb860" stroke-width=".9" fill="none" opacity=".7"/><path d="M21 9.5 Q19.5 4 23.5 1.5 L25.2 3.4 Q22.8 5.4 24 9.5Z" fill="#3f5c22"/><path d="M24 4.5 Q29 2 31 5" stroke="#4f7a2a" stroke-width="1.1" fill="none"/><g class="face"><path d="M10.5 18.5 L17 18.5 L13.8 12.8Z M27 18.5 L33.5 18.5 L30.2 12.8Z M20 22 L24 22 L22 25Z M9.5 26 Q22 36.5 34.5 26 L31.6 27.2 L29.8 30.4 L27.4 27.8 L25 31.4 L22 28.4 L19 31.4 L16.6 27.8 L14.2 30.4 L12.4 27.2Z"/></g></svg>`}};
-function bgHTML(k){const b=CARD_BG[k]||CARD_BG.std;return `<div class="tcBg bg-${CARD_BG[k]?k:"std"}">${b.html}</div>`;}
+function bgHTML(k){const b=CARD_BG[k]||CARD_BG.std;return `<div class="tcBg bg-${CARD_BG[k]?k:"std"}${b.lv?" lv"+b.lv:""}">${b.html}${b.lv>=4?`<i class="lvFx l${b.lv}"></i>`:""}</div>`;}
 /* wofür es den Hintergrund gibt (Tooltip im Karten-Editor und auf Trainerkarten) */
 function bgWhy(k,ok){const b=CARD_BG[k]||CARD_BG.std;if(!b.ld)return "Standard-Hintergrund für alle Trainer.";if(b.gift)return b.ld+".";return (ok===false?"Noch gesperrt. Freischalten: ":"Freigeschaltet für: ")+b.ld;}
 const bgOk=k=>{const b=CARD_BG[k];if(!b)return false;if(evHas("bg",k))return true;if(b.gift)return false;if(!b.lock)return true;try{return !!b.lock();}catch(e){return false;}};
@@ -12033,22 +12326,33 @@ function sprAlign(img,flip){if(img&&img.dataset&&img.dataset.spw){img.dataset.al
 function favDefault(){const d=(META&&META.dex)||{};let best=0,bw=-1;for(const id of favList()){const w=d[id].wins||0;if(w>bw){bw=w;best=id;}}return best||25;}
 function cardMeta(){META.card=META.card||{};const C=META.card;if(!C.bg||!bgOk(C.bg))C.bg="std";C.badges=(C.badges||[]).filter(id=>badgeDef(id)).slice(0,3);
   const d=(META&&META.dex)||{};if(!C.fav||!SPECIES[C.fav]||!(d[C.fav]&&d[C.fav].owned>0)||(isExcl(C.fav)&&!exclOk()))C.fav=favDefault();if(C.favSh&&!(d[C.fav]&&d[C.fav].shiny>0))C.favSh=0;return C;}
-function cardTitles(C){const bs=badgeAll().map(b=>[b,badgeState(b).t]);return [...new Set([C.av==="girl"?"Trainerin":"Trainer",...(MYTITLE&&MYTITLE.text?[MYTITLE.text]:[]),...(((META&&META.ev&&META.ev.tt)||[]).map(t=>t.t)),...bs.filter(x=>x[1]>=5).map(x=>badgeT5n(x[0])),...bs.filter(x=>x[1]>=4).map(([b])=>b.n.replace(/^Partner: /,"")+(b.cat==="Partner"?"-Meister":""))])];}
+const noTitle=t=>!t||/^Trainer(in)?$/.test(String(t).trim());
+function cardTitles(C){const bs=badgeAll().map(b=>[b,badgeState(b).t]);return [...new Set([...(MYTITLE&&MYTITLE.text?[MYTITLE.text]:[]),...(((META&&META.ev&&META.ev.tt)||[]).map(t=>t.t)),...bs.filter(x=>x[1]>=5).map(x=>badgeT5n(x[0])),...bs.filter(x=>x[1]>=4).map(([b])=>b.n.replace(/^Partner: /,"")+(b.cat==="Partner"?"-Meister":""))])];}
 function cardMine(){const C=cardMeta();if(C.title&&!cardTitles(C).includes(C.title))C.title=null;const b=C.badges.map(id=>{const d=badgeDef(id);return[id,d?badgeShowT(d):0];}).filter(x=>x[1]>0);
-  const title=C.title||(C.av==="girl"?"Trainerin":"Trainer"),ts=titleFxOf(title);
+  const title=noTitle(C.title)?"":C.title,ts=title?titleFxOf(title):null;
   return{name:USER||mpName&&mpName()||"Gast",fav:C.fav,favSh:C.favSh?1:0,bg:C.bg,title,ts,badges:b,ch:Object.values(META.champs||{}).reduce((a,c)=>a+c,0),dw:(META.mp||{}).duelWins||0,dex:_dex().filter(d=>d.owned>0).length};}
 function cardClean(c){if(!c||typeof c!=="object")return null;const n=v=>Math.max(0,Math.min(1e7,v|0)),fav=+c.fav;
-  return{name:String(c.name||"?").slice(0,20),fav:SPECIES[fav]&&!(isExcl(fav)&&String(c.name||"").trim().toLowerCase()!=="requiem")?fav:25,favSh:c.favSh?1:0,bg:CARD_BG[c.bg]?c.bg:"std",title:String(c.title||"Trainer").replace(/[<>]/g,"").slice(0,24),ts:TITLE_FX[c.ts]?c.ts:null,
-    badges:(Array.isArray(c.badges)?c.badges:[]).slice(0,3).filter(x=>Array.isArray(x)&&badgeDef(String(x[0]))).map(x=>[String(x[0]).slice(0,40),Math.max(1,Math.min(5,x[1]|0))]),ch:n(c.ch),dw:n(c.dw),dex:n(c.dex)};}
+  return{name:String(c.name||"?").slice(0,20),fav:SPECIES[fav]&&!(isExcl(fav)&&String(c.name||"").trim().toLowerCase()!=="requiem")?fav:25,favSh:c.favSh?1:0,bg:CARD_BG[c.bg]?c.bg:"std",title:noTitle(c.title)?"":String(c.title).replace(/[<>]/g,"").slice(0,24),ts:TITLE_FX[c.ts]?c.ts:null,
+    badges:(Array.isArray(c.badges)?c.badges:[]).slice(0,3).filter(x=>Array.isArray(x)&&badgeDef(String(x[0]))).map(x=>[String(x[0]).slice(0,40),Math.max(1,Math.min(TIER_MAX,x[1]|0))]),ch:n(c.ch),dw:n(c.dw),dex:n(c.dex)};}
 const ttCls=ts=>ts&&TITLE_FX[ts]?` class="tt tt-${ts}"`:"";
 function cardHTML(c,side){c=c||cardMine();const sl=[0,1,2].map(i=>c.badges[i]?badgeHTML(c.badges[i][0],c.badges[i][1]):badgeHTML(null,0)).join("");
   const bgk=CARD_BG[c.bg]?c.bg:"std";
   return `<div class="tcard${side?" "+side:""}" data-tn="${esc((CARD_BG[bgk]||{}).n||"")}" data-td="${esc(bgWhy(bgk))}" data-tk="HINTERGRUND" data-tc="#9fe8ff">${bgHTML(c.bg)}<div class="tcShine"></div>
-   <div class="tcTop"><b${c.name.length>13?' class="long"':""}>${esc(c.name)}</b><small class="${[c.ts&&TITLE_FX[c.ts]?"tt tt-"+c.ts:"",c.title.length>16?"xl":c.title.length>12?"long":""].join(" ").trim()}">${esc(c.title)}</small></div>
-   <div class="tcAv"><i class="tcPlat"></i><span class="tcMon" data-sp="${SPECIES[c.fav]?c.fav:25}" data-sh="${c.favSh?1:""}"></span></div>
+   <div class="tcTop${c.title?"":" nt"}"><b${c.name.length>13?' class="long"':""}>${esc(c.name)}</b>${c.title?`<small class="${[c.ts&&TITLE_FX[c.ts]?"tt tt-"+c.ts:"",c.title.length>16?"xl":c.title.length>12?"long":""].join(" ").trim()}">${esc(c.title)}</small>`:""}</div>
+   <div class="tcAv"><i class="tcPlat"></i>${c.ph?`<span class="tcMon tcPh"><b>?</b></span>`:`<span class="tcMon" data-sp="${SPECIES[c.fav]?c.fav:25}" data-sh="${c.favSh?1:""}"></span>`}</div>
    <div class="tcBdg">${sl}</div>
    ${c.sub?`<div class="tcStats"><span>${c.sub}</span></div>`:`<div class="tcStats"><span>${ic("crown")}${c.ch}</span><span>${ic("swords")}${c.dw}</span><span>${ic("dex")}${c.dex}</span></div>`}</div>`;}
-function cardHydrate(root){hydrateIcons(root);root.querySelectorAll(".bsp[data-sp]").forEach(e=>{if(!e.firstChild)try{e.appendChild(spriteEl(+e.dataset.sp));}catch(x){}});
+/* Sprite auf den sichtbaren Inhalt zuschneiden (für kleine Rahmen wie Abzeichen: immer mittig, gleich groß) */
+const SPR_TRIM={};
+function sprTrim(img){if(!img)return img;if(img.dataset&&img.dataset.spw){img.dataset.tr=1;return img;}if(img.tagName!=="IMG")return img;img.classList.add("spTrim");
+  const go=()=>{try{const w=img.naturalWidth,h=img.naturalHeight;if(!w||!h)return;const key=img.src.length+":"+img.src.slice(-60);let u=SPR_TRIM[key];
+    if(!u){const c=document.createElement("canvas");c.width=w;c.height=h;const x=c.getContext("2d");x.drawImage(img,0,0);const D=x.getImageData(0,0,w,h).data;let l=w,r=-1,t=h,b=-1;
+      for(let yy=0;yy<h;yy++)for(let xx=0;xx<w;xx++)if(D[(yy*w+xx)*4+3]>24){if(xx<l)l=xx;if(xx>r)r=xx;if(yy<t)t=yy;if(yy>b)b=yy;}
+      if(r<0)return;const cw=r-l+1,ch=b-t+1,sz=Math.max(cw,ch),o=document.createElement("canvas");o.width=sz;o.height=sz;const ox=o.getContext("2d");ox.imageSmoothingEnabled=false;ox.drawImage(c,l,t,cw,ch,Math.floor((sz-cw)/2),Math.floor((sz-ch)/2),cw,ch);
+      u=SPR_TRIM[key]=o.toDataURL();}
+    img.onload=null;img.src=u;}catch(e){}};
+  if(img.complete&&img.naturalWidth)go();else img.addEventListener("load",go,{once:true});return img;}
+function cardHydrate(root){hydrateIcons(root);root.querySelectorAll(".bsp[data-sp]").forEach(e=>{if(!e.firstChild)try{e.appendChild(sprTrim(spriteEl(+e.dataset.sp)));}catch(x){}});
   root.querySelectorAll(".tcMon[data-sp]").forEach(e=>{if(!e.firstChild)try{e.appendChild(sprAlign(natFit(spriteEl(+e.dataset.sp,"",{shiny:!!e.dataset.sh}),1),true));}catch(x){}});}
 /* Bühne im Retro-Stil (Sterne, Horizont, Gitterboden, Lichtkegel) – Partnerwahl */
 const synthBg=()=>`<div class="synthBg"><i class="sStars"></i><i class="sStars s2"></i><i class="sHor"></i><i class="sGrid"></i><i class="sHaze"></i></div>`;
@@ -12059,16 +12363,16 @@ function favMatches(){const q=FAV_Q.trim().toLowerCase();let L=favList();if(FAV_
 function cardModal(t){t=t||CARD_TAB;CARD_TAB=t;const C=cardMeta(),me=cardMine();let body="";
   if(t==="badges"){const all=badgeAll(),cats=["Champion","Kampf","Sammeln","Typen","Partner"];const got=all.filter(b=>badgeShowT(b)>0).length;
     body=`<p class="cdHint">Tippe ein freigeschaltetes Abzeichen an, um es in eines der 3 Felder zu legen (nochmal tippen = entfernen). ${got} von ${all.length} Abzeichen freigeschaltet.</p>`+cats.map(cat=>{const L=all.filter(b=>b.cat===cat);if(!L.length)return"";
-      return `<h4 class="cdCat">${cat}</h4><div class="cdGrid">${L.map(b=>{const s0=badgeState(b),gt=bGiftT(b.id),gv=gt>s0.t,s=gv?Object.assign({},s0,{t:gt}):s0,on=C.badges.includes(b.id),pr=gv?1:s.next?Math.min(1,s.v/s.next):b.v5&&s.t===4?Math.min(1,(s.v5||0)/b.T5):1;
+      return `<h4 class="cdCat">${cat}</h4><div class="cdGrid">${L.map(b=>{const s0=badgeState(b),gt=bGiftT(b.id),gv=gt>s0.t,s=gv?Object.assign({},s0,{t:gt}):s0,on=C.badges.includes(b.id),pr=gv?1:s.next?Math.min(1,s.v/s.next):b.v5&&s.t===4?Math.min(1,(s.v5||0)/b.T5):s.t===5&&b.T6?Math.min(1,(s.v6||0)/b.T6):1;
         return `<button class="cdB${on?" on":""}${s.t?"":" lock"}" data-b="${b.id}">${badgeHTML(b.id,Math.max(1,s.t),"sm")}${s.t?"":`<span class="cdL">${ic("lock")}</span>`}<div><b>${esc(b.n)} ${s.t?ROMAN[s.t]:""}</b><small>${esc(b.d)}</small>
-          <span class="cdBar"><i style="width:${Math.round(pr*100)}%;background:${s.t?TIER[s.t].c:"#6a7088"}"></i></span>${gv?`<small class="cdN cdGv">${ic("star")} Verliehen: ${TIER[gt].n}</small>`:`<small class="cdN">${Math.floor(s.v).toLocaleString("de-DE")}${s.next?` / ${s.next.toLocaleString("de-DE")} → ${TIER[s.t+1].n}`:b.v5&&s.t===4?` · ${esc(b.d5)}: ${(s.v5||0).toLocaleString("de-DE")} / ${b.T5} → ${TIER[5].n}`:" · MAX"}</small>${s.t>=5?`<small class="cdT5">${ic("ghost")} Titel: <span class="tt tt-geist">${esc(badgeT5n(b))}</span></small>`:""}`}</div></button>`;}).join("")}</div>`;}).join("");}
+          <span class="cdBar"><i style="width:${Math.round(pr*100)}%;background:${s.t?TIER[s.t].c:"#6a7088"}"></i></span>${gv?`<small class="cdN cdGv">${ic("star")} Verliehen: ${TIER[gt].n}</small>`:`<small class="cdN">${Math.floor(s.v).toLocaleString("de-DE")}${s.next?` / ${s.next.toLocaleString("de-DE")} → ${TIER[s.t+1].n}`:b.v5&&s.t===4?` · ${esc(b.d5)}: ${(s.v5||0).toLocaleString("de-DE")} / ${b.T5} → ${TIER[5].n}`:s.t===5&&b.T6?(b.d6?` · ${esc(b.d6)}: ${Math.floor(s.v6||0).toLocaleString("de-DE")} / ${b.T6.toLocaleString("de-DE")} → ${TIER[6].n}`:` / ${b.T6.toLocaleString("de-DE")} → ${TIER[6].n}`):" · MAX"}</small>${s.t>=5?`<small class="cdT5">${ic("ghost")} Titel: <span class="tt tt-geist">${esc(badgeT5n(b))}</span></small>`:""}`}</div></button>`;}).join("")}</div>`;}).join("");}
   else if(t==="fav"){const all=favList(),d=META.dex||{},rc={};for(const id of all){const r=favReg(id);rc[r]=(rc[r]||0)+1;}if(FAV_R!=="all"&&!rc[FAV_R])FAV_R="all";
     body=`<p class="cdHint">Dein Lieblingspokémon steht auf deiner Kampfkarte, im VS-Bildschirm und in der Bestenliste. Wählbar ist jedes Pokémon, das du schon einmal hattest (${all.length}).</p>
      <div class="favBar"><input id="favQ" placeholder="Pokémon suchen …" maxlength="20" autocomplete="off" value="${esc(FAV_Q)}">${d[C.fav]&&d[C.fav].shiny>0?`<button class="btn sm${C.favSh?" on":""}" id="favSh">${ic("shiny")} Schillernd</button>`:""}</div>
      <div class="favRegs"><button class="${FAV_R==="all"?"on":""}" data-fr="all">Alle <small>${all.length}</small></button>${Object.keys(REGIONS).filter(r=>rc[r]).map(r=>`<button class="${FAV_R===r?"on":""}" data-fr="${r}">${esc(REGIONS[r].n)} <small>${rc[r]}</small></button>`).join("")}</div>
      <div class="favList"></div><div class="rbtns" style="margin-top:8px"><button class="btn sm" id="favMore" style="display:none">${ic("plus")} Mehr anzeigen</button></div>`;}
-  else if(t==="look"){body=`<h4 class="cdCat">Hintergrund</h4><div class="cdBgs">${Object.entries(CARD_BG).filter(([k,b])=>!b.gift||bgOk(k)).map(([k,b])=>{const ok=bgOk(k);return `<button class="cdBg${C.bg===k?" on":""}${ok?"":" lock"}" data-bg="${k}" data-tn="${esc(b.n)}" data-td="${esc(bgWhy(k,ok))}" data-tk="HINTERGRUND" data-tc="#9fe8ff"><i class="bgThumb">${bgHTML(k)}${ok?`<em class="cdWhy">${ic(b.gift?"star":b.ld?"trophy":"star")}<span>${esc(b.ld||"Für alle Trainer")}</span></em>`:""}${b.gift?`<em class="cdEd">${esc(b.ed||"Edition")}</em>`:""}</i><b>${b.n}</b>${ok?"":`<small>${ic("lock")} ${b.ld}</small>`}</button>`;}).join("")}</div>
-    <h4 class="cdCat">Titel</h4><div class="cdTitles">${cardTitles(C).map(n=>`<button class="cdT${(C.title||"")===n?" on":""}" data-t="${esc(n)}"><span${ttCls(titleFxOf(n))}>${esc(n)}</span></button>`).join("")}</div><p class="cdHint">Titel gibt es für Abzeichen auf <b>Platin</b>. Auf <b style="color:#c99bff">Mythisch</b> kommt ein eigener Titel im lila Geister-Look dazu.</p>`;}
+  else if(t==="look"){body=`<h4 class="cdCat">Hintergrund</h4><div class="cdBgs">${Object.entries(CARD_BG).filter(([k,b])=>!b.gift||bgOk(k)).sort((x,y)=>(x[1].gift?9:x[1].lv||0)-(y[1].gift?9:y[1].lv||0)).map(([k,b])=>{const ok=bgOk(k);return `<button class="cdBg${C.bg===k?" on":""}${ok?"":" lock"}" data-bg="${k}"><i class="bgThumb">${bgHTML(k)}${b.gift?`<em class="cdEd">${esc(b.ed||"Edition")}</em>`:""}${b.lv?`<em class="cdLv l${b.lv}">${"★".repeat(b.lv)}</em>`:""}</i><b>${ok?"":ic("lock")}${b.n}</b><small class="${ok?"ok":""}">${ok?ic(b.gift?"star":"check"):""}${esc(b.ld||"Für alle Trainer")}</small></button>`;}).join("")}</div>
+    <h4 class="cdCat">Titel</h4><div class="cdTitles"><button class="cdT none${noTitle(C.title)?" on":""}" data-t=""><span>Kein Titel</span></button>${cardTitles(C).map(n=>`<button class="cdT${(C.title||"")===n?" on":""}" data-t="${esc(n)}"><span${ttCls(titleFxOf(n))}>${esc(n)}</span></button>`).join("")}</div><p class="cdHint">Titel gibt es für Abzeichen auf <b>Platin</b>. Auf <b style="color:#c99bff">Mythisch</b> kommt ein eigener Titel im lila Geister-Look dazu.</p>`;}
   openModal(`<h2>${ic("user")} TRAINERKARTE</h2><div class="cdWrap"><div class="cdPrev">${cardHTML(me)}<p class="cdHint" style="text-align:center">So sehen dich Gegner im Live-Duell und in der Bestenliste.</p></div>
     <div class="cdSide"><div class="dtabs"><button data-ct="badges" class="${t==="badges"?"on":""}">ABZEICHEN</button><button data-ct="fav" class="${t==="fav"?"on":""}">LIEBLINGSPOKÉMON</button><button data-ct="look" class="${t==="look"?"on":""}">STIL</button></div><div class="cdBody">${body}</div></div></div>
     <div class="rbtns" style="margin-top:12px"><button class="btn" id="cdFr">${ic("users")} Freunde</button><button class="btn" id="cdBack">${ic("back")} Zurück</button></div>`,"wide",true);
@@ -12076,7 +12380,7 @@ function cardModal(t){t=t||CARD_TAB;CARD_TAB=t;const C=cardMeta(),me=cardMine();
   mb.querySelectorAll("[data-ct]").forEach(b=>b.onclick=()=>cardModal(b.dataset.ct));
   mb.querySelectorAll(".cdB").forEach(b=>b.onclick=()=>{const id=b.dataset.b,d=badgeDef(id);if(!d||!badgeShowT(d)){toast("Noch nicht freigeschaltet","lock");return;}const i=C.badges.indexOf(id);if(i>=0)C.badges.splice(i,1);else{if(C.badges.length>=3)C.badges.shift();C.badges.push(id);}saveMeta();cardModal("badges");});
   mb.querySelectorAll("[data-bg]").forEach(b=>b.onclick=()=>{if(b.classList.contains("lock")){sfx("deny");return;}C.bg=b.dataset.bg;saveMeta();cardModal("look");});
-  mb.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{C.title=b.dataset.t;saveMeta();cardModal("look");});
+  mb.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{C.title=b.dataset.t||null;saveMeta();cardModal("look");});
   if(t==="fav"){const grid=mb.querySelector(".favList"),more=$("favMore");
     const fill=()=>{const L=favMatches(),cnt={};for(const id of L){const r=favReg(id);cnt[r]=(cnt[r]||0)+1;}let h="",cur=null;
       for(const id of L.slice(0,FAV_N)){const r=favReg(id);if(r!==cur){if(cur!==null)h+=`</div>`;cur=r;h+=`<h4 class="favReg">${esc((REGIONS[r]||{n:r}).n)}<small>${cnt[r]}</small></h4><div class="favGrid">`;}
@@ -12091,11 +12395,19 @@ function cardModal(t){t=t||CARD_TAB;CARD_TAB=t;const C=cardMeta(),me=cardMine();
     if($("favSh"))$("favSh").onclick=()=>{C.favSh=C.favSh?0:1;saveMeta();cardModal("fav");};}}
 
 /* Gegnerkarte im normalen Modus (Trainer, Elite, Boss): stärkstes gegnerisches Pokémon statt Figur */
-function enemyCard(enc,boss){const nm=boss?boss.name:(enc&&enc.name)||"Trainer",ty=enc&&enc.type||"mid",h=strHash(nm+"|"+(S&&S.region));
-  const en=(S&&S.enemies)||[],pw=u=>(u.mult||1)*10+(u.stars||0)*3+((SPECIES[u.sp]||{}).stage||0),lead=en.reduce((a,u)=>!a||pw(u)>pw(a)?u:a,null);
-  const bg={easy:"std",mid:"sunrise",hard:"sturm",elite:"spuk",boss:"goldchamp"}[ty]||"std";
-  const pool=BADGE_FIX.filter(b=>b.id!=="coll");const n=ty==="boss"?3:ty==="elite"?2:ty==="hard"?1:0,bd=[];for(let i=0;i<n;i++){const b=pool[(h>>>(i*5))%pool.length];if(!bd.some(x=>x[0]===b.id))bd.push([b.id,Math.min(4,1+Math.floor((S&&S.round||1)/6)+(ty==="boss"?1:0))]);}
-  return{name:nm,fav:lead?lead.sp:25,favSh:lead&&lead.shiny?1:0,bg,title:(DIFF[ty]?DIFF[ty].n:"Trainer"),badges:bd,sub:`${ic("flag")} Runde ${S?S.round:1} · ${en.length} Pokémon`};}
+/* Gegner-Kampfkarte im Einzelspieler (VS-Bildschirm): Hintergrund nach Kampfart, Klasse, Abzeichen nach Runde und Schwierigkeit */
+const EN_BG={easy:["wiese","morgen"],mid:["morgen","abend","sakura","sand"],hard:["sturm","vulkan","tiefsee"],elite:["spuk","kristall","galaxie","aurora"],rocket:["neon"],ghost:["geist"]};
+const BOSS_BG={5:["sand","vulkan"],10:["aurora","kristall","tiefsee"],15:["drache","geist","galaxie"],20:["goldchamp","halle"]};
+const TEAM_EVIL={kanto:["Team Rocket","R"],johto:["Team Rocket","R"],hoenn:["Team Magma & Aqua","M"],sinnoh:["Team Galaktik","G"],unova:["Team Plasma","P"],kalos:["Team Flare","F"],alola:["Team Skull","S"]};
+function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss?boss.name:(enc&&enc.name)||"Gegner",rg=(S&&S.region)||"kanto",r=(S&&S.round)||1,h=strHash(nm+"|"+rg+"|"+r);
+  const pk=a=>{const ok=a.filter(k=>CARD_BG[k]);return ok.length?ok[h%ok.length]:"std";};
+  const bg=boss?pk(BOSS_BG[r]||["goldchamp"]):pk(EN_BG[ty]||["std"]);
+  const team=ty==="rocket"?(TEAM_EVIL[rg]||TEAM_EVIL.kanto):null;
+  const cls=boss?String(boss.sub||"Boss").split(" · ")[0]:team?team[0]:(nm.split(" ").slice(0,-1).join(" ")||"Trainer");
+  const n=boss?3:({easy:1,mid:1,hard:2,elite:3,rocket:2})[ty]||1,top=Math.min(boss?6:5,Math.max(1,Math.ceil(r/5)+(ty==="elite"?1:0)+(boss?(r>=20?2:1):0)));
+  const pool=BADGE_FIX.filter(b=>b.id!=="coll"&&b.id!=="achv"&&b.id!=="daily"&&b.id!=="vet"),bd=[];
+  for(let i=0;bd.length<n&&i<16;i++){const b=pool[(h>>>(i*3))%pool.length];if(!bd.some(x=>x[0]===b.id))bd.push([b.id,Math.max(1,top-(bd.length?1:0))]);}
+  return{name:nm,cls,bg,badges:bd,ty,team};}
 
 /* ================================ MEHRSPIELER ================================
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
@@ -12160,7 +12472,11 @@ async function dailyBoard(){const D=dailyInfo();
   el.querySelectorAll("i[data-sp]").forEach(e=>{if(SPECIES[+e.dataset.sp])e.appendChild(spriteEl(+e.dataset.sp));});}
 
 /* ================================ GEISTERKÄMPFE ================================ */
-const GH={cache:{},busy:{}};
+const GH={cache:{},busy:{},cards:{}};
+/* Geisterkampf: die aktuelle Kampfkarte des Spielers aus der Bestenliste (bei jedem Geisterkampf frisch geladen) */
+function geistCardLoad(name){if(!name||typeof clFetch!=="function")return;const c=GH.cards[name];if(c&&(c.busy||Date.now()-c.t<60000))return;GH.cards[name]={busy:1,t:Date.now(),card:c&&c.card};
+  clFetch(`/rest/v1/board?select=name,card&name=eq.${encodeURIComponent(name)}&limit=1`,{auth:false,timeout:8000}).then(r=>{const x=r.ok&&Array.isArray(r.j)&&r.j[0];GH.cards[name]={t:Date.now(),card:x&&x.card?x.card:null};}).catch(()=>{GH.cards[name]={t:Date.now(),card:null};});}
+function geistCardOf(name){const c=GH.cards[name];if(!c||!c.card||typeof cardClean!=="function")return null;try{return cardClean(c.card);}catch(e){return null;}}
 const geistOn=()=>!META||META.geist!==false;
 const isGeistRound=r=>r>=3&&r<20&&r%3===0&&!BOSSES[r];
 function geistSnap(board){const out=[];for(const k in board){const[x,y]=k.split(",").map(Number),u=board[k];if(!u)continue;const t={sp:u.sp,st:u.stars||0,it:(u.items||[]).slice(0,5),gi:(u.gifts||[]).slice(0,4),sc:(u.spec||[]).slice(0,3),x,y};if(u.secret)t.se=u.secret;if(u.megaF)t.mf=u.megaF;if(u.shiny)t.sh=1;out.push(t);}
@@ -12182,7 +12498,7 @@ function geistInject(inner){if(!S||S.duel||!geistOn()||S.phase!=="shop"||!S.path
   const list=GH.cache[(S.region||"kanto")+"|"+S.round];if(!list||!list.length)return;const g=list[Math.floor(VRND()*list.length)];
   let i=S.paths.findIndex(p=>p.type==="mid");if(i<0)i=S.paths.findIndex(p=>p.type!=="event"&&p.type!=="elite");if(i<0)i=1;const old=S.paths[i];
   const en=teamUnits(g.team,0,true);for(const e of en){e.uid=uidC++;dexUp(e.sp,d=>d.seen++);}
-  S.paths[i]={type:"ghost",name:"Geist von "+g.name,ghost:g.name,loc:old.loc,enemies:en};
+  S.paths[i]={type:"ghost",name:"Geist von "+g.name,ghost:g.name,loc:old.loc,enemies:en};geistCardLoad(g.name);
   if(!inner){save();if(tab==="enc")renderEnc();if(typeof refreshWorld==="function")refreshWorld();}}
 
 /* ================================ LIVE-DUELL ================================ */
@@ -12632,8 +12948,24 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.0.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.0.6",d:"31.10.2026",t:"Großes Update: Schwierigkeit, Hintergründe & Abzeichen",items:[
+  ["skull","Schwierigkeit neu abgestimmt, getestet mit tausenden Bot-Kämpfen gegen echte Spielstände. Leichte und mittlere Wege bleiben fair, schwere Wege und Elite fordern mehr."],
+  ["crown","Bosse sind je Region und Runde einzeln abgestimmt und passen sich etwas an dein Team an: kein Spaziergang, keine Wand. Auf Schwer und Albtraum hat jeder Boss zusätzlich eine eigene Stufe."],
+  ["ghost","Schwer, Albtraum und Nuzlocke: Gegner stellen sich in Formation auf, tragen Items und haben mehr Fusionsgaben. Items gibt es auf Schwer ab Runde 8, auf Albtraum ab Runde 5 (ab 17 zwei), auf Nuzlocke ab Runde 10."],
+  ["star","Hintergründe in 5 Stufen von leicht bis extrem: Je schwerer die Bedingung, desto spektakulärer der Hintergrund. Stufe 4 und 5 haben zusätzlich Lichteffekte, Stufe 5 einen leuchtenden Rahmen."],
+  ["spark","3 neue Hintergründe: Sternennacht, Herbstwald und Bernsteinglut. Gewittersturm, Kristallhöhle, Schillerhain, Platin-Prisma und Galaxie sind neu gestaltet."],
+  ["unlock","Viele Hintergründe sind leichter zu bekommen, z. B. Wiesenwind nach dem ersten Lauf und Morgenroute nach dem ersten Boss. Was du schon hast, bleibt."],
+  ["lock","Karten-Editor: Die Bedingung steht jetzt unter jedem Hintergrund, gesperrte haben ein Schloss. Alles ist nach Stufe sortiert."],
+  ["badge","Neue Abzeichen-Stufe VI „Bernstein“ über Mythisch: geschmolzenes Bernstein mit Krone, Glutring und Funken. Jedes Abzeichen hat dafür ein eigenes Ziel, z. B. 500 Champion-Titel."],
+  ["shiny","Alle Abzeichen neu gestaltet: echter Metall-Look je Stufe, Glanz, der bei höheren Stufen öfter läuft, Mythisch funkelt."],
+  ["swords","VS-Bildschirm im Einzelspieler: Gegner haben jetzt eine eigene Kampfkarte mit Hintergrund, Abzeichen und Siegchance. Bosse leuchten golden, Schurkenteams zeigen ihr Zeichen."],
+  ["users","Geisterkämpfe zeigen die echte, aktuelle Kampfkarte des Spielers."],
+  ["trophy","Bestenliste: Spieler ohne Kampfkarte bekommen einen Platzhalter. Ihre Karte erscheint, sobald sie wieder mit Konto spielen."],
+  ["heart","Lieblingspokémon sitzt auf der Kampfkarte wieder richtig, Pokémon in Abzeichen sind sauber mittig."],
+  ["help","Neu: „Kurz erklärt“ zeigt einmalig, wie das Spiel und die Kampfkarte funktionieren."],
+  ["dex","Englisch: alle neuen Texte übersetzt."]]},
  {v:"1.0.5",d:"30.10.2026",t:"Kleinigkeiten",items:[
   ["dex","Englisch: Abzeichen-Namen übersetzt."]]},
  {v:"1.0.4",d:"30.10.2026",t:"Schnellfix",items:[
@@ -12773,6 +13105,27 @@ function patchNotes(){try{LS.set("pokelings_ver",GAME_VER);}catch(e){}const h=PA
   bar.appendChild(t);bar.appendChild(f);const add=()=>{document.body.appendChild(bar);try{hydrateIcons(bar);}catch(e){}};if(document.body)add();else addEventListener("DOMContentLoaded",add);})();
 /* neue Version: Patchnotes einmal automatisch im Menü zeigen */
 function patchAuto(){try{if(window.__noIntro||window.__autoPick)return;const sv=LS.get("pokelings_ver",null);if(sv===GAME_VER)return;if(sv===null&&!(META&&(META.games||META.gemsTotal))){LS.set("pokelings_ver",GAME_VER);return;}setTimeout(()=>{if($("menu")&&$("menu").classList.contains("show")&&!$("modal").classList.contains("show"))patchNotes();},900);}catch(e){}}
+/* ===== v1.0.6: Einmaliger Hinweis für alle Spieler (2 Seiten, nicht wegklickbar, kein Überspringen, nur „Weiter“) ===== */
+function introNeed(){try{return !!META&&!META.intro&&!window.__noIntro&&!window.__autoPick&&!(typeof ADM!=="undefined"&&ADM.sess);}catch(e){return false;}}
+function introShow(){if(!introNeed()||!$("menu").classList.contains("show")||$("modal").classList.contains("show"))return false;let pg=0;
+  const st=(i,b,t)=>`<div class="ioS"><span class="ioN">${ic(i)}</span><div><b>${b}</b><p>${t}</p></div></div>`;
+  const P=[()=>`<div class="ioHead"><small class="ioK">${ic("ball")} KURZ ERKLÄRT</small><h2>Willkommen bei Pokélings</h2><p class="ioSub">Stell dir ein Team zusammen, lass es automatisch kämpfen und werde in Runde 20 Champion deiner Region.</p></div>
+     <div class="ioSteps">${st("shop","Laden","Kauf Pokémon und Items. Zieh <b>2 gleiche Pokémon</b> aufeinander: Sie fusionieren und entwickeln sich.")}
+      ${st("grid","Aufstellung","Stell dein Team aufs Feld. <b>Rechts ist vorne</b> (Tanks, Krieger), links hinten (Schützen, Magier).")}
+      ${st("route","Weg wählen","Wähl einen von 3 Wegen. Die <b>Siegchance</b> zeigt das Risiko, dann kämpft dein Team von allein.")}
+      ${st("crown","Ziel","<b>Bosse</b> warten in Runde 5, 10, 15 und 20. Du hast nur ein Leben, eine Revanche macht die Gegner stärker.")}
+      ${st("lab","Fortschritt","Mit den <b>Edelsteinen</b> aus jedem Lauf verbesserst du im Forschungslabor dauerhaft dein Team.")}</div>
+     <p class="ioFoot">${ic("help")}<span>Alles Weitere steht jederzeit unter <b>Einstellungen → Anleitung</b>.</span></p>`,
+   ()=>`<div class="ioHead"><small class="ioK">${ic("user")} KURZ ERKLÄRT</small><h2>Deine Kampfkarte</h2><p class="ioSub">So sehen dich andere Spieler: im VS-Bildschirm, im Live-Duell, bei Geisterkämpfen und in der Bestenliste.</p></div>
+     <div class="ioCard"><div class="ioCardL">${cardHTML(cardMine())}</div><div class="ioList">${st("heart","Lieblingspokémon","Jedes Pokémon, das du schon einmal hattest.")}
+      ${st("star","Hintergrund","Schaltest du mit Erfolgen frei. Je schwerer die Bedingung, desto spektakulärer.")}
+      ${st("badge","3 Abzeichen","Von Bronze bis Bernstein. Die Stufe steigt mit deinen Leistungen.")}
+      ${st("crown","Titel","Selten: für Abzeichen auf Mythisch und zu besonderen Anlässen.")}</div></div>
+     <p class="ioFoot">${ic("user")}<span>Gestalten kannst du sie im Menü unter <b>Trainerkarte</b>.</span></p>`];
+  const draw=()=>{openModal(`<div class="ioBox p${pg}">${P[pg]()}<div class="ioNav"><span class="ioDots">${P.map((_,i)=>`<i class="${i===pg?"on":""}"></i>`).join("")}<small>${pg+1} / ${P.length}</small></span><button class="pri" id="ioGo">${pg<P.length-1?`Weiter ${ic("arrow")}`:`${ic("check")} Los geht's`}</button></div></div>`,"intro",false);
+    try{cardHydrate($("mbox"));}catch(e){}hydrateIcons($("mbox"));
+    $("ioGo").onclick=()=>{try{sfx("click");}catch(e){}if(pg<P.length-1){pg++;draw();return;}try{META.intro=1;saveMeta();}catch(e){}closeModal();setTimeout(()=>{try{patchAuto();}catch(e){}try{giftShow();}catch(e){}},450);};};
+  draw();return true;}
 
 /* ================================ KAMPF: 2 ATTACKEN + EIGENE KI ================================ */
 let B=null,speed=1;
@@ -13201,25 +13554,29 @@ function enterBattleMode(on){document.body.classList.toggle("battle",on);documen
 function vsSplash(cb){
   const boss=BOSSES[S.round],vs=$("vs"),enc=S.enc,D=DIFF[enc.type]||{n:""},vsSec=S.duel?5:3;
   const en=S.enemies||[],pwr=u=>(u.mult||1)*10+(u.stars||0)*3+((SPECIES[u.sp]||{}).stage||0)+(u.megaK?4:0),team=en.slice().sort((a,b)=>pwr(b)-pwr(a));
-  let me;try{me=cardMine();}catch(e){me={name:USER||"Du",fav:25,bg:"std",title:"Trainer",badges:[]};}
-  const op=S.duel?(DU.peerCard||{name:S.duel.peerName||"Gegner",fav:25,bg:"std",title:"Trainer",badges:[]}):null;
+  let me;try{me=cardMine();}catch(e){me={name:USER||"Du",fav:25,bg:"std",title:"",badges:[]};}
+  const op=S.duel?(DU.peerCard||{name:S.duel.peerName||"Gegner",fav:25,bg:"std",title:"",badges:[]}):null;
   const wc=S.duel?0:(()=>{try{return winChance(en,enc&&enc.type);}catch(e){return .5;}})(),wv=Math.round(wc*100),wcol=wc>=.9?"#4dffa6":wc>=.65?"#5cf2ff":wc>=.35?"#ffd84a":"#ff5a5a";
   const bdg=c=>(c.badges||[]).slice(0,3).map((b,i)=>badgeHTML(b[0],b[1]).replace('class="bdg','class="bdg v4b b'+(i+1))).join("");
   const tt=c=>typeof ttCls==="function"?ttCls(c.ts):"";
   const show=team.slice(0,7),ord=[];show.forEach((u,i)=>{if(!i)ord.push(u);else if(i%2)ord.unshift(u);else ord.push(u);});
   const tint={easy:["#1d3a2c","#4a8a50"],mid:["#1a1448","#8a4a7a"],hard:["#2a0e10","#c8502e"],elite:["#1a0a2e","#7a3ac8"],boss:["#2a0606","#d89a20"]}[boss?"boss":enc.type]||["#1a1448","#8a4a7a"];
-  const rName=S.duel?op.name:(boss?boss.name:enc.name),rSub=S.duel?op.title:`${boss?boss.sub:D.n} · ${en.length} Pokémon`;
+  // Gegner-Karte: Live-Duell = echte Karte, Geisterkampf = aktuelle Karte des Spielers, sonst eigene Gegner-Karte
+  const ghost=!S.duel&&enc.type==="ghost";if(ghost&&typeof geistCardLoad==="function")geistCardLoad(enc.ghost);
+  const gc=ghost&&typeof geistCardOf==="function"?geistCardOf(enc.ghost):null;
+  const ec=S.duel?null:gc?Object.assign({},gc,{ghost:1}):(typeof enemyCard==="function"?enemyCard(enc,boss):{name:enc.name,bg:"std",badges:[]});
+  const rName=S.duel?op.name:(boss?boss.name:enc.name),rSub=S.duel?op.title:gc?(gc.title||"Geisterkampf"):`${boss?boss.sub:(ec.cls&&!ec.team?ec.cls+" · ":"")+D.n} · ${en.length} Pokémon`;
   const spk=Array.from({length:12},(_,i)=>{const a=i/12*Math.PI*2+.3,r=1+((i*37)%70)/150;return `<i class="spk" style="--dx:${(Math.cos(a)*r).toFixed(2)};--dy:${(Math.sin(a)*r).toFixed(2)}"></i>`;}).join("");
   vs.className="v4"+(boss?" boss":"")+(S.duel?" duel":"");
   vs.innerHTML=`<div class="v4St"><div class="v4St2">
    <div class="v4L">${bgHTML(me.bg)}<i class="v4Spd"></i><i class="v4Sh"></i></div>
-   <div class="v4R">${S.duel?bgHTML(op.bg):`<div class="v4Route" style="--a:${tint[0]};--b:${tint[1]}"><svg viewBox="0 0 740 720" preserveAspectRatio="none" aria-hidden="true"><path d="M0 470 L60 424 L120 446 L200 390 L280 438 L360 404 L440 446 L520 394 L600 434 L680 412 L740 440 V470Z" fill="rgba(12,8,30,.55)"/><path d="M0 470 L90 452 L170 466 L260 444 L360 464 L470 446 L580 466 L680 448 L740 462 V470Z" fill="rgba(12,8,30,.85)"/></svg></div><i class="v4Str"></i>`}<i class="v4ShR"></i></div>
+   <div class="v4R${S.duel?"":" en en-"+(boss?"boss":enc.type)}">${S.duel?bgHTML(op.bg):`${bgHTML(ec.bg)}<i class="v4RDim"></i>${ec.team?`<i class="v4Emb">${ec.team[1]}</i>`:""}${boss?`<i class="v4BossRim"></i>`:""}<i class="v4Str"></i>`}<i class="v4ShR"></i></div>
    <svg class="v4Seam" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="56.4,0 57.6,0 43.6,100 42.4,100"/></svg>
    <div class="v4Fav L"><div class="bob"></div></div>
    ${S.duel?`<div class="v4Fav R"><div class="bob"></div></div>`:`<i class="v4Plat"></i><div class="v4Team">${ord.map(u=>`<div class="v4m${u===show[0]?" lead":""}" style="--d:${show.indexOf(u)}"><span class="sp" data-k="${show.indexOf(u)}"></span></div>`).join("")}${team.length>7?`<div class="v4more">+${team.length-7}</div>`:""}</div>`}
-   <div class="v4P L"><b>${esc(me.name)}</b><small${tt(me)}>${esc(me.title)}</small></div>
+   <div class="v4P L"><b>${esc(me.name)}</b>${me.title?`<small${tt(me)}>${esc(me.title)}</small>`:""}</div>
    <div class="v4B L">${bdg(me)}</div>
-   <div class="v4P R${boss?" boss":""}">${boss?`<em>BOSSKAMPF</em>`:""}<b>${esc(rName)}</b><small${S.duel?tt(op):""}>${esc(rSub)}</small>${S.duel?"":`<span class="v4wc" style="--c:${wcol}">${ic("swords")} Siegchance ~${wv} %</span>`}</div>
+   <div class="v4P R${boss?" boss":""}${ghost?" vGh":""}${ec&&ec.team?" vEv":""}">${boss?`<em>BOSSKAMPF</em>`:ghost?`<em class="gh">${ic("ghost")} GEISTERKAMPF</em>`:ec&&ec.team?`<em class="ev">${esc(ec.team[0]).toUpperCase()}</em>`:""}<b>${esc(rName)}</b>${rSub?`<small${S.duel?tt(op):gc?tt(gc):""}>${esc(rSub)}</small>`:""}${S.duel?"":`<span class="v4wc" style="--c:${wcol}">${ic("swords")} Siegchance ~${wv} %</span>`}${!S.duel&&ec&&(ec.badges||[]).length?`<div class="v4Bi">${bdg(ec)}</div>`:""}</div>
    ${S.duel?`<div class="v4B R">${bdg(op)}</div>`:""}
    <div class="v4VS"><i class="bu"></i><i class="ri"></i>${spk}<b>VS</b></div>
    <i class="v4Fl"></i></div></div>
