@@ -3026,6 +3026,12 @@ body.duelB .cine-skip{display:none!important}
 .itm.xs .rr{display:none}
 .ecard .irow{display:flex;flex-wrap:wrap;gap:2px;align-items:center;justify-content:flex-end;max-width:84px}
 .choice .itStk{font-style:normal;color:#7dffb0;font-weight:700;white-space:nowrap}
+/* v1.0.3.5: Hintergrund-Kacheln zeigen beim Drüberfahren, wofür es sie gab */
+.cdBg i.bgThumb .cdWhy{position:absolute;left:4px;right:4px;bottom:4px;z-index:3;display:flex;align-items:center;gap:4px;padding:3px 6px;border-radius:6px;background:rgba(8,10,20,.82);border:1px solid rgba(159,232,255,.35);color:#dff6ff;font:700 10px/1.25 var(--ui,system-ui);font-style:normal;opacity:0;transform:translateY(5px);transition:opacity .15s,transform .15s;pointer-events:none}
+.cdBg i.bgThumb .cdWhy .ic{width:11px;height:11px;flex:none;color:#ffd84a}
+.cdBg i.bgThumb .cdWhy span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cdBg:hover i.bgThumb .cdWhy,.cdBg:focus-visible i.bgThumb .cdWhy{opacity:1;transform:none}
+.cdBg.lock{cursor:not-allowed}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -5664,7 +5670,19 @@ function trainerScore(m0){const m=JSON.parse(JSON.stringify(m0||newMeta()));try{
   const dex=Object.entries(m.dex||{}).filter(([id])=>!isExcl(+id)).map(e=>e[1]),own=dex.filter(d=>d.owned>0).length,shy=dex.filter(d=>d.shiny>0).length;
   pts+=achP+own*.25+shy;return{pts:Math.round(pts*10),titles,ach:ach.length,own,shy,per};}
 function lbRows(){return Object.values(accounts()).map(a=>{const m=LS.get(metaKey(a.name),null)||newMeta();return Object.assign({n:a.name},trainerScore(m));}).sort((a,b)=>b.pts-a.pts||b.titles-a.titles);}
-function lbRowsHtml(rows,n){return rows.slice(0,n||10).map((a,i)=>`<button class="lbRow r${i+1}" data-n="${esc(a.n)}"><span class="lbRank">${i+1}</span><div class="lbMain"><div class="lbNm"><b>${esc(a.n)}</b>${a.tt&&typeof ttCls==="function"?`<span class="lbTT"><span${ttCls(a.tt.style)}>${esc(a.tt.text)}</span></span>`:""}</div>
+/* Titel in der Bestenliste: immer der Titel, den der Spieler auf seiner Karte gewählt hat.
+   Ein vom Admin vergebener Titel verhält sich wie jeder andere: sichtbar nur, wenn er gewählt ist, mit Effekt nur, wenn er laut Server vergeben ist. */
+let _T5N=null;
+function isT5Title(t){try{if(!_T5N){_T5N=new Set();for(const b of BADGE_FIX)_T5N.add(badgeT5n(b));for(const ty in TYPES)_T5N.add(badgeT5n(badgeDef("t_"+ty)));for(const L of LINES){const d=badgeDef("p_"+L.k);if(d)_T5N.add(badgeT5n(d));}}return _T5N.has(t);}catch(e){return false;}}
+function lbTitle(a){if(!a)return null;const def=t=>!t||/^Trainer(in)?$/.test(t);
+  try{if(typeof USER!=="undefined"&&USER&&userKey(a.n)===userKey(USER)&&typeof cardMine==="function"){const m=cardMine();return def(m.title)?null:{text:m.title,style:m.ts||null};}}catch(e){}
+  const c=a.card&&typeof cardClean==="function"?cardClean(a.card):null;
+  if(!c)return a.tt&&a.tt.text?{text:a.tt.text,style:TITLE_FX[a.tt.style]?a.tt.style:null}:null;
+  if(def(c.title))return null;
+  const st=a.tt&&a.tt.text===c.title&&TITLE_FX[a.tt.style]?a.tt.style:isT5Title(c.title)?"geist":null;
+  return {text:c.title,style:st};}
+const lbTTHtml=a=>{const t=lbTitle(a);return t&&typeof ttCls==="function"?`<span class="lbTT"><span${ttCls(t.style)}>${esc(t.text)}</span></span>`:"";};
+function lbRowsHtml(rows,n){return rows.slice(0,n||10).map((a,i)=>`<button class="lbRow r${i+1}" data-n="${esc(a.n)}"><span class="lbRank">${i+1}</span><div class="lbMain"><div class="lbNm"><b>${esc(a.n)}</b>${lbTTHtml(a)}</div>
      <div class="lbRegs">${Object.keys(REGIONS).map(rk=>{const P=a.per[rk];return `<i title="${REGIONS[rk].n}: ${P.top?"Champion auf "+LB_N[P.top]:P.best?"Runde "+P.best:"noch nicht gespielt"}" style="--c:${P.top?LB_COL[P.top]:"#3a4258"}">${REGIONS[rk].s||REGIONS[rk].n[0]}</i>`;}).join("")}</div>
      <small title="${a.titles} Champion-Titel · ${a.ach} Erfolge · ${a.own} Pokémon gefangen">${ic("crown")} ${a.titles} Titel · ${ic("trophy")} ${a.ach} · ${ic("dex")} ${a.own}</small></div><span class="lbPts">${a.pts.toLocaleString("de-DE")}<em>Punkte</em></span></button>`).join("");}
 function renderLeaderboard(rows,src){const el=$("lbList");if(!el)return;rows=rows||lbRows();const sm=document.querySelector("#lbList")&&document.querySelector("#lbList").parentNode.querySelector(".ttl small");if(sm)sm.textContent=src==="cloud"?"weltweit":"dieser Browser";
@@ -5675,8 +5693,8 @@ function renderLeaderboard(rows,src){const el=$("lbList");if(!el)return;rows=row
 function lbDetail(a){if(!a)return;const regs=Object.keys(REGIONS);let cd=a.card&&typeof cardClean==="function"?cardClean(a.card):null;
   // eigene Karte immer live; Titel-Effekt nur, wenn der Titel laut Server wirklich vergeben ist
   let own=false;try{if(typeof CL!=="undefined"&&CL.sess&&a.id&&a.id===CL.sess.uid&&USER&&typeof cardMine==="function"){cd=cardMine();own=true;}}catch(e){}
-  if(cd){const tt=a.tt;if(tt&&!own){cd.title=tt.text;cd.ts=TITLE_FX[tt.style]?tt.style:null;}else cd.ts=tt&&cd.title===tt.text&&TITLE_FX[tt.style]?tt.style:own?cd.ts:null;}
-  openModal(`<h2>${ic("trophy")} ${esc(a.n.toUpperCase())}${a.tt&&typeof ttCls==="function"?` <span class="lbTT"><span${ttCls(a.tt.style)}>${esc(a.tt.text)}</span></span>`:""}</h2><div class="lead" style="margin-bottom:10px"><b style="color:var(--amber)">${a.pts.toLocaleString("de-DE")} Trainerpunkte</b> · ${a.titles} Champion-Titel · ${a.ach} Erfolge · ${a.own} Pokémon gefangen · ${a.shy} schillernd</div>
+  if(cd&&!own){const t=lbTitle(a);cd.ts=t&&t.text===cd.title?t.style:null;}
+  openModal(`<h2>${ic("trophy")} ${esc(a.n.toUpperCase())}${lbTTHtml(a)?" "+lbTTHtml(a):""}</h2><div class="lead" style="margin-bottom:10px"><b style="color:var(--amber)">${a.pts.toLocaleString("de-DE")} Trainerpunkte</b> · ${a.titles} Champion-Titel · ${a.ach} Erfolge · ${a.own} Pokémon gefangen · ${a.shy} schillernd</div>
    <div class="lbDet">${cd?`<div class="lbCard">${cardHTML(cd)}</div>`:""}<div class="lbDetR"><table class="lbTab"><tr><th>Region</th>${Object.keys(LB_W).map(md=>`<th style="color:${LB_COL[md]}">${LB_N[md]}<small>${LB_W[md]} P.</small></th>`).join("")}<th>Beste Runde</th></tr>
    ${regs.map(rk=>{const P=a.per[rk];return `<tr><td>${REGIONS[rk].n}</td>${Object.keys(LB_W).map(md=>`<td>${P.row[md]?`<b style="color:${LB_COL[md]}">${P.row[md]}×</b>`:"–"}</td>`).join("")}<td>${P.best>20?"Champion":P.best||"–"}</td></tr>`;}).join("")}</table>
    <p class="lbNote">Je Region zählt der erste Titel pro Schwierigkeit voll, jede Wiederholung nur +25 % (höchstens 4×). Spätere Regionen geben etwas mehr. Ohne Titel zählt der Fortschritt anteilig. Dazu: Erfolge (Bronze 1 · Silber 3 · Gold 6 · Platin 10), je gefangenes Pokémon 0,25 und je schillerndes 1 Punkt (alles ×10).</p></div></div>
@@ -10747,6 +10765,13 @@ if(typeof EN!=="undefined")Object.assign(EN,{
  "Feuer-, Elektro- und Drachen-Attacken +30 %, Treffer können verbrennen bzw. lähmen.":"Fire, Electric and Dragon moves +30 %, hits can burn or paralyze."
 });
 
+/* v1.0.3.5: Hintergründe (Namen, Freischaltung, Tooltip) */
+if(typeof EN!=="undefined")Object.assign(EN,{
+ "HINTERGRUND":"BACKGROUND","Freigeschaltet für:":"Unlocked for:","Noch gesperrt. Freischalten:":"Still locked. Unlock:","Standard-Hintergrund für alle Trainer.":"Default background for all trainers.","Für alle Trainer":"For all trainers",
+ "Wiesenwind":"Meadow Breeze","Abendrot":"Sunset Glow","Morgenroute":"Morning Route","Vulkanherz":"Volcano Heart","Tiefsee":"Deep Sea","Polarlicht":"Northern Lights","Gewittersturm":"Thunderstorm","Spukturm":"Haunted Tower","Kristallhöhle":"Crystal Cave","Galaxie":"Galaxy","Sakura-Schrein":"Sakura Shrine","Neonstadt":"Neon City","Drachenhort":"Dragon's Lair","Schillerhain":"Shiny Grove","Mega-Wirbel":"Mega Vortex","Goldener Champion":"Golden Champion","Platin-Prisma":"Platinum Prism","Geisterreich":"Ghost Realm",
+ "Champion I (1 Champion-Titel)":"Champion I (1 champion title)","Perfektionist I (10 Erfolge)":"Perfectionist I (10 achievements)","Champion III (40 Champion-Titel)":"Champion III (40 champion titles)","Bossbrecher III (500 Bosse)":"Boss Breaker III (500 bosses)","Pokédex-Profi III (400 Pokémon)":"Pokédex Pro III (400 Pokémon)","Veteran III (100 Stunden)":"Veteran III (100 hours)","Duellkönig III (50 Duell-Siege)":"Duel King III (50 duel wins)","Albtraumjäger III (10× Albtraum-Champion)":"Nightmare Hunter III (10× Nightmare champion)","Glitzerjäger III (75 Schillernde)":"Shiny Hunter III (75 shinies)","Abzeichen-Sammler III (60 Stufen)":"Badge Collector III (60 tiers)","Tagesheld III (100 Tägliche Runs)":"Daily Hero III (100 daily runs)","Unaufhaltsam IV (20 Siege in Folge)":"Unstoppable IV (20 wins in a row)","Ranked: Platin 1 erreichen":"Ranked: reach Platinum 1","Vernichter IV (150.000 besiegte Gegner)":"Annihilator IV (150,000 defeated foes)","Glitzerjäger IV (200 Schillernde)":"Shiny Hunter IV (200 shinies)","Mega-Meister IV (1.000 Mega-Entwicklungen)":"Mega Master IV (1,000 Mega Evolutions)","Champion IV (100 Champion-Titel)":"Champion IV (100 champion titles)","5 Abzeichen auf Platin":"5 badges at Platinum","Champion V (250 Champion-Titel)":"Champion V (250 champion titles)","1 Abzeichen auf Mythisch":"1 badge at Mythic","Ranked Mythisch oder 3 Abzeichen auf Mythisch":"Ranked Mythic or 3 badges at Mythic"
+});
+
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
    Login nur mit Benutzername: intern eine Pseudo-Adresse aus dem Namens-Hash, das Passwort wird vorher gehasht. */
@@ -11749,6 +11774,8 @@ const CARD_BG={
  geist:{n:"Geisterreich",html:`<i class="void"></i><i class="runes"></i><i class="runes r2"></i>${_stars(16,0,80,["#d9b3ff","#ffffff"])}<i class="fog f1"></i><i class="fog f2"></i>${_parts("wisp",8,()=>`--x:${rr(4,92)}%;--s:${rr(3,5,1)}cqw;--d:${rr(4,7)}s;--dl:-${rr(0,7)}s;--dx:${rr(-6,6)}cqw`)}${_parts("spirit",4,()=>`--x:${rr(8,80)}%;--s:${rr(10,16,1)}cqw;--d:${rr(8,12)}s;--dl:-${rr(0,12)}s`)}`,lock:()=>badgeAll().some(b=>badgeState(b).t>=5),ld:"1 Abzeichen auf Mythisch"},
  mythos:{n:"Mythos",html:`<i class="neb"></i><i class="aurM a1"></i><i class="aurM a2"></i><i class="rays"></i>${_stars(22,0,100,["#ffffff","#e6c8ff","#ffc8f0"])}<i class="dia"><b class="f1"></b><b class="f2"></b><b class="f3"></b><b class="f4"></b><b class="f5"></b><b class="sh"></b></i>${_ups(14,["#e6c8ff","#ffffff","#c48bff","#ff9ae0"],.4,1,4,7,6,94,";--g:8px")}`,lock:()=>((META.mp||{}).rkBest||0)>=1480||badgeAll().filter(b=>badgeState(b).t>=5).length>=3,ld:"Ranked Mythisch oder 3 Abzeichen auf Mythisch"}};
 function bgHTML(k){const b=CARD_BG[k]||CARD_BG.std;return `<div class="tcBg bg-${CARD_BG[k]?k:"std"}">${b.html}</div>`;}
+/* wofür es den Hintergrund gibt (Tooltip im Karten-Editor und auf Trainerkarten) */
+function bgWhy(k,ok){const b=CARD_BG[k]||CARD_BG.std;if(!b.ld)return "Standard-Hintergrund für alle Trainer.";return (ok===false?"Noch gesperrt. Freischalten: ":"Freigeschaltet für: ")+b.ld;}
 /* Lieblingspokémon statt Trainerfigur (v9.5): frei wählbar aus allen Pokémon, die man je besessen hat */
 const TITLE_FX={chrom:"Chrom",gold:"Gold",regenbogen:"Regenbogen",feuer:"Feuer",eis:"Eis",neon:"Neon",galaxie:"Galaxie",smaragd:"Smaragd",geist:"Geist"};
 let MYTITLE=null; // vom Admin vergebener eigener Titel {text,style}, kommt aus der Cloud (lokal je Konto zwischengespeichert)
@@ -11781,7 +11808,8 @@ function cardClean(c){if(!c||typeof c!=="object")return null;const n=v=>Math.max
     badges:(Array.isArray(c.badges)?c.badges:[]).slice(0,3).filter(x=>Array.isArray(x)&&badgeDef(String(x[0]))).map(x=>[String(x[0]).slice(0,40),Math.max(1,Math.min(5,x[1]|0))]),ch:n(c.ch),dw:n(c.dw),dex:n(c.dex)};}
 const ttCls=ts=>ts&&TITLE_FX[ts]?` class="tt tt-${ts}"`:"";
 function cardHTML(c,side){c=c||cardMine();const sl=[0,1,2].map(i=>c.badges[i]?badgeHTML(c.badges[i][0],c.badges[i][1]):badgeHTML(null,0)).join("");
-  return `<div class="tcard${side?" "+side:""}">${bgHTML(c.bg)}<div class="tcShine"></div>
+  const bgk=CARD_BG[c.bg]?c.bg:"std";
+  return `<div class="tcard${side?" "+side:""}" data-tn="${esc((CARD_BG[bgk]||{}).n||"")}" data-td="${esc(bgWhy(bgk))}" data-tk="HINTERGRUND" data-tc="#9fe8ff">${bgHTML(c.bg)}<div class="tcShine"></div>
    <div class="tcTop"><b${c.name.length>13?' class="long"':""}>${esc(c.name)}</b><small class="${[c.ts&&TITLE_FX[c.ts]?"tt tt-"+c.ts:"",c.title.length>16?"xl":c.title.length>12?"long":""].join(" ").trim()}">${esc(c.title)}</small></div>
    <div class="tcAv"><i class="tcPlat"></i><span class="tcMon" data-sp="${SPECIES[c.fav]?c.fav:25}" data-sh="${c.favSh?1:""}"></span></div>
    <div class="tcBdg">${sl}</div>
@@ -11805,7 +11833,7 @@ function cardModal(t){t=t||CARD_TAB;CARD_TAB=t;const C=cardMeta(),me=cardMine();
      <div class="favBar"><input id="favQ" placeholder="Pokémon suchen …" maxlength="20" autocomplete="off" value="${esc(FAV_Q)}">${d[C.fav]&&d[C.fav].shiny>0?`<button class="btn sm${C.favSh?" on":""}" id="favSh">${ic("shiny")} Schillernd</button>`:""}</div>
      <div class="favRegs"><button class="${FAV_R==="all"?"on":""}" data-fr="all">Alle <small>${all.length}</small></button>${Object.keys(REGIONS).filter(r=>rc[r]).map(r=>`<button class="${FAV_R===r?"on":""}" data-fr="${r}">${esc(REGIONS[r].n)} <small>${rc[r]}</small></button>`).join("")}</div>
      <div class="favList"></div><div class="rbtns" style="margin-top:8px"><button class="btn sm" id="favMore" style="display:none">${ic("plus")} Mehr anzeigen</button></div>`;}
-  else if(t==="look"){body=`<h4 class="cdCat">Hintergrund</h4><div class="cdBgs">${Object.entries(CARD_BG).map(([k,b])=>{const ok=!b.lock||b.lock();return `<button class="cdBg${C.bg===k?" on":""}${ok?"":" lock"}" data-bg="${k}" ${ok?"":"disabled"}><i class="bgThumb">${bgHTML(k)}</i><b>${b.n}</b>${ok?"":`<small>${ic("lock")} ${b.ld}</small>`}</button>`;}).join("")}</div>
+  else if(t==="look"){body=`<h4 class="cdCat">Hintergrund</h4><div class="cdBgs">${Object.entries(CARD_BG).map(([k,b])=>{const ok=!b.lock||b.lock();return `<button class="cdBg${C.bg===k?" on":""}${ok?"":" lock"}" data-bg="${k}" data-tn="${esc(b.n)}" data-td="${esc(bgWhy(k,ok))}" data-tk="HINTERGRUND" data-tc="#9fe8ff"><i class="bgThumb">${bgHTML(k)}${ok?`<em class="cdWhy">${ic(b.ld?"trophy":"star")}<span>${esc(b.ld||"Für alle Trainer")}</span></em>`:""}</i><b>${b.n}</b>${ok?"":`<small>${ic("lock")} ${b.ld}</small>`}</button>`;}).join("")}</div>
     <h4 class="cdCat">Titel</h4><div class="cdTitles">${cardTitles(C).map(n=>`<button class="cdT${(C.title||"")===n?" on":""}" data-t="${esc(n)}"><span${ttCls(titleFxOf(n))}>${esc(n)}</span></button>`).join("")}</div><p class="cdHint">Titel gibt es für Abzeichen auf <b>Platin</b>. Auf <b style="color:#c99bff">Mythisch</b> kommt ein eigener Titel im lila Geister-Look dazu.</p>`;}
   openModal(`<h2>${ic("user")} TRAINERKARTE</h2><div class="cdWrap"><div class="cdPrev">${cardHTML(me)}<p class="cdHint" style="text-align:center">So sehen dich Gegner im Live-Duell und in der Bestenliste.</p></div>
     <div class="cdSide"><div class="dtabs"><button data-ct="badges" class="${t==="badges"?"on":""}">ABZEICHEN</button><button data-ct="fav" class="${t==="fav"?"on":""}">LIEBLINGSPOKÉMON</button><button data-ct="look" class="${t==="look"?"on":""}">STIL</button></div><div class="cdBody">${body}</div></div></div>
@@ -11813,7 +11841,7 @@ function cardModal(t){t=t||CARD_TAB;CARD_TAB=t;const C=cardMeta(),me=cardMine();
   const mb=$("mbox");cardHydrate(mb);if($("cdFr"))$("cdFr").onclick=()=>{if(typeof friendsModal==="function")friendsModal();};$("cdBack").onclick=()=>{closeModal();if(typeof showMenu==="function"&&$("menu").classList.contains("show"))showMenu();};
   mb.querySelectorAll("[data-ct]").forEach(b=>b.onclick=()=>cardModal(b.dataset.ct));
   mb.querySelectorAll(".cdB").forEach(b=>b.onclick=()=>{const id=b.dataset.b,d=badgeDef(id);if(!d||!badgeState(d).t){toast("Noch nicht freigeschaltet","lock");return;}const i=C.badges.indexOf(id);if(i>=0)C.badges.splice(i,1);else{if(C.badges.length>=3)C.badges.shift();C.badges.push(id);}saveMeta();cardModal("badges");});
-  mb.querySelectorAll("[data-bg]").forEach(b=>b.onclick=()=>{C.bg=b.dataset.bg;saveMeta();cardModal("look");});
+  mb.querySelectorAll("[data-bg]").forEach(b=>b.onclick=()=>{if(b.classList.contains("lock")){sfx("deny");return;}C.bg=b.dataset.bg;saveMeta();cardModal("look");});
   mb.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{C.title=b.dataset.t;saveMeta();cardModal("look");});
   if(t==="fav"){const grid=mb.querySelector(".favList"),more=$("favMore");
     const fill=()=>{const L=favMatches(),cnt={};for(const id of L){const r=favReg(id);cnt[r]=(cnt[r]||0)+1;}let h="",cur=null;
@@ -12093,16 +12121,17 @@ function tutorial(){if(!S)return;let i=0;const old=$("tut");if(old)old.remove();
    Über den Kanal kommt nur ein "schau nach" – die echten Daten (Einladungen nur von Freunden, Anfragen, Chat)
    holt der Client geprüft vom Server (social_poll). Ohne Kanal fragt er alle 20 s nach. */
 const SOC={tr:null,uid:null,iv:0,rt:0,kt:0,last:0,busy:false,first:true,inv:new Set(),sent:new Set(),reqs:new Set(),chat:{},reqN:0,fl:null,ban:null,banQ:[],wait:null,waitT:0,tab:"list",chatWith:null,chatLast:0,chatIv:0,rq:null,reg:null};
-/* Ranked-Ränge: jeder startet bei Bronze 1 (Elo 1000). Je 40 Elo eine Stufe: Bronze 1–3, Silber 1–3, Gold 1–3, Platin 1–3, ab 1480 Mythisch.
-   Die Elo selbst rechnet der Server (Sieg gegen Stärkere bringt mehr, Niederlage gegen Schwächere kostet mehr). */
+/* Ranked-Ränge: jeder startet bei Bronze 1 mit 0 Elo. Je 40 Elo eine Stufe: Bronze 1–3, Silber 1–3, Gold 1–3, Platin 1–3, ab 480 Mythisch.
+   Die Elo selbst rechnet der Server (intern ab 1000, angezeigt wird ab 0). */
 const RANK_DIV=40,RANK_BASE=1000,RANK_MYTH=RANK_BASE+12*RANK_DIV,RANK_L=[["Bronze","#e5a066","#6e3814"],["Silber","#e3e9f4","#566176"],["Gold","#ffd84a","#8a5600"],["Platin","#8cf2ff","#17667c"]];
 function rankOf(r){r=r==null?RANK_BASE:r;if(r>=RANK_MYTH)return{n:"Mythisch",base:"Mythisch",div:0,c:"#c48bff",d:"#3a0f6e",myth:1,lo:RANK_MYTH,hi:null,i:12};
   const i=Math.min(11,Math.max(0,Math.floor((r-RANK_BASE)/RANK_DIV))),t=RANK_L[Math.floor(i/3)],dv=i%3+1;return{n:t[0]+" "+dv,base:t[0],div:dv,c:t[1],d:t[2],lo:RANK_BASE+i*RANK_DIV,hi:RANK_BASE+(i+1)*RANK_DIV,i};}
 const rankEm=t=>`<i class="rkEm${t.myth?" myth":""}" style="--rc:${t.c};--rd:${t.d}"><span>${t.myth?"":t.div}</span></i>`;
-const rankChip=(r,sm)=>{const t=rankOf(r),v=r==null?RANK_BASE:r;return `<span class="rkChip${sm?" sm":""}${t.myth?" myth":""}" style="--rc:${t.c};--rd:${t.d}" title="${t.n} · ${v} Elo">${rankEm(t)}<em${t.myth?' class="tt-geist"':""}>${t.n}</em><b>${v}</b></span>`;};
+const eloShow=r=>Math.max(0,Math.round((r==null?RANK_BASE:r)-RANK_BASE));
+const rankChip=(r,sm)=>{const t=rankOf(r),v=eloShow(r);return `<span class="rkChip${sm?" sm":""}${t.myth?" myth":""}" style="--rc:${t.c};--rd:${t.d}" title="${t.n} · ${v} Elo">${rankEm(t)}<em${t.myth?' class="tt-geist"':""}>${t.n}</em><b>${v}</b></span>`;};
 function rankProg(r){const t=rankOf(r),v=r==null?RANK_BASE:r;if(t.myth)return `<div class="rkProg myth"><i style="width:100%"></i><span>Höchster Rang erreicht</span></div>`;
   const p=Math.max(0,Math.min(1,(v-t.lo)/(t.hi-t.lo)));return `<div class="rkProg" style="--rc:${t.c}"><i style="width:${Math.round(p*100)}%"></i><span>${typeof L2==="function"?L2(`noch ${Math.max(1,t.hi-v)} Elo bis ${rankOf(t.hi).n}`,`${Math.max(1,t.hi-v)} Elo to ${rankOf(t.hi).n}`):`noch ${Math.max(1,t.hi-v)} Elo bis ${rankOf(t.hi).n}`}</span></div>`;}
-function rankLadder(r){const cur=rankOf(r).i;return `<div class="rkLad" title="Bronze 1 bis Platin 3, dann Mythisch">${Array.from({length:13},(_,i)=>{const t=rankOf(RANK_BASE+i*RANK_DIV);return `<i class="${i<cur?"done":i===cur?"on":""}${t.myth?" myth":""}" style="--rc:${t.c}" title="${t.n} ab ${t.lo} Elo"></i>`;}).join("")}</div>`;}
+function rankLadder(r){const cur=rankOf(r).i;return `<div class="rkLad" title="Bronze 1 bis Platin 3, dann Mythisch">${Array.from({length:13},(_,i)=>{const t=rankOf(RANK_BASE+i*RANK_DIV);return `<i class="${i<cur?"done":i===cur?"on":""}${t.myth?" myth":""}" style="--rc:${t.c}" title="${t.n} ab ${t.lo-RANK_BASE} Elo"></i>`;}).join("")}</div>`;}
 const socAgo=d=>{if(!d)return"lange nicht online";const s=(Date.now()-Date.parse(d))/1000;if(s<180)return"online";if(s<3600)return"vor "+Math.round(s/60)+" Min.";if(s<86400)return"vor "+Math.round(s/3600)+" Std.";return"vor "+Math.round(s/86400)+" Tg.";};
 const socOn=d=>!!d&&Date.now()-Date.parse(d)<180000;
 const socErr=r=>JSON.stringify((r&&r.j)||"");
@@ -12369,8 +12398,13 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.0.3"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.0.3.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.0.3.5",d:"30.10.2026",t:"Schnellfix",items:[
+  ["crown","Bestenliste: Neben dem Namen steht jetzt immer der Titel, den der Spieler auf seiner Trainerkarte gewählt hat, mit Effekt. Jeder Titel verhält sich gleich."],
+  ["star","Hintergründe: Fährst du im Karten-Editor über einen Hintergrund, siehst du, wofür es ihn gab. Auch auf Trainerkarten zeigt der Tooltip den Hintergrund und wofür er freigeschaltet wurde."],
+  ["trophy","Ranked: Die Elo-Anzeige startet jetzt bei 0 statt bei 1000. Bronze 1 ab 0, alle 40 Elo eine Stufe, Mythisch ab 480. Dein Rang bleibt gleich."],
+  ["dex","Englisch: Namen und Freischaltungen der Hintergründe übersetzt."]]},
  {v:"1.0.3",d:"30.10.2026",t:"Neue Hintergründe & stapelbare Items",items:[
   ["star","Kampfkarte: alle Hintergründe überarbeitet und viele neue dazu, jetzt 22 mit eigenen Effekten. Zwei sind leicht freizuschalten, der Rest verlangt echte Leistungen wie Mythisch-Abzeichen oder Ranked-Platin."],
   ["scroll","Viel mehr Items stapeln sich jetzt, z. B. Leben-Orb, Beulenhelm, King-Stein (zusammen höchstens 40 %), Giftstich, Schwarzschlamm, Weisheitsbrille, Typenplatte und die meisten Regional-Items."],
