@@ -3032,6 +3032,13 @@ body.duelB .cine-skip{display:none!important}
 .cdBg i.bgThumb .cdWhy span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .cdBg:hover i.bgThumb .cdWhy,.cdBg:focus-visible i.bgThumb .cdWhy{opacity:1;transform:none}
 .cdBg.lock{cursor:not-allowed}
+/* v1.0.4: Orden in den Trainer-Details (Farbe = höchste Schwierigkeit mit Champion-Titel) */
+.lbRegC{display:inline-flex;align-items:center;gap:8px}
+.lbRegC i{display:grid;place-items:center;flex:none;width:22px;height:22px;border-radius:5px;font-style:normal;font-family:var(--px);font-size:8px;color:#0b0d13;background:var(--c);box-shadow:0 0 8px color-mix(in srgb,var(--c) 55%,transparent)}
+.lbRegC i.off{color:#8a93b0;box-shadow:none}
+.lbChamp{display:inline-flex;align-items:center;gap:5px;color:var(--c);text-shadow:0 0 10px color-mix(in srgb,var(--c) 45%,transparent)}
+.lbChamp .ic{width:14px;height:14px}
+.lbChamp small{font-size:11px;font-weight:700;opacity:.85}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -5696,7 +5703,7 @@ function lbDetail(a){if(!a)return;const regs=Object.keys(REGIONS);let cd=a.card&
   if(cd&&!own){const t=lbTitle(a);cd.ts=t&&t.text===cd.title?t.style:null;}
   openModal(`<h2>${ic("trophy")} ${esc(a.n.toUpperCase())}${lbTTHtml(a)?" "+lbTTHtml(a):""}</h2><div class="lead" style="margin-bottom:10px"><b style="color:var(--amber)">${a.pts.toLocaleString("de-DE")} Trainerpunkte</b> · ${a.titles} Champion-Titel · ${a.ach} Erfolge · ${a.own} Pokémon gefangen · ${a.shy} schillernd</div>
    <div class="lbDet">${cd?`<div class="lbCard">${cardHTML(cd)}</div>`:""}<div class="lbDetR"><table class="lbTab"><tr><th>Region</th>${Object.keys(LB_W).map(md=>`<th style="color:${LB_COL[md]}">${LB_N[md]}<small>${LB_W[md]} P.</small></th>`).join("")}<th>Beste Runde</th></tr>
-   ${regs.map(rk=>{const P=a.per[rk];return `<tr><td>${REGIONS[rk].n}</td>${Object.keys(LB_W).map(md=>`<td>${P.row[md]?`<b style="color:${LB_COL[md]}">${P.row[md]}×</b>`:"–"}</td>`).join("")}<td>${P.best>20?"Champion":P.best||"–"}</td></tr>`;}).join("")}</table>
+   ${regs.map(rk=>{const P=a.per[rk],c=P.top?LB_COL[P.top]:null;return `<tr><td><span class="lbRegC"><i style="--c:${c||"#3a4258"}"${c?"":' class="off"'}>${REGIONS[rk].s||REGIONS[rk].n[0]}</i>${REGIONS[rk].n}</span></td>${Object.keys(LB_W).map(md=>`<td>${P.row[md]?`<b style="color:${LB_COL[md]}">${P.row[md]}×</b>`:"–"}</td>`).join("")}<td>${c?`<b class="lbChamp" style="--c:${c}">${ic("crown")} Champion <small>${LB_N[P.top]}</small></b>`:P.best>20?"Champion":P.best?"Runde "+P.best:"–"}</td></tr>`;}).join("")}</table>
    <p class="lbNote">Je Region zählt der erste Titel pro Schwierigkeit voll, jede Wiederholung nur +25 % (höchstens 4×). Spätere Regionen geben etwas mehr. Ohne Titel zählt der Fortschritt anteilig. Dazu: Erfolge (Bronze 1 · Silber 3 · Gold 6 · Platin 10), je gefangenes Pokémon 0,25 und je schillerndes 1 Punkt (alles ×10).</p></div></div>
    <div class="rbtns" style="margin-top:10px">${typeof CL!=="undefined"&&CL.sess&&USER&&userKey(a.n)!==userKey(USER)&&!(typeof SOC!=="undefined"&&(SOC.fl||[]).some(f=>f.st==="friend"&&userKey(f.name)===userKey(a.n)))?`<button class="btn" id="lbFr">${ic("users")} Freund hinzufügen</button>`:""}<button class="pri" id="lbOk">SCHLIESSEN</button></div>`,"wide",true);if(cd)cardHydrate($("mbox"));$("lbOk").onclick=closeModal;
   if($("lbFr"))$("lbFr").onclick=async()=>{const b=$("lbFr");b.disabled=true;if(await friendRequest(a.n,a.id)){b.innerHTML=ic("check")+" Anfrage gesendet";hydrateIcons(b);}else b.disabled=false;};}
@@ -12398,8 +12405,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.0.3.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.0.4"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.0.4",d:"30.10.2026",t:"Schnellfix",items:[
+  ["trophy","Bestenliste, Trainer-Details: Jede Region trägt jetzt ihren Orden in der Farbe der höchsten Schwierigkeit, auf der du dort Champion bist (Albtraum lila, Nuzlocke gold, Schwer orange, Normal türkis, Leicht grün). Auch „Champion“ unter „Beste Runde“ leuchtet in dieser Farbe und nennt die Schwierigkeit."]]},
  {v:"1.0.3.5",d:"30.10.2026",t:"Schnellfix",items:[
   ["crown","Bestenliste: Neben dem Namen steht jetzt immer der Titel, den der Spieler auf seiner Trainerkarte gewählt hat, mit Effekt. Jeder Titel verhält sich gleich."],
   ["star","Hintergründe: Fährst du im Karten-Editor über einen Hintergrund, siehst du, wofür es ihn gab. Auch auf Trainerkarten zeigt der Tooltip den Hintergrund und wofür er freigeschaltet wurde."],
