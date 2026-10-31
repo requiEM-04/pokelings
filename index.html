@@ -5310,7 +5310,7 @@ function showMenu(){
   $("menuWho").innerHTML=`<span>${ic("user")} ${esc(USER||"Gast")}</span><span style="color:var(--gem)">${ic("gem")} ${META.gems}${gemEventMul()>1?` <small style="font-size:10px;background:var(--gem);color:#0b0d13;border-radius:6px;padding:1px 5px;margin-left:3px">+${Math.round((gemEventMul()-1)*100)} % HEUTE</small>`:""}</span><span style="color:var(--amber)">${ic("trophy")} ${total}</span>`;
   const mb=(id,icn,t,s,main)=>`<button class="mbtn ${main?"main":""}" id="${id}"><span class="mi">${ic(icn)}</span><div><b>${t}</b><small>${s}</small></div></button>`;
   $("menuBtns").innerHTML=(sv&&sv.S?mb("mCont","play","Weiterspielen",`${sv.S.daily?"Täglicher Run":MODES[sv.S.mode].n} · Runde ${sv.S.round}`,1):"")+
-   mb("mNew","plus","Neues Spiel","Singleplayer · Täglicher Run · Region & Schwierigkeit",!(sv&&sv.S))+mb("mMp","swords","Mehrspieler","Ranked · Live-Duell · Geisterkämpfe")+mb("mGb","crown",'Pokémon Gambit<em class="mBeta">BETA</em>',"Schach mit Pokémon · Lokal & gegen KI")+mb("mFr","users","Freunde","Anfragen · Einladen · Chat")+mb("mLbB","trophy","Bestenliste","Trainerpunkte · Ranked")+mb("mLab","lab","Forschungslabor","Dauerhafte Verbesserungen & neue Pokémon")+mb("mDex","dex","Pokédex","Sammlung · Schillernde · Mega-Formen")+mb("mCard","user","Trainerkarte","Lieblingspokémon · Hintergrund · 3 Abzeichen")+mb("mAch","trophy","Erfolge",(()=>{const n=Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length;return n+"/"+ACH.length+" freigeschaltet · Statistik · Verlauf";})())+mb("mSet","gear","Einstellungen","Anleitung · Sound · Grafik · "+(USER?"Abmelden":"Login"));
+   mb("mNew","plus","Neues Spiel","Singleplayer · Täglicher Run · Region & Schwierigkeit",!(sv&&sv.S))+mb("mMp","swords","Mehrspieler","Ranked · Live-Duell · Geisterkämpfe")+mb("mGb","crown",'Pokémon Gambit<em class="mBeta">BETA</em>',"Schach mit Pokémon · Online, lokal & gegen KI")+mb("mFr","users","Freunde","Anfragen · Einladen · Chat")+mb("mLbB","trophy","Bestenliste","Trainerpunkte · Ranked")+mb("mLab","lab","Forschungslabor","Dauerhafte Verbesserungen & neue Pokémon")+mb("mDex","dex","Pokédex","Sammlung · Schillernde · Mega-Formen")+mb("mCard","user","Trainerkarte","Lieblingspokémon · Hintergrund · 3 Abzeichen")+mb("mAch","trophy","Erfolge",(()=>{const n=Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length;return n+"/"+ACH.length+" freigeschaltet · Statistik · Verlauf";})())+mb("mSet","gear","Einstellungen","Anleitung · Sound · Grafik · "+(USER?"Abmelden":"Login"));
   if($("mCont"))$("mCont").onclick=()=>{const rk=(S&&S.phase!=="over"&&S.region)||(sv&&sv.S&&sv.S.region)||"kanto";needReg(rk,()=>{hideScreens();if(!S||S.phase==="over")loadGame();setTab("shop");render();});};
   $("mNew").onclick=chooseMode;if($("mGb")){$("mGb").insertAdjacentHTML("beforeend",`<em class="mBadge" id="mGbN" style="display:none"></em>`);$("mGb").onclick=()=>{if(typeof gambitOpen==="function")gambitOpen();};}$("mMp").onclick=()=>mpModal();if($("mLbB")){$("mLbB").classList.add("lbOnly");$("mLbB").onclick=()=>menuLbModal();}try{menuLbMount();}catch(e){}if($("mFr")){$("mFr").insertAdjacentHTML("beforeend",`<em class="mBadge" id="mFrN" style="display:none"></em>`);$("mFr").onclick=()=>friendsModal();try{socBadges();}catch(e){}}$("mLab").onclick=()=>labScreen();$("mDex").onclick=()=>dexModal("dex");$("mAch").onclick=()=>achModal();if($("mCard"))$("mCard").onclick=()=>cardModal();$("mSet").onclick=settingsModal;
   const bs=[...$("menuBtns").querySelectorAll(".mbtn")];bs.forEach((b,i)=>{b.onmouseenter=()=>menuSel(i);});menuSel(0);
@@ -11158,6 +11158,9 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Pokémon Gambit (BETA)": "Pokémon
 if(typeof EN!=="undefined")Object.assign(EN,{"Normal in Johto: Der erste Boss und das Finale sind für Einsteiger etwas fairer.": "Normal in Johto: the first boss and the final are a bit fairer for newcomers."});
 /* v1.0.8 Patchnotes */
 if(typeof EN!=="undefined")Object.assign(EN,{"Pokémon Gambit: Aufstellung & Design": "Pokémon Gambit: Lineup & Design", "Pokémon Gambit: neuer Knopf „Aufstellung & Design“. Alle 54 Kanto-Pokémon haben eine feste Schach-Rolle, du stellst dein Team selbst auf. Bei der Beförderung wird ein Bauer zum Pokémon aus deiner Aufstellung.": "Pokémon Gambit: new button “Lineup & Design”. All 54 Kanto Pokémon have a fixed chess role and you set up your own team. A promoted pawn becomes the Pokémon from your lineup.", "Gambit-Design: 6 Arenen (Vertania-Wald, Azuria-Bucht, Lavandia, Zinnober-Vulkan, Mondberg, Indigo-Plateau), 7 Bretter und 5 Stile für die Unterplatten. Die Form der Platte zeigt die Schachfigur.": "Gambit design: 6 arenas (Viridian Forest, Cerulean Bay, Lavender, Cinnabar Volcano, Mt. Moon, Indigo Plateau), 7 boards and 5 base styles. The shape of the base shows the chess piece.", "Gambit-Anzeige neu: Spielerleisten mit Avatar, geschlagenen Figuren, Materialvorsprung und Uhr, kurze Zugliste und Zielfelder, sobald die Maus über einer eigenen Figur ist.": "New Gambit display: player bars with avatar, captured pieces, material lead and clock, a short move list, and target squares when the mouse is over one of your pieces.", "Gambit läuft flüssiger: Neon-Kurt rechnet im Hintergrund, das Bild stockt nicht mehr bei seinen Zügen, und die Arenen brauchen weniger Leistung.": "Gambit runs smoother: Neon-Kurt thinks in the background, the picture no longer stutters on his moves, and the arenas need less performance.", "Abzeichen mit Pokémon: Das Pokémon sitzt jetzt mittig und in der richtigen Größe im Sechseck.": "Badges with Pokémon: the Pokémon now sits centred and at the right size inside the hexagon."});
+/* v1.0.9 Patchnotes */
+if(typeof EN!=="undefined")Object.assign(EN,{"Pokémon Gambit online: Zufallsgegner gewertet mit Elo und 10 Minuten Bedenkzeit je Spieler. Gegner mit ähnlicher Elo kommen zuerst.": "Pokémon Gambit online: random opponents, rated with Elo and 10 minutes per player. Opponents with a similar Elo come first.", "Freunde herausfordern oder mit Raum-Code spielen, als Freundschaftsspiel ohne Uhr und ohne Wertung. Eine Herausforderung erscheint als Einblendung, auch mitten in Pokélings.": "Challenge friends or play with a room code, as a friendly game without a clock or rating. A challenge pops up even while you play Pokélings.", "Remis anbieten, annehmen oder ablehnen und Aufgeben. Vor dem zweiten Zug kannst du ohne Wertung abbrechen. Wer am Zug ist und 2 Minuten nicht verbunden ist, verliert die Partie.": "Offer, accept or decline a draw, and resign. Before the second move you can abort without rating. Whoever is to move and stays disconnected for 2 minutes loses the game.", "Elo-Rangliste für Gambit im Online-Bereich. Alle starten mit 1000 Elo.": "Elo leaderboard for Gambit in the online section. Everyone starts at 1000 Elo.", "Deine Aufstellung spielt online mit und dein Gegner sieht dein Team. Aufstellung und Design werden in deinem Konto gesichert.": "Your lineup plays online too and your opponent sees your team. Lineup and design are saved to your account."});
+if(typeof EN!=="undefined")Object.assign(EN,{"Neon-Kurt hat jetzt 3 Stufen: Leicht, Mittel und Schwer. Er rechnet mit einer eigenen, schnellen Schach-Engine, auf Schwer bis zu 9 Halbzüge voraus.": "Neon-Kurt now has 3 levels: Easy, Medium and Hard. He thinks with his own fast chess engine, on Hard up to 9 half-moves ahead.", "Bedenkzeit für Partien zu zweit und gegen Neon-Kurt: ohne Uhr oder 3, 5 oder 10 Minuten. Dazu ein Aufgeben-Knopf und Schlag-Effekte in der Typfarbe des Angreifers, bei sehr effektiven Treffern mit Schockwelle.": "Time control for local games and games against Neon-Kurt: no clock, or 3, 5 or 10 minutes. Plus a resign button and capture effects in the attacker's type colour, with a shockwave on super effective hits."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -11916,7 +11919,7 @@ ${admSQLTitleFn()}
 revoke all on function public.admin_title(uuid,text,text,text) from public, anon;
 grant execute on function public.admin_title(uuid,text,text,text) to authenticated;
 notify pgrst, 'reload schema';`;}
-/* v1.0.8: Ein Abruf für alles Soziale, jetzt auch Gambit-Herausforderungen (gb) und die laufende Gambit-Partie (gbl) */
+/* v1.0.9: Ein Abruf für alles Soziale, jetzt auch Gambit-Herausforderungen (gb) und die laufende Gambit-Partie (gbl) */
 function admSQLSocPoll(){return `-- Ein Abruf für alles Soziale (Einladungen, Antworten, Anfragen, ungelesene Nachrichten, Gambit-Herausforderungen)
 create or replace function public.social_poll() returns json language plpgsql security definer set search_path=public as $$
 declare me uuid:=auth.uid();
@@ -11930,13 +11933,15 @@ begin
     'gb',(select coalesce(json_agg(json_build_object('id',g.id,'name',public.pkl_uname(g.host),'age',round(extract(epoch from now()-g.created_at))) order by g.id),'[]'::json) from public.gambit_games g where g.invite=me and g.status='wait' and g.created_at>now()-interval '15 minutes' and coalesce(g.host_seen,g.created_at)>now()-interval '90 seconds'),
     'gbl',(select g.id from public.gambit_games g where g.status='live' and (g.w=me or g.b=me) order by g.id desc limit 1));
 end $$;`;}
-/* v1.0.8: Pokémon Gambit online. Der Server prüft Zugreihenfolge, Uhr, Abbruch und Wertung; die Schachregeln prüfen beide Spiele-Clients. */
-function admSQL8(){return `-- v1.0.8: Pokémon Gambit online: Raum-Code, Freunde herausfordern, Zufallsgegner gewertet (Elo, 10 Min. je Spieler), Remis, Aufgeben, Abbruch nach 2 Min. (kann gefahrlos mehrfach laufen)
+/* v1.0.9: Pokémon Gambit online (mit Aufstellungen). Der Server prüft Zugreihenfolge, Uhr, Abbruch und Wertung; die Schachregeln prüfen beide Spiele-Clients. */
+function admSQL8(){return `-- v1.0.9: Pokémon Gambit online: Raum-Code, Freunde herausfordern, Zufallsgegner gewertet (Elo, 10 Min. je Spieler), Remis, Aufgeben, Abbruch nach 2 Min. (kann gefahrlos mehrfach laufen)
 create table if not exists public.gambit_games(id bigserial primary key,code text,host uuid not null references auth.users(id) on delete cascade,guest uuid references auth.users(id) on delete cascade,invite uuid references auth.users(id) on delete cascade,
   w uuid,b uuid,rated boolean not null default false,status text not null default 'wait',moves jsonb not null default '[]'::jsonb,fen text,
   clock integer,w_ms integer,b_ms integer,turn_at timestamptz,host_seen timestamptz default now(),w_seen timestamptz,b_seen timestamptz,
   draw_by uuid,draw_last uuid,draw_ply integer,result text,reason text,d_w integer,d_b integer,elo_w integer,elo_b integer,
-  created_at timestamptz not null default now(),started_at timestamptz,ended_at timestamptz);
+  created_at timestamptz not null default now(),started_at timestamptz,ended_at timestamptz,host_line jsonb,guest_line jsonb);
+alter table public.gambit_games add column if not exists host_line jsonb;
+alter table public.gambit_games add column if not exists guest_line jsonb;
 alter table public.gambit_games enable row level security;
 revoke all on public.gambit_games from anon, authenticated;
 create unique index if not exists gambit_games_code on public.gambit_games(code) where status='wait';
@@ -11949,10 +11954,22 @@ create table if not exists public.gambit_ratings(uid uuid primary key references
   best integer not null default 1000,played integer not null default 0,won integer not null default 0,updated_at timestamptz not null default now());
 alter table public.gambit_ratings enable row level security;
 revoke all on public.gambit_ratings from anon, authenticated;
-create table if not exists public.gambit_queue(uid uuid primary key references auth.users(id) on delete cascade,at timestamptz not null default now(),seen timestamptz not null default now(),game bigint);
+create table if not exists public.gambit_queue(uid uuid primary key references auth.users(id) on delete cascade,at timestamptz not null default now(),seen timestamptz not null default now(),game bigint,line jsonb);
+alter table public.gambit_queue add column if not exists line jsonb;
 alter table public.gambit_queue enable row level security;
 revoke all on public.gambit_queue from anon, authenticated;
 
+-- alte Fassungen ohne Aufstellung entfernen
+drop function if exists public.gambit_open(uuid);
+drop function if exists public.gambit_join(text);
+drop function if exists public.gambit_answer(bigint,boolean);
+drop function if exists public.gambit_queue_join();
+drop function if exists public.pkl_gb_start(bigint,uuid);
+-- intern: Aufstellung (Dex-Nummern je Rolle) nur in erlaubter Form speichern, sonst null (das Spiel nimmt dann den Standard)
+create or replace function public.pkl_gb_line(x jsonb) returns jsonb language sql immutable set search_path=public as $$
+  select case when x is null or jsonb_typeof(x)<>'object' or length(x::text)>400 then null else
+    (select jsonb_object_agg(e.k,e.v) from jsonb_each(x) e(k,v) where case when e.k in ('k','q','r','b','n') then jsonb_typeof(e.v)='number'
+      when e.k='p' and jsonb_typeof(e.v)='array' then jsonb_array_length(e.v)<=8 else false end) end $$;
 -- intern: kann diese Seite noch matt setzen? (nur König oder König mit einem Springer/Läufer: nein)
 create or replace function public.pkl_gb_canmate(fe text,side text) returns boolean language sql immutable set search_path=public as $$
   select case when split_part(coalesce(fe,''),' ',1)='' then true else
@@ -12025,14 +12042,14 @@ begin
 end $$;
 
 -- intern: wartenden Raum starten (Farben per Zufall, gewertet mit Uhr)
-create or replace function public.pkl_gb_start(gid bigint,me uuid) returns json language plpgsql security definer set search_path=public as $$
+create or replace function public.pkl_gb_start(gid bigint,me uuid,ln jsonb) returns json language plpgsql security definer set search_path=public as $$
 declare g public.gambit_games; hw boolean:=random()<0.5;
 begin
   select * into g from public.gambit_games where id=gid for update;
   if g.id is null or g.status<>'wait' or g.created_at<now()-interval '15 minutes' or coalesce(g.host_seen,g.created_at)<now()-interval '90 seconds' then raise exception 'not_found'; end if;
   if g.host=me then raise exception 'self'; end if;
   if exists(select 1 from public.gambit_games x where x.status='live' and (x.w=g.host or x.b=g.host)) then raise exception 'busy'; end if;
-  update public.gambit_games set guest=me,w=case when hw then g.host else me end,b=case when hw then me else g.host end,status='live',started_at=now(),turn_at=now(),w_seen=now(),b_seen=now(),
+  update public.gambit_games set guest=me,guest_line=public.pkl_gb_line(ln),w=case when hw then g.host else me end,b=case when hw then me else g.host end,status='live',started_at=now(),turn_at=now(),w_seen=now(),b_seen=now(),
     fen='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',clock=case when g.rated then 600000 end,w_ms=case when g.rated then 600000 end,b_ms=case when g.rated then 600000 end where id=gid;
   update public.gambit_games set status='gone',reason='cancel',ended_at=now() where host=me and status='wait';
   delete from public.gambit_queue where uid=me;
@@ -12040,7 +12057,7 @@ begin
 end $$;
 
 -- Raum erstellen (optional mit Einladung an einen Freund): Freundschaftsspiel ohne Uhr und Wertung
-create or replace function public.gambit_open(o uuid default null) returns json language plpgsql security definer set search_path=public as $$
+create or replace function public.gambit_open(o uuid default null,ln jsonb default null) returns json language plpgsql security definer set search_path=public as $$
 declare me uuid:=auth.uid(); c text; i bigint; lv bigint; k integer:=0; al text:='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 begin
   if me is null then raise exception 'login_required'; end if;
@@ -12059,10 +12076,10 @@ begin
     c:=(select string_agg(substr(al,1+floor(random()*length(al))::int,1),'') from generate_series(1,5));
     exit when k>12 or not exists(select 1 from public.gambit_games x where x.code=c and x.status='wait');
   end loop;
-  insert into public.gambit_games(code,host,invite,host_seen) values(c,me,o,now()) returning id into i;
+  insert into public.gambit_games(code,host,invite,host_seen,host_line) values(c,me,o,now(),public.pkl_gb_line(ln)) returning id into i;
   return json_build_object('id',i,'code',c);
 end $$;
-create or replace function public.gambit_join(c text) returns json language plpgsql security definer set search_path=public as $$
+create or replace function public.gambit_join(c text,ln jsonb default null) returns json language plpgsql security definer set search_path=public as $$
 declare me uuid:=auth.uid(); gid bigint; lv bigint;
 begin
   if me is null then raise exception 'login_required'; end if;
@@ -12070,9 +12087,9 @@ begin
   if lv is not null then return json_build_object('live',lv); end if;
   select x.id into gid from public.gambit_games x where x.code=upper(btrim(coalesce(c,''))) and x.status='wait' limit 1;
   if gid is null then raise exception 'not_found'; end if;
-  return public.pkl_gb_start(gid,me);
+  return public.pkl_gb_start(gid,me,ln);
 end $$;
-create or replace function public.gambit_answer(gid bigint,ok boolean) returns json language plpgsql security definer set search_path=public as $$
+create or replace function public.gambit_answer(gid bigint,ok boolean,ln jsonb default null) returns json language plpgsql security definer set search_path=public as $$
 declare me uuid:=auth.uid(); lv bigint;
 begin
   if me is null then raise exception 'login_required'; end if;
@@ -12083,7 +12100,7 @@ begin
   end if;
   select x.id into lv from public.gambit_games x where x.status='live' and (x.w=me or x.b=me) order by x.id desc limit 1;
   if lv is not null then return json_build_object('live',lv); end if;
-  return public.pkl_gb_start(gid,me);
+  return public.pkl_gb_start(gid,me,ln);
 end $$;
 create or replace function public.gambit_cancel(gid bigint) returns void language sql security definer set search_path=public as $$
   update public.gambit_games set status='gone',reason='cancel',ended_at=now() where id=gid and host=auth.uid() and status='wait' $$;
@@ -12105,6 +12122,7 @@ begin
   return json_build_object('id',g.id,'code',g.code,'st',g.status,'rated',g.rated,'col',col,'host',g.host=me,
     'wn',case when g.w is null then null else public.pkl_uname(g.w) end,'bn',case when g.b is null then null else public.pkl_uname(g.b) end,
     'hn',public.pkl_uname(g.host),'inv',case when g.invite is null then null else public.pkl_uname(g.invite) end,
+    'wl',case when g.w is null then null when g.w=g.host then g.host_line else g.guest_line end,'bl',case when g.b is null then null when g.b=g.host then g.host_line else g.guest_line end,
     'n',jsonb_array_length(g.moves),'mv',(select coalesce(jsonb_agg(t.e order by t.i),'[]'::jsonb) from jsonb_array_elements(g.moves) with ordinality t(e,i) where t.i>greatest(0,coalesce(since,0))),
     'clock',g.clock,'wms',g.w_ms,'bms',g.b_ms,'el',case when g.status='live' then round(extract(epoch from now()-g.turn_at)*1000) else 0 end,
     'oi',case when g.status='live' and os is not null then round(extract(epoch from now()-os)) end,
@@ -12184,7 +12202,7 @@ begin
 end $$;
 
 -- Zufallsgegner (gewertet, 10 Minuten je Spieler). Der Aufruf alle 2 s ist zugleich die Abfrage.
-create or replace function public.gambit_queue_join() returns json language plpgsql security definer set search_path=public as $$
+create or replace function public.gambit_queue_join(ln jsonb default null) returns json language plpgsql security definer set search_path=public as $$
 declare me uuid:=auth.uid(); o public.gambit_queue; lv bigint; gid bigint; my integer; hw boolean:=random()<0.5;
 begin
   if me is null then raise exception 'login_required'; end if;
@@ -12192,8 +12210,8 @@ begin
   select x.id into lv from public.gambit_games x where x.status='live' and (x.w=me or x.b=me) order by x.id desc limit 1;
   if lv is not null then delete from public.gambit_queue where uid=me; return json_build_object('game',lv); end if;
   update public.gambit_games set status='gone',reason='cancel',ended_at=now() where host=me and status='wait';
-  insert into public.gambit_queue as z(uid,at,seen) values(me,now(),now())
-    on conflict(uid) do update set seen=now(),game=null,at=case when z.seen<now()-interval '12 seconds' then now() else z.at end;
+  insert into public.gambit_queue as z(uid,at,seen,line) values(me,now(),now(),public.pkl_gb_line(ln))
+    on conflict(uid) do update set seen=now(),game=null,line=excluded.line,at=case when z.seen<now()-interval '12 seconds' then now() else z.at end;
   my:=coalesce((select r.elo from public.gambit_ratings r where r.uid=me),1000);
   select x.* into o from public.gambit_queue x left join public.gambit_ratings r on r.uid=x.uid
     where x.uid<>me and x.game is null and x.seen>now()-interval '10 seconds'
@@ -12202,8 +12220,8 @@ begin
   if o.uid is null then
     return json_build_object('wait',true,'n',(select count(*) from public.gambit_queue q where q.game is null and q.seen>now()-interval '10 seconds'));
   end if;
-  insert into public.gambit_games(host,guest,w,b,rated,status,clock,w_ms,b_ms,turn_at,started_at,w_seen,b_seen,host_seen,fen)
-    values(o.uid,me,case when hw then o.uid else me end,case when hw then me else o.uid end,true,'live',600000,600000,600000,now(),now(),now(),now(),now(),'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1') returning id into gid;
+  insert into public.gambit_games(host,guest,w,b,rated,status,clock,w_ms,b_ms,turn_at,started_at,w_seen,b_seen,host_seen,fen,host_line,guest_line)
+    values(o.uid,me,case when hw then o.uid else me end,case when hw then me else o.uid end,true,'live',600000,600000,600000,now(),now(),now(),now(),now(),'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',o.line,public.pkl_gb_line(ln)) returning id into gid;
   update public.gambit_queue set game=gid where uid=o.uid;
   delete from public.gambit_queue where uid=me;
   return json_build_object('game',gid);
@@ -12240,9 +12258,10 @@ revoke all on function public.pkl_gb_canmate(text,text) from public, anon, authe
 revoke all on function public.pkl_gb_finish(bigint,text,text) from public, anon, authenticated;
 revoke all on function public.pkl_gb_tick(bigint) from public, anon, authenticated;
 revoke all on function public.pkl_gb_sweep() from public, anon, authenticated;
-revoke all on function public.pkl_gb_start(bigint,uuid) from public, anon, authenticated;
+revoke all on function public.pkl_gb_start(bigint,uuid,jsonb) from public, anon, authenticated;
+revoke all on function public.pkl_gb_line(jsonb) from public, anon, authenticated;
 do $$ declare f text; begin
-  foreach f in array array['gambit_open(uuid)','gambit_join(text)','gambit_answer(bigint,boolean)','gambit_cancel(bigint)','gambit_get(bigint,integer)','gambit_move(bigint,integer,text,text,text,text,text)','gambit_resign(bigint)','gambit_draw(bigint,text)','gambit_queue_join()','gambit_queue_leave()','gambit_me()','gambit_inbox()','social_poll()'] loop
+  foreach f in array array['gambit_open(uuid,jsonb)','gambit_join(text,jsonb)','gambit_answer(bigint,boolean,jsonb)','gambit_cancel(bigint)','gambit_get(bigint,integer)','gambit_move(bigint,integer,text,text,text,text,text)','gambit_resign(bigint)','gambit_draw(bigint,text)','gambit_queue_join(jsonb)','gambit_queue_leave()','gambit_me()','gambit_inbox()','social_poll()'] loop
     execute 'revoke all on function public.'||f||' from public, anon';
     execute 'grant execute on function public.'||f||' to authenticated';
   end loop;
@@ -15063,6 +15082,7 @@ const I={menu:'<svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg
   list:'<svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h.5M4 12h.5M4 18h.5"/></svg>',
   view:'<svg viewBox="0 0 24 24"><path d="M3 8.5 12 4l9 4.5-9 4.5z"/><path d="M3 8.5v7L12 20l9-4.5v-7"/></svg>',
   follow:'<svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v5h-5"/></svg>',
+  flag:'<svg viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/></svg>',
   gear:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></svg>'};
 const bar=c=>{const C=c.toUpperCase();return `<div class="pbar panel ${c}" id="pb${C}"><span class="av" id="av${C}"></span><span class="pn"><b id="name${C}"></b><i id="sub${C}"></i></span><span class="cap" id="caps${C}"></span><span class="adv" id="adv${C}"></span><span class="chk" id="chk${C}" hidden>${L("SCHACH","CHECK")}</span><span class="clk" id="clk${C}">0:00</span></div>`;};
 return `<style>
@@ -15088,6 +15108,7 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .cap img{width:22px;height:22px;object-fit:contain;image-rendering:pixelated;margin-right:-7px;flex:none}
 .adv{font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums;flex:none}
 .chk{font-family:var(--display);font-size:9px;letter-spacing:.06em;color:#fff;background:#c0392b;border-radius:4px;padding:4px 6px;flex:none}
+.clk.low{background:#5a1a1a!important;color:#ffd0d0!important}
 .clk{margin-left:auto;flex:none;font-family:var(--display);font-size:14px;min-width:72px;text-align:right;background:#070c18;color:#8794b0;border-radius:6px;padding:8px 10px;font-variant-numeric:tabular-nums}
 .pbar.turn .clk{background:#eef2fa;color:#0b1222}
 .pbar.turn{box-shadow:0 0 0 2px var(--tc),0 8px 22px rgba(0,0,0,.4)}
@@ -15125,6 +15146,11 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .mode span{font-size:15px;color:var(--muted);line-height:1.35}
 .mode.soon{grid-column:1/-1;opacity:.7;cursor:default;border-style:dashed}
 .mode.soon:hover{border-color:#34466a;background:#16233c}
+.setrow{display:flex;align-items:center;gap:8px 12px;flex-wrap:wrap}
+.setrow .lab{font-family:var(--display);font-size:10px;letter-spacing:.08em;color:var(--muted);min-width:118px}
+.seg{display:flex;gap:4px;flex-wrap:wrap}
+.seg button{background:#16233c;border:2px solid #34466a;border-radius:7px;padding:6px 12px;font-size:15px;font-weight:600}
+.seg button:hover{border-color:var(--edge)}.seg button.on{border-color:var(--gold);background:#24345a}
 .controls{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:15px;color:var(--muted);border-top:2px solid #26344f;padding-top:12px}
 .controls b{color:var(--text);font-weight:600}
 .row{display:flex;gap:8px;flex-wrap:wrap}
@@ -15201,6 +15227,7 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
     <button class="ib" id="bUndo" title="${L("Zug zurücknehmen (U)","Take back move (U)")}" aria-label="${L("Zug zurücknehmen","Take back move")}">${I.undo}</button>
     <button class="ib" id="bMoves" title="${L("Zugliste","Move list")}" aria-label="${L("Zugliste","Move list")}">${I.list}</button>
     <button class="ib" id="bView" title="${L("Ansicht wechseln (1 · 2 · 3)","Switch view (1 · 2 · 3)")}" aria-label="${L("Ansicht wechseln","Switch view")}">${I.view}</button>
+    <button class="ib" id="bResign" title="${L("Aufgeben","Resign")}" aria-label="${L("Aufgeben","Resign")}">${I.flag}</button>
     <button class="ib" id="bFollow" title="${L("Kamera dreht zum Spieler, der dran ist","Camera turns to the player whose move it is")}" aria-label="${L("Kamera folgt","Camera follows")}">${I.follow}</button>
   </div>
 </div>
@@ -15208,9 +15235,11 @@ button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
   <button class="x" id="mX" title="${L("Zurück zu Pokélings","Back to Pokélings")}">✕</button>
   <div class="logo">POKÉMON GAMBIT</div>
   <div class="tag"><span class="beta">BETA</span>${L("KLASSIK-SCHACH MIT POKÉMON","CLASSIC CHESS WITH POKÉMON")}</div>
+  <div class="setrow"><span class="lab">${L("BEDENKZEIT","TIME")}</span><div class="seg" id="segTc">${[0,3,5,10].map(m=>`<button data-tc="${m}">${m?m+' Min':L('Ohne Uhr','No clock')}</button>`).join('')}</div></div>
+  <div class="setrow"><span class="lab">${L("KI-STUFE","AI LEVEL")}</span><div class="seg" id="segLvl">${[[1,L('Leicht','Easy')],[2,L('Mittel','Medium')],[3,L('Schwer','Hard')]].map(([v,n])=>`<button data-lvl="${v}">${n}</button>`).join('')}</div></div>
   <div class="modes">
     <button class="mode" id="mLocal"><b>${L("LOKAL","LOCAL")}</b><span>${L("Zu zweit an einem Gerät. Die Kamera dreht sich zum Spieler, der dran ist.","Two players on one device. The camera turns to whoever's move it is.")}</span></button>
-    <button class="mode" id="mAI"><b>${L("GEGEN KI","VS AI")}</b><span>${L("Neon-Kurt spielt Team Rot mit einer zufälligen Aufstellung. Leichte Stufe.","Neon-Kurt plays Team Red with a random lineup. Easy level.")}</span></button>
+    <button class="mode" id="mAI"><b>${L("GEGEN KI","VS AI")}</b><span>${L("Neon-Kurt spielt Team Rot mit einer zufälligen Aufstellung, in der gewählten Stufe.","Neon-Kurt plays Team Red with a random lineup at the chosen level.")}</span></button>
     <div class="mode soon" aria-disabled="true"><b>${L("ARENA-MODUS · IN ARBEIT","ARENA MODE · IN PROGRESS")}</b>
       <span>${L("Schach mit Pokémon-Typen beim Schlagen. Kommt später.","Chess with Pokémon types when capturing. Coming later.")}</span></div>
   </div>
@@ -15316,7 +15345,7 @@ const PLATES={
 };
 const OPT_KEY='pokelings_gambit_opts';
 function loadOpts(){let o=null;try{o=JSON.parse(localStorage.getItem(OPT_KEY)||'null');}catch(e){o=null;}o=o||{};
-  return{me:cleanLineup(o.me),p2:cleanLineup(o.p2),arena:ARENAS[o.arena]?o.arena:'vertania',board:BOARDS[o.board]?o.board:'holz',plate:PLATES[o.plate]?o.plate:'schiefer'};}
+  return{me:cleanLineup(o.me),p2:cleanLineup(o.p2),arena:ARENAS[o.arena]?o.arena:'vertania',board:BOARDS[o.board]?o.board:'holz',plate:PLATES[o.plate]?o.plate:'schiefer',tc:[0,3,5,10].includes(o.tc)?o.tc:0,lvl:[1,2,3].includes(o.lvl)?o.lvl:1};}
 function saveOpts(){try{localStorage.setItem(OPT_KEY,JSON.stringify(OPT));}catch(e){}}
 let OPT=loadOpts();
 
@@ -15328,7 +15357,8 @@ let started=false,inGame=false,gameOver=false,checkSq=null,viewKind='player';
 let selected=null,legal=[],inspected=null,hovered=null,hoverTarget=null,preview=null;
 let busy=false,follow=true,running=false,raf=0;
 // Bedenkzeit je Seite (zählt hoch, solange die Seite am Zug ist). Online kann Pokélings die Anzeige übernehmen (setClock).
-const CLK={w:0,b:0,t:0,ext:{w:null,b:null}};
+const CLK={w:0,b:0,t:0,lim:0,ext:{w:null,b:null}};
+let shake=0; // Kamerawackeln bei sehr effektiven Schlägen
 /* Schnittstelle für Online-Partien (wird von Pokélings gesetzt, in der Werkstatt leer):
    NET={color:'w'|'b', names:{w,b}, lineups:{w,b}, onMove(info), onEnd(info), onLeave()} – info.ply, info.from, info.to, info.promo, info.fen, info.end */
 let NET=null;
@@ -15632,6 +15662,7 @@ function updateCamera(dt){
   const sp=Math.sin(cur.phi);
   camera.position.set(cur.target.x+cur.radius*sp*Math.sin(cur.theta),cur.target.y+cur.radius*Math.cos(cur.phi),cur.target.z+cur.radius*sp*Math.cos(cur.theta));
   camera.lookAt(cur.target);
+  if(shake>0){camera.position.x+=(Math.random()-.5)*shake;camera.position.y+=(Math.random()-.5)*shake;shake*=Math.exp(-dt*9);if(shake<.003)shake=0;}
 }
 function panBy(dx,dy){
   const s=cam.radius*.0016,th=cam.theta;
@@ -15771,7 +15802,7 @@ function refreshTiles(){
   if(hoverTarget)set(hoverTarget,0xffffff,.35);
 }
 
-const pvDot=new T.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.4,depthWrite:false});
+const pvDot=new T.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.55,depthWrite:false});
 const pvCap=new T.MeshBasicMaterial({color:0xff8a8a,transparent:true,opacity:.55,depthWrite:false,side:T.DoubleSide});
 function showPreview(sq){
   if(preview===sq)return;clearPreview();if(!sq||selected||!canControl(sq))return;preview=sq;
@@ -15786,6 +15817,10 @@ function clearPreview(){if(preview===null&&!pvMarkers.children.length)return;pre
 const tweens=[];
 function tween(ms,fn){return new Promise(res=>tweens.push({t:0,d:Math.max(1,ms*SPEED),fn,res}));}
 const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const waveGeo=new T.RingGeometry(.14,.22,40);
+function shockwave(pos,hex,size,ms){const m=new T.Mesh(waveGeo,new T.MeshBasicMaterial({color:hex,transparent:true,opacity:.95,depthWrite:false,side:T.DoubleSide}));
+  m.rotation.x=-Math.PI/2;m.position.set(pos.x,TOP+.02,pos.z);m.renderOrder=4;scene.add(m);
+  tween(ms,p=>{const s=1+ease(p)*size;m.scale.set(s,s,s);m.material.opacity=.95*(1-p);}).then(()=>{scene.remove(m);m.material.dispose();});}
 const parts=[],partGeo=new T.BoxGeometry(.09,.09,.09);
 function burst(pos,hex,n=22){
   if(REDUCED)n=8;
@@ -15868,12 +15903,12 @@ async function tryMove(from,to,promo,remote){
   else if(mode==='local'&&follow)setView(viewKind==='side'?'player':viewKind,chess.turn());
 }
 async function animateMove(mv,victimSq){
-  const g=pieces[mv.from];const start=g.position.clone(),end=sqPos(mv.to);
+  const gno=gameNo,g=pieces[mv.from];const start=g.position.clone(),end=sqPos(mv.to);
   const d=start.distanceTo(end),jump=mv.piece==='n'?1.2:.38+d*.06,ms=360+d*45;
   const vg=victimSq?pieces[victimSq]:null;let hitDone=false;
   const jobs=[tween(ms,p=>{
     const e=ease(p);g.position.lerpVectors(start,end,e);g.position.y=TOP+Math.sin(Math.PI*e)*jump;
-    if(vg&&!hitDone&&p>.78){hitDone=true;knockOut(vg);}
+    if(vg&&!hitDone&&p>.78){hitDone=true;knockOut(vg,g);}
   })];
   if(mv.flags.includes('k')||mv.flags.includes('q')){
     const rank=mv.from[1],rf=(mv.flags.includes('k')?'h':'a')+rank,rt=(mv.flags.includes('k')?'f':'d')+rank;
@@ -15882,7 +15917,8 @@ async function animateMove(mv,victimSq){
     delete pieces[rf];pieces[rt]=rg;rg.userData.square=rt;
   }
   await Promise.all(jobs);
-  if(vg&&!hitDone)knockOut(vg);
+  if(gno!==gameNo)return; // neue Partie während der Animation: nichts mehr anfassen
+  if(vg&&!hitDone)knockOut(vg,g);
   delete pieces[mv.from];if(victimSq)delete pieces[victimSq];
   pieces[mv.to]=g;g.userData.square=mv.to;g.position.copy(end);
   if(mv.promotion){
@@ -15892,8 +15928,10 @@ async function animateMove(mv,victimSq){
   }
   if(!REDUCED){const g2=pieces[mv.to];tween(160,p=>g2.userData.scale=1+Math.sin(Math.PI*p)*.12);}
 }
-function knockOut(vg){
-  const info=vg.userData.info;burst(vg.position,parseInt(tyCol(spType(info.species)).slice(1),16));
+function knockOut(vg,ag){
+  const info=vg.userData.info,e=ag?effOf(ag.userData.info.species,info.species):1,ac=parseInt(tyCol(spType((ag||vg).userData.info.species)).slice(1),16);
+  burst(vg.position,parseInt(tyCol(spType(info.species)).slice(1),16),e>1?34:e<1?12:22);
+  shockwave(vg.position,ac,e>1?7:e<1?2.2:4.4,e>1?560:380);if(e>1){shockwave(vg.position,0xffffff,3.4,320);if(!REDUCED)shake=.14;}
   vg.userData.token.material.color.setHex(0xff8080);
   tween(340,p=>{vg.userData.scale=1-ease(p);vg.rotation.y=p*4;}).then(()=>removePiece(vg));
 }
@@ -15922,41 +15960,149 @@ function checkEnd(){
   return true;
 }
 
-/* ---------------- KI (leicht, rechnet in einem Hintergrund-Thread) ---------------- */
-// Die Suche läuft in einem Web Worker (aus diesem Code erzeugt, keine externe Datei), damit das Bild beim Nachdenken
-// nicht stockt. Ohne Worker läuft dieselbe Suche direkt. Stärke wie bisher: 2 Halbzüge plus etwas Zufall.
-function aiEval(c){const V={p:100,n:320,b:330,r:500,q:900,k:0};const b=c.board();let s=0;
-  for(let r=0;r<8;r++)for(let f=0;f<8;f++){const p=b[r][f];if(!p)continue;const center=(3.5-Math.abs(f-3.5))+(3.5-Math.abs(r-3.5));
-    let v=V[p.type]+(p.type==='n'||p.type==='b'||p.type==='p'?center*4:0);if(p.type==='p')v+=(p.color==='w'?(6-r):(r-1))*7;s+=p.color==='w'?v:-v;}return s;}
-function aiSearch(c,depth,alpha,beta,maxi){const V={p:100,n:320,b:330,r:500,q:900,k:0};
-  if(depth===0)return aiEval(c);const moves=c.moves({verbose:true});
-  if(!moves.length)return c.in_check()?(maxi?-1e5-depth:1e5+depth):0;
-  moves.sort((a,b)=>(b.captured?V[b.captured]:0)-(a.captured?V[a.captured]:0));
-  if(maxi){let best=-Infinity;for(const m of moves){c.move(m);best=Math.max(best,aiSearch(c,depth-1,alpha,beta,false));c.undo();alpha=Math.max(alpha,best);if(beta<=alpha)break;}return best;}
-  let best=Infinity;for(const m of moves){c.move(m);best=Math.min(best,aiSearch(c,depth-1,alpha,beta,true));c.undo();beta=Math.min(beta,best);if(beta<=alpha)break;}return best;}
-function aiPick(fen,noise,Ch){const c=new Ch(fen),w=c.turn()==='w',moves=c.moves({verbose:true});let best=null,bestV=w?-Infinity:Infinity;
-  for(const m of moves){c.move(m);const v=aiSearch(c,2,-Infinity,Infinity,!w)+(Math.random()*2-1)*noise;c.undo();if(w?v>bestV:v<bestV){bestV=v;best=m;}}
-  return best?{from:best.from,to:best.to,promotion:best.promotion||'q'}:null;}
+/* ---------------- KI-Engine (eigene, schnelle Schachsuche; läuft im Hintergrund-Thread) ----------------
+   0x88-Brett, Alpha-Beta mit Ruhesuche, Figurentabellen, Zeitlimit. Völlig eigenständig (keine Bibliothek),
+   damit sie als Web Worker aus diesem Code erzeugt werden kann. Ergebnis wird im Spiel noch einmal mit chess.js geprüft. */
+function gbEngine(){
+  const P=1,N=2,B=3,R=4,Q=5,K=6,MATE=100000,INF=1e9;
+  const VAL=[0,100,320,330,500,900,0];
+  const ND=[-33,-31,-18,-14,14,18,31,33],BD=[-17,-15,15,17],RD=[-16,-1,1,16],KD=[-17,-16,-15,-1,1,15,16,17];
+  const PST={1:[0,0,0,0,0,0,0,0,50,50,50,50,50,50,50,50,10,10,20,30,30,20,10,10,5,5,10,25,25,10,5,5,0,0,0,20,20,0,0,0,5,-5,-10,0,0,-10,-5,5,5,10,10,-20,-20,10,10,5,0,0,0,0,0,0,0,0],
+    2:[-50,-40,-30,-30,-30,-30,-40,-50,-40,-20,0,0,0,0,-20,-40,-30,0,10,15,15,10,0,-30,-30,5,15,20,20,15,5,-30,-30,0,15,20,20,15,0,-30,-30,5,10,15,15,10,5,-30,-40,-20,0,5,5,0,-20,-40,-50,-40,-30,-30,-30,-30,-40,-50],
+    3:[-20,-10,-10,-10,-10,-10,-10,-20,-10,0,0,0,0,0,0,-10,-10,0,5,10,10,5,0,-10,-10,5,5,10,10,5,5,-10,-10,0,10,10,10,10,0,-10,-10,10,10,10,10,10,10,-10,-10,5,0,0,0,0,5,-10,-20,-10,-10,-10,-10,-10,-10,-20],
+    4:[0,0,0,0,0,0,0,0,5,10,10,10,10,10,10,5,-5,0,0,0,0,0,0,-5,-5,0,0,0,0,0,0,-5,-5,0,0,0,0,0,0,-5,-5,0,0,0,0,0,0,-5,-5,0,0,0,0,0,0,-5,0,0,0,5,5,0,0,0],
+    5:[-20,-10,-10,-5,-5,-10,-10,-20,-10,0,0,0,0,0,0,-10,-10,0,5,5,5,5,0,-10,-5,0,5,5,5,5,0,-5,0,0,5,5,5,5,0,-5,-10,5,5,5,5,5,0,-10,-10,0,5,0,0,0,0,-10,-20,-10,-10,-5,-5,-10,-10,-20],
+    6:[-30,-40,-40,-50,-50,-40,-40,-30,-30,-40,-40,-50,-50,-40,-40,-30,-30,-40,-40,-50,-50,-40,-40,-30,-30,-40,-40,-50,-50,-40,-40,-30,-20,-30,-30,-40,-40,-30,-30,-20,-10,-20,-20,-20,-20,-20,-20,-10,20,20,0,0,0,0,20,20,20,30,10,0,0,10,30,20],
+    7:[-50,-40,-30,-20,-20,-30,-40,-50,-30,-20,-10,0,0,-10,-20,-30,-30,-10,20,30,30,20,-10,-30,-30,-10,30,40,40,30,-10,-30,-30,-10,30,40,40,30,-10,-30,-30,-10,20,30,30,20,-10,-30,-30,-30,0,0,0,0,-30,-30,-50,-30,-30,-30,-30,-30,-30,-50]};
+  const CR=new Int8Array(128).fill(15);CR[0x74]=12;CR[0x70]=13;CR[0x77]=14;CR[0x04]=3;CR[0x00]=7;CR[0x07]=11;
+  const bd=new Int8Array(128),kSq=[0,0],uCap=new Int8Array(512),uCas=new Int8Array(512),uEp=new Int16Array(512),killers=new Int32Array(256);
+  let side=0,castle=0,ep=-1,ply=0,nodes=0,stopAt=0,stopped=false,useQ=true;
+  const sqName=s=>'abcdefgh'[s&7]+(8-(s>>4)),nameSq=n=>(8-(+n[1]))*16+(n.charCodeAt(0)-97);
+  function load(fen){bd.fill(0);const f=fen.split(' ');let r=0,c=0;
+    for(const ch of f[0]){if(ch==='/'){r++;c=0;continue;}if(ch>='1'&&ch<='8'){c+=+ch;continue;}
+      const t='pnbrqk'.indexOf(ch.toLowerCase())+1,col=ch===ch.toLowerCase()?8:0,s=r*16+c;bd[s]=t|col;if(t===K)kSq[col?1:0]=s;c++;}
+    side=f[1]==='b'?1:0;castle=(f[2].includes('K')?1:0)|(f[2].includes('Q')?2:0)|(f[2].includes('k')?4:0)|(f[2].includes('q')?8:0);
+    ep=f[3]&&f[3]!=='-'?nameSq(f[3]):-1;ply=0;}
+  function key(){let s='';for(let r=0;r<8;r++){let e=0;for(let c=0;c<8;c++){const p=bd[r*16+c];if(!p){e++;continue;}if(e){s+=e;e=0;}const ch='pnbrqk'[(p&7)-1];s+=p&8?ch:ch.toUpperCase();}if(e)s+=e;if(r<7)s+='/';}return s+' '+(side?'b':'w');}
+  function attacked(s,by){const c=by<<3;
+    if(by===0){if(!((s+15)&0x88)&&bd[s+15]===P)return true;if(!((s+17)&0x88)&&bd[s+17]===P)return true;}
+    else{if(!((s-15)&0x88)&&bd[s-15]===(P|8))return true;if(!((s-17)&0x88)&&bd[s-17]===(P|8))return true;}
+    for(const d of ND){const t=s+d;if(!(t&0x88)&&bd[t]===(N|c))return true;}
+    for(const d of KD){const t=s+d;if(!(t&0x88)&&bd[t]===(K|c))return true;}
+    for(const d of BD){let t=s+d;while(!(t&0x88)){const p=bd[t];if(p){if(p===(B|c)||p===(Q|c))return true;break;}t+=d;}}
+    for(const d of RD){let t=s+d;while(!(t&0x88)){const p=bd[t];if(p){if(p===(R|c)||p===(Q|c))return true;break;}t+=d;}}
+    return false;}
+  const mv=(f,t,pr,fl)=>f|(t<<7)|(pr<<14)|(fl<<17);
+  function gen(caps){const out=[],me=side,dir=me?16:-16,c=me<<3;
+    for(let s=0;s<128;s++){if(s&0x88){s+=7;continue;}const p=bd[s];if(!p||(p&8)!==c)continue;const t0=p&7;
+      if(t0===P){const t=s+dir,lastRow=me?7:0,startRow=me?1:6;
+        if(!(t&0x88)&&!bd[t]){if((t>>4)===lastRow){out.push(mv(s,t,Q,0));if(!caps){out.push(mv(s,t,N,0));out.push(mv(s,t,R,0));out.push(mv(s,t,B,0));}}
+          else if(!caps){out.push(mv(s,t,0,0));if((s>>4)===startRow&&!bd[t+dir])out.push(mv(s,t+dir,0,3));}}
+        for(const t of [s+dir-1,s+dir+1]){if(t&0x88)continue;
+          if(bd[t]&&(bd[t]&8)!==c){if((t>>4)===lastRow){out.push(mv(s,t,Q,0));if(!caps){out.push(mv(s,t,N,0));out.push(mv(s,t,R,0));out.push(mv(s,t,B,0));}}else out.push(mv(s,t,0,0));}
+          else if(t===ep)out.push(mv(s,t,0,1));}
+        continue;}
+      if(t0===N||t0===K){for(const d of (t0===N?ND:KD)){const t=s+d;if(t&0x88)continue;const q=bd[t];if(q?(q&8)!==c:!caps)out.push(mv(s,t,0,0));}
+        if(t0===K&&!caps){
+          if(me===0&&s===0x74){if((castle&1)&&!bd[0x75]&&!bd[0x76]&&bd[0x77]===R&&!attacked(0x74,1)&&!attacked(0x75,1)&&!attacked(0x76,1))out.push(mv(s,0x76,0,2));
+            if((castle&2)&&!bd[0x73]&&!bd[0x72]&&!bd[0x71]&&bd[0x70]===R&&!attacked(0x74,1)&&!attacked(0x73,1)&&!attacked(0x72,1))out.push(mv(s,0x72,0,2));}
+          if(me===1&&s===0x04){if((castle&4)&&!bd[0x05]&&!bd[0x06]&&bd[0x07]===(R|8)&&!attacked(0x04,0)&&!attacked(0x05,0)&&!attacked(0x06,0))out.push(mv(s,0x06,0,2));
+            if((castle&8)&&!bd[0x03]&&!bd[0x02]&&!bd[0x01]&&bd[0x00]===(R|8)&&!attacked(0x04,0)&&!attacked(0x03,0)&&!attacked(0x02,0))out.push(mv(s,0x02,0,2));}}
+        continue;}
+      for(const d of (t0===B?BD:t0===R?RD:KD)){let t=s+d;while(!(t&0x88)){const q=bd[t];if(q){if((q&8)!==c)out.push(mv(s,t,0,0));break;}if(!caps)out.push(mv(s,t,0,0));t+=d;}}}
+    return out;}
+  function make(m){const f=m&127,t=(m>>7)&127,pr=(m>>14)&7,fl=m>>17,p=bd[f];
+    uCap[ply]=bd[t];uCas[ply]=castle;uEp[ply]=ep;ply++;
+    bd[t]=pr?(pr|(p&8)):p;bd[f]=0;
+    if(fl===1)bd[t+(side?-16:16)]=0;
+    else if(fl===2){if(t===0x76){bd[0x75]=bd[0x77];bd[0x77]=0;}else if(t===0x72){bd[0x73]=bd[0x70];bd[0x70]=0;}else if(t===0x06){bd[0x05]=bd[0x07];bd[0x07]=0;}else if(t===0x02){bd[0x03]=bd[0x00];bd[0x00]=0;}}
+    if((p&7)===K)kSq[side]=t;
+    ep=fl===3?(f+t)>>1:-1;castle&=CR[f]&CR[t];side^=1;}
+  function unmake(m){const f=m&127,t=(m>>7)&127,pr=(m>>14)&7,fl=m>>17;side^=1;ply--;castle=uCas[ply];ep=uEp[ply];
+    const p=bd[t];bd[f]=pr?(P|(side<<3)):p;bd[t]=uCap[ply];
+    if(fl===1)bd[t+(side?-16:16)]=P|((side^1)<<3);
+    else if(fl===2){if(t===0x76){bd[0x77]=bd[0x75];bd[0x75]=0;}else if(t===0x72){bd[0x70]=bd[0x73];bd[0x73]=0;}else if(t===0x06){bd[0x07]=bd[0x05];bd[0x05]=0;}else if(t===0x02){bd[0x00]=bd[0x03];bd[0x03]=0;}}
+    if((bd[f]&7)===K)kSq[side]=f;}
+  const legalAfter=()=>!attacked(kSq[side^1],side);
+  function evaluate(){let s=0,np=0;for(let q=0;q<128;q++){if(q&0x88){q+=7;continue;}const p=bd[q];if(p&&(p&7)!==P&&(p&7)!==K)np+=VAL[p&7];}
+    const end=np<=1400;
+    for(let q=0;q<128;q++){if(q&0x88){q+=7;continue;}const p=bd[q];if(!p)continue;const t=p&7,blk=p&8,i=blk?((7-(q>>4))*8+(q&7)):((q>>4)*8+(q&7));
+      const v=VAL[t]+PST[t===K&&end?7:t][i];s+=blk?-v:v;}
+    return side?-s:s;}
+  function order(ms,best,pl){const sc=new Int32Array(ms.length);
+    for(let i=0;i<ms.length;i++){const m=ms[i],t=(m>>7)&127,cap=bd[t];
+      sc[i]=m===best?1e7:cap?1e5+VAL[cap&7]*10-VAL[bd[m&127]&7]:(m>>17)===1?1e5+990:((m>>14)&7)?9e4:m===killers[pl]?8e4:0;}
+    const idx=[...ms.keys()].sort((a,b)=>sc[b]-sc[a]);return idx.map(i=>ms[i]);}
+  function tick(){if((++nodes&2047)===0&&Date.now()>stopAt)stopped=true;}
+  function qs(a,b){tick();if(stopped)return 0;const st=evaluate();if(st>=b)return b;if(st>a)a=st;
+    for(const m of order(gen(true),0,63)){make(m);if(!legalAfter()){unmake(m);continue;}const v=-qs(-b,-a);unmake(m);if(stopped)return 0;if(v>=b)return b;if(v>a)a=v;}
+    return a;}
+  function neg(d,a,b,pl){tick();if(stopped)return 0;
+    const chk=attacked(kSq[side],side^1);if(chk&&pl<20)d++;
+    if(d<=0)return useQ?qs(a,b):evaluate();
+    let legal=0;
+    for(const m of order(gen(false),0,pl)){make(m);if(!legalAfter()){unmake(m);continue;}legal++;
+      const v=-neg(d-1,-b,-a,pl+1);unmake(m);if(stopped)return 0;
+      if(v>=b){if(!bd[(m>>7)&127])killers[pl]=m;return b;}if(v>a)a=v;}
+    if(!legal)return chk?-MATE+pl:0;
+    return a;}
+  /* fen: Stellung, o.level 1–3, o.seen: Stellungen der Partie (für Wiederholung), o.ms: Zeitlimit */
+  function pick(fen,o){
+    load(fen);const L=[{d:2,q:false,noise:45,ms:700},{d:4,q:true,noise:10,ms:1400},{d:9,q:true,noise:0,ms:2400}][Math.max(1,Math.min(3,o.level||1))-1];
+    useQ=L.q;stopped=false;nodes=0;stopAt=Date.now()+(o.ms||L.ms);killers.fill(0);
+    const seen=new Set(o.seen||[]);const root=[];
+    for(const m of gen(false)){make(m);if(legalAfter())root.push({m,rep:seen.has(key()),v:0});unmake(m);}
+    if(!root.length)return null;
+    let best=root[0],bestM=0;
+    for(let d=1;d<=L.d;d++){let a=-INF;const exact=L.noise>0;
+      const ordered=order(root.map(r=>r.m),bestM,0).map(m=>root.find(r=>r.m===m));
+      let cand=null;
+      for(const r of ordered){make(r.m);let v=r.rep?0:-neg(d-1,-INF,exact?INF:-a,1);unmake(r.m);if(stopped)break;
+        r.v=v;if(v>a){a=v;cand=r;}}
+      if(stopped&&d>1)break;
+      if(cand){best=cand;bestM=cand.m;}
+      if(Math.abs(a)>MATE-100)break;
+      if(stopped)break;}
+    if(L.noise){let top=-INF;for(const r of root){const v=r.v+(Math.random()*2-1)*L.noise;if(v>top){top=v;best=r;}}}
+    const m=best.m,pr=(m>>14)&7;
+    return{from:sqName(m&127),to:sqName((m>>7)&127),promotion:pr?' nbrq'[pr-1]:undefined,nodes};}
+  /* Zählt Stellungen (für die Prüfung gegen chess.js) */
+  function perft(fen,d){load(fen);const go=d=>{if(!d)return 1;let n=0;for(const m of gen(false)){make(m);if(legalAfter())n+=go(d-1);unmake(m);}return n;};return go(d);}
+  return{pick,perft};
+}
+
+/* ---------------- KI (Neon-Kurt, 3 Stufen, rechnet in einem Hintergrund-Thread) ---------------- */
+// Die Engine (gbEngine) läuft als Web Worker, der aus diesem Code erzeugt wird (keine externe Datei). Ohne Worker rechnet
+// sie mit kurzem Zeitlimit direkt. Jeder Vorschlag wird vor dem Ziehen mit chess.js geprüft.
+const ENG=gbEngine();
 let aiW=null,aiWFail=false,aiReq=0;
 function aiWorker(){
   if(aiW||aiWFail)return aiW;
-  try{const src='const GbChess='+GbChess.toString()+';\n'+aiEval+'\n'+aiSearch+'\n'+aiPick+'\nonmessage=function(e){postMessage({id:e.data.id,move:aiPick(e.data.fen,e.data.noise,GbChess)});};';
+  try{const src='const E=('+gbEngine.toString()+')();onmessage=function(e){var m=null;try{m=E.pick(e.data.fen,e.data.o);}catch(x){}postMessage({id:e.data.id,move:m});};';
     const url=URL.createObjectURL(new Blob([src],{type:'text/javascript'}));aiW=new Worker(url);setTimeout(()=>URL.revokeObjectURL(url),10000);
     aiW.onerror=()=>{aiWFail=true;try{aiW.terminate();}catch(e){}aiW=null;};
   }catch(e){aiWFail=true;aiW=null;}
   return aiW;
 }
+const posKey=f=>f.split(' ').slice(0,2).join(' ');
 function aiMove(){
   if(!inGame||gameOver||!aiTurn())return;
   const gno=gameNo,id=++aiReq,fen=chess.fen(),t0=performance.now();let doneOnce=false;
+  const o={level:OPT.lvl,seen:undoStack.map(s=>posKey(s.fen))};
+  // bei knapper Uhr schneller ziehen
+  if(CLK.lim&&CLK.b<30000)o.ms=Math.min(600,Math.max(120,CLK.b/20));
   updateHUD();
-  const done=mv=>{if(doneOnce)return;doneOnce=true;const wait=Math.max(0,520*SPEED-(performance.now()-t0));
-    setTimeout(()=>{if(gno!==gameNo||id!==aiReq||!inGame||gameOver||!aiTurn()||fen!==chess.fen())return;if(mv)tryMove(mv.from,mv.to,mv.promotion||'q');},wait);};
+  const done=mv=>{if(doneOnce)return;doneOnce=true;const wait=Math.max(0,480*SPEED-(performance.now()-t0));
+    setTimeout(()=>{if(gno!==gameNo||id!==aiReq||!inGame||gameOver||!aiTurn()||fen!==chess.fen())return;
+      const all=chess.moves({verbose:true});
+      let m=mv&&all.find(x=>x.from===mv.from&&x.to===mv.to&&(!x.promotion||x.promotion===(mv.promotion||'q')));
+      if(!m)m=all[(Math.random()*all.length)|0];
+      if(m)tryMove(m.from,m.to,m.promotion||'q');},wait);};
   const w=aiWorker();
   if(w){const onMsg=e=>{if(!e.data||e.data.id!==id)return;w.removeEventListener('message',onMsg);done(e.data.move);};
-    w.addEventListener('message',onMsg);w.postMessage({id,fen,noise:9});
-    setTimeout(()=>{if(!doneOnce){w.removeEventListener('message',onMsg);done(aiPick(fen,9,GbChess));}},8000); // Worker hängt: selbst rechnen
-  }else setTimeout(()=>done(aiPick(fen,9,GbChess)),30);
+    w.addEventListener('message',onMsg);w.postMessage({id,fen,o});
+    setTimeout(()=>{if(!doneOnce){w.removeEventListener('message',onMsg);done(ENG.pick(fen,Object.assign({},o,{ms:400})));}},9000); // Worker hängt: selbst rechnen
+  }else setTimeout(()=>{let m=null;try{m=ENG.pick(fen,Object.assign({},o,{ms:Math.min(o.ms||600,600)}));}catch(e){}done(m);},30);
 }
 
 /* ---------------- HUD (schlank wie chess.com: Spielerleisten oben/unten, kleine Werkzeugleiste) ---------------- */
@@ -15973,7 +16119,7 @@ function updateHUD(){
     pb.classList.toggle('at-bot',c===bottom);pb.classList.toggle('at-top',c!==bottom);
     pb.classList.toggle('turn',inGame&&!gameOver&&turn===c);
     $('name'+C).textContent=playerName(c);
-    $('sub'+C).textContent=(mode==='ai'&&c==='b'&&aiTurn()&&!gameOver)?L('denkt nach …','is thinking …'):TEAM[c].label;
+    $('sub'+C).textContent=(mode==='ai'&&c==='b'&&aiTurn()&&!gameOver)?L('denkt nach …','is thinking …'):(mode==='ai'&&c==='b')?TEAM[c].label+' · '+[L('Leicht','Easy'),L('Mittel','Medium'),L('Schwer','Hard')][OPT.lvl-1]:TEAM[c].label;
     const k=LINEUP[c]&&LINEUP[c].k;setHTML($('av'+C),String(k),k?imgOf(k):'');
     setHTML($('caps'+C),captured[c].map(v=>v.species).join(','),captured[c].map(v=>imgOf(v.species)).join(''));
     const adv=Math.round((material(c)-material(c==='w'?'b':'w'))/100);$('adv'+C).textContent=adv>0?'+'+adv:'';
@@ -15982,12 +16128,30 @@ function updateHUD(){
   drawClocks();
   $('bUndo').disabled=!undoStack.length||mode==='online';
   $('bFollow').hidden=mode!=='local';
+  $('bResign').hidden=mode==='online';$('bResign').disabled=!inGame||gameOver;
 }
-function tickClock(now){ // zählt die Bedenkzeit der Seite am Zug
+function tickClock(now){ // Bedenkzeit der Seite am Zug: zählt herunter (mit Uhr) oder hoch (ohne Uhr)
   if(!CLK.t)CLK.t=now;const dt=now-CLK.t;CLK.t=now;
-  if(inGame&&!gameOver&&startEl.hidden&&optEl.hidden&&dlg.hidden&&dt<1000)CLK[chess.turn()]+=dt;
+  if(!(inGame&&!gameOver&&!busy&&mode!=='online'&&startEl.hidden&&optEl.hidden&&dlg.hidden&&dt<1000))return;
+  const c=chess.turn();
+  if(!CLK.lim){CLK[c]+=dt;return;}
+  CLK[c]-=dt;if(CLK[c]<=0){CLK[c]=0;drawClocks();flagFall(c);}
 }
-function drawClocks(){for(const c of ['w','b']){const el=$('clk'+c.toUpperCase());const t=CLK.ext[c]!=null?CLK.ext[c]:fmtClock(CLK[c]);if(el.textContent!==t)el.textContent=t;}}
+function fmtLeft(ms){if(ms>=20000)return fmtClock(ms+999);const t=Math.max(0,ms)/1000;return '0:'+(t<10?'0':'')+t.toFixed(1);}
+function drawClocks(){for(const c of ['w','b']){const el=$('clk'+c.toUpperCase());
+  const t=CLK.ext[c]!=null?CLK.ext[c]:CLK.lim?fmtLeft(CLK[c]):fmtClock(CLK[c]);if(el.textContent!==t)el.textContent=t;
+  el.classList.toggle('low',CLK.ext[c]==null&&!!CLK.lim&&CLK[c]<20000);}}
+/* Partie-Ende ohne Matt (Zeit, Aufgabe): Ergebnis zeigen */
+function finishGame(title,text){gameOver=true;aiReq++;clearSelection();clearPreview();refreshTiles();updateHUD();snd('sparkle');
+  setTimeout(()=>showDialog(`<h2>${title}</h2><p>${text}</p><div class="row"><button class="btn big primary" id="dNew">${L('Neue Partie','New game')}</button><button class="btn big" id="dLook">${L('Brett ansehen','View board')}</button><button class="btn big exit" id="dExit">${L('Zurück zu Pokélings','Back to Pokélings')}</button></div>`,{
+    dNew:()=>{closeDialog();newGame(mode);},dLook:closeDialog,dExit:()=>{closeDialog();startEl.hidden=false;hudEl.hidden=true;gambitClose();}}),300*SPEED);}
+function onlyKingOrMinor(c){let n=0;for(const sq in ids){const i=ids[sq];if(i.color!==c||i.role==='k')continue;if(i.role==='n'||i.role==='b')n++;else return false;}return n<=1;}
+function flagFall(c){const o=c==='w'?'b':'w';
+  if(onlyKingOrMinor(o))finishGame(L('REMIS','DRAW'),L(`${playerName(c)} hat keine Zeit mehr, aber ${playerName(o)} kann nicht mehr mattsetzen. Unentschieden.`,`${playerName(c)} ran out of time, but ${playerName(o)} cannot checkmate. Draw.`));
+  else finishGame(L('ZEIT ABGELAUFEN','TIME OUT'),L(`${playerName(c)} hat keine Zeit mehr. ${playerName(o)} gewinnt.`,`${playerName(c)} ran out of time. ${playerName(o)} wins.`));}
+function resign(){if(!inGame||gameOver||mode==='online')return;const c=mode==='ai'?'w':chess.turn(),o=c==='w'?'b':'w';
+  showDialog(`<h2>${L('AUFGEBEN?','RESIGN?')}</h2><p>${L(`${playerName(o)} gewinnt dann die Partie.`,`${playerName(o)} will win the game.`)}</p><div class="row"><button class="btn big exit" id="rYes">${L('Aufgeben','Resign')}</button><button class="btn big primary" id="rNo">${L('Weiterspielen','Keep playing')}</button></div>`,{
+    rYes:()=>{closeDialog();finishGame(L('AUFGEGEBEN','RESIGNED'),L(`${playerName(c)} gibt auf. ${playerName(o)} gewinnt.`,`${playerName(c)} resigns. ${playerName(o)} wins.`));},rNo:closeDialog});}
 function renderMoves(){
   const el=$('moves');
   if(!log.length){el.innerHTML=`<div class="empty">${L('Noch keine Züge.','No moves yet.')}</div>`;return;}
@@ -16059,7 +16223,7 @@ $('oReset').onclick=()=>{if(oTab==='design'){OPT.arena='vertania';OPT.board='hol
 
 /* ---------------- Spielablauf ---------------- */
 function refreshCheck(){checkSq=chess.in_check()?kingSquare(chess.turn()):null;}
-function resetClocks(){CLK.w=0;CLK.b=0;CLK.t=0;CLK.ext={w:null,b:null};}
+function resetClocks(){CLK.lim=mode==='online'?0:OPT.tc*60000;CLK.w=CLK.b=CLK.lim;CLK.t=0;CLK.ext={w:null,b:null};}
 function warmUp(){try{renderer.compile(scene,camera);}catch(e){}}
 function newGame(m){
   gameNo++;aiReq++;busy=false;NET=null;mode=m;
@@ -16067,9 +16231,9 @@ function newGame(m){
   chess=new GbChess();initIds();undoStack=[];log=[];captured={w:[],b:[]};lastMove=null;gameOver=false;checkSq=null;resetClocks();
   follow=(m==='local');$('bFollow').classList.toggle('on',follow);
   clearSelection();clearPreview();rebuildPieces();refreshTiles();updateHUD();renderMoves();
-  inGame=true;started=true;startEl.hidden=true;hudEl.hidden=false;$('mResume').hidden=false;
+  inGame=true;started=true;startEl.hidden=true;hudEl.hidden=false;$('mResume').hidden=false;updateHUD();
   viewKind='player';setView('player','w');snd('vs');warmUp();
-  toast(m==='ai'?L('Neon-Kurt fordert dich heraus!','Neon-Kurt challenges you!'):L('Team Blau beginnt','Team Blue starts'));
+  toast(m==='ai'?L('Neon-Kurt fordert dich heraus!','Neon-Kurt challenges you!')+` <span class="eff hi">${[L('LEICHT','EASY'),L('MITTEL','MEDIUM'),L('SCHWER','HARD')][OPT.lvl-1]}</span>`:L('Team Blau beginnt','Team Blue starts'));
 }
 $('mLocal').onclick=()=>newGame('local');
 $('mAI').onclick=()=>newGame('ai');
@@ -16081,6 +16245,11 @@ $('bMenu').onclick=()=>{startEl.hidden=false;hudEl.hidden=true;};
 $('bUndo').onclick=undo;
 $('bMoves').onclick=()=>{const d=$('drawer');d.hidden=!d.hidden;$('bMoves').classList.toggle('on',!d.hidden);};
 $('bFollow').onclick=()=>{follow=!follow;$('bFollow').classList.toggle('on',follow);if(follow)setView(viewKind==='side'?'player':viewKind);updateHUD();};
+$('bResign').onclick=resign;
+function syncSeg(){root.querySelectorAll('[data-tc]').forEach(b=>b.classList.toggle('on',+b.dataset.tc===OPT.tc));root.querySelectorAll('[data-lvl]').forEach(b=>b.classList.toggle('on',+b.dataset.lvl===OPT.lvl));}
+root.querySelectorAll('[data-tc]').forEach(b=>b.onclick=()=>{OPT.tc=+b.dataset.tc;saveOpts();syncSeg();});
+root.querySelectorAll('[data-lvl]').forEach(b=>b.onclick=()=>{OPT.lvl=+b.dataset.lvl;saveOpts();syncSeg();});
+syncSeg();
 $('bView').onclick=()=>{const v=['player','top','side'];viewKind=v[(v.indexOf(viewKind)+1)%3];setView(viewKind);};
 
 /* ---------------- Schleife ---------------- */
@@ -16128,7 +16297,7 @@ return{
     chess=new GbChess();initIds();undoStack=[];log=[];captured={w:[],b:[]};lastMove=null;gameOver=false;resetClocks();
     for(const m of moves||[]){const fm=+chess.fen().split(' ')[5],nm=spName((ids[m.from]||{}).species||25);const mv=chess.move({from:m.from,to:m.to,promotion:m.promo||undefined});if(!mv)break;const v=applyIds(mv);log.push({no:fm,color:mv.color,text:mv.flags.includes('k')?nm+' O-O':mv.flags.includes('q')?nm+' O-O-O':nm+' '+(v?'×':'')+mv.to});lastMove={from:mv.from,to:mv.to};}
     refreshCheck();$('bFollow').classList.remove('on');clearSelection();clearPreview();rebuildPieces();refreshTiles();updateHUD();renderMoves();
-    inGame=true;started=true;startEl.hidden=true;optEl.hidden=true;hudEl.hidden=false;$('mResume').hidden=false;viewKind='player';setView('player',net.color);snd('vs');warmUp();},
+    inGame=true;started=true;startEl.hidden=true;optEl.hidden=true;hudEl.hidden=false;$('mResume').hidden=false;updateHUD();viewKind='player';setView('player',net.color);snd('vs');warmUp();},
   applyRemote(m){return tryMove(m.from,m.to,m.promo||'q',true);},
   plies(){return chess.history().length;},
   showEnd(title,text,extra){gameOver=true;updateHUD();showDialog(`<h2>${title}</h2><p>${text}</p>${extra||''}<div class="row"><button class="btn big" id="dLook">${L('Brett ansehen','View board')}</button><button class="btn big exit" id="dExit">${L('Zurück zum Gambit-Menü','Back to the Gambit menu')}</button></div>`,{dLook:closeDialog,dExit:()=>{closeDialog();mode='local';NET=null;inGame=false;startEl.hidden=false;hudEl.hidden=true;}});},
@@ -16139,9 +16308,361 @@ return{
   /* Uhr von außen setzen (Online-Bedenkzeit): text = "9:41" o. ä., null = wieder die eigene Zählung */
   setClock(c,text){CLK.ext[c]=text==null?null:String(text);drawClocks();},
   get mode(){return mode;},get root(){return root;},
-  debug:{get chess(){return chess;},newGame,tryMove,get ids(){return ids;},get pieces(){return pieces;},aiMove,get gameOver(){return gameOver;},get mode(){return mode;},get lineup(){return LINEUP;},buildArena,get busy(){return busy;},get checkSq(){return checkSq;}}
+  debug:{engine:ENG,aiInfo(){return{worker:!!aiW,fail:aiWFail};},get preview(){return preview;},screenOf(sq,y){const g=pieces[sq];const v=sqPos(sq).clone();v.y+=y==null?(g?g.userData.top+g.userData.h*.5:0):y;v.project(camera);const r=canvas.getBoundingClientRect();return{x:r.left+(v.x+1)/2*r.width,y:r.top+(1-v.y)/2*r.height};},get clock(){return CLK;},resign,get chess(){return chess;},newGame,tryMove,get ids(){return ids;},get pieces(){return pieces;},aiMove,get gameOver(){return gameOver;},get mode(){return mode;},get lineup(){return LINEUP;},buildArena,get busy(){return busy;},get checkSq(){return checkSq;}}
 };
 }
+
+/* ================================ POKÉMON GAMBIT · ONLINE (v1.0.9) ================================
+   Raum-Code, Freunde herausfordern (Freundschaftsspiel ohne Uhr und Wertung), Zufallsgegner (gewertet mit Elo,
+   10 Minuten je Spieler), Remis anbieten, Aufgeben, Verbindungsabbruch nach 2 Minuten, Elo-Rangliste.
+   Der Server (gambit_*) ist die Wahrheit: Züge gehen per RPC hin, der Gegner holt sie per Abfrage (1–3 s).
+   Über den Realtime-Kanal der Partie kommt nur ein "schau nach", damit Züge sofort erscheinen.
+   Brett, Figuren und Regeln bleiben im Gambit-Modul (gambit.js). Gesteuert wird nur über dessen Online-Schnittstelle
+   (NET mit lineups, startOnline, applyRemote, plies, showEnd, toast, setClock, lineup) und das leere #netSlot im Startfenster.
+   Aufstellung & Design (lokal unter pokelings_gambit_opts) werden zusätzlich im Konto (META.gb) gesichert. */
+const GBN={view:"menu",inbox:null,board:null,fl:null,q:null,g:null,uid:null,t:0,busy:false,tr:null,trId:0,trOk:false,send:[],sending:false,
+  boardFor:0,lastAt:0,okAt:0,fail:0,endFor:0,lastEnd:null,turnNote:-1,banSeen:new Set(),msg:"",ui:0,act:false,liveNote:0,ext:false};
+const GBN_VER="1.0.9";
+const gbnL=(de,en)=>gbL(de,en);
+const gbnOn=()=>typeof CL!=="undefined"&&!!(CL.sess&&CL.sess.uid);
+const gbnEl=id=>GB.root?GB.root.getElementById(id):null;
+const gbnSleep=ms=>new Promise(r=>setTimeout(r,ms));
+const gbnE=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const gbnTurnOf=n=>(n|0)%2===0?"w":"b";
+const gbnFmtS=s=>{s=Math.max(0,Math.floor(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");};
+function gbnFmt(ms){ms=Math.max(0,ms|0);if(ms<10000)return "0:0"+(Math.floor(ms/100)/10).toFixed(1);return gbnFmtS(Math.ceil(ms/1000));}
+const gbnSeenOn=d=>!!d&&Date.now()-Date.parse(d)<180000;
+function gbnAgo(d){if(!d)return gbnL("lange nicht online","not online for a long time");const s=(Date.now()-Date.parse(d))/1000;
+  if(s<3600)return gbnL(`vor ${Math.max(1,Math.round(s/60))} Min.`,`${Math.max(1,Math.round(s/60))} min ago`);if(s<86400)return gbnL(`vor ${Math.round(s/3600)} Std.`,`${Math.round(s/3600)} h ago`);return gbnL(`vor ${Math.round(s/86400)} Tg.`,`${Math.round(s/86400)} d ago`);}
+function gbnName(c){const g=GBN.g;if(!g)return "?";return (c==="w"?g.wn:g.bn)||"?";}
+function gbnOpp(){const g=GBN.g;if(!g)return "?";if(g.col)return gbnName(g.col==="w"?"b":"w");const l=GBN.inbox&&GBN.inbox.live;return (l&&l.id===g.id&&l.opp)||"?";}
+/* Brett zeigt diese Partie (gbnOnBoard), und Gambit ist offen (gbnShown). Bei geschlossenem Gambit steht die Animation still,
+   dann werden Züge nicht aufs Brett gelegt, sondern beim nächsten Öffnen nachgeholt. */
+function gbnOnBoard(){return !!(GBN.g&&GB.api&&GB.api.mode==="online"&&GBN.boardFor===GBN.g.id);}
+function gbnShown(){return !!(window.__gbOpen&&gbnOnBoard());}
+/* Das Modul animiert Züge asynchron. Während einer Animation darf das Brett nicht neu aufgebaut werden,
+   sonst schreibt die alte Animation am Ende in die neue Figurenliste. Deshalb vor jedem Neuaufbau warten. */
+const gbnBusy=()=>{try{return !!(GB.api&&GB.api.debug&&GB.api.debug.busy);}catch(e){return false;}};
+async function gbnIdle(ms){const t0=Date.now();while(gbnBusy()&&Date.now()-t0<(ms||5000))await gbnSleep(60);}
+
+/* ---------- Server ---------- */
+async function gbnRpc(fn,body){if(!gbnOn())return{ok:false,status:0,j:null};return socRpc(fn,body||{});}
+function gbnErrKey(r){if(!r||r.status===0)return "net";const m=String((r.j&&(r.j.message||r.j.msg))||"");
+  if(/^(login_required|not_friends|not_found|rate_limit|busy|self)$/.test(m))return {login_required:"login",not_friends:"friends",not_found:"gone",rate_limit:"rate",busy:"busy",self:"self"}[m];
+  if(/Could not find|schema cache|does not exist/i.test(m)||r.status===404)return "missing";return "err";}
+function gbnErrText(k){return ({login:gbnL("Bitte melde dich in Pokélings an.","Please log in to Pokélings."),
+  friends:gbnL("Ihr seid keine Freunde mehr.","You are no longer friends."),
+  gone:gbnL("Nicht gefunden oder nicht mehr offen.","Not found or no longer open."),
+  rate:gbnL("Kurz warten, dann nochmal versuchen.","Wait a moment, then try again."),
+  busy:gbnL("Dein Gegner spielt gerade schon eine Partie.","Your opponent is already playing a game."),
+  self:gbnL("Das ist dein eigener Raum.","That is your own room."),
+  missing:gbnL("Online-Gambit ist auf dem Server noch nicht bereit.","Online Gambit is not ready on the server yet."),
+  net:gbnL("Keine Verbindung. Prüfe dein Internet.","No connection. Check your internet."),
+  err:gbnL("Das hat nicht geklappt. Versuch es nochmal.","That did not work. Please try again.")})[k]||"";}
+
+/* ---------- Einbau in das Gambit-Fenster ---------- */
+(function(){if(typeof gambitOpen!=="function"||gambitOpen.__gbn)return;const o=gambitOpen,c=gambitClose;
+  gambitOpen=function(){try{if(!GB.host)gbnOptsFromMeta();}catch(e){}const r=o.apply(this,arguments);if(window.__gbOpen)try{gbnMount();}catch(e){console.error(e);}return r;};gambitOpen.__gbn=1;
+  gambitClose=function(){const r=c.apply(this,arguments);try{gbnUnmount();gbnOptsToMeta();}catch(e){console.error(e);}return r;};})();
+/* Aufstellung & Design im Konto: vor dem ersten Öffnen aus META übernehmen, beim Schließen zurück in META (wird mit dem Konto gesichert) */
+const GBN_OPT="pokelings_gambit_opts";
+function gbnOptsFromMeta(){if(typeof META==="undefined"||!META||!META.gb)return;try{localStorage.setItem(GBN_OPT,JSON.stringify(META.gb));}catch(e){}}
+function gbnOptsToMeta(){if(typeof META==="undefined"||!META)return;let o=null;try{o=JSON.parse(localStorage.getItem(GBN_OPT)||"null");}catch(e){}
+  if(!o||typeof o!=="object")return;const a=JSON.stringify(o);if(a.length>2000||a===JSON.stringify(META.gb||null))return;META.gb=o;try{saveMeta();}catch(e){}}
+function gbnMount(){if(!GB.root)return;
+  if(!gbnEl("gbnCss")){const st=document.createElement("style");st.id="gbnCss";st.textContent=gbnCss();GB.root.appendChild(st);}
+  gbnHud();gbnBadge(false);
+  if(GBN.uid&&(!gbnOn()||CL.sess.uid!==GBN.uid))gbnReset();
+  if(GBN.view==="queue"&&!GBN.q)GBN.view="menu";
+  gbnRender();gbnInbox();
+  if(GBN.g&&GBN.g.st==="live"&&gbnOnBoard())gbnSoon(0);   // Züge nachholen, die bei geschlossenem Gambit kamen
+  else if(GBN.endLater&&GB.api&&GB.api.mode==="online"&&GBN.boardFor===GBN.endLater)gbnEndLater();
+  clearInterval(GBN.ui);GBN.ui=setInterval(gbnUi,250);gbnUi();}
+function gbnUnmount(){clearInterval(GBN.ui);GBN.ui=0;if(GBN.q)gbnQueueCancel(true);}
+/* HUD: Remis und Aufgeben in der Werkzeugleiste, Hinweisleiste oben in der Mitte, eigener Dialog. Die Uhr zeigt das Modul (setClock). */
+const GBN_I={draw:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 10h7M8.5 14h7"/></svg>',
+  flag:'<svg viewBox="0 0 24 24"><path d="M6 21V4"/><path d="M6 4h11l-2.5 4L17 12H6"/></svg>'};
+function gbnHud(){const R=GB.root;if(!R||gbnEl("gbnDraw"))return;
+  const tools=R.querySelector(".tools");if(tools)tools.insertAdjacentHTML("beforeend",`<button class="ib gbnOnly" id="gbnDraw" title="${gbnL("Remis anbieten","Offer a draw")}" aria-label="${gbnL("Remis anbieten","Offer a draw")}">${GBN_I.draw}</button><button class="ib gbnOnly" id="gbnRes" title="${gbnL("Aufgeben","Resign")}" aria-label="${gbnL("Aufgeben","Resign")}">${GBN_I.flag}</button>`);
+  const mid=R.querySelector(".mid");if(mid)mid.insertAdjacentHTML("beforeend",`<div class="gbnBar panel" id="gbnBar" role="status" hidden></div>`);
+  (R.querySelector(".gbRoot")||R).insertAdjacentHTML("beforeend",`<div class="overlay" id="gbnDlg" hidden><div class="card panel dlg" id="gbnDlgC"></div></div>`);
+  const d=gbnEl("gbnDraw"),x=gbnEl("gbnRes");if(d)d.onclick=gbnDrawOffer;if(x)x.onclick=gbnResignAsk;}
+function gbnDialog(html,h){const d=gbnEl("gbnDlg"),c=gbnEl("gbnDlgC");if(!d)return;c.innerHTML=html;d.hidden=false;for(const id in h){const b=gbnEl(id);if(b)b.onclick=h[id];}const f=c.querySelector("button");if(f)f.focus();}
+function gbnDialogClose(){const d=gbnEl("gbnDlg");if(d)d.hidden=true;}
+function gbnBadge(on){const b=document.getElementById("mGbN");if(b){b.textContent="!";b.style.display=on?"":"none";}}
+
+/* alle 250 ms, solange Gambit offen ist: Uhren, Knöpfe, Hinweisleiste */
+function gbnUi(){const hud=gbnEl("hud");if(!hud)return;const g=GBN.g,on=!!(g&&g.st==="live"&&gbnShown()),clk=!!(on&&g.clock);
+  hud.classList.toggle("gbnOn",on);
+  if(GB.api&&GB.api.setClock){
+    if(clk){const n=GB.api.plies(),turn=gbnTurnOf(n);for(const c of ["w","b"]){const ms=gbnClockMs(c,turn,n);GB.api.setClock(c,gbnFmt(ms));const el=gbnEl(c==="w"?"clkW":"clkB");if(el)el.classList.toggle("gbnLow",ms<30000);}GBN.ext=true;}
+    else if(on){GB.api.setClock("w","–:––");GB.api.setClock("b","–:––");GBN.ext=true;}   // Freundschaftsspiel: keine Uhr
+    else if(GBN.ext&&GB.api.mode!=="online"){GB.api.setClock("w",null);GB.api.setClock("b",null);for(const id of ["clkW","clkB"]){const el=gbnEl(id);if(el)el.classList.remove("gbnLow");}GBN.ext=false;}}
+  if(on){const n=GB.api.plies(),turn=gbnTurnOf(n);
+    const dr=gbnEl("gbnDraw");if(dr){dr.disabled=n<2||g.draw===g.col;dr.classList.toggle("on",g.draw===g.col);}
+    const rb=gbnEl("gbnRes");const lab=n<2?gbnL("Partie abbrechen","Abort the game"):gbnL("Aufgeben","Resign");if(rb&&rb.title!==lab){rb.title=lab;rb.setAttribute("aria-label",lab);}
+    if(g.clock&&n===g.n&&gbnClockMs(turn,turn,n)<=0&&Date.now()-GBN.okAt>1200&&!GBN.busy)gbnSoon(0);}
+  const qt=gbnEl("gbnQT");if(qt&&GBN.q)qt.textContent=gbnFmtS((Date.now()-GBN.q.t0)/1000);
+  gbnBar();}
+function gbnClockMs(c,turn,n){const g=GBN.g;let ms=c==="w"?g.wms:g.bms;if(ms==null)return 0;
+  if(g.st==="live"&&c===turn&&n===g.n)ms-=(g.el||0)+(Date.now()-GBN.lastAt);return Math.max(0,ms);}
+function gbnBar(){const el=gbnEl("gbnBar");if(!el)return;const g=GBN.g;let h="";
+  if(g&&g.st==="live"&&gbnShown()){const op=g.col==="w"?"b":"w",on=gbnE(gbnName(op)),turn=gbnTurnOf(GB.api.plies());
+    if(g.draw===op)h=`<span><b>${on}</b> ${gbnL("bietet Remis an","offers a draw")}</span><button class="btn primary" data-a="acc">${gbnL("Annehmen","Accept")}</button><button class="btn" data-a="dec">${gbnL("Ablehnen","Decline")}</button>`;
+    else if(GBN.okAt&&Date.now()-GBN.okAt>9000)h=`<span class="gbnSpin"></span><span>${gbnL("Verbindung wird wiederhergestellt …","Reconnecting …")}</span>`;
+    else if(g.oi!=null&&g.oi>15){const idle=turn===op?Math.min(g.oi,(g.el||0)/1000):null;const left=idle!=null?120-idle-(Date.now()-GBN.lastAt)/1000:null;
+      h=`<span><b>${on}</b> ${gbnL("ist nicht verbunden","is disconnected")}${left!=null?` · ${gbnL("du gewinnst in","you win in")} <b>${gbnFmtS(Math.max(0,left))}</b>`:""}</span>`;}
+    else if(g.draw===g.col)h=`<span class="mut">${gbnL("Remis angeboten, warte auf Antwort …","Draw offered, waiting for an answer …")}</span>`;}
+  if(el.dataset.h!==h){el.dataset.h=h;el.innerHTML=h;el.hidden=!h;el.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>gbnDrawAnswer(b.dataset.a==="acc"));}}
+
+/* ---------- Partie verfolgen ---------- */
+function gbnTrack(id,st){gbnUnlisten();clearTimeout(GBN.t);GBN.g={id,st,n:0,col:null,t0:Date.now()};GBN.uid=CL.sess.uid;GBN.endFor=0;GBN.turnNote=-1;GBN.send=[];gbnListen();gbnSoon(0);}
+function gbnSoon(ms){if(!GBN.g)return;clearTimeout(GBN.t);GBN.t=setTimeout(gbnTick,ms||0);}
+async function gbnTick(){clearTimeout(GBN.t);const g=GBN.g;if(!g)return;
+  if(!gbnOn()||(GBN.uid&&CL.sess.uid!==GBN.uid)){gbnReset();return;}
+  if(GBN.busy){GBN.t=setTimeout(gbnTick,300);return;}
+  GBN.busy=true;let next=3000;try{next=await gbnFetch();}catch(e){console.error(e);}finally{GBN.busy=false;}
+  if(GBN.g===g){clearTimeout(GBN.t);GBN.t=setTimeout(gbnTick,next);}}
+function gbnTake(s){const g=GBN.g;if(!g||!s||s.id!==g.id)return null;const prev=g.st;
+  for(const k of ["st","rated","col","wn","bn","hn","inv","n","clock","wms","bms","el","oi","draw","res","why","dw","db","ew","eb","code","host","wl","bl"])if(k in s)g[k]=s[k];
+  GBN.lastAt=GBN.okAt=Date.now();GBN.fail=0;return prev;}
+async function gbnFetch(){const g=GBN.g,shown=gbnShown(),since=shown?GB.api.plies():(g.n||0);
+  const r=await gbnRpc("gambit_get",{gid:g.id,since});if(GBN.g!==g)return 3000;
+  if(!r.ok){GBN.fail++;if(gbnErrKey(r)==="gone"){gbnDrop(gbnL("Die Partie gibt es nicht mehr.","The game no longer exists."));return 3000;}return GBN.fail>3?4000:1500;}
+  const s=r.j||{},prev=gbnTake(s);
+  if(s.st==="wait")return 1500;
+  if(s.st==="gone"){gbnWaitEnd(s);return 3000;}
+  if(prev==="wait"&&s.st==="live"){await gbnStarted();return 1000;}
+  if(gbnShown()){const local=GB.api.plies(),busy=gbnBusy();
+    if(s.n>local&&local===since&&!busy){GBN.ahead=null;await gbnApplyMoves(s.mv);}
+    else if(s.n<local&&!GBN.sending&&!GBN.send.length&&!busy){ // eigener Zug noch unterwegs? erst nach 4 s ohne Senden neu aufbauen
+      if(!GBN.ahead||GBN.ahead.n!==local)GBN.ahead={n:local,at:Date.now()};else if(Date.now()-GBN.ahead.at>4000){GBN.ahead=null;await gbnShow(true);}}
+    else if(s.n===local)GBN.ahead=null;}
+  else if(s.st==="live"&&s.n>GBN.turnNote&&gbnTurnOf(s.n)===g.col)gbnTurnNote();
+  if(s.st==="over"){await gbnOver();return 3000;}
+  gbnUi();
+  if(!gbnShown()||document.visibilityState==="hidden")return 3000;
+  return gbnTurnOf(GB.api.plies())===g.col?2500:(GBN.trOk?2500:1000);}
+async function gbnApplyMoves(mv){for(const m of mv||[]){const before=GB.api.plies();let ok=false;
+  for(let k=0;k<30&&!ok;k++){if(!gbnShown())return;await Promise.race([GB.api.applyRemote({from:m.f,to:m.t,promo:m.p||null}),gbnSleep(4000)]);ok=GB.api.plies()===before+1;if(!ok)await gbnSleep(120);}
+  if(!ok){await gbnShow(true);return;}}}
+/* Brett aus dem Serverstand aufbauen (Start, Wiederverbinden, Abgleich) */
+async function gbnShow(quiet){const g=GBN.g;if(!g)return false;const r=await gbnRpc("gambit_get",{gid:g.id,since:0});
+  if(GBN.g!==g)return false;if(!r.ok||!r.j){if(!quiet){GBN.msg=gbnErrText(gbnErrKey(r));gbnRender();}return false;}
+  gbnTake(r.j);if(g.st==="over"){await gbnOver();return false;}if(g.st!=="live"||!window.__gbOpen||!GB.api)return false;
+  await gbnIdle();if(GBN.g!==g)return false;
+  GBN.boardFor=g.id;GBN.ahead=null;GB.api.startOnline(gbnNet(),(r.j.mv||[]).map(m=>({from:m.f,to:m.t,promo:m.p||null})));
+  if(!quiet){const op=gbnE(gbnOpp());GB.api.toast(g.col==="w"?gbnL(`Du spielst Team Blau gegen ${op} und beginnst`,`You play Team Blue against ${op} and move first`):gbnL(`Du spielst Team Rot gegen ${op}`,`You play Team Red against ${op}`));}
+  GBN.view="menu";gbnRender();gbnUi();gbnSoon(900);return true;}
+function gbnNet(){const g=GBN.g;return{color:g.col,names:{w:g.wn||"?",b:g.bn||"?"},lineups:{w:g.wl||null,b:g.bl||null},onMove:i=>{GBN.send.push(i);gbnPump();},onEnd:()=>gbnSoon(250)};}
+const gbnLine=()=>{try{return GB.api&&GB.api.lineup?GB.api.lineup():null;}catch(e){return null;}};
+/* eigene Züge der Reihe nach an den Server */
+async function gbnPump(){if(GBN.sending)return;GBN.sending=true;let tries=0;
+  try{while(GBN.send.length){const g=GBN.g;if(!g){GBN.send=[];break;}const m=GBN.send[0];
+      const r=await gbnRpc("gambit_move",{gid:g.id,ply:m.ply,mf:m.from,mt:m.to,mp:m.promo||null,mfen:m.fen,mwhy:m.end?m.end.reason:null});
+      if(GBN.g!==g){GBN.send=[];break;}
+      if(!r.ok){if((r.status===0||r.status>=500)&&++tries<40){await gbnSleep(1500);continue;}GBN.send=[];GBN.sending=false;await gbnShow(true);break;}
+      tries=0;GBN.send.shift();const j=r.j||{};
+      if(j.ok){g.n=j.n;if(j.wms!==undefined){g.wms=j.wms;g.bms=j.bms;g.el=0;GBN.lastAt=GBN.okAt=Date.now();}if(g.draw&&g.draw!==g.col)g.draw=null;gbnKick();if(j.st==="over")gbnSoon(60);}
+      else if(j.sync){GBN.send=[];GBN.sending=false;await gbnShow(true);break;}
+      else{GBN.send=[];gbnSoon(60);}}}
+  finally{GBN.sending=false;}}
+/* Realtime-Kanal der Partie: nur "schau nach" */
+function gbnListen(){const g=GBN.g;if(!g||GBN.trId===g.id||typeof mpTransport!=="function")return;gbnUnlisten();const id=g.id;GBN.trId=id;
+  try{GBN.tr=mpTransport("pkl-gb-"+id,m=>{if(m&&m.t==="k"&&GBN.g&&GBN.g.id===id)gbnSoon(40);},st=>{if(GBN.trId!==id)return;GBN.trOk=st==="joined";
+    if(st!=="joined"){try{if(GBN.tr)GBN.tr.close();}catch(e){}GBN.tr=null;setTimeout(()=>{if(GBN.g&&GBN.g.id===id&&GBN.trId===id&&!GBN.tr){GBN.trId=0;gbnListen();}},8000);}});}catch(e){}}
+function gbnUnlisten(){try{if(GBN.tr)GBN.tr.close();}catch(e){}GBN.tr=null;GBN.trOk=false;GBN.trId=0;}
+function gbnKick(){try{if(GBN.tr&&GBN.trOk)GBN.tr.send({t:"k"});}catch(e){}}
+
+/* ---------- Ereignisse ---------- */
+function gbnNote(msg){if(window.__gbOpen){const st=gbnEl("start");if(st&&!st.hidden){GBN.msg=msg;gbnRender();}else GB.api.toast(gbnE(msg));}
+  else{try{toast(gbnE(msg),"crown");}catch(e){}gbnBadge(true);}}
+function gbnTurnNote(){const g=GBN.g;GBN.turnNote=g.n;const st=gbnEl("start");
+  if(window.__gbOpen&&st&&!st.hidden){if(GBN.view==="menu")gbnRender();return;}
+  gbnNote(gbnL(`Gambit: Du bist am Zug gegen ${gbnOpp()}`,`Gambit: your move against ${gbnOpp()}`));}
+async function gbnStarted(){const g=GBN.g;
+  if(window.__gbOpen&&!gbnShown()&&(GBN.view==="wait"||GBN.view==="menu")&&!(gbnEl("start")||{}).hidden){await gbnShow();return;}
+  GBN.view="menu";gbnRender();gbnNote(gbnL(`Gambit: ${gbnOpp()} ist beigetreten. Weiter geht es im Gambit-Menü.`,`Gambit: ${gbnOpp()} joined. Continue in the Gambit menu.`));}
+function gbnWaitEnd(s){const g=GBN.g;const msg=s.why==="declined"?gbnL(`${g.inv||"?"} hat abgelehnt.`,`${g.inv||"?"} declined.`):s.why==="expired"?gbnL("Der Raum ist abgelaufen.","The room expired."):"";
+  gbnStopGame();GBN.view="menu";GBN.msg=msg;gbnRender();if(!window.__gbOpen&&msg)try{toast(gbnE("Gambit: "+msg),"crown");}catch(e){}}
+function gbnEndText(g){const me=g.col,op=me==="w"?"b":"w",on=gbnE(gbnName(op)),res=g.res,win=res===me,lose=res===op,draw=res==="d";
+  const title=win?gbnL("SIEG","VICTORY"):lose?gbnL("NIEDERLAGE","DEFEAT"):draw?gbnL("REMIS","DRAW"):gbnL("ABGEBROCHEN","ABORTED");
+  const T={mate:win?gbnL(`Schachmatt! Du besiegst ${on}.`,`Checkmate! You beat ${on}.`):gbnL(`Schachmatt. ${on} gewinnt.`,`Checkmate. ${on} wins.`),
+    resign:win?gbnL(`${on} hat aufgegeben.`,`${on} resigned.`):gbnL("Du hast aufgegeben.","You resigned."),
+    time:draw?gbnL("Zeit abgelaufen, aber mit dem restlichen Material ist kein Matt mehr möglich.","Time ran out, but checkmate is no longer possible with the remaining material."):win?gbnL(`${on} hat keine Zeit mehr.`,`${on} ran out of time.`):gbnL("Deine Zeit ist abgelaufen.","You ran out of time."),
+    abandon:win?gbnL(`${on} war 2 Minuten nicht verbunden. Das zählt als Aufgabe.`,`${on} was disconnected for 2 minutes. That counts as resigning.`):gbnL("Du warst 2 Minuten nicht verbunden. Das zählt als Aufgabe.","You were disconnected for 2 minutes. That counts as resigning."),
+    agreed:gbnL("Ihr habt euch auf Remis geeinigt.","You agreed to a draw."),
+    stalemate:gbnL("Patt: kein Zug mehr möglich, aber kein Schach.","Stalemate: no legal move, but no check."),
+    material:gbnL("Zu wenig Material für ein Matt.","Not enough material for checkmate."),
+    repetition:gbnL("Dreimal dieselbe Stellung.","The same position three times."),
+    fifty:gbnL("50 Züge ohne Schlag oder Bauernzug.","50 moves without a capture or pawn move."),
+    aborted:gbnL("Die Partie endete vor dem zweiten Zug und zählt nicht.","The game ended before the second move and does not count.")};
+  const d=me==="w"?g.dw:g.db,e=me==="w"?g.ew:g.eb;
+  const extra=g.rated&&d!=null?`<div class="gbnEloEnd">ELO <b>${e}</b> <em class="${d>0?"up":d<0?"dn":""}">${d>0?"+":d<0?"−":"±"}${Math.abs(d)}</em></div>`:"";
+  return {title,text:T[g.why]||"",extra,win,lose,draw,d,e};}
+async function gbnOver(){const g=GBN.g;if(!g||GBN.endFor===g.id)return;GBN.endFor=g.id;
+  if(gbnShown()){await gbnIdle();if(GB.api.plies()!==g.n){const r=await gbnRpc("gambit_get",{gid:g.id,since:0});if(r.ok&&r.j&&gbnShown()){await gbnIdle();GB.api.startOnline(gbnNet(),(r.j.mv||[]).map(m=>({from:m.f,to:m.t,promo:m.p||null})));}}}
+  const t=gbnEndText(g);GBN.lastEnd={title:t.title,opp:gbnOpp(),d:t.d,rated:g.rated};GBN.endLater=(!gbnShown()&&gbnOnBoard())?g.id:0;GBN.endG=Object.assign({},g);
+  if(gbnShown()){if(g.why!=="mate")try{sfx(t.win?"sparkle":"click");}catch(e){}GB.api.showEnd(t.title,t.text,t.extra);}
+  else gbnNote(`Gambit: ${t.title.charAt(0)+t.title.slice(1).toLowerCase()} · ${t.text.replace(/<[^>]+>/g,"").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/&quot;/g,'"')}`);
+  gbnStopGame();gbnInbox();}
+async function gbnEndLater(){const id=GBN.endLater,g=GBN.endG;GBN.endLater=0;if(!g||g.id!==id)return;const r=await gbnRpc("gambit_get",{gid:id,since:0});if(!r.ok||!r.j||!window.__gbOpen)return;
+  await gbnIdle();const keep=GBN.g;GBN.g=g;GB.api.startOnline(gbnNet(),(r.j.mv||[]).map(m=>({from:m.f,to:m.t,promo:m.p||null})));GBN.g=keep;const t=gbnEndText(g);GB.api.showEnd(t.title,t.text,t.extra);}
+function gbnStopGame(){clearTimeout(GBN.t);gbnUnlisten();GBN.g=null;GBN.send=[];gbnBadge(false);gbnDialogClose();gbnUi();}
+function gbnDrop(msg){gbnStopGame();GBN.view="menu";GBN.msg=msg||"";gbnRender();}
+function gbnReset(){gbnQueueStop();gbnStopGame();GBN.inbox=null;GBN.uid=null;GBN.lastEnd=null;GBN.fl=null;GBN.view="menu";GBN.msg="";gbnRender();}
+
+/* ---------- Aktionen ---------- */
+async function gbnInbox(){if(!gbnOn()){GBN.inbox=null;gbnRender();return;}const r=await gbnRpc("gambit_inbox");if(!r.ok){GBN.inboxErr=gbnErrKey(r);gbnRender();return;}
+  GBN.inboxErr=null;const j=r.j||{};GBN.inbox=j;
+  if(j.live&&!(GBN.g&&GBN.g.id===j.live.id))gbnTrack(j.live.id,"live");
+  else if(!j.live&&j.room&&!GBN.g){gbnTrack(j.room.id,"wait");Object.assign(GBN.g,{code:j.room.code,inv:j.room.inv});GBN.view="wait";}
+  gbnRender();}
+async function gbnGo(id,kick){gbnQueueStop();if(!GBN.g||GBN.g.id!==id)gbnTrack(id,"live");GBN.view="menu";GBN.msg="";
+  const ok=await gbnShow();if(kick)setTimeout(gbnKick,500);gbnRender();return ok;}
+async function gbnCreate(f){if(GBN.act)return;GBN.act=true;GBN.msg="";
+  try{const r=await gbnRpc("gambit_open",f?{o:f.uid,ln:gbnLine()}:{ln:gbnLine()});if(!r.ok){GBN.msg=gbnErrText(gbnErrKey(r));gbnRender();return;}
+    if(r.j.live){await gbnGo(r.j.live);return;}
+    gbnTrack(r.j.id,"wait");Object.assign(GBN.g,{code:r.j.code,inv:f?f.name:null});GBN.view="wait";gbnRender();
+    if(f&&typeof socPing==="function")socPing(f.uid,"gb");}
+  finally{GBN.act=false;}}
+async function gbnJoin(){const inp=gbnEl("gbnCodeIn");const c=((inp&&inp.value)||"").trim().toUpperCase();
+  if(c.length!==5){GBN.msg=gbnL("Der Code hat 5 Zeichen.","The code has 5 characters.");gbnRender();const i=gbnEl("gbnCodeIn");if(i){i.value=c;i.focus();}return;}
+  if(GBN.act)return;GBN.act=true;
+  try{const r=await gbnRpc("gambit_join",{c,ln:gbnLine()});if(!r.ok){GBN.msg=gbnErrText(gbnErrKey(r));gbnRender();const i=gbnEl("gbnCodeIn");if(i)i.value=c;return;}
+    await gbnGo(r.j.live||r.j.id,!r.j.live);}finally{GBN.act=false;}}
+async function gbnCancelWait(){const g=GBN.g;if(!g)return;if(g.st==="wait")await gbnRpc("gambit_cancel",{gid:g.id});
+  const r=await gbnRpc("gambit_get",{gid:g.id,since:0});if(GBN.g===g&&r.ok&&r.j&&r.j.st==="live"){gbnTake(r.j);await gbnShow();return;}
+  gbnStopGame();GBN.view="menu";gbnRender();gbnInbox();}
+async function gbnAnswer(id,yes){if(GBN.inbox&&GBN.inbox.inv)GBN.inbox.inv=GBN.inbox.inv.filter(v=>v.id!==id);
+  const r=await gbnRpc("gambit_answer",yes?{gid:id,ok:true,ln:gbnLine()}:{gid:id,ok:false});if(!yes){gbnRender();return;}
+  if(!r.ok){GBN.view="menu";GBN.msg=gbnL("Die Herausforderung ist nicht mehr offen.","The challenge is no longer open.");gbnRender();return;}
+  await gbnGo(r.j.live||r.j.id,!r.j.live);}
+async function gbnBanAnswer(v,yes){if(!yes){await gbnRpc("gambit_answer",{gid:v.id,ok:false});GBN.banSeen.add(v.id);return;}if(!window.__gbOpen)gambitOpen();await gbnAnswer(v.id,true);}
+async function gbnFriends(){GBN.view="friends";GBN.fl=null;GBN.msg="";gbnRender();let fl=null;try{fl=await friendsLoad();}catch(e){}
+  if(GBN.view!=="friends")return;GBN.fl=(fl||SOC.fl||[]).filter(f=>f.st==="friend").sort((a,b)=>(gbnSeenOn(b.seen)-gbnSeenOn(a.seen))||((Date.parse(b.seen||0)||0)-(Date.parse(a.seen||0)||0)));gbnRender();}
+async function gbnBoard(){GBN.view="board";GBN.board=null;gbnRender();const r=await gbnRpc("gambit_board");if(GBN.view!=="board")return;GBN.board=r.ok&&Array.isArray(r.j)?r.j:[];gbnRender();}
+function gbnQueueStart(){if(GBN.q)return;GBN.q={t0:Date.now(),n:1,to:0};GBN.view="queue";GBN.msg="";gbnRender();gbnQueuePoll();}
+async function gbnQueuePoll(){const q=GBN.q;if(!q)return;const r=await gbnRpc("gambit_queue_join",{ln:gbnLine()});if(GBN.q!==q)return;
+  if(!r.ok){const k=gbnErrKey(r);if(k==="net"){q.to=setTimeout(gbnQueuePoll,3000);return;}gbnQueueStop();GBN.view="menu";GBN.msg=gbnErrText(k);gbnRender();return;}
+  if(r.j&&r.j.game){gbnQueueStop();await gbnGo(r.j.game,true);return;}
+  q.n=(r.j&&r.j.n)||1;const el=gbnEl("gbnQN");if(el)el.textContent=q.n>1?` · ${q.n} ${gbnL("suchen","searching")}`:"";q.to=setTimeout(gbnQueuePoll,2000);}
+function gbnQueueStop(){if(GBN.q){clearTimeout(GBN.q.to);GBN.q=null;}}
+async function gbnQueueCancel(silent){const had=!!GBN.q;gbnQueueStop();if(!silent){GBN.view="menu";gbnRender();}if(!had)return;
+  const r=await gbnRpc("gambit_queue_leave");if(r.ok&&r.j&&r.j.game)await gbnGo(r.j.game,true);}
+async function gbnDrawOffer(){const g=GBN.g;if(!g||g.st!=="live")return;const r=await gbnRpc("gambit_draw",{gid:g.id,act:"offer"});
+  if(!r.ok){GB.api.toast(gbnE(gbnErrText(gbnErrKey(r))));return;}const j=r.j||{};
+  if(j.st==="over"){gbnKick();gbnSoon(0);return;}
+  if(j.ok){g.draw=g.col;gbnKick();GB.api.toast(gbnL("Remis angeboten","Draw offered"));}
+  else if(j.again)GB.api.toast(gbnL("Wieder möglich nach deinem nächsten Zug","Possible again after your next move"));
+  else if(j.early)GB.api.toast(gbnL("Remis geht ab dem zweiten Zug","Draws are possible from the second move on"));
+  gbnUi();}
+async function gbnDrawAnswer(yes){const g=GBN.g;if(!g)return;const r=await gbnRpc("gambit_draw",{gid:g.id,act:yes?"accept":"decline"});if(r.ok&&!yes)g.draw=null;gbnKick();gbnSoon(0);gbnUi();}
+function gbnResignAsk(){const g=GBN.g;if(!g||g.st!=="live")return;const early=GB.api.plies()<2;
+  gbnDialog(`<h2>${early?gbnL("PARTIE ABBRECHEN?","ABORT THE GAME?"):gbnL("AUFGEBEN?","RESIGN?")}</h2><p>${early?gbnL("Vor dem zweiten Zug zählt die Partie nicht.","Before the second move the game does not count."):g.rated?gbnL("Du verlierst die Partie und Elo.","You lose the game and Elo."):gbnL("Du verlierst die Partie.","You lose the game.")}</p>
+    <div class="row"><button class="btn big exit" id="gbnY">${early?gbnL("Abbrechen","Abort"):gbnL("Aufgeben","Resign")}</button><button class="btn big" id="gbnN">${gbnL("Weiterspielen","Keep playing")}</button></div>`,
+    {gbnY:async()=>{gbnDialogClose();const r=await gbnRpc("gambit_resign",{gid:g.id});if(!r.ok)GB.api.toast(gbnE(gbnErrText(gbnErrKey(r))));gbnKick();gbnSoon(0);},gbnN:gbnDialogClose});}
+async function gbnCopy(btn){const c=GBN.g&&GBN.g.code;if(!c)return;let ok=false;try{await navigator.clipboard.writeText(c);ok=true;}catch(e){}
+  if(btn){btn.textContent=ok?gbnL("Kopiert ✓","Copied ✓"):c;setTimeout(()=>{if(btn.isConnected)btn.textContent=gbnL("Code kopieren","Copy code");},1600);}}
+
+/* ---------- Pokélings: Abfrage, Einblendung, Abmelden ---------- */
+function gbnSoc(j,first){if(!gbnOn()||!j)return;const inv=j.gb||[];
+  for(const v of inv){if(GBN.banSeen.has(v.id))continue;GBN.banSeen.add(v.id);if((+v.age||0)<300&&typeof socBanQueue==="function")socBanQueue({type:"gb",v});}
+  if(GBN.inbox){const a=JSON.stringify(GBN.inbox.inv||[]),b=JSON.stringify(inv);GBN.inbox.inv=inv;if(a!==b&&window.__gbOpen&&GBN.view==="menu")gbnRender();}
+  if(j.gbl&&!GBN.g){gbnTrack(j.gbl,"live");if(!window.__gbOpen&&GBN.liveNote!==j.gbl){GBN.liveNote=j.gbl;gbnBadge(true);}}}
+
+/* ---------- Startfenster: #netSlot ---------- */
+function gbnRender(){const slot=gbnEl("netSlot");if(!slot)return;const card=slot.closest(".card");if(card)card.classList.toggle("gbnSub",gbnOn()&&GBN.view!=="menu");
+  const V={menu:gbnVMenu,queue:gbnVQueue,friends:gbnVFriends,room:gbnVRoom,wait:gbnVWait,board:gbnVBoard};
+  slot.innerHTML=`<div class="gbn">${gbnOn()?(V[GBN.view]||gbnVMenu)():gbnVLogin()}</div>`;
+  slot.querySelectorAll("[data-act]").forEach(b=>b.onclick=e=>{e.preventDefault();gbnAct(b.dataset.act,b.dataset.id,b);});
+  const f=slot.querySelector("form");if(f)f.onsubmit=e=>{e.preventDefault();gbnJoin();};
+  const inp=gbnEl("gbnCodeIn");if(inp)inp.oninput=()=>{const v=inp.value.toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,5);if(inp.value!==v)inp.value=v;};}
+function gbnAct(a,id,el){
+  if(a==="queue")return gbnQueueStart();if(a==="qx")return gbnQueueCancel();if(a==="friends")return gbnFriends();if(a==="board")return gbnBoard();
+  if(a==="room"){GBN.view="room";GBN.msg="";gbnRender();const i=gbnEl("gbnCodeIn");if(i&&matchMedia("(pointer:fine)").matches)i.focus();return;}
+  if(a==="back"){GBN.view="menu";GBN.msg="";gbnRender();return gbnInbox();}
+  if(a==="create")return gbnCreate(null);
+  if(a==="challenge"){const f=(GBN.fl||[]).find(x=>x.uid===id);return f&&gbnCreate(f);}
+  if(a==="join")return gbnJoin();if(a==="cancel")return gbnCancelWait();if(a==="copy")return gbnCopy(el);
+  if(a==="resume")return gbnShow();if(a==="acc")return gbnAnswer(+id,true);if(a==="dec")return gbnAnswer(+id,false);}
+const gbnHead=(t,sub)=>`<div class="gbnHead"><b>${t}</b>${sub?`<span class="gbnMe">${sub}</span>`:""}</div>`;
+const gbnMsgH=()=>GBN.msg?`<div class="gbnMsg" role="status">${gbnE(GBN.msg)}</div>`:"";
+const gbnBack=()=>`<div class="row"><button class="btn big" data-act="back">${gbnL("Zurück","Back")}</button></div>`;
+function gbnVLogin(){return gbnHead("ONLINE")+`<p class="gbnNote">${gbnL("Online-Partien gibt es mit einem Pokélings-Online-Konto. Melde dich in Pokélings an oder registriere dich (kostenlos, ohne E-Mail).","Online games need a Pokélings online account. Log in to Pokélings or sign up (free, no e-mail).")}</p>`;}
+function gbnVMenu(){const ib=GBN.inbox||{},g=GBN.g,m=ib.me;
+  let h=gbnHead("ONLINE",m?`${gbnL("Deine Elo","Your Elo")} <b>${m.elo}</b>${m.pos?` · ${gbnL("Platz","Rank")} ${m.pos}`:""}`:"")+gbnMsgH();
+  if(GBN.inboxErr==="missing")h+=`<div class="gbnMsg">${gbnErrText("missing")}</div>`;
+  if(g&&g.st==="live"&&!gbnShown()){const my=g.col&&gbnTurnOf(g.n)===g.col;
+    h+=`<div class="gbnRow hot"><span class="tx"><b>${gbnL("Laufende Partie","Game in progress")}</b> ${gbnL("gegen","against")} ${gbnE(gbnOpp())}${g.rated?` · ${gbnL("gewertet","rated")}`:""}${my?` · <em>${gbnL("du bist dran","your move")}</em>`:""}</span><button class="btn primary" data-act="resume">${gbnL("Weiterspielen","Continue")}</button></div>`;}
+  for(const v of ib.inv||[])h+=`<div class="gbnRow hot"><span class="tx"><b>${gbnE(v.name)}</b> ${gbnL("fordert dich heraus","challenges you")}</span><button class="btn primary" data-act="acc" data-id="${v.id}">${gbnL("Annehmen","Accept")}</button><button class="btn" data-act="dec" data-id="${v.id}">${gbnL("Ablehnen","Decline")}</button></div>`;
+  if(GBN.lastEnd&&!(g&&g.st==="live")){const e=GBN.lastEnd;h+=`<div class="gbnLast">${gbnL("Letzte Partie gegen","Last game against")} ${gbnE(e.opp)}: <b>${gbnE(e.title.charAt(0)+e.title.slice(1).toLowerCase())}</b>${e.rated&&e.d!=null?` <em class="${e.d>0?"up":e.d<0?"dn":""}">${e.d>0?"+":e.d<0?"−":"±"}${Math.abs(e.d)} Elo</em>`:""}</div>`;}
+  return h+`<div class="modes">
+    <button class="mode" data-act="queue"><b>${gbnL("ZUFALLSGEGNER","RANDOM OPPONENT")}</b><span>${gbnL("Gewertet mit Elo, 10 Minuten Bedenkzeit je Spieler.","Rated with Elo, 10 minutes per player.")}</span></button>
+    <button class="mode" data-act="friends"><b>${gbnL("FREUND HERAUSFORDERN","CHALLENGE A FRIEND")}</b><span>${gbnL("Freundschaftsspiel ohne Uhr und ohne Wertung.","Friendly game without a clock or rating.")}</span></button>
+    <button class="mode" data-act="room"><b>${gbnL("RAUM-CODE","ROOM CODE")}</b><span>${gbnL("Raum erstellen oder mit einem Code beitreten.","Create a room or join with a code.")}</span></button>
+    <button class="mode" data-act="board"><b>${gbnL("ELO-RANGLISTE","ELO LEADERBOARD")}</b><span>${gbnL("Die besten Spieler aus gewerteten Partien.","The best players from rated games.")}</span></button></div>`;}
+function gbnVQueue(){const q=GBN.q;return gbnHead(gbnL("ZUFALLSGEGNER","RANDOM OPPONENT"),gbnL("gewertet · 10 Min. je Spieler","rated · 10 min per player"))+
+  `<div class="gbnRow"><span class="gbnSpin"></span><span class="tx"><b>${gbnL("Suche Gegner …","Looking for an opponent …")}</b> <span id="gbnQT">${gbnFmtS(q?(Date.now()-q.t0)/1000:0)}</span><span id="gbnQN">${q&&q.n>1?` · ${q.n} ${gbnL("suchen","searching")}`:""}</span></span></div>
+  <p class="gbnNote">${gbnL("Gegner mit ähnlicher Elo kommen zuerst. Wer Team Blau spielt, wird ausgelost. Bis zum zweiten Zug kannst du ohne Wertung abbrechen.","Opponents with a similar Elo come first. Team Blue is drawn at random. Until the second move you can abort without rating.")}</p>
+  <div class="row"><button class="btn big exit" data-act="qx">${gbnL("Suche abbrechen","Cancel search")}</button></div>`;}
+function gbnVFriends(){const fl=GBN.fl;let h=gbnHead(gbnL("FREUND HERAUSFORDERN","CHALLENGE A FRIEND"),gbnL("ohne Uhr · ohne Wertung","no clock · unrated"))+gbnMsgH();
+  if(!fl)h+=`<div class="gbnRow"><span class="gbnSpin"></span><span class="tx">${gbnL("Lade Freunde …","Loading friends …")}</span></div>`;
+  else if(!fl.length)h+=`<p class="gbnNote">${gbnL("Du hast noch keine Freunde. Füge sie in Pokélings unter Freunde hinzu.","You have no friends yet. Add them in Pokélings under Friends.")}</p>`;
+  else h+=`<div class="gbnList">${fl.map(f=>{const on=gbnSeenOn(f.seen),old=!!f.ver&&typeof verNum==="function"&&verNum(f.ver)<verNum(GBN_VER);
+    return `<div class="gbnF"><i class="gbnDot${on?" on":""}"></i><span class="nm">${gbnE(f.name)}<small>${old?gbnL("braucht Version "+GBN_VER,"needs version "+GBN_VER):on?"online":gbnAgo(f.seen)}</small></span><button class="btn${on&&!old?" primary":""}" data-act="challenge" data-id="${gbnE(f.uid)}"${old?" disabled":""}>${gbnL("Herausfordern","Challenge")}</button></div>`;}).join("")}</div>`;
+  return h+gbnBack();}
+function gbnVRoom(){return gbnHead(gbnL("RAUM-CODE","ROOM CODE"),gbnL("ohne Uhr · ohne Wertung","no clock · unrated"))+gbnMsgH()+
+  `<div class="modes"><button class="mode" data-act="create"><b>${gbnL("RAUM ERSTELLEN","CREATE A ROOM")}</b><span>${gbnL("Du bekommst einen Code für deinen Gegner.","You get a code for your opponent.")}</span></button>
+  <form class="mode gbnJoin" autocomplete="off"><b>${gbnL("MIT CODE BEITRETEN","JOIN WITH A CODE")}</b><span class="gbnJoinRow"><input id="gbnCodeIn" class="gbnIn" maxlength="5" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ABCDE" aria-label="${gbnL("Raum-Code","Room code")}"><button class="btn primary" type="submit">${gbnL("Beitreten","Join")}</button></span></form></div>`+gbnBack();}
+function gbnVWait(){const g=GBN.g||{};return gbnHead(g.inv?gbnL("HERAUSFORDERUNG","CHALLENGE"):gbnL("DEIN RAUM","YOUR ROOM"),gbnL("ohne Uhr · ohne Wertung","no clock · unrated"))+
+  `<div class="gbnCode" aria-label="${gbnL("Raum-Code","Room code")}">${gbnE(g.code||"·····")}</div>
+  <div class="gbnRow"><span class="gbnSpin"></span><span class="tx">${g.inv?`${gbnL("Warte auf","Waiting for")} <b>${gbnE(g.inv)}</b> … ${gbnL("Oder gib jemandem den Code.","Or give someone the code.")}`:gbnL("Gib deinem Gegner den Code. Die Partie startet, sobald er beitritt.","Give your opponent the code. The game starts as soon as they join.")}</span></div>
+  <div class="row"><button class="btn big" data-act="copy">${gbnL("Code kopieren","Copy code")}</button><button class="btn big exit" data-act="cancel">${gbnL("Abbrechen","Cancel")}</button></div>`;}
+function gbnVBoard(){const b=GBN.board,m=GBN.inbox&&GBN.inbox.me;
+  let h=gbnHead(gbnL("ELO-RANGLISTE","ELO LEADERBOARD"),m?`${gbnL("Du","You")}: <b>${m.elo}</b>${m.pos?` · ${gbnL("Platz","Rank")} ${m.pos}`:""}`:"");
+  if(!b)h+=`<div class="gbnRow"><span class="gbnSpin"></span><span class="tx">${gbnL("Lade Rangliste …","Loading leaderboard …")}</span></div>`;
+  else if(!b.length)h+=`<p class="gbnNote">${gbnL("Noch keine gewerteten Partien. Spiel gegen einen Zufallsgegner und sei die Nummer 1!","No rated games yet. Play a random opponent and be number 1!")}</p>`;
+  else h+=`<div class="gbnList"><table class="gbnTbl"><thead><tr><th>#</th><th>${gbnL("Spieler","Player")}</th><th class="r">Elo</th><th class="r">${gbnL("S / R / N","W / D / L")}</th></tr></thead><tbody>${b.map((x,i)=>`<tr${x.me?' class="me"':""}><td class="p">${i+1}</td><td class="nm">${gbnE(x.n)}</td><td class="r"><b>${x.e}</b></td><td class="r mut">${x.w} / ${x.d} / ${x.l}</td></tr>`).join("")}</tbody></table></div>`;
+  return h+`<p class="gbnNote">${gbnL("Alle starten mit 1000 Elo. Es zählen nur Partien gegen Zufallsgegner (Siege / Remis / Niederlagen).","Everyone starts at 1000 Elo. Only games against random opponents count (wins / draws / losses).")}</p>`+gbnBack();}
+
+function gbnCss(){return `
+#netSlot:empty{display:none}
+.gbn{display:flex;flex-direction:column;gap:10px;border-top:2px solid #2b3a5a;padding-top:12px}
+.gbnHead{display:flex;align-items:baseline;justify-content:space-between;gap:6px 12px;flex-wrap:wrap}
+.gbnHead>b{font-family:var(--display);font-weight:400;font-size:12px;letter-spacing:.06em;color:var(--gold)}
+.gbnMe{font-size:15px;color:var(--muted)} .gbnMe b{color:var(--text)}
+.gbnRow{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:#1c2b47;border:3px solid #3f5378;flex-wrap:wrap}
+.gbnRow.hot{border-color:var(--gold);box-shadow:0 0 14px rgba(255,212,92,.2)}
+.gbnRow .tx{flex:1 1 200px;min-width:0;font-size:15px;color:var(--muted);line-height:1.4} .gbnRow .tx b{color:var(--text)} .gbnRow .tx em{font-style:normal;color:var(--gold);font-weight:700}
+.gbnMsg{font-size:15px;color:#ffb35c;line-height:1.4}
+.gbnNote{margin:0;font-size:14px;color:var(--muted);line-height:1.45}
+.gbnLast{font-size:14px;color:var(--muted)} .gbnLast b{color:var(--text)}
+.up{color:#7dff8a;font-style:normal} .dn{color:#ff8f8f;font-style:normal}
+.gbnSpin{width:18px;height:18px;border-radius:50%;border:3px solid #3f5378;border-top-color:var(--gold);animation:gbnSp 1s linear infinite;flex:none}
+@keyframes gbnSp{to{transform:rotate(360deg)}}
+.gbnCode{font-family:var(--display);font-size:clamp(26px,8vw,40px);letter-spacing:.2em;color:var(--gold);text-align:center;padding:6px 0 2px;text-shadow:3px 3px 0 #7a3a12;-webkit-user-select:text;user-select:text}
+.gbnJoin{cursor:default} .gbnJoin:hover{border-color:#3f5378;background:#1c2b47}
+.gbnJoinRow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.gbnIn{font:400 16px var(--display);letter-spacing:.18em;text-transform:uppercase;width:8.6em;max-width:100%;padding:9px 10px;border-radius:8px;border:3px solid #3f5378;background:#0b1424;color:var(--text);text-align:center;-webkit-user-select:text;user-select:text}
+.gbnIn:focus{outline:none;border-color:var(--gold)} .gbnIn::placeholder{color:#3f5378}
+.gbnList{display:flex;flex-direction:column;gap:6px;max-height:min(46vh,380px);overflow:auto;padding-right:2px}
+.gbnF{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;background:#16233b}
+.gbnF .nm{flex:1;min-width:0;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} .gbnF small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+.gbnDot{width:9px;height:9px;border-radius:50%;background:#56688c;flex:none} .gbnDot.on{background:#56d86a;box-shadow:0 0 8px #56d86a}
+.gbnTbl{width:100%;border-collapse:collapse;font-size:15px} .gbnTbl th{font-weight:600;color:var(--muted);font-size:13px;text-align:left;padding:4px 6px} .gbnTbl td{padding:6px;border-top:1px solid #22324f}
+.gbnTbl .r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap} .gbnTbl .p{width:2.2em;color:var(--muted)} .gbnTbl .mut{color:var(--muted)} .gbnTbl .nm{max-width:0;width:60%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gbnTbl tr.me td{background:rgba(255,212,92,.12)}
+.card.gbnSub>.modes,.card.gbnSub>.controls,.card.gbnSub>.setrow{display:none}
+.gbnOnly{display:none!important}
+.hud.gbnOn .gbnOnly{display:grid!important} .hud.gbnOn #bUndo{display:none}
+.ib.gbnOnly.on{background:#24402b;border-color:#6fc47f}
+.clk.gbnLow{color:var(--red)!important} .pbar.turn .clk.gbnLow{background:#ffe1e1}
+.gbnBar{position:absolute;left:50%;top:48px;transform:translateX(-50%);pointer-events:auto;padding:8px 12px;display:flex;align-items:center;gap:8px 10px;font-size:15px;width:max-content;max-width:min(560px,92vw);flex-wrap:wrap;justify-content:center;text-align:center}
+.gbnBar b{color:var(--text)} .gbnBar .mut{color:var(--muted)}
+.gbnEloEnd{font-family:var(--display);font-size:14px;letter-spacing:.04em} .gbnEloEnd b{color:var(--gold);font-weight:400} .gbnEloEnd em{font-style:normal}
+@media (max-width:640px){.gbnBar{top:44px;font-size:14px}}
+`;}
 
 /* ================================ KAMPF-SIMULATION (Siegchance) ================================
    Statt einer Schätzformel wird jeder mögliche Kampf mehrfach unsichtbar mit der echten Kampflogik durchgerechnet.
@@ -16199,8 +16720,16 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.0.8"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.0.9"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.0.9",d:"31.10.2026",t:"Pokémon Gambit online",items:[
+  ["crown","Pokémon Gambit online: Zufallsgegner gewertet mit Elo und 10 Minuten Bedenkzeit je Spieler. Gegner mit ähnlicher Elo kommen zuerst."],
+  ["users","Freunde herausfordern oder mit Raum-Code spielen, als Freundschaftsspiel ohne Uhr und ohne Wertung. Eine Herausforderung erscheint als Einblendung, auch mitten in Pokélings."],
+  ["swords","Remis anbieten, annehmen oder ablehnen und Aufgeben. Vor dem zweiten Zug kannst du ohne Wertung abbrechen. Wer am Zug ist und 2 Minuten nicht verbunden ist, verliert die Partie."],
+  ["trophy","Elo-Rangliste für Gambit im Online-Bereich. Alle starten mit 1000 Elo."],
+  ["star","Deine Aufstellung spielt online mit und dein Gegner sieht dein Team. Aufstellung und Design werden in deinem Konto gesichert."],
+  ["bolt","Neon-Kurt hat jetzt 3 Stufen: Leicht, Mittel und Schwer. Er rechnet mit einer eigenen, schnellen Schach-Engine, auf Schwer bis zu 9 Halbzüge voraus."],
+  ["cal","Bedenkzeit für Partien zu zweit und gegen Neon-Kurt: ohne Uhr oder 3, 5 oder 10 Minuten. Dazu ein Aufgeben-Knopf und Schlag-Effekte in der Typfarbe des Angreifers, bei sehr effektiven Treffern mit Schockwelle."]]},
  {v:"1.0.8",d:"31.10.2026",t:"Pokémon Gambit: Aufstellung & Design",items:[
   ["crown","Pokémon Gambit: neuer Knopf „Aufstellung & Design“. Alle 54 Kanto-Pokémon haben eine feste Schach-Rolle, du stellst dein Team selbst auf. Bei der Beförderung wird ein Bauer zum Pokémon aus deiner Aufstellung."],
   ["star","Gambit-Design: 6 Arenen (Vertania-Wald, Azuria-Bucht, Lavandia, Zinnober-Vulkan, Mondberg, Indigo-Plateau), 7 Bretter und 5 Stile für die Unterplatten. Die Form der Platte zeigt die Schachfigur."],
