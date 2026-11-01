@@ -5814,7 +5814,8 @@ const _labMax=()=>RESEARCH.reduce((a,c)=>a+c.nodes.reduce((b,n)=>b+n.max,0),0);
 const _unlockN=()=>(META.unlocked||[]).filter(k=>LINE_BY[k]&&!LINE_BY[k].start&&!LINE_BY[k].achX).length;
 const _mp=k=>((META&&META.mp)||{})[k]||0;
 const _bdgMax=()=>{try{return Math.max(0,...badgeAll().map(b=>badgeState(b).t));}catch(e){return 0;}};
-const ACH_CAT=[["start","Erste Schritte","flag"],["reg","Regionen","route"],["champ","Champion","crown"],["fight","Kampf & Team","swords"],["coll","Sammeln & Forschen","dex"],["mp","Mehrspieler & Täglich","users"]];
+const _gb=k=>((META&&META.gbst)||{})[k]||0,_gbAI=l=>((((META&&META.gbst)||{}).ai)||{})[l]||0;
+const ACH_CAT=[["start","Erste Schritte","flag"],["reg","Regionen","route"],["champ","Champion","crown"],["fight","Kampf & Team","swords"],["coll","Sammeln & Forschen","dex"],["mp","Mehrspieler & Täglich","users"],["gambit","Pokémon Gambit","crown"]];
 const ACH=[
  // Erste Schritte
  {id:"win1",cat:"start",t:1,ic:"swords",n:"Erster Sieg",d:"Gewinne deinen ersten Kampf."},
@@ -5895,7 +5896,16 @@ const ACH=[
  {id:"daily30",cat:"mp",t:3,ic:"cal",n:"Gewohnheitstier",d:"Spiele 30 Tägliche Runs.",prog:()=>[META.dailyN||0,30]},
  {id:"rkgold",cat:"mp",t:3,ic:"trophy",n:"Goldliga",d:"Erreiche im Ranked den Rang Gold.",chk:()=>_mp("rkBest")>=1240},
  {id:"duel25",cat:"mp",t:4,ic:"swords",n:"Duellmeister",d:"Gewinne 25 Live-Duelle.",prog:()=>[_mp("duelWins"),25]},
- {id:"rkmaster",cat:"mp",t:5,ic:"crown",n:"Gipfelstürmer",d:"Erreiche im Ranked den Rang Mythisch.",chk:()=>_mp("rkBest")>=1480,rw:"zekrom"}
+ {id:"rkmaster",cat:"mp",t:5,ic:"crown",n:"Gipfelstürmer",d:"Erreiche im Ranked den Rang Mythisch.",chk:()=>_mp("rkBest")>=1480,rw:"zekrom"},
+ // Pokémon Gambit (Siege gegen Neon-Kurt zählt das Spiel, Online-Werte kommen vom Server)
+ {id:"gbai1",cat:"gambit",t:1,ic:"crown",n:"Schachmatt!",d:"Besiege Neon-Kurt in Pokémon Gambit.",prog:()=>[_gbAI(1)+_gbAI(2)+_gbAI(3),1]},
+ {id:"gbon1",cat:"gambit",t:1,ic:"users",n:"Online-Debüt",d:"Spiele eine Online-Partie Pokémon Gambit zu Ende.",prog:()=>[_gb("played"),1]},
+ {id:"gbai2",cat:"gambit",t:2,ic:"spark",n:"Taktiker",d:"Besiege Neon-Kurt auf der Stufe Mittel oder Schwer.",prog:()=>[_gbAI(2)+_gbAI(3),1]},
+ {id:"gbwin1",cat:"gambit",t:2,ic:"trophy",n:"Erster Online-Sieg",d:"Gewinne eine Online-Partie Pokémon Gambit.",prog:()=>[_gb("won"),1]},
+ {id:"gbai3",cat:"gambit",t:3,ic:"crown",n:"Neon-Bezwinger",d:"Besiege Neon-Kurt auf der Stufe Schwer.",prog:()=>[_gbAI(3),1]},
+ {id:"gbrk10",cat:"gambit",t:3,ic:"trophy",n:"Elo-Jäger",d:"Gewinne 10 gewertete Partien gegen Zufallsgegner.",prog:()=>[_gb("w"),10]},
+ {id:"gbelo12",cat:"gambit",t:4,ic:"crown",n:"Meisterklasse",d:"Erreiche 1200 Gambit-Elo.",prog:()=>[_gb("best"),1200]},
+ {id:"gbelo15",cat:"gambit",t:5,ic:"crown",n:"Gambit-Legende",d:"Erreiche 1500 Gambit-Elo.",prog:()=>[_gb("best"),1500]}
 ];
 const ACH_BY={};ACH.forEach(a=>ACH_BY[a.id]=a);
 /* Exklusive Pokémon: Linie -> Erfolg; im Labor nicht kaufbar */
@@ -11161,6 +11171,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Pokémon Gambit: Aufstellung & Des
 /* v1.0.9 Patchnotes */
 if(typeof EN!=="undefined")Object.assign(EN,{"Pokémon Gambit online: Zufallsgegner gewertet mit Elo und 10 Minuten Bedenkzeit je Spieler. Gegner mit ähnlicher Elo kommen zuerst.": "Pokémon Gambit online: random opponents, rated with Elo and 10 minutes per player. Opponents with a similar Elo come first.", "Freunde herausfordern oder mit Raum-Code spielen, als Freundschaftsspiel ohne Uhr und ohne Wertung. Eine Herausforderung erscheint als Einblendung, auch mitten in Pokélings.": "Challenge friends or play with a room code, as a friendly game without a clock or rating. A challenge pops up even while you play Pokélings.", "Remis anbieten, annehmen oder ablehnen und Aufgeben. Vor dem zweiten Zug kannst du ohne Wertung abbrechen. Wer am Zug ist und 2 Minuten nicht verbunden ist, verliert die Partie.": "Offer, accept or decline a draw, and resign. Before the second move you can abort without rating. Whoever is to move and stays disconnected for 2 minutes loses the game.", "Elo-Rangliste für Gambit im Online-Bereich. Alle starten mit 1000 Elo.": "Elo leaderboard for Gambit in the online section. Everyone starts at 1000 Elo.", "Deine Aufstellung spielt online mit und dein Gegner sieht dein Team. Aufstellung und Design werden in deinem Konto gesichert.": "Your lineup plays online too and your opponent sees your team. Lineup and design are saved to your account."});
 if(typeof EN!=="undefined")Object.assign(EN,{"Neon-Kurt hat jetzt 3 Stufen: Leicht, Mittel und Schwer. Er rechnet mit einer eigenen, schnellen Schach-Engine, auf Schwer bis zu 9 Halbzüge voraus.": "Neon-Kurt now has 3 levels: Easy, Medium and Hard. He thinks with his own fast chess engine, on Hard up to 9 half-moves ahead.", "Bedenkzeit für Partien zu zweit und gegen Neon-Kurt: ohne Uhr oder 3, 5 oder 10 Minuten. Dazu ein Aufgeben-Knopf und Schlag-Effekte in der Typfarbe des Angreifers, bei sehr effektiven Treffern mit Schockwelle.": "Time control for local games and games against Neon-Kurt: no clock, or 3, 5 or 10 minutes. Plus a resign button and capture effects in the attacker's type colour, with a shockwave on super effective hits."});
+/* v1.1.0 Gambit-Erfolge und Abzeichen */
+if(typeof EN!=="undefined")Object.assign(EN,{"Gambit: Erfolge & Abzeichen": "Gambit: Achievements & Badges", "Pokémon Gambit": "Pokémon Gambit", "Gambit": "Gambit", "Schachmatt!": "Checkmate!", "Besiege Neon-Kurt in Pokémon Gambit.": "Beat Neon-Kurt in Pokémon Gambit.", "Online-Debüt": "Online Debut", "Spiele eine Online-Partie Pokémon Gambit zu Ende.": "Finish an online game of Pokémon Gambit.", "Taktiker": "Tactician", "Besiege Neon-Kurt auf der Stufe Mittel oder Schwer.": "Beat Neon-Kurt on Medium or Hard.", "Erster Online-Sieg": "First Online Win", "Gewinne eine Online-Partie Pokémon Gambit.": "Win an online game of Pokémon Gambit.", "Neon-Bezwinger": "Neon Slayer", "Besiege Neon-Kurt auf der Stufe Schwer.": "Beat Neon-Kurt on Hard.", "Elo-Jäger": "Elo Hunter", "Gewinne 10 gewertete Partien gegen Zufallsgegner.": "Win 10 rated games against random opponents.", "Meisterklasse": "Master Class", "Erreiche 1200 Gambit-Elo.": "Reach 1200 Gambit Elo.", "Gambit-Legende": "Gambit Legend", "Erreiche 1500 Gambit-Elo.": "Reach 1500 Gambit Elo.", "Schachmeister": "Chess Master", "Gewertete Siege in Pokémon Gambit": "Rated wins in Pokémon Gambit", "Gambit-Großmeister": "Gambit Grandmaster", "Neon-Kurt-Bezwinger": "Neon-Kurt Slayer", "Siege gegen Neon-Kurt (Leicht 1, Mittel 2, Schwer 4 Punkte)": "Wins against Neon-Kurt (Easy 1, Medium 2, Hard 4 points)", "Neon-Legende": "Neon Legend", "Erfolge für Pokémon Gambit: Neon-Kurt besiegen (jede Stufe), erste Online-Partie und erster Online-Sieg, 10 gewertete Siege, 1200 und 1500 Elo.": "Achievements for Pokémon Gambit: beat Neon-Kurt (every level), first online game and first online win, 10 rated wins, 1200 and 1500 Elo.", "Zwei neue Abzeichen für die Kampfkarte: Schachmeister für gewertete Siege und Neon-Kurt-Bezwinger für Siege gegen die KI, schwere Stufen zählen mehr.": "Two new badges for your battle card: Chess Master for rated wins and Neon-Kurt Slayer for wins against the AI, harder levels count more."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -12628,7 +12640,9 @@ const BADGE_FIX=[
  {id:"achv",cat:"Sammeln",n:"Perfektionist",ic:"star",d:"Freigeschaltete Erfolge",v:()=>Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length,T:[10,25,45,ACH.length-10,ACH.length],v6:()=>badgeAll().filter(x=>x.id!=="achv"&&badgeState(x).t>=5).length,T6:15,d6:"Abzeichen auf Mythisch",t5n:"Vollendet"},
  {id:"daily",cat:"Sammeln",n:"Tagesheld",ic:"cal",d:"Gespielte tägliche Runs",v:()=>META.dailyN||0,T:[5,30,100,365,600],T6:1500,t5n:"Zeitlos"},
  {id:"vet",cat:"Sammeln",n:"Veteran",ic:"play",d:"Spielzeit in Stunden",v:()=>Math.floor((_st().time||0)/60),T:[5,25,100,300,600],T6:1500,t5n:"Altmeister"},
- {id:"coll",cat:"Sammeln",n:"Abzeichen-Sammler",ic:"badge",d:"Erreichte Abzeichen-Stufen (alle zusammen)",v:()=>badgeTierSum(),T:[10,30,60,100,160],T6:240,t5n:"Mythensammler"}];
+ {id:"coll",cat:"Sammeln",n:"Abzeichen-Sammler",ic:"badge",d:"Erreichte Abzeichen-Stufen (alle zusammen)",v:()=>badgeTierSum(),T:[10,30,60,100,160],T6:240,t5n:"Mythensammler"},
+ {id:"gbon",cat:"Gambit",n:"Schachmeister",ic:"crown",d:"Gewertete Siege in Pokémon Gambit",v:()=>((META.gbst||{}).w)||0,T:[1,5,15,40,100],T6:250,t5n:"Gambit-Großmeister"},
+ {id:"gbai",cat:"Gambit",n:"Neon-Kurt-Bezwinger",ic:"swords",d:"Siege gegen Neon-Kurt (Leicht 1, Mittel 2, Schwer 4 Punkte)",v:()=>{const a=(META.gbst||{}).ai||{};return (a[1]||0)+2*(a[2]||0)+4*(a[3]||0);},T:[1,10,30,80,200],T6:500,t5n:"Neon-Legende"}];
 const BADGE_BY={};BADGE_FIX.forEach(b=>BADGE_BY[b.id]=b);
 function badgeDef(id){if(BADGE_BY[id])return BADGE_BY[id];
   if(id&&id.startsWith("t_")){const t=id.slice(2);if(!TYPES[t])return null;return{id,cat:"Typen",n:TYPES[t][0]+"-Experte",ic:"ball",col:TYPES[t][1],d:`Siege mit ${TYPES[t][0]}-Pokémon im Team`,v:()=>((_st().typeW||{})[t])||0,T:[25,100,300,1000,2500],T6:8000,t5n:TYPES[t][0]+"-Großmeister"};}
@@ -12774,7 +12788,7 @@ function avatarCheck(){} // Figurwahl entfernt (v9.5)
 let CARD_TAB="badges",FAV_Q="",FAV_N=60,FAV_R="all";
 function favMatches(){const q=FAV_Q.trim().toLowerCase();let L=favList();if(FAV_R!=="all")L=L.filter(id=>favReg(id)===FAV_R);return q?L.filter(id=>SPECIES[id].name.toLowerCase().includes(q)||String(id)===q):L;}
 function cardModal(t){t=t||CARD_TAB;CARD_TAB=t;const C=cardMeta(),me=cardMine();let body="";
-  if(t==="badges"){const all=badgeAll(),cats=["Champion","Kampf","Sammeln","Typen","Partner"];const got=all.filter(b=>badgeShowT(b)>0).length;
+  if(t==="badges"){const all=badgeAll(),cats=["Champion","Kampf","Gambit","Sammeln","Typen","Partner"];const got=all.filter(b=>badgeShowT(b)>0).length;
     body=`<p class="cdHint">Tippe ein freigeschaltetes Abzeichen an, um es in eines der 3 Felder zu legen (nochmal tippen = entfernen). ${got} von ${all.length} Abzeichen freigeschaltet.</p>`+cats.map(cat=>{const L=all.filter(b=>b.cat===cat);if(!L.length)return"";
       return `<h4 class="cdCat">${cat}</h4><div class="cdGrid">${L.map(b=>{const s0=badgeState(b),gt=bGiftT(b.id),gv=gt>s0.t,s=gv?Object.assign({},s0,{t:gt}):s0,on=C.badges.includes(b.id),pr=gv?1:s.next?Math.min(1,s.v/s.next):b.v5&&s.t===4?Math.min(1,(s.v5||0)/b.T5):s.t===5&&b.T6?Math.min(1,(s.v6||0)/b.T6):1;
         return `<button class="cdB${on?" on":""}${s.t?"":" lock"}" data-b="${b.id}">${badgeHTML(b.id,Math.max(1,s.t),"sm")}${s.t?"":`<span class="cdL">${ic("lock")}</span>`}<div><b>${esc(b.n)} ${s.t?ROMAN[s.t]:""}</b><small>${esc(b.d)}</small>
@@ -16392,7 +16406,7 @@ function gbnDialogClose(){const d=gbnEl("gbnDlg");if(d)d.hidden=true;}
 function gbnBadge(on){const b=document.getElementById("mGbN");if(b){b.textContent="!";b.style.display=on?"":"none";}}
 
 /* alle 250 ms, solange Gambit offen ist: Uhren, Knöpfe, Hinweisleiste */
-function gbnUi(){const hud=gbnEl("hud");if(!hud)return;const g=GBN.g,on=!!(g&&g.st==="live"&&gbnShown()),clk=!!(on&&g.clock);
+function gbnUi(){try{gbnAiWatch();}catch(e){}const hud=gbnEl("hud");if(!hud)return;const g=GBN.g,on=!!(g&&g.st==="live"&&gbnShown()),clk=!!(on&&g.clock);
   hud.classList.toggle("gbnOn",on);
   if(GB.api&&GB.api.setClock){
     if(clk){const n=GB.api.plies(),turn=gbnTurnOf(n);for(const c of ["w","b"]){const ms=gbnClockMs(c,turn,n);GB.api.setClock(c,gbnFmt(ms));const el=gbnEl(c==="w"?"clkW":"clkB");if(el)el.classList.toggle("gbnLow",ms<30000);}GBN.ext=true;}
@@ -16514,7 +16528,7 @@ function gbnReset(){gbnQueueStop();gbnStopGame();GBN.inbox=null;GBN.uid=null;GBN
 
 /* ---------- Aktionen ---------- */
 async function gbnInbox(){if(!gbnOn()){GBN.inbox=null;gbnRender();return;}const r=await gbnRpc("gambit_inbox");if(!r.ok){GBN.inboxErr=gbnErrKey(r);gbnRender();return;}
-  GBN.inboxErr=null;const j=r.j||{};GBN.inbox=j;
+  GBN.inboxErr=null;const j=r.j||{};GBN.inbox=j;if(j.me)gbnStatOnline(j.me);
   if(j.live&&!(GBN.g&&GBN.g.id===j.live.id))gbnTrack(j.live.id,"live");
   else if(!j.live&&j.room&&!GBN.g){gbnTrack(j.room.id,"wait");Object.assign(GBN.g,{code:j.room.code,inv:j.room.inv});GBN.view="wait";}
   gbnRender();}
@@ -16564,6 +16578,22 @@ function gbnResignAsk(){const g=GBN.g;if(!g||g.st!=="live")return;const early=GB
     {gbnY:async()=>{gbnDialogClose();const r=await gbnRpc("gambit_resign",{gid:g.id});if(!r.ok)GB.api.toast(gbnE(gbnErrText(gbnErrKey(r))));gbnKick();gbnSoon(0);},gbnN:gbnDialogClose});}
 async function gbnCopy(btn){const c=GBN.g&&GBN.g.code;if(!c)return;let ok=false;try{await navigator.clipboard.writeText(c);ok=true;}catch(e){}
   if(btn){btn.textContent=ok?gbnL("Kopiert ✓","Copied ✓"):c;setTimeout(()=>{if(btn.isConnected)btn.textContent=gbnL("Code kopieren","Copy code");},1600);}}
+
+/* ---------- Statistik für Erfolge und Abzeichen (META.gbst) ----------
+   Online-Werte kommen vom Server (gambit_me), Siege gegen Neon-Kurt zählt Pokélings selbst: Matt durch Team Blau
+   oder Neon-Kurt hat keine Zeit mehr. Die Stufe wird beim Partiestart gelesen. */
+function gbnSt(){if(typeof META==="undefined"||!META)return null;META.gbst=META.gbst||{};META.gbst.ai=META.gbst.ai||{};return META.gbst;}
+function gbnStatSave(){try{saveMeta();}catch(e){}try{if(typeof achCheck==="function"){_achT=0;achCheck();}}catch(e){}}
+function gbnStatOnline(me){const s=gbnSt();if(!s||!me)return;let ch=false;for(const k of ["elo","best","w","d","l","played","won"]){const v=+me[k]||0;if(s[k]!==v){s[k]=v;ch=true;}}if(ch)gbnStatSave();}
+function gbnLvl(){try{const o=JSON.parse(localStorage.getItem(GBN_OPT)||"null");const l=+(o&&o.lvl);return l>=1&&l<=3?l:1;}catch(e){return 1;}}
+function gbnAiWatch(){const api=GB.api,d=api&&api.debug;if(!d)return;if(api.mode!=="ai"){GBN.ai=null;return;}
+  const n=api.plies(),over=!!d.gameOver;let a=GBN.ai;
+  if(!a||n<a.n||(a.done&&!over&&n<=1))a=GBN.ai={lvl:gbnLvl(),n,done:false};   // neue Partie gegen Neon-Kurt
+  a.n=n;if(!over||a.done)return;a.done=true;
+  const won=()=>{const s=gbnSt();if(!s)return;s.ai[a.lvl]=(s.ai[a.lvl]||0)+1;gbnStatSave();};
+  let mate=false;try{mate=d.chess.in_checkmate()&&d.chess.turn()==="b";}catch(e){}
+  if(mate){won();return;}
+  setTimeout(()=>{const t=((gbnEl("dlg")||{}).innerText)||"";if(/NEON-KURT (hat keine Zeit|ran out)/i.test(t)&&!/Unentschieden|Draw/i.test(t))won();},1200);}
 
 /* ---------- Pokélings: Abfrage, Einblendung, Abmelden ---------- */
 function gbnSoc(j,first){if(!gbnOn()||!j)return;const inv=j.gb||[];
@@ -16720,8 +16750,11 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.0.9"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.1.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.1.0",d:"31.10.2026",t:"Gambit: Erfolge & Abzeichen",items:[
+  ["trophy","Erfolge für Pokémon Gambit: Neon-Kurt besiegen (jede Stufe), erste Online-Partie und erster Online-Sieg, 10 gewertete Siege, 1200 und 1500 Elo."],
+  ["badge","Zwei neue Abzeichen für die Kampfkarte: Schachmeister für gewertete Siege und Neon-Kurt-Bezwinger für Siege gegen die KI, schwere Stufen zählen mehr."]]},
  {v:"1.0.9",d:"31.10.2026",t:"Pokémon Gambit online",items:[
   ["crown","Pokémon Gambit online: Zufallsgegner gewertet mit Elo und 10 Minuten Bedenkzeit je Spieler. Gegner mit ähnlicher Elo kommen zuerst."],
   ["users","Freunde herausfordern oder mit Raum-Code spielen, als Freundschaftsspiel ohne Uhr und ohne Wertung. Eine Herausforderung erscheint als Einblendung, auch mitten in Pokélings."],
