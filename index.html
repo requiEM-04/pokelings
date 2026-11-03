@@ -3836,6 +3836,32 @@ body:not(.battle) .wxLbl{display:none}
 .lbRow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"rk nm pt" "rk rg rg" "rk st st";column-gap:10px;row-gap:3px;align-items:center}
 .lbRow>.lbMain{display:contents}.lbRow>.lbRank{grid-area:rk}.lbRow .lbNm{grid-area:nm;min-width:0}.lbRow>.lbPts{grid-area:pt;align-self:start;padding-top:1px}
 .lbRow .lbRegs{grid-area:rg;flex-wrap:wrap;gap:2px;min-width:0}.lbRow .lbMain>small{grid-area:st;min-width:0}
+/* ===== v1.33.0: Booster ===== */
+.bstGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:10px}
+.bstCard{display:flex;flex-direction:column;gap:6px;padding:8px;border-radius:12px;background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.1)}
+.bstArt{position:relative;height:118px;border-radius:9px;overflow:hidden;background:var(--g);display:flex;flex-direction:column;justify-content:flex-end;padding:8px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.25),inset 0 -40px 40px rgba(0,0,0,.35)}
+.bstArt::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.08) 0 10px,transparent 10px 22px)}
+.bstArt b{position:relative;font:400 13px var(--px);color:#fff;text-shadow:2px 2px 0 #000}.bstArt small{position:relative;font:400 8px var(--px);color:#ffe9a0;letter-spacing:.12em;text-shadow:1px 1px 0 #000}
+.bstM{position:absolute;right:-6px;top:-4px;width:96px;height:96px;display:flex;align-items:flex-end;justify-content:center;filter:drop-shadow(0 3px 0 rgba(0,0,0,.35))}.bstM img{max-height:100%;image-rendering:pixelated}
+.bstInfo{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#cfd6ee}.bstInfo span{display:inline-flex;align-items:center;gap:4px}.bstInfo .ic{width:13px;height:13px}.bstLeg{color:#ffd84a}
+.bstGo{width:100%;justify-content:center}.bstLock,.bstDone{display:flex;align-items:center;justify-content:center;gap:6px;min-height:32px;font-size:12px;color:var(--muted);text-align:center}.bstDone{color:#4dffa6}.bstLock .ic,.bstDone .ic{width:13px;height:13px}
+.bstCard.locked .bstArt{filter:grayscale(.85) brightness(.6)}.bstCard.done .bstArt{filter:saturate(.6)}
+.dexc.labc.miss .pic{filter:brightness(0) opacity(.55)}.dexc.labc.miss b{opacity:.7}.lmiss{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:11px;color:var(--muted)}.lmiss .ic{width:11px;height:11px}
+#mbox.bstM{max-width:720px}.bstOpen{text-align:center}
+.bstRow{display:flex;justify-content:center;gap:14px;margin:14px 0 8px;perspective:900px}
+.bstC{width:170px;height:230px}.bstIn{position:relative;width:100%;height:100%;transform-style:preserve-3d;transform:rotateY(180deg);animation:bstFlip .55s cubic-bezier(.2,.8,.3,1.2) var(--d) forwards}
+@keyframes bstFlip{to{transform:rotateY(0)}}
+.bstBack,.bstFace{position:absolute;inset:0;border-radius:12px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.bstBack{transform:rotateY(180deg);display:grid;place-items:center;background:linear-gradient(135deg,#2a3352,#141a2c);border:3px solid #0b0d13;box-shadow:inset 0 0 0 2px #4a5680}.bstBack .ic{width:56px;height:56px;color:#e0402e}
+.bstFace{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;padding:10px 8px 12px;background:linear-gradient(180deg,color-mix(in srgb,var(--rc) 28%,#1a2030),#141a2c);border:3px solid var(--rc);box-shadow:0 0 18px color-mix(in srgb,var(--rc) 45%,transparent);overflow:hidden}
+.bstFace .pic{flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center}.bstFace .pic img{height:96px;image-rendering:pixelated}
+.bstFace b{font-size:15px}.bstFace .lr{font:400 8px var(--px);color:var(--rc)}
+.bstNew{position:absolute;top:8px;left:8px;padding:2px 7px;border-radius:6px;background:#ffd23f;color:#1a1200;font:400 8px var(--px);font-style:normal;animation:bstPop .4s calc(var(--d) + .5s) both}
+.bstDup{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-style:normal;color:#9aa3bd}.bstDup .ic{width:11px;height:11px;color:var(--gem)}
+@keyframes bstPop{from{transform:scale(0)}to{transform:scale(1)}}
+.bstC.r5 .bstFace{box-shadow:0 0 28px #ffb020,0 0 60px rgba(255,176,32,.45)}.bstC.r4 .bstFace{box-shadow:0 0 22px rgba(183,123,255,.7)}
+.bstSum{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;color:#cfd6ee}.bstSum .ic{width:13px;height:13px;color:var(--gem)}
+@media (max-width:600px){.bstRow{gap:6px}.bstC{width:calc(31*var(--vw,1vw));height:calc(46*var(--vw,1vw))}.bstFace .pic img{height:60px}}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -7410,20 +7436,20 @@ function labScreen(tab){
     const jOk=typeof johtoUnlocked==="function"&&johtoUnlocked();
     const card=(L,bought)=>{const c=UNLOCK_COST[L.tier],dis=META.gems<c||!regUnlocked(L.region||"kanto");const xa=L.achX&&ACH_BY[L.achX];
       if(xa&&!bought)return `<div class="dexc labc achX r${L.tier}" style="--rc:${RAR[L.tier].c}" title="Nur über den Erfolg „${esc(xa.n)}“">${typeof rarSpark==="function"?rarSpark(L.tier):""}<div class="pic" data-sp="${L.stages[0][0]}"></div><b>${L.stages[0][1]}</b><div style="display:flex;justify-content:center;margin:3px 0">${roleTag(L.role)}</div><span class="lr">${RAR[L.tier].n}</span><span class="lAch">${ic("trophy")}<span>Erfolg:<b>${esc(xa.n)}</b></span></span></div>`;
-      return `<div class="dexc labc r${L.tier}${bought?" bought":""}${xa?" achXg":""}" style="--rc:${RAR[L.tier].c}">${typeof rarSpark==="function"?rarSpark(L.tier):""}<div class="pic" data-sp="${L.stages[0][0]}"></div><b>${L.stages[0][1]}</b><div style="display:flex;justify-content:center;margin:3px 0">${roleTag(L.role)}</div><span class="lr">${RAR[L.tier].n}</span>${bought?`<span class="lgot">${ic("check")} IM POOL</span>`:`<button class="gemBtn" style="margin-top:6px" data-u="${L.k}" ${dis?"disabled":""}>${ic("gem")}${c}</button>`}</div>`;};
+      return `<div class="dexc labc r${L.tier}${bought?" bought":" miss"}${xa?" achXg":""}" style="--rc:${RAR[L.tier].c}">${typeof rarSpark==="function"?rarSpark(L.tier):""}<div class="pic" data-sp="${L.stages[0][0]}"></div><b>${L.stages[0][1]}</b><div style="display:flex;justify-content:center;margin:3px 0">${roleTag(L.role)}</div><span class="lr">${RAR[L.tier].n}</span>${bought?`<span class="lgot">${ic("check")} IM POOL</span>`:`<span class="lmiss">${ic("lock")} Im Booster</span>`}</div>`;};
     const head=(R,txt,lk)=>`<div class="dexReg${lk?" locked":""}"><span class="dri">${ic(R.ic)}</span><b>${R.n.toUpperCase()}</b><small>${R.d}</small><em>${txt}</em></div>`;
     const byT=(a,b)=>a.tier-b.tier;let html="";
     for(const rk of Object.keys(REGIONS)){const R=REGIONS[rk],ls=LINES.filter(L=>(L.region||"kanto")===rk&&!META.unlocked.includes(L.k)&&!L.start).sort(byT),lk=!regUnlocked(rk);
-      html+=head(R,lk?`${ic("lock")} ${R.unlock}`:`${ls.length} noch gesperrt`,lk)+(ls.length?`<div class="dex">${ls.map(L=>card(L,false)).join("")}</div>`:`<div class="empty" style="margin:6px 0 4px">Alle Pokémon dieser Region freigeschaltet!</div>`);}
+      html+=head(R,lk?`${ic("lock")} ${R.unlock}`:`${ls.length} fehlen noch`,lk)+(ls.length?`<div class="dex">${ls.map(L=>card(L,false)).join("")}</div>`:`<div class="empty" style="margin:6px 0 4px">Alle Pokémon dieser Region freigeschaltet!</div>`);}
     const got=LINES.filter(L=>META.unlocked.includes(L.k)&&!L.start).sort(byT),base=LINES.filter(L=>L.start&&regUnlocked(L.region||"kanto")).sort(byT);
-    html+=`<div class="dexReg got"><span class="dri">${ic("check")}</span><b>FREIGESCHALTET</b><small>Bereits gekauft, jetzt im Shop-Pool</small><em>${got.length}</em></div>`+(got.length?`<div class="dex">${got.map(L=>card(L,true)).join("")}</div>`:`<div class="empty" style="margin:6px 0">Noch nichts freigeschaltet.</div>`)+`<div class="dexReg got"><span class="dri">${ic("ball")}</span><b>START-POOL</b><small>Von Anfang an im Shop, kein Kauf nötig</small><em>${base.length}</em></div><div class="dex">${base.map(L=>card(L,true)).join("")}</div>`;
-    body=`<div class="lead" style="margin-bottom:10px">Freigeschaltete Pokémon erscheinen ab dem nächsten Lauf im Shop. Achtung: Jede Freischaltung vergrößert den Pool, einzelne Pokémon werden dadurch seltener. <b style="color:#b77bff">Epische</b> gibt es ab Runde 6, <b style="color:#ffd84a">Legendäre</b> ab Runde 11 und Trainer-Level 5 (ab Level 8: 12 %).<br>${ic("trophy")} Pokémon mit Pokal gibt es nur über <b style="color:#c99bff">Erfolge</b>, nicht für Edelsteine.</div>${html}`;
+    html+=`<div class="dexReg got"><span class="dri">${ic("check")}</span><b>GESAMMELT</b><small>Im Shop-Pool, Auswahl unter Neues Spiel → Pokémon im Lauf</small><em>${got.length}</em></div>`+(got.length?`<div class="dex">${got.map(L=>card(L,true)).join("")}</div>`:`<div class="empty" style="margin:6px 0">Noch nichts freigeschaltet.</div>`)+`<div class="dexReg got"><span class="dri">${ic("ball")}</span><b>START-POOL</b><small>Von Anfang an im Shop, kein Kauf nötig</small><em>${base.length}</em></div><div class="dex">${base.map(L=>card(L,true)).join("")}</div>`;
+    body=(typeof bstTabHtml==="function"?bstTabHtml():"")+`<h4 class="cdCat" style="margin-top:18px">Sammlung</h4>${html}`;
   }
   openModal(`<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h2>${ic("lab")} FORSCHUNGSLABOR</h2><span class="hs" style="color:var(--gem)">${ic("gem")}<b>${META.gems}</b></span></div>
     <div class="lead">Edelsteine gibt es am Ende jedes Laufs (je Runde, Boss und Elite-Sieg). Forschung wirkt dauerhaft in allen Läufen.</div>
-    <div class="dtabs"><button data-t="tree" class="${t==="tree"?"on":""}">SKILLBAUM</button><button data-t="mons" class="${t==="mons"?"on":""}">POKÉMON FREISCHALTEN</button></div>${body}
+    <div class="dtabs"><button data-t="tree" class="${t==="tree"?"on":""}">SKILLBAUM</button><button data-t="mons" class="${t==="mons"?"on":""}">BOOSTER</button></div>${body}
     <button class="pri" id="gBack" style="margin-top:16px">ZURÜCK</button>`,"wide",()=>{if($("menu").classList.contains("show"))showMenu();});
-  $("mbox").querySelectorAll(".pic[data-sp]").forEach(e=>e.appendChild(spriteEl(+e.dataset.sp)));
+  $("mbox").querySelectorAll(".pic[data-sp]").forEach(e=>e.appendChild(spriteEl(+e.dataset.sp)));if(t==="mons"&&typeof bstBind==="function")bstBind();
   $("mbox").querySelectorAll(".dtabs button").forEach(b=>b.onclick=()=>labScreen(b.dataset.t));
   $("mbox").querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{const n=RS_BY[b.dataset.r],l=perkLv(n.id),c=n.cost[l];if(l>=n.max||META.gems<c||!rsReq(n))return;META.gems-=c;META.perks[n.id]=l+1;saveMeta();toast(`${n.n} erforscht!`,"lab");labScreen("tree");refreshGems();});
   $("mbox").querySelectorAll("[data-u]").forEach(b=>b.onclick=()=>{const L=LINE_BY[b.dataset.u],c=UNLOCK_COST[L.tier];if(META.gems<c||L.achX)return;META.gems-=c;META.unlocked.push(L.k);if(typeof psOnUnlock==="function")psOnUnlock(L);saveMeta();toast(`${L.stages[0][1]} freigeschaltet!`,"ball");labScreen("mons");refreshGems();});
@@ -13694,6 +13720,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Geisterkämpfe zeigen jetzt immer 
 if(typeof EN!=="undefined")Object.assign(EN,{"Schutz vor Passwort-Raten: Nach 3 falschen Passwörtern wird ein Konto gesperrt und muss erst wieder freigegeben werden. Bei einem falschen Passwort siehst du, wie viele Versuche noch übrig sind.": "Protection against password guessing: after 3 wrong passwords an account is locked until it is unlocked again. When you enter a wrong password you see how many attempts are left.", "Pokémon Gambit ist umgezogen: Du findest es jetzt unter Neues Spiel ganz unten.": "Pokémon Gambit has moved: you'll now find it at the very bottom of New Game.", "Login-Schutz": "Login protection", "Außerdem": "Also", "Konto gesperrt: 3-mal falsches Passwort. Es muss erst wieder freigegeben werden.": "Account locked: wrong password 3 times. It has to be unlocked first.", "Benutzername oder Passwort falsch. Noch 1 Versuch, dann wird das Konto gesperrt.": "Wrong username or password. 1 attempt left, then the account will be locked.", "Benutzername oder Passwort falsch. Noch 2 Versuche, dann wird das Konto gesperrt.": "Wrong username or password. 2 attempts left, then the account will be locked."});
 /* v1.32.5: Pokémon im Lauf */
 if(typeof EN!=="undefined")Object.assign(EN,{"Pokémon im Lauf: Unter Neues Spiel wählst du jetzt je Region, welche deiner gekauften Pokémon im Laden auftauchen. Erlaubt sind 4 bis 5 pro Stufe (Legendäre 3), insgesamt mindestens 8. So wird der Laden nicht mehr mit allem vollgestopft, was du je freigeschaltet hast, und Doppelte für Sterne findest du leichter. Start-Pokémon sind immer dabei.": "Pokémon in the run: under New Game you now choose per region which of your purchased Pokémon appear in the shop. Up to 4 to 5 per tier (legendaries 3), at least 8 in total. That way the shop is no longer stuffed with everything you ever unlocked, and duplicates for stars are easier to find. Starter Pokémon are always included.", "Ohne eigene Auswahl nimmt das Spiel automatisch je Stufe die zuletzt freigeschalteten. Neu gekaufte Pokémon kommen in deine Auswahl, solange in ihrer Stufe Platz ist. Täglicher Run, Live-Duelle und Monotyp bleiben wie bisher.": "Without your own selection the game automatically takes the most recently unlocked ones per tier. Newly purchased Pokémon join your selection as long as their tier has room. Daily Run, live duels and Monotype stay as before.", "Pokémon im Lauf": "Pokémon in the run", "Auswählen": "Choose", "Automatisch": "Automatic", "Stufe 5 · Legendär": "Tier 5 · Legendary", "Bestenliste: Die Regions-Kästchen stehen jetzt in einer eigenen Zeile und laufen nicht mehr in die Punkte hinein (vor allem auf dem Anmeldebildschirm).": "Leaderboard: the region boxes now have their own line and no longer run into the points (especially on the login screen)."});
+/* v1.33.0: Booster */
+if(typeof EN!=="undefined")Object.assign(EN,{"Booster statt Kaufen: Neue Pokémon gibt es im Forschungslabor jetzt in Region-Boostern für 20 Edelsteine. Jeder Booster hat 3 Karten, die dritte ist mindestens Selten, und mindestens 1 Pokémon ist neu, solange dir in der Region noch welche fehlen.": "Boosters instead of buying: new Pokémon now come in region boosters in the research lab for 20 gems. Each booster has 3 cards, the third is at least Rare, and at least 1 Pokémon is new as long as you're still missing some in that region.", "Doppelte Karten geben ein paar Edelsteine zurück: je nach Seltenheit 1, 2, 3, 5 oder 8.": "Duplicate cards give back a few gems: 1, 2, 3, 5 or 8 depending on rarity.", "Glücksschutz: Spätestens nach 10 Boostern einer Region ohne Legendäres ist eins sicher dabei. Der Stern auf dem Booster zeigt, wie viele es noch sind.": "Luck protection: after at most 10 boosters of a region without a legendary, one is guaranteed. The star on the booster shows how many are left.", "Alles, was du schon freigeschaltet hast, bleibt freigeschaltet. Pokémon mit Pokal gibt es weiterhin nur über Erfolge.": "Everything you've already unlocked stays unlocked. Pokémon with a trophy are still only available through achievements.", "Alles gesammelt": "Collection complete", "Im Booster": "In boosters", "Sammlung": "Collection", "Kampfturm: etwas mehr Edelsteine, jetzt 5 statt 4 je geschaffter Ebene und 20 statt 15 je besiegter Koryphäe (dazu wie gewohnt der Bonus der Schwierigkeit).": "Battle Tower: a few more gems, now 5 instead of 4 per cleared floor and 20 instead of 15 per defeated Frontier Brain (plus the usual difficulty bonus)."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -15281,7 +15309,7 @@ function admRename(a){if(!a)return;const sug=Array.from({length:6},()=>"abcdefgh
    <div class="rbtns" style="margin-top:12px"><button class="pri" id="admRg">${ic("check")} Umbenennen</button><button class="btn" id="admRx">Abbrechen</button></div>`,"narrow",true);
   $("admRx").onclick=closeModal;$("admRg").onclick=async()=>{const nn=$("admRn").value.trim(),np=$("admRp").value,er=$("admRe");
     if(!/^[A-Za-z0-9_äöüÄÖÜß\-]{3,16}$/.test(nn)){er.textContent="Name: 3–16 Zeichen (Buchstaben, Zahlen, _ oder -).";return;}if(admReserved(nn)){er.textContent="Dieser Name ist reserviert.";return;}if(np.length<4){er.textContent="Passwort: mindestens 4 Zeichen.";return;}
-    if(userKey(nn)!==userKey(a.name)){const f=await clFetch("/rest/v1/rpc/name_free",{method:"POST",auth:false,body:{n:nn}});if(f.ok&&f.j===false){er.textContent="Diesen Namen gibt es schon.";return;}}
+    /* v1.33.0: keine Vorab-Prüfung mehr – gehört der Name schon diesem Konto (z. B. halb fertige Umbenennung), muss es gehen; andere Konten blockiert der Server (name_taken) */
     const r=await admRpc("admin_rename",{target:a.id,newname:nn,newemail:clEmail(nn),pw:clPw(nn,np)});if(!r.ok){er.innerHTML=/name_taken/.test(JSON.stringify(r.j||""))?"Diesen Namen gibt es schon.":"Fehlgeschlagen: "+admErr(r);return;}
     closeModal();openModal(`<h2>${ic("check")} UMBENANNT</h2><div class="lead">Gib das dem Spieler weiter:</div><div class="admWho2" style="font-size:16px"><span>Name <b>${esc(nn)}</b></span><span>Passwort <b>${esc(np)}</b></span></div><div class="rbtns" style="margin-top:12px"><button class="pri" id="admRok">OK</button></div>`,"narrow",true);$("admRok").onclick=closeModal;admLoadList();};}
 /* ---------- POSTFACH (Feedback der Spieler) ---------- */
@@ -15611,7 +15639,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.32.5",DUEL_HP=30;
+const MP_VER="1.33.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -20017,8 +20045,14 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.32.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.33.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.33.0",d:"03.11.2026",t:"Booster",items:[
+  ["gem", "Booster statt Kaufen: Neue Pokémon gibt es im Forschungslabor jetzt in Region-Boostern für 20 Edelsteine. Jeder Booster hat 3 Karten, die dritte ist mindestens Selten, und mindestens 1 Pokémon ist neu, solange dir in der Region noch welche fehlen."],
+  ["coin", "Doppelte Karten geben ein paar Edelsteine zurück: je nach Seltenheit 1, 2, 3, 5 oder 8."],
+  ["star", "Glücksschutz: Spätestens nach 10 Boostern einer Region ohne Legendäres ist eins sicher dabei. Der Stern auf dem Booster zeigt, wie viele es noch sind."],
+  ["tower", "Kampfturm: etwas mehr Edelsteine, jetzt 5 statt 4 je geschaffter Ebene und 20 statt 15 je besiegter Koryphäe (dazu wie gewohnt der Bonus der Schwierigkeit)."],
+  ["check", "Alles, was du schon freigeschaltet hast, bleibt freigeschaltet. Pokémon mit Pokal gibt es weiterhin nur über Erfolge."]]},
  {v:"1.32.5",d:"03.11.2026",t:"Pokémon im Lauf",items:[
   ["ball", "Pokémon im Lauf: Unter Neues Spiel wählst du jetzt je Region, welche deiner gekauften Pokémon im Laden auftauchen. Erlaubt sind 4 bis 5 pro Stufe (Legendäre 3), insgesamt mindestens 8. So wird der Laden nicht mehr mit allem vollgestopft, was du je freigeschaltet hast, und Doppelte für Sterne findest du leichter. Start-Pokémon sind immer dabei."],
   ["trophy", "Bestenliste: Die Regions-Kästchen stehen jetzt in einer eigenen Zeile und laufen nicht mehr in die Punkte hinein (vor allem auf dem Anmeldebildschirm)."],
@@ -20458,7 +20492,7 @@ function introShow(){if(!introNeed()||!$("menu").classList.contains("show")||$("
 /* ================================ KAMPFTURM (v1.6.0) ================================
    Nach dem Champion-Sieg geht derselbe Lauf im Kampfturm weiter: endlose Ebenen mit Turmregeln,
    jede 5. Ebene eine Koryphäe. Rekorde, Symbole und Statistik liegen lokal in META.tower (keine Server-Änderung). */
-const TW={lives:3,ramp:.03,bossM:1,bf:{5:.92,10:.88,15:.95,20:.75,25:.68,30:.6,35:.56},bfR:0,gem:4,gemK:15,mk:{easy:.92,normal:1,hard:.92,night:.9,nuzlocke:.92}};
+const TW={lives:3,ramp:.03,bossM:1,bf:{5:.92,10:.88,15:.95,20:.75,25:.68,30:.6,35:.56},bfR:0,gem:5,gemK:20,mk:{easy:.92,normal:1,hard:.92,night:.9,nuzlocke:.92}};
 const KORY=[
  {id:"anabel",m:1.0,n:"Anabel",t:"Turm-Koryphäe",sym:"Turmsymbol",ic:"sy_anabel",col:"#5cf2ff",rule:"pure",th:"best",q:"Zeig mir, wie stark dein Team wirklich ist."},
  {id:"brandon",m:0.94,n:"Brandon",t:"Pyramiden-Koryphäe",sym:"Pyramidensymbol",ic:"sy_brandon",col:"#ffb020",rule:"bulk",th:"leg",q:"Nur wer Legenden standhält, steigt weiter auf!"},
@@ -21085,6 +21119,51 @@ function psModal(rg,back){const av=psAvail(rg),R=REGIONS[rg]||{n:rg},mn=psMinFor
   $("psOk").onclick=()=>{if(sel.size<mn)return;const auto=psAuto(rg);META.poolSel=META.poolSel||{};
     if(sel.size===auto.length&&auto.every(k=>sel.has(k)))delete META.poolSel[rg];else META.poolSel[rg]=[...sel];saveMeta();sfx("coin");closeModal();if(back)back();};
   upd();}
+
+/* ================================ BOOSTER (v1.33.0) ================================
+   Neue Pokémon gibt es nicht mehr direkt zu kaufen, sondern in Region-Boostern: 3 Karten, die dritte ist mindestens Selten.
+   Jeder Booster bringt mindestens 1 neues Pokémon (solange in der Region noch welche fehlen). Doppelte geben Edelsteine zurück.
+   Spätestens nach BOOST.pity Boostern einer Region ohne Legendäres ist eins sicher (falls noch eins fehlt).
+   Nicht im Booster: Start-Pokémon, Pokémon nur über Erfolge, Geheimes. */
+const BOOST={cost:20,odds:[[1,44],[2,32],[3,16],[4,6],[5,2]],rare:[[3,62],[4,28],[5,10]],dup:{1:1,2:2,3:3,4:5,5:8},pity:10};
+function bstLines(rg){return LINES.filter(L=>(L.region||"kanto")===rg&&!L.start&&!L.excl&&!L.achX);}
+function bstMissing(rg){return bstLines(rg).filter(L=>!META.unlocked.includes(L.k));}
+function bstState(rg){META.boost=META.boost||{};return META.boost[rg]=META.boost[rg]||{n:0,dry:0};}
+function bstTier(tbl,avail){const ok=tbl.filter(([t])=>avail.has(t));if(!ok.length)return null;const sum=ok.reduce((a,[,w])=>a+w,0);let x=Math.random()*sum;for(const[t,w]of ok){if(x<w)return t;x-=w;}return ok[ok.length-1][0];}
+function bstDraw(rg){const all=bstLines(rg),tiers=new Set(all.map(L=>L.tier)),St=bstState(rg),has=L=>META.unlocked.includes(L.k);
+  const draw=tbl=>{let t=bstTier(tbl,tiers);if(t==null)t=bstTier(BOOST.odds,tiers);return pick(all.filter(L=>L.tier===t));};
+  const cards=[draw(BOOST.odds),draw(BOOST.odds)];const legMiss=all.filter(L=>L.tier===5&&!has(L));
+  cards.push(St.dry+1>=BOOST.pity&&legMiss.length?pick(legMiss):draw(BOOST.rare));
+  const miss=all.filter(L=>!has(L));
+  if(miss.length&&!cards.some(L=>!has(L))){const t=bstTier(BOOST.odds,new Set(miss.map(L=>L.tier)));const nw=pick(miss.filter(L=>L.tier===t));cards[cards[0].tier<=cards[1].tier?0:1]=nw;}
+  return cards;}
+function bstOpen(rg){if(!META||META.gems<BOOST.cost||!regUnlocked(rg)||!bstMissing(rg).length)return null;
+  META.gems-=BOOST.cost;const St=bstState(rg),cards=bstDraw(rg),res=[];let refund=0,leg=false;St.n++;
+  for(const L of cards){const nu=!META.unlocked.includes(L.k);let dup=0;
+    if(nu){META.unlocked.push(L.k);if(typeof psOnUnlock==="function")psOnUnlock(L);}else{dup=BOOST.dup[L.tier]||1;refund+=dup;}
+    if(L.tier===5)leg=true;try{dexUp(L.stages[0][0],d=>{d.seen=(d.seen||0)+1;});}catch(e){}res.push({L,nu,dup});}
+  St.dry=leg?0:St.dry+1;META.gems+=refund;saveMeta();try{_achT=0;achCheck();}catch(e){}
+  return {cards:res,refund};}
+/* Booster-Reiter im Forschungslabor */
+function bstTabHtml(){const regs=Object.keys(REGIONS);
+  const cards=regs.map(rk=>{const R=REGIONS[rk],A=(typeof REG_ART!=="undefined"&&REG_ART[rk])||{mascot:25,grad:"#3b6fc4,#1a2030"},all=bstLines(rk),miss=bstMissing(rk),lk=!regUnlocked(rk),done=!miss.length,St=bstState(rk);
+    const legLeft=!lk&&!done&&miss.some(L=>L.tier===5)?Math.max(1,BOOST.pity-St.dry):0;
+    return `<div class="bstCard${lk?" locked":""}${done?" done":""}" style="--g:linear-gradient(135deg,${A.grad})">
+      <div class="bstArt"><span class="bstM" data-sp="${A.mascot}"></span><b>${esc(R.n.toUpperCase())}</b><small>BOOSTER</small></div>
+      <div class="bstInfo"><span title="gesammelt">${ic("dex")} ${all.length-miss.length}/${all.length}</span>${legLeft?`<span class="bstLeg" title="Legendäres spätestens in ${legLeft} ${legLeft===1?"Booster":"Boostern"} sicher">${ic("star")} ${legLeft}</span>`:""}</div>
+      ${lk?`<div class="bstLock">${ic("lock")} ${esc(R.unlock||"gesperrt")}</div>`:done?`<div class="bstDone">${ic("check")} Alles gesammelt</div>`:`<button class="gemBtn bstGo" data-bst="${rk}" ${META.gems<BOOST.cost?"disabled":""}>${ic("gem")}${BOOST.cost} · Öffnen</button>`}</div>`;}).join("");
+  return `<div class="lead" style="margin-bottom:10px">Neue Pokémon gibt es in <b>Boostern</b>: 3 Karten aus einer Region, die dritte ist mindestens <b style="color:#4fa8ff">Selten</b>. Jeder Booster bringt mindestens <b>1 neues</b> Pokémon, solange dir in der Region noch welche fehlen. Doppelte geben Edelsteine zurück. Spätestens nach ${BOOST.pity} Boostern ohne <b style="color:#ffd84a">Legendäres</b> ist eins sicher dabei (${ic("star")} zeigt, nach wie vielen).<br>Neue Pokémon kommen in deine Auswahl „Pokémon im Lauf“, solange in ihrer Stufe Platz ist. ${ic("trophy")} Pokémon mit Pokal gibt es nur über <b style="color:#c99bff">Erfolge</b>.</div><div class="bstGrid">${cards}</div>`;}
+function bstBind(){const mb=$("mbox");mb.querySelectorAll(".bstM[data-sp]").forEach(e=>e.appendChild(spriteEl(+e.dataset.sp)));
+  mb.querySelectorAll("[data-bst]").forEach(b=>b.onclick=()=>{const rg=b.dataset.bst,r=bstOpen(rg);if(!r){sfx("deny");return;}refreshGems();bstShow(rg,r);});}
+function bstShow(rg,r){const R=REGIONS[rg]||{n:rg},nNew=r.cards.filter(c=>c.nu).length;
+  openModal(`<div class="bstOpen"><h2>${ic("gem")} ${esc(R.n.toUpperCase())}-BOOSTER</h2>
+    <div class="bstRow">${r.cards.map((c,i)=>`<div class="bstC r${c.L.tier}" style="--rc:${RAR[c.L.tier].c};--d:${(.35+i*.6).toFixed(2)}s"><div class="bstIn"><div class="bstBack">${ic("ball")}</div><div class="bstFace">${typeof rarSpark==="function"?rarSpark(c.L.tier):""}<div class="pic" data-sp="${c.L.stages[0][0]}"></div><b>${esc(c.L.stages[0][1])}</b><span class="lr">${RAR[c.L.tier].n}</span>${c.nu?`<em class="bstNew">NEU!</em>`:`<em class="bstDup">Doppelt · ${ic("gem")} +${c.dup}</em>`}</div></div></div>`).join("")}</div>
+    <p class="bstSum">${nNew} ${nNew===1?"neues Pokémon":"neue Pokémon"}${r.refund?` · ${ic("gem")} +${r.refund} zurück`:""} · ${ic("gem")} ${META.gems} übrig</p>
+    <div class="rbtns"><button class="pri" id="bstAgain" ${META.gems<BOOST.cost||!bstMissing(rg).length?"disabled":""}>${ic("gem")} Noch einen öffnen (${BOOST.cost})</button><button class="btn" id="bstBack">${ic("back")} Zurück</button></div></div>`,"narrow bstM",()=>labScreen("mons"));
+  const mb=$("mbox");hydrateIcons(mb);mb.querySelectorAll(".pic[data-sp]").forEach(e=>e.appendChild(spriteEl(+e.dataset.sp)));
+  r.cards.forEach((c,i)=>setTimeout(()=>{try{if(!$("mbox").querySelector(".bstOpen"))return;sfx(c.L.tier>=4?"sparkle":c.nu?"coin":"click");}catch(e){}},(350+i*600)+350));
+  $("bstAgain").onclick=()=>{const r2=bstOpen(rg);if(!r2){sfx("deny");return;}refreshGems();bstShow(rg,r2);};
+  $("bstBack").onclick=()=>{closeModal();labScreen("mons");};}
 
 /* ================================ KAMPF: 2 ATTACKEN + EIGENE KI ================================ */
 let B=null,speed=1;
