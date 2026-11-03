@@ -3900,6 +3900,16 @@ body:not(.battle) .wxLbl{display:none}
 @media (max-width:700px){.tree{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:minmax(128px,1fr);overflow-x:auto;padding-bottom:6px;scroll-snap-type:x proximity}.tree .tcol{scroll-snap-align:start}}
 /* Partnerwahl: Reihe seitlich wischbar statt links und rechts abgeschnitten */
 @media (max-width:760px){#stScene.ps .psRow{left:0;right:0;transform:none;justify-content:safe center;overflow-x:auto;overflow-y:hidden;padding:26px 12px 4px;scrollbar-width:none;scroll-snap-type:x proximity}#stScene.ps .psRow::-webkit-scrollbar{display:none}#stScene.ps .psPick{flex:none;scroll-snap-align:center}}
+/* ===== v1.34.5: Bank verkaufen im Auswahlfenster ===== */
+.bsBox{margin:10px 0 12px;padding:10px;border-radius:10px;background:rgba(255,90,70,.06);border:2px solid rgba(255,120,100,.28)}
+.bsBox h5{display:flex;align-items:center;gap:6px;margin:0 0 8px;font:400 9px var(--px);color:#ffb0a0;letter-spacing:.04em}.bsBox h5 .ic{width:13px;height:13px;color:var(--amber)}.bsBox h5 small{font:500 11px var(--ui);color:var(--muted);letter-spacing:0}
+.bsRow{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:6px}
+.bsU{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px;border-radius:8px;background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.12);color:#dfe5f5;cursor:pointer;min-width:0}
+.bsU:hover{background:rgba(255,255,255,.09)}.bsU.cr{border-color:rgba(192,76,255,.45)}
+.bsP{width:48px;height:44px;display:flex;align-items:flex-end;justify-content:center}.bsP img{max-width:100%;max-height:100%;image-rendering:pixelated}
+.bsU b{font-size:11px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.bsU small{display:inline-flex;align-items:center;gap:3px;font-size:11px;color:var(--amber)}.bsU small .ic{width:11px;height:11px}
+.bsU.sure{border-color:var(--red,#e0402e);background:rgba(224,64,46,.18)}.bsU.sure small{color:#fff;font-weight:700}
+
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -11695,17 +11705,25 @@ const EVENTS=[
 ];
 const EV_REG={kanto:{chest:"Silph-Lieferung",trader:"Rocket-Hehler",egg:"Ei der Pension"},johto:{chest:"Aprikoko-Ernte",altar:"Schrein im Steineichenwald",gamble:"Spielhalle Dukatia"},hoenn:{chest:"Geheimbasis",trader:"Devon-Vertreter",shiny:"Glitzernde Meeresströmung"},sinnoh:{gems:"Untergrund-Grabung",chest:"Hamanasu-Park",altar:"Ruinen von Trostu"},unova:{gamble:"Musical-Wette",trader:"Händler in Stratos",chest:"Fund in der Wüste"},kalos:{chest:"Boutique in Illumina",trader:"Flare-Händler",shiny:"Glitzerspur im Pokémon-Dorf",egg:"Ei vom Fossillabor"},alola:{chest:"Strandgut am Hano-Strand",trader:"Händler am Hafen von Heahea",gamble:"Wette im Poké-Resort",egg:"Ei aus der Pension von Paniola"},kitakami:{chest:"Fundstück in Kitakami",trader:"Händler im Kulturzentrum",gamble:"Wette beim Maskenfest",egg:"Ei aus Midoriya"},hisui:{chest:"Fundstück im Grasland",trader:"Händler der Ginkgo-Gilde",gamble:"Wette im Jubeldorf",egg:"Ei vom Basislager"},paldea:{chest:"Schatz am Wegesrand",trader:"Händler in Mesalona City",gamble:"Wette in Fermanca City",egg:"Ei vom Picknickplatz"},galar:{chest:"Fundstück in der Naturzone",trader:"Händler am Bahnhof von Brassbury",gamble:"Wette im Stadion von Engine City",egg:"Ei aus der Pension auf Route 5"}};
 
+/* v1.34.5: Bank voll in Auswahlfenstern – Pokémon direkt im Fenster verkaufen (antippen, dann bestätigen) */
+function bsHtml(){if(!S||S.bench.indexOf(null)>=0)return "";
+  return `<div class="bsBox"><h5>${ic("coin")} Bank: Pokémon verkaufen <small>antippen, dann bestätigen</small></h5><div class="bsRow">${S.bench.map((u,i)=>u?`<button class="bsU${u.crypto?" cr":""}" data-bs="${i}"><span class="bsP" data-sp="${u.sp}" data-sh="${u.shiny?1:""}"></span><b>${esc(SPECIES[u.sp].name)}</b><small>${u.stars?"★".repeat(u.stars)+" ":""}${ic("coin")} +${unitCost(u)}</small></button>`:"").join("")}</div></div>`;}
+function bsBind(redraw){const mb=$("mbox");if(!mb)return;mb.querySelectorAll(".bsP[data-sp]").forEach(e=>e.appendChild(centerSpr(spriteEl(+e.dataset.sp,"",{shiny:!!e.dataset.sh}))));
+  mb.querySelectorAll("[data-bs]").forEach(b=>b.onclick=()=>{const u=S.bench[+b.dataset.bs];if(!u)return;
+    if(b.dataset.ok!=="1"){mb.querySelectorAll("[data-bs]").forEach(x=>{x.dataset.ok="";x.classList.remove("sure");});b.dataset.ok="1";b.classList.add("sure");const s=b.querySelector("small");s.innerHTML=`Verkaufen? ${ic("coin")} +${unitCost(u)}`;try{sfx("click");}catch(e){}return;}
+    sell(u);try{sfx("coin");}catch(e){}save();redraw();});}
 /* Team Rocket besiegt: ein Crypto-Pokémon erlösen */
 function cryptoChoice(cb){const seen=new Set(),opts=[];for(const e of (S.enc&&S.enc.enemies)||S.enemies||[]){if(!e.crypto||e.raid||seen.has(e.sp))continue;seen.add(e.sp);opts.push(e);}
   const pickO=shuffle(opts).slice(0,3),free=S.bench.indexOf(null);
   if(!pickO.length){cb&&cb();return;}
   if(window.__autoPick){if(free>=0){const u=mkUnit(pickO[0].sp,0);u.crypto=CRYPTO.purify;S.bench[free]=u;dexUp(u.sp,d=>d.owned++);}cb&&cb();return;}
-  openModal(`<h2>${ic("heart")} CRYPTO-POKÉMON ERLÖSEN</h2><div class="lead">Team Rocket ist geflohen. Eines ihrer Crypto-Pokémon schließt sich dir an. Es kämpft mit dunkler Energie (+20 % Angriff, +15 % KP) und wird nach <b style="color:#e0b0ff">${CRYPTO.purify} Runden</b> erlöst (Sieg oder Niederlage, auch auf der Bank): Dann erhält es eine Fusionsgabe und eine geheime Fähigkeit.${free<0?`<br><b style="color:var(--red)">Deine Bank ist voll.</b> Verkaufe zuerst ein Pokémon oder nimm Gold.`:""}</div>
+  const draw=()=>{const free=S.bench.indexOf(null);
+  openModal(`<h2>${ic("heart")} CRYPTO-POKÉMON ERLÖSEN</h2><div class="lead">Team Rocket ist geflohen. Eines ihrer Crypto-Pokémon schließt sich dir an. Es kämpft mit dunkler Energie (+20 % Angriff, +15 % KP) und wird nach <b style="color:#e0b0ff">${CRYPTO.purify} Runden</b> erlöst (Sieg oder Niederlage, auch auf der Bank): Dann erhält es eine Fusionsgabe und eine geheime Fähigkeit.${free<0?`<br><b style="color:var(--red)">Deine Bank ist voll.</b> Verkaufe unten ein Pokémon von deiner Bank oder nimm Gold.`:""}</div>${bsHtml()}
    <div class="choices">${pickO.map((e,i)=>{const sp=SPECIES[e.sp];return `<button class="choice crypto" data-i="${i}" style="--dc:#c04cff" ${free<0?"disabled":""}><div class="cpic" data-sp="${e.sp}"><i class="cAura"></i></div><h4>${sp.name}</h4><p>${ROLES[sp.line.role].n} · ${RAR[sp.line.tier].n}<br>${pills(sp.types)}</p></button>`;}).join("")}</div>
    <button class="btn" id="cSkip" style="margin-top:12px">${ic("coin")} Verzichten: +3 Gold</button>`);
   $("mbox").querySelectorAll(".cpic[data-sp]").forEach(e=>e.appendChild(centerSpr(spriteEl(+e.dataset.sp))));
   $("mbox").querySelectorAll(".choice").forEach(b=>b.onclick=()=>{const e=pickO[+b.dataset.i],f=S.bench.indexOf(null);if(f<0)return;const u=mkUnit(e.sp,0);u.crypto=CRYPTO.purify;S.bench[f]=u;dexUp(u.sp,d=>d.owned++);closeModal();toast(`${SPECIES[u.sp].name} schließt sich dir an: Crypto-Pokémon`,"heart");sfx("coin");render();save();cb&&cb();});
-  $("cSkip").onclick=()=>{S.gold+=3;closeModal();render();save();cb&&cb();};}
+  $("cSkip").onclick=()=>{S.gold+=3;closeModal();render();save();cb&&cb();};hydrateIcons($("mbox"));bsBind(draw);};draw();}
 function eventOptions0(){const g=4+Math.floor(S.round/2),st=Math.max(3,Math.min(12,Math.floor((S.gold||0)/2))),tr=Math.max(5,6+Math.floor(S.round/4));
   const ok=EVENTS.filter(e=>!(e.reg&&e.reg!==(S.region||"kanto"))&&!(e.id==="erkenntnis"&&(S.round<6||S.megaFound||S.megaGift))&&!(e.id==="candy"&&!allUnits().some(u=>SPECIES[u.sp].next))&&!(e.id==="altar"&&(S.relics.length>=RELIC_MAX||Math.random()<.6))&&!(e.id==="gift"&&!boardUnits().length)&&!(e.id==="egg"&&S.round>17)&&!(e.id==="kraftpunkt"&&(S.round<3||S.dynaGot))&&!(e.id==="terakristall"&&(S.round<3||S.teraGot))&&!(e.id==="herba"&&S.round<6)&&!(e.id==="alpharevier"&&(S.round<3||S.alphaGot))&&!(e.id==="raumzeit"&&S.round<5)&&!(e.id==="maskenfest"&&(S.round<3||S.maskGot))&&!(e.id==="apfel"&&S.round<5)&&!(e.id==="ultrapforte"&&S.round<6));
   const bag=[];for(const e of ok)for(let i=0;i<(e.w||1);i++)bag.push(e);const out=[];let gd=0;while(out.length<3+perk("treasure")&&bag.length&&gd++<60){const e=pick(bag);if(!out.some(o=>o.id===e.id))out.push(e);}
@@ -13763,6 +13781,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Booster statt Kaufen: Neue Pokémo
 if(typeof EN!=="undefined")Object.assign(EN,{"Booster: Das Fenster nach dem Öffnen wurde zusammengedrückt angezeigt, sodass man die gezogenen Karten nicht sehen konnte. Jetzt passt es auf Handy, Tablet und PC, auch im Querformat.": "Boosters: the window after opening was squashed, so you couldn't see the cards you drew. It now fits on phones, tablets and PCs, in landscape too.", "Edelsteine für dein Konto! Damit kannst du zum Beispiel Booster öffnen. Du findest sie hier:": "Gems for your account! You can use them to open boosters, for example. Find them here:", "Zum Forschungslabor": "To the research lab", "Forschungslabor → Booster": "Research lab → Boosters", "NEUE EDELSTEINE": "NEW GEMS"});
 /* v1.34.0: Handy */
 if(typeof EN!=="undefined")Object.assign(EN,{"Handy: Der Poké-Markt passt jetzt aufs Display. Vorher war er breiter als der Bildschirm, dadurch waren Karten und Knöpfe rechts abgeschnitten. Die Karten wischst du seitlich durch.": "Phone: the Poké Market now fits the screen. Before, it was wider than the display, so cards and buttons on the right were cut off. Swipe sideways through the cards.", "Handy: Die Leiste mit Version, Feedback und „Besuche auch“ überdeckt im Lauf nicht mehr Bank und Tasche. Patchnotes und Feedback findest du in den Einstellungen.": "Phone: the bar with version, feedback and \"Also visit\" no longer covers your bench and bag during a run. Patch notes and feedback are in the settings.", "Handy: Der Skillbaum im Forschungslabor lässt sich seitlich wischen, die Texte sind wieder lesbar. Bei der Partnerwahl erreichst du alle Partner per Wischen.": "Phone: the skill tree in the research lab scrolls sideways and its texts are readable again. In the partner choice you can reach every partner by swiping."});
+/* v1.34.5: Bank verkaufen */
+if(typeof EN!=="undefined")Object.assign(EN,{"Bank voll beim Crypto-Pokémon oder bei der Ultra-Bestie: Du kannst jetzt direkt im Fenster ein Pokémon von deiner Bank verkaufen (antippen, dann bestätigen). Vorher ging nur Verzichten, weil das Fenster alles andere blockiert hat.": "Bench full when a Shadow Pokémon or an Ultra Beast joins: you can now sell a Pokémon from your bench right in the window (tap, then confirm). Before, you could only decline because the window blocked everything else.", "Verkaufe unten ein Pokémon von deiner Bank oder nimm Gold.": "Sell a Pokémon from your bench below or take gold.", "Bank: Pokémon verkaufen": "Bench: sell a Pokémon", "antippen, dann bestätigen": "tap, then confirm", "Verkaufen?": "Sell?"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -15738,7 +15758,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.34.0",DUEL_HP=30;
+const MP_VER="1.34.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -20144,8 +20164,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.34.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.34.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.34.5",d:"03.11.2026",t:"Schnellfix",items:[
+  ["coin", "Bank voll beim Crypto-Pokémon oder bei der Ultra-Bestie: Du kannst jetzt direkt im Fenster ein Pokémon von deiner Bank verkaufen (antippen, dann bestätigen). Vorher ging nur Verzichten, weil das Fenster alles andere blockiert hat."]]},
  {v:"1.34.0",d:"03.11.2026",t:"Handy",items:[
   ["grid", "Handy: Der Poké-Markt passt jetzt aufs Display. Vorher war er breiter als der Bildschirm, dadurch waren Karten und Knöpfe rechts abgeschnitten. Die Karten wischst du seitlich durch."],
   ["user", "Handy: Die Leiste mit Version, Feedback und „Besuche auch“ überdeckt im Lauf nicht mehr Bank und Tasche. Patchnotes und Feedback findest du in den Einstellungen."],
@@ -20768,11 +20790,12 @@ function ultraChoice(cb){const e=((S.enc&&S.enc.enemies)||S.enemies||[]).find(x=
   if(!e){cb&&cb();return;}const free=S.bench.indexOf(null),sp=SPECIES[e.sp];
   const take=()=>{const f=S.bench.indexOf(null);if(f<0)return false;const u=mkUnit(e.sp,0);if(e.shiny)u.shiny=true;S.bench[f]=u;dexUp(u.sp,d=>{d.owned++;if(u.shiny)d.shiny=(d.shiny||0)+1;});toast(`${sp.name} wurde gefangen!`,"ub");sfx("coin");render();save();return true;};
   if(window.__autoPick){if(free>=0)take();else S.gold+=UB.gold;cb&&cb();return;}
-  openModal(`<div class="ubCatch"><h2>${ic("ub")} ULTRA-BESTIE FANGEN</h2><div class="lead">Die Ultra-Bestie ist geschwächt. Wirf einen Ultraball, dann kämpft <b>${esc(sp.name)}</b> ab sofort in deinem Team.${free<0?`<br><b style="color:var(--red)">Deine Bank ist voll.</b> Verkaufe zuerst ein Pokémon oder nimm Gold.`:""}</div>
+  const draw=()=>{const free=S.bench.indexOf(null);
+  openModal(`<div class="ubCatch"><h2>${ic("ub")} ULTRA-BESTIE FANGEN</h2><div class="lead">Die Ultra-Bestie ist geschwächt. Wirf einen Ultraball, dann kämpft <b>${esc(sp.name)}</b> ab sofort in deinem Team.${free<0?`<br><b style="color:var(--red)">Deine Bank ist voll.</b> Verkaufe unten ein Pokémon von deiner Bank oder nimm Gold.`:""}</div>${bsHtml()}
    <div class="ubPic"><i class="ubRing"></i><span class="ubMon"></span></div><div class="ubInfo">${roleTag(sp.line.role)} ${pills(sp.types)} <span class="ubAb">${ic("star")} Bestien-Boost</span></div>
    <div class="rbtns" style="margin-top:12px"><button class="pri hot" id="ubTake" ${free<0?"disabled":""}>${ic("ub")} ULTRABALL WERFEN</button><button class="btn" id="ubSkip">${ic("coin")} Verzichten: +${UB.gold} Gold</button></div></div>`,"narrow");
   $("mbox").querySelector(".ubMon").appendChild(centerSpr(spriteEl(e.sp,"",{shiny:!!e.shiny})));
-  $("ubTake").onclick=()=>{if(take()){closeModal();cb&&cb();}};$("ubSkip").onclick=()=>{S.gold+=UB.gold;closeModal();render();save();cb&&cb();};}
+  $("ubTake").onclick=()=>{if(take()){closeModal();cb&&cb();}};$("ubSkip").onclick=()=>{S.gold+=UB.gold;closeModal();render();save();cb&&cb();};hydrateIcons($("mbox"));bsBind(draw);};draw();}
 /* Ereignis „Ultrapforte“: eine zufällige Ultra-Bestie schließt sich an */
 function ultraEvent(free){const L=pick(ubLines()),sp=L.stages[0][0];if(free>=0){S.bench[free]=mkUnit(sp);dexUp(sp,d=>{d.seen++;d.owned++;});toast(`Aus der Ultrapforte: ${L.stages[0][1]} schließt sich an!`,"ub");}else{S.gold+=COST[L.tier];toast("Bank voll: stattdessen Gold","coin");}}
 /* Bestien-Boost: nach jedem K.O. stärker (bis zu 5-mal) */
