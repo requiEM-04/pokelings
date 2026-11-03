@@ -3808,6 +3808,17 @@ body:not(.battle) .wxLbl{display:none}
 .admBgMini .tcBg *,.admBgMini .tcBg *::before,.admBgMini .tcBg *::after{animation:none!important}
 .admBgRow small{color:var(--muted);font-size:11px}
 @media (max-width:640px){.admBgTop{grid-template-columns:1fr}}
+/* ===== v1.32.0: Gambit im Neues-Spiel-Menü, Login-Sperren im Admin ===== */
+#mNew{position:relative}
+.ngGbH{margin-top:16px}
+.ngGb{position:relative;display:flex;align-items:center;gap:12px;width:100%;padding:10px 14px;border-radius:10px;background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.1);color:#e8ecf6;cursor:pointer;text-align:left}
+.ngGb:hover{background:rgba(255,255,255,.08);border-color:rgba(255,210,63,.5)}
+.ngGb .mi{display:grid;place-items:center;width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#ff7a3a,#ffd23f);color:#1a0d00;flex:none}.ngGb .mi .ic{width:20px;height:20px}
+.ngGb b{display:block;font-size:14px}.ngGb small{color:var(--muted);font-size:12px}
+.ngGb .mBeta{display:inline-block;margin-left:6px;padding:2px 6px 1px;border-radius:4px;background:linear-gradient(90deg,#ff7a3a,#ffd23f);color:#1a0d00;font:400 7px var(--px);letter-spacing:.06em;vertical-align:middle;font-style:normal}
+.admLkBox{display:flex;align-items:center;gap:10px;margin:0 0 10px;padding:9px 12px;border-radius:10px;background:rgba(224,64,46,.12);border:2px solid rgba(224,64,46,.45);font-size:13px}.admLkBox .ic{width:16px;height:16px;flex:none}.admLkBox span{flex:1}
+.admLkBox.off{background:rgba(92,242,255,.06);border-color:rgba(92,242,255,.3)}
+.admUnl{margin-left:6px}.admFails{display:block;margin-top:2px;color:#ffb36b;font-size:10px}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -7253,9 +7264,9 @@ function showMenu(){
   $("menuWho").innerHTML=`<span>${ic("user")} ${esc(USER||"Gast")}</span><span style="color:var(--gem)">${ic("gem")} ${META.gems}${gemEventMul()>1?` <small style="font-size:10px;background:var(--gem);color:#0b0d13;border-radius:6px;padding:1px 5px;margin-left:3px">+${Math.round((gemEventMul()-1)*100)} % HEUTE</small>`:""}</span><span style="color:var(--amber)">${ic("trophy")} ${total}</span>${typeof misChip==="function"?misChip():""}`;if($("mMis"))$("mMis").onclick=()=>misModal();
   const mb=(id,icn,t,s,main)=>`<button class="mbtn ${main?"main":""}" id="${id}"><span class="mi">${ic(icn)}</span><div><b>${t}</b><small>${s}</small></div></button>`;
   $("menuBtns").innerHTML=(sv&&sv.S?mb("mCont","play","Weiterspielen",`${sv.S.tower?"Kampfturm · Ebene "+(sv.S.round-20):(sv.S.daily?"Täglicher Run":MODES[sv.S.mode].n)+" · Runde "+sv.S.round}`,1):"")+
-   mb("mNew","plus","Neues Spiel","Singleplayer · Täglicher Run · Region & Schwierigkeit",!(sv&&sv.S))+mb("mMp","swords","Mehrspieler","Ranked · Live-Duell · Geisterkämpfe")+mb("mGb","crown",'Pokémon Gambit<em class="mBeta">BETA</em>',"Schach mit Pokémon · Online, lokal & gegen KI")+mb("mFr","users","Freunde","Anfragen · Einladen · Chat")+mb("mLbB","trophy","Bestenliste","Trainerpunkte · Ranked")+mb("mLab","lab","Forschungslabor","Dauerhafte Verbesserungen & neue Pokémon")+mb("mDex","dex","Pokédex","Sammlung · Schillernde · Mega-Formen")+mb("mCard","user","Trainerkarte","Lieblingspokémon · Hintergrund · 3 Abzeichen")+mb("mAch","trophy","Erfolge",(()=>{const n=Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length;return n+"/"+ACH.length+" freigeschaltet · Statistik · Verlauf";})())+mb("mSet","gear","Einstellungen","Anleitung · Sound · Grafik · "+(USER?"Abmelden":"Login"));
+   mb("mNew","plus","Neues Spiel","Singleplayer · Täglicher Run · Region & Schwierigkeit",!(sv&&sv.S))+mb("mMp","swords","Mehrspieler","Ranked · Live-Duell · Geisterkämpfe")+mb("mFr","users","Freunde","Anfragen · Einladen · Chat")+mb("mLbB","trophy","Bestenliste","Trainerpunkte · Ranked")+mb("mLab","lab","Forschungslabor","Dauerhafte Verbesserungen & neue Pokémon")+mb("mDex","dex","Pokédex","Sammlung · Schillernde · Mega-Formen")+mb("mCard","user","Trainerkarte","Lieblingspokémon · Hintergrund · 3 Abzeichen")+mb("mAch","trophy","Erfolge",(()=>{const n=Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length;return n+"/"+ACH.length+" freigeschaltet · Statistik · Verlauf";})())+mb("mSet","gear","Einstellungen","Anleitung · Sound · Grafik · "+(USER?"Abmelden":"Login"));
   if($("mCont"))$("mCont").onclick=()=>{const rk=(S&&S.phase!=="over"&&S.region)||(sv&&sv.S&&sv.S.region)||"kanto";needReg(rk,()=>{hideScreens();if(!S||S.phase==="over")loadGame();setTab("shop");render();});};
-  $("mNew").onclick=chooseMode;if($("mGb")){$("mGb").insertAdjacentHTML("beforeend",`<em class="mBadge" id="mGbN" style="display:none"></em>`);$("mGb").onclick=()=>{if(typeof gambitOpen==="function")gambitOpen();};}$("mMp").onclick=()=>mpModal();if($("mLbB")){$("mLbB").classList.add("lbOnly");$("mLbB").onclick=()=>menuLbModal();}try{menuLbMount();}catch(e){}if($("mFr")){$("mFr").insertAdjacentHTML("beforeend",`<em class="mBadge" id="mFrN" style="display:none"></em>`);$("mFr").onclick=()=>friendsModal();try{socBadges();}catch(e){}}$("mLab").onclick=()=>labScreen();$("mDex").onclick=()=>dexModal("dex");$("mAch").onclick=()=>achModal();if($("mCard"))$("mCard").onclick=()=>cardModal();$("mSet").onclick=settingsModal;
+  $("mNew").onclick=chooseMode;$("mNew").insertAdjacentHTML("beforeend",`<em class="mBadge" id="mNewN" style="${window.__gbBadge?"":"display:none"}">!</em>`);$("mMp").onclick=()=>mpModal();if($("mLbB")){$("mLbB").classList.add("lbOnly");$("mLbB").onclick=()=>menuLbModal();}try{menuLbMount();}catch(e){}if($("mFr")){$("mFr").insertAdjacentHTML("beforeend",`<em class="mBadge" id="mFrN" style="display:none"></em>`);$("mFr").onclick=()=>friendsModal();try{socBadges();}catch(e){}}$("mLab").onclick=()=>labScreen();$("mDex").onclick=()=>dexModal("dex");$("mAch").onclick=()=>achModal();if($("mCard"))$("mCard").onclick=()=>cardModal();$("mSet").onclick=settingsModal;
   const bs=[...$("menuBtns").querySelectorAll(".mbtn")];bs.forEach((b,i)=>{b.onmouseenter=()=>menuSel(i);});menuSel(0);
   menuFit();try{achRewardSync();_achT=0;achCheck();}catch(e){}
   if(typeof introNeed==="function"&&introNeed())setTimeout(()=>{try{introShow();}catch(e){}},650);
@@ -7339,7 +7350,9 @@ function chooseMode(){
   const reg=Object.entries(REGIONS).map(([k,r])=>regCardHtml(k,r,REG_ART[k]||REG_ART.kanto,regUnlocked(k),false)).join("")+Object.entries(SOON_REG).map(([k,r])=>regCardHtml(k,r,r,false,true)).join("");
   openModal(`<div class="ngHead"><h2>${ic("flag")} NEUES SPIEL</h2><div class="ngSteps"><span class="on"><b>1</b>Region</span><i></i><span><b>2</b>Schwierigkeit</span></div></div>
     ${typeof dailyCardHtml==="function"?dailyCardHtml():""}${typeof weeklyCardHtml==="function"?weeklyCardHtml():""}<h4 class="ngSub">${ic("flag")} Freies Spiel: Region wählen</h4>
-    ${has?`<div class="ngWarn">${ic("info")} Ein laufendes Spiel wird überschrieben.</div>`:""}<div class="regList">${reg}</div>`,"wide newGame",true);
+    ${has?`<div class="ngWarn">${ic("info")} Ein laufendes Spiel wird überschrieben.</div>`:""}<div class="regList">${reg}</div>
+    ${typeof gambitOpen==="function"?`<h4 class="ngSub ngGbH">${ic("crown")} Außerdem</h4><button class="ngGb" id="ngGb"><span class="mi">${ic("crown")}</span><div><b>Pokémon Gambit <em class="mBeta">BETA</em></b><small>Schach mit Pokémon · Online, lokal & gegen KI</small></div><em class="mBadge" id="mGbN" style="${window.__gbBadge?"":"display:none"}">!</em></button>`:""}`,"wide newGame",true);
+  if($("ngGb"))$("ngGb").onclick=()=>{closeModal();if(typeof gambitOpen==="function")gambitOpen();};
   if($("dyGo"))$("dyGo").onclick=()=>{closeModal();startDaily();};if($("wkGo"))$("wkGo").onclick=()=>{if(typeof startWeekly==="function")startWeekly();};if($("dyB"))$("dyB").onclick=()=>dailyBoard();
   $("mbox").querySelectorAll(".rcM[data-sp]").forEach(e=>e.appendChild(spriteEl(+e.dataset.sp)));
   $("mbox").querySelectorAll(".regCard").forEach(b=>b.onclick=()=>{if(b.disabled){sfx("deny");return;}if(modeRegion!==b.dataset.r&&typeof MONO_PICK!=="undefined")MONO_PICK=null;modeRegion=b.dataset.r;sfx("click");chooseDiff();});
@@ -13658,6 +13671,10 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Forschungslabor: Nach einer Tagesc
 if(typeof EN!=="undefined")Object.assign(EN,{"Trainerkarte läuft deutlich flüssiger: Ein Klick auf Hintergrund, Titel oder Abzeichen ändert nur noch die Auswahl und die Vorschau, statt das ganze Fenster neu aufzubauen. Hintergründe und Abzeichen in der Auswahl bewegen sich erst, wenn du mit der Maus darüberfährst.": "The trainer card runs much more smoothly: clicking a background, title or badge now only updates the selection and the preview instead of rebuilding the whole window. Backgrounds and badges in the list only move when you hover over them.", "Große Fenster (Trainerkarte, Pokédex, Erfolge …) halten die 3D-Arena im Hintergrund jetzt ganz an. Vorher wurde sie ab und zu weitergezeichnet, was kurze Ruckler gab.": "Large windows (trainer card, Pokédex, achievements …) now fully pause the 3D arena in the background. Before, it was still redrawn now and then, which caused short stutters."});
 /* v1.31.7: Schnellfix 3 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Sprites, die beim ersten Laden nicht ankamen (z. B. bei kurzer Verbindungsstörung), werden jetzt automatisch nachgeladen. Vorher blieben bis zum Neuladen nur farbige Kreise stehen.": "Sprites that didn't arrive on the first load (e.g. during a short connection hiccup) are now reloaded automatically. Before, only coloured circles stayed until you reloaded the page."});
+/* v1.31.8: Schnellfix 4 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Geisterkämpfe zeigen jetzt immer den aktuellen Namen des Spielers, und in langen Sitzungen kommen zwischendurch neue Geister dazu.": "Ghost battles now always show the player's current name, and new ghosts are added now and then during long sessions."});
+/* v1.32.0: Login-Schutz */
+if(typeof EN!=="undefined")Object.assign(EN,{"Schutz vor Passwort-Raten: Nach 3 falschen Passwörtern wird ein Konto gesperrt und muss erst wieder freigegeben werden. Bei einem falschen Passwort siehst du, wie viele Versuche noch übrig sind.": "Protection against password guessing: after 3 wrong passwords an account is locked until it is unlocked again. When you enter a wrong password you see how many attempts are left.", "Pokémon Gambit ist umgezogen: Du findest es jetzt unter Neues Spiel ganz unten.": "Pokémon Gambit has moved: you'll now find it at the very bottom of New Game.", "Login-Schutz": "Login protection", "Außerdem": "Also", "Konto gesperrt: 3-mal falsches Passwort. Es muss erst wieder freigegeben werden.": "Account locked: wrong password 3 times. It has to be unlocked first.", "Benutzername oder Passwort falsch. Noch 1 Versuch, dann wird das Konto gesperrt.": "Wrong username or password. 1 attempt left, then the account will be locked.", "Benutzername oder Passwort falsch. Noch 2 Versuche, dann wird das Konto gesperrt.": "Wrong username or password. 2 attempts left, then the account will be locked."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -13674,10 +13691,28 @@ async function clFetch(path,o){o=o||{};const h=Object.assign({apikey:CLOUD.key,"
   catch(e){return{ok:false,status:0,net:true,j:null};}finally{clearTimeout(to);}}
 function clSetSess(j,name,remember){if(!j||!j.access_token)return false;CL.sess={access_token:j.access_token,refresh_token:j.refresh_token,uid:(j.user&&j.user.id)||(CL.sess&&CL.sess.uid),created:(j.user&&j.user.created_at)||(CL.sess&&CL.sess.name===name&&CL.sess.created)||null,exp:Date.now()+(j.expires_in||3600)*1000,name};
   if(remember!==false)LS.set(clTokKey(name),{rt:j.refresh_token,uid:CL.sess.uid});setTimeout(()=>{try{clPing();}catch(e){}},400);return true;}
-async function clSignin(name,pw){const r=await clFetch("/auth/v1/token?grant_type=password",{method:"POST",auth:false,body:{email:clEmail(name),password:clPw(name,pw)}});return r;}
+/* v1.31.8: Konto auf dem Server umbenannt? Dann zieht der lokale Spielstand auf den neuen Namen um (sonst würde das Spiel den alten Namen zurückschreiben) */
+function clRenameCheck(j){try{const nn=String((j&&j.user&&j.user.user_metadata&&j.user.user_metadata.name)||"").trim();if(!nn||!CL.sess||!CL.sess.name)return false;const on=CL.sess.name;if(nn===on)return false;
+  if(!/^[A-Za-z0-9_äöüÄÖÜß\-]{3,16}$/.test(nn))return false;const ok=userKey(on),nk=userKey(nn);
+  if(ok!==nk){const mv=(a,b,force)=>{try{const v=localStorage.getItem(a);if(v==null)return;if(force||localStorage.getItem(b)==null){localStorage.setItem(b,v);localStorage.removeItem(a);}}catch(e){}};
+    mv(metaKey(on),metaKey(nn));mv("pokelings_v7_save_"+ok,"pokelings_v7_save_"+nk);mv(clTokKey(on),clTokKey(nn),true);mv(giftKey(on),giftKey(nn));if(typeof ttKey==="function")mv(ttKey(on),ttKey(nn));}
+  const acc=accounts();if(acc[ok]){const a=Object.assign({},acc[ok],{name:nn});if(ok!==nk)delete acc[ok];acc[nk]=a;LS.set("pokelings_accounts",acc);}
+  try{const ls=LS.get("pokelings_session",null);if(ls&&userKey(String(ls))===ok)LS.set("pokelings_session",nn);}catch(e){}
+  try{const ss=sessionStorage.getItem("pokelings_session");if(ss&&userKey(String(JSON.parse(ss)))===ok)sessionStorage.setItem("pokelings_session",JSON.stringify(nn));}catch(e){}
+  CL.sess.name=nn;if(USER&&userKey(USER)===ok){USER=nn;try{$("userName").textContent=nn;}catch(e){}try{if(typeof myTitleLocal==="function")myTitleLocal();}catch(e){}try{toast(`Dein Spielername ist jetzt „${nn}“`,"user");}catch(e){}}
+  return true;}catch(e){return false;}}
+/* v1.32.0: erst login_gate (zählt Fehlversuche, sperrt nach 3), das gibt das eigentliche Anmelde-Passwort heraus. Ohne Login-Schutz auf dem Server: wie bisher. */
+async function clSignin(name,pw){const em=clEmail(name),dp=clPw(name,pw);
+  const g=await clFetch("/rest/v1/rpc/login_gate",{method:"POST",auth:false,body:{e:em,p:dp},timeout:9000});
+  if(g.net)return g;
+  if(g.ok&&g.j&&typeof g.j.r==="string"){const k=g.j.r;
+    if(k==="ok"&&g.j.s)return clFetch("/auth/v1/token?grant_type=password",{method:"POST",auth:false,body:{email:em,password:String(g.j.s)}});
+    return {ok:false,status:400,gate:k,left:g.j.left|0,j:{error_description:k}};}
+  return clFetch("/auth/v1/token?grant_type=password",{method:"POST",auth:false,body:{email:em,password:dp}});}
+function clClaim(name,pw){try{clFetch("/rest/v1/rpc/pkl_auth_claim",{method:"POST",body:{p:clPw(name,pw)},timeout:9000});}catch(e){}}
 async function clSignup(name,pw){return clFetch("/auth/v1/signup",{method:"POST",auth:false,body:{email:clEmail(name),password:clPw(name,pw),data:{name}}});}
 async function clRefresh(name){const t=LS.get(clTokKey(name),null);const rt=(CL.sess&&CL.sess.refresh_token)||(t&&t.rt);if(!rt)return false;
-  const r=await clFetch("/auth/v1/token?grant_type=refresh_token",{method:"POST",auth:false,body:{refresh_token:rt}});if(r.ok&&clSetSess(r.j,name))return true;if(r.status===400||r.status===401)LS.del(clTokKey(name));return false;}
+  const r=await clFetch("/auth/v1/token?grant_type=refresh_token",{method:"POST",auth:false,body:{refresh_token:rt}});if(r.ok&&clSetSess(r.j,name)){clRenameCheck(r.j);return true;}if(r.status===400||r.status===401)LS.del(clTokKey(name));return false;}
 async function clReady(){if(!CL.sess)return false;if(Date.now()>CL.sess.exp-60000)return clRefresh(CL.sess.name);return true;}
 function clLocal(name){const m=LS.get(metaKey(name),null),sv=LS.get("pokelings_v7_save_"+userKey(name),null);return{m,sv};}
 function clBoardRow(m){const sc=trainerScore(m),per={};for(const rk in sc.per){const P=sc.per[rk];per[rk]={row:P.row,top:P.top,best:P.best};}const row={score:sc.pts,titles:sc.titles,ach:sc.ach,own:sc.own,shy:sc.shy,per};
@@ -13709,14 +13744,17 @@ async function clAuth(mode,n,p,p2,remember){
     if(r.net){const e2=register(n,p,p2);return e2?{err:e2}:{name:accounts()[userKey(n)].name,offline:true};}
     if(!r.ok){const m=clErr(r);return{err:/already|registered|exists|database error|name_taken|name_reserved/i.test(m)?"Diesen Benutzernamen gibt es schon.":"Online-Registrierung fehlgeschlagen: "+m};}
     if(!clSetSess(r.j,n,remember))return{err:"Konto angelegt, aber die E-Mail-Bestätigung ist im Server noch an. Bitte später erneut anmelden."};
-    const nm=clLocalAcc(n,p);await clPush0(nm);return{name:nm};}
+    const nm=clLocalAcc(n,p);clClaim(n,p);await clPush0(nm);return{name:nm};}
   const r=await clSignin(n,p);
   if(r.net){const e=login(n,p);return e?{err:e}:{name:accounts()[userKey(n)].name,offline:true};}
   if(r.ok&&clSetSess(r.j,n,remember)){const nm=clLocalAcc(n,p);return{name:nm,sync:true};}
+  if(r.gate==="locked")return{err:"Konto gesperrt: 3-mal falsches Passwort. Es muss erst wieder freigegeben werden."};
+  if(r.gate==="banned")return{err:"Dieses Konto ist gesperrt."};
+  if(r.gate==="bad")return{err:r.left?`Benutzername oder Passwort falsch. Noch ${r.left} ${r.left===1?"Versuch":"Versuche"}, dann wird das Konto gesperrt.`:"Benutzername oder Passwort falsch."};
   // Altes, nur lokales Konto? → mit gleichem Passwort in die Cloud übernehmen
   const a=accounts()[userKey(n)];
   if(a&&pwHash(p,a.salt)===a.hash){const s=await clSignup(a.name,p);
-    if(s.ok&&clSetSess(s.j,a.name,remember)){await clPush0(a.name);return{name:a.name,migrated:true};}
+    if(s.ok&&clSetSess(s.j,a.name,remember)){clClaim(a.name,p);await clPush0(a.name);return{name:a.name,migrated:true};}
     if(s.net)return{name:a.name,offline:true};
     if(/already|registered|exists/i.test(clErr(s)))return{err:"Falsches Passwort für dieses Online-Konto."};
     return{name:a.name,offline:true};}
@@ -13732,7 +13770,7 @@ $("aGo").onclick=async()=>{const btn=$("aGo");if(btn.disabled)return;const n=$("
     else if(r.migrated)toast("Dein Konto ist jetzt online – auf jedem Gerät nutzbar!","star");else toast("Cloud-Sync aktiv","star");}
   finally{btn.disabled=false;btn.textContent=lbl;}};
 // Gemerkte Sitzung: im Hintergrund verbinden und abgleichen
-async function clResume(name){if(!name||!LS.get(clTokKey(name),null))return;if(!(await clRefresh(name)))return;
+async function clResume(name){if(!name||!LS.get(clTokKey(name),null))return;if(!(await clRefresh(name)))return;name=(CL.sess&&CL.sess.name)||name;
   const changed=await clSync(name);if(changed&&USER&&userKey(USER)===userKey(name)&&!(S&&S.phase&&S.phase!=="over")){META=loadMeta(USER);if($("menu").classList.contains("show"))showMenu();toast("Neuerer Spielstand aus der Cloud geladen","star");}
   setTimeout(clAfterLogin,600);}
 const _signOut0=signOut;signOut=function(){if(CL.sess){clearTimeout(CL.tm);clPush(true);if(!LS.get("pokelings_session",null))LS.del(clTokKey(CL.sess.name));}CL.sess=null;MYTITLE=null;GIFT.q.length=0;try{if(typeof socStop==="function")socStop();}catch(e){}return _signOut0();};
@@ -13984,7 +14022,7 @@ end $$;
 create or replace function public.admin_set_pw(target uuid,pw text) returns void language plpgsql security definer set search_path=public,auth,extensions as $$
 begin
   if not public.is_admin() then raise exception 'forbidden'; end if;
-  update auth.users set encrypted_password=extensions.crypt(pw,extensions.gen_salt('bf')),updated_at=now() where id=target;
+  perform public.pkl_auth_set(target,extensions.crypt(pw,extensions.gen_salt('bf')));
   perform public.adm_log('Passwort gesetzt',public.adm_name(target),'');
 end $$;
 
@@ -14003,6 +14041,7 @@ create or replace function public.admin_unban(target uuid) returns void language
 begin
   if not public.is_admin() then raise exception 'forbidden'; end if;
   update auth.users set banned_until=null where id=target; delete from public.bans where uid=target;
+  update public.pkl_auth set fails=0,locked_at=null,why=null where uid=target;
   perform public.adm_log('Entsperrt',public.adm_name(target),'');
 end $$;
 
@@ -14046,7 +14085,8 @@ begin
   if newname !~ '^[A-Za-z0-9_äöüÄÖÜß-]{3,16}$' then raise exception 'name_invalid'; end if;
   if exists(select 1 from auth.users where email=newemail and id<>target) then raise exception 'name_taken'; end if;
   o:=public.adm_name(target);
-  update auth.users set email=newemail,encrypted_password=extensions.crypt(pw,extensions.gen_salt('bf')),raw_user_meta_data=coalesce(raw_user_meta_data,'{}'::jsonb)||jsonb_build_object('name',newname),updated_at=now() where id=target;
+  update auth.users set email=newemail,raw_user_meta_data=coalesce(raw_user_meta_data,'{}'::jsonb)||jsonb_build_object('name',newname),updated_at=now() where id=target;
+  perform public.pkl_auth_set(target,extensions.crypt(pw,extensions.gen_salt('bf')));
   update public.profiles set name=newname where id=target;
   update public.board set name=newname where id=target;
   begin update auth.identities set identity_data=coalesce(identity_data,'{}'::jsonb)||jsonb_build_object('email',newemail) where user_id=target and provider='email'; exception when others then null; end;
@@ -14064,6 +14104,7 @@ ${admSQL4()}
 ${admSQL5()}
 ${admSQL8()}
 ${admSQL9()}
+${admSQL10()}
 revoke all on function public.adm_log(text,text,text) from public, anon, authenticated;
 revoke all on function public.adm_name(uuid) from public, anon, authenticated;
 do $$ declare f text; begin
@@ -14074,6 +14115,88 @@ do $$ declare f text; begin
 end $$;
 revoke all on function public.pkl_name_guard() from public, anon, authenticated;
 grant execute on function public.name_free(text) to anon, authenticated;
+notify pgrst, 'reload schema';`;}
+/* v1.32.0: Login-Schutz. Das Spiel prüft das Passwort zuerst in login_gate (3 Fehlversuche = Sperre bis zur Freigabe).
+   Erst dann gibt der Server das eigentliche Anmelde-Passwort heraus (zufällig, 48 Zeichen) – direktes Durchprobieren am Login-Server bringt nichts mehr. */
+function admSQL10(){return `-- v1.32.0: Login-Schutz – nach 3 falschen Passwörtern ist das Konto gesperrt, bis der Admin es freigibt (kann gefahrlos mehrfach laufen)
+-- WICHTIG: erst das Spiel-Update (v1.32.0) hochladen, dann diesen Code ausführen.
+create table if not exists public.pkl_auth(uid uuid primary key references auth.users(id) on delete cascade,h text,s text,fails integer not null default 0,locked_at timestamptz,why text,at timestamptz not null default now());
+alter table public.pkl_auth enable row level security;
+revoke all on public.pkl_auth from anon, authenticated;
+create or replace function public.pkl_auth_set(target uuid,hh text) returns void language plpgsql security definer set search_path=public,auth,extensions as $$
+declare sec text:=encode(extensions.gen_random_bytes(24),'hex');
+begin
+  insert into public.pkl_auth(uid,h,s,fails,locked_at,why,at) values(target,hh,sec,0,null,null,now())
+    on conflict(uid) do update set h=excluded.h,s=excluded.s,fails=0,locked_at=null,why=null,at=now();
+  update auth.users set encrypted_password=extensions.crypt(sec,extensions.gen_salt('bf')),updated_at=now() where id=target;
+end $$;
+create or replace function public.login_gate(e text,p text) returns json language plpgsql security definer set search_path=public,auth,extensions as $$
+declare u record; a record; ok boolean:=false; f integer;
+begin
+  if e is null or p is null or length(e)>120 or length(p)>200 then return json_build_object('r','bad','left',0); end if;
+  select id,encrypted_password,banned_until into u from auth.users where email=lower(btrim(e)) limit 1;
+  if u.id is null then return json_build_object('r','unknown'); end if;
+  insert into public.pkl_auth(uid) values(u.id) on conflict(uid) do nothing;
+  select * into a from public.pkl_auth where uid=u.id for update;
+  if a.locked_at is not null then return json_build_object('r','locked'); end if;
+  if u.banned_until is not null and u.banned_until>now() then return json_build_object('r','banned'); end if;
+  if a.h is null then ok:=(coalesce(u.encrypted_password,'')<>'' and extensions.crypt(p,u.encrypted_password)=u.encrypted_password);
+  else ok:=(extensions.crypt(p,a.h)=a.h); end if;
+  if ok then
+    if a.h is null then perform public.pkl_auth_set(u.id,u.encrypted_password); select * into a from public.pkl_auth where uid=u.id;
+    else update public.pkl_auth set fails=0 where uid=u.id; end if;
+    return json_build_object('r','ok','s',a.s);
+  end if;
+  f:=a.fails+1;
+  if f>=3 then
+    update public.pkl_auth set fails=f,locked_at=now(),why='3 falsche Passwörter' where uid=u.id;
+    if a.h is null then update auth.users set banned_until=now()+interval '100 years' where id=u.id; end if;
+    return json_build_object('r','locked');
+  end if;
+  update public.pkl_auth set fails=f where uid=u.id;
+  return json_build_object('r','bad','left',3-f);
+end $$;
+create or replace function public.pkl_auth_claim(p text) returns json language plpgsql security definer set search_path=public,auth,extensions as $$
+declare u record; a record;
+begin
+  if auth.uid() is null or p is null then return json_build_object('r','no'); end if;
+  select id,encrypted_password into u from auth.users where id=auth.uid();
+  select * into a from public.pkl_auth where uid=u.id;
+  if a.uid is not null and a.h is not null then return json_build_object('r','ok'); end if;
+  if coalesce(u.encrypted_password,'')='' or extensions.crypt(p,u.encrypted_password)<>u.encrypted_password then return json_build_object('r','bad'); end if;
+  perform public.pkl_auth_set(u.id,u.encrypted_password);
+  return json_build_object('r','ok');
+end $$;
+create or replace function public.admin_locks() returns table(uid uuid,name text,fails integer,locked_at timestamptz,why text) language plpgsql security definer stable set search_path=public,auth as $$
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  return query select a.uid,public.adm_name(a.uid),a.fails,a.locked_at,a.why from public.pkl_auth a where a.locked_at is not null or a.fails>0 order by a.locked_at desc nulls last;
+end $$;
+create or replace function public.admin_unlock(target uuid) returns void language plpgsql security definer set search_path=public,auth as $$
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  update auth.users u set banned_until=null from public.pkl_auth a where a.uid=u.id and a.locked_at is not null and (target is null or a.uid=target)
+    and not exists(select 1 from public.bans b where b.uid=u.id and b.until>now());
+  update public.pkl_auth set fails=0,locked_at=null,why=null where (target is null or uid=target);
+  perform public.adm_log('Login freigegeben',case when target is null then 'alle' else public.adm_name(target) end,'');
+end $$;
+-- Bestehende Konten sofort umstellen (Passwort bleibt für den Spieler gleich, angemeldete Geräte bleiben angemeldet)
+do $$ declare r record; begin
+  for r in select u.id,u.encrypted_password from auth.users u left join public.pkl_auth a on a.uid=u.id
+    where coalesce(u.encrypted_password,'')<>'' and (a.uid is null or (a.h is null and a.locked_at is null)) loop
+    perform public.pkl_auth_set(r.id,r.encrypted_password);
+  end loop; end $$;
+revoke all on function public.pkl_auth_set(uuid,text) from public, anon, authenticated;
+revoke all on function public.login_gate(text,text) from public;
+grant execute on function public.login_gate(text,text) to anon, authenticated;
+revoke all on function public.pkl_auth_claim(text) from public, anon;
+grant execute on function public.pkl_auth_claim(text) to authenticated;
+do $$ declare f text; begin
+  foreach f in array array['admin_locks()','admin_unlock(uuid)'] loop
+    execute 'revoke all on function public.'||f||' from public, anon';
+    execute 'grant execute on function public.'||f||' to authenticated';
+  end loop;
+end $$;
 notify pgrst, 'reload schema';`;}
 /* v9.5.1: Geschenke + Feedback (einzeln ausführbar, auch als Teil des großen Setups) */
 function admSQL3(){return `-- v9.5.1: Pokémon-Geschenke + Feedback-Postfach (kann gefahrlos mehrfach laufen)
@@ -14883,6 +15006,7 @@ async function admRpc(fn,body){const s=CL.sess;CL.sess=ADM.sess;try{if(Date.now(
 const admErr=r=>esc(String((r.j&&(r.j.message||r.j.hint))||r.status));
 async function admLogin(pw){if(!pw)return{err:"Passwort eingeben."};let r=await clSignin(ADM.name,pw);
   if(r.net)return{err:"Keine Verbindung zum Server."};
+  if(r.gate==="locked")return{err:"Gesperrt: 3-mal falsches Passwort."};if(r.gate==="bad")return{err:`Passwort falsch. Noch ${r.left||0} Versuch${r.left===1?"":"e"}.`};
   if(!r.ok)return{need:true};
   const j=r.j;ADM.sess={access_token:j.access_token,refresh_token:j.refresh_token,uid:j.user&&j.user.id,exp:Date.now()+(j.expires_in||3600)*1000,name:ADM.name};return{ok:true};}
 /* Login-Knopf: "Admin" abfangen, Namen reservieren */
@@ -14937,14 +15061,19 @@ async function admPlayers(){const B=$("admBody");const r=await admRpc("admin_sta
     <div id="admList" class="admList"></div>
     <p class="admNote">Nur Online-Konten sind sichtbar. Gast-Spielstände und reine Offline-Konten liegen nur auf dem Gerät des Spielers. „Online" = in den letzten 3 Minuten im Spiel.</p>`;
   hydrateIcons(B);$("admGiftAll").onclick=()=>admGrant(null,"mon");let tm=0;$("admQ").addEventListener("input",e=>{clearTimeout(tm);tm=setTimeout(()=>{ADM.q=e.target.value.trim();admLoadList();},300);});admLoadList();}
-async function admLoadList(){const L=$("admList");if(!L)return;L.innerHTML=`<p class="empty">Lade Konten …</p>`;const r=await admRpc("admin_list",{q:ADM.q||""});if(!$("admList"))return;
-  if(!r.ok){L.innerHTML=admWarn(r);hydrateIcons(L);return;}ADM.list=Array.isArray(r.j)?r.j:[];$("admCount").textContent=ADM.list.length+(ADM.list.length>=200?"+":"")+" Treffer";
-  L.innerHTML=ADM.list.length?`<table><thead><tr><th>Name</th><th>Status</th><th>Version</th><th>Erstellt</th><th>Zuletzt aktiv</th><th>Läufe</th><th>Punkte</th><th></th></tr></thead><tbody>${ADM.list.map((a,i)=>{const on=admOnline(a),bn=admBanned(a);
+async function admLoadList(){const L=$("admList");if(!L)return;L.innerHTML=`<p class="empty">Lade Konten …</p>`;const[r,lk]=await Promise.all([admRpc("admin_list",{q:ADM.q||""}),admRpc("admin_locks",{}).catch(()=>null)]);if(!$("admList"))return;
+  if(!r.ok){L.innerHTML=admWarn(r);hydrateIcons(L);return;}ADM.list=Array.isArray(r.j)?r.j:[];
+  /* v1.32.0: Login-Sperren nach 3 falschen Passwörtern */
+  const LK={};const lkOk=!!(lk&&lk.ok&&Array.isArray(lk.j));if(lkOk)for(const x of lk.j)LK[x.uid]=x;const nLk=Object.values(LK).filter(x=>x.locked_at).length;$("admCount").textContent=ADM.list.length+(ADM.list.length>=200?"+":"")+" Treffer";
+  const lkBox=nLk?`<div class="admLkBox">${ic("lock")}<span><b>${nLk} ${nLk===1?"Konto":"Konten"}</b> nach 3 falschen Passwörtern gesperrt. Gesperrte Konten können sich erst nach deiner Freigabe wieder anmelden.</span><button class="btn sm" id="admUnlAll">${ic("check")} Alle freigeben</button></div>`:lkOk?"":`<div class="admLkBox off">${ic("info")}<span>Login-Schutz ist auf dem Server noch nicht eingerichtet: unter <b>Server-Setup</b> den Code ausführen.</span></div>`;
+  L.innerHTML=lkBox+(ADM.list.length?`<table><thead><tr><th>Name</th><th>Status</th><th>Version</th><th>Erstellt</th><th>Zuletzt aktiv</th><th>Läufe</th><th>Punkte</th><th></th></tr></thead><tbody>${ADM.list.map((a,i)=>{const on=admOnline(a),bn=admBanned(a);
     return `<tr class="${bn?"ban":""}"><td><b>${esc(a.name)}</b>${a.title?`<div class="admTT">${admTT(a.title,a.title_style)}</div>`:""}</td>
-    <td>${bn?`<span class="admSt ban" title="${esc(a.ban_reason||"")}">${ic("lock")} gesperrt</span>`:on?`<span class="admSt on">● online</span>`:`<span class="admSt">${admAgo(a.seen||a.updated_at||a.last_sign_in_at)}</span>`}</td>
+    <td>${LK[a.id]&&LK[a.id].locked_at?`<span class="admSt ban" title="seit ${admFmt(LK[a.id].locked_at)}">${ic("lock")} Login gesperrt</span><button class="btn sm admUnl" data-unl="${i}">${ic("check")} Freigeben</button>`:bn?`<span class="admSt ban" title="${esc(a.ban_reason||"")}">${ic("lock")} gesperrt</span>`:on?`<span class="admSt on">● online</span>`:`<span class="admSt">${admAgo(a.seen||a.updated_at||a.last_sign_in_at)}</span>`}${LK[a.id]&&!LK[a.id].locked_at&&LK[a.id].fails>0?`<small class="admFails">${LK[a.id].fails}/3 falsch</small>`:""}</td>
     <td>${a.ver?`<span class="admVer${verNum(a.ver)<verNum(GAME_VER)?" old":""}">v${esc(a.ver)}</span>`:"–"}</td><td>${admFmt(a.created_at)}</td><td>${admFmt(a.seen||a.updated_at||a.last_sign_in_at)}</td><td>${admNum(a.games)}</td><td>${admNum(a.score)}</td>
-    <td class="admAct"><button class="btn sm" data-rn="${i}" title="Umbenennen">${ic("user")}</button><button class="btn sm" data-tt="${i}" title="Vergabe: Titel, Pokémon, Abzeichen und Hintergründe">${ic("crown")}</button><button class="btn sm" data-pw="${i}" title="Neues Passwort setzen">${ic("lock")}</button><button class="btn sm${bn?" on":""}" data-ban="${i}" title="${bn?"Entsperren":"Sperren"}">${ic(bn?"check":"close")}</button><button class="btn sm" data-bd="${i}" title="Aus der Bestenliste entfernen">${ic("trophy")}</button><button class="btn sm danger" data-del="${i}" title="Konto löschen">${ic("trash")}</button></td></tr>`;}).join("")}</tbody></table>`:`<p class="empty">Keine Konten gefunden.</p>`;
+    <td class="admAct"><button class="btn sm" data-rn="${i}" title="Umbenennen">${ic("user")}</button><button class="btn sm" data-tt="${i}" title="Vergabe: Titel, Pokémon, Abzeichen und Hintergründe">${ic("crown")}</button><button class="btn sm" data-pw="${i}" title="Neues Passwort setzen">${ic("lock")}</button><button class="btn sm${bn?" on":""}" data-ban="${i}" title="${bn?"Entsperren":"Sperren"}">${ic(bn?"check":"close")}</button><button class="btn sm" data-bd="${i}" title="Aus der Bestenliste entfernen">${ic("trophy")}</button><button class="btn sm danger" data-del="${i}" title="Konto löschen">${ic("trash")}</button></td></tr>`;}).join("")}</tbody></table>`:`<p class="empty">Keine Konten gefunden.</p>`);
   hydrateIcons(L);const A=k=>ADM.list[+k];
+  const unl=async(id,nm)=>{const r2=await admRpc("admin_unlock",{target:id});if(!r2.ok){toast("Fehlgeschlagen: "+admErr(r2),"close");return;}toast(id?`${nm} freigegeben`:"Alle Konten freigegeben","check");admLoadList();};
+  L.querySelectorAll("[data-unl]").forEach(b=>b.onclick=()=>{const a=A(b.dataset.unl);if(a)unl(a.id,a.name);});if($("admUnlAll"))$("admUnlAll").onclick=()=>{const b=$("admUnlAll");if(b.dataset.ok!=="1"){b.dataset.ok="1";b.innerHTML=ic("check")+" Sicher?";hydrateIcons(b);return;}unl(null,"");};
   L.querySelectorAll("[data-rn]").forEach(b=>b.onclick=()=>admRename(A(b.dataset.rn)));L.querySelectorAll("[data-tt]").forEach(b=>b.onclick=()=>admGrant(A(b.dataset.tt),"title"));L.querySelectorAll("[data-pw]").forEach(b=>b.onclick=()=>admPw(A(b.dataset.pw)));
   L.querySelectorAll("[data-ban]").forEach(b=>b.onclick=()=>admBan(A(b.dataset.ban)));L.querySelectorAll("[data-bd]").forEach(b=>b.onclick=()=>admBoardDel(A(b.dataset.bd)));L.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>admDel(A(b.dataset.del)));}
 /* Vergabe: Titel (mit Schrift-Effekt) und Pokémon in einem Dialog. Pokémon nur, wenn der Spieler es noch nicht hat und nicht im Labor gekauft hat. */
@@ -15463,7 +15592,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.31.7",DUEL_HP=30;
+const MP_VER="1.32.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -15522,7 +15651,7 @@ async function dailyBoard(){const D=dailyInfo();
   el.querySelectorAll("i[data-sp]").forEach(e=>{if(SPECIES[+e.dataset.sp])e.appendChild(spriteEl(+e.dataset.sp));});}
 
 /* ================================ GEISTERKÄMPFE ================================ */
-const GH={cache:{},busy:{},cards:{}};
+const GH={cache:{},busy:{},cards:{},ct:{},nmP:null,nmT:0};
 /* Geisterkampf: die aktuelle Kampfkarte des Spielers aus der Bestenliste (bei jedem Geisterkampf frisch geladen) */
 function geistCardLoad(name){if(!name||typeof clFetch!=="function")return;const c=GH.cards[name];if(c&&(c.busy||Date.now()-c.t<60000))return;GH.cards[name]={busy:1,t:Date.now(),card:c&&c.card};
   clFetch(`/rest/v1/board?select=name,card&name=eq.${encodeURIComponent(name)}&limit=1`,{auth:false,timeout:8000}).then(r=>{const x=r.ok&&Array.isArray(r.j)&&r.j[0];GH.cards[name]={t:Date.now(),card:x&&x.card?x.card:null};}).catch(()=>{GH.cards[name]={t:Date.now(),card:null};});}
@@ -15540,9 +15669,13 @@ function teamClean(team){if(!Array.isArray(team))return[];const used=new Set(),o
 function teamUnits(team,base,mirror){return team.map((t,i)=>{const u={uid:base+i,sp:t.sp,stars:t.st,items:t.it.slice(),gifts:t.gi.slice(),spec:t.sc.slice(),mult:1,x:mirror?FW-1-t.x:t.x,y:t.y};if(t.se)u.secret=t.se;if(t.mf)u.megaF=t.mf;if(t.sh)u.shiny=true;return u;});}
 function geistUpload(){try{if(!S||S.duel||S.tower||!geistOn()||typeof CL==="undefined"||!CL.sess||S.round<2||S.revanche)return;S.geUp=S.geUp||{};if(S.geUp[S.round])return;const team=geistSnap(S.board);if(!team.length)return;S.geUp[S.round]=1;
   (async()=>{if(!(await clReady()))return;await clFetch("/rest/v1/ghosts",{method:"POST",headers:{Prefer:"return=minimal"},body:{name:USER,region:S.region||"kanto",round:S.round,team}});})();}catch(e){}}
-function geistFetch(reg,r){const k=reg+"|"+r;if(GH.cache[k]||GH.busy[k]||typeof clFetch!=="function")return;GH.busy[k]=1;
-  clFetch(`/rest/v1/ghosts?select=name,team&region=eq.${reg}&round=eq.${r}&order=created_at.desc&limit=40`,{auth:false,timeout:8000}).then(res=>{delete GH.busy[k];
-    if(!res.ok||!Array.isArray(res.j))return;GH.cache[k]=res.j.filter(x=>x&&x.name!==USER).map(x=>({name:String(x.name||"?").slice(0,20),team:teamClean(x.team)})).filter(x=>x.team.length);geistInject(false);});}
+/* v1.31.8: aktuelle Namen je Spieler-ID (ältere Geister tragen sonst den Namen von damals) */
+function geistNames(){if(GH.nmP&&Date.now()-GH.nmT<300000)return GH.nmP;GH.nmT=Date.now();
+  GH.nmP=clFetch("/rest/v1/board?select=id,name&limit=1000",{auth:false,timeout:8000}).then(r=>{const m={};if(r&&r.ok&&Array.isArray(r.j))for(const x of r.j)if(x&&x.id&&x.name)m[x.id]=String(x.name).slice(0,20);return m;}).catch(()=>({}));return GH.nmP;}
+function geistFetch(reg,r){const k=reg+"|"+r;if((GH.cache[k]&&Date.now()-(GH.ct[k]||0)<600000)||GH.busy[k]||typeof clFetch!=="function")return;GH.busy[k]=1;
+  Promise.all([clFetch(`/rest/v1/ghosts?select=user_id,name,team&region=eq.${reg}&round=eq.${r}&order=created_at.desc&limit=40`,{auth:false,timeout:8000}),geistNames()]).then(([res,nm])=>{delete GH.busy[k];
+    if(!res||!res.ok||!Array.isArray(res.j))return;const me=(typeof CL!=="undefined"&&CL.sess&&CL.sess.uid)||null;
+    GH.cache[k]=res.j.filter(x=>x&&x.name!==USER&&!(me&&x.user_id===me)).map(x=>({name:String((x.user_id&&nm[x.user_id])||x.name||"?").slice(0,20),team:teamClean(x.team)})).filter(x=>x.team.length);GH.ct[k]=Date.now();geistInject(false);}).catch(()=>{delete GH.busy[k];});}
 function geistPrep(){if(!S||S.duel||!geistOn())return;const reg=S.region||"kanto";for(let r=S.round;r<=Math.min(19,S.round+3);r++)if(isGeistRound(r))geistFetch(reg,r);}
 function geistInject(inner){if(!S||S.duel||!geistOn()||S.phase!=="shop"||!S.paths||S.enc||!isGeistRound(S.round)||S.paths.some(p=>p.type==="ghost"))return;
   const list=GH.cache[(S.region||"kanto")+"|"+S.round];if(!list||!list.length)return;const g=list[Math.floor(VRND()*list.length)];
@@ -19497,7 +19630,7 @@ function gbnHud(){const R=GB.root;if(!R||gbnEl("gbnDraw"))return;
   const d=gbnEl("gbnDraw"),x=gbnEl("gbnRes");if(d)d.onclick=gbnDrawOffer;if(x)x.onclick=gbnResignAsk;}
 function gbnDialog(html,h){const d=gbnEl("gbnDlg"),c=gbnEl("gbnDlgC");if(!d)return;c.innerHTML=html;d.hidden=false;for(const id in h){const b=gbnEl(id);if(b)b.onclick=h[id];}const f=c.querySelector("button");if(f)f.focus();}
 function gbnDialogClose(){const d=gbnEl("gbnDlg");if(d)d.hidden=true;}
-function gbnBadge(on){const b=document.getElementById("mGbN");if(b){b.textContent="!";b.style.display=on?"":"none";}}
+function gbnBadge(on){window.__gbBadge=!!on;for(const id of ["mGbN","mNewN"]){const b=document.getElementById(id);if(b){b.textContent="!";b.style.display=on?"":"none";}}}
 
 /* alle 250 ms, solange Gambit offen ist: Uhren, Knöpfe, Hinweisleiste */
 function gbnUi(){try{if(GB.api&&GB.api.mode==="puzzle"&&(GBN.pzT=(GBN.pzT||0)+1)%4===0)gbnPuzSync();}catch(e){}const hud=gbnEl("hud");if(!hud)return;const g=GBN.g,on=!!(g&&g.st==="live"&&gbnShown()),clk=!!(on&&g.clock);
@@ -19865,8 +19998,13 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.31.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.32.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.32.0",d:"03.11.2026",t:"Login-Schutz",items:[
+  ["lock", "Schutz vor Passwort-Raten: Nach 3 falschen Passwörtern wird ein Konto gesperrt und muss erst wieder freigegeben werden. Bei einem falschen Passwort siehst du, wie viele Versuche noch übrig sind."],
+  ["crown", "Pokémon Gambit ist umgezogen: Du findest es jetzt unter Neues Spiel ganz unten."]]},
+ {v:"1.31.8",d:"03.11.2026",t:"Schnellfix",items:[
+  ["ghost", "Geisterkämpfe zeigen jetzt immer den aktuellen Namen des Spielers, und in langen Sitzungen kommen zwischendurch neue Geister dazu."]]},
  {v:"1.31.7",d:"03.11.2026",t:"Schnellfix",items:[
   ["dex", "Sprites, die beim ersten Laden nicht ankamen (z. B. bei kurzer Verbindungsstörung), werden jetzt automatisch nachgeladen. Vorher blieben bis zum Neuladen nur farbige Kreise stehen."]]},
  {v:"1.31.6",d:"03.11.2026",t:"Schnellfix",items:[
