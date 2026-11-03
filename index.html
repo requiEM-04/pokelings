@@ -3819,6 +3819,23 @@ body:not(.battle) .wxLbl{display:none}
 .admLkBox{display:flex;align-items:center;gap:10px;margin:0 0 10px;padding:9px 12px;border-radius:10px;background:rgba(224,64,46,.12);border:2px solid rgba(224,64,46,.45);font-size:13px}.admLkBox .ic{width:16px;height:16px;flex:none}.admLkBox span{flex:1}
 .admLkBox.off{background:rgba(92,242,255,.06);border-color:rgba(92,242,255,.3)}
 .admUnl{margin-left:6px}.admFails{display:block;margin-top:2px;color:#ffb36b;font-size:10px}
+/* ===== v1.32.5: Pokémon im Lauf ===== */
+.psBar{display:flex;align-items:center;gap:12px;margin:0 0 12px;padding:9px 12px;border-radius:10px;background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.1)}
+.psBar>.ic{width:20px;height:20px;color:var(--cyan);flex:none}.psBar>div{flex:1;display:flex;flex-direction:column;gap:2px}.psBar b{font-size:14px}.psBar small{color:var(--muted);font-size:12px}
+.psWrap{max-height:min(calc(58*var(--vh,1vh)),560px);overflow:auto;padding-right:4px}
+.psTier h4{display:flex;align-items:center;gap:8px}.psTier h4 small{color:var(--muted);font:600 11px var(--ui)}
+.psCnt{padding:1px 8px;border-radius:10px;background:rgba(92,242,255,.12);color:var(--cyan);font:700 11px var(--ui)}.psCnt.full{background:rgba(255,216,74,.16);color:#ffd84a}
+.psGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:6px;margin-bottom:6px}
+.psB{position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;height:98px;padding:6px 4px;border-radius:9px;background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.1);color:#cfd6ee;cursor:pointer;content-visibility:auto;contain-intrinsic-size:auto 98px}
+.psB .fm{position:relative;flex:none;height:62px;overflow:hidden;width:100%;display:flex;align-items:flex-end;justify-content:center;opacity:.45;filter:grayscale(.7)}.psB .fm img{image-rendering:pixelated;max-height:100%}
+.psB small{font-size:11px;line-height:1.1;text-align:center}.psB .psChk{position:absolute;right:5px;top:5px;display:none;width:18px;height:18px;border-radius:50%;background:var(--cyan);color:#0b0d13;place-items:center}.psB .psChk .ic{width:12px;height:12px}
+.psB.on{border-color:var(--cyan);background:rgba(92,242,255,.1);color:#fff}.psB.on .fm{opacity:1;filter:none}.psB.on .psChk{display:grid}
+.psB.off{opacity:.45;cursor:not-allowed}.psB:hover:not(.off){background:rgba(255,255,255,.08)}
+.psFoot{display:flex;align-items:center;gap:10px;margin-top:12px}.psTot{display:inline-flex;align-items:center;gap:6px;font-weight:700}.psTot .ic{width:16px;height:16px}.psTot.bad{color:#ff8a6b}
+/* v1.32.5: Bestenliste – Zeile als Raster: Name | Punkte, darunter die Regions-Kästchen über die volle Breite */
+.lbRow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"rk nm pt" "rk rg rg" "rk st st";column-gap:10px;row-gap:3px;align-items:center}
+.lbRow>.lbMain{display:contents}.lbRow>.lbRank{grid-area:rk}.lbRow .lbNm{grid-area:nm;min-width:0}.lbRow>.lbPts{grid-area:pt;align-self:start;padding-top:1px}
+.lbRow .lbRegs{grid-area:rg;flex-wrap:wrap;gap:2px;min-width:0}.lbRow .lbMain>small{grid-area:st;min-width:0}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -7165,7 +7182,7 @@ function login(name,pw){const a=accounts()[userKey(name)];if(!a)return"Unbekannt
 const perk=id=>(typeof S!=="undefined"&&S&&(S.duel||S.daily))?0:(META&&META.perks[id])||0;
 /* v1.31.5: eigener Forschungsstand fürs Labor (perk() ist in Tageschallenge/Duell absichtlich 0) */
 const perkLv=id=>(META&&META.perks&&META.perks[id])||0;
-const pool=()=>LINES.filter(L=>L.region===((S&&S.region)||"kanto")&&(L.start||(S&&S.weekly&&S.mono)||(S&&S.duel&&Array.isArray(S.duel.pool)?S.duel.pool.includes(L.k):META.unlocked.includes(L.k)))&&(!(S&&S.mono)||typeof monoOk!=="function"||monoOk(L)));
+const pool=()=>LINES.filter(L=>L.region===((S&&S.region)||"kanto")&&(L.start||(S&&S.weekly&&S.mono)||(S&&S.duel&&Array.isArray(S.duel.pool)?S.duel.pool.includes(L.k):(META.unlocked.includes(L.k)&&(!(S&&Array.isArray(S.poolSel))||S.poolSel.includes(L.k)))))&&(!(S&&S.mono)||typeof monoOk!=="function"||monoOk(L)));
 const johtoUnlocked=()=>!!(META&&(((META.champs||{}).normal||0)+((META.champs||{}).hard||0)+((META.champs||{}).night||0)>0||(META.reg&&META.reg.kanto&&Object.values(META.reg.kanto.champs||{}).some(v=>v>0))));
 const hoennUnlocked=()=>!!(META&&META.reg&&META.reg.johto&&Object.values(META.reg.johto.champs||{}).some(v=>v>0));
 const sinnohUnlocked=()=>!!(META&&META.reg&&META.reg.hoenn&&Object.values(META.reg.hoenn.champs||{}).some(v=>v>0));
@@ -7372,7 +7389,7 @@ function chooseDiff(){
         <div class="nbStats"><span>${ic("crown")} ${st.champ}× Champion</span><span>${ic("flag")} ${st.best>20?"Champion":st.best?"Runde "+st.best:"noch nicht gespielt"}</span><span>${ic("dex")} ${st.seen}/${st.total}</span>${typeof twBest==="function"&&twBest(k)?`<span>${ic("tower")} Turm: Ebene ${twBest(k)}</span>`:""}</div></div>
       <div class="nbMons"><span class="rcM" data-sp="${A.mascot}"></span>${A.mascot2?`<span class="rcM m2" data-sp="${A.mascot2}"></span>`:""}</div>
       <button class="btn nbBack" id="ngBack">${ic("back")} Region wechseln</button></div>
-    ${typeof monoPickerHtml==="function"?monoPickerHtml(k):""}<div class="dfList">${cards}</div>`,"wide newGame",true);if(typeof monoPickerBind==="function")monoPickerBind();
+    ${typeof monoPickerHtml==="function"?monoPickerHtml(k):""}${typeof psBarHtml==="function"?psBarHtml(k):""}<div class="dfList">${cards}</div>`,"wide newGame",true);if(typeof monoPickerBind==="function")monoPickerBind();if(typeof psBind==="function")psBind(k,()=>chooseDiff());
   $("mbox").querySelectorAll(".rcM[data-sp],.dfMon[data-sp]").forEach(e=>e.appendChild(spriteEl(+e.dataset.sp)));
   $("ngBack").onclick=()=>{sfx("click");chooseMode();};
   $("mbox").querySelectorAll(".dfCard").forEach(b=>b.onclick=()=>{if(b.disabled){sfx("deny");return;}closeModal();hideScreens();newRun(b.dataset.m,modeRegion,typeof monoOpt==="function"?monoOpt():undefined);});
@@ -7409,7 +7426,7 @@ function labScreen(tab){
   $("mbox").querySelectorAll(".pic[data-sp]").forEach(e=>e.appendChild(spriteEl(+e.dataset.sp)));
   $("mbox").querySelectorAll(".dtabs button").forEach(b=>b.onclick=()=>labScreen(b.dataset.t));
   $("mbox").querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{const n=RS_BY[b.dataset.r],l=perkLv(n.id),c=n.cost[l];if(l>=n.max||META.gems<c||!rsReq(n))return;META.gems-=c;META.perks[n.id]=l+1;saveMeta();toast(`${n.n} erforscht!`,"lab");labScreen("tree");refreshGems();});
-  $("mbox").querySelectorAll("[data-u]").forEach(b=>b.onclick=()=>{const L=LINE_BY[b.dataset.u],c=UNLOCK_COST[L.tier];if(META.gems<c||L.achX)return;META.gems-=c;META.unlocked.push(L.k);saveMeta();toast(`${L.stages[0][1]} freigeschaltet!`,"ball");labScreen("mons");refreshGems();});
+  $("mbox").querySelectorAll("[data-u]").forEach(b=>b.onclick=()=>{const L=LINE_BY[b.dataset.u],c=UNLOCK_COST[L.tier];if(META.gems<c||L.achX)return;META.gems-=c;META.unlocked.push(L.k);if(typeof psOnUnlock==="function")psOnUnlock(L);saveMeta();toast(`${L.stages[0][1]} freigeschaltet!`,"ball");labScreen("mons");refreshGems();});
   $("gBack").onclick=()=>{closeModal();if($("menu").classList.contains("show"))showMenu();};
 }
 function dexModal0(tabName){
@@ -7974,7 +7991,7 @@ const ACH=[
 const ACH_BY={};ACH.forEach(a=>ACH_BY[a.id]=a);
 /* Exklusive Pokémon: Linie -> Erfolg; im Labor nicht kaufbar */
 const ACH_RW={};ACH.forEach(a=>{if(a.rw&&LINE_BY[a.rw]){ACH_RW[a.rw]=a.id;LINE_BY[a.rw].achX=a.id;}});
-function achRwGive(a){const L=a&&a.rw&&LINE_BY[a.rw];if(!L||!META)return null;META.unlocked=META.unlocked||[];if(META.unlocked.includes(L.k))return null;META.unlocked.push(L.k);return L;}
+function achRwGive(a){const L=a&&a.rw&&LINE_BY[a.rw];if(!L||!META)return null;META.unlocked=META.unlocked||[];if(META.unlocked.includes(L.k))return null;META.unlocked.push(L.k);if(typeof psOnUnlock==="function")psOnUnlock(L);return L;}
 function achGrant(id){if(!META||!ACH_BY[id])return;META.ach=META.ach||{};if(META.ach[id])return;const a=ACH_BY[id],T=ACH_T[a.t];META.ach[id]=Date.now();META.gems+=T.g;META.gemsTotal=(META.gemsTotal||0)+T.g;const L=achRwGive(a);saveMeta();
   if(window.__fast)return;achPop(a,L);}
 /* Popups: höchstens 3 gleichzeitig, der Rest wird zu einer Sammelmeldung */
@@ -11183,7 +11200,7 @@ function gainXP(n){const before=level();S.xp+=n;const after=level();if(after>bef
 function newRun0(mode,region,o){
   hideScreens();closeModal();const reg=setRegion(region||"kanto");o=o||{};if(o.duel)BOSSES={};
   S={gridV:2,mode,region:reg,rollsTotal:0,round:1,gold:MODES[mode].base+1+2*perk("gold"),xp:0,board:{},bench:Array(benchSize()).fill(null),bag:[],relics:[],shop:{mons:[],item:null},shopRolls:0,phase:"shop",enemies:[],enc:null,encIdx:null,paths:null,encRolls:0,results:[],history:{},wins:0,streak:0,revives:0,revanche:false,bosses:0,elites:0,fuseQ:[],seed:Math.floor(Math.random()*1e9),locs:{}};
-  if(o.daily){S.daily=o.daily;S.rs=o.daily.seed;S.gold=MODES[mode].base+1;S.bench=Array(benchSize()).fill(null);if(o.daily.rules.includes("gold"))S.gold+=6;}if(o.duel){S.duel=o.duel;S.seed=o.duel.seed;S.gold=MODES.duel.base+1;S.bench=Array(benchSize()).fill(null);}if(o.mono&&!o.daily&&!o.duel&&TYPES[o.mono])S.mono=o.mono;if(!o.daily&&!o.duel){if(o.iron)S.iron=1;if(o.poor)S.poor=1;if(o.small)S.small=1;if(o.allin)S.allin=1;if(o.weekly&&S.mono)S.weekly=o.weekly;}
+  if(o.daily){S.daily=o.daily;S.rs=o.daily.seed;S.gold=MODES[mode].base+1;S.bench=Array(benchSize()).fill(null);if(o.daily.rules.includes("gold"))S.gold+=6;}if(o.duel){S.duel=o.duel;S.seed=o.duel.seed;S.gold=MODES.duel.base+1;S.bench=Array(benchSize()).fill(null);}if(o.mono&&!o.daily&&!o.duel&&TYPES[o.mono])S.mono=o.mono;if(!o.daily&&!o.duel){if(o.iron)S.iron=1;if(o.poor)S.poor=1;if(o.small)S.small=1;if(o.allin)S.allin=1;if(!o.mono&&!o.weekly&&typeof psSel==="function")S.poolSel=psSel(reg);if(o.weekly&&S.mono)S.weekly=o.weekly;}
   uidC=1;rollShop();if(S.daily&&S.daily.rules.includes("item"))dseed(()=>toBag(pickItem(["r"])),"item");setupRound();selUid=null;B=null;clearVis();clearFx();$("texts").innerHTML="";$("result").classList.remove("show");document.body.classList.remove("battle");setView("raster",true);
   showInfoEmpty();save();setTab("shop");render();
   starterChoice(()=>{const after=()=>{if(S&&S.daily)dailyIntro();else if(S&&S.duel)duelIntro();else if(!LS.get("pokelings_tut1",false)&&!window.__autoPick){LS.set("pokelings_tut1",true);LS.set("pokelings_seen6",true);tutorial();}else if(!LS.get("pokelings_seen6",false)){LS.set("pokelings_seen6",true);help();}};if(perk("relicstart")&&!S.duel)relicChoice("Reliktjäger: Wähle dein Start-Relikt",after);else after();});
@@ -11237,7 +11254,7 @@ function caseRoll(){const reg=S.region||"kanto",ls=LINES.filter(l=>(l.region||"k
 const STARTER_TRIO={kanto:["bisasam","glumanda","schiggy"],johto:["endivie","feurigel","karnimani"],hoenn:["geckarbor","flemmli","hydropi"],sinnoh:["chelast","panflam","plinfa"],unova:["serpifeu","floink","ottaro"],kalos:["igamaro","fynx","froxy"],alola:["bauz","flamiau","robball"],galar:["chimpep","hopplo","memmeon"],paldea:["felori","krokel","kwaks"],hisui:["hbauz","hfeurigel","hottaro"],kitakami:["kbisasam","kglumanda","kschiggy"]};
 /* v9.9: Partnerwahl nur aus dem eigenen Pool (Start-Linien + im Labor gekauft), genau wie der Shop. */
 function starterPool(){const reg=S.region||"kanto",mono=!!S.mono&&typeof monoOk==="function",base0=l=>(l.region||"kanto")===reg&&l.tier<=2&&!l.leg,base=l=>base0(l)&&(!mono||monoOk(l));
-  const own=l=>l.start||(S.weekly&&S.mono)||(S.duel&&Array.isArray(S.duel.pool)?S.duel.pool.includes(l.k):META.unlocked.includes(l.k));let ls=LINES.filter(l=>base(l)&&own(l));if(!ls.length)ls=LINES.filter(l=>base(l)&&l.start);
+  const own=l=>l.start||(S.weekly&&S.mono)||(S.duel&&Array.isArray(S.duel.pool)?S.duel.pool.includes(l.k):(META.unlocked.includes(l.k)&&(!Array.isArray(S.poolSel)||S.poolSel.includes(l.k))));let ls=LINES.filter(l=>base(l)&&own(l));if(!ls.length)ls=LINES.filter(l=>base(l)&&l.start);
   if(!ls.length&&mono)ls=LINES.filter(l=>(l.region||"kanto")===reg&&!l.leg&&!l.ub&&monoOk(l)&&own(l));return ls.length?ls:LINES.filter(l=>base0(l)&&l.start);}
 function starterRoll(){const ls=starterPool();const t=Math.random()<.55?1:2;let c=ls.filter(l=>l.tier===t);if(!c.length)c=ls;return {L:pick(c),shiny:Math.random()<CASE_SHINY};}
 function starterOpts0(n){const o=[],sp0=starterPool();n=Math.min(n,sp0.length||n);const trio=(STARTER_TRIO[S.region||"kanto"]||[]).map(k=>LINES.find(l=>l.k===k)).filter(l=>l&&sp0.includes(l));if(trio.length)o.push({L:pick(trio),shiny:Math.random()<CASE_SHINY,secret:Math.random()<CASE_SECRET?pick(Object.keys(SECRETS)):null});let g=0;while(o.length<n&&g++<120){const r=starterRoll();if(o.some(x=>x.L.k===r.L.k))continue;r.secret=Math.random()<CASE_SECRET?pick(Object.keys(SECRETS)):null;o.push(r);}return shuffle(o);}
@@ -13675,6 +13692,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Sprites, die beim ersten Laden nic
 if(typeof EN!=="undefined")Object.assign(EN,{"Geisterkämpfe zeigen jetzt immer den aktuellen Namen des Spielers, und in langen Sitzungen kommen zwischendurch neue Geister dazu.": "Ghost battles now always show the player's current name, and new ghosts are added now and then during long sessions."});
 /* v1.32.0: Login-Schutz */
 if(typeof EN!=="undefined")Object.assign(EN,{"Schutz vor Passwort-Raten: Nach 3 falschen Passwörtern wird ein Konto gesperrt und muss erst wieder freigegeben werden. Bei einem falschen Passwort siehst du, wie viele Versuche noch übrig sind.": "Protection against password guessing: after 3 wrong passwords an account is locked until it is unlocked again. When you enter a wrong password you see how many attempts are left.", "Pokémon Gambit ist umgezogen: Du findest es jetzt unter Neues Spiel ganz unten.": "Pokémon Gambit has moved: you'll now find it at the very bottom of New Game.", "Login-Schutz": "Login protection", "Außerdem": "Also", "Konto gesperrt: 3-mal falsches Passwort. Es muss erst wieder freigegeben werden.": "Account locked: wrong password 3 times. It has to be unlocked first.", "Benutzername oder Passwort falsch. Noch 1 Versuch, dann wird das Konto gesperrt.": "Wrong username or password. 1 attempt left, then the account will be locked.", "Benutzername oder Passwort falsch. Noch 2 Versuche, dann wird das Konto gesperrt.": "Wrong username or password. 2 attempts left, then the account will be locked."});
+/* v1.32.5: Pokémon im Lauf */
+if(typeof EN!=="undefined")Object.assign(EN,{"Pokémon im Lauf: Unter Neues Spiel wählst du jetzt je Region, welche deiner gekauften Pokémon im Laden auftauchen. Erlaubt sind 4 bis 5 pro Stufe (Legendäre 3), insgesamt mindestens 8. So wird der Laden nicht mehr mit allem vollgestopft, was du je freigeschaltet hast, und Doppelte für Sterne findest du leichter. Start-Pokémon sind immer dabei.": "Pokémon in the run: under New Game you now choose per region which of your purchased Pokémon appear in the shop. Up to 4 to 5 per tier (legendaries 3), at least 8 in total. That way the shop is no longer stuffed with everything you ever unlocked, and duplicates for stars are easier to find. Starter Pokémon are always included.", "Ohne eigene Auswahl nimmt das Spiel automatisch je Stufe die zuletzt freigeschalteten. Neu gekaufte Pokémon kommen in deine Auswahl, solange in ihrer Stufe Platz ist. Täglicher Run, Live-Duelle und Monotyp bleiben wie bisher.": "Without your own selection the game automatically takes the most recently unlocked ones per tier. Newly purchased Pokémon join your selection as long as their tier has room. Daily Run, live duels and Monotype stay as before.", "Pokémon im Lauf": "Pokémon in the run", "Auswählen": "Choose", "Automatisch": "Automatic", "Stufe 5 · Legendär": "Tier 5 · Legendary", "Bestenliste: Die Regions-Kästchen stehen jetzt in einer eigenen Zeile und laufen nicht mehr in die Punkte hinein (vor allem auf dem Anmeldebildschirm).": "Leaderboard: the region boxes now have their own line and no longer run into the points (especially on the login screen)."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -13833,7 +13852,7 @@ async function clGifts(force){if(GIFT.busy||!CL.sess||!USER||userKey(USER)!==use
 function giftApply(){if(!USER||!META)return;const k=giftKey(USER),L=LS.get(k,null)||[];if(!L.length)return;const got=[];
   for(const g of L){const id=+(g.mon!=null?g.mon:g.sp),sh=!!(g.shy!=null?g.shy:g.shiny);if(!SPECIES[id]||(isExcl(id)&&!exclOk()))continue;
     dexUp(id,d=>{d.seen=Math.max(d.seen||0,1);d.owned=(d.owned||0)+1;if(sh)d.shiny=(d.shiny||0)+1;});
-    const Ln=SPECIES[id].line;let nu=false;if(Ln&&!Ln.start&&!META.unlocked.includes(Ln.k)){META.unlocked.push(Ln.k);nu=true;}
+    const Ln=SPECIES[id].line;let nu=false;if(Ln&&!Ln.start&&!META.unlocked.includes(Ln.k)){META.unlocked.push(Ln.k);nu=true;if(typeof psOnUnlock==="function")psOnUnlock(Ln);}
     got.push({id,sh,msg:String(g.msg||g.note||"").slice(0,120),nu});}
   saveMeta();LS.del(k);if(got.length){GIFT.q.push(...got);giftShow();}}
 function giftShow(){if(!GIFT.q.length||(!USER&&GIFT.q[0].type!=="ev"))return;const free=$("menu").classList.contains("show")&&!$("modal").classList.contains("show")&&!(typeof ADM!=="undefined"&&ADM.sess);
@@ -15592,7 +15611,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.32.0",DUEL_HP=30;
+const MP_VER="1.32.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -19998,8 +20017,12 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.32.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.32.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.32.5",d:"03.11.2026",t:"Pokémon im Lauf",items:[
+  ["ball", "Pokémon im Lauf: Unter Neues Spiel wählst du jetzt je Region, welche deiner gekauften Pokémon im Laden auftauchen. Erlaubt sind 4 bis 5 pro Stufe (Legendäre 3), insgesamt mindestens 8. So wird der Laden nicht mehr mit allem vollgestopft, was du je freigeschaltet hast, und Doppelte für Sterne findest du leichter. Start-Pokémon sind immer dabei."],
+  ["trophy", "Bestenliste: Die Regions-Kästchen stehen jetzt in einer eigenen Zeile und laufen nicht mehr in die Punkte hinein (vor allem auf dem Anmeldebildschirm)."],
+  ["dice", "Ohne eigene Auswahl nimmt das Spiel automatisch je Stufe die zuletzt freigeschalteten. Neu gekaufte Pokémon kommen in deine Auswahl, solange in ihrer Stufe Platz ist. Täglicher Run, Live-Duelle und Monotyp bleiben wie bisher."]]},
  {v:"1.32.0",d:"03.11.2026",t:"Login-Schutz",items:[
   ["lock", "Schutz vor Passwort-Raten: Nach 3 falschen Passwörtern wird ein Konto gesperrt und muss erst wieder freigegeben werden. Bei einem falschen Passwort siehst du, wie viele Versuche noch übrig sind."],
   ["crown", "Pokémon Gambit ist umgezogen: Du findest es jetzt unter Neues Spiel ganz unten."]]},
@@ -21019,6 +21042,49 @@ function weeklyFinish(win,reached){const wk=S.weekly;if(!wk)return "";const Wm=M
   M.runs++;M.best=Math.max(M.best,Math.min(20,reached));let add=0;if(win&&!M.champ){M.champ=true;add=30;META.gems+=add;META.gemsTotal=(META.gemsTotal||0)+add;}
   const keys=Object.keys(Wm.w).sort();while(keys.length>30)delete Wm.w[keys.shift()];try{_achT=0;achCheck();}catch(e){}
   return `<div class="incRow" style="color:var(--cyan)"><span>${ic("cal","","width:14px;height:14px")} Wochen-Herausforderung</span><span>${win?"Wochen-Champion":"Runde "+Math.min(20,S.round)}</span></div>`+(add?`<div class="incRow" style="color:var(--gem)"><span>${ic("gem","","width:14px;height:14px")} Wochenbonus</span><span>+${add}</span></div>`:"");}
+
+/* ================================ POKÉMON IM LAUF (v1.32.5) ================================
+   Start-Pokémon sind immer dabei. Von den freigeschalteten (mit Edelsteinen gekauften) Linien wählt man je Region,
+   welche im Laden vorkommen: höchstens PS_MAX[Stufe] pro Stufe, insgesamt mindestens PS_MIN (bzw. alle, wenn es weniger gibt).
+   Ohne eigene Auswahl: automatisch je Stufe die zuletzt freigeschalteten. Gilt für normale Läufe (nicht Täglicher Run, Duell, Monotyp). */
+const PS_MAX={1:4,2:5,3:5,4:4,5:3},PS_MIN=8;
+const psCap=()=>Object.values(PS_MAX).reduce((a,b)=>a+b,0);
+function psAvail(rg){return LINES.filter(L=>(L.region||"kanto")===rg&&!L.start&&!L.excl&&META.unlocked.includes(L.k));}
+function psMinFor(rg){return Math.min(PS_MIN,psAvail(rg).length,psCap());}
+function psAuto(rg,keep){const av=new Set(psAvail(rg).map(L=>L.k)),cnt={},out=[];
+  const add=k=>{const L=LINE_BY[k];if(!L||!av.has(k)||out.includes(k)||(cnt[L.tier]|0)>=(PS_MAX[L.tier]||0))return;cnt[L.tier]=(cnt[L.tier]|0)+1;out.push(k);};
+  for(const k of keep||[])add(k);for(const k of META.unlocked.slice().reverse())add(k);return out;}
+function psCustom(rg){return !!(META&&META.poolSel&&Array.isArray(META.poolSel[rg]));}
+function psSel(rg){if(!psCustom(rg))return psAuto(rg);const av=new Set(psAvail(rg).map(L=>L.k)),cnt={},out=[];
+  for(const k of META.poolSel[rg]){const L=LINE_BY[k];if(!L||!av.has(k)||out.includes(k)||(cnt[L.tier]|0)>=(PS_MAX[L.tier]||0))continue;cnt[L.tier]=(cnt[L.tier]|0)+1;out.push(k);}
+  return out.length<psMinFor(rg)?psAuto(rg,out):out;}
+/* neu freigeschaltet: in die eigene Auswahl übernehmen, solange in der Stufe Platz ist */
+function psOnUnlock(L){try{if(!L||L.start)return;const rg=L.region||"kanto";if(!psCustom(rg))return;const cur=psSel(rg);if(cur.includes(L.k))return;
+  if(cur.filter(k=>LINE_BY[k]&&LINE_BY[k].tier===L.tier).length<(PS_MAX[L.tier]||0)){META.poolSel[rg]=cur.concat(L.k);return;}
+  META.poolSel[rg]=cur;toast(`${L.stages[0][1]}: Stufe ${L.tier} deiner Auswahl für ${(REGIONS[rg]||{n:rg}).n} ist voll. Unter Neues Spiel → Pokémon im Lauf anpassen.`,"ball");}catch(e){}}
+/* Leiste im Schwierigkeits-Schritt */
+function psBarHtml(rg){const av=psAvail(rg);if(!av.length)return "";const n=psSel(rg).length;
+  return `<div class="psBar">${ic("ball")}<div><b>Pokémon im Lauf</b><small>Start-Pokémon + ${n} von ${av.length} freigeschalteten · ${psCustom(rg)?"eigene Auswahl":"automatisch"}${typeof MONO_PICK!=="undefined"&&MONO_PICK?" · gilt nicht bei Monotyp":""}</small></div><button class="btn sm" id="psEdit">${ic("gear")} Auswählen</button></div>`;}
+function psBind(rg,back){const b=$("psEdit");if(b)b.onclick=()=>{sfx("click");psModal(rg,back);};}
+function psModal(rg,back){const av=psAvail(rg),R=REGIONS[rg]||{n:rg},mn=psMinFor(rg),starts=LINES.filter(L=>(L.region||"kanto")===rg&&L.start&&!L.excl);let sel=new Set(psSel(rg));
+  const tiers=[1,2,3,4,5].filter(t=>av.some(L=>L.tier===t));
+  const html=()=>tiers.map(t=>{const L=av.filter(x=>x.tier===t).sort((a,b)=>a.stages[0][0]-b.stages[0][0]),st=starts.filter(x=>x.tier===t).length;
+    return `<div class="psTier" data-pt="${t}"><h4 class="cdCat">${t===5?"Stufe 5 · Legendär":"Stufe "+t}<span class="psCnt" data-pc="${t}"></span>${st?`<small>+ ${st} Start</small>`:""}</h4>
+      <div class="psGrid">${L.map(x=>`<button class="psB" data-ps="${x.k}" data-t="${t}" title="${esc(x.stages.map(s=>s[1]).join(" → "))}"><span class="fm" data-sp="${x.stages[0][0]}"></span><small>${esc(x.stages[0][1])}</small><i class="psChk">${ic("check")}</i></button>`).join("")}</div></div>`;}).join("");
+  openModal(`<h2>${ic("ball")} POKÉMON IM LAUF · ${esc(R.n.toUpperCase())}</h2>
+    <p class="cdHint">Die ${starts.length} Start-Pokémon sind immer dabei. Von deinen freigeschalteten wählst du, welche im Laden auftauchen: höchstens ${PS_MAX[1]} bzw. ${PS_MAX[2]} pro Stufe (Legendäre ${PS_MAX[5]}), insgesamt mindestens ${mn}. Weniger verschiedene Pokémon im Laden heißt: Du findest leichter Doppelte für Sterne.</p>
+    <div class="psWrap">${html()}</div>
+    <div class="psFoot"><span class="psTot" id="psTot"></span><span style="flex:1"></span><button class="btn" id="psAuto">${ic("dice")} Automatisch</button><button class="pri" id="psOk">${ic("check")} Fertig</button></div>`,"wide psM",back||true);
+  const mb=$("mbox");hydrateIcons(mb);mb.querySelectorAll(".fm[data-sp]").forEach(e=>e.appendChild(sprAlign(natFit(spriteEl(+e.dataset.sp),.9))));
+  const upd=()=>{const cnt={};for(const k of sel){const t=LINE_BY[k].tier;cnt[t]=(cnt[t]|0)+1;}
+    mb.querySelectorAll("[data-ps]").forEach(b=>{const on=sel.has(b.dataset.ps),t=+b.dataset.t;b.classList.toggle("on",on);b.classList.toggle("off",!on&&(cnt[t]|0)>=PS_MAX[t]);});
+    mb.querySelectorAll("[data-pc]").forEach(e=>{const t=+e.dataset.pc,n=cnt[t]|0;e.textContent=`${n}/${PS_MAX[t]}`;e.classList.toggle("full",n>=PS_MAX[t]);});
+    const T=$("psTot");T.innerHTML=`${ic("ball")} ${sel.size} gewählt${sel.size<mn?` · mindestens ${mn}`:""}`;T.classList.toggle("bad",sel.size<mn);hydrateIcons(T);$("psOk").disabled=sel.size<mn;};
+  mb.querySelectorAll("[data-ps]").forEach(b=>b.onclick=()=>{const k=b.dataset.ps,t=+b.dataset.t;if(sel.has(k))sel.delete(k);else{const n=[...sel].filter(x=>LINE_BY[x].tier===t).length;if(n>=PS_MAX[t]){sfx("deny");toast(`Stufe ${t} ist voll (${PS_MAX[t]}). Nimm erst eins heraus.`,"info");return;}sel.add(k);}sfx("click");upd();});
+  $("psAuto").onclick=()=>{sel=new Set(psAuto(rg));upd();sfx("click");};
+  $("psOk").onclick=()=>{if(sel.size<mn)return;const auto=psAuto(rg);META.poolSel=META.poolSel||{};
+    if(sel.size===auto.length&&auto.every(k=>sel.has(k)))delete META.poolSel[rg];else META.poolSel[rg]=[...sel];saveMeta();sfx("coin");closeModal();if(back)back();};
+  upd();}
 
 /* ================================ KAMPF: 2 ATTACKEN + EIGENE KI ================================ */
 let B=null,speed=1;
