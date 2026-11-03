@@ -13783,6 +13783,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Booster: Das Fenster nach dem Öff
 if(typeof EN!=="undefined")Object.assign(EN,{"Handy: Der Poké-Markt passt jetzt aufs Display. Vorher war er breiter als der Bildschirm, dadurch waren Karten und Knöpfe rechts abgeschnitten. Die Karten wischst du seitlich durch.": "Phone: the Poké Market now fits the screen. Before, it was wider than the display, so cards and buttons on the right were cut off. Swipe sideways through the cards.", "Handy: Die Leiste mit Version, Feedback und „Besuche auch“ überdeckt im Lauf nicht mehr Bank und Tasche. Patchnotes und Feedback findest du in den Einstellungen.": "Phone: the bar with version, feedback and \"Also visit\" no longer covers your bench and bag during a run. Patch notes and feedback are in the settings.", "Handy: Der Skillbaum im Forschungslabor lässt sich seitlich wischen, die Texte sind wieder lesbar. Bei der Partnerwahl erreichst du alle Partner per Wischen.": "Phone: the skill tree in the research lab scrolls sideways and its texts are readable again. In the partner choice you can reach every partner by swiping."});
 /* v1.34.5: Bank verkaufen */
 if(typeof EN!=="undefined")Object.assign(EN,{"Bank voll beim Crypto-Pokémon oder bei der Ultra-Bestie: Du kannst jetzt direkt im Fenster ein Pokémon von deiner Bank verkaufen (antippen, dann bestätigen). Vorher ging nur Verzichten, weil das Fenster alles andere blockiert hat.": "Bench full when a Shadow Pokémon or an Ultra Beast joins: you can now sell a Pokémon from your bench right in the window (tap, then confirm). Before, you could only decline because the window blocked everything else.", "Verkaufe unten ein Pokémon von deiner Bank oder nimm Gold.": "Sell a Pokémon from your bench below or take gold.", "Bank: Pokémon verkaufen": "Bench: sell a Pokémon", "antippen, dann bestätigen": "tap, then confirm", "Verkaufen?": "Sell?"});
+/* v1.34.6: Umbenennen */
+if(typeof EN!=="undefined")Object.assign(EN,{"Anmelden: kleine Verbesserung im Hintergrund.": "Sign-in: small behind-the-scenes improvement."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -13810,7 +13812,10 @@ function clRenameCheck(j){try{const nn=String((j&&j.user&&j.user.user_metadata&&
   CL.sess.name=nn;if(USER&&userKey(USER)===ok){USER=nn;try{$("userName").textContent=nn;}catch(e){}try{if(typeof myTitleLocal==="function")myTitleLocal();}catch(e){}try{toast(`Dein Spielername ist jetzt „${nn}“`,"user");}catch(e){}}
   return true;}catch(e){return false;}}
 /* v1.32.0: erst login_gate (zählt Fehlversuche, sperrt nach 3), das gibt das eigentliche Anmelde-Passwort heraus. Ohne Login-Schutz auf dem Server: wie bisher. */
-async function clSignin(name,pw){const em=clEmail(name),dp=clPw(name,pw);
+async function clSignin(name,pw){const em=clEmail(name);let kn=name;
+  /* v1.34.6: nach Umbenennen ohne neues Passwort hängt das Passwort weiter am alten Namen */
+  try{const r=await clFetch("/rest/v1/rpc/pkl_pw_key",{method:"POST",auth:false,body:{e:em},timeout:6000});if(r&&r.ok&&typeof r.j==="string"&&r.j.trim())kn=r.j;}catch(e){}
+  const dp=clPw(kn,pw);
   const g=await clFetch("/rest/v1/rpc/login_gate",{method:"POST",auth:false,body:{e:em,p:dp},timeout:9000});
   if(g.net)return g;
   if(g.ok&&g.j&&typeof g.j.r==="string"){const k=g.j.r;
@@ -14142,6 +14147,7 @@ create or replace function public.admin_set_pw(target uuid,pw text) returns void
 begin
   if not public.is_admin() then raise exception 'forbidden'; end if;
   perform public.pkl_auth_set(target,extensions.crypt(pw,extensions.gen_salt('bf')));
+  update public.pkl_auth set k=null where uid=target;
   perform public.adm_log('Passwort gesetzt',public.adm_name(target),'');
 end $$;
 
@@ -14206,6 +14212,7 @@ begin
   o:=public.adm_name(target);
   update auth.users set email=newemail,raw_user_meta_data=coalesce(raw_user_meta_data,'{}'::jsonb)||jsonb_build_object('name',newname),updated_at=now() where id=target;
   perform public.pkl_auth_set(target,extensions.crypt(pw,extensions.gen_salt('bf')));
+  update public.pkl_auth set k=null where uid=target;
   update public.profiles set name=newname where id=target;
   update public.board set name=newname where id=target;
   begin update auth.identities set identity_data=coalesce(identity_data,'{}'::jsonb)||jsonb_build_object('email',newemail) where user_id=target and provider='email'; exception when others then null; end;
@@ -14225,6 +14232,7 @@ ${admSQL8()}
 ${admSQL9()}
 ${admSQL10()}
 ${admSQL11()}
+${admSQL12()}
 revoke all on function public.adm_log(text,text,text) from public, anon, authenticated;
 revoke all on function public.adm_name(uuid) from public, anon, authenticated;
 do $$ declare f text; begin
@@ -14238,6 +14246,33 @@ grant execute on function public.name_free(text) to anon, authenticated;
 notify pgrst, 'reload schema';`;}
 /* v1.32.0: Login-Schutz. Das Spiel prüft das Passwort zuerst in login_gate (3 Fehlversuche = Sperre bis zur Freigabe).
    Erst dann gibt der Server das eigentliche Anmelde-Passwort heraus (zufällig, 48 Zeichen) – direktes Durchprobieren am Login-Server bringt nichts mehr. */
+function admSQL12(){return `-- v1.34.6: Umbenennen ohne neues Passwort (kann gefahrlos mehrfach laufen). Das Passwort hängt dann weiter am alten Namen (k).
+alter table public.pkl_auth add column if not exists k text;
+create or replace function public.pkl_pw_key(e text) returns text language sql security definer stable set search_path=public,auth as $$
+  select a.k from auth.users u join public.pkl_auth a on a.uid=u.id where u.email=lower(btrim(e)) limit 1 $$;
+create or replace function public.admin_rename_keep(target uuid,newname text,newemail text) returns void language plpgsql security definer set search_path=public,auth,extensions as $$
+declare o text; pk text;
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  if exists(select 1 from public.admins where uid=target) then raise exception 'admin'; end if;
+  if newname !~ '^[A-Za-z0-9_äöüÄÖÜß-]{3,16}$' then raise exception 'name_invalid'; end if;
+  if exists(select 1 from auth.users where email=newemail and id<>target) then raise exception 'name_taken'; end if;
+  insert into public.pkl_auth(uid) values(target) on conflict(uid) do nothing;
+  select coalesce(a.k,u.raw_user_meta_data->>'name') into pk from auth.users u left join public.pkl_auth a on a.uid=u.id where u.id=target;
+  if pk is null or btrim(pk)='' then raise exception 'no_key'; end if;
+  o:=public.adm_name(target);
+  update public.pkl_auth set k=pk where uid=target;
+  update auth.users set email=newemail,raw_user_meta_data=coalesce(raw_user_meta_data,'{}'::jsonb)||jsonb_build_object('name',newname),updated_at=now() where id=target;
+  update public.profiles set name=newname where id=target;
+  update public.board set name=newname where id=target;
+  begin update auth.identities set identity_data=coalesce(identity_data,'{}'::jsonb)||jsonb_build_object('email',newemail) where user_id=target and provider='email'; exception when others then null; end;
+  perform public.adm_log('Umbenannt',o,'→ '||newname||' (Passwort bleibt)');
+end $$;
+revoke all on function public.pkl_pw_key(text) from public;
+grant execute on function public.pkl_pw_key(text) to anon, authenticated;
+revoke all on function public.admin_rename_keep(uuid,text,text) from public, anon;
+grant execute on function public.admin_rename_keep(uuid,text,text) to authenticated;
+notify pgrst, 'reload schema';`;}
 function admSQL11(){return `-- v1.33.5: Edelsteine verschenken (kann gefahrlos mehrfach laufen). Edelstein-Geschenke liegen als negative Zahl in gifts.sp,
 -- die normale Pokémon-Abholung (gift_claim) lässt sie liegen, nur gem_claim holt sie ab.
 create or replace function public.gift_claim() returns table(gid bigint,mon integer,shy boolean,msg text) language sql security definer set search_path=public as $$
@@ -15421,16 +15456,17 @@ function admDel(a){if(!a)return;openModal(`<h2>${ic("trash")} KONTO LÖSCHEN?</h
   $("admDx").onclick=closeModal;$("admDg").onclick=async()=>{if($("admDn").value.trim().toLowerCase()!==String(a.name).toLowerCase()){$("admDe").textContent="Name stimmt nicht.";return;}
     const r=await admRpc("admin_delete",{target:a.id});if(!r.ok){$("admDe").innerHTML="Fehlgeschlagen: "+admErr(r);return;}closeModal();toast(`${a.name} gelöscht`,"trash");admLoad();};}
 /* Umbenennen: Login hängt am Namen → neue Pseudo-Adresse + neues Passwort (dem Spieler weitergeben) */
-function admRename(a){if(!a)return;const sug=Array.from({length:6},()=>"abcdefghjkmnpqrstuvwxyz23456789"[Math.floor(Math.random()*31)]).join("");
-  openModal(`<h2>${ic("user")} UMBENENNEN</h2><div class="lead">Neuer Name für <b>${esc(a.name)}</b> (erstellt ${admFmt(a.created_at)}, ${admNum(a.games)} Läufe). Spielstand, Punkte und Titel bleiben. Weil das Login am Namen hängt, bekommt der Spieler ein <b>neues Passwort</b> – gib es ihm mit dem neuen Namen weiter.</div>
+function admRename(a){if(!a)return;
+  openModal(`<h2>${ic("user")} UMBENENNEN</h2><div class="lead">Neuer Name für <b>${esc(a.name)}</b> (erstellt ${admFmt(a.created_at)}, ${admNum(a.games)} Läufe). Spielstand, Punkte und Titel bleiben. Das <b>Passwort bleibt gleich</b>, außer du trägst unten ein neues ein.</div>
    <label class="fld" style="margin-top:10px">NEUER NAME<input id="admRn" maxlength="16" autocomplete="off" value="${esc(a.name)}"></label>
-   <label class="fld">NEUES PASSWORT<input id="admRp" maxlength="64" autocomplete="off" value="${sug}"></label><div class="aerr" id="admRe"></div>
+   <label class="fld">NEUES PASSWORT <small style="color:var(--muted);font-weight:400">optional</small><input id="admRp" maxlength="64" autocomplete="off" value="" placeholder="leer lassen = Passwort bleibt"></label><div class="aerr" id="admRe"></div>
    <div class="rbtns" style="margin-top:12px"><button class="pri" id="admRg">${ic("check")} Umbenennen</button><button class="btn" id="admRx">Abbrechen</button></div>`,"narrow",true);
   $("admRx").onclick=closeModal;$("admRg").onclick=async()=>{const nn=$("admRn").value.trim(),np=$("admRp").value,er=$("admRe");
-    if(!/^[A-Za-z0-9_äöüÄÖÜß\-]{3,16}$/.test(nn)){er.textContent="Name: 3–16 Zeichen (Buchstaben, Zahlen, _ oder -).";return;}if(admReserved(nn)){er.textContent="Dieser Name ist reserviert.";return;}if(np.length<4){er.textContent="Passwort: mindestens 4 Zeichen.";return;}
+    if(!/^[A-Za-z0-9_äöüÄÖÜß\-]{3,16}$/.test(nn)){er.textContent="Name: 3–16 Zeichen (Buchstaben, Zahlen, _ oder -).";return;}if(admReserved(nn)){er.textContent="Dieser Name ist reserviert.";return;}if(np&&np.length<4){er.textContent="Passwort: mindestens 4 Zeichen (oder leer lassen).";return;}
     /* v1.33.0: keine Vorab-Prüfung mehr – gehört der Name schon diesem Konto (z. B. halb fertige Umbenennung), muss es gehen; andere Konten blockiert der Server (name_taken) */
-    const r=await admRpc("admin_rename",{target:a.id,newname:nn,newemail:clEmail(nn),pw:clPw(nn,np)});if(!r.ok){er.innerHTML=/name_taken/.test(JSON.stringify(r.j||""))?"Diesen Namen gibt es schon.":"Fehlgeschlagen: "+admErr(r);return;}
-    closeModal();openModal(`<h2>${ic("check")} UMBENANNT</h2><div class="lead">Gib das dem Spieler weiter:</div><div class="admWho2" style="font-size:16px"><span>Name <b>${esc(nn)}</b></span><span>Passwort <b>${esc(np)}</b></span></div><div class="rbtns" style="margin-top:12px"><button class="pri" id="admRok">OK</button></div>`,"narrow",true);$("admRok").onclick=closeModal;admLoadList();};}
+    const r=np?await admRpc("admin_rename",{target:a.id,newname:nn,newemail:clEmail(nn),pw:clPw(nn,np)}):await admRpc("admin_rename_keep",{target:a.id,newname:nn,newemail:clEmail(nn)});
+    if(!r.ok){const t=JSON.stringify(r.j||"");er.innerHTML=/name_taken/.test(t)?"Diesen Namen gibt es schon.":(!np&&/admin_rename_keep|function|schema/i.test(t))?"Auf dem Server fehlt noch das Update: unter <b>Server-Setup</b> den Code ausführen (oder ein neues Passwort eintragen).":"Fehlgeschlagen: "+admErr(r);return;}
+    closeModal();openModal(`<h2>${ic("check")} UMBENANNT</h2><div class="lead">Gib das dem Spieler weiter:</div><div class="admWho2" style="font-size:16px"><span>Name <b>${esc(nn)}</b></span><span>Passwort <b>${np?esc(np):"bleibt wie bisher"}</b></span></div><div class="rbtns" style="margin-top:12px"><button class="pri" id="admRok">OK</button></div>`,"narrow",true);$("admRok").onclick=closeModal;admLoadList();};}
 /* ---------- POSTFACH (Feedback der Spieler) ---------- */
 const FB_K={bug:["skull","Fehler","#ff6b6b"],idee:["star","Idee","#ffd84a"],lob:["heart","Lob","#4dffa6"],sonst:["chat","Sonstiges","#7cc8ff"]};
 async function admFbCount(){const r=await admRpc("admin_fb_count");const el=$("admInN");if(!el)return;const n=r.ok?(+r.j||0):0;el.textContent=n?String(n):"";el.style.display=n?"":"none";}
@@ -15758,7 +15794,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.34.5",DUEL_HP=30;
+const MP_VER="1.34.6",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -20164,8 +20200,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.34.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.34.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.34.6",d:"03.11.2026",t:"Schnellfix",items:[
+  ["lock", "Anmelden: kleine Verbesserung im Hintergrund."]]},
  {v:"1.34.5",d:"03.11.2026",t:"Schnellfix",items:[
   ["coin", "Bank voll beim Crypto-Pokémon oder bei der Ultra-Bestie: Du kannst jetzt direkt im Fenster ein Pokémon von deiner Bank verkaufen (antippen, dann bestätigen). Vorher ging nur Verzichten, weil das Fenster alles andere blockiert hat."]]},
  {v:"1.34.0",d:"03.11.2026",t:"Handy",items:[
