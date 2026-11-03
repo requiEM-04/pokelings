@@ -3797,6 +3797,18 @@ body:not(.battle) .wxLbl{display:none}
 /* v1.30.0 Wochen-Herausforderung */
 .wkCard{background:linear-gradient(180deg,rgba(255,180,80,.1),rgba(255,255,255,.02));border-color:rgba(255,190,90,.38)}
 .wkCard:before{background:#ffb34d}.wkCard .dyH>.ic{color:#ffb34d}.wkCard .dyReg{background:rgba(255,180,80,.16);color:#ffe2b0}
+/* ===== v1.31.7: Admin-Vergabe – Hintergründe, Regionen-Filter, Sprite-Status ===== */
+.admSprSt{align-self:center;margin-left:8px;color:var(--muted);font-size:11px;white-space:nowrap}
+.admGRegs{margin-top:6px}.admGMore{display:flex;justify-content:center;margin-top:6px}
+.admBgTop{display:grid;grid-template-columns:minmax(200px,260px) 1fr;align-items:center;gap:14px;margin-top:10px;padding:10px 12px;border-radius:10px;background:#0e1220;border:2px solid rgba(255,255,255,.08)}
+.admBgTop .admPlate{min-height:96px;height:96px;padding-top:0}.admBgTop .admPlate>b:only-child{color:var(--muted);text-shadow:none;font:600 12px var(--ui);align-self:center;margin:auto}
+.admBgWrap{margin-top:10px;max-height:min(calc(34*var(--vh,1vh)),330px);overflow:auto;padding-right:2px}.admBgs{grid-template-columns:repeat(auto-fill,minmax(112px,1fr))}
+.admBgs .cdBg.got{border-color:rgba(77,255,166,.45)}.admBgs .cdBg.got b .ic{color:#4dffa6;width:11px;height:11px;margin-right:3px}
+.admBgMini{position:relative;display:block;flex:none;width:64px;height:36px;border-radius:5px;overflow:hidden;border:1px solid rgba(255,255,255,.15)}.admBgMini .tcBg{position:absolute;inset:0}
+.admBgMini .tcBg *,.admBgMini .tcBg *::before,.admBgMini .tcBg *::after{animation:none!important}
+.admBgRow small{color:var(--muted);font-size:11px}
+@media (max-width:640px){.admBgTop{grid-template-columns:1fr}}
+
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -3903,9 +3915,12 @@ uiScale();addEventListener("resize",uiScale);</script>
 <script>__ld(1,2)</script><script src="sprites-core-2.js?v=c3d4d11b"></script>
 <script>__ld(2,2,1)</script>
 <script>/* Sprite-Pakete der übrigen Regionen: erst bei Bedarf bzw. im Hintergrund nachladen */
-window.__SPRM={"kanto": ["sprites-kanto.js?v=05a23071"], "johto": ["sprites-johto.js?v=3a0daee1"], "sinnoh": ["sprites-sinnoh-1.js?v=069da017", "sprites-sinnoh-2.js?v=ed765859"], "hoenn": ["sprites-hoenn-1.js?v=6d31963c", "sprites-hoenn-2.js?v=826b46fa"], "unova": ["sprites-unova-1.js?v=e805f839", "sprites-unova-2.js?v=0d36b5a8", "sprites-unova-3.js?v=69cdc772"], "kalos": ["sprites-kalos-1.js?v=98b04be1", "sprites-kalos-2.js?v=f4f4613d"], "alola": ["sprites-alola-1.js?v=a2b825d8", "sprites-alola-2.js?v=4277ae94"], "galar": ["sprites-galar-1.js?v=b24fab89", "sprites-galar-2.js?v=157ef9f0", "sprites-galar-3.js?v=84d32173"], "hisui": ["sprites-hisui-1.js?v=f1cf2685", "sprites-hisui-2.js?v=1f61afc3"], "paldea": ["sprites-paldea-1.js?v=b382b394", "sprites-paldea-2.js?v=a1721648"], "kitakami": ["sprites-kitakami.js?v=52fa8ed8"]};window.__SPRL={};
-window.__sprLoad=function(r){if(!__SPRM[r])return Promise.resolve();if(__SPRL[r])return __SPRL[r];
- __SPRL[r]=__SPRM[r].reduce(function(p,f){return p.then(function(){return new Promise(function(ok){var tries=0;(function go(){var s=document.createElement("script");s.src=f;s.onload=ok;s.onerror=function(){s.remove();if(++tries<3)setTimeout(go,1500*tries);else ok();};document.head.appendChild(s);})();});});},Promise.resolve()).then(function(){__SPRM[r].done=1;try{if(typeof sprRegionLoaded==="function")sprRegionLoaded(r);}catch(e){}});
+window.__SPRM={"kanto": ["sprites-kanto.js?v=05a23071"], "johto": ["sprites-johto.js?v=3a0daee1"], "sinnoh": ["sprites-sinnoh-1.js?v=069da017", "sprites-sinnoh-2.js?v=ed765859"], "hoenn": ["sprites-hoenn-1.js?v=6d31963c", "sprites-hoenn-2.js?v=826b46fa"], "unova": ["sprites-unova-1.js?v=e805f839", "sprites-unova-2.js?v=0d36b5a8", "sprites-unova-3.js?v=69cdc772"], "kalos": ["sprites-kalos-1.js?v=98b04be1", "sprites-kalos-2.js?v=f4f4613d"], "alola": ["sprites-alola-1.js?v=a2b825d8", "sprites-alola-2.js?v=4277ae94"], "galar": ["sprites-galar-1.js?v=b24fab89", "sprites-galar-2.js?v=157ef9f0", "sprites-galar-3.js?v=84d32173"], "hisui": ["sprites-hisui-1.js?v=f1cf2685", "sprites-hisui-2.js?v=1f61afc3"], "paldea": ["sprites-paldea-1.js?v=b382b394", "sprites-paldea-2.js?v=a1721648"], "kitakami": ["sprites-kitakami.js?v=52fa8ed8"]};window.__SPRL={};window.__SPRF={};
+/* v1.31.7: Kommt ein Paket nicht an, gilt die Region nicht als geladen: später automatisch erneut versuchen (schon geladene Pakete werden übersprungen) */
+window.__sprLoad=function(r){if(!__SPRM[r])return Promise.resolve();if(__SPRL[r])return __SPRL[r];var bad=0;
+ __SPRL[r]=__SPRM[r].reduce(function(p,f){return p.then(function(){if(__SPRF[f])return;return new Promise(function(ok){var tries=0;(function go(){var s=document.createElement("script");s.src=f+(tries?"&t="+tries+"_"+Date.now():"");s.onload=function(){__SPRF[f]=1;ok();};s.onerror=function(){s.remove();if(++tries<3)setTimeout(go,1500*tries);else{bad++;ok();}};document.head.appendChild(s);})();});});},Promise.resolve()).then(function(){var M=__SPRM[r];
+  if(bad){M.fails=(M.fails||0)+1;__SPRL[r]=null;if(M.fails<8)setTimeout(function(){__sprLoad(r);},Math.min(120000,15000*M.fails));return;}
+  M.done=1;try{if(typeof sprRegionLoaded==="function")sprRegionLoaded(r);}catch(e){}});
  return __SPRL[r];};
 window.__sprAll=function(){var ks=Object.keys(__SPRM);return ks.reduce(function(p,k){return p.then(function(){return __sprLoad(k);});},Promise.resolve());};</script>
 <script>/* three.js r128 (MIT) */
@@ -13641,6 +13656,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Kleines Team": "Small Team", "2 Pl
 if(typeof EN!=="undefined")Object.assign(EN,{"Forschungslabor: Nach einer Tageschallenge oder einem Live-Duell hat das Labor alle Forschungen als nicht erforscht angezeigt. Dein Stand war nie weg, jetzt siehst du ihn dort immer richtig, und ein Kauf kann keine Stufe mehr zurücksetzen.": "Research lab: after a daily challenge or a live duel, the lab showed all research as not researched. Your progress was never lost. It now always shows correctly there, and buying can no longer reset a level."});
 /* v1.31.6: Schnellfix 2 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Trainerkarte läuft deutlich flüssiger: Ein Klick auf Hintergrund, Titel oder Abzeichen ändert nur noch die Auswahl und die Vorschau, statt das ganze Fenster neu aufzubauen. Hintergründe und Abzeichen in der Auswahl bewegen sich erst, wenn du mit der Maus darüberfährst.": "The trainer card runs much more smoothly: clicking a background, title or badge now only updates the selection and the preview instead of rebuilding the whole window. Backgrounds and badges in the list only move when you hover over them.", "Große Fenster (Trainerkarte, Pokédex, Erfolge …) halten die 3D-Arena im Hintergrund jetzt ganz an. Vorher wurde sie ab und zu weitergezeichnet, was kurze Ruckler gab.": "Large windows (trainer card, Pokédex, achievements …) now fully pause the 3D arena in the background. Before, it was still redrawn now and then, which caused short stutters."});
+/* v1.31.7: Schnellfix 3 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Sprites, die beim ersten Laden nicht ankamen (z. B. bei kurzer Verbindungsstörung), werden jetzt automatisch nachgeladen. Vorher blieben bis zum Neuladen nur farbige Kreise stehen.": "Sprites that didn't arrive on the first load (e.g. during a short connection hiccup) are now reloaded automatically. Before, only coloured circles stayed until you reloaded the page."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -13809,7 +13826,7 @@ async function evLoad(force){if(EVG.busy)return;if(!force&&Date.now()-EVG.t<1200
   try{await evAcct();const r=await clFetch("/rest/v1/rpc/event_gifts_list",{method:"POST",auth:false,body:{},timeout:8000});if(r.ok&&Array.isArray(r.j)){EVG.list=r.j;LS.set(EVG_KEY,r.j);evI18n();}}catch(e){}finally{EVG.busy=false;}evApply();}
 function evApply(){if(!META)return;const cr=evCreated();if(!cr)return;const E=META.ev=META.ev||{got:[],bg:[],tt:[]};E.got=E.got||[];E.bg=E.bg||[];E.tt=E.tt||[];const nw=[];
   for(const g of evList()){if(!g||!g.active||E.got.includes(g.id))continue;const ga=Date.parse(g.at);if(!isFinite(ga)||ga<cr)continue;
-    if(g.kind==="bg"){if(!CARD_BG[g.val])continue;E.got.push(g.id);if(!E.bg.includes(g.val))E.bg.push(g.val);nw.push({type:"ev",kind:"bg",val:g.val,msg:g.note||""});}
+    if(g.kind==="bg"){if(!CARD_BG[g.val])continue;E.got.push(g.id);if(!E.bg.includes(g.val))E.bg.push(g.val);nw.push({type:"ev",kind:"bg",val:g.val,msg:g.note||"",msgEn:g.note_en||""});}
     else if(g.kind==="title"){const t=String(g.val||"").replace(/[<>]/g,"").slice(0,24);if(!t)continue;const en=String(g.val_en||"").replace(/[<>]/g,"").trim().slice(0,24)||undefined;E.got.push(g.id);
       if(!E.tt.some(x=>x.t===t))E.tt.push({t,s:TITLE_FX[g.style]?g.style:null,en});nw.push({type:"ev",kind:"title",val:t,en,style:g.style,msg:g.note||"",msgEn:g.note_en||""});}}
   if(nw.length){saveMeta();evI18n();GIFT.q.push(...nw);giftShow();}}
@@ -13817,7 +13834,9 @@ function evApply(){if(!META)return;const cr=evCreated();if(!cr)return;const E=ME
 const BGT={t:0,busy:false};
 async function clBadgeGifts(force){if(BGT.busy||!CL.sess||!USER||userKey(USER)!==userKey(CL.sess.name)||!META||CL.syncing)return;if(!force&&Date.now()-BGT.t<120000)return;BGT.t=Date.now();BGT.busy=true;
   try{if(!(await clReady()))return;const r=await clFetch("/rest/v1/rpc/badge_mine",{method:"POST",body:{},timeout:8000});if(!r.ok||!Array.isArray(r.j))return;
-    const m={};for(const x of r.j)if(x&&typeof x.badge==="string"&&badgeDef(x.badge))m[x.badge]=Math.max(1,Math.min(TIER_MAX,x.tier|0));
+    const m={},bgm={};for(const x of r.j){if(!x||typeof x.badge!=="string")continue;if(x.badge.startsWith("bg:")){const k=x.badge.slice(3);if(CARD_BG[k])bgm[k]=1;continue;}if(badgeDef(x.badge))m[x.badge]=Math.max(1,Math.min(TIER_MAX,x.tier|0));}
+    /* v1.31.7: einzeln freigeschaltete Hintergründe */
+    const ob=META.bggift||{};if(JSON.stringify(Object.keys(ob).sort())!==JSON.stringify(Object.keys(bgm).sort())){const nb=Object.keys(bgm).filter(k=>!ob[k]);META.bggift=bgm;if(META.card&&META.card.bg&&!bgOk(META.card.bg))META.card.bg="std";saveMeta();for(const k of nb)GIFT.q.push({type:"ev",kind:"bg",val:k,msg:""});if(nb.length)giftShow();}
     const old=META.bgift||{};if(JSON.stringify(old)===JSON.stringify(m))return;const add=Object.keys(m).filter(k=>(old[k]||0)<m[k]);
     META.bgift=m;if(META.card&&Array.isArray(META.card.badges))META.card.badges=META.card.badges.filter(id=>{const d=badgeDef(id);return d&&badgeShowT(d)>0;});saveMeta();
     for(const k of add)GIFT.q.push({type:"ev",kind:"badge",val:k,tier:m[k]});giftShow();}finally{BGT.busy=false;}}
@@ -14924,17 +14943,17 @@ async function admLoadList(){const L=$("admList");if(!L)return;L.innerHTML=`<p c
     return `<tr class="${bn?"ban":""}"><td><b>${esc(a.name)}</b>${a.title?`<div class="admTT">${admTT(a.title,a.title_style)}</div>`:""}</td>
     <td>${bn?`<span class="admSt ban" title="${esc(a.ban_reason||"")}">${ic("lock")} gesperrt</span>`:on?`<span class="admSt on">● online</span>`:`<span class="admSt">${admAgo(a.seen||a.updated_at||a.last_sign_in_at)}</span>`}</td>
     <td>${a.ver?`<span class="admVer${verNum(a.ver)<verNum(GAME_VER)?" old":""}">v${esc(a.ver)}</span>`:"–"}</td><td>${admFmt(a.created_at)}</td><td>${admFmt(a.seen||a.updated_at||a.last_sign_in_at)}</td><td>${admNum(a.games)}</td><td>${admNum(a.score)}</td>
-    <td class="admAct"><button class="btn sm" data-rn="${i}" title="Umbenennen">${ic("user")}</button><button class="btn sm" data-tt="${i}" title="Vergabe: Titel, Pokémon und Abzeichen">${ic("crown")}</button><button class="btn sm" data-pw="${i}" title="Neues Passwort setzen">${ic("lock")}</button><button class="btn sm${bn?" on":""}" data-ban="${i}" title="${bn?"Entsperren":"Sperren"}">${ic(bn?"check":"close")}</button><button class="btn sm" data-bd="${i}" title="Aus der Bestenliste entfernen">${ic("trophy")}</button><button class="btn sm danger" data-del="${i}" title="Konto löschen">${ic("trash")}</button></td></tr>`;}).join("")}</tbody></table>`:`<p class="empty">Keine Konten gefunden.</p>`;
+    <td class="admAct"><button class="btn sm" data-rn="${i}" title="Umbenennen">${ic("user")}</button><button class="btn sm" data-tt="${i}" title="Vergabe: Titel, Pokémon, Abzeichen und Hintergründe">${ic("crown")}</button><button class="btn sm" data-pw="${i}" title="Neues Passwort setzen">${ic("lock")}</button><button class="btn sm${bn?" on":""}" data-ban="${i}" title="${bn?"Entsperren":"Sperren"}">${ic(bn?"check":"close")}</button><button class="btn sm" data-bd="${i}" title="Aus der Bestenliste entfernen">${ic("trophy")}</button><button class="btn sm danger" data-del="${i}" title="Konto löschen">${ic("trash")}</button></td></tr>`;}).join("")}</tbody></table>`:`<p class="empty">Keine Konten gefunden.</p>`;
   hydrateIcons(L);const A=k=>ADM.list[+k];
   L.querySelectorAll("[data-rn]").forEach(b=>b.onclick=()=>admRename(A(b.dataset.rn)));L.querySelectorAll("[data-tt]").forEach(b=>b.onclick=()=>admGrant(A(b.dataset.tt),"title"));L.querySelectorAll("[data-pw]").forEach(b=>b.onclick=()=>admPw(A(b.dataset.pw)));
   L.querySelectorAll("[data-ban]").forEach(b=>b.onclick=()=>admBan(A(b.dataset.ban)));L.querySelectorAll("[data-bd]").forEach(b=>b.onclick=()=>admBoardDel(A(b.dataset.bd)));L.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>admDel(A(b.dataset.del)));}
 /* Vergabe: Titel (mit Schrift-Effekt) und Pokémon in einem Dialog. Pokémon nur, wenn der Spieler es noch nicht hat und nicht im Labor gekauft hat. */
-function admGrant(a,tab){tab=tab||(a?"title":"mon");const T=a?[["title","crown","TITEL"],["mon","ball","POKÉMON"],["badge","badge","ABZEICHEN"]]:[["mon","ball","POKÉMON"],["etitle","crown","TITEL"]];
+function admGrant(a,tab){tab=tab||(a?"title":"mon");const T=a?[["title","crown","TITEL"],["mon","ball","POKÉMON"],["badge","badge","ABZEICHEN"],["bg","swirl","HINTERGRUND"]]:[["mon","ball","POKÉMON"],["etitle","crown","TITEL"],["ebg","swirl","HINTERGRUND"]];
   openModal(`<h2>${ic("crown")} VERGABE${a?` · ${esc(a.name)}`:" · ALLE SPIELER"}</h2>
    <div class="dtabs admGTabs">${T.map(([k,i,n])=>`<button data-gt="${k}" class="${tab===k?"on":""}">${ic(i)} ${n}</button>`).join("")}</div><div id="admGB"></div>`,"",true);
   $("mbox").querySelectorAll("[data-gt]").forEach(b=>b.onclick=()=>{$("mbox").querySelectorAll("[data-gt]").forEach(x=>x.classList.toggle("on",x===b));admGrantBody(a,b.dataset.gt);});
   admGrantBody(a,tab);}
-function admGrantBody(a,tab){const B=$("admGB");if(!B)return;if(tab==="etitle")return admEvTitleBody(B);if(tab==="badge"&&a)return admBadgeBody(a,B);if(tab==="title"&&a)return admTitleBody(a,B);return admGiftBody(a,B);}
+function admGrantBody(a,tab){const B=$("admGB");if(!B)return;if(tab==="etitle")return admEvTitleBody(B);if(tab==="ebg")return admEvBgBody(B);if(tab==="bg"&&a)return admBgBody(a,B);if(tab==="badge"&&a)return admBadgeBody(a,B);if(tab==="title"&&a)return admTitleBody(a,B);return admGiftBody(a,B);}
 /* ---------- Geschenke an alle: Titel und Hintergründe ---------- */
 function admEvErr(r){const t=JSON.stringify((r&&r.j)||"");return /already_active/.test(t)?"Dieses Geschenk ist schon aktiv.":/val_invalid/.test(t)?"Bitte 1 bis 24 Zeichen.":/function|schema|event_gift/i.test(t)?"Auf dem Server fehlt noch das Update: unter <b>Server-Setup</b> den Code ausführen.":"Fehlgeschlagen: "+admErr(r);}
 async function admEvList(el){if(!el)return;const r=await clFetch("/rest/v1/rpc/event_gifts_list",{method:"POST",auth:false,body:{},timeout:8000});if(!el.isConnected)return;
@@ -14986,11 +15005,11 @@ function admBadgeBody(a,B){let sel="champ",tier=5,q="";
   const setT=t=>{tier=t;B.querySelectorAll("[data-tr]").forEach(x=>x.classList.toggle("on",+x.dataset.tr===t));grid();prev();};
   B.querySelectorAll("[data-tr]").forEach(b=>b.onclick=()=>setT(+b.dataset.tr));
   let tm=0;$("admBq").oninput=e=>{clearTimeout(tm);tm=setTimeout(()=>{q=e.target.value.trim();grid();},180);};
-  const list=async()=>{const el=$("admBl");if(!el)return;const r=await admRpc("admin_badge_list",{target:a.id});if(!el.isConnected)return;if(!r.ok){el.innerHTML=`<p class="admNote">${admEvErr(r)}</p>`;return;}const L=Array.isArray(r.j)?r.j:[];
+  const list=async()=>{const el=$("admBl");if(!el)return;const r=await admRpc("admin_badge_list",{target:a.id});if(!el.isConnected)return;if(!r.ok){el.innerHTML=`<p class="admNote">${admEvErr(r)}</p>`;return;}const L=(Array.isArray(r.j)?r.j:[]).filter(x=>!String(x.badge).startsWith("bg:"));
     el.innerHTML=L.length?L.map(x=>{const d=badgeDef(x.badge);return `<div class="admTRow admBRow">${badgeHTML(x.badge,x.tier,"sm")}<b>${esc(d?d.n:x.badge)}</b><small>${TIER[x.tier]?TIER[x.tier].n:""}</small><span style="flex:1"></span><button class="btn sm danger" data-brm="${esc(x.badge)}">${ic("trash")}</button></div>`;}).join(""):`<p class="admNote">Noch keine verliehenen Abzeichen.</p>`;cardHydrate(el);hydrateIcons(el);
     el.querySelectorAll("[data-brm]").forEach(b=>b.onclick=async()=>{if(b.dataset.ok!=="1"){b.dataset.ok="1";b.innerHTML=ic("trash")+" Sicher?";hydrateIcons(b);return;}const r2=await admRpc("admin_badge",{target:a.id,bid:b.dataset.brm,btier:0});if(!r2.ok){toast("Fehlgeschlagen: "+admErr(r2),"close");return;}toast("Abzeichen entfernt","trash");list();});};
   $("admBgo").onclick=async()=>{const r=await admRpc("admin_badge",{target:a.id,bid:sel,btier:tier});if(!r.ok){$("admBe").innerHTML=admEvErr(r);return;}const d=badgeDef(sel);toast(`${d?d.n:sel} (${TIER[tier].n}) an ${a.name} verliehen`,"badge");list();};
-  grid();prev();list();}
+  grid();prev();list();admSprWarm(null);}
 function admTitleBody(a,B){let sty=TITLE_FX[a.title_style]?a.title_style:"chrom";
   B.innerHTML=`<p class="admLead">${ic("info")}<span>Erscheint auf der Kampfkarte, im VS-Bildschirm und in der Bestenliste und wird beim Spieler automatisch angelegt.</span></p>
    <div class="admCur${a.title?"":" none"}"><small>Aktuell</small>${a.title?admTT(a.title,a.title_style):`<span>kein Titel</span>`}<span style="flex:1"></span>${a.title?`<button class="btn sm danger" id="admTr">${ic("trash")} Titel löschen</button>`:""}</div>
@@ -15018,25 +15037,70 @@ async function admGiftBody(a,B){B.innerHTML=`<p class="empty">${a?"Lade Sammlung
   const has=sp=>own.has(sp.id)||(!sp.line.start&&unl.has(sp.line.k));
   const all=Object.values(SPECIES).filter(sp=>sp.line&&!sp.line.excl&&!(a&&has(sp))).sort((x,y)=>x.id-y.id);
   if(!all.length){B.innerHTML=`<p class="empty">${esc(a.name)} hat schon alle Pokémon.</p>`;return;}
-  let sel=all[0].id,shy=false,q="",sure=false;
+  let sel=all[0].id,shy=false,q="",sure=false,rg="all",N=60;const rc={};for(const sp of all){const r=(sp.line&&sp.line.region)||"kanto";rc[r]=(rc[r]||0)+1;}
   B.innerHTML=`<p class="admLead">${ic("info")}<span>${a?`Nur Pokémon, die <b>${esc(a.name)}</b> noch nicht hat und nicht im Labor gekauft hat (${all.length}).${none?" Noch kein Online-Spielstand.":""}`:`Geht an <b>alle Konten</b>, die es noch nicht haben.`} Kommt beim nächsten Login mit Einblendung an, landet im Pokédex und wird für Läufe freigeschaltet.</span></p>
    <div class="admGiftTop"><div class="admGiftPrev" id="admGp"></div><div class="admGiftInfo"><b id="admGn"></b><small id="admGr"></small><button class="btn sm" id="admGs">${ic("shiny")} Schillernd</button></div></div>
-   <div class="favBar"><input id="admGq" placeholder="Pokémon suchen (Name oder Nr.) …" maxlength="20" autocomplete="off"></div><div class="admGiftGrid" id="admGg"></div>
+   <div class="favBar"><input id="admGq" placeholder="Pokémon suchen (Name oder Nr.) …" maxlength="20" autocomplete="off"><small class="admSprSt" id="admGsp"></small></div><div class="favRegs admGRegs">${["all",...Object.keys(REGIONS).filter(r=>rc[r])].map(r=>`<button class="${r==="all"?"on":""}" data-grg="${r}">${r==="all"?"Alle":esc(REGIONS[r].n)} <small>${r==="all"?all.length:rc[r]}</small></button>`).join("")}</div><div class="admGiftGrid" id="admGg"></div><div class="admGMore"><button class="btn sm" id="admGmore" style="display:none">${ic("plus")} <span>Mehr anzeigen</span></button></div>
    <div class="admSec" style="margin-top:14px"><h5>NACHRICHT ${a?"AN DEN SPIELER":"IM GESCHENK-FENSTER"} <small>optional</small></h5><div class="admLang"><label><i>DE</i><input id="admGm" maxlength="120" autocomplete="off" placeholder="z. B. Danke fürs Testen!"></label></div></div>
    <div class="admGFoot"><div class="aerr" id="admGe"></div><button class="pri" id="admGo">${ic("check")} Schenken</button></div>`;
   const prev=()=>{const sp=SPECIES[sel],P=$("admGp");P.innerHTML="";try{P.appendChild(sprAlign(natFit(spriteEl(sel,"",{shiny:shy}),1)));}catch(e){}
     $("admGn").textContent=`#${sel} ${sp.name}`;$("admGr").textContent=((REGIONS[(sp.line&&sp.line.region)||"kanto"]||{}).n||"")+" · "+sp.types.map(t=>TYPES[t]?TYPES[t][0]:t).join(" / ");$("admGs").classList.toggle("on",shy);
     $("admGo").innerHTML=`${ic("check")} ${sp.name}${shy?" (schillernd)":""} ${a?"schenken":"an alle schenken"}`;hydrateIcons($("admGo"));sure=false;
     B.querySelectorAll("[data-gs]").forEach(b=>b.classList.toggle("on",+b.dataset.gs===sel));};
-  const grid=()=>{const t=q.trim().toLowerCase(),L=(t?all.filter(sp=>sp.name.toLowerCase().includes(t)||String(sp.id)===t):all).slice(0,40),G=$("admGg");
+  const grid=()=>{const t=q.trim().toLowerCase().replace(/^#/,""),F=all.filter(sp=>(rg==="all"||((sp.line&&sp.line.region)||"kanto")===rg)&&(!t||sp.name.toLowerCase().includes(t)||String(sp.id)===t||String(dexNo(sp.id))===t)),L=F.slice(0,N),G=$("admGg");const mo=$("admGmore");if(mo){mo.style.display=F.length>N?"":"none";const sm=mo.querySelector("span");if(sm)sm.textContent=`Mehr anzeigen (${F.length-N})`;}
     G.innerHTML=L.map(sp=>`<button class="favB${sp.id===sel?" on":""}" data-gs="${sp.id}" title="#${sp.id} ${esc(sp.name)}"><span class="fm" data-sp="${sp.id}"></span><small>${esc(sp.name)}</small></button>`).join("")||`<p class="empty">Nichts gefunden.</p>`;
     G.querySelectorAll(".fm[data-sp]").forEach(e=>e.appendChild(sprAlign(natFit(spriteEl(+e.dataset.sp),.9))));G.querySelectorAll("[data-gs]").forEach(b=>b.onclick=()=>{sel=+b.dataset.gs;prev();});};
-  prev();grid();hydrateIcons(B);let tm=0;$("admGq").oninput=e=>{clearTimeout(tm);tm=setTimeout(()=>{q=e.target.value;grid();},200);};
+  prev();grid();hydrateIcons(B);let tm=0;$("admGq").oninput=e=>{clearTimeout(tm);tm=setTimeout(()=>{q=e.target.value;N=60;grid();},200);};
+  B.querySelectorAll("[data-grg]").forEach(b=>b.onclick=()=>{rg=b.dataset.grg;N=60;B.querySelectorAll("[data-grg]").forEach(x=>x.classList.toggle("on",x===b));grid();});
+  if($("admGmore"))$("admGmore").onclick=()=>{N+=60;grid();};admSprWarm($("admGsp"));
   $("admGs").onclick=()=>{shy=!shy;prev();};
   $("admGo").onclick=async()=>{const E=$("admGe"),sp=SPECIES[sel];if(!a&&!sure){sure=true;$("admGo").innerHTML=`${ic("check")} Wirklich an ALLE schenken?`;hydrateIcons($("admGo"));return;}
     const r=await admRpc("admin_gift",{target:a?a.id:null,mon:sel,shy,msg:$("admGm").value.trim(),lk:sp.line.start?null:sp.line.k});
     if(!r.ok){const t=JSON.stringify(r.j||"");E.innerHTML=/already_owned/.test(t)?"Das hat der Spieler schon (oder im Labor gekauft).":/already_pending/.test(t)?"Liegt schon als Geschenk für ihn bereit.":/admin_gift|function|schema/i.test(t)?"Auf dem Server fehlt noch das Update: unter <b>Server-Setup</b> den Code ausführen.":"Fehlgeschlagen: "+admErr(r);return;}
     closeModal();toast(`${sp.name}${shy?" (schillernd)":""} an ${a?a.name:(+r.j||0)+" Spieler"} verschenkt`,"ball");};}
+/* v1.31.7: Sprites aller Regionen im Hintergrund laden (die Vergabe zeigt Pokémon aus allen Regionen) */
+function admSprWarm(el){if(!window.__SPRM||typeof __sprLoad!=="function"){if(el)el.textContent="";return;}const ks=Object.keys(__SPRM),open=()=>ks.filter(k=>!__SPRM[k].done);
+  const upd=()=>{if(!el||!el.isConnected)return;const o=open().length;el.textContent=o?`Sprites ${ks.length-o}/${ks.length} …`:"";};upd();
+  open().reduce((p,k)=>p.then(()=>__sprLoad(k)).then(upd),Promise.resolve()).catch(()=>{});}
+/* ---------- Hintergründe: je Spieler freischalten (gespeichert als verliehenes "Abzeichen" bg:<name>, kein Server-Update nötig) oder an alle verschenken ---------- */
+const admBgSorted=()=>Object.entries(CARD_BG).sort((x,y)=>(x[1].gift?9:x[1].lv||0)-(y[1].gift?9:y[1].lv||0));
+const admBgSub=b=>b.gift?`Edition${b.ed?" · "+b.ed:""}`:(b.ld||"Für alle Trainer");
+function admBgGridHTML(sel,own){return `<div class="cdBgs admBgs">${admBgSorted().map(([k,b])=>`<button class="cdBg${k===sel?" on":""}${own&&own.has(k)?" got":""}" data-abg="${k}"><i class="bgThumb">${bgHTML(k)}${b.gift?`<em class="cdEd">${esc(b.ed||"Edition")}</em>`:""}${b.lv?`<em class="cdLv l${b.lv}">${"★".repeat(b.lv)}</em>`:""}</i><b>${own&&own.has(k)?ic("check"):""}${esc(b.n)}</b><small>${esc(admBgSub(b))}</small></button>`).join("")}</div>`;}
+function admBgPick(B,gid,onSel){const G=B.querySelector("#"+gid);G.querySelectorAll("[data-abg]").forEach(x=>x.onclick=()=>{G.querySelectorAll("[data-abg]").forEach(y=>y.classList.toggle("on",y===x));onSel(x.dataset.abg);});}
+function admBgBody(a,B){let sel=null,own=new Set();
+  B.innerHTML=`<p class="admLead">${ic("info")}<span>Schaltet einen Hintergrund für <b>${esc(a.name)}</b> frei, auch Editions-Hintergründe. Kommt beim nächsten Login mit Einblendung an und ist dann unter Trainerkarte → Stil wählbar.</span></p>
+   <div class="admBgTop"><div class="admPlate" id="admBgP"></div><div class="admGiftInfo"><b id="admBgN">Hintergrund wählen</b><small id="admBgL"></small></div></div>
+   <div class="admBgWrap" id="admBgG"></div>
+   <div class="admGFoot"><div class="aerr" id="admBgE"></div><button class="pri" id="admBgGo" disabled>${ic("check")} Freischalten</button></div>
+   <h4 class="cdCat">Freigeschaltete Hintergründe von ${esc(a.name)}</h4><div class="admTList" id="admBgLst"><p class="admNote">Lade …</p></div>`;hydrateIcons(B);
+  const prev=()=>{const b=CARD_BG[sel],P=$("admBgP");if(!P)return;P.innerHTML=b?`${bgHTML(sel)}<i class="evPlDim"></i><b>${esc(a.name)}</b>`:`<b>Noch kein Hintergrund gewählt</b>`;$("admBgN").textContent=b?b.n:"Hintergrund wählen";
+    $("admBgL").textContent=b?admBgSub(b)+(own.has(sel)?" · schon freigeschaltet":""):"Unten einen Hintergrund antippen.";const go=$("admBgGo");go.disabled=!b||own.has(sel);go.innerHTML=`${ic("check")} ${b?esc(b.n)+" freischalten":"Freischalten"}`;hydrateIcons(go);};
+  const grid=()=>{const G=$("admBgG");if(!G)return;G.innerHTML=admBgGridHTML(sel,own);hydrateIcons(G);admBgPick(B,"admBgG",k=>{sel=k;prev();});};
+  const list=async()=>{const el=$("admBgLst");if(!el)return;const r=await admRpc("admin_badge_list",{target:a.id});if(!el.isConnected)return;if(!r.ok){el.innerHTML=`<p class="admNote">${admEvErr(r)}</p>`;return;}
+    const L=(Array.isArray(r.j)?r.j:[]).filter(x=>String(x.badge).startsWith("bg:")).map(x=>x.badge.slice(3)).filter(k=>CARD_BG[k]);own=new Set(L);
+    el.innerHTML=L.length?L.map(k=>`<div class="admTRow admBgRow"><i class="admBgMini">${bgHTML(k)}</i><b>${esc(CARD_BG[k].n)}</b><small>${esc(admBgSub(CARD_BG[k]))}</small><span style="flex:1"></span><button class="btn sm danger" data-bgrm="${k}" title="Freischaltung zurücknehmen">${ic("trash")}</button></div>`).join(""):`<p class="admNote">Noch keine freigeschalteten Hintergründe.</p>`;hydrateIcons(el);
+    el.querySelectorAll("[data-bgrm]").forEach(b=>b.onclick=async()=>{if(b.dataset.ok!=="1"){b.dataset.ok="1";b.innerHTML=ic("trash")+" Sicher?";hydrateIcons(b);return;}const r2=await admRpc("admin_badge",{target:a.id,bid:"bg:"+b.dataset.bgrm,btier:0});if(!r2.ok){toast("Fehlgeschlagen: "+admErr(r2),"close");return;}toast("Hintergrund zurückgenommen","trash");list();});
+    grid();prev();};
+  $("admBgGo").onclick=async()=>{if(!sel)return;const go=$("admBgGo");go.disabled=true;$("admBgE").textContent="";const r=await admRpc("admin_badge",{target:a.id,bid:"bg:"+sel,btier:1});if(!r.ok){$("admBgE").innerHTML=admEvErr(r);go.disabled=false;return;}
+    toast(`Hintergrund „${CARD_BG[sel].n}“ für ${a.name} freigeschaltet`,"star");list();};
+  grid();prev();list();}
+function admEvBgBody(B){let sel=null,sure=false;
+  B.innerHTML=`<p class="admLead">${ic("info")}<span>Geht an alle Konten, die es <b>jetzt</b> gibt. Später erstellte Konten und Gäste bekommen ihn nicht. Beim nächsten Spielstart erscheint ein Geschenk-Fenster.</span></p>
+   <div class="admBgTop"><div class="admPlate" id="admEbP"></div><div class="admGiftInfo"><b id="admEbN">Hintergrund wählen</b><small id="admEbL"></small></div></div>
+   <div class="admBgWrap" id="admEbG"></div>
+   <div class="admSec" style="margin-top:14px"><h5>NACHRICHT IM GESCHENK-FENSTER <small>optional</small></h5><div class="admLang">
+    <label><i>DE</i><input id="admEbM" maxlength="120" autocomplete="off" placeholder="z. B. Danke fürs Mitspielen!"></label>
+    <label><i class="en">EN</i><input id="admEbME" maxlength="120" autocomplete="off" placeholder="optional, z. B. Thanks for playing!"></label></div></div>
+   <div class="admGFoot"><div class="aerr" id="admEbE"></div><button class="pri" id="admEbGo" disabled>${ic("star")} An alle verschenken</button></div>
+   <div class="admSec admHist"><h5>BISHERIGE GESCHENKE AN ALLE</h5><div class="admTList" id="admEbH"><p class="admNote">Lade …</p></div></div>`;hydrateIcons(B);
+  const prev=()=>{const b=CARD_BG[sel],P=$("admEbP");if(!P)return;P.innerHTML=b?`${bgHTML(sel)}<i class="evPlDim"></i><b>Trainername</b>`:`<b>Noch kein Hintergrund gewählt</b>`;$("admEbN").textContent=b?b.n:"Hintergrund wählen";$("admEbL").textContent=b?admBgSub(b):"Unten einen Hintergrund antippen.";
+    const go=$("admEbGo");go.disabled=!b;sure=false;go.innerHTML=`${ic("star")} ${b?esc(b.n)+" an alle verschenken":"An alle verschenken"}`;hydrateIcons(go);};
+  const G=$("admEbG");G.innerHTML=admBgGridHTML(null,null);hydrateIcons(G);admBgPick(B,"admEbG",k=>{sel=k;prev();});prev();
+  $("admEbGo").onclick=async()=>{if(!sel)return;const go=$("admEbGo");if(!sure){sure=true;go.innerHTML=`${ic("star")} Wirklich an ALLE verschenken?`;hydrateIcons(go);return;}
+    const n=$("admEbM").value.trim(),ne=$("admEbME").value.trim();const body={gkind:"bg",gval:sel,gstyle:"",gnote:n};if(ne)body.gnote_en=ne;$("admEbE").textContent="";
+    go.disabled=true;try{const r=await admRpc("admin_event_gift",body);if(!r.ok){$("admEbE").innerHTML=admEvErr(r);return;}}finally{go.disabled=false;}
+    toast(`Hintergrund „${CARD_BG[sel].n}“ an alle verschenkt`,"star");$("admEbM").value="";$("admEbME").value="";sel=null;G.querySelectorAll(".cdBg.on").forEach(x=>x.classList.remove("on"));prev();admEvList($("admEbH"));};
+  admEvList($("admEbH"));}
 /* sperren / entsperren */
 function admBan(a){if(!a)return;if(admBanned(a)){openModal(`<h2>${ic("check")} ENTSPERREN?</h2><div class="lead"><b>${esc(a.name)}</b> ist gesperrt bis ${Date.parse(a.banned_until)-Date.now()>3e10?"auf Weiteres (dauerhaft)":admFmt(a.banned_until)}.${a.ban_reason?`<br>Grund: ${esc(a.ban_reason)}`:""}</div><div class="aerr" id="admBe"></div>
      <div class="rbtns" style="margin-top:12px"><button class="pri" id="admBg">${ic("check")} Entsperren</button><button class="btn" id="admBx">Abbrechen</button></div>`,"narrow",true);
@@ -15285,7 +15349,7 @@ const _lvCo=lv=>[1,2,3,4].map(i=>_bU("lvCo c"+i,"bsCo")).join("")+(lv>=6?`<i cla
 function bgHTML(k){_bSym();const b=CARD_BG[k]||CARD_BG.std,lv=b.lv||0;return `<div class="tcBg bg-${CARD_BG[k]?k:"std"}${lv?" lv"+lv:""}">${b.html}${lv>=4?`<i class="lvFx l${lv}"></i>`:""}${lv>=2?`<i class="lvFr l${lv}"></i>`:""}${lv>=5?_lvCo(lv):""}</div>`;}
 /* wofür es den Hintergrund gibt (Tooltip im Karten-Editor und auf Trainerkarten) */
 function bgWhy(k,ok){const b=CARD_BG[k]||CARD_BG.std;if(!b.ld)return "Standard-Hintergrund für alle Trainer.";if(b.gift)return b.ld+".";return (ok===false?"Noch gesperrt. Freischalten: ":"Freigeschaltet für: ")+b.ld;}
-const bgOk=k=>{const b=CARD_BG[k];if(!b)return false;if(evHas("bg",k))return true;if(b.gift)return false;if(!b.lock)return true;try{badgeKeep();}catch(e){}if(((META&&META.bgkeep)||[]).includes(k))return true;try{return !!b.lock();}catch(e){return false;}};
+const bgOk=k=>{const b=CARD_BG[k];if(!b)return false;if(evHas("bg",k)||((META&&META.bggift)||{})[k])return true;if(b.gift)return false;if(!b.lock)return true;try{badgeKeep();}catch(e){}if(((META&&META.bgkeep)||[]).includes(k))return true;try{return !!b.lock();}catch(e){return false;}};
 /* Lieblingspokémon statt Trainerfigur (v9.5): frei wählbar aus allen Pokémon, die man je besessen hat */
 const TITLE_FX={chrom:"Chrom",gold:"Gold",regenbogen:"Regenbogen",feuer:"Feuer",eis:"Eis",neon:"Neon",galaxie:"Galaxie",smaragd:"Smaragd",geist:"Geist"};
 let MYTITLE=null; // vom Admin vergebener eigener Titel {text,style}, kommt aus der Cloud (lokal je Konto zwischengespeichert)
@@ -15399,7 +15463,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.31.6",DUEL_HP=30;
+const MP_VER="1.31.7",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -19801,8 +19865,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.31.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.31.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.31.7",d:"03.11.2026",t:"Schnellfix",items:[
+  ["dex", "Sprites, die beim ersten Laden nicht ankamen (z. B. bei kurzer Verbindungsstörung), werden jetzt automatisch nachgeladen. Vorher blieben bis zum Neuladen nur farbige Kreise stehen."]]},
  {v:"1.31.6",d:"03.11.2026",t:"Schnellfix",items:[
   ["user", "Trainerkarte läuft deutlich flüssiger: Ein Klick auf Hintergrund, Titel oder Abzeichen ändert nur noch die Auswahl und die Vorschau, statt das ganze Fenster neu aufzubauen. Hintergründe und Abzeichen in der Auswahl bewegen sich erst, wenn du mit der Maus darüberfährst."],
   ["grid", "Große Fenster (Trainerkarte, Pokédex, Erfolge …) halten die 3D-Arena im Hintergrund jetzt ganz an. Vorher wurde sie ab und zu weitergezeichnet, was kurze Ruckler gab."]]},
