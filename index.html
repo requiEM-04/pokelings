@@ -3973,7 +3973,9 @@ body:not(.battle) .wxLbl{display:none}
   #stScene.ps .psPick .cur{top:-20px;border-width:8px;border-top-width:11px}
   #stScene.ps .psPick.on::after{bottom:-15px;font-size:7px}
 }
-
+/* ===== v1.35.5: Bestenliste – Einträge schrumpfen nicht (Liste scrollt stattdessen) ===== */
+.lbRow{flex-shrink:0}
+#lbList{max-height:min(470px,calc(62*var(--vh,1vh)))}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -13871,6 +13873,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Bank voll beim Crypto-Pokémon ode
 if(typeof EN!=="undefined")Object.assign(EN,{"Anmelden: kleine Verbesserung im Hintergrund.": "Sign-in: small behind-the-scenes improvement."});
 /* v1.35.0: Handy II */
 if(typeof EN!=="undefined")Object.assign(EN,{"Handy: Das Raster ist im Hochformat deutlich größer. Es füllt jetzt die Breite aus, die Felder sind etwa anderthalbmal so groß und lassen sich viel leichter treffen.": "Phone: the grid is much bigger in portrait. It now fills the width, the tiles are about one and a half times as large and much easier to hit.", "Handy: Beim Ziehen mit dem Finger schwebt das Pokémon jetzt über dem Finger. So siehst du, wo es landet, statt es zu verdecken. Ein kurzes Wackeln zählt nicht mehr als Ziehen, und auf Android vibriert das Handy kurz beim Aufnehmen.": "Phone: when dragging with your finger, the Pokémon now floats above your finger, so you can see where it lands instead of covering it. A small wiggle no longer counts as a drag, and on Android the phone vibrates briefly when you pick one up.", "Handy: Kompaktere Leisten. Das Menü sitzt oben in einer Zeile, Tasche und Verkaufen teilen sich eine Zeile. Dadurch bleibt mehr Platz fürs Raster.": "Phone: more compact bars. The menu sits in the top row, bag and sell share one row. That leaves more room for the grid.", "Handy: Im Hochformat gibt es jetzt den INFO-Knopf oben rechts im Raster. Er zeigt Synergien, Relikte und das ausgewählte Pokémon, die vorher auf dem Handy gar nicht zu sehen waren.": "Phone: in portrait there is now an INFO button at the top right of the grid. It shows synergies, relics and the selected Pokémon, which weren't visible on phones before.", "Neuer Ladebildschirm: Halloween ist vorbei, jetzt empfängt dich ein Herbstwald im Abendlicht mit fallenden Blättern.": "New loading screen: Halloween is over, now an autumn forest in the evening light with falling leaves welcomes you."});
+/* v1.35.5: Schnellfix */
+if(typeof EN!=="undefined")Object.assign(EN,{"Bestenliste: Bei vielen Trainern wurden die Einträge zusammengedrückt, Regions-Kästchen und Titel waren halb verdeckt. Jetzt behält jeder Eintrag seine volle Höhe und die Liste scrollt.": "Leaderboard: with many trainers the entries got squashed and the region boxes and titles were half hidden. Now every entry keeps its full height and the list scrolls."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -15880,7 +15884,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.35.0",DUEL_HP=30;
+const MP_VER="1.35.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -20286,8 +20290,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.35.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.35.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.35.5",d:"03.11.2026",t:"Schnellfix",items:[
+  ["trophy", "Bestenliste: Bei vielen Trainern wurden die Einträge zusammengedrückt, Regions-Kästchen und Titel waren halb verdeckt. Jetzt behält jeder Eintrag seine volle Höhe und die Liste scrollt."]]},
  {v:"1.35.0",d:"03.11.2026",t:"Handy II",items:[
   ["grid", "Handy: Das Raster ist im Hochformat deutlich größer. Es füllt jetzt die Breite aus, die Felder sind etwa anderthalbmal so groß und lassen sich viel leichter treffen."],
   ["user", "Handy: Beim Ziehen mit dem Finger schwebt das Pokémon jetzt über dem Finger. So siehst du, wo es landet, statt es zu verdecken. Ein kurzes Wackeln zählt nicht mehr als Ziehen, und auf Android vibriert das Handy kurz beim Aufnehmen."],
