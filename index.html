@@ -3842,12 +3842,12 @@ body:not(.battle) .wxLbl{display:none}
 .bstArt{position:relative;height:118px;border-radius:9px;overflow:hidden;background:var(--g);display:flex;flex-direction:column;justify-content:flex-end;padding:8px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.25),inset 0 -40px 40px rgba(0,0,0,.35)}
 .bstArt::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.08) 0 10px,transparent 10px 22px)}
 .bstArt b{position:relative;font:400 13px var(--px);color:#fff;text-shadow:2px 2px 0 #000}.bstArt small{position:relative;font:400 8px var(--px);color:#ffe9a0;letter-spacing:.12em;text-shadow:1px 1px 0 #000}
-.bstM{position:absolute;right:-6px;top:-4px;width:96px;height:96px;display:flex;align-items:flex-end;justify-content:center;filter:drop-shadow(0 3px 0 rgba(0,0,0,.35))}.bstM img{max-height:100%;image-rendering:pixelated}
+.bstArt .bstM{position:absolute;right:-6px;top:-4px;width:96px;height:96px;display:flex;align-items:flex-end;justify-content:center;filter:drop-shadow(0 3px 0 rgba(0,0,0,.35))}.bstArt .bstM img{max-height:100%;image-rendering:pixelated}
 .bstInfo{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#cfd6ee}.bstInfo span{display:inline-flex;align-items:center;gap:4px}.bstInfo .ic{width:13px;height:13px}.bstLeg{color:#ffd84a}
 .bstGo{width:100%;justify-content:center}.bstLock,.bstDone{display:flex;align-items:center;justify-content:center;gap:6px;min-height:32px;font-size:12px;color:var(--muted);text-align:center}.bstDone{color:#4dffa6}.bstLock .ic,.bstDone .ic{width:13px;height:13px}
 .bstCard.locked .bstArt{filter:grayscale(.85) brightness(.6)}.bstCard.done .bstArt{filter:saturate(.6)}
 .dexc.labc.miss .pic{filter:brightness(0) opacity(.55)}.dexc.labc.miss b{opacity:.7}.lmiss{display:inline-flex;align-items:center;gap:4px;margin-top:6px;font-size:11px;color:var(--muted)}.lmiss .ic{width:11px;height:11px}
-#mbox.bstM{max-width:720px}.bstOpen{text-align:center}
+#mbox.bstModal{max-width:720px}.bstOpen{text-align:center}
 .bstRow{display:flex;justify-content:center;gap:14px;margin:14px 0 8px;perspective:900px}
 .bstC{width:170px;height:230px}.bstIn{position:relative;width:100%;height:100%;transform-style:preserve-3d;transform:rotateY(180deg);animation:bstFlip .55s cubic-bezier(.2,.8,.3,1.2) var(--d) forwards}
 @keyframes bstFlip{to{transform:rotateY(0)}}
@@ -3861,8 +3861,26 @@ body:not(.battle) .wxLbl{display:none}
 @keyframes bstPop{from{transform:scale(0)}to{transform:scale(1)}}
 .bstC.r5 .bstFace{box-shadow:0 0 28px #ffb020,0 0 60px rgba(255,176,32,.45)}.bstC.r4 .bstFace{box-shadow:0 0 22px rgba(183,123,255,.7)}
 .bstSum{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;color:#cfd6ee}.bstSum .ic{width:13px;height:13px;color:var(--gem)}
-@media (max-width:600px){.bstRow{gap:6px}.bstC{width:calc(31*var(--vw,1vw));height:calc(46*var(--vw,1vw))}.bstFace .pic img{height:60px}}
 
+/* ===== v1.33.5: Booster-Fenster auf allen Formaten (Karten skalieren mit, nichts läuft über) ===== */
+.bstRow{display:grid;grid-template-columns:repeat(3,minmax(0,170px));justify-content:center}
+.bstC{width:100%;height:auto;aspect-ratio:17/23;min-width:0}
+.bstFace b{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bstOpen .rbtns{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:8px}.bstOpen .rbtns>button{flex:1 1 220px;width:auto;max-width:340px}
+.bstOpen .bstRow{clear:both}.bstFace .lr{max-width:100%;white-space:nowrap;overflow:hidden}
+.bstSum{flex-wrap:wrap}
+@media (max-width:600px){.bstOpen h2{font-size:15px}.bstRow{gap:6px;margin:10px 0 6px}.bstFace{padding:8px 4px 8px}.bstFace .pic img{height:min(64px,calc(15*var(--vw,1vw)))}.bstFace b{font-size:12px}.bstNew{top:5px;left:5px;padding:2px 5px;font-size:7px}.bstDup{font-size:10px}.bstFace .lr{font-size:6.5px;letter-spacing:-.02em}.bstLead{font-size:12.5px;line-height:1.45}.labHd h2{font-size:15px}.admGTabs button{flex:1 1 auto;padding:0 10px}.admGFoot{flex-direction:column;align-items:stretch}.admGFoot .pri{width:100%;flex:none}}
+.dtabs{flex-wrap:wrap}.labHd{flex-wrap:wrap}
+@media (max-width:359px){.bstFace .lr{font-size:5.5px;letter-spacing:-.04em}}
+@media (max-height:560px) and (orientation:landscape){.bstOpen h2{margin:0 0 4px;font-size:15px}.bstRow{grid-template-columns:repeat(3,minmax(0,124px));margin:6px 0 4px}.bstFace .pic img{height:56px}.bstFace b{font-size:12px}.bstSum{margin:4px 0}.bstOpen .rbtns{margin-top:6px}}
+/* Edelstein-Geschenk */
+.evGift .evGems{display:flex;align-items:center;justify-content:center;gap:10px;margin:16px auto 6px;animation:giftPop .55s cubic-bezier(.2,1.5,.4,1) both}
+.evGift .evGems .ic{width:54px;height:54px;color:var(--gem);filter:drop-shadow(0 0 14px color-mix(in srgb,var(--gem) 60%,transparent))}
+.evGift .evGems b{font:400 30px var(--px);color:#fff;text-shadow:3px 3px 0 #000}
+/* Admin: Edelsteine vergeben */
+.admGemTop{display:flex;align-items:center;gap:12px;margin:12px 0 10px}.admGemIc .ic{width:36px;height:36px;color:var(--gem)}
+.admGemTop input{flex:1;min-width:0;font:400 22px var(--px);padding:10px 12px;border-radius:10px;background:#0b0d13;color:#fff;border:2px solid rgba(255,255,255,.15)}
+.admGemQ{display:flex;flex-wrap:wrap;gap:6px}.admGemQ .btn.on{border-color:var(--gem);color:#fff;background:color-mix(in srgb,var(--gem) 22%,transparent)}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -7445,7 +7463,7 @@ function labScreen(tab){
     html+=`<div class="dexReg got"><span class="dri">${ic("check")}</span><b>GESAMMELT</b><small>Im Shop-Pool, Auswahl unter Neues Spiel → Pokémon im Lauf</small><em>${got.length}</em></div>`+(got.length?`<div class="dex">${got.map(L=>card(L,true)).join("")}</div>`:`<div class="empty" style="margin:6px 0">Noch nichts freigeschaltet.</div>`)+`<div class="dexReg got"><span class="dri">${ic("ball")}</span><b>START-POOL</b><small>Von Anfang an im Shop, kein Kauf nötig</small><em>${base.length}</em></div><div class="dex">${base.map(L=>card(L,true)).join("")}</div>`;
     body=(typeof bstTabHtml==="function"?bstTabHtml():"")+`<h4 class="cdCat" style="margin-top:18px">Sammlung</h4>${html}`;
   }
-  openModal(`<div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h2>${ic("lab")} FORSCHUNGSLABOR</h2><span class="hs" style="color:var(--gem)">${ic("gem")}<b>${META.gems}</b></span></div>
+  openModal(`<div class="labHd" style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h2>${ic("lab")} FORSCHUNGSLABOR</h2><span class="hs" style="color:var(--gem)">${ic("gem")}<b>${META.gems}</b></span></div>
     <div class="lead">Edelsteine gibt es am Ende jedes Laufs (je Runde, Boss und Elite-Sieg). Forschung wirkt dauerhaft in allen Läufen.</div>
     <div class="dtabs"><button data-t="tree" class="${t==="tree"?"on":""}">SKILLBAUM</button><button data-t="mons" class="${t==="mons"?"on":""}">BOOSTER</button></div>${body}
     <button class="pri" id="gBack" style="margin-top:16px">ZURÜCK</button>`,"wide",()=>{if($("menu").classList.contains("show"))showMenu();});
@@ -13722,6 +13740,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Schutz vor Passwort-Raten: Nach 3 
 if(typeof EN!=="undefined")Object.assign(EN,{"Pokémon im Lauf: Unter Neues Spiel wählst du jetzt je Region, welche deiner gekauften Pokémon im Laden auftauchen. Erlaubt sind 4 bis 5 pro Stufe (Legendäre 3), insgesamt mindestens 8. So wird der Laden nicht mehr mit allem vollgestopft, was du je freigeschaltet hast, und Doppelte für Sterne findest du leichter. Start-Pokémon sind immer dabei.": "Pokémon in the run: under New Game you now choose per region which of your purchased Pokémon appear in the shop. Up to 4 to 5 per tier (legendaries 3), at least 8 in total. That way the shop is no longer stuffed with everything you ever unlocked, and duplicates for stars are easier to find. Starter Pokémon are always included.", "Ohne eigene Auswahl nimmt das Spiel automatisch je Stufe die zuletzt freigeschalteten. Neu gekaufte Pokémon kommen in deine Auswahl, solange in ihrer Stufe Platz ist. Täglicher Run, Live-Duelle und Monotyp bleiben wie bisher.": "Without your own selection the game automatically takes the most recently unlocked ones per tier. Newly purchased Pokémon join your selection as long as their tier has room. Daily Run, live duels and Monotype stay as before.", "Pokémon im Lauf": "Pokémon in the run", "Auswählen": "Choose", "Automatisch": "Automatic", "Stufe 5 · Legendär": "Tier 5 · Legendary", "Bestenliste: Die Regions-Kästchen stehen jetzt in einer eigenen Zeile und laufen nicht mehr in die Punkte hinein (vor allem auf dem Anmeldebildschirm).": "Leaderboard: the region boxes now have their own line and no longer run into the points (especially on the login screen)."});
 /* v1.33.0: Booster */
 if(typeof EN!=="undefined")Object.assign(EN,{"Booster statt Kaufen: Neue Pokémon gibt es im Forschungslabor jetzt in Region-Boostern für 20 Edelsteine. Jeder Booster hat 3 Karten, die dritte ist mindestens Selten, und mindestens 1 Pokémon ist neu, solange dir in der Region noch welche fehlen.": "Boosters instead of buying: new Pokémon now come in region boosters in the research lab for 20 gems. Each booster has 3 cards, the third is at least Rare, and at least 1 Pokémon is new as long as you're still missing some in that region.", "Doppelte Karten geben ein paar Edelsteine zurück: je nach Seltenheit 1, 2, 3, 5 oder 8.": "Duplicate cards give back a few gems: 1, 2, 3, 5 or 8 depending on rarity.", "Glücksschutz: Spätestens nach 10 Boostern einer Region ohne Legendäres ist eins sicher dabei. Der Stern auf dem Booster zeigt, wie viele es noch sind.": "Luck protection: after at most 10 boosters of a region without a legendary, one is guaranteed. The star on the booster shows how many are left.", "Alles, was du schon freigeschaltet hast, bleibt freigeschaltet. Pokémon mit Pokal gibt es weiterhin nur über Erfolge.": "Everything you've already unlocked stays unlocked. Pokémon with a trophy are still only available through achievements.", "Alles gesammelt": "Collection complete", "Im Booster": "In boosters", "Sammlung": "Collection", "Kampfturm: etwas mehr Edelsteine, jetzt 5 statt 4 je geschaffter Ebene und 20 statt 15 je besiegter Koryphäe (dazu wie gewohnt der Bonus der Schwierigkeit).": "Battle Tower: a few more gems, now 5 instead of 4 per cleared floor and 20 instead of 15 per defeated Frontier Brain (plus the usual difficulty bonus)."});
+/* v1.33.5: Schnellfix */
+if(typeof EN!=="undefined")Object.assign(EN,{"Booster: Das Fenster nach dem Öffnen wurde zusammengedrückt angezeigt, sodass man die gezogenen Karten nicht sehen konnte. Jetzt passt es auf Handy, Tablet und PC, auch im Querformat.": "Boosters: the window after opening was squashed, so you couldn't see the cards you drew. It now fits on phones, tablets and PCs, in landscape too.", "Edelsteine für dein Konto! Damit kannst du zum Beispiel Booster öffnen. Du findest sie hier:": "Gems for your account! You can use them to open boosters, for example. Find them here:", "Zum Forschungslabor": "To the research lab", "Forschungslabor → Booster": "Research lab → Boosters", "NEUE EDELSTEINE": "NEW GEMS"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -13848,7 +13868,7 @@ const TT={map:null,t:0};
 async function clTitles(force){if(!force&&TT.map&&Date.now()-TT.t<120000)return TT.map;let r=await clFetch("/rest/v1/titles?select=uid,text,style,text_en",{auth:false,timeout:7000});
   if(!r.ok&&r.status===400)r=await clFetch("/rest/v1/titles?select=uid,text,style",{auth:false,timeout:7000}); // Server noch ohne englische Titel
   if(r.ok&&Array.isArray(r.j)){TT.map={};for(const x of r.j){const en=String(x.text_en||"").replace(/[<>]/g,"").trim().slice(0,24)||undefined;TT.map[x.uid]={text:String(x.text||"").slice(0,24),style:x.style,en};if(en)ttEnAdd(x.text,en);}TT.t=Date.now();}return TT.map||{};}
-/* eigener Titel: vom Server holen, je Konto lokal merken (sofort da, auch offline), neu vergebene Titel einmal automatisch anlegen.
+/* eigener Titel: vom Server holen, je Konto lokal merken (sofort da, auch offline), neu vergebene Titel einmal als Geschenk anbieten (nicht automatisch anlegen, v1.33.5).
    Gilt auf jedem Gerät gleich, weil Server + synchronisierter Spielstand die Quelle sind. */
 async function clMyTitle(){if(!CL.sess||!CL.sess.uid)return;const uid=CL.sess.uid,nm=CL.sess.name,t0=TT.t;const m=await clTitles(true);
   if(TT.t===t0||!CL.sess||CL.sess.uid!==uid)return; // Abruf fehlgeschlagen oder Konto gewechselt → Zwischenspeicher behalten
@@ -13856,7 +13876,7 @@ async function clMyTitle(){if(!CL.sess||!CL.sess.uid)return;const uid=CL.sess.ui
   if(!mine)return;let ch=JSON.stringify(MYTITLE||null)!==JSON.stringify(nw);MYTITLE=nw;try{if(nw)LS.set(ttKey(nm),nw);else LS.del(ttKey(nm));}catch(e){}
   if(META){META.card=META.card||{};const C=META.card;
     if(nw&&C.tt0===1)C.tt0=nw.text; // alter Merker (v9.5)
-    if(nw&&C.tt0!==nw.text){C.title=nw.text;C.tt0=nw.text;saveMeta();ch=true;}}
+    if(nw&&C.tt0!==nw.text){C.tt0=nw.text;saveMeta();ch=true;GIFT.q.push(Object.assign({type:"ev",kind:"title",val:nw.text,style:nw.style,msg:""},nw.en?{en:nw.en}:{}));giftShow();}}
   if(ch){if(typeof clDirty==="function")clDirty();ttRefresh();}}
 function ttRefresh(){try{if($("modal").classList.contains("show")&&$("mbox").querySelector(".cdWrap"))cardModal(CARD_TAB);}catch(e){}}
 /* nach Anmeldung (Spielstand ist abgeglichen und geladen) */
@@ -13876,13 +13896,22 @@ async function clGifts(force){if(GIFT.busy||!CL.sess||!USER||userKey(USER)!==use
   GIFT.t=Date.now();GIFT.busy=true;const nm=CL.sess.name;
   try{if(!(await clReady()))return;const r=await clFetch("/rest/v1/rpc/gift_claim",{method:"POST",body:{},timeout:8000});if(!r.ok||!Array.isArray(r.j)||!r.j.length)return;
     LS.set(giftKey(nm),(LS.get(giftKey(nm),null)||[]).concat(r.j)); // erst sichern, dann anwenden (geht nichts verloren)
-    if(USER&&userKey(USER)===userKey(nm)&&META)giftApply();}finally{GIFT.busy=false;try{clReplies();}catch(e){}}}
+    if(USER&&userKey(USER)===userKey(nm)&&META)giftApply();}finally{GIFT.busy=false;try{clReplies();}catch(e){}try{clGemGifts();}catch(e){}}}
 function giftApply(){if(!USER||!META)return;const k=giftKey(USER),L=LS.get(k,null)||[];if(!L.length)return;const got=[];
   for(const g of L){const id=+(g.mon!=null?g.mon:g.sp),sh=!!(g.shy!=null?g.shy:g.shiny);if(!SPECIES[id]||(isExcl(id)&&!exclOk()))continue;
     dexUp(id,d=>{d.seen=Math.max(d.seen||0,1);d.owned=(d.owned||0)+1;if(sh)d.shiny=(d.shiny||0)+1;});
     const Ln=SPECIES[id].line;let nu=false;if(Ln&&!Ln.start&&!META.unlocked.includes(Ln.k)){META.unlocked.push(Ln.k);nu=true;if(typeof psOnUnlock==="function")psOnUnlock(Ln);}
     got.push({id,sh,msg:String(g.msg||g.note||"").slice(0,120),nu});}
   saveMeta();LS.del(k);if(got.length){GIFT.q.push(...got);giftShow();}}
+/* v1.33.5: Edelstein-Geschenke (eigene Abholung, ältere Spielversionen holen sie nicht ab und verlieren sie so nicht) */
+const GEMG={busy:false};const gemKey=n=>"pokelings_gemgift_"+userKey(n||"");
+async function clGemGifts(){if(GEMG.busy||!CL.sess||!USER||userKey(USER)!==userKey(CL.sess.name)||!META||CL.syncing)return;GEMG.busy=true;const nm=CL.sess.name;
+  try{if(!(await clReady()))return;const r=await clFetch("/rest/v1/rpc/gem_claim",{method:"POST",body:{},timeout:8000});
+    if(r.ok&&Array.isArray(r.j)&&r.j.length)LS.set(gemKey(nm),(LS.get(gemKey(nm),null)||[]).concat(r.j));}catch(e){}
+  finally{GEMG.busy=false;try{if(USER&&userKey(USER)===userKey(nm))gemApply();}catch(e){}}}
+function gemApply(){if(!USER||!META)return;const k=gemKey(USER),L=LS.get(k,null)||[];if(!L.length)return;let sum=0,msg="";
+  for(const g of L){const v=Math.floor(+(g&&g.gems)||0);if(!(v>0&&v<=100000))continue;sum+=v;const m=String((g&&g.msg)||"").slice(0,120);if(m)msg=m;}
+  if(sum){META.gems=(META.gems||0)+sum;saveMeta();}LS.del(k);if(!sum)return;try{refreshGems();}catch(e){}GIFT.q.push({type:"ev",kind:"gems",val:sum,msg});giftShow();}
 function giftShow(){if(!GIFT.q.length||(!USER&&GIFT.q[0].type!=="ev"))return;const free=$("menu").classList.contains("show")&&!$("modal").classList.contains("show")&&!(typeof ADM!=="undefined"&&ADM.sess);
   if(!free){if(!GIFT.note&&!$("menu").classList.contains("show")){GIFT.note=1;toast("Du hast ein Geschenk bekommen – im Menü wartet es auf dich!","star");}return;}
   GIFT.note=0;const g=GIFT.q.shift();if(g.type==="reply")return repShow(g);if(g.type==="ev")return evShow(g);const sp=SPECIES[g.id],R=REGIONS[(sp.line&&sp.line.region)||"kanto"];
@@ -13935,6 +13964,8 @@ function evShow(g){const en=LANG==="en",msg=en&&g.msgEn?g.msgEn:g.msg;
     else if(g.kind==="title"){const tv=en&&g.en?g.en:g.val,bgk=C.bg&&CARD_BG[C.bg]&&(typeof bgOk!=="function"||bgOk(C.bg))?C.bg:"std";
       box("NEUER TITEL",`<div class="evPlate">${bgHTML(bgk)}<i class="evPlDim"></i><b class="evPlN">${esc((typeof cardMine==="function"&&cardMine().name)||USER||"Trainer")}</b><span${ttCls(TITLE_FX[g.style]?g.style:null)||' class="tt"'}>${esc(tv)}</span></div>`,"","Er steht ab jetzt in deiner Titel-Auswahl. Du findest ihn hier:","Gleich verwenden","Trainerkarte → Stil");
       $("evUse").onclick=()=>{C.title=g.val;saveMeta();next();toast(`Titel „${tv}“ ist jetzt auf deiner Karte`,"crown");};}
+    else if(g.kind==="gems"){const v=Math.max(0,+g.val||0);box("NEUE EDELSTEINE",`<div class="evGems">${ic("gem")}<b>+${v.toLocaleString(LANG==="en"?"en-US":"de-DE")}</b></div>`,"","Edelsteine für dein Konto! Damit kannst du zum Beispiel Booster öffnen. Du findest sie hier:","Zum Forschungslabor","Forschungslabor → Booster");
+      $("evUse").onclick=()=>{closeModal();try{labScreen("mons");}catch(e){}};}
     else if(g.kind==="badge"){const d=badgeDef(g.val);if(!d)return giftShow();box("ABZEICHEN VERLIEHEN",`<div class="evBadge">${badgeHTML(g.val,g.tier)}</div>`,`${esc(d.n)} <small>${TIER[g.tier].n}</small>`,"Dir wurde ein Abzeichen verliehen. Leg es in eines der 3 Felder deiner Karte:","Auf die Karte legen","Trainerkarte → Abzeichen");
       cardHydrate($("mbox"));$("evUse").onclick=()=>{C.badges=(C.badges||[]).filter(x=>x!==g.val);if(C.badges.length>=3)C.badges.shift();C.badges.push(g.val);saveMeta();next();toast(`${d.n} liegt jetzt auf deiner Karte`,"badge");};}
     hydrateIcons($("mbox"));}catch(e){}}
@@ -14152,6 +14183,7 @@ ${admSQL5()}
 ${admSQL8()}
 ${admSQL9()}
 ${admSQL10()}
+${admSQL11()}
 revoke all on function public.adm_log(text,text,text) from public, anon, authenticated;
 revoke all on function public.adm_name(uuid) from public, anon, authenticated;
 do $$ declare f text; begin
@@ -14165,6 +14197,37 @@ grant execute on function public.name_free(text) to anon, authenticated;
 notify pgrst, 'reload schema';`;}
 /* v1.32.0: Login-Schutz. Das Spiel prüft das Passwort zuerst in login_gate (3 Fehlversuche = Sperre bis zur Freigabe).
    Erst dann gibt der Server das eigentliche Anmelde-Passwort heraus (zufällig, 48 Zeichen) – direktes Durchprobieren am Login-Server bringt nichts mehr. */
+function admSQL11(){return `-- v1.33.5: Edelsteine verschenken (kann gefahrlos mehrfach laufen). Edelstein-Geschenke liegen als negative Zahl in gifts.sp,
+-- die normale Pokémon-Abholung (gift_claim) lässt sie liegen, nur gem_claim holt sie ab.
+create or replace function public.gift_claim() returns table(gid bigint,mon integer,shy boolean,msg text) language sql security definer set search_path=public as $$
+  update public.gifts set claimed_at=now() where uid=auth.uid() and claimed_at is null and sp>0 returning id,sp,shiny,note $$;
+create or replace function public.gem_claim() returns table(gid bigint,gems integer,msg text) language sql security definer set search_path=public as $$
+  update public.gifts set claimed_at=now() where uid=auth.uid() and claimed_at is null and sp<0 returning id,-sp,note $$;
+create or replace function public.admin_gift_gems(target uuid,amount integer,msg text) returns integer language plpgsql security definer set search_path=public,auth as $$
+declare n integer:=0;
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  if amount is null or amount<1 or amount>100000 then raise exception 'amount_invalid'; end if;
+  if target is null then
+    insert into public.gifts(uid,sp,shiny,note) select u.id,-amount,false,left(coalesce(msg,''),120) from auth.users u
+      where not exists(select 1 from public.admins a where a.uid=u.id);
+    get diagnostics n=row_count;
+    perform public.adm_log('Edelsteine an alle',n||' Konten',amount||' Edelsteine');
+  else
+    if not exists(select 1 from auth.users u where u.id=target) then raise exception 'not_found'; end if;
+    insert into public.gifts(uid,sp,shiny,note) values(target,-amount,false,left(coalesce(msg,''),120));
+    n:=1;
+    perform public.adm_log('Edelsteine geschenkt',public.adm_name(target),amount||' Edelsteine');
+  end if;
+  return n;
+end $$;
+revoke all on function public.gift_claim() from public, anon;
+grant execute on function public.gift_claim() to authenticated;
+revoke all on function public.gem_claim() from public, anon;
+grant execute on function public.gem_claim() to authenticated;
+revoke all on function public.admin_gift_gems(uuid,integer,text) from public, anon;
+grant execute on function public.admin_gift_gems(uuid,integer,text) to authenticated;
+notify pgrst, 'reload schema';`;}
 function admSQL10(){return `-- v1.32.0: Login-Schutz – nach 3 falschen Passwörtern ist das Konto gesperrt, bis der Admin es freigibt (kann gefahrlos mehrfach laufen)
 -- WICHTIG: erst das Spiel-Update (v1.32.0) hochladen, dann diesen Code ausführen.
 create table if not exists public.pkl_auth(uid uuid primary key references auth.users(id) on delete cascade,h text,s text,fails integer not null default 0,locked_at timestamptz,why text,at timestamptz not null default now());
@@ -14268,7 +14331,7 @@ begin
   return n;
 end $$;
 create or replace function public.gift_claim() returns table(gid bigint,mon integer,shy boolean,msg text) language sql security definer set search_path=public as $$
-  update public.gifts set claimed_at=now() where uid=auth.uid() and claimed_at is null returning id,sp,shiny,note $$;
+  update public.gifts set claimed_at=now() where uid=auth.uid() and claimed_at is null and sp>0 returning id,sp,shiny,note $$;
 
 create table if not exists public.feedback(id bigserial primary key,uid uuid references auth.users(id) on delete cascade,name text,kind text,msg text not null,info jsonb,at timestamptz not null default now(),is_read boolean not null default false,reply text,reply_at timestamptz,reply_seen boolean not null default false);
 alter table public.feedback enable row level security;
@@ -15114,7 +15177,7 @@ async function admLoadList(){const L=$("admList");if(!L)return;L.innerHTML=`<p c
   const LK={};const lkOk=!!(lk&&lk.ok&&Array.isArray(lk.j));if(lkOk)for(const x of lk.j)LK[x.uid]=x;const nLk=Object.values(LK).filter(x=>x.locked_at).length;$("admCount").textContent=ADM.list.length+(ADM.list.length>=200?"+":"")+" Treffer";
   const lkBox=nLk?`<div class="admLkBox">${ic("lock")}<span><b>${nLk} ${nLk===1?"Konto":"Konten"}</b> nach 3 falschen Passwörtern gesperrt. Gesperrte Konten können sich erst nach deiner Freigabe wieder anmelden.</span><button class="btn sm" id="admUnlAll">${ic("check")} Alle freigeben</button></div>`:lkOk?"":`<div class="admLkBox off">${ic("info")}<span>Login-Schutz ist auf dem Server noch nicht eingerichtet: unter <b>Server-Setup</b> den Code ausführen.</span></div>`;
   L.innerHTML=lkBox+(ADM.list.length?`<table><thead><tr><th>Name</th><th>Status</th><th>Version</th><th>Erstellt</th><th>Zuletzt aktiv</th><th>Läufe</th><th>Punkte</th><th></th></tr></thead><tbody>${ADM.list.map((a,i)=>{const on=admOnline(a),bn=admBanned(a);
-    return `<tr class="${bn?"ban":""}"><td><b>${esc(a.name)}</b>${a.title?`<div class="admTT">${admTT(a.title,a.title_style)}</div>`:""}</td>
+    return `<tr class="${bn?"ban":""}"><td><b>${esc(a.name)}</b></td>
     <td>${LK[a.id]&&LK[a.id].locked_at?`<span class="admSt ban" title="seit ${admFmt(LK[a.id].locked_at)}">${ic("lock")} Login gesperrt</span><button class="btn sm admUnl" data-unl="${i}">${ic("check")} Freigeben</button>`:bn?`<span class="admSt ban" title="${esc(a.ban_reason||"")}">${ic("lock")} gesperrt</span>`:on?`<span class="admSt on">● online</span>`:`<span class="admSt">${admAgo(a.seen||a.updated_at||a.last_sign_in_at)}</span>`}${LK[a.id]&&!LK[a.id].locked_at&&LK[a.id].fails>0?`<small class="admFails">${LK[a.id].fails}/3 falsch</small>`:""}</td>
     <td>${a.ver?`<span class="admVer${verNum(a.ver)<verNum(GAME_VER)?" old":""}">v${esc(a.ver)}</span>`:"–"}</td><td>${admFmt(a.created_at)}</td><td>${admFmt(a.seen||a.updated_at||a.last_sign_in_at)}</td><td>${admNum(a.games)}</td><td>${admNum(a.score)}</td>
     <td class="admAct"><button class="btn sm" data-rn="${i}" title="Umbenennen">${ic("user")}</button><button class="btn sm" data-tt="${i}" title="Vergabe: Titel, Pokémon, Abzeichen und Hintergründe">${ic("crown")}</button><button class="btn sm" data-pw="${i}" title="Neues Passwort setzen">${ic("lock")}</button><button class="btn sm${bn?" on":""}" data-ban="${i}" title="${bn?"Entsperren":"Sperren"}">${ic(bn?"check":"close")}</button><button class="btn sm" data-bd="${i}" title="Aus der Bestenliste entfernen">${ic("trophy")}</button><button class="btn sm danger" data-del="${i}" title="Konto löschen">${ic("trash")}</button></td></tr>`;}).join("")}</tbody></table>`:`<p class="empty">Keine Konten gefunden.</p>`);
@@ -15124,12 +15187,27 @@ async function admLoadList(){const L=$("admList");if(!L)return;L.innerHTML=`<p c
   L.querySelectorAll("[data-rn]").forEach(b=>b.onclick=()=>admRename(A(b.dataset.rn)));L.querySelectorAll("[data-tt]").forEach(b=>b.onclick=()=>admGrant(A(b.dataset.tt),"title"));L.querySelectorAll("[data-pw]").forEach(b=>b.onclick=()=>admPw(A(b.dataset.pw)));
   L.querySelectorAll("[data-ban]").forEach(b=>b.onclick=()=>admBan(A(b.dataset.ban)));L.querySelectorAll("[data-bd]").forEach(b=>b.onclick=()=>admBoardDel(A(b.dataset.bd)));L.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>admDel(A(b.dataset.del)));}
 /* Vergabe: Titel (mit Schrift-Effekt) und Pokémon in einem Dialog. Pokémon nur, wenn der Spieler es noch nicht hat und nicht im Labor gekauft hat. */
-function admGrant(a,tab){tab=tab||(a?"title":"mon");const T=a?[["title","crown","TITEL"],["mon","ball","POKÉMON"],["badge","badge","ABZEICHEN"],["bg","swirl","HINTERGRUND"]]:[["mon","ball","POKÉMON"],["etitle","crown","TITEL"],["ebg","swirl","HINTERGRUND"]];
+function admGrant(a,tab){tab=tab||(a?"title":"mon");const T=a?[["title","crown","TITEL"],["mon","ball","POKÉMON"],["badge","badge","ABZEICHEN"],["bg","swirl","HINTERGRUND"],["gems","gem","EDELSTEINE"]]:[["mon","ball","POKÉMON"],["etitle","crown","TITEL"],["ebg","swirl","HINTERGRUND"],["gems","gem","EDELSTEINE"]];
   openModal(`<h2>${ic("crown")} VERGABE${a?` · ${esc(a.name)}`:" · ALLE SPIELER"}</h2>
    <div class="dtabs admGTabs">${T.map(([k,i,n])=>`<button data-gt="${k}" class="${tab===k?"on":""}">${ic(i)} ${n}</button>`).join("")}</div><div id="admGB"></div>`,"",true);
   $("mbox").querySelectorAll("[data-gt]").forEach(b=>b.onclick=()=>{$("mbox").querySelectorAll("[data-gt]").forEach(x=>x.classList.toggle("on",x===b));admGrantBody(a,b.dataset.gt);});
   admGrantBody(a,tab);}
-function admGrantBody(a,tab){const B=$("admGB");if(!B)return;if(tab==="etitle")return admEvTitleBody(B);if(tab==="ebg")return admEvBgBody(B);if(tab==="bg"&&a)return admBgBody(a,B);if(tab==="badge"&&a)return admBadgeBody(a,B);if(tab==="title"&&a)return admTitleBody(a,B);return admGiftBody(a,B);}
+function admGrantBody(a,tab){const B=$("admGB");if(!B)return;if(tab==="gems")return admGemBody(a,B);if(tab==="etitle")return admEvTitleBody(B);if(tab==="ebg")return admEvBgBody(B);if(tab==="bg"&&a)return admBgBody(a,B);if(tab==="badge"&&a)return admBadgeBody(a,B);if(tab==="title"&&a)return admTitleBody(a,B);return admGiftBody(a,B);}
+/* ---------- v1.33.5: Edelsteine verschenken (beliebiger Betrag, einzeln oder an alle) ---------- */
+function admGemBody(a,B){let sure=false;const Q=[5,10,20,50,100,250,500,1000],MAX=100000;
+  B.innerHTML=`<p class="admLead">${ic("info")}<span>${a?`Edelsteine für <b>${esc(a.name)}</b>.`:`Geht an <b>alle Konten</b> (außer deinem).`} Kommen beim nächsten Login mit Einblendung an und werden zum Edelstein-Stand dazugezählt. Beliebiger Betrag von 1 bis ${admNum(MAX)}.</span></p>
+   <div class="admGemTop"><span class="admGemIc">${ic("gem")}</span><input id="admGemN" type="number" min="1" max="${MAX}" step="1" inputmode="numeric" value="50" autocomplete="off"></div>
+   <div class="admGemQ">${Q.map(v=>`<button class="btn sm" data-gq="${v}">${admNum(v)}</button>`).join("")}</div>
+   <div class="admSec" style="margin-top:14px"><h5>NACHRICHT ${a?"AN DEN SPIELER":"IM GESCHENK-FENSTER"} <small>optional</small></h5><div class="admLang"><label><i>DE</i><input id="admGemM" maxlength="120" autocomplete="off" placeholder="z. B. Danke fürs Testen!"></label></div></div>
+   <div class="admGFoot"><div class="aerr" id="admGemE"></div><button class="pri" id="admGemGo"></button></div>`;
+  const I=$("admGemN"),go=$("admGemGo"),val=()=>{const v=Math.floor(+I.value);return isFinite(v)?v:0;},ok=v=>v>=1&&v<=MAX;
+  const upd=()=>{const n=val();sure=false;go.disabled=!ok(n);go.innerHTML=`${ic("gem")} ${ok(n)?admNum(n):"–"} Edelsteine ${a?"schenken":"an alle schenken"}`;hydrateIcons(go);B.querySelectorAll("[data-gq]").forEach(b=>b.classList.toggle("on",+b.dataset.gq===n));$("admGemE").textContent="";};
+  I.oninput=upd;B.querySelectorAll("[data-gq]").forEach(b=>b.onclick=()=>{I.value=b.dataset.gq;upd();});upd();hydrateIcons(B);
+  go.onclick=async()=>{const E=$("admGemE"),n=val();if(!ok(n)){E.textContent=`Bitte 1 bis ${admNum(MAX)}.`;return;}
+    if(!sure){sure=true;go.innerHTML=`${ic("check")} Wirklich ${admNum(n)} Edelsteine ${a?"an "+esc(a.name):"an ALLE"}?`;hydrateIcons(go);return;}
+    go.disabled=true;try{const r=await admRpc("admin_gift_gems",{target:a?a.id:null,amount:n,msg:$("admGemM").value.trim()});
+      if(!r.ok){const t=JSON.stringify(r.j||"");E.innerHTML=/amount_invalid/.test(t)?`Bitte 1 bis ${admNum(MAX)}.`:/not_found/.test(t)?"Konto nicht gefunden.":/admin_gift_gems|function|schema/i.test(t)?"Auf dem Server fehlt noch das Update: unter <b>Server-Setup</b> den Code ausführen.":"Fehlgeschlagen: "+admErr(r);sure=false;return;}
+      closeModal();toast(`${admNum(n)} Edelsteine an ${a?a.name:(+r.j||0)+" Spieler"} verschenkt`,"gem");}finally{const g=$("admGemGo");if(g)g.disabled=false;}};}
 /* ---------- Geschenke an alle: Titel und Hintergründe ---------- */
 function admEvErr(r){const t=JSON.stringify((r&&r.j)||"");return /already_active/.test(t)?"Dieses Geschenk ist schon aktiv.":/val_invalid/.test(t)?"Bitte 1 bis 24 Zeichen.":/function|schema|event_gift/i.test(t)?"Auf dem Server fehlt noch das Update: unter <b>Server-Setup</b> den Code ausführen.":"Fehlgeschlagen: "+admErr(r);}
 async function admEvList(el){if(!el)return;const r=await clFetch("/rest/v1/rpc/event_gifts_list",{method:"POST",auth:false,body:{},timeout:8000});if(!el.isConnected)return;
@@ -15187,7 +15265,7 @@ function admBadgeBody(a,B){let sel="champ",tier=5,q="";
   $("admBgo").onclick=async()=>{const r=await admRpc("admin_badge",{target:a.id,bid:sel,btier:tier});if(!r.ok){$("admBe").innerHTML=admEvErr(r);return;}const d=badgeDef(sel);toast(`${d?d.n:sel} (${TIER[tier].n}) an ${a.name} verliehen`,"badge");list();};
   grid();prev();list();admSprWarm(null);}
 function admTitleBody(a,B){let sty=TITLE_FX[a.title_style]?a.title_style:"chrom";
-  B.innerHTML=`<p class="admLead">${ic("info")}<span>Erscheint auf der Kampfkarte, im VS-Bildschirm und in der Bestenliste und wird beim Spieler automatisch angelegt.</span></p>
+  B.innerHTML=`<p class="admLead">${ic("info")}<span>Der Spieler bekommt ihn als Geschenk und kann ihn unter Trainerkarte → Stil anlegen. Erst dann erscheint er auf der Kampfkarte, im VS-Bildschirm und in der Bestenliste.</span></p>
    <div class="admCur${a.title?"":" none"}"><small>Aktuell</small>${a.title?admTT(a.title,a.title_style):`<span>kein Titel</span>`}<span style="flex:1"></span>${a.title?`<button class="btn sm danger" id="admTr">${ic("trash")} Titel löschen</button>`:""}</div>
    <div class="admGForm" style="margin-top:14px"><div class="admSec"><h5>${a.title?"NEUER TITEL":"TITEL"} <small>max. 24 Zeichen · Englisch optional</small></h5><div class="admLang"><label><i>DE</i><input id="admTt" maxlength="24" autocomplete="off" value="${esc(a.title||"")}" placeholder="z. B. Entwickler"></label><label><i class="en">EN</i><input id="admTtE" maxlength="24" autocomplete="off" placeholder="optional, z. B. Developer"></label></div></div>
    <div class="admSec"><h5>EFFEKT</h5><div class="admFx">${Object.entries(TITLE_FX).map(([k,n])=>`<button class="admFxB${k===sty?" on":""}" data-fx="${k}"><span class="tt tt-${k}">${n}</span></button>`).join("")}</div></div></div>
@@ -15639,7 +15717,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.33.0",DUEL_HP=30;
+const MP_VER="1.33.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -20045,8 +20123,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.33.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.33.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.33.5",d:"03.11.2026",t:"Schnellfix",items:[
+  ["gem", "Booster: Das Fenster nach dem Öffnen wurde zusammengedrückt angezeigt, sodass man die gezogenen Karten nicht sehen konnte. Jetzt passt es auf Handy, Tablet und PC, auch im Querformat."]]},
  {v:"1.33.0",d:"03.11.2026",t:"Booster",items:[
   ["gem", "Booster statt Kaufen: Neue Pokémon gibt es im Forschungslabor jetzt in Region-Boostern für 20 Edelsteine. Jeder Booster hat 3 Karten, die dritte ist mindestens Selten, und mindestens 1 Pokémon ist neu, solange dir in der Region noch welche fehlen."],
   ["coin", "Doppelte Karten geben ein paar Edelsteine zurück: je nach Seltenheit 1, 2, 3, 5 oder 8."],
@@ -21152,14 +21232,14 @@ function bstTabHtml(){const regs=Object.keys(REGIONS);
       <div class="bstArt"><span class="bstM" data-sp="${A.mascot}"></span><b>${esc(R.n.toUpperCase())}</b><small>BOOSTER</small></div>
       <div class="bstInfo"><span title="gesammelt">${ic("dex")} ${all.length-miss.length}/${all.length}</span>${legLeft?`<span class="bstLeg" title="Legendäres spätestens in ${legLeft} ${legLeft===1?"Booster":"Boostern"} sicher">${ic("star")} ${legLeft}</span>`:""}</div>
       ${lk?`<div class="bstLock">${ic("lock")} ${esc(R.unlock||"gesperrt")}</div>`:done?`<div class="bstDone">${ic("check")} Alles gesammelt</div>`:`<button class="gemBtn bstGo" data-bst="${rk}" ${META.gems<BOOST.cost?"disabled":""}>${ic("gem")}${BOOST.cost} · Öffnen</button>`}</div>`;}).join("");
-  return `<div class="lead" style="margin-bottom:10px">Neue Pokémon gibt es in <b>Boostern</b>: 3 Karten aus einer Region, die dritte ist mindestens <b style="color:#4fa8ff">Selten</b>. Jeder Booster bringt mindestens <b>1 neues</b> Pokémon, solange dir in der Region noch welche fehlen. Doppelte geben Edelsteine zurück. Spätestens nach ${BOOST.pity} Boostern ohne <b style="color:#ffd84a">Legendäres</b> ist eins sicher dabei (${ic("star")} zeigt, nach wie vielen).<br>Neue Pokémon kommen in deine Auswahl „Pokémon im Lauf“, solange in ihrer Stufe Platz ist. ${ic("trophy")} Pokémon mit Pokal gibt es nur über <b style="color:#c99bff">Erfolge</b>.</div><div class="bstGrid">${cards}</div>`;}
+  return `<div class="lead bstLead" style="margin-bottom:10px">Neue Pokémon gibt es in <b>Boostern</b>: 3 Karten aus einer Region, die dritte ist mindestens <b style="color:#4fa8ff">Selten</b>. Jeder Booster bringt mindestens <b>1 neues</b> Pokémon, solange dir in der Region noch welche fehlen. Doppelte geben Edelsteine zurück. Spätestens nach ${BOOST.pity} Boostern ohne <b style="color:#ffd84a">Legendäres</b> ist eins sicher dabei (${ic("star")} zeigt, nach wie vielen).<br>Neue Pokémon kommen in deine Auswahl „Pokémon im Lauf“, solange in ihrer Stufe Platz ist. ${ic("trophy")} Pokémon mit Pokal gibt es nur über <b style="color:#c99bff">Erfolge</b>.</div><div class="bstGrid">${cards}</div>`;}
 function bstBind(){const mb=$("mbox");mb.querySelectorAll(".bstM[data-sp]").forEach(e=>e.appendChild(spriteEl(+e.dataset.sp)));
   mb.querySelectorAll("[data-bst]").forEach(b=>b.onclick=()=>{const rg=b.dataset.bst,r=bstOpen(rg);if(!r){sfx("deny");return;}refreshGems();bstShow(rg,r);});}
 function bstShow(rg,r){const R=REGIONS[rg]||{n:rg},nNew=r.cards.filter(c=>c.nu).length;
   openModal(`<div class="bstOpen"><h2>${ic("gem")} ${esc(R.n.toUpperCase())}-BOOSTER</h2>
     <div class="bstRow">${r.cards.map((c,i)=>`<div class="bstC r${c.L.tier}" style="--rc:${RAR[c.L.tier].c};--d:${(.35+i*.6).toFixed(2)}s"><div class="bstIn"><div class="bstBack">${ic("ball")}</div><div class="bstFace">${typeof rarSpark==="function"?rarSpark(c.L.tier):""}<div class="pic" data-sp="${c.L.stages[0][0]}"></div><b>${esc(c.L.stages[0][1])}</b><span class="lr">${RAR[c.L.tier].n}</span>${c.nu?`<em class="bstNew">NEU!</em>`:`<em class="bstDup">Doppelt · ${ic("gem")} +${c.dup}</em>`}</div></div></div>`).join("")}</div>
     <p class="bstSum">${nNew} ${nNew===1?"neues Pokémon":"neue Pokémon"}${r.refund?` · ${ic("gem")} +${r.refund} zurück`:""} · ${ic("gem")} ${META.gems} übrig</p>
-    <div class="rbtns"><button class="pri" id="bstAgain" ${META.gems<BOOST.cost||!bstMissing(rg).length?"disabled":""}>${ic("gem")} Noch einen öffnen (${BOOST.cost})</button><button class="btn" id="bstBack">${ic("back")} Zurück</button></div></div>`,"narrow bstM",()=>labScreen("mons"));
+    <div class="rbtns"><button class="pri" id="bstAgain" ${META.gems<BOOST.cost||!bstMissing(rg).length?"disabled":""}>${ic("gem")} Noch einen öffnen (${BOOST.cost})</button><button class="btn" id="bstBack">${ic("back")} Zurück</button></div></div>`,"narrow bstModal",()=>labScreen("mons"));
   const mb=$("mbox");hydrateIcons(mb);mb.querySelectorAll(".pic[data-sp]").forEach(e=>e.appendChild(spriteEl(+e.dataset.sp)));
   r.cards.forEach((c,i)=>setTimeout(()=>{try{if(!$("mbox").querySelector(".bstOpen"))return;sfx(c.L.tier>=4?"sparkle":c.nu?"coin":"click");}catch(e){}},(350+i*600)+350));
   $("bstAgain").onclick=()=>{const r2=bstOpen(rg);if(!r2){sfx("deny");return;}refreshGems();bstShow(rg,r2);};
