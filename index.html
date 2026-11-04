@@ -4150,6 +4150,20 @@ body:not(.battle) .wxLbl{display:none}
 .lbCr .ic{width:16px;height:16px;color:#ffd23f;filter:drop-shadow(0 1px 0 #3a2500) drop-shadow(0 0 4px rgba(255,200,40,.9))}
 @keyframes lbCrown{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-2px) rotate(6deg)}}
 .lbRow.r1{box-shadow:inset 0 0 0 1px rgba(255,210,60,.35),0 0 14px rgba(255,190,40,.12)}
+/* ===== v1.38.0: Seasons, Pokémon-Reiter ===== */
+.mLbSea{display:flex;align-items:center;gap:8px;margin:6px 0 2px}
+.mLbSel{flex:none;height:28px;padding:0 26px 0 8px;border-radius:6px;border:2px solid #0b0d13;background:#1c2232 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'%3E%3Cpath d='M0 0h10L5 6z' fill='%238a93b0'/%3E%3C/svg%3E") no-repeat right 8px center/9px 6px;color:#fff;font:8px var(--px);appearance:none;-webkit-appearance:none;cursor:pointer;box-shadow:inset 0 0 0 2px #2e3a58}
+.mLbSel:focus{outline:none;box-shadow:inset 0 0 0 2px #8ab0f0}
+.mLbSel option{background:#1c2232;color:#fff;font-family:var(--ui);font-size:13px}
+.mLbCd{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mLbCd .ic{width:11px;height:11px;color:#5cf2ff}
+.mLbHint{display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin:2px 0 8px;font-size:10px;color:var(--muted);line-height:1.35}
+.mLbHint .ic{width:11px;height:11px;color:#ffd84a}
+.mLbMe{display:flex;align-items:center;gap:6px;margin:8px 2px 0;font-size:11px;color:var(--muted)}.mLbMe b{color:#5cf2ff;font-family:var(--px);font-size:10px}.mLbMe .ic{width:12px;height:12px}
+/* Statistik: Listen „Meiste Siege“ und „Meister Schaden“ (die Zeilen erbten die Position aus dem Starter-Bildschirm) */
+.stCols .stRow{position:static;left:auto;top:auto;transform:none;z-index:auto;justify-content:flex-start}
+.mLbCd{white-space:normal;line-height:1.25;font-size:9.5px}
+.mLbHint{display:block}.mLbHint .ic{vertical-align:-2px;margin:0 2px 0 4px}.mLbHint .ic:first-child{margin-left:0}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -8555,7 +8569,26 @@ function trainerScore(m0){const m=JSON.parse(JSON.stringify(m0||newMeta()));try{
     top=LB_ORD.find(md=>row[md]>0)||null;per[rk]={row,top,best};});
   const ach=Object.keys(m.ach||{}).filter(k=>ACH_BY[k]);const achP=ach.reduce((a,k)=>a+([0,1,3,6,10,15][ACH_BY[k].t]||0),0);
   const dex=Object.entries(m.dex||{}).filter(([id])=>!isExcl(+id)).map(e=>e[1]),own=dex.filter(d=>d.owned>0).length,shy=dex.filter(d=>d.shiny>0).length;
-  pts+=achP+own*.25+shy;return{pts:Math.round(pts*10),titles,ach:ach.length,own,shy,per,tw:((m.tower&&m.tower.top)|0)};}
+  const pk=achP+own*.25+shy;return{pts:Math.round(pts*10),pk:Math.round(pk*10),titles,ach:ach.length,own,shy,per,tw:((m.tower&&m.tower.top)|0)};}
+/* v1.38.0: Seasons – jeden Monat (deutsche Zeit, Server-Uhr) neu. Gezählt wird wie bei den Trainerpunkten: Champion-Läufe und Runden, nur aus diesem Monat. */
+const SEASON_FIRST="2026-11";
+function seasonId(){try{return dayKey().slice(0,7);}catch(e){return new Date().toISOString().slice(0,7);}}
+const seasonLbl=id=>{const p=String(id||"").split("-");return p.length===2?`Season ${p[1]}/${p[0].slice(2)}`:"Season";};
+function seasonList(){const out=[],cur=seasonId();let [y,m]=cur.split("-").map(Number);for(let i=0;i<36;i++){const id=y+"-"+String(m).padStart(2,"0");if(id<SEASON_FIRST)break;out.push(id);m--;if(m<1){m=12;y--;}}return out;}
+function seasonLeft(){try{const d=dayKey(),[y,m,dd]=d.split("-").map(Number),last=new Date(y,m,0).getDate();return{left:last-dd,end:`${String(last).padStart(2,"0")}.${String(m).padStart(2,"0")}.`};}catch(e){return{left:0,end:""};}}
+function seasonCur(m){m=m||META;if(!m)return null;const id=seasonId();let s=m.season;if(!s||typeof s!=="object"||!s.id||s.id<id){s=m.season={id,reg:{}};}return s;}
+function seasonRec(rg,md,reached,win){try{const s=seasonCur();if(!s)return;const R=s.reg[rg]||(s.reg[rg]={champs:{},best:{}});R.best[md]=Math.max(R.best[md]||0,reached);if(win)R.champs[md]=(R.champs[md]||0)+1;}catch(e){}}
+function seasonScore(s){let pts=0,titles=0;if(!s||!s.reg)return{pts:0,titles:0};
+  Object.keys(REGIONS).forEach((rk,ri)=>{const R=s.reg[rk];if(!R)return;const rf=1+.12*ri;
+    for(const md of Object.keys(LB_W)){const n=(R.champs||{})[md]||0,b=Math.min(20,(R.best||{})[md]||0);titles+=n;if(n>0)pts+=LB_W[md]*rf*(1+.25*Math.min(n-1,4));else if(b>1)pts+=LB_W[md]*rf*.4*(b/20);}});
+  return{pts:Math.round(pts*10),titles};}
+function seasonMine(){try{const s=META&&META.season;return s&&s.id===seasonId()?seasonScore(s):{pts:0,titles:0};}catch(e){return{pts:0,titles:0};}}
+/* Pokémon-Punkte für Bestenlisten-Zeilen älterer Spielversionen schätzen (dort steckten sie noch in den Trainerpunkten) */
+let _ACHAVG=null;const achAvg=()=>{if(_ACHAVG==null){try{const w=ACH.map(a=>[0,1,3,6,10,15][a.t]||0);_ACHAVG=w.reduce((a,b)=>a+b,0)/Math.max(1,w.length);}catch(e){_ACHAVG=4;}}return _ACHAVG;};
+const lbPkEst=x=>Math.round(((x.ach||0)*achAvg()+(x.own||0)*.25+(x.shy||0))*10);
+/* Trainerpunkte (nur Läufe) aus den Regionsdaten einer älteren Zeile schätzen: Champion-Titel genau, sonst bester Fortschritt auf Normal */
+const lbTrEst=x=>{let p=0;Object.keys(REGIONS).forEach((rk,ri)=>{const P=(x.per||{})[rk];if(!P)return;const rf=1+.12*ri,row=P.row||{};let any=false;
+  for(const md of Object.keys(LB_W)){const n=row[md]||0;if(n>0){any=true;p+=LB_W[md]*rf*(1+.25*Math.min(n-1,4));}}if(!any&&P.best>1)p+=LB_W.normal*rf*.4*(Math.min(20,P.best)/20);});return Math.round(p*10);};
 function lbRows(){return Object.values(accounts()).map(a=>{const m=LS.get(metaKey(a.name),null)||newMeta();return Object.assign({n:a.name},trainerScore(m));}).sort((a,b)=>b.pts-a.pts||b.titles-a.titles);}
 /* Titel in der Bestenliste: immer der Titel, den der Spieler auf seiner Karte gewählt hat.
    Ein vom Admin vergebener Titel verhält sich wie jeder andere: sichtbar nur, wenn er gewählt ist, mit Effekt nur, wenn er laut Server vergeben ist. */
@@ -8583,10 +8616,10 @@ function lbDetail(a){if(!a)return;const regs=Object.keys(REGIONS);let cd=a.card&
   // eigene Karte immer live; Titel-Effekt nur, wenn der Titel laut Server wirklich vergeben ist
   let own=false;try{if(typeof CL!=="undefined"&&CL.sess&&a.id&&a.id===CL.sess.uid&&USER&&typeof cardMine==="function"){cd=cardMine();own=true;}}catch(e){}
   if(cd&&!own){const t=lbTitle(a);cd.ts=t&&t.text===cd.title?t.style:null;}
-  openModal(`<h2>${ic("trophy")} ${esc(a.n.toUpperCase())}${lbTTHtml(a)?" "+lbTTHtml(a):""}</h2><div class="lead" style="margin-bottom:10px"><b style="color:var(--amber)">${a.pts.toLocaleString("de-DE")} Trainerpunkte</b> · ${a.titles} Champion-Titel · ${a.ach} Erfolge · ${a.own} Pokémon gefangen · ${a.shy} schillernd</div>
+  openModal(`<h2>${ic("trophy")} ${esc(a.n.toUpperCase())}${lbTTHtml(a)?" "+lbTTHtml(a):""}</h2><div class="lead" style="margin-bottom:10px"><b style="color:var(--amber)">${a.pts.toLocaleString("de-DE")} Trainerpunkte</b>${a.pk!=null?` · <b style="color:#ff7ad8">${a.pk.toLocaleString("de-DE")} Pokémon-Punkte</b>`:""} · ${a.titles} Champion-Titel · ${a.ach} Erfolge · ${a.own} Pokémon gefangen · ${a.shy} schillernd</div>
    <div class="lbDet">${cd?`<div class="lbCard">${cardHTML(cd)}${cd.ph?`<p class="lbPh">${ic("info")} Noch keine Kampfkarte: Sie erscheint, sobald ${esc(cd.name)} wieder mit Konto spielt.</p>`:""}</div>`:""}<div class="lbDetR"><table class="lbTab"><tr><th>Region</th>${Object.keys(LB_W).map(md=>`<th style="color:${LB_COL[md]}">${LB_N[md]}<small>${LB_W[md]} P.</small></th>`).join("")}<th>Beste Runde</th></tr>
    ${regs.map(rk=>{const P=a.per[rk],c=P.top?LB_COL[P.top]:null;return `<tr><td><span class="lbRegC"><i style="--c:${c||"#3a4258"}"${c?"":' class="off"'}>${REGIONS[rk].s||REGIONS[rk].n[0]}</i>${REGIONS[rk].n}</span></td>${Object.keys(LB_W).map(md=>`<td>${P.row[md]?`<b style="color:${LB_COL[md]}">${P.row[md]}×</b>`:"–"}</td>`).join("")}<td>${c?`<b class="lbChamp" style="--c:${c}">${ic("crown")} Champion <small>${LB_N[P.top]}</small></b>`:P.best>20?"Champion":P.best?"Runde "+P.best:"–"}</td></tr>`;}).join("")}</table>
-   <p class="lbNote">Je Region zählt der erste Titel pro Schwierigkeit voll, jede Wiederholung nur +25 % (höchstens 4×). Spätere Regionen geben etwas mehr. Ohne Titel zählt der Fortschritt anteilig. Dazu: Erfolge (Bronze 1 · Silber 3 · Gold 6 · Platin 10), je gefangenes Pokémon 0,25 und je schillerndes 1 Punkt (alles ×10).</p></div></div>
+   <p class="lbNote">Je Region zählt der erste Titel pro Schwierigkeit voll, jede Wiederholung nur +25 % (höchstens 4×). Spätere Regionen geben etwas mehr. Ohne Titel zählt der Fortschritt anteilig (alles ×10).<span> Pokémon-Punkte (eigener Reiter): je Pokémon 2,5, je schillerndes 10, Erfolge 10 bis 150 je nach Stufe.</span></p></div></div>
    <div class="rbtns" style="margin-top:10px">${typeof CL!=="undefined"&&CL.sess&&USER&&userKey(a.n)!==userKey(USER)&&!(typeof SOC!=="undefined"&&(SOC.fl||[]).some(f=>f.st==="friend"&&userKey(f.name)===userKey(a.n)))?`<button class="btn" id="lbFr">${ic("users")} Freund hinzufügen</button>`:""}<button class="pri" id="lbOk">SCHLIESSEN</button></div>`,"wide",true);if(cd)cardHydrate($("mbox"));$("lbOk").onclick=closeModal;
   if($("lbFr"))$("lbFr").onclick=async()=>{const b=$("lbFr");b.disabled=true;if(await friendRequest(a.n,a.id)){b.innerHTML=ic("check")+" Anfrage gesendet";hydrateIcons(b);}else b.disabled=false;};}
 
@@ -8660,7 +8693,7 @@ function achModal(t){t=t||"ach";dexSync();let body="";
   if(t==="ach")body=achBody();
   else if(t==="stats")body=statsBody()+`<h4 class="stH">${ic("route")} Regionen</h4>
      <table class="rep"><tr><th>REGION</th>${Object.keys(LB_W).map(md=>`<th style="color:${LB_COL[md]}">${LB_N[md]}</th>`).join("")}</tr>${(()=>{const sc=trainerScore(META);return Object.keys(REGIONS).map(rk=>{const P=sc.per[rk];return `<tr><td>${REGIONS[rk].n}</td>${Object.keys(LB_W).map(md=>{const R=(META.reg&&META.reg[rk])||{champs:{},best:{}},n=(R.champs||{})[md]||0,b=(R.best||{})[md]||0;return `<td>${n?`<b style="color:${LB_COL[md]}">${n}× Champion</b>`:b?"Runde "+Math.min(20,b):"–"}</td>`;}).join("")}</tr>`;}).join("");})()}</table>
-     <div class="lead" style="margin-top:10px">Trainerpunkte für die Bestenliste: <b style="color:var(--amber)">${trainerScore(META).pts.toLocaleString("de-DE")}</b></div>`;
+     <div class="lead" style="margin-top:10px">Trainerpunkte (Allzeit): <b style="color:var(--amber)">${trainerScore(META).pts.toLocaleString("de-DE")}</b> · ${seasonLbl(seasonId())}: <b style="color:#5cf2ff">${seasonMine().pts.toLocaleString("de-DE")}</b> · Pokémon-Punkte: <b style="color:#ff7ad8">${trainerScore(META).pk.toLocaleString("de-DE")}</b></div>`;
   else body=META.runs.length?`<table class="rep"><tr><th>DATUM</th><th>REGION</th><th>MODUS</th><th>ERGEBNIS</th><th>SIEGE</th><th>EDELSTEINE</th><th>TEAM</th></tr>${META.runs.slice().reverse().map(r=>`<tr><td>${new Date(r.t).toLocaleDateString("de-DE")}</td><td>${(REGIONS[r.reg||"kanto"]||REGIONS.kanto).n}</td><td>${MODES[r.mode].n}</td><td>${r.champ?"Champion"+(r.tw!=null?" · Turm "+r.tw:""):"Runde "+r.round}</td><td>${r.wins}</td><td>${r.gems}</td><td>${(r.team||[]).map(id=>`<span class="ri" data-sp="${id}" style="display:inline-block;width:34px"></span>`).join("")}</td></tr>`).join("")}</table>`:`<div class="empty">Noch keine abgeschlossenen Läufe.</div>`;
   openModal(`<h2>${ic("trophy")} ERFOLGE &amp; STATISTIK</h2><div class="dtabs"><button data-t="ach" class="${t==="ach"?"on":""}">ERFOLGE</button><button data-t="stats" class="${t==="stats"?"on":""}">STATISTIK</button><button data-t="runs" class="${t==="runs"?"on":""}">VERLAUF</button></div>${body}<button class="pri" id="dBack" style="margin-top:16px">ZURÜCK</button>`,"wide",true);
   $("mbox").querySelectorAll(".stRow i[data-sp]").forEach(e=>{e.appendChild(spriteEl(+e.dataset.sp,""));e.removeAttribute("data-sp");});
@@ -14234,6 +14267,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Trainerkarte: Abzeichen-Darstellun
 if(typeof EN!=="undefined")Object.assign(EN,{"Bestenliste: Leuchtende Titel haben keinen Kasten mehr um sich.": "Leaderboard: glowing titles no longer have a box around them."});
 /* v1.37.0.9: Bank und Auswahl */
 if(typeof EN!=="undefined")Object.assign(EN,{"Pokémon im Lauf: Der Info-Knopf auf den Karten funktioniert wieder. Fährst du über ein Pokémon, siehst du jetzt seine Rolle statt der Entwicklungen.": "Pokémon in the run: the info button on the cards works again. Hovering a Pokémon now shows its role instead of its evolutions.", "Bank: Ziehst du ein Pokémon auf ein belegtes Bankfeld, tauschen beide die Plätze. Das klappt zwischen zwei Bankplätzen und zwischen Raster und Bank.": "Bench: drag a Pokémon onto an occupied bench slot and both swap places. Works between two bench slots and between grid and bench.", "Bestenliste: Platz 1, 2 und 3 leuchten jetzt in Gold, Silber und Bronze mit kreisendem Glanz. Platz 1 trägt eine Krone.": "Leaderboard: places 1, 2 and 3 now glow in gold, silver and bronze with a circling shine. First place wears a crown."});
+/* v1.38.0: Seasons */
+if(typeof EN!=="undefined")Object.assign(EN,{"Seasons: Jeden Monat startet eine neue Season. In der Bestenliste unter Trainerpunkte wählst du die laufende Season, vergangene Seasons oder Allzeit. Die erste Season läuft bis 30.11.": "Seasons: a new season starts every month. In the leaderboard under Trainer points you can pick the current season, past seasons or all-time. The first season runs until 30 Nov.", "Season-Punkte gibt es für Champion-Läufe und erreichte Runden im Monat, gewichtet wie die Trainerpunkte. Jede Season startet bei 0. Die besten 10 jeder Season bekommen nach dem Monatswechsel eine Belohnung, Details stehen in der Bestenliste.": "Season points come from champion runs and rounds reached during the month, weighted like trainer points. Every season starts at 0. The top 10 of each season get a reward after the month changes, details are in the leaderboard.", "Neuer Reiter Pokémon in der Bestenliste: Punkte für deine Sammlung (je Pokémon 2,5, je schillerndes 10) und für Erfolge. Diese Punkte zählen nicht mehr zu den Trainerpunkten. Trainerpunkte gibt es jetzt nur noch für Champion-Läufe und Runden, deshalb sind sie bei allen gesunken.": "New Pokémon tab in the leaderboard: points for your collection (2.5 per Pokémon, 10 per shiny) and for achievements. These points no longer count towards trainer points. Trainer points now only come from champion runs and rounds, so they went down for everyone.", "Statistik: Die Listen Meiste Siege und Meister Schaden werden wieder richtig angezeigt.": "Stats: the lists Most wins and Damage masters show up correctly again.", "Allzeit": "All-time", " · läuft": " · running", "alle Läufe": "all runs", "beendet": "finished", "Seasons werden gerade eingerichtet.": "Seasons are being set up.", "Season-Bestenliste nicht erreichbar.": "Season leaderboard unavailable.", "Noch keine Punkte in dieser Season. Werde Champion oder komm weit in einem Lauf!": "No points this season yet. Become champion or get far in a run!", "In dieser Season hat niemand Punkte gesammelt.": "Nobody scored points this season.", "Deine Season-Punkte:": "Your season points:", "diese Season": "this season", "in der Season": "in that season", "Pokémon-Punkte": "Pokémon points", "Trainerpunkte (Allzeit):": "Trainer points (all-time):", "Pokémon-Punkte:": "Pokémon points:", "Alle Pokémon schon schillernd: +50 Edelsteine": "All Pokémon already shiny: +50 gems", " Pokémon-Punkte (eigener Reiter): je Pokémon 2,5, je schillerndes 10, Erfolge 10 bis 150 je nach Stufe.": " Pokémon points (own tab): 2.5 per Pokémon, 10 per shiny, achievements 10 to 150 depending on tier.", "Ohne Titel zählt der Fortschritt anteilig (alles ×10).": "Without a title, progress counts partially (all ×10).", "heute 24 Uhr": "today at midnight", "Season-Punkte": "Season points"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -14277,7 +14312,7 @@ async function clRefresh(name){const t=LS.get(clTokKey(name),null);const rt=(CL.
   const r=await clFetch("/auth/v1/token?grant_type=refresh_token",{method:"POST",auth:false,body:{refresh_token:rt}});if(r.ok&&clSetSess(r.j,name)){clRenameCheck(r.j);return true;}if(r.status===400||r.status===401)LS.del(clTokKey(name));return false;}
 async function clReady(){if(!CL.sess)return false;if(Date.now()>CL.sess.exp-60000)return clRefresh(CL.sess.name);return true;}
 function clLocal(name){const m=LS.get(metaKey(name),null),sv=LS.get("pokelings_v7_save_"+userKey(name),null);return{m,sv};}
-function clBoardRow(m){const sc=trainerScore(m),per={};for(const rk in sc.per){const P=sc.per[rk];per[rk]={row:P.row,top:P.top,best:P.best};}if(sc.tw)per._tw=sc.tw;const row={score:sc.pts,titles:sc.titles,ach:sc.ach,own:sc.own,shy:sc.shy,per};
+function clBoardRow(m){const sc=trainerScore(m),per={};for(const rk in sc.per){const P=sc.per[rk];per[rk]={row:P.row,top:P.top,best:P.best};}if(sc.tw)per._tw=sc.tw;per._pk=sc.pk;const row={score:sc.pts,titles:sc.titles,ach:sc.ach,own:sc.own,shy:sc.shy,per};
   if(!CL.noCard&&typeof cardMine==='function')try{row.card=cardClean(cardMine());}catch(e){}return row;}
 /* v1.35.6: Sammel-Fortschritt zusammenführen statt überschreiben. Bisher galt beim Abgleich „neuerer Stand gewinnt“ für den ganzen Spielstand –
    ein zweites Gerät oder ein alter Stand konnte so Pokédex-Einträge (z. B. schillernde Pokémon), Freischaltungen oder Erfolge löschen.
@@ -14294,6 +14329,9 @@ function metaMerge(m,o){if(!m||!o||typeof o!=="object"||m===o)return m;
     for(const k of MERGE_NUM)if(typeof o[k]==="number"&&!(m[k]>=o[k]))m[k]=o[k];
     if(o.ach&&typeof o.ach==="object"){m.ach=m.ach||{};for(const k in o.ach)if(!m.ach[k])m.ach[k]=o.ach[k];}
     if(Array.isArray(o.unlocked)){if(!Array.isArray(m.unlocked))m.unlocked=[];for(const x of o.unlocked)if(!m.unlocked.includes(x))m.unlocked.push(x);}
+    /* v1.38.0: Season – gleiche Season: je Region/Schwierigkeit das Maximum; neuere Season gewinnt */
+    if(o.season&&typeof o.season==="object"&&o.season.id){const a=m.season;if(!a||typeof a!=="object"||!a.id||a.id<o.season.id)m.season=JSON.parse(JSON.stringify(o.season));
+      else if(a.id===o.season.id){a.reg=a.reg||{};for(const rk in o.season.reg||{}){const O=o.season.reg[rk]||{},A=a.reg[rk]||(a.reg[rk]={champs:{},best:{}});for(const k of ["champs","best"]){A[k]=A[k]||{};for(const md in O[k]||{})if(!(A[k][md]>=O[k][md]))A[k][md]=O[k][md];}}}}
     if(o.ev&&typeof o.ev==="object"){const E=m.ev=m.ev||{};for(const k of ["got","bg"]){E[k]=Array.isArray(E[k])?E[k]:[];for(const x of o.ev[k]||[])if(!E[k].includes(x))E[k].push(x);}
       E.tt=Array.isArray(E.tt)?E.tt:[];for(const t of o.ev.tt||[])if(t&&t.t&&!E.tt.some(x=>x&&x.t===t.t))E.tt.push(t);}}catch(e){}
   return m;}
@@ -14305,6 +14343,7 @@ async function clPush(keep){if(!CL.sess||!USER||userKey(USER)!==userKey(CL.sess.
     const a=await clFetch("/rest/v1/profiles?on_conflict=id",{method:"POST",headers:H,keep,body:{id:CL.sess.uid,name:USER,meta:m,save:sv,updated_at:now}});
     const bb=Object.assign({id:CL.sess.uid,name:USER,updated_at:now},clBoardRow(m));let b=await clFetch("/rest/v1/board?on_conflict=id",{method:"POST",headers:H,keep,body:bb});
     if(!b.ok&&bb.card&&b.status>=400&&b.status<500){CL.noCard=true;delete bb.card;b=await clFetch("/rest/v1/board?on_conflict=id",{method:"POST",headers:H,keep,body:bb});}
+    try{const ss=m.season;if(ss&&ss.id&&typeof seasonScore==="function"){const sc=seasonScore(ss);if(sc.pts>0)await clFetch("/rest/v1/rpc/season_submit",{method:"POST",keep,body:{sid:ss.id,p:sc.pts,info:{c:sc.titles}},timeout:8000});}}catch(e){}
     return a.ok&&b.ok;}finally{CL.pushing=false;if(CL.again){CL.again=false;clDirty();}}}
 function clDirty(){if(!CL.sess)return;clearTimeout(CL.tm);CL.tm=setTimeout(()=>clPush(),4000);}
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"&&CL.sess&&CL.tm){clearTimeout(CL.tm);CL.tm=0;clPush(true);}});
@@ -14362,7 +14401,7 @@ const _signIn0=signIn;signIn=function(name,remember){const r=_signIn0(name,remem
 // Globale Bestenliste
 async function clBoard(){let r=await clFetch("/rest/v1/board?select=id,name,score,titles,ach,own,shy,per,card&order=score.desc&limit=50",{auth:false,timeout:7000});
   if(!r.ok)r=await clFetch("/rest/v1/board?select=name,score,titles,ach,own,shy,per&order=score.desc&limit=50",{auth:false,timeout:7000});
-  if(!r.ok||!Array.isArray(r.j))return null;let tt={};try{tt=(await clTitles())||{};}catch(e){}return r.j.map(x=>({n:x.name,id:x.id||null,card:x.card||null,tt:(x.id&&tt[x.id])||null,pts:x.score,titles:x.titles,ach:x.ach,own:x.own,shy:x.shy,per:Object.assign(Object.fromEntries(Object.keys(REGIONS).map(k=>[k,{row:{},top:null,best:0}])),x.per||{})}));}
+  if(!r.ok||!Array.isArray(r.j))return null;let tt={};try{tt=(await clTitles())||{};}catch(e){}return r.j.map(x=>{const P=x.per||{},pts=P._pk!=null?(x.score||0):Math.min(x.score||0,lbTrEst(x)),pk=P._pk!=null?(+P._pk||0):Math.max(0,(x.score||0)-pts);return {n:x.name,id:x.id||null,card:x.card||null,tt:(x.id&&tt[x.id])||null,pts,pk,titles:x.titles,ach:x.ach,own:x.own,shy:x.shy,per:Object.assign(Object.fromEntries(Object.keys(REGIONS).map(k=>[k,{row:{},top:null,best:0}])),x.per||{})};}).sort((a,b)=>b.pts-a.pts||b.titles-a.titles);}
 const _rLb0=renderLeaderboard;renderLeaderboard=function(rows,src){_rLb0(rows,src);if(!rows)clBoard().then(cr=>{if(cr&&cr.length&&$("auth").classList.contains("show"))_rLb0(cr,"cloud");});};
 /* ===== v9.5: Server-Einstellungen (Nachricht an alle, Mindestversion, Sperren), eigene Titel, Online-Status ===== */
 const CFG={motd:null,minver:null,duelsOff:false,signupOff:false,t:0};
@@ -14420,6 +14459,10 @@ function giftApply(){if(!USER||!META)return;const k=giftKey(USER),L=LS.get(k,nul
     if(id>=200000&&id<300000){const k=String(id-200000);let fin=0;if(typeof MEGA!=="undefined")for(const fi in MEGA)for(const x in MEGA[fi])if(MEGA[fi][x]&&String(MEGA[fi][x].k)===k)fin=+fi;
       if(!fin||!SPECIES[fin]||(isExcl(fin)&&!exclOk()))continue;dexUp(fin,d=>{d.seen=Math.max(d.seen||0,1);d.mega=(d.mega||0)+1;(d.mk=d.mk||{})[k]=1;if(sh)(d.msk=d.msk||{})[k]=1;});
       got.push({id:fin,mk:k,sh,msg:String(g.msg||g.note||"").slice(0,120),nu:false});continue;}
+    if(id===300000){const D=META.dex||{},C=Object.keys(SPECIES).map(Number).filter(i=>{const sp=SPECIES[i];return sp&&sp.line&&!sp.line.excl&&!isExcl(i)&&!((D[i]&&D[i].shiny)>0);});
+      if(!C.length){META.gems=(META.gems||0)+50;toast("Alle Pokémon schon schillernd: +50 Edelsteine","gem");continue;}const pid=C[Math.floor(Math.random()*C.length)];g.mon=pid;g.shy=true;
+      dexUp(pid,d=>{d.seen=Math.max(d.seen||0,1);d.owned=(d.owned||0)+1;d.shiny=(d.shiny||0)+1;});const Lr=SPECIES[pid].line;let nr=false;if(Lr&&!Lr.start&&!META.unlocked.includes(Lr.k)){META.unlocked.push(Lr.k);nr=true;if(typeof psOnUnlock==="function")psOnUnlock(Lr);}
+      got.push({id:pid,sh:true,msg:String(g.msg||g.note||"").slice(0,120),nu:nr});continue;}
     if(!SPECIES[id]||(isExcl(id)&&!exclOk()))continue;
     dexUp(id,d=>{d.seen=Math.max(d.seen||0,1);d.owned=(d.owned||0)+1;if(sh)d.shiny=(d.shiny||0)+1;});
     const Ln=SPECIES[id].line;let nu=false;if(Ln&&!Ln.start&&!META.unlocked.includes(Ln.k)){META.unlocked.push(Ln.k);nu=true;if(typeof psOnUnlock==="function")psOnUnlock(Ln);}
@@ -14710,6 +14753,7 @@ ${admSQL10()}
 ${admSQL11()}
 ${admSQL12()}
 ${admSQL13()}
+${admSQL14()}
 revoke all on function public.adm_log(text,text,text) from public, anon, authenticated;
 revoke all on function public.adm_name(uuid) from public, anon, authenticated;
 do $$ declare f text; begin
@@ -14723,6 +14767,65 @@ grant execute on function public.name_free(text) to anon, authenticated;
 notify pgrst, 'reload schema';`;}
 /* v1.32.0: Login-Schutz. Das Spiel prüft das Passwort zuerst in login_gate (3 Fehlversuche = Sperre bis zur Freigabe).
    Erst dann gibt der Server das eigentliche Anmelde-Passwort heraus (zufällig, 48 Zeichen) – direktes Durchprobieren am Login-Server bringt nichts mehr. */
+function admSQL14(){return `-- v1.38.0: Seasons – monatliche Season-Punkte, Endstände, automatische Belohnungen (kann gefahrlos mehrfach laufen)
+create table if not exists public.season_scores(season text not null,uid uuid not null references auth.users(id) on delete cascade,pts integer not null default 0,info jsonb,updated_at timestamptz not null default now(),primary key(season,uid));
+alter table public.season_scores enable row level security;
+revoke all on public.season_scores from anon, authenticated;
+create index if not exists season_scores_pts on public.season_scores(season,pts desc);
+create table if not exists public.season_awards(season text primary key,at timestamptz not null default now(),top jsonb);
+alter table public.season_awards enable row level security;
+revoke all on public.season_awards from anon, authenticated;
+-- Punkte melden: nur für die laufende Season (deutsche Zeit), in den ersten 20 Minuten des Monats auch noch für die vorige
+create or replace function public.season_submit(sid text,p integer,info jsonb default null) returns text language plpgsql security definer set search_path=public as $$
+declare me uuid:=auth.uid(); lt timestamp:=now() at time zone 'Europe/Berlin'; cur text:=to_char(now() at time zone 'Europe/Berlin','YYYY-MM'); prv text:=to_char((now() at time zone 'Europe/Berlin')-interval '1 month','YYYY-MM');
+begin
+  if me is null then return cur; end if;
+  if sid is null or not (sid=cur or (sid=prv and lt<date_trunc('month',lt)+interval '20 minutes')) then return cur; end if;
+  if exists(select 1 from public.bans b where b.uid=me and b.until>now()) then return cur; end if;
+  insert into public.season_scores(season,uid,pts,info,updated_at) values(sid,me,greatest(0,least(coalesce(p,0),10000000)),case when info is null or length(info::text)>300 then null else info end,now())
+  on conflict(season,uid) do update set pts=greatest(public.season_scores.pts,excluded.pts),info=case when excluded.pts>=public.season_scores.pts then coalesce(excluded.info,public.season_scores.info) else public.season_scores.info end,updated_at=case when excluded.pts>public.season_scores.pts then now() else public.season_scores.updated_at end;
+  return cur;
+end $$;
+-- Season abschließen: Endstand speichern, Platz 1–3 Abzeichen (Regenbogen/Chrom/Galaxie) + zufälliges schillerndes Pokémon, Platz 4–10 je 10 Edelsteine
+create or replace function public.season_roll() returns void language plpgsql security definer set search_path=public,auth as $$
+declare lt timestamp:=now() at time zone 'Europe/Berlin'; cur text:=to_char(now() at time zone 'Europe/Berlin','YYYY-MM'); s text; r record; i integer; t jsonb; lbl text;
+begin
+  if lt<date_trunc('month',lt)+interval '20 minutes' then return; end if;
+  for s in select distinct x.season from public.season_scores x where x.season<cur and not exists(select 1 from public.season_awards a where a.season=x.season) order by 1 loop
+    insert into public.season_awards(season,at) values(s,now()) on conflict do nothing;
+    if not found then continue; end if;
+    lbl:='Season '||substr(s,6,2)||'/'||substr(s,3,2); i:=0; t:='[]'::jsonb;
+    for r in select x.uid,x.pts from public.season_scores x where x.season=s and x.pts>0
+        and not exists(select 1 from public.admins a where a.uid=x.uid) and not exists(select 1 from public.bans b where b.uid=x.uid and b.until>now())
+        order by x.pts desc,x.updated_at asc limit 10 loop
+      i:=i+1;
+      if i<=3 then
+        insert into public.badge_gifts(uid,badge,tier) values(r.uid,'c|trophy|'||(case i when 1 then 'regenbogen' when 2 then 'chrom' else 'galaxie' end)||'|'||lbl,5)
+          on conflict(uid,badge) do update set tier=5,at=now();
+        insert into public.gifts(uid,sp,shiny,note) values(r.uid,300000,true,lbl||': Platz '||i||'!');
+      else
+        insert into public.gifts(uid,sp,shiny,note) values(r.uid,-10,false,lbl||': Platz '||i||'!');
+      end if;
+      t:=t||jsonb_build_array(jsonb_build_object('rank',i,'pts',r.pts,'name',public.pkl_uname(r.uid)));
+    end loop;
+    update public.season_awards set top=t where season=s;
+    perform public.adm_log('Season beendet',lbl,jsonb_array_length(t)||' Plätze belohnt');
+  end loop;
+end $$;
+-- Bestenliste einer Season (laufend oder beendet); schließt nebenbei beendete Seasons ab
+create or replace function public.season_board(sid text) returns table(name text,pts integer,info jsonb) language plpgsql security definer set search_path=public,auth as $$
+begin
+  perform public.season_roll();
+  return query select public.pkl_uname(x.uid),x.pts,x.info from public.season_scores x
+    where x.season=sid and x.pts>0 and not exists(select 1 from public.admins a where a.uid=x.uid) and not exists(select 1 from public.bans b where b.uid=x.uid and b.until>now())
+    order by x.pts desc,x.updated_at asc limit 50;
+end $$;
+revoke all on function public.season_roll() from public, anon, authenticated;
+revoke all on function public.season_submit(text,integer,jsonb) from public, anon;
+grant execute on function public.season_submit(text,integer,jsonb) to authenticated;
+revoke all on function public.season_board(text) from public;
+grant execute on function public.season_board(text) to anon, authenticated;
+notify pgrst, 'reload schema';`;}
 function admSQL13(){return `-- v1.37.0.7: Pokémon-Vergabe erweitert – alle Formen (auch Hisui/Kitakami), schillernde Version vorhandener Pokémon, Mega-Formen (kann gefahrlos mehrfach laufen)
 create or replace function public.admin_player_meta(target uuid) returns json language plpgsql security definer set search_path=public as $$
 declare m jsonb;
@@ -16374,7 +16477,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.37.0.9",DUEL_HP=30;
+const MP_VER="1.38.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -16840,18 +16943,38 @@ function rankedMeInto(el){if(!el)return;if(typeof CL==="undefined"||!CL.sess){el
   socRpc("ranked_me").then(r=>{if(r.ok&&r.j)rkNote(r.j.rating,false);if(!el.isConnected)return;if(r.ok&&r.j){el.innerHTML=`${rankChip(r.j.rating)}<small>${r.j.wins} Siege · ${r.j.losses} Niederlagen${r.j.wins+r.j.losses?` · Platz ${r.j.pos}`:""}</small>${rankProg(r.j.rating)}${rankLadder(r.j.rating)}`;hydrateIcons(el);}else el.innerHTML=`<small>${socMissing(r)?"Ranked wird gerade eingerichtet.":"Wertung nicht ladbar."}</small>`;});}
 
 /* ---------- Bestenliste im Menü: rechts am Rand (große Bildschirme) bzw. als Menüpunkt; aktualisiert sich jede Minute + Knopf ---------- */
-const MLB={tab:"pts",t:0,iv:0,busy:false};
+const MLB={tab:"pts",sea:"cur",t:0,iv:0,busy:false,rows:null};
 function menuLbFrame(){return `<div class="ttl"><h3>${ic("trophy")} BESTENLISTE</h3><button class="btn sm mLbR" title="Jetzt aktualisieren">${ic("dice")}</button></div>
-  <div class="mLbTabs"><button data-mt="pts" class="${MLB.tab==="pts"?"on":""}">Trainerpunkte</button><button data-mt="rk" class="${MLB.tab==="rk"?"on":""}">Ranked</button></div>
+  <div class="mLbTabs"><button data-mt="pts" class="${MLB.tab==="pts"?"on":""}">Trainerpunkte</button><button data-mt="pk" class="${MLB.tab==="pk"?"on":""}">Pokémon</button><button data-mt="rk" class="${MLB.tab==="rk"?"on":""}">Ranked</button></div>
+  <div class="mLbSea"${MLB.tab==="pts"?"":' style="display:none"'}><select class="mLbSel">${mlbSeaOpts()}</select><small class="mLbCd"></small></div>
   <div class="mLbList"><p class="empty">Lade …</p></div><small class="mLbAge"></small>`;}
+/* v1.38.0: Season-Auswahl (laufende Season, vergangene Seasons, Allzeit) */
+function mlbSeaOpts(){const cur=seasonId();return seasonList().map(id=>`<option value="${id===cur?"cur":id}"${(MLB.sea==="cur"&&id===cur)||MLB.sea===id?" selected":""}>${seasonLbl(id)}${id===cur?" · läuft":""}</option>`).join("")+`<option value="all"${MLB.sea==="all"?" selected":""}>Allzeit</option>`;}
+function mlbCd(el){const c=el.querySelector(".mLbCd");if(!c)return;if(MLB.tab!=="pts"||MLB.sea!=="cur"){c.innerHTML=MLB.sea==="all"?"alle Läufe":"beendet";return;}const L=seasonLeft();
+  c.innerHTML=`${ic("flag")} endet am ${L.end} · ${L.left>0?`noch ${L.left} ${L.left===1?"Tag":"Tage"}`:"heute 24 Uhr"}`;hydrateIcons(c);}
+function mlbSeaRows(list,sid){const br=MLB.rows||[],find=n=>br.find(r=>userKey(r.n)===userKey(n));
+  return list.slice(0,10).map((x,i)=>{const b=find(x.name),c=(x.info&&x.info.c)|0;return `<button class="lbRow r${i+1}" data-n="${esc(x.name)}"><span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${esc(x.name)}</b>${b?lbTTHtml(b):""}</div>
+    <small>${ic("crown")} ${c} Champion-Titel ${sid===seasonId()?"diese Season":"in der Season"}</small></div><span class="lbPts">${(x.pts|0).toLocaleString("de-DE")}<em>Punkte</em></span></button>`;}).join("");}
+function mlbPkRows(rows){return rows.slice(0,10).map((a,i)=>`<button class="lbRow r${i+1}" data-n="${esc(a.n)}"><span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${esc(a.n)}</b>${lbTTHtml(a)}</div>
+    <small title="${a.own} Pokémon · ${a.shy} schillernd · ${a.ach} Erfolge">${ic("dex")} ${a.own} · ${ic("shiny")} ${a.shy} · ${ic("trophy")} ${a.ach}</small></div><span class="lbPts">${(a.pk|0).toLocaleString("de-DE")}<em>Punkte</em></span></button>`).join("");}
 function menuLbWire(el){el.querySelector(".mLbR").onclick=()=>menuLbLoad(el);
-  el.querySelectorAll("[data-mt]").forEach(b=>b.onclick=()=>{MLB.tab=b.dataset.mt;el.querySelectorAll("[data-mt]").forEach(x=>x.classList.toggle("on",x===b));menuLbLoad(el);});hydrateIcons(el);}
+  el.querySelectorAll("[data-mt]").forEach(b=>b.onclick=()=>{MLB.tab=b.dataset.mt;el.querySelectorAll("[data-mt]").forEach(x=>x.classList.toggle("on",x===b));const sb=el.querySelector(".mLbSea");if(sb)sb.style.display=MLB.tab==="pts"?"":"none";menuLbLoad(el);});
+  const sel=el.querySelector(".mLbSel");if(sel)sel.onchange=()=>{MLB.sea=sel.value;menuLbLoad(el);};hydrateIcons(el);}
 async function menuLbLoad(el,quiet){if(!el||MLB.busy)return;MLB.busy=true;const L=el.querySelector(".mLbList"),R=el.querySelector(".mLbR");if(R)R.classList.add("spin");
   try{if(MLB.tab==="rk"){const r=await clFetch("/rest/v1/rpc/ranked_board",{method:"POST",auth:false,body:{},timeout:8000});if(!L.isConnected)return;
       if(!r.ok||!Array.isArray(r.j)){if(!quiet)L.innerHTML=`<p class="empty">Ranked-Bestenliste nicht erreichbar.</p>`;return;}
       L.innerHTML=r.j.length?r.j.slice(0,10).map((x,i)=>`<div class="rkRow${typeof USER!=="undefined"&&USER&&userKey(x.name)===userKey(USER)?" me":""}"><span class="rkPos">${i+1}</span><b>${esc(x.name)}</b>${rankChip(x.rating,1)}<small>${x.wins} S · ${x.losses} N</small></div>`).join(""):`<p class="empty">Noch keine Ranked-Kämpfe. Unter Mehrspieler → Ranked geht's los!</p>`;}
-    else{let rows=null,src="local";try{rows=await clBoard();if(rows&&rows.length)src="cloud";}catch(e){}if(!rows||!rows.length)rows=lbRows();if(!L.isConnected)return;
-      L.innerHTML=rows.length?lbRowsHtml(rows,10):`<p class="empty">Noch keine Trainer.</p>`;L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>lbDetail(rows.find(r=>r.n===b.dataset.n)));}
+    else{let rows=null,src="local";try{rows=await clBoard();if(rows&&rows.length)src="cloud";}catch(e){}if(!rows||!rows.length)rows=lbRows();if(!L.isConnected)return;MLB.rows=rows;
+      const det=b=>{const r=rows.find(x=>userKey(x.n)===userKey(b.dataset.n));if(r)lbDetail(r);};mlbCd(el);
+      if(MLB.tab==="pk"){const R=rows.slice().map(r=>Object.assign({},r,{pk:r.pk!=null?r.pk:lbPkEst(r)})).sort((a,b)=>b.pk-a.pk||b.shy-a.shy);
+        L.innerHTML=R.length?`<p class="mLbHint">${ic("dex")} Pokémon 2,5 · ${ic("shiny")} Schillernd 10 · ${ic("trophy")} Erfolge 10–150 Punkte</p>`+mlbPkRows(R):`<p class="empty">Noch keine Trainer.</p>`;L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>det(b));}
+      else if(MLB.sea==="all"){L.innerHTML=rows.length?lbRowsHtml(rows,10):`<p class="empty">Noch keine Trainer.</p>`;L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>det(b));}
+      else{const sid=MLB.sea==="cur"?seasonId():MLB.sea,r=await clFetch("/rest/v1/rpc/season_board",{method:"POST",auth:false,body:{sid},timeout:8000});if(!L.isConnected)return;
+        const me=sid===seasonId()&&typeof USER!=="undefined"&&USER?seasonMine():null;
+        const hint=sid===seasonId()?`<p class="mLbHint">${ic("trophy")} Platz 1–3: Season-Abzeichen und ein zufälliges schillerndes Pokémon · Platz 4–10: 10 Edelsteine</p>`:"";
+        if(!r.ok||!Array.isArray(r.j)){L.innerHTML=hint+`<p class="empty">${socMissing(r)?"Seasons werden gerade eingerichtet.":"Season-Bestenliste nicht erreichbar."}</p>`;}
+        else L.innerHTML=hint+(r.j.length?mlbSeaRows(r.j,sid):`<p class="empty">${sid===seasonId()?"Noch keine Punkte in dieser Season. Werde Champion oder komm weit in einem Lauf!":"In dieser Season hat niemand Punkte gesammelt."}</p>`)+(me?`<p class="mLbMe">${ic("user")} Deine Season-Punkte: <b>${me.pts.toLocaleString("de-DE")}</b></p>`:"");
+        L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>det(b));}}
     hydrateIcons(L);MLB.t=Date.now();menuLbAge();}finally{MLB.busy=false;if(R)R.classList.remove("spin");}}
 function menuLbAge(){document.querySelectorAll(".mLbAge").forEach(e=>{if(!MLB.t){e.textContent="";return;}const s=Math.round((Date.now()-MLB.t)/1000),en=typeof LANG!=="undefined"&&LANG==="en",v=s<60?s+" s":Math.round(s/60)+" min";e.textContent=s<10?(en?"just updated":"gerade aktualisiert"):en?`updated ${v} ago · refreshes every minute`:`aktualisiert vor ${v} · automatisch jede Minute`;});}
 function menuLbMount(){const M=$("menu");if(!M)return;let el=$("mLb");if(!el){el=document.createElement("div");el.id="mLb";el.className="glass mLb";M.appendChild(el);el.innerHTML=menuLbFrame();menuLbWire(el);}
@@ -20780,8 +20903,13 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.37.0.9"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.38.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.38.0",d:"04.11.2026",t:"Seasons",items:[
+  ["trophy", "Seasons: Jeden Monat startet eine neue Season. In der Bestenliste unter Trainerpunkte wählst du die laufende Season, vergangene Seasons oder Allzeit. Die erste Season läuft bis 30.11."],
+  ["crown", "Season-Punkte gibt es für Champion-Läufe und erreichte Runden im Monat, gewichtet wie die Trainerpunkte. Jede Season startet bei 0. Die besten 10 jeder Season bekommen nach dem Monatswechsel eine Belohnung, Details stehen in der Bestenliste."],
+  ["dex", "Neuer Reiter Pokémon in der Bestenliste: Punkte für deine Sammlung (je Pokémon 2,5, je schillerndes 10) und für Erfolge. Diese Punkte zählen nicht mehr zu den Trainerpunkten. Trainerpunkte gibt es jetzt nur noch für Champion-Läufe und Runden, deshalb sind sie bei allen gesunken."],
+  ["info", "Statistik: Die Listen Meiste Siege und Meister Schaden werden wieder richtig angezeigt."]]},
  {v:"1.37.0.9",d:"04.11.2026",t:"Schnellfix",items:[
   ["ball", "Pokémon im Lauf: Der Info-Knopf auf den Karten funktioniert wieder. Fährst du über ein Pokémon, siehst du jetzt seine Rolle statt der Entwicklungen."],
   ["grid", "Bank: Ziehst du ein Pokémon auf ein belegtes Bankfeld, tauschen beide die Plätze. Das klappt zwischen zwei Bankplätzen und zwischen Raster und Bank."],
@@ -22773,7 +22901,7 @@ function finish(win){
   clearZones();S.phase="over";enterBattleMode(false);
   const reached=win?21:S.round,mm=MODES[S.mode];if(win&&typeof misBump==="function")misBump("champ");
   const gemB=gemEventMul(),gems=Math.max(3,Math.round((1.5*(reached-1)+4*S.bosses+3*S.elites+.5*(S.wins||0)+(win?15:0))*mm.gem*(1+.1*perk("gemhunter"))*gemB*(hasRelic("gembag")?1.2:1)));
-  META.gems+=gems;META.gemsTotal+=gems;META.games++;if(!S.daily){META.best[S.mode]=Math.max(META.best[S.mode]||0,reached);if(win)META.champs[S.mode]=(META.champs[S.mode]||0)+1;}if(!S.daily){const rg=S.region||"kanto";META.reg=META.reg||{};if(rg==="kanto"&&!META.reg.kanto){const J=META.reg.johto||{champs:{},best:{},games:0},ch={};for(const m in (META.champs||{}))ch[m]=Math.max(0,(META.champs[m]||0)-((J.champs||{})[m]||0)-(win&&m===S.mode?1:0));META.reg.kanto={champs:ch,best:Object.assign({},META.best||{}),games:Math.max(0,(META.games||1)-1-(J.games||0))};}const R=META.reg[rg]||(META.reg[rg]={champs:{},best:{},games:0});R.games++;R.best[S.mode]=Math.max(R.best[S.mode]||0,reached);if(win)R.champs[S.mode]=(R.champs[S.mode]||0)+1;}
+  META.gems+=gems;META.gemsTotal+=gems;META.games++;if(!S.daily){META.best[S.mode]=Math.max(META.best[S.mode]||0,reached);if(win)META.champs[S.mode]=(META.champs[S.mode]||0)+1;}if(!S.daily){const rg=S.region||"kanto";META.reg=META.reg||{};if(rg==="kanto"&&!META.reg.kanto){const J=META.reg.johto||{champs:{},best:{},games:0},ch={};for(const m in (META.champs||{}))ch[m]=Math.max(0,(META.champs[m]||0)-((J.champs||{})[m]||0)-(win&&m===S.mode?1:0));META.reg.kanto={champs:ch,best:Object.assign({},META.best||{}),games:Math.max(0,(META.games||1)-1-(J.games||0))};}const R=META.reg[rg]||(META.reg[rg]={champs:{},best:{},games:0});R.games++;R.best[S.mode]=Math.max(R.best[S.mode]||0,reached);if(win)R.champs[S.mode]=(R.champs[S.mode]||0)+1;if(typeof seasonRec==="function")seasonRec(rg,S.mode,reached,win);}
   META.runs.push({t:Date.now(),mode:S.mode,region:S.region||"kanto",daily:S.daily?1:0,mono:S.mono||undefined,iron:S.iron||undefined,poor:S.poor||undefined,small:S.small||undefined,allin:S.allin||undefined,weekly:S.weekly||undefined,round:Math.min(20,S.round),champ:win,wins:S.wins,gems,team:boardUnits().map(u=>u.sp).slice(0,8)});if(META.runs.length>30)META.runs.shift();
   const dRow=S.daily&&typeof dailyFinish==="function"?dailyFinish(win,reached):"";const mRow=((S.mono||S.iron||S.poor||S.small||S.allin)&&!S.daily&&typeof monoFinish==="function"?monoFinish(win):"")+(S.weekly&&typeof weeklyFinish==="function"?weeklyFinish(win,reached):"");
   saveMeta();try{achFinish(win);}catch(e){}LS.del(saveKey());
