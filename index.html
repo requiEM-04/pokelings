@@ -4125,6 +4125,16 @@ body:not(.battle) .wxLbl{display:none}
 .bdg.cs-galaxie.t5::before{background:conic-gradient(from var(--bga),#2a1270,#8a5aff,#ff7ad8,#5cf2ff,#2a1270)}
 .bdg.cs-galaxie.t5::after{background:radial-gradient(circle,rgba(138,90,255,.55),rgba(92,242,255,.2) 45%,transparent 66%)}
 #admCbP{display:flex;align-items:center;gap:14px;padding:6px 0}.admCbT{display:flex;flex-direction:column;gap:3px;text-align:left}.admCbT b{font-family:var(--px);font-size:11px;color:#fff}.admCbT small{color:var(--muted);font-size:11px}
+/* ===== v1.37.0.8: Bestenliste – Titel-Glühen passt in die Zeile (vorher als Kasten abgeschnitten) ===== */
+.lbNm .lbTT{padding:3px 6px;margin:-3px -6px;max-width:calc(100% + 12px)}
+.lbNm .lbTT .tt-bernstein{animation:ttShine 1.7s linear infinite,ttAmberS 2s ease-in-out infinite;filter:drop-shadow(0 0 1px rgba(255,214,110,1)) drop-shadow(0 0 2px rgba(255,140,20,.85))}
+@keyframes ttAmberS{0%,100%{filter:drop-shadow(0 0 1px rgba(255,214,110,1)) drop-shadow(0 0 2px rgba(255,140,20,.8))}50%{filter:drop-shadow(0 0 1px rgba(255,240,170,1)) drop-shadow(0 0 3px rgba(255,170,40,1))}}
+.lbNm .lbTT .tt-geist{filter:drop-shadow(0 0 1px rgba(214,160,255,.95)) drop-shadow(0 0 2.5px rgba(150,80,255,.7))}
+.lbNm .lbTT .tt-feuer{filter:drop-shadow(0 0 2px rgba(255,100,30,.8))}
+.lbNm .lbTT .tt-eis{filter:drop-shadow(0 0 2px rgba(120,220,255,.75))}
+.lbNm .lbTT .tt-galaxie{filter:drop-shadow(0 0 2px rgba(194,124,255,.75))}
+.lbNm .lbTT .tt-neon{animation:none;text-shadow:0 0 2px #ff3ec9,0 0 4px #b020ff!important}
+
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -14204,6 +14214,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Abzeichen Einschlag neu gestuft: D
 if(typeof EN!=="undefined")Object.assign(EN,{"Abzeichen Einschlag: Bernstein gibt es schon ab 115.000 Schaden mit einem Treffer (vorher 120.000).": "Impact badge: Amber now from 115,000 damage in a single hit (before 120,000)."});
 /* v1.37.0.7: Abzeichen */
 if(typeof EN!=="undefined")Object.assign(EN,{"Trainerkarte: Abzeichen-Darstellung verbessert.": "Trainer card: improved badge display.", "Verliehen": "Awarded", "Persönlich verliehenes Abzeichen": "Personally awarded badge"});
+/* v1.37.0.8: Bestenliste */
+if(typeof EN!=="undefined")Object.assign(EN,{"Bestenliste: Leuchtende Titel haben keinen Kasten mehr um sich.": "Leaderboard: glowing titles no longer have a box around them."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -16344,7 +16356,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.37.0.7",DUEL_HP=30;
+const MP_VER="1.37.0.8",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -20750,8 +20762,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.37.0.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.37.0.8"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.37.0.8",d:"04.11.2026",t:"Schnellfix",items:[
+  ["trophy", "Bestenliste: Leuchtende Titel haben keinen Kasten mehr um sich."]]},
  {v:"1.37.0.7",d:"04.11.2026",t:"Schnellfix",items:[
   ["badge", "Trainerkarte: Abzeichen-Darstellung verbessert."]]},
  {v:"1.37.0.6",d:"04.11.2026",t:"Schnellfix",items:[
