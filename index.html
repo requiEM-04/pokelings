@@ -4166,6 +4166,28 @@ body:not(.battle) .wxLbl{display:none}
 .mLbHint{display:block}.mLbHint .ic{vertical-align:-2px;margin:0 2px 0 4px}.mLbHint .ic:first-child{margin-left:0}
 /* v1.38.0.5 */
 .mLbHint+.mLbHint{margin-top:-4px}
+/* ===== v1.38.0.8: Ranked-Ende mit Elo-Balken ===== */
+.rkEndW{margin:4px 0 8px}
+.rkEnd{display:flex;flex-direction:column;gap:9px;padding:12px 14px;border-radius:10px;background:linear-gradient(180deg,color-mix(in srgb,var(--rc,#5cf2ff) 12%,#141a2a),#10141f);border:2px solid #0b0d13;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--rc,#5cf2ff) 35%,transparent),0 0 18px color-mix(in srgb,var(--rc,#5cf2ff) 18%,transparent)}
+.rkEnd.wait{--rc:#5cf2ff}
+.rkEndTop{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.rkEndLbl{display:flex;align-items:center;gap:6px;font:10px var(--px);color:#ffd84a}.rkEndLbl .ic{width:14px;height:14px}
+.rkEndD{font:16px var(--px);animation:rkPop .5s steps(4) both .2s}
+.rkEnd.up .rkEndD{color:#4dffa6;text-shadow:0 0 10px rgba(77,255,166,.6)}
+.rkEnd.dn .rkEndD{color:#ff6b6b;text-shadow:0 0 10px rgba(255,90,90,.5)}
+@keyframes rkPop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.rkEndChips{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:nowrap}.rkEndChips .rkChip{flex:none}
+.rkEndArr .ic{width:18px;height:18px;color:var(--muted)}
+.rkEnd.up .rkEndArr .ic{color:#4dffa6}.rkEnd.dn .rkEndArr .ic{color:#ff6b6b}
+.rkEndBan{align-self:center;display:flex;align-items:center;gap:6px;padding:4px 12px;border-radius:6px;font:9px var(--px);animation:rkPop .5s steps(4) both .6s}
+.rkEndBan.up{color:#14141c;background:linear-gradient(90deg,color-mix(in srgb,var(--rc) 60%,#fff),var(--rc));box-shadow:0 0 14px var(--rc)}
+.rkEndBan.dn{color:#ffd0d0;background:#3a1620;border:1px solid #6a2a36}
+.rkEndBan .ic{width:12px;height:12px}
+.rkEndBar{height:20px}
+.rkEndBar i.old{opacity:.35;filter:saturate(.5)}
+.rkEndBar i.new{transition:width 1.3s cubic-bezier(.2,.8,.2,1)}
+.rkEnd.dn .rkEndBar i.old{background:linear-gradient(90deg,#5a1a24,#ff6b6b);opacity:.55;filter:none}
+.rkEndWait{display:flex;align-items:center;gap:8px;margin:0;font-size:12px;color:var(--muted)}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -14293,6 +14315,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Season-Punkte neu: Jedes besiegte 
 if(typeof EN!=="undefined")Object.assign(EN,{"Season: Wiederholst du einen Champion-Titel in derselben Region auf derselben Schwierigkeit, zählt der 2. Titel 50 % und jeder weitere 25 % (z. B. Albtraum 100 · 50 · 25). Andere Regionen und Schwierigkeiten zählen weiter voll. Die laufende Season wurde neu berechnet.": "Season: if you repeat a champion title in the same region on the same difficulty, the 2nd title counts 50 % and every further one 25 % (e.g. Nightmare 100 · 50 · 25). Other regions and difficulties still count fully. The current season was recalculated.", "Season-Punkte: besiegtes Pokémon 1 · Boss 5 · jeder Sieg je nach Schwierigkeit (Leicht 1 · Normal 2 · Schwer 3 · Nuzlocke 4 · Albtraum 5) · Champion-Titel (Leicht 20 · Normal 40 · Schwer 60 · Nuzlocke 80 · Albtraum 100; gleiche Region und Schwierigkeit: 2. Titel 50 %, ab dem 3. Titel 25 %). Freigeschaltete Regionen und Schwierigkeitsgrade bleiben immer erhalten.": "Season points: defeated Pokémon 1 · boss 5 · each win depending on difficulty (Easy 1 · Normal 2 · Hard 3 · Nuzlocke 4 · Nightmare 5) · champion titles (Easy 20 · Normal 40 · Hard 60 · Nuzlocke 80 · Nightmare 100; same region and difficulty: 2nd title 50 %, from the 3rd title 25 %). Unlocked regions and difficulties are always kept."});
 /* v1.38.0.7: Duell-Pool */
 if(typeof EN!=="undefined")Object.assign(EN,{"Live-Duelle und Ranked: Im Shop findest du jetzt dieselben Pokémon wie im Einzelspieler auf dieser Map, also deine Auswahl unter Pokémon im Lauf. Bisher gab es nur die Start-Pokémon und die, die ihr beide habt.": "Live duels and ranked: the shop now has the same Pokémon as in single player on this map, i.e. your selection under Pokémon in the run. Before, there were only the starter Pokémon and the ones you both had."});
+/* v1.38.0.8: Ranked-Ende */
+if(typeof EN!=="undefined")Object.assign(EN,{"Ranked: Am Ende eines Ranked-Duells siehst du jetzt deine Elo-Änderung mit Rang vorher und nachher, einem Balken bis zum nächsten Rang, Auf- oder Abstieg und der Rangleiter.": "Ranked: at the end of a ranked duel you now see your Elo change with your rank before and after, a bar to the next rank, promotion or demotion and the rank ladder.", "Wird gewertet …": "Being rated …"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -16531,7 +16555,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.38.0.7",DUEL_HP=30;
+const MP_VER="1.38.0.8",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -16711,7 +16735,7 @@ function duelNext(){const D=S&&S.duel;if(!D||S.phase!=="result")return;const won
 function duelFinal(win,why){if(!S||!S.duel)return;const D=S.duel;if(S.phase==="over")return;S.phase="over";setMir(false);clearInterval(DU.iv);clearInterval(DU.tick);clearTimeout(DU.rt);
   META.mp=META.mp||{};if(win)META.mp.duelWins=(META.mp.duelWins||0)+1;saveMeta();if(B&&!B.done)B.done=true;enterBattleMode(false);
   const R=$("result");R.innerHTML=`<div class="rWrap"><div class="rHead ${win?"win":"lose"}">${win?"DUELL GEWONNEN!":"DUELL VERLOREN"}</div><div class="rPanel glass"><h4>${why==="left"?esc(D.peerName)+" hat den Raum verlassen.":why==="gg"?esc(D.peerName)+" hat aufgegeben.":why==="lost"?"Kampflos gewonnen.":why==="quit"?"Du hast aufgegeben.":"Gegen "+esc(D.peerName)+" nach "+S.round+" Runden."}</h4>${duelHpHtml()}
-   <div class="rewards">${D.ranked?`<div class="incRow rkRes" id="rkRes"><span>Ranked</span><span>wird gewertet …</span></div>`:""}<div class="incRow"><span>Duelle gespielt / gewonnen</span><span>${META.mp.duels||1} / ${META.mp.duelWins||0}</span></div>${D.desync?`<div class="incRow"><span>Testphase: Abweichungen</span><span>${D.desync}</span></div>`:""}</div>
+   <div class="rewards">${D.ranked?`<div class="rkEndW" id="rkRes">${rkWaitHtml("Wird gewertet …")}</div>`:""}<div class="incRow"><span>Duelle gespielt / gewonnen</span><span>${META.mp.duels||1} / ${META.mp.duelWins||0}</span></div>${D.desync?`<div class="incRow"><span>Testphase: Abweichungen</span><span>${D.desync}</span></div>`:""}</div>
    <div class="rbtns"><button class="pri" id="rGo">${ic("menu")} Hauptmenü</button><button class="btn" id="rMp">${ic("users")} Neues Duell</button></div></div></div>`;
   R.classList.add("show");if(D.ranked&&typeof rankedReport==="function"){const rid=D.ranked;D.ranked=null;rankedReport(rid,win);}DU.ranked=null;
   const out=next=>{R.classList.remove("show");R.innerHTML="";mpLeave(true);S=null;B=null;clearVis();clearFx();$("texts").innerHTML="";showMenu();if(next)mpModal();};$("rGo").onclick=()=>out();$("rMp").onclick=()=>out(true);}
@@ -16981,14 +17005,24 @@ function rankedGo(m){rankedCancel(false);if(m.opp_uid)socPing(m.opp_uid,"rq");co
       setTimeout(()=>{if(DU.ranked===m.match&&!DU.peer&&DU.tr){mpLeave(true);DU.ranked=null;mpErr(`${m.opp||"Der Gegner"} ist nicht mehr da. Bitte nochmal suchen.`);}},30000);});}
   else duelJoinRoom(m.room,m.opp||"Gegner",m.match);}
 function rkNote(rating,winAdd){try{if(!META)return;META.mp=META.mp||{};let ch=false;if(winAdd){META.mp.rkW=(META.mp.rkW||0)+1;ch=true;}if(typeof rating==="number"&&rating>(META.mp.rkBest||0)){META.mp.rkBest=rating;ch=true;}if(ch){saveMeta();if(typeof achCheck==="function"){_achT=0;achCheck();}}}catch(e){}}
+/* v1.38.0.8: Ranked-Ende mit Elo-Balken */
+const rkWaitHtml=t=>`<div class="rkEnd wait"><div class="rkEndTop"><span class="rkEndLbl">${ic("trophy")} RANKED</span></div><p class="rkEndWait"><span class="duDots"></span> ${t}</p></div>`;
+function rkPct(r,t){return t.myth?100:Math.max(0,Math.min(100,Math.round((r-t.lo)/(t.hi-t.lo)*100)));}
+function rkEndHtml(b,a){b=b==null?RANK_BASE:b;const tb=rankOf(b),ta=rankOf(a),d=Math.round(a-b),up=ta.i>tb.i,dn=ta.i<tb.i,p0=up?0:dn?100:rkPct(b,ta),p1=rkPct(a,ta);
+  return `<div class="rkEnd ${d>=0?"up":"dn"}" style="--rc:${ta.c}"><div class="rkEndTop"><span class="rkEndLbl">${ic("trophy")} RANKED</span><b class="rkEndD">${d>=0?"+":"−"}${Math.abs(d)} Elo</b></div>
+    <div class="rkEndChips">${rankChip(b,1)}<i class="rkEndArr">${ic("fast")}</i>${rankChip(a)}</div>
+    ${up?`<div class="rkEndBan up">${ic("up")} Aufstieg: ${ta.n}!</div>`:dn?`<div class="rkEndBan dn">Abstieg: ${ta.n}</div>`:""}
+    <div class="rkProg rkEndBar${ta.myth?" myth":""}" style="--rc:${ta.c}"><i class="old" style="width:${p0}%"></i><i class="new" data-w="${p1}" style="width:${p0}%"></i><span>${ta.myth?"Höchster Rang erreicht":`${eloShow(a)} Elo · noch ${Math.max(1,ta.hi-a)} bis ${rankOf(ta.hi).n}`}</span></div>
+    ${rankLadder(a)}</div>`;}
+function rkEndShow(b,a){const e=$("rkRes");if(!e)return;e.innerHTML=rkEndHtml(b,a);hydrateIcons(e);const n=e.querySelector(".rkEndBar .new");if(n)setTimeout(()=>{n.style.width=n.dataset.w+"%";},350);try{sfx(a>=b?"coin":"deny");}catch(x){}}
 async function rankedReport(mid,win){const before=await socRpc("ranked_me"),r=await socRpc("ranked_report",{mid,won:!!win});
-  const show=(t)=>{const e=$("rkRes");if(e){e.innerHTML=`<span>Ranked</span><span>${t}</span>`;hydrateIcons(e);}};
+  const show=t=>{const e=$("rkRes");if(e){e.innerHTML=rkWaitHtml(t);hydrateIcons(e);}};const b=before.ok&&before.j?before.j.rating:null;
   if(!r.ok){show("Wertung fehlgeschlagen");return;}
   if(r.j&&r.j.void){show("Ergebnisse widersprechen sich, nicht gewertet");return;}
   const after=await socRpc("ranked_me");const ra=after.ok&&after.j?after.j.rating:null;rkNote(ra,!!win);
-  if(r.j&&r.j.done){show(`${win?"+":"−"}${r.j.d|0} · ${rankChip(ra)}`);return;}
+  if(r.j&&r.j.done&&ra!=null){rkEndShow(b!=null?b:ra-(win?1:-1)*(r.j.d|0),ra);return;}
   show("Wartet auf die Meldung des Gegners …");
-  setTimeout(async()=>{const a2=await socRpc("ranked_me"),b=before.ok&&before.j?before.j.rating:null;if(a2.ok&&a2.j&&b!=null&&a2.j.rating!==b){const d=a2.j.rating-b;show(`${d>0?"+":"−"}${Math.abs(d)} · ${rankChip(a2.j.rating)}`);}},6000);}
+  let n=0;const poll=async()=>{if(!$("rkRes"))return;const a2=await socRpc("ranked_me");if(a2.ok&&a2.j&&b!=null&&a2.j.rating!==b){rkNote(a2.j.rating,false);rkEndShow(b,a2.j.rating);return;}if(++n<6)setTimeout(poll,5000);};setTimeout(poll,5000);}
 async function rankedBoard(){openModal(`<h2>${ic("trophy")} RANKED-BESTENLISTE</h2><div id="rkBd"><p class="empty">Lade …</p></div><div class="rbtns" style="margin-top:10px"><button class="btn" id="rkBx">${ic("back")} Zurück</button></div>`,"",true);
   $("rkBx").onclick=()=>mpModal();const r=await clFetch("/rest/v1/rpc/ranked_board",{method:"POST",auth:false,body:{},timeout:8000});const B=$("rkBd");if(!B)return;
   if(!r.ok||!Array.isArray(r.j)){B.innerHTML=`<p class="empty">${socMissing(r)?"Ranked ist auf dem Server noch nicht eingerichtet.":"Bestenliste nicht ladbar."}</p>`;return;}
@@ -20968,8 +21002,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.38.0.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.38.0.8"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.38.0.8",d:"04.11.2026",t:"Schnellfix",items:[
+  ["trophy", "Ranked: Am Ende eines Ranked-Duells siehst du jetzt deine Elo-Änderung mit Rang vorher und nachher, einem Balken bis zum nächsten Rang, Auf- oder Abstieg und der Rangleiter."]]},
  {v:"1.38.0.7",d:"04.11.2026",t:"Schnellfix",items:[
   ["swords", "Live-Duelle und Ranked: Im Shop findest du jetzt dieselben Pokémon wie im Einzelspieler auf dieser Map, also deine Auswahl unter Pokémon im Lauf. Bisher gab es nur die Start-Pokémon und die, die ihr beide habt."]]},
  {v:"1.38.0.6",d:"04.11.2026",t:"Schnellfix",items:[
