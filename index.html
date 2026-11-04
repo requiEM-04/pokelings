@@ -14144,6 +14144,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Kampfturm: Die Turm-Hintergründe 
 if(typeof EN!=="undefined")Object.assign(EN,{"Turmsymbole haben jetzt 4 Stufen: Silber (ab Ebene 5), Gold (ab 30), neu Platin (ab 60) und Mythisch (ab 90). Platin leuchtet türkis, Mythisch schimmert in wechselnden Farben.": "Tower symbols now have 4 tiers: Silver (from floor 5), Gold (from 30), new Platinum (from 60) and Mythic (from 90). Platinum glows turquoise, Mythic shimmers in changing colors.", "Neue Erfolge: Platin-Sammlung und Mythische Sammlung (alle 7 Koryphäen-Symbole in Platin bzw. Mythisch) sowie Krösus (1000 Gold gleichzeitig besitzen), alle auf Mythisch.": "New achievements: Platinum Collection and Mythic Collection (all 7 Frontier Brain symbols in Platinum or Mythic) and Croesus (own 1000 gold at once), all Mythic.", "Platin-Sammlung": "Platinum Collection", "Mythische Sammlung": "Mythic Collection", "Krösus": "Croesus", "Besiege alle 7 Koryphäen ab Ebene 60 und sammle ihre Platinsymbole.": "Defeat all 7 Frontier Brains from floor 60 on and collect their Platinum symbols.", "Besiege alle 7 Koryphäen ab Ebene 90 und sammle ihre mythischen Symbole.": "Defeat all 7 Frontier Brains from floor 90 on and collect their Mythic symbols.", "Besitze 1000 Gold gleichzeitig.": "Own 1000 gold at once.", "Symbol-Stufen: Silber ab Ebene 5, Gold ab 30, Platin ab 60, Mythisch ab 90.": "Symbol tiers: Silver from floor 5, Gold from 30, Platinum from 60, Mythic from 90.", "Turmsymbole & neue Erfolge": "Tower symbols & new achievements"});
 /* v1.37.0.5: Bernstein-Titel */
 if(typeof EN!=="undefined")Object.assign(EN,{"Abzeichen Einschlag neu gestuft: Die alten Grenzen waren kaum erreichbar. Jetzt: 2.000 · 8.000 · 25.000 · 60.000 · 100.000 (Mythisch) · 120.000 (Bernstein).": "Impact badge retiered: the old thresholds were barely reachable. Now: 2,000 · 8,000 · 25,000 · 60,000 · 100,000 (Mythic) · 120,000 (Amber).", "Titel von Abzeichen auf Bernstein glühen jetzt in einem eigenen Bernstein-Look, kräftiger als der lila Geister-Titel von Mythisch.": "Titles from badges at Amber now glow in their own amber look, stronger than the purple ghost title from Mythic.", " Auf ": " At ", " glüht dieser Titel in Bernstein.": " this title glows in amber."});
+/* v1.37.0.6: Einschlag */
+if(typeof EN!=="undefined")Object.assign(EN,{"Abzeichen Einschlag: Bernstein gibt es schon ab 115.000 Schaden mit einem Treffer (vorher 120.000).": "Impact badge: Amber now from 115,000 damage in a single hit (before 120,000)."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -15935,7 +15937,7 @@ const BADGE_FIX=[
  {id:"boss",cat:"Kampf",n:"Bossbrecher",ic:"trophy",d:"Besiegte Bosse",v:()=>_st().bosses||0,T:[40,250,800,2400,6000],T6:16000,t5n:"Titanenbezwinger"},
  {id:"tower",cat:"Kampf",n:"Turmbezwinger",ic:"tower",d:"Höchste geschaffte Ebene im Kampfturm",v:()=>typeof twBest==="function"?twBest():0,T:[6,13,25,38,56],T6:88,t5n:"Turmlegende"},
  {id:"ko",cat:"Kampf",n:"Vernichter",ic:"skull",d:"Besiegte Gegner",v:()=>_st().kos||0,T:[2000,18000,80000,250000,600000],T6:1600000,t5n:"Zerstörer"},
- {id:"hit",cat:"Kampf",n:"Einschlag",ic:"atk",d:"Stärkster einzelner Treffer",v:()=>_st().maxHit||0,T:[2000,8000,25000,60000,100000],T6:120000,t5n:"Meteorfaust"},
+ {id:"hit",cat:"Kampf",n:"Einschlag",ic:"atk",d:"Stärkster einzelner Treffer",v:()=>_st().maxHit||0,T:[2000,8000,25000,60000,100000],T6:115000,t5n:"Meteorfaust"},
  {id:"dex",cat:"Sammeln",n:"Pokédex-Profi",ic:"dex",d:"Verschiedene Pokémon gefangen",v:()=>_dex().filter(d=>d.owned>0).length,T:[120,300,500,_DEXN],v5:()=>_dex().filter(d=>d.shiny>0).length,T5:150,d5:"Verschiedene Pokémon schillernd gefangen",v6:()=>_dex().filter(d=>d.shiny>0).length,T6:400,d6:"Verschiedene Pokémon schillernd gefangen",t5n:"Pokédex-Legende"},
  {id:"shiny",cat:"Sammeln",n:"Glitzerjäger",ic:"shiny",d:"Schillernde Pokémon gefunden",v:()=>_dex().reduce((a,d)=>a+(d.shiny||0),0),T:[10,40,120,300,700],T6:2000,t5n:"Glanzgeist"},
  {id:"fuse",cat:"Sammeln",n:"Fusionsmeister",ic:"merge",d:"Fusionen",v:()=>_st().fusions||0,T:[150,1200,5000,15000,40000],T6:100000,t5n:"Fusionsalchemist"},
@@ -16180,7 +16182,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.37.0.5",DUEL_HP=30;
+const MP_VER="1.37.0.6",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -20586,8 +20588,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.37.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.37.0.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.37.0.6",d:"04.11.2026",t:"Schnellfix",items:[
+  ["atk", "Abzeichen Einschlag: Bernstein gibt es schon ab 115.000 Schaden mit einem Treffer (vorher 120.000)."]]},
  {v:"1.37.0.5",d:"04.11.2026",t:"Schnellfix",items:[
   ["atk", "Abzeichen Einschlag neu gestuft: Die alten Grenzen waren kaum erreichbar. Jetzt: 2.000 · 8.000 · 25.000 · 60.000 · 100.000 (Mythisch) · 120.000 (Bernstein)."],
   ["crown", "Titel von Abzeichen auf Bernstein glühen jetzt in einem eigenen Bernstein-Look, kräftiger als der lila Geister-Titel von Mythisch."]]},
