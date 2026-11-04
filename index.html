@@ -4164,6 +4164,8 @@ body:not(.battle) .wxLbl{display:none}
 .stCols .stRow{position:static;left:auto;top:auto;transform:none;z-index:auto;justify-content:flex-start}
 .mLbCd{white-space:normal;line-height:1.25;font-size:9.5px}
 .mLbHint{display:block}.mLbHint .ic{vertical-align:-2px;margin:0 2px 0 4px}.mLbHint .ic:first-child{margin-left:0}
+/* v1.38.0.5 */
+.mLbHint+.mLbHint{margin-top:-4px}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -8576,13 +8578,26 @@ function seasonId(){try{return dayKey().slice(0,7);}catch(e){return new Date().t
 const seasonLbl=id=>{const p=String(id||"").split("-");return p.length===2?`Season ${p[1]}/${p[0].slice(2)}`:"Season";};
 function seasonList(){const out=[],cur=seasonId();let [y,m]=cur.split("-").map(Number);for(let i=0;i<36;i++){const id=y+"-"+String(m).padStart(2,"0");if(id<SEASON_FIRST)break;out.push(id);m--;if(m<1){m=12;y--;}}return out;}
 function seasonLeft(){try{const d=dayKey(),[y,m,dd]=d.split("-").map(Number),last=new Date(y,m,0).getDate();return{left:last-dd,end:`${String(last).padStart(2,"0")}.${String(m).padStart(2,"0")}.`};}catch(e){return{left:0,end:""};}}
-function seasonCur(m){m=m||META;if(!m)return null;const id=seasonId();let s=m.season;if(!s||typeof s!=="object"||!s.id||s.id<id){s=m.season={id,reg:{}};}return s;}
-function seasonRec(rg,md,reached,win){try{const s=seasonCur();if(!s)return;const R=s.reg[rg]||(s.reg[rg]={champs:{},best:{}});R.best[md]=Math.max(R.best[md]||0,reached);if(win)R.champs[md]=(R.champs[md]||0)+1;}catch(e){}}
-function seasonScore(s){let pts=0,titles=0;if(!s||!s.reg)return{pts:0,titles:0};
-  Object.keys(REGIONS).forEach((rk,ri)=>{const R=s.reg[rk];if(!R)return;const rf=1+.12*ri;
-    for(const md of Object.keys(LB_W)){const n=(R.champs||{})[md]||0,b=Math.min(20,(R.best||{})[md]||0);titles+=n;if(n>0)pts+=LB_W[md]*rf*(1+.25*Math.min(n-1,4));else if(b>1)pts+=LB_W[md]*rf*.4*(b/20);}});
-  return{pts:Math.round(pts*10),titles};}
-function seasonMine(){try{const s=META&&META.season;return s&&s.id===seasonId()?seasonScore(s):{pts:0,titles:0};}catch(e){return{pts:0,titles:0};}}
+/* v1.38.0.5: Season-Punkte: besiegtes Pokémon 1 · Boss 5 · Sieg je nach Schwierigkeit · Champion-Titel je nach Schwierigkeit.
+   Beim ersten Start einer Season werden die Läufe seit dem Monatsersten aus dem Verlauf nachgetragen (besiegte Pokémon/Bosse anteilig aus der eigenen Statistik). */
+const SEA_W={easy:1,normal:2,hard:3,night:5,nuzlocke:4},SEA_C={easy:20,normal:40,hard:60,night:100,nuzlocke:80};
+function seasonStart(id){try{const [y,m]=String(id).split("-").map(Number);let off=1;try{off=+new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Berlin",hour:"2-digit",hour12:false}).format(new Date(Date.UTC(y,m-1,1,12)))-12;}catch(e){}return Date.UTC(y,m-1,1)-off*3600000;}catch(e){return 0;}}
+function seasonNew(m,id){const s={id,v:2,k:0,b:0,w:{},c:{},reg:{}};
+  try{const st=m.stats||{},bt=Math.max(1,st.battles||0),kr=st.battles?(st.kos||0)/bt:4,br=st.battles?(st.bosses||0)/bt:.2,t0=seasonStart(id);
+    for(const r of m.runs||[]){if(!r||r.daily||!(r.t>=t0)||SEA_W[r.mode]==null)continue;const md=r.mode,rg=r.region||"kanto",w=r.wins|0;
+      s.w[md]=(s.w[md]||0)+w;s.k+=Math.round(w*kr);s.b+=Math.round(w*br);
+      const R=s.reg[rg]||(s.reg[rg]={champs:{},best:{}});R.best[md]=Math.max(R.best[md]||0,r.champ?21:(r.round||0));if(r.champ){s.c[md]=(s.c[md]||0)+1;R.champs[md]=(R.champs[md]||0)+1;}}}catch(e){}
+  return s;}
+function seasonCur(m){m=m||META;if(!m)return null;const id=seasonId();let s=m.season;if(!s||typeof s!=="object"||!s.id||s.id<id||(s.id===id&&s.v!==2))s=m.season=seasonNew(m,id);return s;}
+function seasonRec(rg,md,reached,win){try{if(SEA_W[md]==null)return;const s=seasonCur();if(!s)return;const R=s.reg[rg]||(s.reg[rg]={champs:{},best:{}});R.best[md]=Math.max(R.best[md]||0,reached);
+  if(win){R.champs[md]=(R.champs[md]||0)+1;s.c[md]=(s.c[md]||0)+1;}}catch(e){}}
+function seasonBattle(kos,boss,win){try{if(typeof S==="undefined"||!S||S.daily||S.duel||SEA_W[S.mode]==null)return;const s=seasonCur();if(!s)return;s.k=(s.k|0)+(kos|0);if(boss)s.b=(s.b|0)+1;if(win)s.w[S.mode]=(s.w[S.mode]||0)+1;}catch(e){}}
+function seasonScore(s){if(!s||s.v!==2)return{pts:0,titles:0,k:0,b:0,w:0};let pts=(s.k|0)+5*(s.b|0),w=0,titles=0;
+  for(const md in s.w||{}){pts+=(SEA_W[md]||0)*(s.w[md]|0);w+=s.w[md]|0;}for(const md in s.c||{}){pts+=(SEA_C[md]||0)*(s.c[md]|0);titles+=s.c[md]|0;}
+  return{pts:Math.round(pts),titles,k:s.k|0,b:s.b|0,w};}
+const SEA_L={easy:"e",normal:"n",hard:"h",night:"a",nuzlocke:"z"};
+function seasonInfo(s){const sc=seasonScore(s),r={};for(const rk in (s&&s.reg)||{}){let t="";const C=s.reg[rk].champs||{};for(const md in C)if(C[md]>0&&SEA_L[md])t+=SEA_L[md]+C[md];if(t)r[rk]=t;}return{c:sc.titles,k:sc.k,b:sc.b,w:sc.w,r};}
+function seasonMine(){try{return META?seasonScore(seasonCur()):{pts:0,titles:0};}catch(e){return{pts:0,titles:0};}}
 /* Pokémon-Punkte für Bestenlisten-Zeilen älterer Spielversionen schätzen (dort steckten sie noch in den Trainerpunkten) */
 let _ACHAVG=null;const achAvg=()=>{if(_ACHAVG==null){try{const w=ACH.map(a=>[0,1,3,6,10,15][a.t]||0);_ACHAVG=w.reduce((a,b)=>a+b,0)/Math.max(1,w.length);}catch(e){_ACHAVG=4;}}return _ACHAVG;};
 const lbPkEst=x=>Math.round(((x.ach||0)*achAvg()+(x.own||0)*.25+(x.shy||0))*10);
@@ -14269,6 +14284,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Bestenliste: Leuchtende Titel habe
 if(typeof EN!=="undefined")Object.assign(EN,{"Pokémon im Lauf: Der Info-Knopf auf den Karten funktioniert wieder. Fährst du über ein Pokémon, siehst du jetzt seine Rolle statt der Entwicklungen.": "Pokémon in the run: the info button on the cards works again. Hovering a Pokémon now shows its role instead of its evolutions.", "Bank: Ziehst du ein Pokémon auf ein belegtes Bankfeld, tauschen beide die Plätze. Das klappt zwischen zwei Bankplätzen und zwischen Raster und Bank.": "Bench: drag a Pokémon onto an occupied bench slot and both swap places. Works between two bench slots and between grid and bench.", "Bestenliste: Platz 1, 2 und 3 leuchten jetzt in Gold, Silber und Bronze mit kreisendem Glanz. Platz 1 trägt eine Krone.": "Leaderboard: places 1, 2 and 3 now glow in gold, silver and bronze with a circling shine. First place wears a crown."});
 /* v1.38.0: Seasons */
 if(typeof EN!=="undefined")Object.assign(EN,{"Seasons: Jeden Monat startet eine neue Season. In der Bestenliste unter Trainerpunkte wählst du die laufende Season, vergangene Seasons oder Allzeit. Die erste Season läuft bis 30.11.": "Seasons: a new season starts every month. In the leaderboard under Trainer points you can pick the current season, past seasons or all-time. The first season runs until 30 Nov.", "Season-Punkte gibt es für Champion-Läufe und erreichte Runden im Monat, gewichtet wie die Trainerpunkte. Jede Season startet bei 0. Die besten 10 jeder Season bekommen nach dem Monatswechsel eine Belohnung, Details stehen in der Bestenliste.": "Season points come from champion runs and rounds reached during the month, weighted like trainer points. Every season starts at 0. The top 10 of each season get a reward after the month changes, details are in the leaderboard.", "Neuer Reiter Pokémon in der Bestenliste: Punkte für deine Sammlung (je Pokémon 2,5, je schillerndes 10) und für Erfolge. Diese Punkte zählen nicht mehr zu den Trainerpunkten. Trainerpunkte gibt es jetzt nur noch für Champion-Läufe und Runden, deshalb sind sie bei allen gesunken.": "New Pokémon tab in the leaderboard: points for your collection (2.5 per Pokémon, 10 per shiny) and for achievements. These points no longer count towards trainer points. Trainer points now only come from champion runs and rounds, so they went down for everyone.", "Statistik: Die Listen Meiste Siege und Meister Schaden werden wieder richtig angezeigt.": "Stats: the lists Most wins and Damage masters show up correctly again.", "Allzeit": "All-time", " · läuft": " · running", "alle Läufe": "all runs", "beendet": "finished", "Seasons werden gerade eingerichtet.": "Seasons are being set up.", "Season-Bestenliste nicht erreichbar.": "Season leaderboard unavailable.", "Noch keine Punkte in dieser Season. Werde Champion oder komm weit in einem Lauf!": "No points this season yet. Become champion or get far in a run!", "In dieser Season hat niemand Punkte gesammelt.": "Nobody scored points this season.", "Deine Season-Punkte:": "Your season points:", "diese Season": "this season", "in der Season": "in that season", "Pokémon-Punkte": "Pokémon points", "Trainerpunkte (Allzeit):": "Trainer points (all-time):", "Pokémon-Punkte:": "Pokémon points:", "Alle Pokémon schon schillernd: +50 Edelsteine": "All Pokémon already shiny: +50 gems", " Pokémon-Punkte (eigener Reiter): je Pokémon 2,5, je schillerndes 10, Erfolge 10 bis 150 je nach Stufe.": " Pokémon points (own tab): 2.5 per Pokémon, 10 per shiny, achievements 10 to 150 depending on tier.", "Ohne Titel zählt der Fortschritt anteilig (alles ×10).": "Without a title, progress counts partially (all ×10).", "heute 24 Uhr": "today at midnight", "Season-Punkte": "Season points"});
+/* v1.38.0.5: Season-Punkte */
+if(typeof EN!=="undefined")Object.assign(EN,{"Season-Punkte neu: Jedes besiegte Pokémon gibt 1 Punkt, jeder Boss 5, jeder Sieg je nach Schwierigkeit 1 bis 5 (Leicht 1 · Normal 2 · Schwer 3 · Nuzlocke 4 · Albtraum 5). Champion-Titel zählen viel mehr: Leicht 20 · Normal 40 · Schwer 60 · Nuzlocke 80 · Albtraum 100.": "New season points: every defeated Pokémon gives 1 point, every boss 5, every win 1 to 5 depending on difficulty (Easy 1 · Normal 2 · Hard 3 · Nuzlocke 4 · Nightmare 5). Champion titles count a lot more: Easy 20 · Normal 40 · Hard 60 · Nuzlocke 80 · Nightmare 100.", "Season 11/26: Deine Läufe seit dem 1. November werden nachgetragen. Tippst du in der Season-Liste auf einen Trainer, siehst du seine Champion-Titel dieser Season. In Allzeit und Pokémon siehst du weiter alle Titel. Freigeschaltete Regionen und Schwierigkeitsgrade bleiben immer erhalten.": "Season 11/26: your runs since 1 November are added. Tap a trainer in the season list to see their champion titles this season. All-time and Pokémon still show all titles. Unlocked regions and difficulties are always kept.", "Alle Titel (Allzeit)": "All titles (all-time)", "Pokémon besiegt": "Pokémon defeated", "Season-Punkte: besiegtes Pokémon 1 · Boss 5 · jeder Sieg je nach Schwierigkeit (Leicht 1 · Normal 2 · Schwer 3 · Nuzlocke 4 · Albtraum 5) · Champion-Titel (Leicht 20 · Normal 40 · Schwer 60 · Nuzlocke 80 · Albtraum 100). Freigeschaltete Regionen und Schwierigkeitsgrade bleiben immer erhalten.": "Season points: defeated Pokémon 1 · boss 5 · each win depending on difficulty (Easy 1 · Normal 2 · Hard 3 · Nuzlocke 4 · Nightmare 5) · champion titles (Easy 20 · Normal 40 · Hard 60 · Nuzlocke 80 · Nightmare 100). Unlocked regions and difficulties are always kept."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -14330,8 +14347,8 @@ function metaMerge(m,o){if(!m||!o||typeof o!=="object"||m===o)return m;
     if(o.ach&&typeof o.ach==="object"){m.ach=m.ach||{};for(const k in o.ach)if(!m.ach[k])m.ach[k]=o.ach[k];}
     if(Array.isArray(o.unlocked)){if(!Array.isArray(m.unlocked))m.unlocked=[];for(const x of o.unlocked)if(!m.unlocked.includes(x))m.unlocked.push(x);}
     /* v1.38.0: Season – gleiche Season: je Region/Schwierigkeit das Maximum; neuere Season gewinnt */
-    if(o.season&&typeof o.season==="object"&&o.season.id){const a=m.season;if(!a||typeof a!=="object"||!a.id||a.id<o.season.id)m.season=JSON.parse(JSON.stringify(o.season));
-      else if(a.id===o.season.id){a.reg=a.reg||{};for(const rk in o.season.reg||{}){const O=o.season.reg[rk]||{},A=a.reg[rk]||(a.reg[rk]={champs:{},best:{}});for(const k of ["champs","best"]){A[k]=A[k]||{};for(const md in O[k]||{})if(!(A[k][md]>=O[k][md]))A[k][md]=O[k][md];}}}}
+    if(o.season&&typeof o.season==="object"&&o.season.id){const a=m.season;if(!a||typeof a!=="object"||!a.id||a.id<o.season.id||(a.id===o.season.id&&a.v!==2&&o.season.v===2))m.season=JSON.parse(JSON.stringify(o.season));
+      else if(a.id===o.season.id&&a.v===o.season.v){if(a.v===2){a.k=Math.max(a.k|0,o.season.k|0);a.b=Math.max(a.b|0,o.season.b|0);for(const k of ["w","c"]){a[k]=a[k]||{};for(const md in o.season[k]||{})if(!(a[k][md]>=o.season[k][md]))a[k][md]=o.season[k][md];}}a.reg=a.reg||{};for(const rk in o.season.reg||{}){const O=o.season.reg[rk]||{},A=a.reg[rk]||(a.reg[rk]={champs:{},best:{}});for(const k of ["champs","best"]){A[k]=A[k]||{};for(const md in O[k]||{})if(!(A[k][md]>=O[k][md]))A[k][md]=O[k][md];}}}}
     if(o.ev&&typeof o.ev==="object"){const E=m.ev=m.ev||{};for(const k of ["got","bg"]){E[k]=Array.isArray(E[k])?E[k]:[];for(const x of o.ev[k]||[])if(!E[k].includes(x))E[k].push(x);}
       E.tt=Array.isArray(E.tt)?E.tt:[];for(const t of o.ev.tt||[])if(t&&t.t&&!E.tt.some(x=>x&&x.t===t.t))E.tt.push(t);}}catch(e){}
   return m;}
@@ -14343,7 +14360,8 @@ async function clPush(keep){if(!CL.sess||!USER||userKey(USER)!==userKey(CL.sess.
     const a=await clFetch("/rest/v1/profiles?on_conflict=id",{method:"POST",headers:H,keep,body:{id:CL.sess.uid,name:USER,meta:m,save:sv,updated_at:now}});
     const bb=Object.assign({id:CL.sess.uid,name:USER,updated_at:now},clBoardRow(m));let b=await clFetch("/rest/v1/board?on_conflict=id",{method:"POST",headers:H,keep,body:bb});
     if(!b.ok&&bb.card&&b.status>=400&&b.status<500){CL.noCard=true;delete bb.card;b=await clFetch("/rest/v1/board?on_conflict=id",{method:"POST",headers:H,keep,body:bb});}
-    try{const ss=m.season;if(ss&&ss.id&&typeof seasonScore==="function"){const sc=seasonScore(ss);if(sc.pts>0)await clFetch("/rest/v1/rpc/season_submit",{method:"POST",keep,body:{sid:ss.id,p:sc.pts,info:{c:sc.titles}},timeout:8000});}}catch(e){}
+    try{const live=META&&USER&&userKey(USER)===userKey(CL.sess.name)&&typeof seasonCur==="function",ss=live?seasonCur(META):m.season;
+      if(ss&&ss.id&&ss.v===2&&typeof seasonScore==="function"){const sc=seasonScore(ss);if(sc.pts>0)await clFetch("/rest/v1/rpc/season_submit",{method:"POST",keep,body:{sid:ss.id,p:sc.pts,info:seasonInfo(ss)},timeout:8000});}}catch(e){}
     return a.ok&&b.ok;}finally{CL.pushing=false;if(CL.again){CL.again=false;clDirty();}}}
 function clDirty(){if(!CL.sess)return;clearTimeout(CL.tm);CL.tm=setTimeout(()=>clPush(),4000);}
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"&&CL.sess&&CL.tm){clearTimeout(CL.tm);CL.tm=0;clPush(true);}});
@@ -14754,6 +14772,7 @@ ${admSQL11()}
 ${admSQL12()}
 ${admSQL13()}
 ${admSQL14()}
+${admSQL15()}
 revoke all on function public.adm_log(text,text,text) from public, anon, authenticated;
 revoke all on function public.adm_name(uuid) from public, anon, authenticated;
 do $$ declare f text; begin
@@ -14767,6 +14786,31 @@ grant execute on function public.name_free(text) to anon, authenticated;
 notify pgrst, 'reload schema';`;}
 /* v1.32.0: Login-Schutz. Das Spiel prüft das Passwort zuerst in login_gate (3 Fehlversuche = Sperre bis zur Freigabe).
    Erst dann gibt der Server das eigentliche Anmelde-Passwort heraus (zufällig, 48 Zeichen) – direktes Durchprobieren am Login-Server bringt nichts mehr. */
+function admSQL15(){return `-- v1.38.0.5: Season-Punkte neu (besiegtes Pokémon 1 · Boss 5 · Sieg je Schwierigkeit 1–5 · Champion-Titel 20–100): laufende Season aus den Läufen seit Monatsanfang nachtragen (kann gefahrlos mehrfach laufen)
+create or replace function public.season_backfill() returns integer language plpgsql security definer set search_path=public,auth as $$
+declare sid text:=to_char(now() at time zone 'Europe/Berlin','YYYY-MM'); t0 bigint; n integer;
+begin
+  if not public.is_admin() and current_user not in ('postgres','supabase_admin') then raise exception 'forbidden'; end if;
+  t0:=(extract(epoch from (date_trunc('month',now() at time zone 'Europe/Berlin') at time zone 'Europe/Berlin'))*1000)::bigint;
+  with p as (select pr.id,pr.meta from public.profiles pr where pr.meta is not null and not exists(select 1 from public.admins a where a.uid=pr.id)),
+  r as (select p.id,x->>'mode' md,coalesce(nullif(x->>'region',''),'kanto') rg,coalesce((x->>'wins')::int,0) w,coalesce((x->>'champ')::boolean,false) ch,
+          case when (p.meta->'stats'->>'battles') is null then 4 else coalesce((p.meta->'stats'->>'kos')::numeric,0)/greatest(1,(p.meta->'stats'->>'battles')::numeric) end kr,
+          case when (p.meta->'stats'->>'battles') is null then .2 else coalesce((p.meta->'stats'->>'bosses')::numeric,0)/greatest(1,(p.meta->'stats'->>'battles')::numeric) end br
+        from p,jsonb_array_elements(case when jsonb_typeof(p.meta->'runs')='array' then p.meta->'runs' else '[]'::jsonb end) x
+        where (x->>'t') ~ '^[0-9]+(\\.[0-9]+)?$' and (x->>'t')::numeric>=t0 and coalesce(x->>'daily','0') in ('0','false') and x->>'mode' in ('easy','normal','hard','night','nuzlocke')),
+  s as (select id,sum(round(w*kr))::int k,sum(round(w*br))::int b,sum(w)::int w,sum(ch::int)::int c,
+          sum(round(w*kr)+5*round(w*br)+w*(case md when 'easy' then 1 when 'normal' then 2 when 'hard' then 3 when 'night' then 5 else 4 end)+case when ch then (case md when 'easy' then 20 when 'normal' then 40 when 'hard' then 60 when 'night' then 100 else 80 end) else 0 end)::int pts
+        from r group by id),
+  q as (select id,rg,string_agg(l||cnt,'' order by l) t from (select id,rg,case md when 'easy' then 'e' when 'normal' then 'n' when 'hard' then 'h' when 'night' then 'a' else 'z' end l,count(*) cnt from r where ch group by 1,2,3) z group by 1,2)
+  insert into public.season_scores(season,uid,pts,info,updated_at)
+    select sid,s.id,s.pts,jsonb_build_object('c',s.c,'k',s.k,'b',s.b,'w',s.w,'r',coalesce((select jsonb_object_agg(q.rg,q.t) from q where q.id=s.id),'{}'::jsonb)),now() from s where s.pts>0
+  on conflict(season,uid) do update set pts=excluded.pts,info=excluded.info,updated_at=now();
+  get diagnostics n=row_count;
+  perform public.adm_log('Season nachgetragen',sid,n||' Konten');
+  return n;
+end $$;
+revoke all on function public.season_backfill() from public, anon, authenticated;
+notify pgrst, 'reload schema';`;}
 function admSQL14(){return `-- v1.38.0: Seasons – monatliche Season-Punkte, Endstände, automatische Belohnungen (kann gefahrlos mehrfach laufen)
 create table if not exists public.season_scores(season text not null,uid uuid not null references auth.users(id) on delete cascade,pts integer not null default 0,info jsonb,updated_at timestamptz not null default now(),primary key(season,uid));
 alter table public.season_scores enable row level security;
@@ -14782,7 +14826,7 @@ begin
   if me is null then return cur; end if;
   if sid is null or not (sid=cur or (sid=prv and lt<date_trunc('month',lt)+interval '20 minutes')) then return cur; end if;
   if exists(select 1 from public.bans b where b.uid=me and b.until>now()) then return cur; end if;
-  insert into public.season_scores(season,uid,pts,info,updated_at) values(sid,me,greatest(0,least(coalesce(p,0),10000000)),case when info is null or length(info::text)>300 then null else info end,now())
+  insert into public.season_scores(season,uid,pts,info,updated_at) values(sid,me,greatest(0,least(coalesce(p,0),10000000)),case when info is null or length(info::text)>800 then null else info end,now())
   on conflict(season,uid) do update set pts=greatest(public.season_scores.pts,excluded.pts),info=case when excluded.pts>=public.season_scores.pts then coalesce(excluded.info,public.season_scores.info) else public.season_scores.info end,updated_at=case when excluded.pts>public.season_scores.pts then now() else public.season_scores.updated_at end;
   return cur;
 end $$;
@@ -16477,7 +16521,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.38.0",DUEL_HP=30;
+const MP_VER="1.38.0.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -16954,7 +16998,18 @@ function mlbCd(el){const c=el.querySelector(".mLbCd");if(!c)return;if(MLB.tab!==
   c.innerHTML=`${ic("flag")} endet am ${L.end} · ${L.left>0?`noch ${L.left} ${L.left===1?"Tag":"Tage"}`:"heute 24 Uhr"}`;hydrateIcons(c);}
 function mlbSeaRows(list,sid){const br=MLB.rows||[],find=n=>br.find(r=>userKey(r.n)===userKey(n));
   return list.slice(0,10).map((x,i)=>{const b=find(x.name),c=(x.info&&x.info.c)|0;return `<button class="lbRow r${i+1}" data-n="${esc(x.name)}"><span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${esc(x.name)}</b>${b?lbTTHtml(b):""}</div>
-    <small>${ic("crown")} ${c} Champion-Titel ${sid===seasonId()?"diese Season":"in der Season"}</small></div><span class="lbPts">${(x.pts|0).toLocaleString("de-DE")}<em>Punkte</em></span></button>`;}).join("");}
+    <small title="${c} Champion-Titel · ${(x.info&&x.info.k)|0} Pokémon besiegt · ${(x.info&&x.info.b)|0} Bosse">${ic("crown")} ${c} Titel · ${ic("skull")} ${(x.info&&x.info.k)|0} · ${ic("trophy")} ${(x.info&&x.info.b)|0} Bosse</small></div><span class="lbPts">${(x.pts|0).toLocaleString("de-DE")}<em>Punkte</em></span></button>`;}).join("");}
+/* Season-Details: Punkte, Champion-Titel je Region in dieser Season, Kampfkarte */
+function seasonDetail(x,sid,b){const i=x.info||{},LL={e:"easy",n:"normal",h:"hard",a:"night",z:"nuzlocke"},R={};
+  for(const rk in i.r||{})String(i.r[rk]).replace(/([enhaz])(\d+)/g,(_,l,n)=>{(R[rk]=R[rk]||{})[LL[l]]=+n;return "";});
+  let cd=b&&b.card&&typeof cardClean==="function"?cardClean(b.card):null;if(cd&&b){try{const t=lbTitle(b);cd.ts=t&&t.text===cd.title?t.style:null;}catch(e){}}
+  const regs=Object.keys(REGIONS),ord=["easy","normal","hard","nuzlocke","night"];
+  openModal(`<h2>${ic("trophy")} ${esc(String(x.name).toUpperCase())} · ${seasonLbl(sid).toUpperCase()}</h2><div class="lead" style="margin-bottom:10px"><b style="color:#5cf2ff">${(x.pts|0).toLocaleString("de-DE")} Season-Punkte</b> · ${i.c|0} Champion-Titel · ${i.k|0} Pokémon besiegt · ${i.b|0} Bosse · ${i.w|0} Siege</div>
+   <div class="lbDet">${cd?`<div class="lbCard">${cardHTML(cd)}</div>`:""}<div class="lbDetR"><table class="lbTab"><tr><th>Region</th>${ord.map(md=>`<th style="color:${LB_COL[md]}">${LB_N[md]}<small>${SEA_C[md]} P.</small></th>`).join("")}</tr>
+   ${regs.map(rk=>`<tr><td>${REGIONS[rk].n}</td>${ord.map(md=>{const n=(R[rk]||{})[md]|0;return `<td>${n?`<b style="color:${LB_COL[md]}">${n}× Champion</b>`:"–"}</td>`;}).join("")}</tr>`).join("")}</table>
+   <p class="lbNote">Season-Punkte: besiegtes Pokémon 1 · Boss 5 · jeder Sieg je nach Schwierigkeit (Leicht 1 · Normal 2 · Schwer 3 · Nuzlocke 4 · Albtraum 5) · Champion-Titel (Leicht 20 · Normal 40 · Schwer 60 · Nuzlocke 80 · Albtraum 100). Freigeschaltete Regionen und Schwierigkeitsgrade bleiben immer erhalten.</p></div></div>
+   <div class="rbtns" style="margin-top:10px">${b?`<button class="btn" id="sdAll">${ic("crown")} Alle Titel (Allzeit)</button>`:""}<button class="pri" id="lbOk">SCHLIESSEN</button></div>`,"wide",true);
+  if(cd)cardHydrate($("mbox"));$("lbOk").onclick=closeModal;if($("sdAll"))$("sdAll").onclick=()=>{closeModal();lbDetail(b);};}
 function mlbPkRows(rows){return rows.slice(0,10).map((a,i)=>`<button class="lbRow r${i+1}" data-n="${esc(a.n)}"><span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${esc(a.n)}</b>${lbTTHtml(a)}</div>
     <small title="${a.own} Pokémon · ${a.shy} schillernd · ${a.ach} Erfolge">${ic("dex")} ${a.own} · ${ic("shiny")} ${a.shy} · ${ic("trophy")} ${a.ach}</small></div><span class="lbPts">${(a.pk|0).toLocaleString("de-DE")}<em>Punkte</em></span></button>`).join("");}
 function menuLbWire(el){el.querySelector(".mLbR").onclick=()=>menuLbLoad(el);
@@ -16971,10 +17026,10 @@ async function menuLbLoad(el,quiet){if(!el||MLB.busy)return;MLB.busy=true;const 
       else if(MLB.sea==="all"){L.innerHTML=rows.length?lbRowsHtml(rows,10):`<p class="empty">Noch keine Trainer.</p>`;L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>det(b));}
       else{const sid=MLB.sea==="cur"?seasonId():MLB.sea,r=await clFetch("/rest/v1/rpc/season_board",{method:"POST",auth:false,body:{sid},timeout:8000});if(!L.isConnected)return;
         const me=sid===seasonId()&&typeof USER!=="undefined"&&USER?seasonMine():null;
-        const hint=sid===seasonId()?`<p class="mLbHint">${ic("trophy")} Platz 1–3: Season-Abzeichen und ein zufälliges schillerndes Pokémon · Platz 4–10: 10 Edelsteine</p>`:"";
+        const hint=sid===seasonId()?`<p class="mLbHint">${ic("trophy")} Platz 1–3: Season-Abzeichen und ein zufälliges schillerndes Pokémon · Platz 4–10: 10 Edelsteine</p><p class="mLbHint">${ic("info")} Punkte: besiegtes Pokémon 1 · Boss 5 · Sieg 1–5 je Schwierigkeit · Champion-Titel 20–100</p>`:"";
         if(!r.ok||!Array.isArray(r.j)){L.innerHTML=hint+`<p class="empty">${socMissing(r)?"Seasons werden gerade eingerichtet.":"Season-Bestenliste nicht erreichbar."}</p>`;}
         else L.innerHTML=hint+(r.j.length?mlbSeaRows(r.j,sid):`<p class="empty">${sid===seasonId()?"Noch keine Punkte in dieser Season. Werde Champion oder komm weit in einem Lauf!":"In dieser Season hat niemand Punkte gesammelt."}</p>`)+(me?`<p class="mLbMe">${ic("user")} Deine Season-Punkte: <b>${me.pts.toLocaleString("de-DE")}</b></p>`:"");
-        L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>det(b));}}
+        L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>{const x=(r.j||[]).find(y=>userKey(y.name)===userKey(b.dataset.n));if(x)seasonDetail(x,sid,rows.find(y=>userKey(y.n)===userKey(x.name)));});}}
     hydrateIcons(L);MLB.t=Date.now();menuLbAge();}finally{MLB.busy=false;if(R)R.classList.remove("spin");}}
 function menuLbAge(){document.querySelectorAll(".mLbAge").forEach(e=>{if(!MLB.t){e.textContent="";return;}const s=Math.round((Date.now()-MLB.t)/1000),en=typeof LANG!=="undefined"&&LANG==="en",v=s<60?s+" s":Math.round(s/60)+" min";e.textContent=s<10?(en?"just updated":"gerade aktualisiert"):en?`updated ${v} ago · refreshes every minute`:`aktualisiert vor ${v} · automatisch jede Minute`;});}
 function menuLbMount(){const M=$("menu");if(!M)return;let el=$("mLb");if(!el){el=document.createElement("div");el.id="mLb";el.className="glass mLb";M.appendChild(el);el.innerHTML=menuLbFrame();menuLbWire(el);}
@@ -20903,8 +20958,11 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.38.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.38.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.38.0.5",d:"04.11.2026",t:"Schnellfix",items:[
+  ["trophy", "Season-Punkte neu: Jedes besiegte Pokémon gibt 1 Punkt, jeder Boss 5, jeder Sieg je nach Schwierigkeit 1 bis 5 (Leicht 1 · Normal 2 · Schwer 3 · Nuzlocke 4 · Albtraum 5). Champion-Titel zählen viel mehr: Leicht 20 · Normal 40 · Schwer 60 · Nuzlocke 80 · Albtraum 100."],
+  ["flag", "Season 11/26: Deine Läufe seit dem 1. November werden nachgetragen. Tippst du in der Season-Liste auf einen Trainer, siehst du seine Champion-Titel dieser Season. In Allzeit und Pokémon siehst du weiter alle Titel. Freigeschaltete Regionen und Schwierigkeitsgrade bleiben immer erhalten."]]},
  {v:"1.38.0",d:"04.11.2026",t:"Seasons",items:[
   ["trophy", "Seasons: Jeden Monat startet eine neue Season. In der Bestenliste unter Trainerpunkte wählst du die laufende Season, vergangene Seasons oder Allzeit. Die erste Season läuft bis 30.11."],
   ["crown", "Season-Punkte gibt es für Champion-Läufe und erreichte Runden im Monat, gewichtet wie die Trainerpunkte. Jede Season startet bei 0. Die besten 10 jeder Season bekommen nach dem Monatswechsel eine Belohnung, Details stehen in der Bestenliste."],
@@ -22817,7 +22875,8 @@ function statBattle(win){try{const st=META.stats=META.stats||{};const mine=B.F.f
   st.bestStreak=Math.max(st.bestStreak||0,win?(S.streak||0)+1:0);
   if(win){st.typeW=st.typeW||{};const ts=new Set();for(const f of mine)for(const t of (f.types||f.sp.types))ts.add(t);for(const t of ts)st.typeW[t]=(st.typeW[t]||0)+1;}
   st.dmgBy=st.dmgBy||{};for(const f of mine){const k=SPECIES[f.u.sp].line.k;st.dmgBy[k]=(st.dmgBy[k]||0)+Math.round(f.dmg||0);}
-  const top=mine.slice().sort((a,b)=>(b.dmg||0)-(a.dmg||0))[0];if(top&&(top.dmg||0)>(st.bestFight||0)){st.bestFight=Math.round(top.dmg);st.bestFightSp=top.u.sp;}}catch(e){}}
+  const top=mine.slice().sort((a,b)=>(b.dmg||0)-(a.dmg||0))[0];if(top&&(top.dmg||0)>(st.bestFight||0)){st.bestFight=Math.round(top.dmg);st.bestFightSp=top.u.sp;}
+  if(typeof seasonBattle==="function")seasonBattle(en.filter(f=>!f.alive).length,!!(win&&S.enc&&S.enc.type==="boss"),win);}catch(e){}}
 function permaDeath(){if(!S||!MODES[S.mode]||!MODES[S.mode].perma||!B)return;const gone=[];
   for(const f of B.F){if(f.side!=="mine"||f.alive||f.u.minion)continue;const u=allUnits().find(x=>x.uid===f.u.uid);if(!u)continue;for(const it of u.items||[])toBag(it);removeU(u);gone.push(SPECIES[u.sp].name);META.stats=META.stats||{};META.stats.fallen=(META.stats.fallen||0)+1;}
   if(gone.length)setTimeout(()=>toast(`Nuzlocke: ${gone.join(", ")} ${gone.length>1?"sind":"ist"} für immer gegangen …`,"heart"),window.__fast?0:1200);}
