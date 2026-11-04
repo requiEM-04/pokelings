@@ -4188,6 +4188,12 @@ body:not(.battle) .wxLbl{display:none}
 .rkEndBar i.new{transition:width 1.3s cubic-bezier(.2,.8,.2,1)}
 .rkEnd.dn .rkEndBar i.old{background:linear-gradient(90deg,#5a1a24,#ff6b6b);opacity:.55;filter:none}
 .rkEndWait{display:flex;align-items:center;gap:8px;margin:0;font-size:12px;color:var(--muted)}
+/* v1.38.0.9: Ranked-Bestenliste */
+.rkLSub{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.rkLSub span{color:var(--muted)}
+.lbRow.rkL.me{box-shadow:inset 0 0 0 1px var(--cyan)}
+.rkList .lbRow{width:100%;margin-bottom:6px}
+.rkDet{display:flex;flex-direction:column;gap:10px}
+.rkDetTop{display:flex;align-items:center;gap:12px}.rkDetTop b{font:16px var(--px);color:var(--rc)}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -14317,6 +14323,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Season: Wiederholst du einen Champ
 if(typeof EN!=="undefined")Object.assign(EN,{"Live-Duelle und Ranked: Im Shop findest du jetzt dieselben Pokémon wie im Einzelspieler auf dieser Map, also deine Auswahl unter Pokémon im Lauf. Bisher gab es nur die Start-Pokémon und die, die ihr beide habt.": "Live duels and ranked: the shop now has the same Pokémon as in single player on this map, i.e. your selection under Pokémon in the run. Before, there were only the starter Pokémon and the ones you both had."});
 /* v1.38.0.8: Ranked-Ende */
 if(typeof EN!=="undefined")Object.assign(EN,{"Ranked: Am Ende eines Ranked-Duells siehst du jetzt deine Elo-Änderung mit Rang vorher und nachher, einem Balken bis zum nächsten Rang, Auf- oder Abstieg und der Rangleiter.": "Ranked: at the end of a ranked duel you now see your Elo change with your rank before and after, a bar to the next rank, promotion or demotion and the rank ladder.", "Wird gewertet …": "Being rated …"});
+/* v1.38.0.9: Ranked-Verlustschutz */
+if(typeof EN!=="undefined")Object.assign(EN,{"Ranked: Verlustschutz in den unteren Rängen. Bei einer Niederlage verlierst du in Bronze nur halb so viel Elo, wie der Sieger bekommt, in Silber drei Viertel. Ab Gold zählt es voll. Unter 0 Elo fällst du nie.": "Ranked: loss protection in the lower ranks. When you lose in Bronze you only lose half the Elo the winner gets, in Silver three quarters. From Gold on it counts fully. You never drop below 0 Elo.", "Ranked-Bestenliste: Titel werden jetzt angezeigt, Platz 1 bis 3 leuchten wie in den anderen Listen. Tippst du auf einen Spieler, siehst du Rang, Elo, Siege, Niederlagen, Siegquote und seine Kampfkarte.": "Ranked leaderboard: titles are now shown and places 1 to 3 glow like in the other lists. Tap a player to see rank, Elo, wins, losses, win rate and their battle card.", "Sieg: Elo je nach Stärke des Gegners. Niederlage: in Bronze nur 50 %, in Silber 75 %, ab Gold 100 % von dem, was der Sieger bekommt. Unter 0 Elo fällt niemand.": "Win: Elo depends on the opponent's strength. Loss: in Bronze only 50 %, in Silver 75 %, from Gold 100 % of what the winner gets. Nobody drops below 0 Elo."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -14804,6 +14812,7 @@ ${admSQL12()}
 ${admSQL13()}
 ${admSQL14()}
 ${admSQL15()}
+${admSQL16()}
 revoke all on function public.adm_log(text,text,text) from public, anon, authenticated;
 revoke all on function public.adm_name(uuid) from public, anon, authenticated;
 do $$ declare f text; begin
@@ -14817,6 +14826,24 @@ grant execute on function public.name_free(text) to anon, authenticated;
 notify pgrst, 'reload schema';`;}
 /* v1.32.0: Login-Schutz. Das Spiel prüft das Passwort zuerst in login_gate (3 Fehlversuche = Sperre bis zur Freigabe).
    Erst dann gibt der Server das eigentliche Anmelde-Passwort heraus (zufällig, 48 Zeichen) – direktes Durchprobieren am Login-Server bringt nichts mehr. */
+function admSQL16(){return `-- v1.38.0.9: Ranked-Verlustschutz – wer verliert, verliert in Bronze nur 50 %, in Silber 75 % dessen, was der Sieger bekommt, ab Gold 100 %; nie unter 0 Elo (kann gefahrlos mehrfach laufen)
+create or replace function public.pkl_ranked_apply(mid bigint,w uuid,l uuid) returns integer language plpgsql security definer set search_path=public as $$
+declare rw integer; rl integer; ew float8; d integer; dl integer;
+begin
+  insert into public.ranked(uid) values(w) on conflict do nothing;
+  insert into public.ranked(uid) values(l) on conflict do nothing;
+  select rating into rw from public.ranked where uid=w; select rating into rl from public.ranked where uid=l;
+  ew:=1.0/(1.0+power(10.0,(rl-rw)/400.0));
+  d:=greatest(1,round(32*(1-ew))::integer);
+  dl:=greatest(1,round(d*(case when rl<1120 then .5 when rl<1240 then .75 else 1 end))::integer);
+  update public.ranked set rating=rating+d,wins=wins+1,updated_at=now() where uid=w;
+  update public.ranked set rating=greatest(1000,rating-dl),losses=losses+1,updated_at=now() where uid=l;
+  update public.ranked_matches set done=true where id=mid;
+  return d;
+end $$;
+revoke all on function public.pkl_ranked_apply(bigint,uuid,uuid) from public, anon, authenticated;
+update public.ranked set rating=1000 where rating<1000;
+notify pgrst, 'reload schema';`;}
 function admSQL15(){return `-- v1.38.0.5/1.38.0.6: Season-Punkte (besiegtes Pokémon 1 · Boss 5 · Sieg je Schwierigkeit 1–5 · Champion-Titel 20–100, Wiederholung 50 %, ab dem 3. Mal 25 %): laufende Season aus den Läufen seit Monatsanfang nachtragen (kann gefahrlos mehrfach laufen)
 create or replace function public.season_backfill() returns integer language plpgsql security definer set search_path=public,auth as $$
 declare sid text:=to_char(now() at time zone 'Europe/Berlin','YYYY-MM'); t0 bigint; n integer;
@@ -16555,7 +16582,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.38.0.8",DUEL_HP=30;
+const MP_VER="1.38.0.9",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -17026,7 +17053,21 @@ async function rankedReport(mid,win){const before=await socRpc("ranked_me"),r=aw
 async function rankedBoard(){openModal(`<h2>${ic("trophy")} RANKED-BESTENLISTE</h2><div id="rkBd"><p class="empty">Lade …</p></div><div class="rbtns" style="margin-top:10px"><button class="btn" id="rkBx">${ic("back")} Zurück</button></div>`,"",true);
   $("rkBx").onclick=()=>mpModal();const r=await clFetch("/rest/v1/rpc/ranked_board",{method:"POST",auth:false,body:{},timeout:8000});const B=$("rkBd");if(!B)return;
   if(!r.ok||!Array.isArray(r.j)){B.innerHTML=`<p class="empty">${socMissing(r)?"Ranked ist auf dem Server noch nicht eingerichtet.":"Bestenliste nicht ladbar."}</p>`;return;}
-  B.innerHTML=r.j.length?`<div class="rkList">${r.j.map((x,i)=>`<div class="rkRow${typeof USER!=="undefined"&&USER&&userKey(x.name)===userKey(USER)?" me":""}"><span class="rkPos">${i+1}</span><b>${esc(x.name)}</b>${rankChip(x.rating,1)}<small>${x.wins} S · ${x.losses} N</small></div>`).join("")}</div>`:`<p class="empty">Noch keine Ranked-Kämpfe. Sei der Erste!</p>`;hydrateIcons(B);}
+  let br=null;try{br=await clBoard();}catch(e){}if(!$("rkBd"))return;
+  B.innerHTML=r.j.length?`<div class="rkList">${rkRowsHtml(r.j,br,50)}</div>`:`<p class="empty">Noch keine Ranked-Kämpfe. Sei der Erste!</p>`;hydrateIcons(B);rkBind(B,r.j,br,()=>rankedBoard());}
+/* v1.38.0.9: Ranked-Zeilen wie die übrigen Bestenlisten (Titel, Platz-Effekte) und Details beim Antippen */
+const rkFind=(br,n)=>(br||[]).find(y=>userKey(y.n)===userKey(n))||null;
+function rkRowsHtml(list,br,n){return list.slice(0,n||10).map((x,i)=>{const b=rkFind(br,x.name),me=typeof USER!=="undefined"&&USER&&userKey(x.name)===userKey(USER);
+  return `<button class="lbRow rkL r${i+1}${me?" me":""}" data-n="${esc(x.name)}"><span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${esc(x.name)}</b>${b?lbTTHtml(b):""}</div>
+    <small class="rkLSub">${rankChip(x.rating,1)}<span>${x.wins} S · ${x.losses} N</span></small></div><span class="lbPts">${eloShow(x.rating).toLocaleString("de-DE")}<em>Elo</em></span></button>`;}).join("");}
+function rkBind(el,list,br,back){el.querySelectorAll(".lbRow[data-n]").forEach(b=>b.onclick=()=>{const x=list.find(y=>userKey(y.name)===userKey(b.dataset.n));if(x)rankedDetail(x,rkFind(br,x.name),back);});}
+function rankedDetail(x,b,back){let cd=b&&b.card&&typeof cardClean==="function"?cardClean(b.card):null;if(cd&&b){try{const t=lbTitle(b);cd.ts=t&&t.text===cd.title?t.style:null;}catch(e){}}
+  const t=rankOf(x.rating),g=(x.wins|0)+(x.losses|0),wr=g?Math.round((x.wins|0)/g*100):0;
+  openModal(`<h2>${ic("trophy")} ${esc(String(x.name).toUpperCase())}${b&&lbTTHtml(b)?" "+lbTTHtml(b):""}</h2><div class="lead" style="margin-bottom:10px">Ranked · ${g} Partien · ${x.wins|0} Siege · ${x.losses|0} Niederlagen · ${wr} % Siegquote</div>
+   <div class="lbDet">${cd?`<div class="lbCard">${cardHTML(cd)}</div>`:""}<div class="lbDetR rkDet" style="--rc:${t.c}"><div class="rkDetTop">${rankChip(x.rating)}<b>${eloShow(x.rating).toLocaleString("de-DE")} Elo</b></div>${rankProg(x.rating)}${rankLadder(x.rating)}
+   <p class="lbNote">Sieg: Elo je nach Stärke des Gegners. Niederlage: in Bronze nur 50 %, in Silber 75 %, ab Gold 100 % von dem, was der Sieger bekommt. Unter 0 Elo fällt niemand.</p></div></div>
+   <div class="rbtns" style="margin-top:10px">${b?`<button class="btn" id="rkAll">${ic("crown")} Alle Titel (Allzeit)</button>`:""}<button class="pri" id="lbOk">${back?"ZURÜCK":"SCHLIESSEN"}</button></div>`,"wide",true);
+  if(cd)cardHydrate($("mbox"));$("lbOk").onclick=()=>{closeModal();if(back)back();};if($("rkAll"))$("rkAll").onclick=()=>{closeModal();lbDetail(b);};}
 function rankedMeInto(el){if(!el)return;if(typeof CL==="undefined"||!CL.sess){el.innerHTML=`<small>Nur mit Online-Konto</small>`;return;}
   socRpc("ranked_me").then(r=>{if(r.ok&&r.j)rkNote(r.j.rating,false);if(!el.isConnected)return;if(r.ok&&r.j){el.innerHTML=`${rankChip(r.j.rating)}<small>${r.j.wins} Siege · ${r.j.losses} Niederlagen${r.j.wins+r.j.losses?` · Platz ${r.j.pos}`:""}</small>${rankProg(r.j.rating)}${rankLadder(r.j.rating)}`;hydrateIcons(el);}else el.innerHTML=`<small>${socMissing(r)?"Ranked wird gerade eingerichtet.":"Wertung nicht ladbar."}</small>`;});}
 
@@ -17062,7 +17103,8 @@ function menuLbWire(el){el.querySelector(".mLbR").onclick=()=>menuLbLoad(el);
 async function menuLbLoad(el,quiet){if(!el||MLB.busy)return;MLB.busy=true;const L=el.querySelector(".mLbList"),R=el.querySelector(".mLbR");if(R)R.classList.add("spin");
   try{if(MLB.tab==="rk"){const r=await clFetch("/rest/v1/rpc/ranked_board",{method:"POST",auth:false,body:{},timeout:8000});if(!L.isConnected)return;
       if(!r.ok||!Array.isArray(r.j)){if(!quiet)L.innerHTML=`<p class="empty">Ranked-Bestenliste nicht erreichbar.</p>`;return;}
-      L.innerHTML=r.j.length?r.j.slice(0,10).map((x,i)=>`<div class="rkRow${typeof USER!=="undefined"&&USER&&userKey(x.name)===userKey(USER)?" me":""}"><span class="rkPos">${i+1}</span><b>${esc(x.name)}</b>${rankChip(x.rating,1)}<small>${x.wins} S · ${x.losses} N</small></div>`).join(""):`<p class="empty">Noch keine Ranked-Kämpfe. Unter Mehrspieler → Ranked geht's los!</p>`;}
+      let br=MLB.rows;if(!br){try{br=await clBoard();}catch(e){}MLB.rows=br||null;}if(!L.isConnected)return;
+      L.innerHTML=r.j.length?rkRowsHtml(r.j,br,10):`<p class="empty">Noch keine Ranked-Kämpfe. Unter Mehrspieler → Ranked geht's los!</p>`;rkBind(L,r.j,br);}
     else{let rows=null,src="local";try{rows=await clBoard();if(rows&&rows.length)src="cloud";}catch(e){}if(!rows||!rows.length)rows=lbRows();if(!L.isConnected)return;MLB.rows=rows;
       const det=b=>{const r=rows.find(x=>userKey(x.n)===userKey(b.dataset.n));if(r)lbDetail(r);};mlbCd(el);
       if(MLB.tab==="pk"){const R=rows.slice().map(r=>Object.assign({},r,{pk:r.pk!=null?r.pk:lbPkEst(r)})).sort((a,b)=>b.pk-a.pk||b.shy-a.shy);
@@ -21002,8 +21044,11 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.38.0.8"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.38.0.9"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.38.0.9",d:"04.11.2026",t:"Schnellfix",items:[
+  ["trophy", "Ranked: Verlustschutz in den unteren Rängen. Bei einer Niederlage verlierst du in Bronze nur halb so viel Elo, wie der Sieger bekommt, in Silber drei Viertel. Ab Gold zählt es voll. Unter 0 Elo fällst du nie."],
+  ["trophy", "Ranked-Bestenliste: Titel werden jetzt angezeigt, Platz 1 bis 3 leuchten wie in den anderen Listen. Tippst du auf einen Spieler, siehst du Rang, Elo, Siege, Niederlagen, Siegquote und seine Kampfkarte."]]},
  {v:"1.38.0.8",d:"04.11.2026",t:"Schnellfix",items:[
   ["trophy", "Ranked: Am Ende eines Ranked-Duells siehst du jetzt deine Elo-Änderung mit Rang vorher und nachher, einem Balken bis zum nächsten Rang, Auf- oder Abstieg und der Rangleiter."]]},
  {v:"1.38.0.7",d:"04.11.2026",t:"Schnellfix",items:[
