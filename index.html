@@ -4068,7 +4068,63 @@ body:not(.battle) .wxLbl{display:none}
 .tt-bernstein{background-image:linear-gradient(110deg,transparent 36%,rgba(255,255,236,1) 50%,transparent 64%),linear-gradient(180deg,#fff6d2 0%,#ffd060 26%,#ff9a1e 50%,#b8500a 66%,#ffcf6a 84%,#fff0b8 100%);background-size:220% 100%,100% 100%;-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent;text-shadow:none!important;animation:ttShine 1.7s linear infinite,ttAmber 2s ease-in-out infinite;filter:drop-shadow(0 0 2px rgba(255,214,110,1)) drop-shadow(0 0 8px rgba(255,150,30,.85)) drop-shadow(0 0 16px rgba(255,110,0,.5))}
 @keyframes ttAmber{0%,100%{filter:drop-shadow(0 0 2px rgba(255,214,110,1)) drop-shadow(0 0 7px rgba(255,150,30,.8)) drop-shadow(0 0 14px rgba(255,110,0,.45))}50%{filter:drop-shadow(0 0 3px rgba(255,240,170,1)) drop-shadow(0 0 12px rgba(255,180,50,1)) drop-shadow(0 0 26px rgba(255,120,0,.8))}}
 .cdT5.amb{color:#ffc46a!important}.cdT5.amb .ic{color:#ffb43a}
-
+/* ===== v1.37.0.7: eigene Abzeichen-Designs ===== */
+.bdg.cst>i{animation:none}
+.bdg.cst>i::after{background:radial-gradient(circle at 50% 36%,#232a42 0,#0f1220 74%)}
+.bdg.cs-regenbogen>i{background:conic-gradient(from var(--bga),#ff4d6d,#ffb03a,#ffe14d,#4dffa6,#5cf2ff,#8a72e6,#ff7ad8,#ff4d6d);animation:bdgSpin 3s linear infinite}
+.bdg.cs-regenbogen>i .ic{color:#ff6b9a!important;animation:csHue 3s linear infinite;filter:drop-shadow(0 0 3px rgba(255,255,255,.6))}
+.bdg.cs-regenbogen em{background:linear-gradient(90deg,#ff4d6d,#ffe14d,#4dffa6,#5cf2ff,#ff7ad8)}
+@keyframes csHue{from{filter:hue-rotate(0deg) drop-shadow(0 0 3px rgba(255,255,255,.6))}to{filter:hue-rotate(360deg) drop-shadow(0 0 3px rgba(255,255,255,.6))}}
+.bdg.cs-galaxie>i{background:conic-gradient(from var(--bga),#2a1270,#8a5aff,#ff7ad8,#5cf2ff,#3a1a9a,#2a1270);animation:bdgSpin 6s linear infinite}
+.bdg.cs-galaxie>i::after{background:radial-gradient(1px 1px at 28% 32%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 72% 40%,#fff 50%,transparent 51%),radial-gradient(1.4px 1.4px at 58% 72%,#ffd6f2 50%,transparent 51%),radial-gradient(1px 1px at 38% 78%,#cfe4ff 50%,transparent 51%),radial-gradient(1px 1px at 66% 22%,#fff 50%,transparent 51%),radial-gradient(ellipse at 40% 45%,rgba(255,122,216,.35),transparent 55%),radial-gradient(ellipse at 62% 60%,rgba(92,242,255,.25),transparent 55%),radial-gradient(circle at 50% 50%,#2a1460 0,#120a2c 62%,#05030f 100%)}
+.bdg.cs-galaxie>i .ic{color:#f0e2ff!important;filter:drop-shadow(0 0 4px #b86bff) drop-shadow(0 0 8px #5cf2ff)}
+.bdg.cs-galaxie em{background:linear-gradient(90deg,#8a5aff,#ff7ad8,#5cf2ff);color:#fff}
+.bdg.cs-feuer>i{background:linear-gradient(0deg,#ff3a1a 0,#ff9a2a 50%,#fff3a0 100%);background-size:100% 160%;animation:csFire 1.1s ease-in-out infinite alternate}
+.bdg.cs-feuer>i .ic{color:#ffb03a!important;filter:drop-shadow(0 0 4px #ff6a1a)}
+@keyframes csFire{from{background-position:0 0;filter:brightness(1)}to{background-position:0 100%;filter:brightness(1.25)}}
+.bdg.cs-eis>i{background:linear-gradient(160deg,#ffffff 0,#c8f4ff 30%,#5cc8ff 65%,#1a5a9a 100%);animation:bdgGlow 2.8s ease-in-out infinite}
+.bdg.cs-eis>i .ic{color:#c8f4ff!important;filter:drop-shadow(0 0 4px #7ad8ff)}
+.bdg.cs-neon>i{background:conic-gradient(from var(--bga),#5cf2ff,#ff3ad8,#5cf2ff);animation:bdgSpin 2.2s linear infinite}
+.bdg.cs-neon>i .ic{color:#5cf2ff!important;filter:drop-shadow(0 0 3px #5cf2ff) drop-shadow(0 0 8px #ff3ad8)}
+.bdg.cs-gold>i{background:linear-gradient(160deg,#fff6c0 0,#ffd23f 35%,#b07a10 70%,#ffe680 100%);animation:bdgGlow 2.4s ease-in-out infinite}
+.bdg.cs-gold>i .ic{color:#ffd23f!important;filter:drop-shadow(0 0 3px #ffb020)}
+.bdg.cs-bernstein>i{background:conic-gradient(from var(--bga),#ffd060,#ff9a1e,#b8500a,#ffcf6a,#ffd060);animation:bdgSpin 4s linear infinite}
+.bdg.cs-bernstein>i .ic{color:#ffc46a!important;filter:drop-shadow(0 0 4px #ff9a1e) drop-shadow(0 0 9px rgba(255,120,0,.6))}
+.bdg.cs-geist>i{background:linear-gradient(160deg,#ffffff 0,#e6c8ff 16%,#b86bff 42%,#6a24c8 72%,#2a0a52 100%);animation:bdgMyth 2.2s ease-in-out infinite}
+.bdg.cs-geist>i .ic{color:#e2c4ff!important;animation:ttGeist 3.4s ease-in-out infinite;filter:drop-shadow(0 0 4px #b86bff)}
+.bdg.cs-smaragd>i{background:linear-gradient(160deg,#e0ffe8 0,#4de08a 40%,#0e8a4a 75%,#7af0aa 100%);animation:bdgGlow 2.6s ease-in-out infinite}
+.bdg.cs-smaragd>i .ic{color:#7af0aa!important;filter:drop-shadow(0 0 3px #2ac06a)}
+.bdg.cs-chrom>i{background:linear-gradient(160deg,#ffffff 0,#dfe6ef 30%,#768498 50%,#f4f7fb 60%,#98a4b6 85%,#eef2f7 100%);animation:bdgGlow 3s ease-in-out infinite}
+.bdg.cs-chrom>i .ic{color:#eef2f7!important;filter:drop-shadow(0 0 2px #fff)}
+/* Admin: eigenes Abzeichen gestalten */
+.admCbNew{display:flex;align-items:center;gap:10px;margin:0 0 10px}.admCbNew small{color:var(--muted);font-size:11px}
+.admCbTop{display:flex;align-items:center;gap:10px;margin-bottom:8px}.admCbTop b{display:flex;align-items:center;gap:6px;font-family:var(--px);font-size:11px;color:#ffd84a}
+.admCbFx{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:6px}
+.admCbB{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 4px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:#dfe3ff;cursor:pointer}
+.admCbB.on{border-color:#ffd84a;background:rgba(255,216,74,.1)}.admCbB small{font-size:10px}
+.admCbIc{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:5px}
+.admCbI{height:38px;display:grid;place-items:center;border-radius:7px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:#dfe3ff;cursor:pointer}.admCbI .ic{width:20px;height:20px}
+.admCbI.nu{border-color:rgba(255,122,216,.4)}.admCbI.on{border-color:#ffd84a;background:rgba(255,216,74,.12);color:#ffd84a}
+.favB .admShyT{position:absolute;top:3px;right:3px;color:#ffd84a;pointer-events:none}.favB .admShyT .ic{width:12px;height:12px}
+.bdg.cst .bWg,.bdg.cst .bLf{color:color-mix(in srgb,var(--bc) 70%,#fff);filter:drop-shadow(0 1px 0 rgba(0,0,0,.6)) drop-shadow(0 0 4px var(--bc))}
+.bdg.cst .bRg{color:color-mix(in srgb,var(--bc) 50%,#fff)}
+.bdg.cst.t5 .bPx s{background:#fff;box-shadow:0 0 4px var(--bc),0 0 8px var(--bc)}
+.bdg.cs-regenbogen .bWg{color:#ff7aa8;animation:bWing 3s ease-in-out infinite,csHue 3s linear infinite}
+.bdg.cs-regenbogen .bLf{color:#ff7aa8;animation:csHue 3s linear infinite}
+.bdg.cs-galaxie .bWg,.bdg.cs-galaxie .bLf{color:#d9c8ff;filter:drop-shadow(0 1px 0 rgba(20,0,60,.8)) drop-shadow(0 0 4px #8a5aff) drop-shadow(0 0 7px rgba(92,242,255,.6))}
+.bdg.cs-chrom .bWg,.bdg.cs-chrom .bLf{color:#f4f7fb;filter:drop-shadow(0 1px 0 rgba(0,0,0,.6)) drop-shadow(0 0 3px #fff)}
+.bdg.cst.t5::before{background:conic-gradient(from var(--bga),color-mix(in srgb,var(--bc) 35%,transparent) 0,color-mix(in srgb,var(--bc) 35%,transparent) 50%,#fff 66%,color-mix(in srgb,var(--bc) 85%,transparent) 76%,color-mix(in srgb,var(--bc) 35%,transparent) 90%)}
+.bdg.cst.t5::after{background:radial-gradient(circle,color-mix(in srgb,var(--bc) 55%,transparent),transparent 65%)}
+.bdg.cst .bGm{filter:drop-shadow(0 1px 0 rgba(0,0,0,.6)) drop-shadow(0 0 4px var(--bc))}
+.bdg.cst .bGm::before{background:linear-gradient(160deg,#fff 0,color-mix(in srgb,var(--bc) 40%,#fff) 30%,var(--bc) 65%,color-mix(in srgb,var(--bc) 45%,#000) 100%)}
+.bdg.cst em{background:linear-gradient(90deg,color-mix(in srgb,var(--bc) 50%,#fff),var(--bc),color-mix(in srgb,var(--bc) 50%,#fff));color:#140a24}
+.bdg.cs-regenbogen.t5::before{background:conic-gradient(from var(--bga),#ff4d6d,#ffb03a,#ffe14d,#4dffa6,#5cf2ff,#8a72e6,#ff7ad8,#ff4d6d)}
+.bdg.cs-regenbogen.t5::after{background:radial-gradient(circle,rgba(255,160,220,.5),rgba(92,242,255,.25) 45%,transparent 65%);animation:bdgAura 2.2s ease-in-out infinite,csHue 3s linear infinite}
+.bdg.cs-regenbogen .bGm,.bdg.cs-regenbogen em{animation:bGem 2.4s ease-in-out infinite,csHue 3s linear infinite}
+.bdg.cs-regenbogen em{animation:csHue 3s linear infinite;background:linear-gradient(90deg,#ff4d6d,#ffe14d,#4dffa6,#5cf2ff,#ff7ad8)}
+.bdg.cs-galaxie.t5::before{background:conic-gradient(from var(--bga),#2a1270,#8a5aff,#ff7ad8,#5cf2ff,#2a1270)}
+.bdg.cs-galaxie.t5::after{background:radial-gradient(circle,rgba(138,90,255,.55),rgba(92,242,255,.2) 45%,transparent 66%)}
+#admCbP{display:flex;align-items:center;gap:14px;padding:6px 0}.admCbT{display:flex;flex-direction:column;gap:3px;text-align:left}.admCbT b{font-family:var(--px);font-size:11px;color:#fff}.admCbT small{color:var(--muted);font-size:11px}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -14146,6 +14202,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Turmsymbole haben jetzt 4 Stufen: 
 if(typeof EN!=="undefined")Object.assign(EN,{"Abzeichen Einschlag neu gestuft: Die alten Grenzen waren kaum erreichbar. Jetzt: 2.000 · 8.000 · 25.000 · 60.000 · 100.000 (Mythisch) · 120.000 (Bernstein).": "Impact badge retiered: the old thresholds were barely reachable. Now: 2,000 · 8,000 · 25,000 · 60,000 · 100,000 (Mythic) · 120,000 (Amber).", "Titel von Abzeichen auf Bernstein glühen jetzt in einem eigenen Bernstein-Look, kräftiger als der lila Geister-Titel von Mythisch.": "Titles from badges at Amber now glow in their own amber look, stronger than the purple ghost title from Mythic.", " Auf ": " At ", " glüht dieser Titel in Bernstein.": " this title glows in amber."});
 /* v1.37.0.6: Einschlag */
 if(typeof EN!=="undefined")Object.assign(EN,{"Abzeichen Einschlag: Bernstein gibt es schon ab 115.000 Schaden mit einem Treffer (vorher 120.000).": "Impact badge: Amber now from 115,000 damage in a single hit (before 120,000)."});
+/* v1.37.0.7: Abzeichen */
+if(typeof EN!=="undefined")Object.assign(EN,{"Trainerkarte: Abzeichen-Darstellung verbessert.": "Trainer card: improved badge display.", "Verliehen": "Awarded", "Persönlich verliehenes Abzeichen": "Personally awarded badge"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -14327,7 +14385,12 @@ async function clGifts(force){if(GIFT.busy||!CL.sess||!USER||userKey(USER)!==use
     LS.set(giftKey(nm),(LS.get(giftKey(nm),null)||[]).concat(r.j)); // erst sichern, dann anwenden (geht nichts verloren)
     if(USER&&userKey(USER)===userKey(nm)&&META)giftApply();}finally{GIFT.busy=false;try{clReplies();}catch(e){}try{clGemGifts();}catch(e){}}}
 function giftApply(){if(!USER||!META)return;const k=giftKey(USER),L=LS.get(k,null)||[];if(!L.length)return;const got=[];
-  for(const g of L){const id=+(g.mon!=null?g.mon:g.sp),sh=!!(g.shy!=null?g.shy:g.shiny);if(!SPECIES[id]||(isExcl(id)&&!exclOk()))continue;
+  for(const g of L){const id=+(g.mon!=null?g.mon:g.sp),sh=!!(g.shy!=null?g.shy:g.shiny);
+    /* v1.37.0.7: Mega-Form (200000 + Mega-Nummer) */
+    if(id>=200000&&id<300000){const k=String(id-200000);let fin=0;if(typeof MEGA!=="undefined")for(const fi in MEGA)for(const x in MEGA[fi])if(MEGA[fi][x]&&String(MEGA[fi][x].k)===k)fin=+fi;
+      if(!fin||!SPECIES[fin]||(isExcl(fin)&&!exclOk()))continue;dexUp(fin,d=>{d.seen=Math.max(d.seen||0,1);d.mega=(d.mega||0)+1;(d.mk=d.mk||{})[k]=1;if(sh)(d.msk=d.msk||{})[k]=1;});
+      got.push({id:fin,mk:k,sh,msg:String(g.msg||g.note||"").slice(0,120),nu:false});continue;}
+    if(!SPECIES[id]||(isExcl(id)&&!exclOk()))continue;
     dexUp(id,d=>{d.seen=Math.max(d.seen||0,1);d.owned=(d.owned||0)+1;if(sh)d.shiny=(d.shiny||0)+1;});
     const Ln=SPECIES[id].line;let nu=false;if(Ln&&!Ln.start&&!META.unlocked.includes(Ln.k)){META.unlocked.push(Ln.k);nu=true;if(typeof psOnUnlock==="function")psOnUnlock(Ln);}
     got.push({id,sh,msg:String(g.msg||g.note||"").slice(0,120),nu});}
@@ -14345,11 +14408,11 @@ function giftShow(){if(!GIFT.q.length||(!USER&&GIFT.q[0].type!=="ev"))return;con
   if(!free){if(!GIFT.note&&!$("menu").classList.contains("show")){GIFT.note=1;toast("Du hast ein Geschenk bekommen – im Menü wartet es auf dich!","star");}return;}
   GIFT.note=0;const g=GIFT.q.shift();if(g.type==="reply")return repShow(g);if(g.type==="ev")return evShow(g);const sp=SPECIES[g.id],R=REGIONS[(sp.line&&sp.line.region)||"kanto"];
   openModal(`<div class="giftBox"><i class="giftRays"></i><small class="giftK">${ic("star")} GESCHENK FÜR DICH</small><div class="giftStage"><div class="giftMon" id="giftMon"></div></div>
-    <h3 class="giftH">${esc(sp.name)}${g.sh?` <span class="giftSh">${ic("shiny")} schillernd</span>`:""}</h3>
+    <h3 class="giftH">${esc(g.mk&&typeof favMegaName==="function"?(favMegaName(g.id,g.mk)||sp.name):sp.name)}${g.sh?` <span class="giftSh">${ic("shiny")} schillernd</span>`:""}</h3>
     ${g.msg?`<p class="giftMsg">„${esc(g.msg)}“</p>`:""}<p class="giftLead">Steht jetzt in deinem Pokédex und ist als Lieblingspokémon wählbar.${g.nu&&R?` Ab sofort kann es dir auch in ${esc(R.n)}-Läufen im Laden begegnen.`:""}</p>
     <div class="giftBtns"><button class="pri" id="giftFav">${ic("heart")} Als Lieblingspokémon</button><button class="btn" id="giftOk">Super!</button></div></div>`,"narrow gift",true);
-  try{$("giftMon").appendChild(sprAlign(natFit(spriteEl(g.id,"",{shiny:g.sh}),1),false));}catch(e){}try{sfx("sparkle");}catch(e){}
-  $("giftOk").onclick=closeModal;$("giftFav").onclick=()=>{try{META.card=META.card||{};META.card.fav=g.id;META.card.favSh=g.sh?1:0;META.card.favM=null;saveMeta();toast(`${sp.name} ist jetzt dein Lieblingspokémon`,"heart");}catch(e){}closeModal();};}
+  try{$("giftMon").appendChild(sprAlign(natFit(spriteEl(g.id,"",{shiny:g.sh,mega:g.mk||undefined}),1),false));}catch(e){}try{sfx("sparkle");}catch(e){}
+  $("giftOk").onclick=closeModal;$("giftFav").onclick=()=>{try{META.card=META.card||{};META.card.fav=g.id;META.card.favSh=g.sh?1:0;META.card.favM=g.mk||null;saveMeta();toast(`${g.mk&&typeof favMegaName==="function"?(favMegaName(g.id,g.mk)||sp.name):sp.name} ist jetzt dein Lieblingspokémon`,"heart");}catch(e){}closeModal();};}
 /* ===== Geschenke an alle (Titel, Hintergründe): öffentliche Liste, jedes Geschenk einmal pro Spielstand ===== */
 const EVG={list:null,t:0,busy:false},EVG_KEY="pokelings_evg";
 function evList(){if(EVG.list)return EVG.list;try{EVG.list=LS.get(EVG_KEY,null)||[];}catch(e){EVG.list=[];}evI18n();return EVG.list;}
@@ -14616,6 +14679,7 @@ ${admSQL9()}
 ${admSQL10()}
 ${admSQL11()}
 ${admSQL12()}
+${admSQL13()}
 revoke all on function public.adm_log(text,text,text) from public, anon, authenticated;
 revoke all on function public.adm_name(uuid) from public, anon, authenticated;
 do $$ declare f text; begin
@@ -14629,6 +14693,53 @@ grant execute on function public.name_free(text) to anon, authenticated;
 notify pgrst, 'reload schema';`;}
 /* v1.32.0: Login-Schutz. Das Spiel prüft das Passwort zuerst in login_gate (3 Fehlversuche = Sperre bis zur Freigabe).
    Erst dann gibt der Server das eigentliche Anmelde-Passwort heraus (zufällig, 48 Zeichen) – direktes Durchprobieren am Login-Server bringt nichts mehr. */
+function admSQL13(){return `-- v1.37.0.7: Pokémon-Vergabe erweitert – alle Formen (auch Hisui/Kitakami), schillernde Version vorhandener Pokémon, Mega-Formen (kann gefahrlos mehrfach laufen)
+create or replace function public.admin_player_meta(target uuid) returns json language plpgsql security definer set search_path=public as $$
+declare m jsonb;
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  select meta into m from public.profiles where id=target;
+  if m is null then return json_build_object('dex','[]'::json,'unl','[]'::json,'none',true,'shy','[]'::json,'mk','[]'::json,'msk','[]'::json); end if;
+  return json_build_object(
+    'dex',(select coalesce(json_agg(e.k::int),'[]'::json) from jsonb_each(coalesce(m->'dex','{}'::jsonb)) e(k,v) where e.k ~ '^[0-9]+$' and jsonb_typeof(e.v)='object' and coalesce((e.v->>'owned')::numeric,0)>0),
+    'shy',(select coalesce(json_agg(e.k::int),'[]'::json) from jsonb_each(coalesce(m->'dex','{}'::jsonb)) e(k,v) where e.k ~ '^[0-9]+$' and jsonb_typeof(e.v)='object' and coalesce((e.v->>'shiny')::numeric,0)>0),
+    'mk',(select coalesce(json_agg(x.mk),'[]'::json) from jsonb_each(coalesce(m->'dex','{}'::jsonb)) e(k,v), lateral jsonb_object_keys(case when jsonb_typeof(e.v->'mk')='object' then e.v->'mk' else '{}'::jsonb end) x(mk) where e.k ~ '^[0-9]+$'),
+    'msk',(select coalesce(json_agg(x.mk),'[]'::json) from jsonb_each(coalesce(m->'dex','{}'::jsonb)) e(k,v), lateral jsonb_object_keys(case when jsonb_typeof(e.v->'msk')='object' then e.v->'msk' else '{}'::jsonb end) x(mk) where e.k ~ '^[0-9]+$'),
+    'unl',coalesce(m->'unlocked','[]'::jsonb));
+end $$;
+create or replace function public.admin_gift(target uuid,mon integer,shy boolean,msg text,lk text) returns integer language plpgsql security definer set search_path=public,auth as $$
+declare n integer:=0; mega boolean:=coalesce(mon between 200000 and 299999,false); sh boolean:=coalesce(shy,false); mk text:=(mon-200000)::text;
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  if mon is null or not (mon between 1 and 40000 or mega) then raise exception 'mon_invalid'; end if;
+  if target is null then
+    insert into public.gifts(uid,sp,shiny,note) select u.id,mon,sh,left(coalesce(msg,''),120) from auth.users u left join public.profiles p on p.id=u.id
+      where not exists(select 1 from public.admins a where a.uid=u.id)
+        and ((mega and not exists(select 1 from jsonb_each(case when jsonb_typeof(p.meta->'dex')='object' then p.meta->'dex' else '{}'::jsonb end) e(k,v) where jsonb_typeof(e.v)='object' and coalesce(e.v->case when sh then 'msk' else 'mk' end,'{}'::jsonb) ? mk))
+          or (not mega and coalesce((p.meta->'dex'->(mon::text)->>'owned')::numeric,0)<=0 and (lk is null or not coalesce(p.meta->'unlocked','[]'::jsonb) ? lk))
+          or (not mega and sh and coalesce((p.meta->'dex'->(mon::text)->>'shiny')::numeric,0)<=0))
+        and not exists(select 1 from public.gifts g where g.uid=u.id and g.sp=mon and g.claimed_at is null);
+    get diagnostics n=row_count;
+    perform public.adm_log('Pokémon an alle',n||' Konten','#'||mon||case when sh then ' schillernd' else '' end);
+  else
+    if not mega and exists(select 1 from public.profiles p where p.id=target and (coalesce((p.meta->'dex'->(mon::text)->>'owned')::numeric,0)>0 or (lk is not null and coalesce(p.meta->'unlocked','[]'::jsonb) ? lk))) then
+      if not sh then raise exception 'already_owned'; end if;
+      if exists(select 1 from public.profiles p where p.id=target and coalesce((p.meta->'dex'->(mon::text)->>'shiny')::numeric,0)>0) then raise exception 'already_shiny'; end if;
+    end if;
+    if mega and exists(select 1 from public.profiles p, jsonb_each(case when jsonb_typeof(p.meta->'dex')='object' then p.meta->'dex' else '{}'::jsonb end) e(k,v) where p.id=target and jsonb_typeof(e.v)='object' and coalesce(e.v->case when sh then 'msk' else 'mk' end,'{}'::jsonb) ? mk) then
+      raise exception '%', case when sh then 'already_shiny' else 'already_owned' end; end if;
+    if exists(select 1 from public.gifts g where g.uid=target and g.sp=mon and g.claimed_at is null) then raise exception 'already_pending'; end if;
+    insert into public.gifts(uid,sp,shiny,note) values(target,mon,sh,left(coalesce(msg,''),120));
+    n:=1;
+    perform public.adm_log('Pokémon geschenkt',public.adm_name(target),'#'||mon||case when sh then ' schillernd' else '' end);
+  end if;
+  return n;
+end $$;
+revoke all on function public.admin_player_meta(uuid) from public, anon;
+grant execute on function public.admin_player_meta(uuid) to authenticated;
+revoke all on function public.admin_gift(uuid,integer,boolean,text,text) from public, anon;
+grant execute on function public.admin_gift(uuid,integer,boolean,text,text) to authenticated;
+notify pgrst, 'reload schema';`;}
 function admSQL12(){return `-- v1.34.6: Umbenennen ohne neues Passwort (kann gefahrlos mehrfach laufen). Das Passwort hängt dann weiter am alten Namen (k).
 alter table public.pkl_auth add column if not exists k text;
 create or replace function public.pkl_pw_key(e text) returns text language sql security definer stable set search_path=public,auth as $$
@@ -15703,9 +15814,31 @@ function admEvTitleBody(B){let sty="geist",pv="de";
     toast(`Titel „${v}“ an alle verschenkt`,"crown");["admEt","admEtE","admEn","admEnE"].forEach(id=>$(id).value="");prev();admEvList($("admEl"));};
   admEvList($("admEl"));}
 /* ---------- Abzeichen verleihen (je Spieler, nur Anzeige auf der Trainerkarte) ---------- */
-function admBadgeBody(a,B){let sel="champ",tier=5,q="";
+function admBadgeBody(a,B){B.dataset.cb="";return admBadgeBody0(a,B);}
+/* v1.37.0.7: eigenes Abzeichen gestalten – Name, Symbol (auch neue), Design (Regenbogen, Galaxie …) und Stufe */
+function admCBadgeBody(a,B){let icn="crown",fx="regenbogen",tier=5,nm="";
+  B.innerHTML=`<div class="admCbTop"><button class="btn sm" id="admCbBack">${ic("back")} Vorhandene Abzeichen</button><b>${ic("star")} Eigenes Abzeichen</b></div>
+   <p class="admLead">${ic("info")}<span>Ein ganz eigenes Abzeichen mit eigenem Namen, Symbol und Design. Es erscheint auf der Trainerkarte von <b>${esc(a.name)}</b> (VS-Bildschirm, Bestenliste) unter „Verliehen“, zählt aber nicht für Erfolge.</span></p>
+   <div class="admSec"><h5>NAME <small>max. 16 Zeichen</small></h5><div class="admLang"><label><i>DE</i><input id="admCbN" maxlength="16" autocomplete="off" placeholder="z. B. Turmgott"></label></div></div>
+   <div class="admSec"><h5>DESIGN</h5><div class="admCbFx">${Object.entries(CBADGE_FX).map(([k,v])=>`<button class="admCbB${k===fx?" on":""}" data-cfx="${k}"><span class="admCbM">${badgeHTML(cbId(icn,k,"X"),5,"sm")}</span><small>${v.n}</small></button>`).join("")}</div></div>
+   <div class="admSec"><h5>SYMBOL <small>${CBADGE_IC.filter(x=>x.startsWith("cs_")).length} neue Symbole hinten</small></h5><div class="admCbIc">${CBADGE_IC.map(k=>`<button class="admCbI${k===icn?" on":""}${k.startsWith("cs_")?" nu":""}" data-cic="${k}">${ic(k)}</button>`).join("")}</div></div>
+   <div class="admTiers">${[1,2,3,4,5].map(t=>`<button class="admTierB${t===tier?" on":""}" data-ctr="${t}" style="--bc:${TIER[t].c}">${ROMAN[t]} · ${TIER[t].n}</button>`).join("")}</div>
+   <div class="admPrev admBPrev"><small>Vorschau</small><span id="admCbP"></span></div>
+   <div class="admGFoot"><div class="aerr" id="admCbE"></div><button class="pri" id="admCbGo">${ic("check")} Verleihen</button></div>`;hydrateIcons(B);
+  const fxGrid=()=>{B.querySelectorAll("[data-cfx]").forEach(b=>{b.classList.toggle("on",b.dataset.cfx===fx);const m=b.querySelector(".admCbM");if(m)m.innerHTML=badgeHTML(cbId(icn,b.dataset.cfx,"X"),5,"sm");});hydrateIcons(B);};
+  const prev=()=>{const id=cbId(icn,fx,nm||"Dein Abzeichen");$("admCbP").innerHTML=`${badgeHTML(id,tier)}<span class="admCbT"><b>${esc(cbName(nm)||"Dein Abzeichen")}</b><small>${CBADGE_FX[fx].n} · ${TIER[tier].n}</small></span>`;hydrateIcons($("admCbP"));};
+  $("admCbN").oninput=e=>{nm=e.target.value;prev();};
+  B.querySelectorAll("[data-cfx]").forEach(b=>b.onclick=()=>{fx=b.dataset.cfx;fxGrid();prev();});
+  B.querySelectorAll("[data-cic]").forEach(b=>b.onclick=()=>{icn=b.dataset.cic;B.querySelectorAll("[data-cic]").forEach(x=>x.classList.toggle("on",x===b));fxGrid();prev();});
+  B.querySelectorAll("[data-ctr]").forEach(b=>b.onclick=()=>{tier=+b.dataset.ctr;B.querySelectorAll("[data-ctr]").forEach(x=>x.classList.toggle("on",x===b));prev();});
+  $("admCbBack").onclick=()=>{B.dataset.cb="";admBadgeBody0(a,B);};
+  $("admCbGo").onclick=async()=>{const n=cbName(nm);if(!n){$("admCbE").textContent="Bitte einen Namen eingeben.";return;}const id=cbId(icn,fx,n);if(id.length>40){$("admCbE").textContent="Name zu lang.";return;}
+    const r=await admRpc("admin_badge",{target:a.id,bid:id,btier:tier});if(!r.ok){$("admCbE").innerHTML=admEvErr(r);return;}toast(`Abzeichen „${n}“ an ${a.name} verliehen`,"badge");B.dataset.cb="";admBadgeBody0(a,B);};
+  prev();}
+function admBadgeBody0(a,B){let sel="champ",tier=5,q="";
   const all=[...BADGE_FIX.map(b=>b.id),...Object.keys(TYPES).map(t=>"t_"+t),...LINES.filter(L=>!L.excl).map(L=>"p_"+L.k)].map(id=>badgeDef(id)).filter(Boolean);
   B.innerHTML=`<p class="admLead">${ic("info")}<span>Verleiht ein Abzeichen auf einer festen Stufe. Es erscheint auf der Trainerkarte des Spielers (VS-Bildschirm, Bestenliste), zählt aber nicht für Erfolge, Titel oder Hintergründe.</span></p>
+   <div class="admCbNew"><button class="btn" id="admCbNew">${ic("star")} Eigenes Abzeichen gestalten</button><small>eigener Name, Symbol und Design (Regenbogen, Galaxie …)</small></div>
    <div class="favBar"><input id="admBq" placeholder="Abzeichen suchen (z. B. Champion, Feuer, Glurak) …" maxlength="24" autocomplete="off"></div><div class="admBGrid" id="admBg"></div>
    <div class="admTiers">${[1,2,3,4,5].map(t=>`<button class="admTierB${t===tier?" on":""}" data-tr="${t}" style="--bc:${TIER[t].c}">${ROMAN[t]} · ${TIER[t].n}</button>`).join("")}</div>
    <div class="admPrev admBPrev"><small>Vorschau</small><span id="admBp"></span></div>
@@ -15722,6 +15855,7 @@ function admBadgeBody(a,B){let sel="champ",tier=5,q="";
     el.innerHTML=L.length?L.map(x=>{const d=badgeDef(x.badge);return `<div class="admTRow admBRow">${badgeHTML(x.badge,x.tier,"sm")}<b>${esc(d?d.n:x.badge)}</b><small>${TIER[x.tier]?TIER[x.tier].n:""}</small><span style="flex:1"></span><button class="btn sm danger" data-brm="${esc(x.badge)}">${ic("trash")}</button></div>`;}).join(""):`<p class="admNote">Noch keine verliehenen Abzeichen.</p>`;cardHydrate(el);hydrateIcons(el);
     el.querySelectorAll("[data-brm]").forEach(b=>b.onclick=async()=>{if(b.dataset.ok!=="1"){b.dataset.ok="1";b.innerHTML=ic("trash")+" Sicher?";hydrateIcons(b);return;}const r2=await admRpc("admin_badge",{target:a.id,bid:b.dataset.brm,btier:0});if(!r2.ok){toast("Fehlgeschlagen: "+admErr(r2),"close");return;}toast("Abzeichen entfernt","trash");list();});};
   $("admBgo").onclick=async()=>{const r=await admRpc("admin_badge",{target:a.id,bid:sel,btier:tier});if(!r.ok){$("admBe").innerHTML=admEvErr(r);return;}const d=badgeDef(sel);toast(`${d?d.n:sel} (${TIER[tier].n}) an ${a.name} verliehen`,"badge");list();};
+  if($("admCbNew"))$("admCbNew").onclick=()=>{B.dataset.cb="1";admCBadgeBody(a,B);};
   grid();prev();list();admSprWarm(null);}
 function admTitleBody(a,B){let sty=TITLE_FX[a.title_style]?a.title_style:"chrom";
   B.innerHTML=`<p class="admLead">${ic("info")}<span>Der Spieler bekommt ihn als Geschenk und kann ihn unter Trainerkarte → Stil anlegen. Erst dann erscheint er auf der Kampfkarte, im VS-Bildschirm und in der Bestenliste.</span></p>
@@ -15743,34 +15877,42 @@ function admTitleBody(a,B){let sty=TITLE_FX[a.title_style]?a.title_style:"chrom"
       const r2=await admRpc("admin_title",{target:x.id,txt:"",sty:""});if(!r2.ok){toast("Fehlgeschlagen: "+admErr(r2),"close");return;}toast(`Titel von ${x.name} gelöscht`,"trash");if(typeof TT!=="undefined")TT.t=0;
       if(x.id===a.id){closeModal();admLoadList();return;}const row=b.closest(".admTRow");if(row)row.remove();admLoadList();});});}
 async function admGiftBody(a,B){B.innerHTML=`<p class="empty">${a?"Lade Sammlung von "+esc(a.name)+" …":"Lade …"}</p>`;
-  let own=new Set(),unl=new Set(),none=false;
+  let own=new Set(),unl=new Set(),shyS=new Set(),mkS=new Set(),mskS=new Set(),none=false,full=!a;
   if(a){const r=await admRpc("admin_player_meta",{target:a.id});if(!$("admGB")||$("admGB")!==B)return;
     if(!r.ok){B.innerHTML=`<div class="aerr">${/admin_player_meta|function|schema/i.test(JSON.stringify(r.j||""))?"Auf dem Server fehlt noch das Update: unter <b>Server-Setup</b> den Code ausführen.":"Sammlung nicht ladbar: "+admErr(r)}</div>`;return;}
-    own=new Set((r.j&&r.j.dex)||[]);unl=new Set((r.j&&r.j.unl)||[]);none=!!(r.j&&r.j.none);}
+    const j=r.j||{};own=new Set(j.dex||[]);unl=new Set(j.unl||[]);none=!!j.none;full=Array.isArray(j.shy);shyS=new Set(j.shy||[]);mkS=new Set((j.mk||[]).map(String));mskS=new Set((j.msk||[]).map(String));}
   const has=sp=>own.has(sp.id)||(!sp.line.start&&unl.has(sp.line.k));
-  const all=Object.values(SPECIES).filter(sp=>sp.line&&!sp.line.excl&&!(a&&has(sp))).sort((x,y)=>x.id-y.id);
-  if(!all.length){B.innerHTML=`<p class="empty">${esc(a.name)} hat schon alle Pokémon.</p>`;return;}
-  let sel=all[0].id,shy=false,q="",sure=false,rg="all",N=60;const rc={};for(const sp of all){const r=(sp.line&&sp.line.region)||"kanto";rc[r]=(rc[r]||0)+1;}
-  B.innerHTML=`<p class="admLead">${ic("info")}<span>${a?`Nur Pokémon, die <b>${esc(a.name)}</b> noch nicht hat und nicht im Labor gekauft hat (${all.length}).${none?" Noch kein Online-Spielstand.":""}`:`Geht an <b>alle Konten</b>, die es noch nicht haben.`} Kommt beim nächsten Login mit Einblendung an, landet im Pokédex und wird für Läufe freigeschaltet.</span></p>
+  /* Einträge: o=0 neu (normal oder schillernd), o=1 schon vorhanden → nur schillernd; mk = Mega-Form */
+  const all=[];
+  for(const sp of Object.values(SPECIES).filter(sp=>sp.line&&!sp.line.excl).sort((x,y)=>x.id-y.id)){
+    const h=!!a&&has(sp);if(!h)all.push({id:sp.id,mk:null,n:sp.name,o:0});else if(full&&!shyS.has(sp.id))all.push({id:sp.id,mk:null,n:sp.name,o:1});
+    if(typeof MEGA!=="undefined"&&MEGA[sp.id])for(const fx in MEGA[sp.id]){const m=MEGA[sp.id][fx];if(!m||m.k==null)continue;const k=String(m.k);
+      if(!a||!mkS.has(k))all.push({id:sp.id,mk:k,n:m.n,o:0});else if(!mskS.has(k))all.push({id:sp.id,mk:k,n:m.n,o:1});}}
+  if(!all.length){B.innerHTML=`<p class="empty">${esc(a.name)} hat schon alles, auch schillernd.</p>`;return;}
+  const regOf=e=>e.mk?"mega":((SPECIES[e.id].line&&SPECIES[e.id].line.region)||"kanto");
+  let sel=0,shy=false,q="",sure=false,rg="all",N=60;const rc={};for(const e of all){const r=regOf(e);rc[r]=(rc[r]||0)+1;}const nShy=all.filter(e=>e.o).length;
+  B.innerHTML=`<p class="admLead">${ic("info")}<span>${a?`Neue Pokémon, die <b>${esc(a.name)}</b> noch nicht hat, die <b>schillernde Version</b> von Pokémon, die er schon hat (${nShy} mit ${ic("shiny")}), und <b>Mega-Formen</b> (auch schillernd). ${all.length} Möglichkeiten.${none?" Noch kein Online-Spielstand.":""}${!full?" Für schillernde Versionen vorhandener Pokémon unter <b>Server-Setup</b> den Code ausführen.":""}`:`Geht an <b>alle Konten</b>, die es noch nicht haben (bei schillernd: die es noch nicht schillernd haben).`} Kommt beim nächsten Login mit Einblendung an und landet im Pokédex.</span></p>
    <div class="admGiftTop"><div class="admGiftPrev" id="admGp"></div><div class="admGiftInfo"><b id="admGn"></b><small id="admGr"></small><button class="btn sm" id="admGs">${ic("shiny")} Schillernd</button></div></div>
-   <div class="favBar"><input id="admGq" placeholder="Pokémon suchen (Name oder Nr.) …" maxlength="20" autocomplete="off"><small class="admSprSt" id="admGsp"></small></div><div class="favRegs admGRegs">${["all",...Object.keys(REGIONS).filter(r=>rc[r])].map(r=>`<button class="${r==="all"?"on":""}" data-grg="${r}">${r==="all"?"Alle":esc(REGIONS[r].n)} <small>${r==="all"?all.length:rc[r]}</small></button>`).join("")}</div><div class="admGiftGrid" id="admGg"></div><div class="admGMore"><button class="btn sm" id="admGmore" style="display:none">${ic("plus")} <span>Mehr anzeigen</span></button></div>
+   <div class="favBar"><input id="admGq" placeholder="Pokémon suchen (Name, Nr. oder „mega“) …" maxlength="20" autocomplete="off"><small class="admSprSt" id="admGsp"></small></div><div class="favRegs admGRegs">${["all",...Object.keys(REGIONS).filter(r=>rc[r]),...(rc.mega?["mega"]:[])].map(r=>`<button class="${r==="all"?"on":""}" data-grg="${r}">${r==="all"?"Alle":r==="mega"?"Mega":esc(REGIONS[r].n)} <small>${r==="all"?all.length:rc[r]}</small></button>`).join("")}</div><div class="admGiftGrid" id="admGg"></div><div class="admGMore"><button class="btn sm" id="admGmore" style="display:none">${ic("plus")} <span>Mehr anzeigen</span></button></div>
    <div class="admSec" style="margin-top:14px"><h5>NACHRICHT ${a?"AN DEN SPIELER":"IM GESCHENK-FENSTER"} <small>optional</small></h5><div class="admLang"><label><i>DE</i><input id="admGm" maxlength="120" autocomplete="off" placeholder="z. B. Danke fürs Testen!"></label></div></div>
    <div class="admGFoot"><div class="aerr" id="admGe"></div><button class="pri" id="admGo">${ic("check")} Schenken</button></div>`;
-  const prev=()=>{const sp=SPECIES[sel],P=$("admGp");P.innerHTML="";try{P.appendChild(sprAlign(natFit(spriteEl(sel,"",{shiny:shy}),1)));}catch(e){}
-    $("admGn").textContent=`#${sel} ${sp.name}`;$("admGr").textContent=((REGIONS[(sp.line&&sp.line.region)||"kanto"]||{}).n||"")+" · "+sp.types.map(t=>TYPES[t]?TYPES[t][0]:t).join(" / ");$("admGs").classList.toggle("on",shy);
-    $("admGo").innerHTML=`${ic("check")} ${sp.name}${shy?" (schillernd)":""} ${a?"schenken":"an alle schenken"}`;hydrateIcons($("admGo"));sure=false;
-    B.querySelectorAll("[data-gs]").forEach(b=>b.classList.toggle("on",+b.dataset.gs===sel));};
-  const grid=()=>{const t=q.trim().toLowerCase().replace(/^#/,""),F=all.filter(sp=>(rg==="all"||((sp.line&&sp.line.region)||"kanto")===rg)&&(!t||sp.name.toLowerCase().includes(t)||String(sp.id)===t||String(dexNo(sp.id))===t)),L=F.slice(0,N),G=$("admGg");const mo=$("admGmore");if(mo){mo.style.display=F.length>N?"":"none";const sm=mo.querySelector("span");if(sm)sm.textContent=`Mehr anzeigen (${F.length-N})`;}
-    G.innerHTML=L.map(sp=>`<button class="favB${sp.id===sel?" on":""}" data-gs="${sp.id}" title="#${sp.id} ${esc(sp.name)}"><span class="fm" data-sp="${sp.id}"></span><small>${esc(sp.name)}</small></button>`).join("")||`<p class="empty">Nichts gefunden.</p>`;
-    G.querySelectorAll(".fm[data-sp]").forEach(e=>e.appendChild(sprAlign(natFit(spriteEl(+e.dataset.sp),.9))));G.querySelectorAll("[data-gs]").forEach(b=>b.onclick=()=>{sel=+b.dataset.gs;prev();});};
+  const prev=()=>{const e=all[sel],sp=SPECIES[e.id],P=$("admGp");if(e.o)shy=true;P.innerHTML="";try{P.appendChild(sprAlign(natFit(spriteEl(e.id,"",{shiny:shy,mega:e.mk||undefined}),1)));}catch(x){}
+    $("admGn").textContent=`#${e.id} ${e.n}`;$("admGr").textContent=(e.mk?"Mega-Form · ":"")+((REGIONS[(sp.line&&sp.line.region)||"kanto"]||{}).n||"")+" · "+sp.types.map(t=>TYPES[t]?TYPES[t][0]:t).join(" / ")+(e.o?" · hat er schon, nur schillernd":"");
+    const sb=$("admGs");sb.classList.toggle("on",shy);sb.disabled=!!e.o;
+    $("admGo").innerHTML=`${ic("check")} ${esc(e.n)}${shy?" (schillernd)":""} ${a?"schenken":"an alle schenken"}`;hydrateIcons($("admGo"));sure=false;$("admGe").textContent="";
+    B.querySelectorAll("[data-gi]").forEach(b=>b.classList.toggle("on",+b.dataset.gi===sel));};
+  const grid=()=>{const t=q.trim().toLowerCase().replace(/^#/,""),F=[];all.forEach((e,i)=>{if(rg!=="all"&&regOf(e)!==rg)return;if(t&&!(e.n.toLowerCase().includes(t)||String(e.id)===t||String(dexNo(e.id))===t||(t==="mega"&&e.mk)))return;F.push(i);});
+    const L=F.slice(0,N),G=$("admGg");const mo=$("admGmore");if(mo){mo.style.display=F.length>N?"":"none";const sm=mo.querySelector("span");if(sm)sm.textContent=`Mehr anzeigen (${F.length-N})`;}
+    G.innerHTML=L.map(i=>{const e=all[i];return `<button class="favB${i===sel?" on":""}${e.mk?" mg":""}" data-gi="${i}" title="#${e.id} ${esc(e.n)}${e.o?" (nur schillernd)":""}"><span class="fm" data-sp="${e.id}" data-mk="${e.mk||""}" data-sh="${e.o?1:""}"></span><small>${esc(e.n)}</small>${e.mk?`<em class="favMg">MEGA</em>`:""}${e.o?`<em class="admShyT">${ic("shiny")}</em>`:""}</button>`;}).join("")||`<p class="empty">Nichts gefunden.</p>`;hydrateIcons(G);
+    G.querySelectorAll(".fm[data-sp]").forEach(x=>x.appendChild(sprAlign(natFit(spriteEl(+x.dataset.sp,"",{shiny:!!x.dataset.sh,mega:x.dataset.mk||undefined}),.9))));G.querySelectorAll("[data-gi]").forEach(b=>b.onclick=()=>{sel=+b.dataset.gi;if(!all[sel].o)shy=false;prev();});};
   prev();grid();hydrateIcons(B);let tm=0;$("admGq").oninput=e=>{clearTimeout(tm);tm=setTimeout(()=>{q=e.target.value;N=60;grid();},200);};
   B.querySelectorAll("[data-grg]").forEach(b=>b.onclick=()=>{rg=b.dataset.grg;N=60;B.querySelectorAll("[data-grg]").forEach(x=>x.classList.toggle("on",x===b));grid();});
   if($("admGmore"))$("admGmore").onclick=()=>{N+=60;grid();};admSprWarm($("admGsp"));
-  $("admGs").onclick=()=>{shy=!shy;prev();};
-  $("admGo").onclick=async()=>{const E=$("admGe"),sp=SPECIES[sel];if(!a&&!sure){sure=true;$("admGo").innerHTML=`${ic("check")} Wirklich an ALLE schenken?`;hydrateIcons($("admGo"));return;}
-    const r=await admRpc("admin_gift",{target:a?a.id:null,mon:sel,shy,msg:$("admGm").value.trim(),lk:sp.line.start?null:sp.line.k});
-    if(!r.ok){const t=JSON.stringify(r.j||"");E.innerHTML=/already_owned/.test(t)?"Das hat der Spieler schon (oder im Labor gekauft).":/already_pending/.test(t)?"Liegt schon als Geschenk für ihn bereit.":/admin_gift|function|schema/i.test(t)?"Auf dem Server fehlt noch das Update: unter <b>Server-Setup</b> den Code ausführen.":"Fehlgeschlagen: "+admErr(r);return;}
-    closeModal();toast(`${sp.name}${shy?" (schillernd)":""} an ${a?a.name:(+r.j||0)+" Spieler"} verschenkt`,"ball");};}
+  $("admGs").onclick=()=>{if(all[sel].o)return;shy=!shy;prev();};
+  $("admGo").onclick=async()=>{const E=$("admGe"),e=all[sel],sp=SPECIES[e.id];if(!a&&!sure){sure=true;$("admGo").innerHTML=`${ic("check")} Wirklich an ALLE schenken?`;hydrateIcons($("admGo"));return;}
+    const mon=e.mk?200000+(+e.mk):e.id;const r=await admRpc("admin_gift",{target:a?a.id:null,mon,shy:!!(shy||e.o),msg:$("admGm").value.trim(),lk:e.mk||sp.line.start?null:sp.line.k});
+    if(!r.ok){const t=JSON.stringify(r.j||"");E.innerHTML=/already_shiny/.test(t)?"Das hat der Spieler schon schillernd.":/already_owned/.test(t)?"Das hat der Spieler schon (oder im Labor gekauft). Schillernd geht es nach dem Server-Update.":/already_pending/.test(t)?"Liegt schon als Geschenk für ihn bereit.":/mon_invalid|admin_gift|function|schema/i.test(t)?"Auf dem Server fehlt noch das Update: unter <b>Server-Setup</b> den Code ausführen.":"Fehlgeschlagen: "+admErr(r);return;}
+    closeModal();toast(`${e.n}${(shy||e.o)?" (schillernd)":""} an ${a?a.name:(+r.j||0)+" Spieler"} verschenkt`,"ball");};}
 /* v1.31.7: Sprites aller Regionen im Hintergrund laden (die Vergabe zeigt Pokémon aus allen Regionen) */
 function admSprWarm(el){if(!window.__SPRM||typeof __sprLoad!=="function"){if(el)el.textContent="";return;}const ks=Object.keys(__SPRM),open=()=>ks.filter(k=>!__SPRM[k].done);
   const upd=()=>{if(!el||!el.isConnected)return;const o=open().length;el.textContent=o?`Sprites ${ks.length-o}/${ks.length} …`:"";};upd();
@@ -15956,7 +16098,26 @@ const BADGE_OLD={tower:{T:[5,10,20,30,45],T6:70},champ:{T:[1,10,40,100,250],T6:5
  gem:{T:[1000,10000,40000,120000,300000],T6:1000000},achv:{T:[10,25,45,81,91],T6:15},daily:{T:[5,30,100,365,600],T6:1500},vet:{T:[5,25,100,300,600],T6:1500},coll:{T:[10,30,60,100,160],T6:240},
  gbon:{T:[1,5,15,40,100],T6:250},gbai:{T:[1,10,30,80,200],T6:500},gbpz:{T:[1,10,25,50,85],T6:null},t_:{T:[25,100,300,1000,2500],T6:8000},p_:{T:[25,100,300,800,2000],T6:6000}};
 const BADGE_BY={};BADGE_FIX.forEach(b=>BADGE_BY[b.id]=b);
+/* v1.37.0.7: eigene Abzeichen – die ID beschreibt sich selbst („c|Symbol|Design|Name“), damit jede Karte sie überall gleich zeigt */
+const CBADGE_FX={regenbogen:{n:"Regenbogen",c:"#ff7ad8"},galaxie:{n:"Galaxie",c:"#9a7cff"},feuer:{n:"Feuer",c:"#ff7a2a"},eis:{n:"Eis",c:"#7ad8ff"},neon:{n:"Neon",c:"#5cf2ff"},gold:{n:"Gold",c:"#ffd23f"},bernstein:{n:"Bernstein",c:"#ffae2b"},geist:{n:"Geist",c:"#b86bff"},smaragd:{n:"Smaragd",c:"#4de08a"},chrom:{n:"Chrom",c:"#dfe6ef"}};
+Object.assign(ICONS,{
+ cs_inf:'<path d="M12 12c-2-2.6-3.6-4-5.6-4a4 4 0 0 0 0 8c2 0 3.6-1.4 5.6-4zm0 0c2 2.6 3.6 4 5.6 4a4 4 0 0 0 0-8c-2 0-3.6 1.4-5.6 4z"/>',
+ cs_moon:'<path class="fo" d="M15 3.5a8.5 8.5 0 1 0 5.5 14.5A7 7 0 0 1 15 3.5z"/><path d="M15 3.5a8.5 8.5 0 1 0 5.5 14.5A7 7 0 0 1 15 3.5z"/><path d="M19 4.5v3M17.5 6h3"/>',
+ cs_planet:'<circle class="fo" cx="12" cy="12" r="5.6"/><circle cx="12" cy="12" r="5.6"/><path d="M6.8 14.2C3.6 15.6 2 17 2.6 17.9c.9 1.4 6.4-.2 12.2-3.6S23.4 7.5 22.5 6.1c-.6-.9-2.7-.7-5.5.4"/>',
+ cs_paw:'<path class="fo" d="M12 11.5c-3 0-5.5 3.2-5.5 5.6 0 1.8 1.6 2.6 3.2 2.1 1.4-.4 3.2-.4 4.6 0 1.6.5 3.2-.3 3.2-2.1 0-2.4-2.5-5.6-5.5-5.6z"/><path d="M12 11.5c-3 0-5.5 3.2-5.5 5.6 0 1.8 1.6 2.6 3.2 2.1 1.4-.4 3.2-.4 4.6 0 1.6.5 3.2-.3 3.2-2.1 0-2.4-2.5-5.6-5.5-5.6z"/><circle class="f" cx="5" cy="10" r="1.9"/><circle class="f" cx="9" cy="5.6" r="1.9"/><circle class="f" cx="15" cy="5.6" r="1.9"/><circle class="f" cx="19" cy="10" r="1.9"/>',
+ cs_wing:'<path class="fo" d="M21 4C12.5 4.5 5.5 9.5 3.5 19.5c2.5-2.6 5.6-3.8 9-3.7-1.2-.8-2.3-1.2-3.4-1.3 2.3-.9 4.8-1 7.2-.4-1-1.2-2.3-1.9-3.6-2.1 2.9-1.4 5.7-3.5 8.3-8z"/><path d="M21 4C12.5 4.5 5.5 9.5 3.5 19.5c2.5-2.6 5.6-3.8 9-3.7-1.2-.8-2.3-1.2-3.4-1.3 2.3-.9 4.8-1 7.2-.4-1-1.2-2.3-1.9-3.6-2.1 2.9-1.4 5.7-3.5 8.3-8z"/>',
+ cs_sword:'<path class="fo" d="M20.5 3.5l-2 6-8 8-3-3 8-8z"/><path d="M20.5 3.5l-2 6-8 8-3-3 8-8zM5.5 13.5l5 5M8 16l-4.5 4.5"/>',
+ cs_flower:'<circle class="fo" cx="12" cy="6.6" r="2.9"/><circle cx="12" cy="6.6" r="2.9"/><circle class="fo" cx="17.2" cy="10.4" r="2.9"/><circle cx="17.2" cy="10.4" r="2.9"/><circle class="fo" cx="15.2" cy="16.4" r="2.9"/><circle cx="15.2" cy="16.4" r="2.9"/><circle class="fo" cx="8.8" cy="16.4" r="2.9"/><circle cx="8.8" cy="16.4" r="2.9"/><circle class="fo" cx="6.8" cy="10.4" r="2.9"/><circle cx="6.8" cy="10.4" r="2.9"/><circle class="f" cx="12" cy="12" r="2.1"/>',
+ cs_spark:'<path class="fo" d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/>',
+ cs_music:'<path d="M9 17.5V5.5l10-2v12"/><circle class="fo" cx="6.5" cy="17.5" r="2.5"/><circle cx="6.5" cy="17.5" r="2.5"/><circle class="fo" cx="16.5" cy="15.5" r="2.5"/><circle cx="16.5" cy="15.5" r="2.5"/>',
+ cs_pad:'<rect class="fo" x="2.5" y="7" width="19" height="10.5" rx="5.2"/><rect x="2.5" y="7" width="19" height="10.5" rx="5.2"/><path d="M7.2 10.2v4.2M5.1 12.3h4.2"/><circle class="f" cx="15.8" cy="11.2" r="1.15"/><circle class="f" cx="18" cy="13.4" r="1.15"/>'});
+const CBADGE_IC=["crown","star","heart","fire","bolt","gem","shiny","trophy","ghost","swords","skull","leaf","snow","drop","sun","mega","tera","tower","ball","rocket","clover","eye","cs_inf","cs_moon","cs_planet","cs_paw","cs_wing","cs_sword","cs_flower","cs_spark","cs_music","cs_pad"];
+const cbName=n=>String(n||"").replace(/[|<>"&]/g,"").trim().slice(0,16);
+const cbId=(icn,fx,n)=>"c|"+icn+"|"+fx+"|"+cbName(n);
+function cbParse(id){if(!id||!String(id).startsWith("c|"))return null;const p=String(id).split("|");if(p.length<4)return null;const icn=p[1],fx=p[2],n=cbName(p.slice(3).join(""));
+  if(!ICONS[icn]||!CBADGE_FX[fx]||!n)return null;return{icn,fx,n};}
 function badgeDef(id){if(BADGE_BY[id])return BADGE_BY[id];
+  {const c=cbParse(id);if(c)return{id,cat:"Verliehen",n:c.n,ic:c.icn,cfx:c.fx,d:"Persönlich verliehenes Abzeichen",v:()=>0,T:[1e15,1e15,1e15,1e15,1e15],T6:null,t5n:c.n,custom:1};}
   if(id&&id.startsWith("t_")){const t=id.slice(2);if(!TYPES[t])return null;return{id,cat:"Typen",n:TYPES[t][0]+"-Experte",ic:"ball",col:TYPES[t][1],d:`Siege mit ${TYPES[t][0]}-Pokémon im Team`,v:()=>((_st().typeW||{})[t])||0,T:[40,150,450,1400,3500],T6:10000,t5n:TYPES[t][0]+"-Großmeister"};}
   if(id&&id.startsWith("p_")){const L=LINE_BY[id.slice(2)];if(!L)return null;const last=L.stages[L.stages.length-1];
     return{id,cat:"Partner",n:"Partner: "+last[1],ic:"heart",sp:last[0],d:`Siege mit ${last[1]} (ganze Linie) im Team`,v:()=>lineSp(L).reduce((a,s)=>a+(((META.dex||{})[s[0]]||{}).wins||0),0),T:[40,150,400,1100,2800],T6:8000,t5n:last[1]+"-Legende"};}
@@ -16002,7 +16163,8 @@ function badgeHTML(id,tier,size){_bSym();const b=badgeDef(id);if(!b||!tier)retur
   const fx=tier>=5?`<u class="bPx">${"<s></s>".repeat(tier>=6?7:4)}</u>`:"";
   const back=(tier>=6?`<b class="bRy"></b>`:"")+(tier>=5?_bU("bWg","bsWg"):tier>=3?_bU("bLf","bsLf"):"");
   const top=tier>=6?`<b class="bCr"></b>`:tier>=4?`<b class="bGm"></b>`:"";
-  return `<div class="bdg t${tier}${size?" "+size:""}" style="--bc:${T.c}" data-tn="${esc(b.n)} ${ROMAN[tier]}" data-td="${esc(T.n)} · ${esc(b.d)}" data-tc="${T.c}">${back}<i>${inner}</i>${tier>=2?_bU("bRg","bsRg"):""}<b class="bSh"></b>${top}${fx}<em>${ROMAN[tier]}</em></div>`;}
+  const cfx=b.cfx&&CBADGE_FX[b.cfx];
+  return `<div class="bdg t${tier}${size?" "+size:""}${cfx?" cst cs-"+b.cfx:""}" style="--bc:${cfx?cfx.c:T.c}" data-tn="${esc(b.n)} ${ROMAN[tier]}" data-td="${esc(T.n)} · ${esc(b.d)}" data-tc="${T.c}">${back}<i>${inner}</i>${tier>=2?_bU("bRg","bsRg"):""}<b class="bSh"></b>${top}${fx}<em>${ROMAN[tier]}</em></div>`;}
 /* Figuren (eigene Pixel-Trainer) */
 const AVATAR={boy:{skin:"#f0c090",hair:"#2a1a10",hs:"short",hat:"cap",hatC:"#e0402e",shirt:"#2a6ad8",shirt2:"#f4f4ee",pants:"#3a3a44",shoes:"#e0402e",role:"trainer",pack:"#d8b048"},
  girl:{skin:"#f8d8b8",hair:"#8a5a2a",hs:"long",hat:"sunhat",hatC:"#e0402e",shirt:"#e0402e",shirt2:"#f4f4ee",skirt:"#2a6ad8",shoes:"#f4f4ee",role:"trainer",pack:"#ffd23f"}};
@@ -16127,7 +16289,7 @@ function avatarCheck(){} // Figurwahl entfernt (v9.5)
 let CARD_TAB="badges",FAV_Q="",FAV_N=60,FAV_R="all";
 function favMatches(){const q=FAV_Q.trim().toLowerCase();let L=favEntries();if(FAV_R!=="all")L=L.filter(e=>favReg(e.id)===FAV_R);return q?L.filter(e=>e.n.toLowerCase().includes(q)||SPECIES[e.id].name.toLowerCase().includes(q)||String(e.id)===q||(q==="mega"&&e.mk)):L;}
 function cardModal(t){t=t||CARD_TAB;CARD_TAB=t;const C=cardMeta(),me=cardMine();let body="";
-  if(t==="badges"){const all=badgeAll(),cats=["Champion","Kampf","Gambit","Sammeln","Typen","Partner"];const got=all.filter(b=>badgeShowT(b)>0).length;
+  if(t==="badges"){const all=badgeAll(),cats=["Verliehen","Champion","Kampf","Gambit","Sammeln","Typen","Partner"];const got=all.filter(b=>badgeShowT(b)>0).length;
     body=`<p class="cdHint">Tippe ein freigeschaltetes Abzeichen an, um es in eines der 3 Felder zu legen (nochmal tippen = entfernen). ${got} von ${all.length} Abzeichen freigeschaltet.</p>`+cats.map(cat=>{const L=all.filter(b=>b.cat===cat);if(!L.length)return"";
       return `<h4 class="cdCat">${cat}</h4><div class="cdGrid">${L.map(b=>{const s0=badgeState(b),gt=bGiftT(b.id),gv=gt>s0.t,s=gv?Object.assign({},s0,{t:gt}):s0,on=C.badges.includes(b.id),pr=gv?1:s.next?Math.min(1,s.v/s.next):b.v5&&s.t===4?Math.min(1,(s.v5||0)/b.T5):s.t===5&&b.T6?Math.min(1,(s.v6||0)/b.T6):1;
         return `<button class="cdB${on?" on":""}${s.t?"":" lock"}" data-b="${b.id}">${badgeHTML(b.id,Math.max(1,s.t),"sm")}${s.t?"":`<span class="cdL">${ic("lock")}</span>`}<div><b>${esc(b.n)} ${s.t?ROMAN[s.t]:""}</b><small>${esc(b.d)}</small>
@@ -16182,7 +16344,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.37.0.6",DUEL_HP=30;
+const MP_VER="1.37.0.7",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -20588,8 +20750,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.37.0.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.37.0.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.37.0.7",d:"04.11.2026",t:"Schnellfix",items:[
+  ["badge", "Trainerkarte: Abzeichen-Darstellung verbessert."]]},
  {v:"1.37.0.6",d:"04.11.2026",t:"Schnellfix",items:[
   ["atk", "Abzeichen Einschlag: Bernstein gibt es schon ab 115.000 Schaden mit einem Treffer (vorher 120.000)."]]},
  {v:"1.37.0.5",d:"04.11.2026",t:"Schnellfix",items:[
