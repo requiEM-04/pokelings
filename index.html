@@ -4064,6 +4064,10 @@ body:not(.battle) .wxLbl{display:none}
 .twSy.s4{color:#d6a8ff;filter:drop-shadow(0 0 5px #b86bffcc);animation:twMyth 3s linear infinite}
 .twSy.s3 .ic .fo,.twSy.s4 .ic .fo{fill-opacity:.85}
 @keyframes twMyth{0%{color:#d6a8ff}33%{color:#ff9ad8}66%{color:#9adfff}100%{color:#d6a8ff}}
+/* ===== v1.37.0.5: Bernstein-Titel – glühendes Bernstein, kräftiger als der Geister-Titel ===== */
+.tt-bernstein{background-image:linear-gradient(110deg,transparent 36%,rgba(255,255,236,1) 50%,transparent 64%),linear-gradient(180deg,#fff6d2 0%,#ffd060 26%,#ff9a1e 50%,#b8500a 66%,#ffcf6a 84%,#fff0b8 100%);background-size:220% 100%,100% 100%;-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent;text-shadow:none!important;animation:ttShine 1.7s linear infinite,ttAmber 2s ease-in-out infinite;filter:drop-shadow(0 0 2px rgba(255,214,110,1)) drop-shadow(0 0 8px rgba(255,150,30,.85)) drop-shadow(0 0 16px rgba(255,110,0,.5))}
+@keyframes ttAmber{0%,100%{filter:drop-shadow(0 0 2px rgba(255,214,110,1)) drop-shadow(0 0 7px rgba(255,150,30,.8)) drop-shadow(0 0 14px rgba(255,110,0,.45))}50%{filter:drop-shadow(0 0 3px rgba(255,240,170,1)) drop-shadow(0 0 12px rgba(255,180,50,1)) drop-shadow(0 0 26px rgba(255,120,0,.8))}}
+.cdT5.amb{color:#ffc46a!important}.cdT5.amb .ic{color:#ffb43a}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -8480,7 +8484,7 @@ function lbTitle(a){if(!a)return null;const def=t=>!t||/^Trainer(in)?$/.test(t);
   const c=a.card&&typeof cardClean==="function"?cardClean(a.card):null;
   if(!c)return a.tt&&a.tt.text?{text:a.tt.text,style:TITLE_FX[a.tt.style]?a.tt.style:null}:null;
   if(def(c.title))return null;
-  const st=a.tt&&a.tt.text===c.title&&TITLE_FX[a.tt.style]?a.tt.style:(typeof evTitleStyle==="function"&&evTitleStyle(c.title))||(isT5Title(c.title)?"geist":null);
+  const st=a.tt&&a.tt.text===c.title&&TITLE_FX[a.tt.style]?a.tt.style:(typeof evTitleStyle==="function"&&evTitleStyle(c.title))||(isT5Title(c.title)?(c.ts==="bernstein"?"bernstein":"geist"):null);
   return {text:c.title,style:st};}
 const lbTTHtml=a=>{const t=lbTitle(a);return t&&typeof ttCls==="function"?`<span class="lbTT"><span${ttCls(t.style)}>${esc(t.text)}</span></span>`:"";};
 function lbRowsHtml(rows,n){return rows.slice(0,n||10).map((a,i)=>`<button class="lbRow r${i+1}" data-n="${esc(a.n)}"><span class="lbRank">${i+1}</span><div class="lbMain"><div class="lbNm"><b>${esc(a.n)}</b>${lbTTHtml(a)}</div>
@@ -14138,6 +14142,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Kampfturm: Die Turmregeln stärken
 if(typeof EN!=="undefined")Object.assign(EN,{"Kampfturm: Die Turm-Hintergründe sind schwerer zu bekommen (Ebene 12, 35 und 65). Das Abzeichen Turmbezwinger braucht für jede Stufe 25 % mehr Ebenen. Schon erreichte Abzeichen-Stufen bleiben erhalten.": "Battle Tower: the tower backgrounds are harder to get (floors 12, 35 and 65). The Tower Conqueror badge needs 25 % more floors for each tier. Badge tiers you already reached are kept.", "Kampfturm: Ebene 12 schaffen": "Battle Tower: clear floor 12", "Kampfturm: Ebene 35 schaffen": "Battle Tower: clear floor 35", "Kampfturm: Ebene 65 schaffen": "Battle Tower: clear floor 65", "Kampfturm: 3 neue Kartenhintergründe für hohe Turm-Ebenen. Neu im Labor: Turmkletterer (+1 Teamplatz im Kampfturm).": "Battle Tower: 3 new card backgrounds for high tower floors. New in the lab: Tower Climber (+1 team slot in the Battle Tower)."});
 /* v1.37.0: Turmsymbole */
 if(typeof EN!=="undefined")Object.assign(EN,{"Turmsymbole haben jetzt 4 Stufen: Silber (ab Ebene 5), Gold (ab 30), neu Platin (ab 60) und Mythisch (ab 90). Platin leuchtet türkis, Mythisch schimmert in wechselnden Farben.": "Tower symbols now have 4 tiers: Silver (from floor 5), Gold (from 30), new Platinum (from 60) and Mythic (from 90). Platinum glows turquoise, Mythic shimmers in changing colors.", "Neue Erfolge: Platin-Sammlung und Mythische Sammlung (alle 7 Koryphäen-Symbole in Platin bzw. Mythisch) sowie Krösus (1000 Gold gleichzeitig besitzen), alle auf Mythisch.": "New achievements: Platinum Collection and Mythic Collection (all 7 Frontier Brain symbols in Platinum or Mythic) and Croesus (own 1000 gold at once), all Mythic.", "Platin-Sammlung": "Platinum Collection", "Mythische Sammlung": "Mythic Collection", "Krösus": "Croesus", "Besiege alle 7 Koryphäen ab Ebene 60 und sammle ihre Platinsymbole.": "Defeat all 7 Frontier Brains from floor 60 on and collect their Platinum symbols.", "Besiege alle 7 Koryphäen ab Ebene 90 und sammle ihre mythischen Symbole.": "Defeat all 7 Frontier Brains from floor 90 on and collect their Mythic symbols.", "Besitze 1000 Gold gleichzeitig.": "Own 1000 gold at once.", "Symbol-Stufen: Silber ab Ebene 5, Gold ab 30, Platin ab 60, Mythisch ab 90.": "Symbol tiers: Silver from floor 5, Gold from 30, Platinum from 60, Mythic from 90.", "Turmsymbole & neue Erfolge": "Tower symbols & new achievements"});
+/* v1.37.0.5: Bernstein-Titel */
+if(typeof EN!=="undefined")Object.assign(EN,{"Abzeichen Einschlag neu gestuft: Die alten Grenzen waren kaum erreichbar. Jetzt: 2.000 · 8.000 · 25.000 · 60.000 · 100.000 (Mythisch) · 120.000 (Bernstein).": "Impact badge retiered: the old thresholds were barely reachable. Now: 2,000 · 8,000 · 25,000 · 60,000 · 100,000 (Mythic) · 120,000 (Amber).", "Titel von Abzeichen auf Bernstein glühen jetzt in einem eigenen Bernstein-Look, kräftiger als der lila Geister-Titel von Mythisch.": "Titles from badges at Amber now glow in their own amber look, stronger than the purple ghost title from Mythic.", " Auf ": " At ", " glüht dieser Titel in Bernstein.": " this title glows in amber."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -15929,7 +15935,7 @@ const BADGE_FIX=[
  {id:"boss",cat:"Kampf",n:"Bossbrecher",ic:"trophy",d:"Besiegte Bosse",v:()=>_st().bosses||0,T:[40,250,800,2400,6000],T6:16000,t5n:"Titanenbezwinger"},
  {id:"tower",cat:"Kampf",n:"Turmbezwinger",ic:"tower",d:"Höchste geschaffte Ebene im Kampfturm",v:()=>typeof twBest==="function"?twBest():0,T:[6,13,25,38,56],T6:88,t5n:"Turmlegende"},
  {id:"ko",cat:"Kampf",n:"Vernichter",ic:"skull",d:"Besiegte Gegner",v:()=>_st().kos||0,T:[2000,18000,80000,250000,600000],T6:1600000,t5n:"Zerstörer"},
- {id:"hit",cat:"Kampf",n:"Einschlag",ic:"atk",d:"Stärkster einzelner Treffer",v:()=>_st().maxHit||0,T:[3000,12000,40000,120000,300000],T6:750000,t5n:"Meteorfaust"},
+ {id:"hit",cat:"Kampf",n:"Einschlag",ic:"atk",d:"Stärkster einzelner Treffer",v:()=>_st().maxHit||0,T:[2000,8000,25000,60000,100000],T6:120000,t5n:"Meteorfaust"},
  {id:"dex",cat:"Sammeln",n:"Pokédex-Profi",ic:"dex",d:"Verschiedene Pokémon gefangen",v:()=>_dex().filter(d=>d.owned>0).length,T:[120,300,500,_DEXN],v5:()=>_dex().filter(d=>d.shiny>0).length,T5:150,d5:"Verschiedene Pokémon schillernd gefangen",v6:()=>_dex().filter(d=>d.shiny>0).length,T6:400,d6:"Verschiedene Pokémon schillernd gefangen",t5n:"Pokédex-Legende"},
  {id:"shiny",cat:"Sammeln",n:"Glitzerjäger",ic:"shiny",d:"Schillernde Pokémon gefunden",v:()=>_dex().reduce((a,d)=>a+(d.shiny||0),0),T:[10,40,120,300,700],T6:2000,t5n:"Glanzgeist"},
  {id:"fuse",cat:"Sammeln",n:"Fusionsmeister",ic:"merge",d:"Fusionen",v:()=>_st().fusions||0,T:[150,1200,5000,15000,40000],T6:100000,t5n:"Fusionsalchemist"},
@@ -15981,7 +15987,7 @@ function badgeKeep(){if(_bOld||!META||META.bkv>=2)return;_bOld=true;const K={},G
 const badgeT5n=b=>b.t5n||b.n+"-Legende";
 function titleFxOf(name){if(!name)return null;if(typeof MYTITLE!=="undefined"&&MYTITLE&&MYTITLE.text===name&&TITLE_FX[MYTITLE.style])return MYTITLE.style;
   try{const et=((META&&META.ev&&META.ev.tt)||[]).find(t=>t.t===name);if(et)return TITLE_FX[et.s]?et.s:null;}catch(e){}
-  try{if(badgeAll().some(b=>badgeT5n(b)===name&&badgeState(b).t>=5))return "geist";}catch(e){}return null;}
+  try{let best=0;for(const b of badgeAll())if(badgeT5n(b)===name)best=Math.max(best,badgeState(b).t);if(best>=6)return "bernstein";if(best>=5)return "geist";}catch(e){}return null;}
 /* SVG-Bausteine einmal im Dokument: Lorbeer, Flügel, Innenring, Rahmen-Ecke (v1.2.1) */
 let _bSymOk=0;
 function _bSym(){if(_bSymOk||typeof document==="undefined"||!document.body)return;_bSymOk=1;const d=document.createElement("div");
@@ -16058,7 +16064,7 @@ function bgHTML(k){_bSym();const b=CARD_BG[k]||CARD_BG.std,lv=b.lv||0;return `<d
 function bgWhy(k,ok){const b=CARD_BG[k]||CARD_BG.std;if(!b.ld)return "Standard-Hintergrund für alle Trainer.";if(b.gift)return b.ld+".";return (ok===false?"Noch gesperrt. Freischalten: ":"Freigeschaltet für: ")+b.ld;}
 const bgOk=k=>{const b=CARD_BG[k];if(!b)return false;if(evHas("bg",k)||((META&&META.bggift)||{})[k])return true;if(b.gift)return false;if(!b.lock)return true;try{badgeKeep();}catch(e){}if(((META&&META.bgkeep)||[]).includes(k))return true;try{return !!b.lock();}catch(e){return false;}};
 /* Lieblingspokémon statt Trainerfigur (v9.5): frei wählbar aus allen Pokémon, die man je besessen hat */
-const TITLE_FX={chrom:"Chrom",gold:"Gold",regenbogen:"Regenbogen",feuer:"Feuer",eis:"Eis",neon:"Neon",galaxie:"Galaxie",smaragd:"Smaragd",geist:"Geist"};
+const TITLE_FX={chrom:"Chrom",gold:"Gold",regenbogen:"Regenbogen",feuer:"Feuer",eis:"Eis",neon:"Neon",galaxie:"Galaxie",smaragd:"Smaragd",geist:"Geist",bernstein:"Bernstein"};
 let MYTITLE=null; // vom Admin vergebener eigener Titel {text,style}, kommt aus der Cloud (lokal je Konto zwischengespeichert)
 const ttKey=n=>"pokelings_tt_"+userKey(n||"");
 function myTitleLocal(){try{const t=USER?LS.get(ttKey(USER),null):null;MYTITLE=t&&t.text?Object.assign({text:String(t.text).slice(0,24),style:TITLE_FX[t.style]?t.style:null},t.en?{en:String(t.en).slice(0,24)}:{}):null;if(MYTITLE&&MYTITLE.en&&typeof ttEnAdd==="function")ttEnAdd(MYTITLE.text,MYTITLE.en);}catch(e){MYTITLE=null;}}
@@ -16123,14 +16129,14 @@ function cardModal(t){t=t||CARD_TAB;CARD_TAB=t;const C=cardMeta(),me=cardMine();
     body=`<p class="cdHint">Tippe ein freigeschaltetes Abzeichen an, um es in eines der 3 Felder zu legen (nochmal tippen = entfernen). ${got} von ${all.length} Abzeichen freigeschaltet.</p>`+cats.map(cat=>{const L=all.filter(b=>b.cat===cat);if(!L.length)return"";
       return `<h4 class="cdCat">${cat}</h4><div class="cdGrid">${L.map(b=>{const s0=badgeState(b),gt=bGiftT(b.id),gv=gt>s0.t,s=gv?Object.assign({},s0,{t:gt}):s0,on=C.badges.includes(b.id),pr=gv?1:s.next?Math.min(1,s.v/s.next):b.v5&&s.t===4?Math.min(1,(s.v5||0)/b.T5):s.t===5&&b.T6?Math.min(1,(s.v6||0)/b.T6):1;
         return `<button class="cdB${on?" on":""}${s.t?"":" lock"}" data-b="${b.id}">${badgeHTML(b.id,Math.max(1,s.t),"sm")}${s.t?"":`<span class="cdL">${ic("lock")}</span>`}<div><b>${esc(b.n)} ${s.t?ROMAN[s.t]:""}</b><small>${esc(b.d)}</small>
-          <span class="cdBar"><i style="width:${Math.round(pr*100)}%;background:${s.t?TIER[s.t].c:"#6a7088"}"></i></span>${gv?`<small class="cdN cdGv">${ic("star")} Verliehen: ${TIER[gt].n}</small>`:`<small class="cdN">${Math.floor(s.v).toLocaleString("de-DE")}${s.next?` / ${s.next.toLocaleString("de-DE")} → ${TIER[s.t+1].n}`:b.v5&&s.t===4?` · ${esc(b.d5)}: ${(s.v5||0).toLocaleString("de-DE")} / ${b.T5} → ${TIER[5].n}`:s.t===5&&b.T6?(b.d6?` · ${esc(b.d6)}: ${Math.floor(s.v6||0).toLocaleString("de-DE")} / ${b.T6.toLocaleString("de-DE")} → ${TIER[6].n}`:` / ${b.T6.toLocaleString("de-DE")} → ${TIER[6].n}`):" · MAX"}</small>${s.t>=5?`<small class="cdT5">${ic("ghost")} Titel: <span class="tt tt-geist">${esc(badgeT5n(b))}</span></small>`:""}`}</div></button>`;}).join("")}</div>`;}).join("");}
+          <span class="cdBar"><i style="width:${Math.round(pr*100)}%;background:${s.t?TIER[s.t].c:"#6a7088"}"></i></span>${gv?`<small class="cdN cdGv">${ic("star")} Verliehen: ${TIER[gt].n}</small>`:`<small class="cdN">${Math.floor(s.v).toLocaleString("de-DE")}${s.next?` / ${s.next.toLocaleString("de-DE")} → ${TIER[s.t+1].n}`:b.v5&&s.t===4?` · ${esc(b.d5)}: ${(s.v5||0).toLocaleString("de-DE")} / ${b.T5} → ${TIER[5].n}`:s.t===5&&b.T6?(b.d6?` · ${esc(b.d6)}: ${Math.floor(s.v6||0).toLocaleString("de-DE")} / ${b.T6.toLocaleString("de-DE")} → ${TIER[6].n}`:` / ${b.T6.toLocaleString("de-DE")} → ${TIER[6].n}`):" · MAX"}</small>${s.t>=5?`<small class="cdT5${s.t>=6?" amb":""}">${ic(s.t>=6?"crown":"ghost")} Titel: <span class="tt tt-${s.t>=6?"bernstein":"geist"}">${esc(badgeT5n(b))}</span></small>`:""}`}</div></button>`;}).join("")}</div>`;}).join("");}
   else if(t==="fav"){const all=favEntries(),d=META.dex||{},rc={};for(const e of all){const r=favReg(e.id);rc[r]=(rc[r]||0)+1;}const shOk=C.favM?favMegaOk(C.fav,C.favM,true):(d[C.fav]&&d[C.fav].shiny>0);if(FAV_R!=="all"&&!rc[FAV_R])FAV_R="all";
     body=`<p class="cdHint">Dein Lieblingspokémon steht auf deiner Kampfkarte, im VS-Bildschirm und in der Bestenliste. Wählbar ist jedes Pokémon, das du schon einmal hattest (${all.length}).<span> Mega-Formen zählen mit, auch schillernd.</span></p>
      <div class="favBar"><input id="favQ" placeholder="Pokémon suchen …" maxlength="20" autocomplete="off" value="${esc(FAV_Q)}">${shOk?`<button class="btn sm${C.favSh?" on":""}" id="favSh">${ic("shiny")} Schillernd</button>`:""}</div>
      <div class="favRegs"><button class="${FAV_R==="all"?"on":""}" data-fr="all">Alle <small>${all.length}</small></button>${Object.keys(REGIONS).filter(r=>rc[r]).map(r=>`<button class="${FAV_R===r?"on":""}" data-fr="${r}">${esc(REGIONS[r].n)} <small>${rc[r]}</small></button>`).join("")}</div>
      <div class="favList"></div><div class="rbtns" style="margin-top:8px"><button class="btn sm" id="favMore" style="display:none">${ic("plus")} Mehr anzeigen</button></div>`;}
   else if(t==="look"){body=`<h4 class="cdCat">Hintergrund</h4><div class="cdBgs">${Object.entries(CARD_BG).filter(([k,b])=>!b.gift||bgOk(k)).sort((x,y)=>(x[1].gift?9:x[1].lv||0)-(y[1].gift?9:y[1].lv||0)).map(([k,b])=>{const ok=bgOk(k);return `<button class="cdBg${C.bg===k?" on":""}${ok?"":" lock"}" data-bg="${k}"><i class="bgThumb">${bgHTML(k)}${b.gift?`<em class="cdEd">${esc(b.ed||"Edition")}</em>`:""}${b.lv?`<em class="cdLv l${b.lv}">${"★".repeat(b.lv)}</em>`:""}</i><b>${ok?"":ic("lock")}${b.n}</b><small class="${ok?"ok":""}">${ok?ic(b.gift?"star":"check"):""}${esc(b.ld||"Für alle Trainer")}</small></button>`;}).join("")}</div>
-    <h4 class="cdCat">Titel</h4><div class="cdTitles"><button class="cdT none${noTitle(C.title)?" on":""}" data-t=""><span>Kein Titel</span></button>${cardTitles(C).map(n=>`<button class="cdT${(C.title||"")===n?" on":""}" data-t="${esc(n)}"><span${ttCls(titleFxOf(n))}>${esc(n)}</span></button>`).join("")}</div><p class="cdHint">Titel gibt es für Abzeichen auf <b>Platin</b>. Auf <b style="color:#c99bff">Mythisch</b> kommt ein eigener Titel im lila Geister-Look dazu.</p>`;}
+    <h4 class="cdCat">Titel</h4><div class="cdTitles"><button class="cdT none${noTitle(C.title)?" on":""}" data-t=""><span>Kein Titel</span></button>${cardTitles(C).map(n=>`<button class="cdT${(C.title||"")===n?" on":""}" data-t="${esc(n)}"><span${ttCls(titleFxOf(n))}>${esc(n)}</span></button>`).join("")}</div><p class="cdHint">Titel gibt es für Abzeichen auf <b>Platin</b>. Auf <b style="color:#c99bff">Mythisch</b> kommt ein eigener Titel im lila Geister-Look dazu.<span> Auf <b style="color:#ffb43a">Bernstein</b> glüht dieser Titel in Bernstein.</span></p>`;}
   openModal(`<h2>${ic("user")} TRAINERKARTE</h2><div class="cdWrap"><div class="cdPrev">${cardHTML(me)}<p class="cdHint" style="text-align:center">So sehen dich Gegner im Live-Duell und in der Bestenliste.</p></div>
     <div class="cdSide"><div class="dtabs"><button data-ct="badges" class="${t==="badges"?"on":""}">ABZEICHEN</button><button data-ct="fav" class="${t==="fav"?"on":""}">LIEBLINGSPOKÉMON</button><button data-ct="look" class="${t==="look"?"on":""}">STIL</button></div><div class="cdBody">${body}</div></div></div>
     <div class="rbtns" style="margin-top:12px"><button class="btn" id="cdFr">${ic("users")} Freunde</button><button class="btn" id="cdBack">${ic("back")} Zurück</button></div>`,"wide",true);
@@ -16174,7 +16180,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.37.0",DUEL_HP=30;
+const MP_VER="1.37.0.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -20580,8 +20586,11 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.37.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.37.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.37.0.5",d:"04.11.2026",t:"Schnellfix",items:[
+  ["atk", "Abzeichen Einschlag neu gestuft: Die alten Grenzen waren kaum erreichbar. Jetzt: 2.000 · 8.000 · 25.000 · 60.000 · 100.000 (Mythisch) · 120.000 (Bernstein)."],
+  ["crown", "Titel von Abzeichen auf Bernstein glühen jetzt in einem eigenen Bernstein-Look, kräftiger als der lila Geister-Titel von Mythisch."]]},
  {v:"1.37.0",d:"04.11.2026",t:"Turmsymbole & neue Erfolge",items:[
   ["sy_anabel", "Turmsymbole haben jetzt 4 Stufen: Silber (ab Ebene 5), Gold (ab 30), neu Platin (ab 60) und Mythisch (ab 90). Platin leuchtet türkis, Mythisch schimmert in wechselnden Farben."],
   ["trophy", "Neue Erfolge: Platin-Sammlung und Mythische Sammlung (alle 7 Koryphäen-Symbole in Platin bzw. Mythisch) sowie Krösus (1000 Gold gleichzeitig besitzen), alle auf Mythisch."]]},
