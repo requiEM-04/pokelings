@@ -4059,6 +4059,11 @@ body:not(.battle) .wxLbl{display:none}
 .twRule.curse .ic,.twRule.curse b{color:#ff8a9a}
 .twFl .twCu{display:inline-grid;place-items:center;margin-left:auto;color:#ff7a8a;opacity:.75}.twFl .twCu .ic{width:11px;height:11px}
 .koryIntro .kiTxt .kiCurse{color:#ff9aa8}
+/* ===== v1.37.0: Turmsymbole Platin und Mythisch ===== */
+.twSy.s3{color:#8af0ff;filter:drop-shadow(0 0 4px #5cf2ffaa)}
+.twSy.s4{color:#d6a8ff;filter:drop-shadow(0 0 5px #b86bffcc);animation:twMyth 3s linear infinite}
+.twSy.s3 .ic .fo,.twSy.s4 .ic .fo{fill-opacity:.85}
+@keyframes twMyth{0%{color:#d6a8ff}33%{color:#ff9ad8}66%{color:#9adfff}100%{color:#d6a8ff}}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -8219,6 +8224,8 @@ const ACH=[
  {id:"tw50",cat:"tower",t:4,ic:"trophy",n:"Turmlegende",d:"Schaffe Ebene 50 im Kampfturm.",prog:()=>[twBest(),50]},
  {id:"twsilver",cat:"tower",t:3,ic:"sy_anabel",n:"Silberne Sammlung",d:"Besiege alle 7 Koryphäen und sammle ihre Silbersymbole.",prog:()=>[twSymN(1),7],rw:"shaymin"},
  {id:"twgold",cat:"tower",t:4,ic:"sy_brandon",n:"Goldene Sammlung",d:"Besiege alle 7 Koryphäen ab Ebene 30 und sammle ihre Goldsymbole.",prog:()=>[twSymN(2),7],rw:"miraidon"},
+ {id:"twplat",cat:"tower",t:5,ic:"sy_greta",n:"Platin-Sammlung",d:"Besiege alle 7 Koryphäen ab Ebene 60 und sammle ihre Platinsymbole.",prog:()=>[twSymN(3),7]},
+ {id:"twmyth",cat:"tower",t:5,ic:"sy_tucker",n:"Mythische Sammlung",d:"Besiege alle 7 Koryphäen ab Ebene 90 und sammle ihre mythischen Symbole.",prog:()=>[twSymN(4),7]},
  {id:"twclean",cat:"tower",t:3,ic:"heart",n:"Ohne Kratzer",d:"Schaffe 10 Ebenen in einem Aufstieg, ohne einen Kampf im Turm zu verlieren.",chk:()=>!!(S&&S.tower&&(S.tower.cl|0)>=10&&!S.tower.lost)},
  {id:"twworld",cat:"tower",t:3,ic:"route",n:"Turm-Weltreise",d:"Schaffe Ebene 10 im Kampfturm in 5 verschiedenen Regionen.",prog:()=>[twRegsAt(10),5]},
  // Champion
@@ -8267,6 +8274,7 @@ const ACH=[
  {id:"megaX",cat:"fight",t:3,ic:"mega",n:"Doppel-Mega",d:"Löse in einem einzigen Kampf 2 Mega-Entwicklungen aus."},
  {id:"elite5",cat:"fight",t:3,ic:"skull",n:"Elite-Jäger",d:"Besiege 5 Elite-Gegner in einem einzigen Lauf.",chk:()=>S&&(S.elites||0)>=5},
  {id:"rich100",cat:"fight",t:3,ic:"coin",n:"Goldrausch",d:"Besitze 100 Gold gleichzeitig.",chk:()=>S&&S.gold>=100},
+ {id:"rich1000",cat:"fight",t:5,ic:"coin",n:"Krösus",d:"Besitze 1000 Gold gleichzeitig.",chk:()=>S&&S.gold>=1000},
  {id:"untouched",cat:"fight",t:4,ic:"bubble",n:"Unberührbar",d:"Gewinne den Finalkampf in Runde 20, ohne dass eines deiner Pokémon besiegt wird.",rw:"marshadow"},
  {id:"blitz",cat:"fight",t:4,ic:"bolt",n:"Blitzsieg",d:"Gewinne den Finalkampf in Runde 20 in unter 12 Sekunden Kampfzeit.",rw:"zapdos"},
  {id:"star2leg",cat:"fight",t:4,ic:"crown",n:"Göttlich",d:"Bringe ein legendäres Pokémon auf ★★.",chk:()=>_all().some(u=>u.stars>=2&&SPECIES[u.sp].line.leg),rw:"arceus"},
@@ -14128,6 +14136,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Trainerkarte: Mega-Entwicklungen s
 if(typeof EN!=="undefined")Object.assign(EN,{"Kampfturm: Die Turmregeln stärken jetzt nur noch die Gegner (z. B. Rückenwind, Dicke Haut, Kraftrausch, Regeneration). Ab Ebene 25 kommt zusätzlich eine leichte Schwächung für dein Team dazu (3 %, langsam steigend bis höchstens 8 %).": "Battle Tower: tower rules now only strengthen the foes (e.g. Tailwind, Thick Skin, Power Rush, Regeneration). From floor 25 a light weakening for your team is added (3 %, slowly rising to at most 8 %).", "Gegner greifen 10 % schneller an.": "Foes attack 10 % faster.", "Gegner haben 15 % mehr KP.": "Foes have 15 % more HP.", "Kraftrausch": "Power Rush", "Gegner +12 % Angriff.": "Foes +12 % attack.", "Gegner regenerieren 0,6 % ihrer KP pro Sekunde.": "Foes regenerate 0.6 % of their HP per second.", "Gegner starten mit 30 % Energie.": "Foes start with 30 % energy.", "-Pokémon der Gegner +15 % KP und Angriff.": "-type foes +15 % HP and attack.", "Gegner starten mit einem Schild über 10 % ihrer KP.": "Foes start with a shield of 10 % HP.", "Gegner +10 % Krit-Chance.": "Foes +10 % crit chance.", "Gegner weichen 8 % häufiger aus.": "Foes dodge 8 % more often.", "Erschöpfung": "Exhaustion", "Zerbrechlich": "Fragile", "Schwere Luft": "Heavy Air", "Rissige Rüstung": "Cracked Armor", "Heilsperre": "Heal Block", "Energieleck": "Energy Leak", "Dein Team −": "Your team −", " Angriff.": " attack.", " KP.": " HP.", " Verteidigung.": " defense.", "Dein Team greift ": "Your team attacks ", " langsamer an.": " slower.", "Heilungen deines Teams wirken ": "Your team's healing is ", " schwächer.": " weaker.", "Spezialattacken deines Teams brauchen ": "Your team's special moves need ", " mehr Energie.": " more energy.", "Jede Ebene stärkt die Gegner mit einer eigenen Regel. Ab Ebene 25 schwächt zusätzlich ein leichter Fluch dein Team.": "Every floor strengthens the foes with its own rule. From floor 25 a light curse also weakens your team.", "Meine Schlangen erholen sich schneller, als du zuschlagen kannst.": "My serpents recover faster than you can strike.", "Ab Ebene 25: leichter Fluch für dein Team": "From floor 25: light curse for your team"});
 /* v1.36.0.9: Turm-Hintergründe */
 if(typeof EN!=="undefined")Object.assign(EN,{"Kampfturm: Die Turm-Hintergründe sind schwerer zu bekommen (Ebene 12, 35 und 65). Das Abzeichen Turmbezwinger braucht für jede Stufe 25 % mehr Ebenen. Schon erreichte Abzeichen-Stufen bleiben erhalten.": "Battle Tower: the tower backgrounds are harder to get (floors 12, 35 and 65). The Tower Conqueror badge needs 25 % more floors for each tier. Badge tiers you already reached are kept.", "Kampfturm: Ebene 12 schaffen": "Battle Tower: clear floor 12", "Kampfturm: Ebene 35 schaffen": "Battle Tower: clear floor 35", "Kampfturm: Ebene 65 schaffen": "Battle Tower: clear floor 65", "Kampfturm: 3 neue Kartenhintergründe für hohe Turm-Ebenen. Neu im Labor: Turmkletterer (+1 Teamplatz im Kampfturm).": "Battle Tower: 3 new card backgrounds for high tower floors. New in the lab: Tower Climber (+1 team slot in the Battle Tower)."});
+/* v1.37.0: Turmsymbole */
+if(typeof EN!=="undefined")Object.assign(EN,{"Turmsymbole haben jetzt 4 Stufen: Silber (ab Ebene 5), Gold (ab 30), neu Platin (ab 60) und Mythisch (ab 90). Platin leuchtet türkis, Mythisch schimmert in wechselnden Farben.": "Tower symbols now have 4 tiers: Silver (from floor 5), Gold (from 30), new Platinum (from 60) and Mythic (from 90). Platinum glows turquoise, Mythic shimmers in changing colors.", "Neue Erfolge: Platin-Sammlung und Mythische Sammlung (alle 7 Koryphäen-Symbole in Platin bzw. Mythisch) sowie Krösus (1000 Gold gleichzeitig besitzen), alle auf Mythisch.": "New achievements: Platinum Collection and Mythic Collection (all 7 Frontier Brain symbols in Platinum or Mythic) and Croesus (own 1000 gold at once), all Mythic.", "Platin-Sammlung": "Platinum Collection", "Mythische Sammlung": "Mythic Collection", "Krösus": "Croesus", "Besiege alle 7 Koryphäen ab Ebene 60 und sammle ihre Platinsymbole.": "Defeat all 7 Frontier Brains from floor 60 on and collect their Platinum symbols.", "Besiege alle 7 Koryphäen ab Ebene 90 und sammle ihre mythischen Symbole.": "Defeat all 7 Frontier Brains from floor 90 on and collect their Mythic symbols.", "Besitze 1000 Gold gleichzeitig.": "Own 1000 gold at once.", "Symbol-Stufen: Silber ab Ebene 5, Gold ab 30, Platin ab 60, Mythisch ab 90.": "Symbol tiers: Silver from floor 5, Gold from 30, Platinum from 60, Mythic from 90.", "Turmsymbole & neue Erfolge": "Tower symbols & new achievements"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -16164,7 +16174,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.36.0.9",DUEL_HP=30;
+const MP_VER="1.37.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -20570,8 +20580,11 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.36.0.9"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.37.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.37.0",d:"04.11.2026",t:"Turmsymbole & neue Erfolge",items:[
+  ["sy_anabel", "Turmsymbole haben jetzt 4 Stufen: Silber (ab Ebene 5), Gold (ab 30), neu Platin (ab 60) und Mythisch (ab 90). Platin leuchtet türkis, Mythisch schimmert in wechselnden Farben."],
+  ["trophy", "Neue Erfolge: Platin-Sammlung und Mythische Sammlung (alle 7 Koryphäen-Symbole in Platin bzw. Mythisch) sowie Krösus (1000 Gold gleichzeitig besitzen), alle auf Mythisch."]]},
  {v:"1.36.0.9",d:"04.11.2026",t:"Schnellfix",items:[
   ["tower", "Kampfturm: Die Turm-Hintergründe sind schwerer zu bekommen (Ebene 12, 35 und 65). Das Abzeichen Turmbezwinger braucht für jede Stufe 25 % mehr Ebenen. Schon erreichte Abzeichen-Stufen bleiben erhalten."]]},
  {v:"1.36.0.8",d:"04.11.2026",t:"Schnellfix",items:[
@@ -21100,7 +21113,10 @@ const TW_LOCS=["twhalle","twdach","twnacht"];
 const twOn=()=>typeof S!=="undefined"&&!!(S&&S.tower&&!S.duel);
 const twFloor=()=>twOn()?Math.max(0,S.round-20):0;
 const twIsBoss=f=>f>0&&f%5===0;
-const twTierOf=f=>f>=30?2:1;
+/* v1.37.0: Symbol-Stufen je Koryphäe: Silber (ab Ebene 5), Gold (ab 30), Platin (ab 60), Mythisch (ab 90) */
+const TW_SYMT=[null,{n:"Silber",f:5},{n:"Gold",f:30},{n:"Platin",f:60},{n:"Mythisch",f:90}];
+const twTierOf=f=>f>=90?4:f>=60?3:f>=30?2:1;
+const twSymTN=t=>(TW_SYMT[t]||TW_SYMT[1]).n;
 function twKor(f){const k0=(S&&S.tower&&S.tower.k0)|0;return KORY[((k0+Math.floor(f/5)-1)%KORY.length+KORY.length)%KORY.length];}
 function twRng(tag){return mkRng(strHash(((S&&S.seed)||1)+"|tw|"+tag));}
 function twMeta(){const T=META.tower||(META.tower={});T.best=T.best||{};T.sym=T.sym||{};T.top=T.top|0;T.runs=T.runs|0;T.kory=T.kory|0;T.floors=T.floors|0;return T;}
@@ -21191,14 +21207,14 @@ function twOnWin(){if(!twOn())return null;const f=twFloor(),T=twMeta(),out={f,ro
   twRecord(f);saveMeta();return out;}
 function twWinRows(o){if(!o)return"";let h=`<div class="incRow" style="color:var(--cyan)"><span>${ic("tower","","width:14px;height:14px")} Ebene ${o.f} geschafft</span><span>${o.f>(S.tower.best0|0)?"REKORD!":""}</span></div>`;
   for(const r of o.rows){if(r.life)h+=`<div class="incRow" style="color:#ff8ab0"><span>${ic("heart","","width:14px;height:14px")} Turm-Leben zurück</span><span>${S.tower.lives}/${TW.lives}</span></div>`;
-    else{const K=KORY_BY[r.k];h+=`<div class="incRow twSymRow" style="--kc:${K.col}"><span><i class="twSy s${r.tier}">${ic(K.ic)}</i> ${K.sym} (${r.tier>=2?"Gold":"Silber"})</span><span>${r.neu?"NEU!":"schon im Besitz"}</span></div>`;}}
+    else{const K=KORY_BY[r.k];h+=`<div class="incRow twSymRow" style="--kc:${K.col}"><span><i class="twSy s${r.tier}">${ic(K.ic)}</i> ${K.sym} (${twSymTN(r.tier)})</span><span>${r.neu?"NEU!":"schon im Besitz"}</span></div>`;}}
   return h;}
 /* Turm verlassen (aufgegeben oder ohne Leben): Edelsteine, Rekord, Ergebnis */
 function towerFinish(){clearZones();S.phase="over";enterBattleMode(false);const f=twFloor(),cl=Math.max(0,f-1),mm=MODES[S.mode],T=twMeta();twRecord(cl);
   const gemB=gemEventMul(),gems=Math.max(0,Math.round((TW.gem*cl+TW.gemK*(S.tower.kory|0))*mm.gem*(1+.1*perk("gemhunter"))*gemB*(hasRelic("gembag")?1.2:1)));
   META.gems+=gems;META.gemsTotal+=gems;const run=(META.runs||[]).find(x=>x.t===S.tower.runT);if(run){run.tw=cl;run.twk=S.tower.kory|0;}
   const rec=cl>(S.tower.best0|0),best=twBest(S.region||"kanto");saveMeta();_achT=0;try{achCheck();}catch(e){}LS.del(saveKey());setTab("raster");
-  const syms=KORY.map(K=>{const t=T.sym[K.id]|0;return `<i class="twSy s${t}" style="--kc:${K.col}" title="${esc(K.sym)}">${ic(K.ic)}</i>`;}).join("");
+  const syms=KORY.map(K=>{const t=T.sym[K.id]|0;return `<i class="twSy s${t}" style="--kc:${K.col}" title="${esc(K.sym)}${t?" ("+twSymTN(t)+")":""}">${ic(K.ic)}</i>`;}).join("");
   $("result").innerHTML=`<div class="rWrap"><div class="rHead ${rec?"win":"lose"}">${rec?"NEUER REKORD!":"TURM VERLASSEN"}</div><div class="rPanel glass"><h4>${cl?`Im Kampfturm geschafft: ${cl} ${cl===1?"Ebene":"Ebenen"}`:"Der Aufstieg endet schon auf der ersten Ebene."}</h4>
    <div class="rewards"><div class="incRow"><span>Geschaffte Ebenen</span><span>${cl}</span></div><div class="incRow"><span>Koryphäen besiegt</span><span>${S.tower.kory|0}</span></div><div class="incRow"><span>Turm-Rekord (${REGIONS[S.region||"kanto"].n} · ${mm.n})</span><span>Ebene ${best}</span></div>${gemB>1?`<div class="incRow" style="color:var(--gem)"><span>${ic("gem","","width:14px;height:14px")} Tagesbonus</span><span>+${Math.round((gemB-1)*100)} %</span></div>`:""}<div class="incRow sum"><span>Edelsteine</span><span style="color:var(--gem)">+${gems}</span></div></div>
    <div class="twSyms">${syms}</div>
@@ -21236,7 +21252,7 @@ function towerHud(){const w=$("wwrap");if(!w)return;let h=$("twHud");if(!twOn())
 /* Statistik-Zeilen (Erfolge → Statistik) */
 function twStatHtml(){const T=(META&&META.tower)||{};if(!T.runs)return"";const row=(a,b)=>`<div class="incRow"><span>${a}</span><span>${b}</span></div>`;
   return `<h3 style="color:var(--cyan);margin:14px 0 6px">${ic("tower")} KAMPFTURM</h3>${row("Höchste geschaffte Ebene",T.top|0)}${row("Aufstiege",T.runs|0)}${row("Geschaffte Ebenen insgesamt",T.floors|0)}${row("Koryphäen besiegt",T.kory|0)}
-   <div class="twSyms" style="justify-content:flex-start">${KORY.map(K=>`<i class="twSy s${(T.sym||{})[K.id]|0}" style="--kc:${K.col}" title="${esc(K.sym)}">${ic(K.ic)}</i>`).join("")}</div>`;}
+   <div class="twSyms" style="justify-content:flex-start">${KORY.map(K=>{const t=(T.sym||{})[K.id]|0;return `<i class="twSy s${t}" style="--kc:${K.col}" title="${esc(K.sym)}${t?" ("+twSymTN(t)+")":""}">${ic(K.ic)}</i>`;}).join("")}</div><p class="cdHint" style="margin:6px 0 0">Symbol-Stufen: Silber ab Ebene 5, Gold ab 30, Platin ab 60, Mythisch ab 90.</p>`;}
 
 /* ================================ ULTRA-BESTIEN (v1.7.0) ================================
    Alola: Ultra-Raids (eigener Wegtyp ab Runde 8), das Ereignis „Ultrapforte“ und die Fähigkeit Bestien-Boost. */
