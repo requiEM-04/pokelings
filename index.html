@@ -4054,6 +4054,11 @@ body:not(.battle) .wxLbl{display:none}
 /* ===== v1.36.0.7: Mega-Formen als Lieblingspokémon ===== */
 .favB{position:relative}.favB .favMg{position:absolute;top:3px;left:3px;padding:1px 4px;border-radius:3px;font:400 7px var(--px);font-style:normal;letter-spacing:.04em;color:#fff;background:linear-gradient(90deg,#ff5ad8,#8a5aff);box-shadow:0 0 6px rgba(255,90,216,.45);pointer-events:none}
 .favB.mg{border-color:rgba(255,122,216,.35)}
+/* ===== v1.36.0.8: Kampfturm – Fluch fürs eigene Team ===== */
+.twRule.curse{border-color:rgba(255,90,110,.45);background:linear-gradient(90deg,rgba(255,70,90,.16),rgba(255,70,90,.05))}
+.twRule.curse .ic,.twRule.curse b{color:#ff8a9a}
+.twFl .twCu{display:inline-grid;place-items:center;margin-left:auto;color:#ff7a8a;opacity:.75}.twFl .twCu .ic{width:11px;height:11px}
+.koryIntro .kiTxt .kiCurse{color:#ff9aa8}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -14119,6 +14124,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Bestenliste: Die Turm-Ebene wird d
 if(typeof EN!=="undefined")Object.assign(EN,{"Kartenhintergründe überarbeitet: In der Tiefsee schwimmen die Fische jetzt vorwärts (in beide Richtungen), dazu ein Fischschwarm, Quallen und Korallen. Sandsturm mit ziehenden Staubwolken, Steppenläufer, Pyramide und Kaktus. Sternennacht mit Sternschnuppe und Glühwürmchen. Die Kampfturm-Motive behalten auf dem breiten Kampfbildschirm ihre Form.": "Card backgrounds reworked: in Deep Sea the fish now swim forwards (in both directions), plus a school of fish, jellyfish and corals. Sandstorm with drifting dust clouds, a tumbleweed, a pyramid and a cactus. Starry Night with a shooting star and fireflies. The Battle Tower backgrounds keep their shape on the wide battle screen."});
 /* v1.36.0.7: Mega-Lieblingspokémon */
 if(typeof EN!=="undefined")Object.assign(EN,{"Trainerkarte: Mega-Entwicklungen sind jetzt als Lieblingspokémon wählbar, auch schillernd, sobald du die Form schon einmal hattest. Sie erscheinen auf der Kampfkarte, im VS-Bildschirm und in der Bestenliste.": "Trainer card: Mega Evolutions can now be picked as your favorite Pokémon, shiny too, once you have had that form. They show on your battle card, on the VS screen and on the leaderboard.", " Mega-Formen zählen mit, auch schillernd.": " Mega forms count too, shiny as well.", "Einstellungen: Neue Gruppe „Animationen“. Dort kannst du die Animationen für Entwicklungen und Sterne sowie für Mega-Entwicklungen überspringen.": "Settings: new “Animations” group. There you can skip the animations for evolutions and stars as well as for Mega Evolutions.", "Animationen": "Animations", "Entwicklungen & Sterne": "Evolutions & stars", "Animation beim Fusionieren": "Animation when fusing", "Animation zu Kampfbeginn": "Animation at battle start", "Zeigen": "Show"});
+/* v1.36.0.8: Kampfturm */
+if(typeof EN!=="undefined")Object.assign(EN,{"Kampfturm: Die Turmregeln stärken jetzt nur noch die Gegner (z. B. Rückenwind, Dicke Haut, Kraftrausch, Regeneration). Ab Ebene 25 kommt zusätzlich eine leichte Schwächung für dein Team dazu (3 %, langsam steigend bis höchstens 8 %).": "Battle Tower: tower rules now only strengthen the foes (e.g. Tailwind, Thick Skin, Power Rush, Regeneration). From floor 25 a light weakening for your team is added (3 %, slowly rising to at most 8 %).", "Gegner greifen 10 % schneller an.": "Foes attack 10 % faster.", "Gegner haben 15 % mehr KP.": "Foes have 15 % more HP.", "Kraftrausch": "Power Rush", "Gegner +12 % Angriff.": "Foes +12 % attack.", "Gegner regenerieren 0,6 % ihrer KP pro Sekunde.": "Foes regenerate 0.6 % of their HP per second.", "Gegner starten mit 30 % Energie.": "Foes start with 30 % energy.", "-Pokémon der Gegner +15 % KP und Angriff.": "-type foes +15 % HP and attack.", "Gegner starten mit einem Schild über 10 % ihrer KP.": "Foes start with a shield of 10 % HP.", "Gegner +10 % Krit-Chance.": "Foes +10 % crit chance.", "Gegner weichen 8 % häufiger aus.": "Foes dodge 8 % more often.", "Erschöpfung": "Exhaustion", "Zerbrechlich": "Fragile", "Schwere Luft": "Heavy Air", "Rissige Rüstung": "Cracked Armor", "Heilsperre": "Heal Block", "Energieleck": "Energy Leak", "Dein Team −": "Your team −", " Angriff.": " attack.", " KP.": " HP.", " Verteidigung.": " defense.", "Dein Team greift ": "Your team attacks ", " langsamer an.": " slower.", "Heilungen deines Teams wirken ": "Your team's healing is ", " schwächer.": " weaker.", "Spezialattacken deines Teams brauchen ": "Your team's special moves need ", " mehr Energie.": " more energy.", "Jede Ebene stärkt die Gegner mit einer eigenen Regel. Ab Ebene 25 schwächt zusätzlich ein leichter Fluch dein Team.": "Every floor strengthens the foes with its own rule. From floor 25 a light curse also weakens your team.", "Meine Schlangen erholen sich schneller, als du zuschlagen kannst.": "My serpents recover faster than you can strike.", "Ab Ebene 25: leichter Fluch für dein Team": "From floor 25: light curse for your team"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -16154,7 +16161,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.36.0.7",DUEL_HP=30;
+const MP_VER="1.36.0.8",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -20560,8 +20567,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.36.0.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.36.0.8"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.36.0.8",d:"04.11.2026",t:"Schnellfix",items:[
+  ["tower", "Kampfturm: Die Turmregeln stärken jetzt nur noch die Gegner (z. B. Rückenwind, Dicke Haut, Kraftrausch, Regeneration). Ab Ebene 25 kommt zusätzlich eine leichte Schwächung für dein Team dazu (3 %, langsam steigend bis höchstens 8 %)."]]},
  {v:"1.36.0.7",d:"04.11.2026",t:"Schnellfix",items:[
   ["gear", "Einstellungen: Neue Gruppe „Animationen“. Dort kannst du die Animationen für Entwicklungen und Sterne sowie für Mega-Entwicklungen überspringen."],
   ["mega", "Trainerkarte: Mega-Entwicklungen sind jetzt als Lieblingspokémon wählbar, auch schillernd, sobald du die Form schon einmal hattest. Sie erscheinen auf der Kampfkarte, im VS-Bildschirm und in der Bestenliste."]]},
@@ -21049,27 +21058,39 @@ function introShow(){if(!introNeed()||!$("menu").classList.contains("show")||$("
 /* ================================ KAMPFTURM (v1.6.0) ================================
    Nach dem Champion-Sieg geht derselbe Lauf im Kampfturm weiter: endlose Ebenen mit Turmregeln,
    jede 5. Ebene eine Koryphäe. Rekorde, Symbole und Statistik liegen lokal in META.tower (keine Server-Änderung). */
-const TW={lives:3,ramp:.03,bossM:1,bf:{5:.92,10:.88,15:.95,20:.75,25:.68,30:.6,35:.56},bfR:0,gem:5,gemK:20,mk:{easy:.92,normal:1,hard:.92,night:.9,nuzlocke:.92}};
+const TW={lives:3,ramp:.03,cf:25,bossM:1,bf:{5:.92,10:.88,15:.95,20:.75,25:.68,30:.6,35:.56},bfR:0,gem:5,gemK:20,mk:{easy:.92,normal:1,hard:.92,night:.9,nuzlocke:.92}};
 const KORY=[
  {id:"anabel",m:1.0,n:"Anabel",t:"Turm-Koryphäe",sym:"Turmsymbol",ic:"sy_anabel",col:"#5cf2ff",rule:"pure",th:"best",q:"Zeig mir, wie stark dein Team wirklich ist."},
  {id:"brandon",m:0.94,n:"Brandon",t:"Pyramiden-Koryphäe",sym:"Pyramidensymbol",ic:"sy_brandon",col:"#ffb020",rule:"bulk",th:"leg",q:"Nur wer Legenden standhält, steigt weiter auf!"},
  {id:"greta",m:1.04,n:"Greta",t:"Arena-Koryphäe",sym:"Arenasymbol",ic:"sy_greta",col:"#ff6b5c",rule:"glass",th:"melee",q:"Kein Zögern! Wer zuerst zuschlägt, gewinnt!"},
- {id:"lucy",m:1.0,n:"Lucy",t:"Schlangen-Koryphäe",sym:"Schlangensymbol",ic:"sy_lucy",col:"#c27cff",rule:"noheal",th:"venom",q:"Hier gibt es keine Heilung. Nur Ausdauer."},
+ {id:"lucy",m:1.0,n:"Lucy",t:"Schlangen-Koryphäe",sym:"Schlangensymbol",ic:"sy_lucy",col:"#c27cff",rule:"noheal",th:"venom",q:"Meine Schlangen erholen sich schneller, als du zuschlagen kannst."},
  {id:"noland",m:0.97,n:"Noland",t:"Fabrik-Koryphäe",sym:"Fabriksymbol",ic:"sy_noland",col:"#9ad0ff",rule:"mana",th:"rent",q:"Wissen schlägt Glück. Meistens jedenfalls."},
  {id:"spencer",m:0.88,n:"Spencer",t:"Palast-Koryphäe",sym:"Palastsymbol",ic:"sy_spencer",col:"#4dffa6",rule:"type",th:"type",q:"Ein Team, ein Herz, ein Typ."},
  {id:"tucker",m:1.0,n:"Tucker",t:"Dom-Koryphäe",sym:"Domsymbol",ic:"sy_tucker",col:"#ff7ad8",rule:"tail",th:"sky",q:"Vorhang auf! Das Publikum will eine Show!"}];
 const KORY_BY={};KORY.forEach(k=>KORY_BY[k.id]=k);
 const TW_RULES={
  pure:{n:"Reiner Kampf",ic:"swords",d:"Keine Sonderregel."},
- tail:{n:"Rückenwind",ic:"fast",d:"Alle Pokémon greifen 25 % schneller an."},
- bulk:{n:"Dicke Haut",ic:"def",d:"Alle Pokémon haben 40 % mehr KP."},
- glass:{n:"Glaskanone",ic:"atk",d:"Alle Pokémon +30 % Angriff, aber −20 % KP."},
- noheal:{n:"Heilverbot",ic:"heart",d:"Jede Heilung wirkt nur halb so stark."},
- mana:{n:"Energiefluss",ic:"bolt",d:"Alle Pokémon starten mit halb voller Energie."},
- type:{n:"Typ-Fokus",ic:"star",d:"{T}-Pokémon beider Seiten +25 % KP und Angriff."},
- shield:{n:"Schildwall",ic:"def",d:"Alle Pokémon starten mit einem Schild über 15 % ihrer KP."},
- crit:{n:"Volltreffer",ic:"crit",d:"Alle Pokémon +20 % Krit-Chance."},
- dodge:{n:"Nebelschwaden",ic:"eye",d:"Alle Pokémon weichen 15 % häufiger aus."}};
+ tail:{n:"Rückenwind",ic:"fast",d:"Gegner greifen 10 % schneller an."},
+ bulk:{n:"Dicke Haut",ic:"def",d:"Gegner haben 15 % mehr KP."},
+ glass:{n:"Kraftrausch",ic:"atk",d:"Gegner +12 % Angriff."},
+ noheal:{n:"Regeneration",ic:"heart",d:"Gegner regenerieren 0,6 % ihrer KP pro Sekunde."},
+ mana:{n:"Energiefluss",ic:"bolt",d:"Gegner starten mit 30 % Energie."},
+ type:{n:"Typ-Fokus",ic:"star",d:"{T}-Pokémon der Gegner +15 % KP und Angriff."},
+ shield:{n:"Schildwall",ic:"def",d:"Gegner starten mit einem Schild über 10 % ihrer KP."},
+ crit:{n:"Volltreffer",ic:"crit",d:"Gegner +10 % Krit-Chance."},
+ dodge:{n:"Nebelschwaden",ic:"eye",d:"Gegner weichen 8 % häufiger aus."}};
+/* v1.36.0.8: ab Ebene 25 zusätzlich eine leichte Schwächung für dein Team (je Ebene fest, steigt ganz langsam von 3 % auf höchstens 8 %) */
+const TW_CURSE={
+ weak:{n:"Erschöpfung",ic:"atk",d:"Dein Team −{V} Angriff."},
+ frail:{n:"Zerbrechlich",ic:"hp",d:"Dein Team −{V} KP."},
+ slow:{n:"Schwere Luft",ic:"fast",d:"Dein Team greift {V} langsamer an."},
+ armor:{n:"Rissige Rüstung",ic:"def",d:"Dein Team −{V} Verteidigung."},
+ heal:{n:"Heilsperre",ic:"heart",d:"Heilungen deines Teams wirken {H} schwächer."},
+ drain:{n:"Energieleck",ic:"drop",d:"Spezialattacken deines Teams brauchen {V} mehr Energie."}};
+const twCurseV=f=>Math.round(Math.min(.08,.03+.001*Math.max(0,f-25))*1000)/1000;
+function twCurse(f){f=f||twFloor();if(!f||f<TW.cf)return null;const R=twRng("curse"+f),ks=Object.keys(TW_CURSE);return{k:ks[Math.floor(R()*ks.length)],v:twCurseV(f)};}
+function twCurseTxt(c){if(!c)return"";const D=TW_CURSE[c.k];if(!D)return"";const pc=x=>String(Math.round(x*1000)/10).replace(".",",")+" %";return D.d.replace("{V}",pc(c.v)).replace("{H}",pc(Math.min(.2,c.v*2.5)));}
+function twCurseHtml(c){c=c||(S&&S.tower&&S.tower.curse);if(!c||!TW_CURSE[c.k])return"";const D=TW_CURSE[c.k];return `<div class="twRule curse">${ic(D.ic)}<b>${D.n}</b><small>${twCurseTxt(c)}</small></div>`;}
 const TW_LOCS=["twhalle","twdach","twnacht"];
 const twOn=()=>typeof S!=="undefined"&&!!(S&&S.tower&&!S.duel);
 const twFloor=()=>twOn()?Math.max(0,S.round-20):0;
@@ -21088,18 +21109,22 @@ function twKorType(f){const reg=(S&&S.region)||"kanto",cnt={};for(const l of LIN
 function twRule(f){f=f||twFloor();if(!f)return null;
   if(twIsBoss(f)){const K=twKor(f);return{k:K.rule,ty:K.rule==="type"?twKorType(f):null};}
   if(f<=2)return{k:"pure",ty:null};
-  const R=twRng("rule"+f),ks=Object.keys(TW_RULES);let k=ks[Math.floor(R()*ks.length)];if(k==="pure"&&R()<.6)k=ks[1+Math.floor(R()*(ks.length-1))];
+  const R=twRng("rule"+f),ks=Object.keys(TW_RULES).filter(x=>x!=="pure");let k=ks[Math.floor(R()*ks.length)];
   const tys=twRegTypes();return{k,ty:k==="type"?tys[Math.floor(R()*tys.length)]:null};}
 const twRuleN=r=>((r&&TW_RULES[r.k])||TW_RULES.pure).n;
 function twRuleTxt(r){if(!r)return"";const D=TW_RULES[r.k]||TW_RULES.pure;return D.d.replace("{T}",r.ty&&TYPES[r.ty]?TYPES[r.ty][0]:"?");}
-function twRuleHtml(r){r=r||(S&&S.tower&&S.tower.rule);if(!r)return"";const D=TW_RULES[r.k]||TW_RULES.pure;return `<div class="twRule${r.k==="pure"?" pure":""}">${ic(D.ic)}<b>${D.n}</b><small>${twRuleTxt(r)}</small></div>`;}
+function twRuleHtml(r){r=r||(S&&S.tower&&S.tower.rule);if(!r)return"";const D=TW_RULES[r.k]||TW_RULES.pure;return `<div class="twRule${r.k==="pure"?" pure":""}">${ic(D.ic)}<b>${D.n}</b><small>${twRuleTxt(r)}</small></div>`+(typeof twCurseHtml==="function"?twCurseHtml():"");}
 /* Regel-Wirkung auf einen Kämpfer (beide Seiten) */
-function twFx(f){if(!twOn())return;const r=S.tower.rule;if(!r)return;const k=r.k;
-  if(k==="tail")f.as*=1.25;else if(k==="bulk")f.maxhp*=1.4;else if(k==="glass"){f.atk*=1.3;f.maxhp*=.8;}
-  else if(k==="mana")f.mana+=Math.round(f.manaMax*.5);else if(k==="shield")f.shieldStart=(f.shieldStart||0)+.15;
-  else if(k==="crit")f.crit=(f.crit||0)+.2;else if(k==="dodge")f.dodge=(f.dodge||0)+.15;
-  else if(k==="type"&&r.ty&&f.sp.types.includes(r.ty)){f.maxhp*=1.25;f.atk*=1.25;}}
-const twNoHeal=()=>twOn()&&!!S.tower.rule&&S.tower.rule.k==="noheal";
+function twFx(f){if(!twOn())return;
+  if(f.side==="enemy"){const r=S.tower.rule;if(!r)return;const k=r.k;
+    if(k==="tail")f.as*=1.1;else if(k==="bulk")f.maxhp*=1.15;else if(k==="glass")f.atk*=1.12;else if(k==="noheal")f.regen=(f.regen||0)+.006;
+    else if(k==="mana")f.mana+=Math.round(f.manaMax*.3);else if(k==="shield")f.shieldStart=(f.shieldStart||0)+.1;
+    else if(k==="crit")f.crit=(f.crit||0)+.1;else if(k==="dodge")f.dodge=(f.dodge||0)+.08;
+    else if(k==="type"&&r.ty&&f.sp.types.includes(r.ty)){f.maxhp*=1.15;f.atk*=1.15;}return;}
+  const c=S.tower.curse;if(!c||f.side!=="mine")return;const v=c.v||.03;
+  if(c.k==="weak")f.atk*=1-v;else if(c.k==="frail")f.maxhp*=1-v;else if(c.k==="slow")f.as*=1-v;else if(c.k==="armor")f.def*=1-v;else if(c.k==="drain")f.manaMax=Math.round(f.manaMax*(1+v));}
+const twNoHeal=()=>false;
+const twHealMul=f=>{if(!twOn()||!f||f.side!=="mine")return 1;const c=S.tower.curse;return c&&c.k==="heal"?1-Math.min(.2,2.5*(c.v||.03)):1;};
 /* Gegner werden je Ebene stärker (zusätzlich zur normalen Rundensteigerung) */
 const twScale=()=>{const f=twFloor();return f?(1+TW.ramp*(f-1))*(TW.mk[S.mode]||1):1;};
 const twEncOdds=()=>({easy:0,mid:34,hard:34,elite:20,event:6,rocket:6});
@@ -21135,7 +21160,7 @@ function towerInit(){if(!S||!S.tower)return;const base=BOSSES_BY[S.region||"kant
   for(const id of TW_LOCS.concat("twkory"))if(LOCS[id])LOCS[id].cam=S.tower.cam.slice();}
 /* v1.35.7: der Turm ist unabhängig von der gewählten Schwierigkeit – im Turm rechnet der Lauf wie „Normal“ (Gegner, Edelsteine, keine Nuzlocke-Regeln) */
 function twNeutral(){if(S&&S.tower&&!S.tower.m0){S.tower.m0=S.mode||"normal";S.mode="normal";}}
-function towerRound(){if(!twOn())return;towerInit();twNeutral();S.tower.rule=twRule(twFloor());}
+function towerRound(){if(!twOn())return;towerInit();twNeutral();S.tower.rule=twRule(twFloor());S.tower.curse=twCurse(twFloor());}
 /* Champion → Kampfturm */
 function towerEnter(){if(!S||S.daily||S.duel||S.tower)return;const R=$("result");R.classList.remove("show");R.innerHTML="";
   const T=twMeta();T.runs++;const first=!T.seen;T.seen=1;
@@ -21146,7 +21171,7 @@ function twIntro(first,cb){let went=false;const go=()=>{if(went)return;went=true
   openModal(`<div class="twIntro"><div class="twiArt">${ic("tower")}</div><h2>KAMPFTURM</h2><div class="lead">Dein Champion-Team kämpft weiter: Ebene für Ebene, ohne Ende. Wie weit kommst du?</div>
    <div class="twiRows"><div>${ic("heart")}<b>3 Turm-Leben</b><small>Jede Revanche kostet ein Leben. Ohne Leben endet der Aufstieg.</small></div>
    <div>${ic("crown")}<b>Koryphäen</b><small>Jede 5. Ebene wartet eine Koryphäe. Sieg: Symbol und +1 Turm-Leben.</small></div>
-   <div>${ic("star")}<b>Turmregeln</b><small>Jede Ebene hat eine eigene Regel. Sie gilt für beide Seiten.</small></div>
+   <div>${ic("star")}<b>Turmregeln</b><small>Jede Ebene stärkt die Gegner mit einer eigenen Regel. Ab Ebene 25 schwächt zusätzlich ein leichter Fluch dein Team.</small></div>
    <div>${ic("gem")}<b>Belohnung</b><small>Edelsteine für jede Ebene und jede Koryphäe, sobald du den Turm verlässt.</small></div></div>
    <div class="twiRec">${ic("trophy")} Dein Rekord hier: ${twBest(S.region||"kanto")?"Ebene "+twBest(S.region||"kanto"):"noch keiner"}</div>
    <button class="pri hot" id="twGo">${ic("arrow")} AUFSTIEG BEGINNEN</button></div>`,"narrow twIntroM",go);
@@ -21177,7 +21202,7 @@ function towerFinish(){clearZones();S.phase="over";enterBattleMode(false);const 
   const out=()=>{$("result").classList.remove("show");$("result").innerHTML="";showMenu();};$("rGo").onclick=out;$("rLab").onclick=()=>{out();labScreen();};}
 /* Koryphäen-Auftritt zu Kampfbeginn */
 function koryIntro(done){const f=twFloor(),K=twKor(f),r=S.tower.rule||twRule(f),el=document.createElement("div");el.className="koryIntro";el.style.setProperty("--kc",K.col);
-  el.innerHTML=`<div class="kiDark"></div><div class="kiRays"></div><div class="kiSym">${ic(K.ic)}</div><div class="kiTxt"><small>${esc(K.t.toUpperCase())} · EBENE ${f}</small><b>${esc(K.n.toUpperCase())}</b><em>„${esc(K.q)}“</em><span>${ic((TW_RULES[r.k]||TW_RULES.pure).ic)} ${esc(twRuleN(r))}: ${esc(twRuleTxt(r))}</span></div>`;
+  el.innerHTML=`<div class="kiDark"></div><div class="kiRays"></div><div class="kiSym">${ic(K.ic)}</div><div class="kiTxt"><small>${esc(K.t.toUpperCase())} · EBENE ${f}</small><b>${esc(K.n.toUpperCase())}</b><em>„${esc(K.q)}“</em><span>${ic((TW_RULES[r.k]||TW_RULES.pure).ic)} ${esc(twRuleN(r))}: ${esc(twRuleTxt(r))}</span>${S.tower.curse&&TW_CURSE[S.tower.curse.k]?`<span class="kiCurse">${ic(TW_CURSE[S.tower.curse.k].ic)} ${esc(TW_CURSE[S.tower.curse.k].n)}: ${esc(twCurseTxt(S.tower.curse))}</span>`:""}</div>`;
   $("arena").appendChild(el);sfx("vs");setTimeout(()=>{sfx("megaCharge",.1);shake(.2,.4);},900);
   setTimeout(()=>el.classList.add("out"),3000);setTimeout(()=>{el.remove();done&&done();},3500);}
 /* Begegnungskarte im Turm: 3D-Koryphäen-Saal von oben + Turm-Anzeige */
@@ -21196,7 +21221,7 @@ function towerHud(){const w=$("wwrap");if(!w)return;let h=$("twHud");if(!twOn())
   if(!h){h=document.createElement("div");h.id="twHud";w.appendChild(h);}
   const f=Math.max(1,twFloor()),lo=Math.max(1,f-2),hi=lo+6;let rows="";
   for(let x=hi;x>=lo;x--){const b=twIsBoss(x),K=b?twKor(x):null,cur=x===f,done=x<f,res=done?(S.results[20+x-1]||""):"",r=twRule(x);
-    rows+=`<div class="twFl${b?" boss":""}${cur?" cur":""}${done?" done "+res:""}"${K?` style="--kc:${K.col}"`:""}><b>${x}</b>${b?`<i class="twSy">${ic(K.ic)}</i><span>${esc(K.n)}</span>`:`<span>${x>=f?esc(twRuleN(r)):""}</span>`}${done?`<em>${ic(res==="l"?"close":"check")}</em>`:""}</div>`;}
+    rows+=`<div class="twFl${b?" boss":""}${cur?" cur":""}${done?" done "+res:""}"${K?` style="--kc:${K.col}"`:""}><b>${x}</b>${b?`<i class="twSy">${ic(K.ic)}</i><span>${esc(K.n)}</span>`:`<span>${x>=f?esc(twRuleN(r)):""}</span>`}${x>=f&&x>=TW.cf?`<i class="twCu" title="Ab Ebene 25: leichter Fluch für dein Team">${ic("skull")}</i>`:""}${done?`<em>${ic(res==="l"?"close":"check")}</em>`:""}</div>`;}
   const nb=Math.ceil(f/5)*5,K=twKor(nb),B0=BOSSES[20+nb];
   h.innerHTML=`<div class="twH"><span class="twL">${ic("tower")} KAMPFTURM</span><span class="twLv">${Array.from({length:TW.lives},(_,i)=>`<i class="twHt${i<S.tower.lives?" on":""}">${ic("heart")}</i>`).join("")}</span></div>
    <div class="twStack">${rows}</div>
@@ -22360,7 +22385,7 @@ function raw(t,d){if(!t.alive)return;if(t.shield>0){const a=Math.min(t.shield,d)
   if(t.sx&&t.sx.lastStand&&!t.lsU&&t.hp<t.maxhp*.25){t.lsU=true;if(t.hp<1)t.hp=1;t.phaseT=Math.max(t.phaseT||0,2);heal(t,t.maxhp*t.sx.lastStand,false,t);popAt(fw(t,1.6),"Letztes Gefecht!","s","#ffd84a");if(GL)ringFx(fw(t,.04),0xffd84a,1.1,.5);return;}
   if(t.hp<=0&&t.sturdy){t.sturdy=false;t.hp=1;abilPop(t);if(t.sx&&t.sx.sSturdy){t.shield+=t.maxhp*t.sx.sSturdy;popAt(fw(t,1.6),"Robustheit!","s","#e0c890");}return;}
   if(t.hp<=0){if(t.focus){t.focus=false;t.hp=Math.round(t.maxhp*.3);popAt(fw(t,1.4),"Fokusgurt!","s","#ffd23f");return;}if(t.regenW){t.regenW=false;t.hp=1;t.stunT=Math.max(t.stunT,.9);later(.9,()=>{if(!B||B.done||!t.alive)return;t.hp=Math.round(t.maxhp*.5);popAt(fw(t,1.5),"Regenbogenflügel!","s","#ff9a3d");if(GL){burst(fw(t,.4),0xffb050,26,2.2,.3,.7,{up:1,cols:[0xff5a3a,0xffd84a,0x5ae0ff]});ringFx(fw(t,.04),0xffb050,1.3,.5);}sfx("heal");});return;}t.alive=false;t.hp=0;reviveCheck(t);if(typeof koHookG==="function")koHookG(t);if(typeof koHook5==="function")koHook5(t);sfx("faint",.15);burst(fw(t,.4),0xffffff,18,2.2,.3,.6);burst(fw(t,.4),t.side==="mine"?0x58c8ff:0xff6a5a,10,1.4,.35,.8,{up:.8});ghostRise(t);}}
-function heal(f,a,silent,src){if(!f.alive)return;a*=fatigueHeal();if(typeof twNoHeal==="function"&&twNoHeal())a*=.5;if(f.hexT>0)a*=1-(f.hexV||0);if(B&&B.unnerve&&B.unnerve[f.side])a*=.5;const b=f.hp;f.hp=Math.min(f.maxhp,f.hp+a);const g=f.hp-b;
+function heal(f,a,silent,src){if(!f.alive)return;a*=fatigueHeal();if(typeof twHealMul==="function")a*=twHealMul(f);if(f.hexT>0)a*=1-(f.hexV||0);if(B&&B.unnerve&&B.unnerve[f.side])a*=.5;const b=f.hp;f.hp=Math.min(f.maxhp,f.hp+a);const g=f.hp-b;
   if(src&&src!==f&&src.sx){if(src.sx.cleanse){f.burnT=0;f.poisT=0;f.slowT=0;}if(src.sx.healShield)f.shield=Math.min(f.maxhp*.6,f.shield+a*src.sx.healShield*(f.shMul||1));}if(src)src.healed+=g;if(src&&src!==f&&src.sx&&src.sx.haste&&!f.hasteOn&&g>=1&&B){f.hasteOn=1;const hv=src.sx.haste;f.as*=1+hv;later(3,()=>{f.as/=1+hv;f.hasteOn=0;});}if(!silent&&g>=1)popAt(fw(f,1.2),"+"+Math.round(g),"s","#7dffb0");}
 
 /* ================================ RUNDENABLAUF ================================ */
