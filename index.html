@@ -4134,6 +4134,22 @@ body:not(.battle) .wxLbl{display:none}
 .lbNm .lbTT .tt-eis{filter:drop-shadow(0 0 2px rgba(120,220,255,.75))}
 .lbNm .lbTT .tt-galaxie{filter:drop-shadow(0 0 2px rgba(194,124,255,.75))}
 .lbNm .lbTT .tt-neon{animation:none;text-shadow:0 0 2px #ff3ec9,0 0 4px #b020ff!important}
+/* ===== v1.37.0.9: Bestenliste – Platz 1, 2, 3 mit Effekt ===== */
+.lbRow.r1 .lbRank,.lbRow.r2 .lbRank,.lbRow.r3 .lbRank{position:relative;isolation:isolate;overflow:visible}
+.lbRow.r1 .lbRank{--rk:#ffd23f;--rg:rgba(255,200,40,.85);animation:lbPulse 1.8s ease-in-out infinite}
+.lbRow.r2 .lbRank{--rk:#dfe8f6;--rg:rgba(200,220,255,.7);animation:lbPulse 2.4s ease-in-out infinite}
+.lbRow.r3 .lbRank{--rk:#f0a060;--rg:rgba(240,140,60,.65);animation:lbPulse 2.8s ease-in-out infinite}
+.lbRow.r1 .lbRank::before,.lbRow.r2 .lbRank::before,.lbRow.r3 .lbRank::before{content:"";position:absolute;inset:-5px;border-radius:50%;z-index:-1;pointer-events:none;background:conic-gradient(from var(--bga),transparent 0 50%,var(--rk) 68%,#fff 75%,var(--rk) 82%,transparent 96%);-webkit-mask:radial-gradient(circle,transparent 60%,#000 62%);mask:radial-gradient(circle,transparent 60%,#000 62%);animation:bdgSpin 2.2s linear infinite}
+.lbRow.r2 .lbRank::before{animation-duration:3s}
+.lbRow.r3 .lbRank::before{animation-duration:3.6s}
+.lbRow.r1 .lbRank::after,.lbRow.r2 .lbRank::after,.lbRow.r3 .lbRank::after{content:"";position:absolute;inset:0;border-radius:50%;z-index:-1;pointer-events:none;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.8) 50%,transparent 65%);background-size:260% 100%;animation:lbShine 2.6s linear infinite}
+.lbRow.r2 .lbRank::after{animation-delay:.6s}.lbRow.r3 .lbRank::after{animation-delay:1.2s}
+@keyframes lbPulse{0%,100%{box-shadow:0 0 4px var(--rg)}50%{box-shadow:0 0 12px var(--rg),0 0 22px var(--rg)}}
+@keyframes lbShine{0%{background-position:130% 0}60%,100%{background-position:-60% 0}}
+.lbCr{position:absolute;left:50%;top:-13px;translate:-50% 0;width:16px;height:14px;display:grid;place-items:center;pointer-events:none;animation:lbCrown 1.8s ease-in-out infinite}
+.lbCr .ic{width:16px;height:16px;color:#ffd23f;filter:drop-shadow(0 1px 0 #3a2500) drop-shadow(0 0 4px rgba(255,200,40,.9))}
+@keyframes lbCrown{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-2px) rotate(6deg)}}
+.lbRow.r1{box-shadow:inset 0 0 0 1px rgba(255,210,60,.35),0 0 14px rgba(255,190,40,.12)}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -8553,7 +8569,7 @@ function lbTitle(a){if(!a)return null;const def=t=>!t||/^Trainer(in)?$/.test(t);
   const st=a.tt&&a.tt.text===c.title&&TITLE_FX[a.tt.style]?a.tt.style:(typeof evTitleStyle==="function"&&evTitleStyle(c.title))||(isT5Title(c.title)?(c.ts==="bernstein"?"bernstein":"geist"):null);
   return {text:c.title,style:st};}
 const lbTTHtml=a=>{const t=lbTitle(a);return t&&typeof ttCls==="function"?`<span class="lbTT"><span${ttCls(t.style)}>${esc(t.text)}</span></span>`:"";};
-function lbRowsHtml(rows,n){return rows.slice(0,n||10).map((a,i)=>`<button class="lbRow r${i+1}" data-n="${esc(a.n)}"><span class="lbRank">${i+1}</span><div class="lbMain"><div class="lbNm"><b>${esc(a.n)}</b>${lbTTHtml(a)}</div>
+function lbRowsHtml(rows,n){return rows.slice(0,n||10).map((a,i)=>`<button class="lbRow r${i+1}" data-n="${esc(a.n)}"><span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${esc(a.n)}</b>${lbTTHtml(a)}</div>
      <div class="lbRegs">${Object.keys(REGIONS).map(rk=>{const P=a.per[rk];return `<i title="${REGIONS[rk].n}: ${P.top?"Champion auf "+LB_N[P.top]:P.best?"Runde "+P.best:"noch nicht gespielt"}" style="--c:${P.top?LB_COL[P.top]:"#3a4258"}">${REGIONS[rk].s||REGIONS[rk].n[0]}</i>`;}).join("")}</div>
      <small title="${a.titles} Champion-Titel · ${a.ach} Erfolge · ${a.own} Pokémon gefangen">${ic("crown")} ${a.titles} Titel · ${ic("trophy")} ${a.ach} · ${ic("dex")} ${a.own}</small></div><span class="lbPts">${a.pts.toLocaleString("de-DE")}<em>Punkte</em></span></button>`).join("");}
 function renderLeaderboard(rows,src){const el=$("lbList");if(!el)return;rows=rows||lbRows();const sm=document.querySelector("#lbList")&&document.querySelector("#lbList").parentNode.querySelector(".ttl small");if(sm)sm.textContent=src==="cloud"?"weltweit":"dieser Browser";
@@ -12451,7 +12467,7 @@ function dropTarget(x,y,kind,du,ign){
     if(el.id==="sellSlot"||(el.closest&&el.closest("#sellSlot")))return{type:"sell",el:$("sellSlot")};
     if(kind==="item"){const bu=el.closest&&el.closest(".bu");if(bu){const u=unitFromEl(bu);if(u)return{type:"unit",u,el:bu};}
       const uv=el.closest&&el.closest(".u.mine");if(uv){const u=unitFromEl(uv);if(u)return{type:"unit",u};}}
-    else if(el.classList.contains("slot"))return{type:"bench",i:+el.dataset.bench,el};
+    else{const sl=el.closest&&el.closest(".slot[data-bench]");if(sl)return{type:"bench",i:+sl.dataset.bench,el:sl};}
     if(el.closest&&el.closest(ign?"#dock,#toEnc,button":"#dock,#rSide,#toEnc,#hint"))return null;}
   const t=rayTile(x,y);if(!t)return null;
   if(kind==="item"){const u=S.board[t.x+","+t.y];return u?{type:"unit",u}:null;}
@@ -12479,7 +12495,7 @@ function unitOverview(u,ctx){
   const canIt=mine&&S&&S.phase!=="battle";const itRows=its.map((id,k)=>{const s=IT_BY[id],g=Math.ceil(IT_COST[s.r]/2);return `<div class="ovI">${itmEl(id,"sm")}<div><b style="color:${s.col}">${s.n}</b><p>${s.d}</p></div>${canIt?(id==="mega"?`<button class="btn sm ovIt" data-k="${k}" data-a="bag" title="Megastein abnehmen und einem anderen Pokémon geben">${ic("pack")} In die Tasche</button>`:`<button class="btn sm ovIt" data-k="${k}" data-a="sell" title="Item verkaufen (es geht dabei verloren)">${ic("coin")} +${g}</button>`):""}</div>`;}).join("")+(mine?Array.from({length:Math.max(0,slots-its.length)},()=>`<div class="ovI empty"><span class="islot"></span><div><p>Freier Platz: Item aus der Tasche hierher ziehen</p></div></div>`).join(""):"");
   const gfRows=Object.entries(gc).map(([g,n])=>`<div class="ovI"><span class="gdot" style="--c:${GF_BY[g].col}">${ic(GF_BY[g].ic)}</span><div><b style="color:${GF_BY[g].col}">${GF_BY[g].n}${n>1?" ×"+n:""}</b><p>${GF_BY[g].d}</p></div></div>`).join("");
   const synRows=sp.types.map(t=>{const s=SYN[t];if(!s)return"";const c=cnt?cnt[t]||0:0,lv=synLv(c),v=s.raw?s.v*Math.max(lv,1):Math.round(s.v*1000*Math.max(lv,1))/10;return `<div class="ovI ${lv?"":"off"}">${pill(t)}<div><p>${s.d.replace("{v}",v)} ${cnt?`<b>(${c}/${c>=2?4:2})</b>`:""}${lv?"":" · inaktiv"}</p></div></div>`;}).join("");
-  const relRows=ctx!=="enemy"&&S.relics.length?S.relics.map(id=>{const r=RL_BY[id];return `<div class="ovI">${relicEl(id)}<div><b style="color:${r.col}">${r.n}</b><p>${r.d}</p></div></div>`;}).join(""):`<p class="empty" style="font-size:12px;margin:0">${ctx==="enemy"?"Gegner haben keine Relikte.":"Noch keine Relikte. Bosse und Ereignisse geben welche."}</p>`;
+  const relRows=ctx!=="enemy"&&S&&S.relics&&S.relics.length?S.relics.map(id=>{const r=RL_BY[id];return `<div class="ovI">${relicEl(id)}<div><b style="color:${r.col}">${r.n}</b><p>${r.d}</p></div></div>`;}).join(""):`<p class="empty" style="font-size:12px;margin:0">${ctx==="enemy"?"Gegner haben keine Relikte.":"Noch keine Relikte. Bosse und Ereignisse geben welche."}</p>`;
   const perks=ctx!=="enemy"?[["d_"+st.role,"Drill"],["s_"+st.role,"Spezialisierung"],["m_"+st.role,"Meister"],["e_"+st.role,"Veteran"]].filter(([k])=>perk(k)).map(([k])=>`<span class="gtag" style="color:${R0.col};border-color:${R0.col}55">${ic(RS_BY[k].ic)}${RS_BY[k].n}${RS_BY[k].max>1?" "+perk(k)+"/"+RS_BY[k].max:""}</span>`).join(""):"";
   const evoLine=lineSp(L).map((s,i,a)=>`<div class="ovEvo ${s[0]===u.sp?"on":""}" data-sp="${s[0]}"><span>${s[1]}</span></div>${i<a.length-1?(i>=L.stages.length-1?`<span class="arr">/</span>`:`<span class="arr">${ic("arrow")}</span>`):""}`).join("")+(megaOk(u)?`<span class="arr">${ic("arrow")}</span><div class="ovEvo mega" data-mega="1"><span>${megaForm(megaSpOf(u),st.role,u.megaF).n}</span></div>`:"");
   const cost=unitCost(u),canSell=mine&&S.phase==="shop";
@@ -14216,6 +14232,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Abzeichen Einschlag: Bernstein gib
 if(typeof EN!=="undefined")Object.assign(EN,{"Trainerkarte: Abzeichen-Darstellung verbessert.": "Trainer card: improved badge display.", "Verliehen": "Awarded", "Persönlich verliehenes Abzeichen": "Personally awarded badge"});
 /* v1.37.0.8: Bestenliste */
 if(typeof EN!=="undefined")Object.assign(EN,{"Bestenliste: Leuchtende Titel haben keinen Kasten mehr um sich.": "Leaderboard: glowing titles no longer have a box around them."});
+/* v1.37.0.9: Bank und Auswahl */
+if(typeof EN!=="undefined")Object.assign(EN,{"Pokémon im Lauf: Der Info-Knopf auf den Karten funktioniert wieder. Fährst du über ein Pokémon, siehst du jetzt seine Rolle statt der Entwicklungen.": "Pokémon in the run: the info button on the cards works again. Hovering a Pokémon now shows its role instead of its evolutions.", "Bank: Ziehst du ein Pokémon auf ein belegtes Bankfeld, tauschen beide die Plätze. Das klappt zwischen zwei Bankplätzen und zwischen Raster und Bank.": "Bench: drag a Pokémon onto an occupied bench slot and both swap places. Works between two bench slots and between grid and bench.", "Bestenliste: Platz 1, 2 und 3 leuchten jetzt in Gold, Silber und Bronze mit kreisendem Glanz. Platz 1 trägt eine Krone.": "Leaderboard: places 1, 2 and 3 now glow in gold, silver and bronze with a circling shine. First place wears a crown."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -16356,7 +16374,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.37.0.8",DUEL_HP=30;
+const MP_VER="1.37.0.9",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -20762,8 +20780,12 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.37.0.8"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.37.0.9"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.37.0.9",d:"04.11.2026",t:"Schnellfix",items:[
+  ["ball", "Pokémon im Lauf: Der Info-Knopf auf den Karten funktioniert wieder. Fährst du über ein Pokémon, siehst du jetzt seine Rolle statt der Entwicklungen."],
+  ["grid", "Bank: Ziehst du ein Pokémon auf ein belegtes Bankfeld, tauschen beide die Plätze. Das klappt zwischen zwei Bankplätzen und zwischen Raster und Bank."],
+  ["trophy", "Bestenliste: Platz 1, 2 und 3 leuchten jetzt in Gold, Silber und Bronze mit kreisendem Glanz. Platz 1 trägt eine Krone."]]},
  {v:"1.37.0.8",d:"04.11.2026",t:"Schnellfix",items:[
   ["trophy", "Bestenliste: Leuchtende Titel haben keinen Kasten mehr um sich."]]},
  {v:"1.37.0.7",d:"04.11.2026",t:"Schnellfix",items:[
@@ -21905,7 +21927,8 @@ function psBind(rg,back){const b=$("psEdit");if(b)b.onclick=()=>{sfx("click");ps
 let PS_KEEP=null;
 function psModal(rg,back){const av=psAvail(rg),R=REGIONS[rg]||{n:rg},mn=psMinFor(rg),need=psNeedT(rg);const keep=PS_KEEP;PS_KEEP=null;let sel=new Set(keep?keep.sel:psSel(rg));
   const tiers=[1,2,3,4,5].filter(t=>av.some(L=>L.tier===t));
-  const card=x=>`<button class="psB${x.start?" st":""}" data-ps="${x.k}" data-t="${x.tier}" title="${esc(x.stages.map(s=>s[1]).join(" → "))}"><span class="fm" data-sp="${x.stages[0][0]}"></span><small>${esc(x.stages[0][1])}</small><i class="psChk">${ic("check")}</i>${x.start?`<em class="psSt">START</em>`:""}<span class="psInf" data-pi="${x.stages[0][0]}" title="Details ansehen">${ic("info")}</span></button>`;
+  const psRole=x=>{const r=(SPECIES[x.stages[0][0]]&&SPECIES[x.stages[0][0]].role)||x.role;return ROLES[r]?ROLES[r].n:"";};
+  const card=x=>`<button class="psB${x.start?" st":""}" data-ps="${x.k}" data-t="${x.tier}" title="${esc(psRole(x))}"><span class="fm" data-sp="${x.stages[0][0]}"></span><small>${esc(x.stages[0][1])}</small><i class="psChk">${ic("check")}</i>${x.start?`<em class="psSt">START</em>`:""}<span class="psInf" data-pi="${x.stages[0][0]}" title="Details ansehen">${ic("info")}</span></button>`;
   const html=()=>tiers.map(t=>{const L=av.filter(x=>x.tier===t).sort((a,b)=>(b.start?1:0)-(a.start?1:0)||a.stages[0][0]-b.stages[0][0]);
     return `<div class="psTier" data-pt="${t}"><h4 class="cdCat">${t===5?"Stufe 5 · Legendär":"Stufe "+t}<span class="psCnt" data-pc="${t}"></span></h4><div class="psGrid">${L.map(card).join("")}</div></div>`;}).join("");
   openModal(`<h2>${ic("ball")} POKÉMON IM LAUF · ${esc(R.n.toUpperCase())}</h2>
