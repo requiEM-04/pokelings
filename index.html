@@ -4051,6 +4051,9 @@ body:not(.battle) .wxLbl{display:none}
 .bg-turm .twT .twFl{transform-box:fill-box;transform-origin:0 50%;animation:cbSway 1.6s ease-in-out infinite alternate;--a:10deg}
 .bg-turm .twFlag,.bg-turm .twWin{display:none}
 .bg-himmelsturm .hsBeam{top:-3%;width:2.4cqmin;height:14%;border-radius:40%;background:linear-gradient(0deg,rgba(255,240,180,.95),rgba(255,240,180,.35) 55%,transparent);filter:blur(.6px)}
+/* ===== v1.36.0.7: Mega-Formen als Lieblingspokémon ===== */
+.favB{position:relative}.favB .favMg{position:absolute;top:3px;left:3px;padding:1px 4px;border-radius:3px;font:400 7px var(--px);font-style:normal;letter-spacing:.04em;color:#fff;background:linear-gradient(90deg,#ff5ad8,#8a5aff);box-shadow:0 0 6px rgba(255,90,216,.45);pointer-events:none}
+.favB.mg{border-color:rgba(255,122,216,.35)}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -7661,6 +7664,8 @@ function menuSel(i){const bs=[...$("menuBtns").querySelectorAll(".mbtn")];if(!bs
 document.addEventListener("keydown",e=>{if(!$("menu").classList.contains("show")||$("modal").classList.contains("show"))return;const i=+($("menuBtns").dataset.sel||0);
   if(e.key==="ArrowDown"||e.key==="s"){e.preventDefault();menuSel(i+1);sfx("click");}else if(e.key==="ArrowUp"||e.key==="w"){e.preventDefault();menuSel(i-1);sfx("click");}
   else if(e.key==="Enter"||e.key===" "){const b=$("menuBtns").querySelectorAll(".mbtn")[i];if(b){e.preventDefault();sfx("coin");b.click();}}});
+/* v1.36.0.7: Animationen überspringen (je Gerät) */
+const animSkip=k=>{try{return localStorage.getItem("pokelings_skip_"+k)==="1";}catch(e){return false;}};
 function settingsModal(){
   const seg=(id,opts,cur)=>`<div class="stSeg" id="${id}">${opts.map(([v,n])=>`<button data-v="${v}" class="${String(v)===String(cur)?"on":""}">${n}</button>`).join("")}</div>`;
   const line=(icn,t,s,ctl)=>`<div class="stLine"><span class="stI">${ic(icn)}</span><div class="stTx"><b>${t}</b><small>${s}</small></div>${ctl}</div>`;
@@ -7672,6 +7677,9 @@ function settingsModal(){
    <div class="stGrp"><h4>${ic("eye")} Anzeige</h4>
     ${line("eye","Grafik","Auto passt sich deinem Gerät an",seg("stGfx",[["hoch","Hoch"],["mittel","Mittel"],["niedrig","Niedrig"],["auto","Auto"]],typeof GFX!=="undefined"?GFX.mode:"auto"))}
     ${line("dex","Sprache","Language",seg("stLang",[["de","Deutsch"],["en","English"]],LANG))}${line("grid","Große Bildschirme","Über 1920×1080 alles mitwachsen lassen",seg("stUiz",[["on","An"],["off","Aus"]],(()=>{try{return localStorage.getItem("pokelings_uiz")==="off"?"off":"on";}catch(e){return "on";}})()))}</div>
+   <div class="stGrp"><h4>${ic("play")} Animationen</h4>
+    ${line("merge","Entwicklungen & Sterne","Animation beim Fusionieren",seg("stSkEvo",[["0","Zeigen"],["1","Überspringen"]],animSkip("evo")?"1":"0"))}
+    ${line("mega","Mega-Entwicklung","Animation zu Kampfbeginn",seg("stSkMega",[["0","Zeigen"],["1","Überspringen"]],animSkip("mega")?"1":"0"))}</div>
    <div class="stGrp"><h4>${ic("help")} Spiel</h4><div class="stChips">
     <button id="sHelp">${ic("help")} Anleitung</button><button id="sPatch">${ic("scroll")} Patchnotes v${typeof GAME_VER!=="undefined"?GAME_VER:""}</button>${inMenu?"":`<button id="sTut">${ic("play")} Tutorial</button>`}${inMenu?`<button id="sIntro">${ic("play")} Intro ansehen</button>`:""}<button id="sFb">${ic("chat")} Feedback senden</button><button id="sLegal">${ic("info")} Musik, Rechte &amp; Datenschutz</button></div></div>
    <div class="stGrp"><h4>${ic("user")} Konto</h4><div class="stAcc"><span>${USER?`Angemeldet als <b>${esc(USER)}</b><br><small class="clSt ${typeof CL!=="undefined"&&CL.sess?"on":""}">${typeof CL!=="undefined"&&CL.sess?"☁ Cloud-Sync aktiv · auf allen Geräten":"Nur auf diesem Gerät gespeichert"}</small>`:"Nicht angemeldet (Gast)"}</span><span class="stAccB"><button id="sSaveNow" class="ok">${ic("check")} Jetzt speichern</button><button id="sOut">${ic("logout")} ${USER?"Abmelden":"Zum Login"}</button></span></div></div>
@@ -7679,7 +7687,7 @@ function settingsModal(){
     <button class="b" id="sBkImp">${ic("up")}<div><b>Spielstände laden</b><small>Sicherung einspielen</small></div></button></div>`,"narrow pauseM setL",true);
   if($("sSaveNow"))$("sSaveNow").onclick=()=>saveNow($("sSaveNow"));
   const wire=(id,f)=>$("mbox").querySelectorAll("#"+id+" button").forEach(b=>b.onclick=()=>{$("mbox").querySelectorAll("#"+id+" button").forEach(x=>x.classList.toggle("on",x===b));f(b.dataset.v);});
-  wire("stSfx",x=>{SFX.setVol(+x);sfx("coin");});wire("stMus",x=>BGM.set(+x));wire("stGfx",x=>gfxSet(x));wire("stLang",x=>{if(x!==LANG)setLang(x);});wire("stUiz",x=>{try{localStorage.setItem("pokelings_uiz",x);}catch(e){}uiScale();dispatchEvent(new Event("resize"));});
+  wire("stSfx",x=>{SFX.setVol(+x);sfx("coin");});wire("stMus",x=>BGM.set(+x));wire("stGfx",x=>gfxSet(x));wire("stLang",x=>{if(x!==LANG)setLang(x);});wire("stSkEvo",x=>{try{localStorage.setItem("pokelings_skip_evo",x);}catch(e){}});wire("stSkMega",x=>{try{localStorage.setItem("pokelings_skip_mega",x);}catch(e){}});wire("stUiz",x=>{try{localStorage.setItem("pokelings_uiz",x);}catch(e){}uiScale();dispatchEvent(new Event("resize"));});
   $("sHelp").onclick=help;if($("sPatch"))$("sPatch").onclick=()=>{closeModal();patchNotes();};if($("sTut"))$("sTut").onclick=()=>{closeModal();tutorial();};if($("sIntro"))$("sIntro").onclick=()=>{closeModal();sfx("click");playIntro(()=>{if(typeof showMenu==="function")showMenu();});};
   $("sLegal").onclick=()=>legalModal();if($("sFb"))$("sFb").onclick=()=>{closeModal();if(typeof feedbackModal==="function")feedbackModal();};$("sBkExp").onclick=()=>backupExport();$("sBkImp").onclick=()=>backupImport();$("sOut").onclick=()=>{closeModal();signOut();};
 }
@@ -12244,7 +12252,7 @@ function showFusion(){
   const q=S.fuseQ[0],u=allUnits().find(x=>x.uid===q.uid);if(!u){S.fuseQ.shift();return showFusion();}
   if(u.brPick&&typeof branchPick==="function"){branchPick(u,q,()=>showFusion());return;}
   const fuseNote=()=>{if(!q.tm)return;const sh=q.tm[0]==="shy1",nm=SPECIES[u.sp].name;q.tm=null;setTimeout(()=>toast(sh?`${nm} bleibt schillernd!`:`${nm} hat seinen Schimmer verloren`,sh?"shiny":"merge"),120);};
-  if(!q.played&&!window.__autoPick&&typeof playEvolution==="function"){q.played=true;cineBusy=true;const sp0=SPECIES[q.from],sp1=SPECIES[u.sp],col=TYPES[sp1.types[0]][1];
+  if(!q.played&&!window.__autoPick&&typeof playEvolution==="function"&&!(typeof animSkip==="function"&&animSkip("evo"))){q.played=true;cineBusy=true;const sp0=SPECIES[q.from],sp1=SPECIES[u.sp],col=TYPES[sp1.types[0]][1];
     const shy0=q.shy?!!(q.shy[0]&&q.shy[1]):!!u.shiny;
     const pr=q.from!==u.sp?playEvolution({from:sprKey(q.from,shy0),to:sprKey(u.sp,u.shiny),name:sp0.name,toName:sp1.name,color:col,shiny:!!u.shiny}):playStarUp({sp:sprKey(u.sp,u.shiny),sp0:sprKey(u.sp,shy0),name:sp1.name,stars:u.stars,color:col,shiny:!!u.shiny});
     sfx(q.from!==u.sp?"evoStart":"pop");const tEnd=q.from!==u.sp?4500:720;setTimeout(()=>{if(document.querySelector(".cine-ov"))sfx("evoDone");},tEnd);
@@ -14109,6 +14117,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Jedes Pokémon hat jetzt eigene We
 if(typeof EN!=="undefined")Object.assign(EN,{"Bestenliste: Die Turm-Ebene wird dort nicht mehr angezeigt.": "Leaderboard: the tower floor is no longer shown there.", "Kampfturm: 3 neue Kartenhintergründe für Ebene 10, 25 und 50. Neu im Labor: Turmkletterer (+1 Teamplatz im Kampfturm).": "Battle Tower: 3 new card backgrounds for floors 10, 25 and 50. New in the lab: Tower Climber (+1 team slot in the Battle Tower)."});
 /* v1.36.0.6: Hintergründe */
 if(typeof EN!=="undefined")Object.assign(EN,{"Kartenhintergründe überarbeitet: In der Tiefsee schwimmen die Fische jetzt vorwärts (in beide Richtungen), dazu ein Fischschwarm, Quallen und Korallen. Sandsturm mit ziehenden Staubwolken, Steppenläufer, Pyramide und Kaktus. Sternennacht mit Sternschnuppe und Glühwürmchen. Die Kampfturm-Motive behalten auf dem breiten Kampfbildschirm ihre Form.": "Card backgrounds reworked: in Deep Sea the fish now swim forwards (in both directions), plus a school of fish, jellyfish and corals. Sandstorm with drifting dust clouds, a tumbleweed, a pyramid and a cactus. Starry Night with a shooting star and fireflies. The Battle Tower backgrounds keep their shape on the wide battle screen."});
+/* v1.36.0.7: Mega-Lieblingspokémon */
+if(typeof EN!=="undefined")Object.assign(EN,{"Trainerkarte: Mega-Entwicklungen sind jetzt als Lieblingspokémon wählbar, auch schillernd, sobald du die Form schon einmal hattest. Sie erscheinen auf der Kampfkarte, im VS-Bildschirm und in der Bestenliste.": "Trainer card: Mega Evolutions can now be picked as your favorite Pokémon, shiny too, once you have had that form. They show on your battle card, on the VS screen and on the leaderboard.", " Mega-Formen zählen mit, auch schillernd.": " Mega forms count too, shiny as well.", "Einstellungen: Neue Gruppe „Animationen“. Dort kannst du die Animationen für Entwicklungen und Sterne sowie für Mega-Entwicklungen überspringen.": "Settings: new “Animations” group. There you can skip the animations for evolutions and stars as well as for Mega Evolutions.", "Animationen": "Animations", "Entwicklungen & Sterne": "Evolutions & stars", "Animation beim Fusionieren": "Animation when fusing", "Animation zu Kampfbeginn": "Animation at battle start", "Zeigen": "Show"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -14312,7 +14322,7 @@ function giftShow(){if(!GIFT.q.length||(!USER&&GIFT.q[0].type!=="ev"))return;con
     ${g.msg?`<p class="giftMsg">„${esc(g.msg)}“</p>`:""}<p class="giftLead">Steht jetzt in deinem Pokédex und ist als Lieblingspokémon wählbar.${g.nu&&R?` Ab sofort kann es dir auch in ${esc(R.n)}-Läufen im Laden begegnen.`:""}</p>
     <div class="giftBtns"><button class="pri" id="giftFav">${ic("heart")} Als Lieblingspokémon</button><button class="btn" id="giftOk">Super!</button></div></div>`,"narrow gift",true);
   try{$("giftMon").appendChild(sprAlign(natFit(spriteEl(g.id,"",{shiny:g.sh}),1),false));}catch(e){}try{sfx("sparkle");}catch(e){}
-  $("giftOk").onclick=closeModal;$("giftFav").onclick=()=>{try{META.card=META.card||{};META.card.fav=g.id;META.card.favSh=g.sh?1:0;saveMeta();toast(`${sp.name} ist jetzt dein Lieblingspokémon`,"heart");}catch(e){}closeModal();};}
+  $("giftOk").onclick=closeModal;$("giftFav").onclick=()=>{try{META.card=META.card||{};META.card.fav=g.id;META.card.favSh=g.sh?1:0;META.card.favM=null;saveMeta();toast(`${sp.name} ist jetzt dein Lieblingspokémon`,"heart");}catch(e){}closeModal();};}
 /* ===== Geschenke an alle (Titel, Hintergründe): öffentliche Liste, jedes Geschenk einmal pro Spielstand ===== */
 const EVG={list:null,t:0,busy:false},EVG_KEY="pokelings_evg";
 function evList(){if(EVG.list)return EVG.list;try{EVG.list=LS.get(EVG_KEY,null)||[];}catch(e){EVG.list=[];}evI18n();return EVG.list;}
@@ -16036,6 +16046,10 @@ function myTitleLocal(){try{const t=USER?LS.get(ttKey(USER),null):null;MYTITLE=t
 const favReg=id=>{const L=SPECIES[id]&&SPECIES[id].line;return(L&&L.region)||"kanto";};
 function favList(){const d=(META&&META.dex)||{},RK=Object.keys(REGIONS),xo=exclOk();return Object.keys(d).map(Number).filter(id=>d[id]&&d[id].owned>0&&SPECIES[id]&&(xo||!isExcl(id)))
   .sort((a,b)=>{const ra=RK.indexOf(favReg(a)),rb=RK.indexOf(favReg(b));if(ra!==rb)return ra-rb;const A=SPECIES[a],B=SPECIES[b];return favLineN(A.line)-favLineN(B.line)||A.stage-B.stage||a-b;});}
+/* v1.36.0.7: Auswahl inkl. Mega-Formen, die man schon einmal hatte (direkt hinter der Grundform) */
+const favMegaOk=(id,k,shy)=>!!(k&&typeof MEGA!=="undefined"&&MEGA[id]&&typeof megaKeys==="function"&&megaKeys(id).some(m=>m.k===k)&&typeof megaGot==="function"&&megaGot(id,k,!!shy));
+function favEntries(){const out=[];for(const id of favList()){out.push({id,mk:null,n:SPECIES[id].name});if(typeof MEGA!=="undefined"&&MEGA[id]&&typeof megaKeys==="function")for(const m of megaKeys(id))if(megaGot(id,m.k,false))out.push({id,mk:m.k,n:m.n});}return out;}
+const favMegaName=(id,k)=>{try{const m=megaKeys(id).find(x=>x.k===k);return m?m.n:null;}catch(e){return null;}};
 const favLineN=L=>L._n||(L._n=Math.min(...L.stages.map(s=>s[0]))); // Pichu-Linie steht bei Pikachu (25), nicht bei 172
 /* Sprite nach sichtbarem Inhalt ausrichten: waagerecht mittig (Mischung aus Umriss und Schwerpunkt), Füße auf den Boden.
    Die GIF-Leinwand ist oft einseitig leer (Schweif, Flügel) – darum saß z. B. Mewtu schief. Nutzt "translate", damit Animationen auf "transform" bleiben. */
@@ -16049,21 +16063,21 @@ function sprAlign(img,flip){if(img&&img.dataset&&img.dataset.spw){img.dataset.al
   if(img.complete&&img.naturalWidth)go();else img.addEventListener("load",go,{once:true});return img;}
 function favDefault(){const d=(META&&META.dex)||{};let best=0,bw=-1;for(const id of favList()){const w=d[id].wins||0;if(w>bw){bw=w;best=id;}}return best||25;}
 function cardMeta(){META.card=META.card||{};const C=META.card;if(!C.bg||!bgOk(C.bg))C.bg="std";C.badges=(C.badges||[]).filter(id=>badgeDef(id)).slice(0,3);
-  const d=(META&&META.dex)||{};if(!C.fav||!SPECIES[C.fav]||!(d[C.fav]&&d[C.fav].owned>0)||(isExcl(C.fav)&&!exclOk()))C.fav=favDefault();if(C.favSh&&!(d[C.fav]&&d[C.fav].shiny>0))C.favSh=0;return C;}
+  const d=(META&&META.dex)||{};if(!C.fav||!SPECIES[C.fav]||!(d[C.fav]&&d[C.fav].owned>0)||(isExcl(C.fav)&&!exclOk()))C.fav=favDefault();if(C.favM&&!favMegaOk(C.fav,C.favM,false))C.favM=null;if(C.favSh&&!(C.favM?favMegaOk(C.fav,C.favM,true):(d[C.fav]&&d[C.fav].shiny>0)))C.favSh=0;return C;}
 const noTitle=t=>!t||/^Trainer(in)?$/.test(String(t).trim());
 function cardTitles(C){const bs=badgeAll().map(b=>[b,badgeState(b).t]);return [...new Set([...(MYTITLE&&MYTITLE.text?[MYTITLE.text]:[]),...(((META&&META.ev&&META.ev.tt)||[]).map(t=>t.t)),...bs.filter(x=>x[1]>=5).map(x=>badgeT5n(x[0])),...bs.filter(x=>x[1]>=4).map(([b])=>b.n.replace(/^Partner: /,"")+(b.cat==="Partner"?"-Meister":""))])];}
 function cardMine(){const C=cardMeta();if(C.title&&!cardTitles(C).includes(C.title))C.title=null;const b=C.badges.map(id=>{const d=badgeDef(id);return[id,d?badgeShowT(d):0];}).filter(x=>x[1]>0);
   const title=noTitle(C.title)?"":C.title,ts=title?titleFxOf(title):null;
-  return{name:USER||mpName&&mpName()||"Gast",fav:C.fav,favSh:C.favSh?1:0,bg:C.bg,title,ts,badges:b,ch:Object.values(META.champs||{}).reduce((a,c)=>a+c,0),dw:(META.mp||{}).duelWins||0,dex:_dex().filter(d=>d.owned>0).length,tw:typeof twBest==="function"?twBest():0};}
+  return{name:USER||mpName&&mpName()||"Gast",fav:C.fav,favSh:C.favSh?1:0,favM:C.favM||null,bg:C.bg,title,ts,badges:b,ch:Object.values(META.champs||{}).reduce((a,c)=>a+c,0),dw:(META.mp||{}).duelWins||0,dex:_dex().filter(d=>d.owned>0).length,tw:typeof twBest==="function"?twBest():0};}
 function cardClean(c){if(!c||typeof c!=="object")return null;const n=v=>Math.max(0,Math.min(1e7,v|0)),fav=+c.fav;
-  return{name:String(c.name||"?").slice(0,20),fav:SPECIES[fav]&&!(isExcl(fav)&&String(c.name||"").trim().toLowerCase()!=="requiem")?fav:25,favSh:c.favSh?1:0,bg:CARD_BG[c.bg]?c.bg:"std",title:noTitle(c.title)?"":String(c.title).replace(/[<>]/g,"").slice(0,24),ts:TITLE_FX[c.ts]?c.ts:null,
+  return{name:String(c.name||"?").slice(0,20),fav:SPECIES[fav]&&!(isExcl(fav)&&String(c.name||"").trim().toLowerCase()!=="requiem")?fav:25,favSh:c.favSh?1:0,favM:(typeof c.favM==="string"&&typeof MEGA!=="undefined"&&MEGA[fav]&&Object.values(MEGA[fav]).some(m=>m&&m.k===c.favM))?c.favM:null,bg:CARD_BG[c.bg]?c.bg:"std",title:noTitle(c.title)?"":String(c.title).replace(/[<>]/g,"").slice(0,24),ts:TITLE_FX[c.ts]?c.ts:null,
     badges:(Array.isArray(c.badges)?c.badges:[]).slice(0,3).filter(x=>Array.isArray(x)&&badgeDef(String(x[0]))).map(x=>[String(x[0]).slice(0,40),Math.max(1,Math.min(TIER_MAX,x[1]|0))]),ch:n(c.ch),dw:n(c.dw),dex:n(c.dex),tw:n(c.tw)};}
 const ttCls=ts=>ts&&TITLE_FX[ts]?` class="tt tt-${ts}"`:"";
 function cardHTML(c,side){c=c||cardMine();const sl=[0,1,2].map(i=>c.badges[i]?badgeHTML(c.badges[i][0],c.badges[i][1]):badgeHTML(null,0)).join("");
   const bgk=CARD_BG[c.bg]?c.bg:"std";
   return `<div class="tcard${side?" "+side:""}" data-tn="${esc((CARD_BG[bgk]||{}).n||"")}" data-td="${esc(bgWhy(bgk))}" data-tk="HINTERGRUND" data-tc="#9fe8ff">${bgHTML(c.bg)}<div class="tcShine"></div>
    <div class="tcTop${c.title?"":" nt"}"><b${c.name.length>13?' class="long"':""}>${esc(c.name)}</b>${c.title?`<small class="${[c.ts&&TITLE_FX[c.ts]?"tt tt-"+c.ts:"",c.title.length>16?"xl":c.title.length>12?"long":""].join(" ").trim()}">${esc(c.title)}</small>`:""}</div>
-   <div class="tcAv"><i class="tcPlat"></i>${c.ph?`<span class="tcMon tcPh"><b>?</b></span>`:`<span class="tcMon" data-sp="${SPECIES[c.fav]?c.fav:25}" data-sh="${c.favSh?1:""}"></span>`}</div>
+   <div class="tcAv"><i class="tcPlat"></i>${c.ph?`<span class="tcMon tcPh"><b>?</b></span>`:`<span class="tcMon" data-sp="${SPECIES[c.fav]?c.fav:25}" data-sh="${c.favSh?1:""}"${c.favM&&SPECIES[c.fav]?` data-mk="${esc(String(c.favM))}"`:""}></span>`}</div>
    <div class="tcBdg">${sl}</div>
    ${c.sub?`<div class="tcStats"><span>${c.sub}</span></div>`:`<div class="tcStats"><span>${ic("crown")}${c.ch}</span><span>${ic("swords")}${c.dw}</span><span>${ic("dex")}${c.dex}</span>${c.tw?`<span>${ic("tower")}${c.tw}</span>`:""}</div>`}</div>`;}
 /* Sprite auf den sichtbaren Inhalt zuschneiden (für kleine Rahmen wie Abzeichen: immer mittig, gleich groß) */
@@ -16077,22 +16091,22 @@ function sprTrim(img){if(!img)return img;if(img.dataset&&img.dataset.spw){img.da
     img.onload=null;img.src=u;}catch(e){}};
   if(img.complete&&img.naturalWidth)go();else img.addEventListener("load",go,{once:true});return img;}
 function cardHydrate(root){hydrateIcons(root);root.querySelectorAll(".bsp[data-sp]").forEach(e=>{if(!e.firstChild)try{e.appendChild(sprTrim(spriteEl(+e.dataset.sp)));}catch(x){}});
-  root.querySelectorAll(".tcMon[data-sp]").forEach(e=>{if(!e.firstChild)try{e.appendChild(sprAlign(natFit(spriteEl(+e.dataset.sp,"",{shiny:!!e.dataset.sh}),1),true));}catch(x){}});}
+  root.querySelectorAll(".tcMon[data-sp]").forEach(e=>{if(!e.firstChild)try{e.appendChild(sprAlign(natFit(spriteEl(+e.dataset.sp,"",{shiny:!!e.dataset.sh,mega:e.dataset.mk||undefined}),1),true));}catch(x){}});}
 /* Bühne im Retro-Stil (Sterne, Horizont, Gitterboden, Lichtkegel) – Partnerwahl */
 const synthBg=()=>`<div class="synthBg"><i class="sStars"></i><i class="sStars s2"></i><i class="sHor"></i><i class="sGrid"></i><i class="sHaze"></i></div>`;
 function avatarCheck(){} // Figurwahl entfernt (v9.5)
 /* Trainerkarte bearbeiten */
 let CARD_TAB="badges",FAV_Q="",FAV_N=60,FAV_R="all";
-function favMatches(){const q=FAV_Q.trim().toLowerCase();let L=favList();if(FAV_R!=="all")L=L.filter(id=>favReg(id)===FAV_R);return q?L.filter(id=>SPECIES[id].name.toLowerCase().includes(q)||String(id)===q):L;}
+function favMatches(){const q=FAV_Q.trim().toLowerCase();let L=favEntries();if(FAV_R!=="all")L=L.filter(e=>favReg(e.id)===FAV_R);return q?L.filter(e=>e.n.toLowerCase().includes(q)||SPECIES[e.id].name.toLowerCase().includes(q)||String(e.id)===q||(q==="mega"&&e.mk)):L;}
 function cardModal(t){t=t||CARD_TAB;CARD_TAB=t;const C=cardMeta(),me=cardMine();let body="";
   if(t==="badges"){const all=badgeAll(),cats=["Champion","Kampf","Gambit","Sammeln","Typen","Partner"];const got=all.filter(b=>badgeShowT(b)>0).length;
     body=`<p class="cdHint">Tippe ein freigeschaltetes Abzeichen an, um es in eines der 3 Felder zu legen (nochmal tippen = entfernen). ${got} von ${all.length} Abzeichen freigeschaltet.</p>`+cats.map(cat=>{const L=all.filter(b=>b.cat===cat);if(!L.length)return"";
       return `<h4 class="cdCat">${cat}</h4><div class="cdGrid">${L.map(b=>{const s0=badgeState(b),gt=bGiftT(b.id),gv=gt>s0.t,s=gv?Object.assign({},s0,{t:gt}):s0,on=C.badges.includes(b.id),pr=gv?1:s.next?Math.min(1,s.v/s.next):b.v5&&s.t===4?Math.min(1,(s.v5||0)/b.T5):s.t===5&&b.T6?Math.min(1,(s.v6||0)/b.T6):1;
         return `<button class="cdB${on?" on":""}${s.t?"":" lock"}" data-b="${b.id}">${badgeHTML(b.id,Math.max(1,s.t),"sm")}${s.t?"":`<span class="cdL">${ic("lock")}</span>`}<div><b>${esc(b.n)} ${s.t?ROMAN[s.t]:""}</b><small>${esc(b.d)}</small>
           <span class="cdBar"><i style="width:${Math.round(pr*100)}%;background:${s.t?TIER[s.t].c:"#6a7088"}"></i></span>${gv?`<small class="cdN cdGv">${ic("star")} Verliehen: ${TIER[gt].n}</small>`:`<small class="cdN">${Math.floor(s.v).toLocaleString("de-DE")}${s.next?` / ${s.next.toLocaleString("de-DE")} → ${TIER[s.t+1].n}`:b.v5&&s.t===4?` · ${esc(b.d5)}: ${(s.v5||0).toLocaleString("de-DE")} / ${b.T5} → ${TIER[5].n}`:s.t===5&&b.T6?(b.d6?` · ${esc(b.d6)}: ${Math.floor(s.v6||0).toLocaleString("de-DE")} / ${b.T6.toLocaleString("de-DE")} → ${TIER[6].n}`:` / ${b.T6.toLocaleString("de-DE")} → ${TIER[6].n}`):" · MAX"}</small>${s.t>=5?`<small class="cdT5">${ic("ghost")} Titel: <span class="tt tt-geist">${esc(badgeT5n(b))}</span></small>`:""}`}</div></button>`;}).join("")}</div>`;}).join("");}
-  else if(t==="fav"){const all=favList(),d=META.dex||{},rc={};for(const id of all){const r=favReg(id);rc[r]=(rc[r]||0)+1;}if(FAV_R!=="all"&&!rc[FAV_R])FAV_R="all";
-    body=`<p class="cdHint">Dein Lieblingspokémon steht auf deiner Kampfkarte, im VS-Bildschirm und in der Bestenliste. Wählbar ist jedes Pokémon, das du schon einmal hattest (${all.length}).</p>
-     <div class="favBar"><input id="favQ" placeholder="Pokémon suchen …" maxlength="20" autocomplete="off" value="${esc(FAV_Q)}">${d[C.fav]&&d[C.fav].shiny>0?`<button class="btn sm${C.favSh?" on":""}" id="favSh">${ic("shiny")} Schillernd</button>`:""}</div>
+  else if(t==="fav"){const all=favEntries(),d=META.dex||{},rc={};for(const e of all){const r=favReg(e.id);rc[r]=(rc[r]||0)+1;}const shOk=C.favM?favMegaOk(C.fav,C.favM,true):(d[C.fav]&&d[C.fav].shiny>0);if(FAV_R!=="all"&&!rc[FAV_R])FAV_R="all";
+    body=`<p class="cdHint">Dein Lieblingspokémon steht auf deiner Kampfkarte, im VS-Bildschirm und in der Bestenliste. Wählbar ist jedes Pokémon, das du schon einmal hattest (${all.length}).<span> Mega-Formen zählen mit, auch schillernd.</span></p>
+     <div class="favBar"><input id="favQ" placeholder="Pokémon suchen …" maxlength="20" autocomplete="off" value="${esc(FAV_Q)}">${shOk?`<button class="btn sm${C.favSh?" on":""}" id="favSh">${ic("shiny")} Schillernd</button>`:""}</div>
      <div class="favRegs"><button class="${FAV_R==="all"?"on":""}" data-fr="all">Alle <small>${all.length}</small></button>${Object.keys(REGIONS).filter(r=>rc[r]).map(r=>`<button class="${FAV_R===r?"on":""}" data-fr="${r}">${esc(REGIONS[r].n)} <small>${rc[r]}</small></button>`).join("")}</div>
      <div class="favList"></div><div class="rbtns" style="margin-top:8px"><button class="btn sm" id="favMore" style="display:none">${ic("plus")} Mehr anzeigen</button></div>`;}
   else if(t==="look"){body=`<h4 class="cdCat">Hintergrund</h4><div class="cdBgs">${Object.entries(CARD_BG).filter(([k,b])=>!b.gift||bgOk(k)).sort((x,y)=>(x[1].gift?9:x[1].lv||0)-(y[1].gift?9:y[1].lv||0)).map(([k,b])=>{const ok=bgOk(k);return `<button class="cdBg${C.bg===k?" on":""}${ok?"":" lock"}" data-bg="${k}"><i class="bgThumb">${bgHTML(k)}${b.gift?`<em class="cdEd">${esc(b.ed||"Edition")}</em>`:""}${b.lv?`<em class="cdLv l${b.lv}">${"★".repeat(b.lv)}</em>`:""}</i><b>${ok?"":ic("lock")}${b.n}</b><small class="${ok?"ok":""}">${ok?ic(b.gift?"star":"check"):""}${esc(b.ld||"Für alle Trainer")}</small></button>`;}).join("")}</div>
@@ -16109,12 +16123,12 @@ function cardModal(t){t=t||CARD_TAB;CARD_TAB=t;const C=cardMeta(),me=cardMine();
   mb.querySelectorAll("[data-bg]").forEach(b=>b.onclick=()=>{if(b.classList.contains("lock")){sfx("deny");return;}C.bg=b.dataset.bg;saveMeta();mb.querySelectorAll(".cdBg[data-bg]").forEach(x=>x.classList.toggle("on",x===b));cdPrevUpd();});
   mb.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{C.title=b.dataset.t||null;saveMeta();mb.querySelectorAll(".cdT[data-t]").forEach(x=>x.classList.toggle("on",x===b));cdPrevUpd();});
   if(t==="fav"){const grid=mb.querySelector(".favList"),more=$("favMore");
-    const fill=()=>{const L=favMatches(),cnt={};for(const id of L){const r=favReg(id);cnt[r]=(cnt[r]||0)+1;}let h="",cur=null;
-      for(const id of L.slice(0,FAV_N)){const r=favReg(id);if(r!==cur){if(cur!==null)h+=`</div>`;cur=r;h+=`<h4 class="favReg">${esc((REGIONS[r]||{n:r}).n)}<small>${cnt[r]}</small></h4><div class="favGrid">`;}
-        h+=`<button class="favB${id===C.fav?" on":""}" data-fav="${id}" title="${esc(SPECIES[id].name)}"><span class="fm" data-sp="${id}"></span><small>${esc(SPECIES[id].name)}</small></button>`;}
+    const fill=()=>{const L=favMatches(),cnt={};for(const e of L){const r=favReg(e.id);cnt[r]=(cnt[r]||0)+1;}let h="",cur=null;
+      for(const e of L.slice(0,FAV_N)){const id=e.id,r=favReg(id);if(r!==cur){if(cur!==null)h+=`</div>`;cur=r;h+=`<h4 class="favReg">${esc((REGIONS[r]||{n:r}).n)}<small>${cnt[r]}</small></h4><div class="favGrid">`;}
+        const on=id===C.fav&&(e.mk||null)===(C.favM||null);h+=`<button class="favB${on?" on":""}${e.mk?" mg":""}" data-fav="${id}"${e.mk?` data-mk="${esc(e.mk)}"`:""} title="${esc(e.n)}"><span class="fm" data-sp="${id}"${e.mk?` data-mk="${esc(e.mk)}"`:""}></span><small>${esc(e.n)}</small>${e.mk?`<em class="favMg">MEGA</em>`:""}</button>`;}
       if(cur!==null)h+=`</div>`;grid.innerHTML=h||`<p class="empty">Nichts gefunden.</p>`;
-      grid.querySelectorAll(".fm[data-sp]").forEach(e=>e.appendChild(sprAlign(natFit(spriteEl(+e.dataset.sp),.92))));
-      grid.querySelectorAll("[data-fav]").forEach(b=>b.onclick=()=>{C.fav=+b.dataset.fav;C.favSh=0;saveMeta();cardModal("fav");});
+      grid.querySelectorAll(".fm[data-sp]").forEach(e=>e.appendChild(sprAlign(natFit(spriteEl(+e.dataset.sp,"",{mega:e.dataset.mk||undefined}),.92))));
+      grid.querySelectorAll("[data-fav]").forEach(b=>b.onclick=()=>{C.fav=+b.dataset.fav;C.favM=b.dataset.mk||null;C.favSh=0;saveMeta();cardModal("fav");});
       if(more){more.style.display=L.length>FAV_N?"":"none";more.lastChild.textContent=` Mehr anzeigen (${Math.max(0,L.length-FAV_N)})`;}};
     fill();if(more)more.onclick=()=>{FAV_N+=60;fill();};
     const q=$("favQ");let tm=0;if(q)q.oninput=()=>{clearTimeout(tm);tm=setTimeout(()=>{FAV_Q=q.value;FAV_N=60;fill();},200);};
@@ -16140,7 +16154,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.36.0.6",DUEL_HP=30;
+const MP_VER="1.36.0.7",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -20546,8 +20560,11 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.36.0.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.36.0.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.36.0.7",d:"04.11.2026",t:"Schnellfix",items:[
+  ["gear", "Einstellungen: Neue Gruppe „Animationen“. Dort kannst du die Animationen für Entwicklungen und Sterne sowie für Mega-Entwicklungen überspringen."],
+  ["mega", "Trainerkarte: Mega-Entwicklungen sind jetzt als Lieblingspokémon wählbar, auch schillernd, sobald du die Form schon einmal hattest. Sie erscheinen auf der Kampfkarte, im VS-Bildschirm und in der Bestenliste."]]},
  {v:"1.36.0.6",d:"04.11.2026",t:"Schnellfix",items:[
   ["star", "Kartenhintergründe überarbeitet: In der Tiefsee schwimmen die Fische jetzt vorwärts (in beide Richtungen), dazu ein Fischschwarm, Quallen und Korallen. Sandsturm mit ziehenden Staubwolken, Steppenläufer, Pyramide und Kaktus. Sternennacht mit Sternschnuppe und Glühwürmchen. Die Kampfturm-Motive behalten auf dem breiten Kampfbildschirm ihre Form."]]},
  {v:"1.36.0.5",d:"04.11.2026",t:"Schnellfix",items:[
@@ -22105,7 +22122,7 @@ function startMegas(){
   if(SIM){for(const f of [megaCand("mine"),megaCand("enemy")].filter(Boolean))applyMega(f,megaForm(f.u.sp,f.role,f.u.megaF));return false;}
   const q=[megaCand("mine"),megaCand("enemy")].filter(Boolean);if(!q.length)return false;B.pause=true;
   const next=()=>{const f=q.shift();if(!f||!B){if(B){B.pause=false;B.holdT=.4;}return;}const mf=megaForm(f.u.sp,f.role,f.u.megaF),boss=BOSSES[S.round];
-    const cine=typeof playMega==="function"&&!window.__fast&&tab==="raster";if(cine){setTimeout(()=>{if(document.querySelector(".cine-mega"))sfx("megaCharge");},1150);setTimeout(()=>{if(document.querySelector(".cine-mega"))sfx("megaBurst");},3250);}
+    const cine=typeof playMega==="function"&&!window.__fast&&tab==="raster"&&!(typeof animSkip==="function"&&animSkip("mega"));if(cine){setTimeout(()=>{if(document.querySelector(".cine-mega"))sfx("megaCharge");},1150);setTimeout(()=>{if(document.querySelector(".cine-mega"))sfx("megaBurst");},3250);}
     const run=cine?playMega({base:sprKey(f.u.sp,f.u.shiny),mega:sprKey(f.u.sp,f.u.shiny,mf.k),name:f.sp.name,megaName:mf.n,side:f.side,wild:f.side==="enemy"&&f.L.leg,color:TYPES[mf.types[0]][1],trainer:f.side==="mine"?(USER||"Du"):(boss?boss.name:S.enc&&S.enc.name)},$("arena")):Promise.resolve();
     run.catch(()=>{}).then(()=>{if(!B)return;applyMega(f,mf);setTimeout(next,window.__fast?0:250);});};
   next();return true;}
@@ -22385,8 +22402,8 @@ function vsSplash(cb){
   if(ghost&&!gc&&typeof geistCardOf==="function"){const t0=Date.now(),iv=setInterval(()=>{if(!vs.classList.contains("show")||Date.now()-t0>vsSec*1000){clearInterval(iv);return;}const c=geistCardOf(enc.ghost);if(!c)return;clearInterval(iv);
     const bgE=vs.querySelector(".v4RBg"),bE=vs.querySelector("#v4GhB"),sm=vs.querySelector(".v4P.R small");if(bgE)bgE.innerHTML=bgHTML(c.bg);if(bE)bE.innerHTML=bdg(c);if(sm&&c.title)sm.textContent=c.title;
     try{if(typeof cardHydrate==="function"){if(bgE)cardHydrate(bgE);if(bE)cardHydrate(bE);}}catch(e){}},150);}
-  const putFav=(sel,id,sh,fl)=>{const b=vs.querySelector(sel);if(b)try{const im=natFit(spriteEl(SPECIES[id]?id:25,"",{shiny:!!sh}),1);b.appendChild(typeof sprAlign==="function"?sprAlign(im,fl):im);}catch(e){}};
-  putFav(".v4Fav.L .bob",me.fav,me.favSh,true);if(S.duel)putFav(".v4Fav.R .bob",op.fav,op.favSh,false);
+  const putFav=(sel,id,sh,fl,mk)=>{const b=vs.querySelector(sel);if(b)try{const im=natFit(spriteEl(SPECIES[id]?id:25,"",{shiny:!!sh,mega:SPECIES[id]&&mk?mk:undefined}),1);b.appendChild(typeof sprAlign==="function"?sprAlign(im,fl):im);}catch(e){}};
+  putFav(".v4Fav.L .bob",me.fav,me.favSh,true,me.favM);if(S.duel)putFav(".v4Fav.R .bob",op.fav,op.favSh,false,op.favM);
   vs.querySelectorAll(".v4m .sp[data-k]").forEach(e=>{const u=show[+e.dataset.k];if(u)try{e.appendChild(natFit(spriteEl(u),1));}catch(x){}});
   $("bMine").textContent=(USER||"DU").toUpperCase();$("bMineS").textContent=`${boardUnits().length} Pokémon`;$("bEnemy").textContent=(S.duel?op.name:boss?boss.name:enc.name).toUpperCase();$("bEnemyS").textContent=S.duel?"Live-Duell":D.n+(S.revanche?" · Revanche":"");
   vs.onclick=null;vs.classList.add("show");sfx("vs");setTimeout(()=>{if(vs.classList.contains("show")){sfx("crit",.05);sfx("boom",.25);}},320);
