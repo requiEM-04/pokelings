@@ -4201,6 +4201,66 @@ body:not(.battle) .wxLbl{display:none}
 .dexReg .lchev .ic{width:14px;height:14px;transform:rotate(-90deg)}
 .dexReg.open .lchev{transform:rotate(180deg)}
 .dex[hidden]{display:none!important}
+/* ===== v1.39.0: Ruhm ===== */
+.fmN{font-weight:800}
+.fmN.fn-topas{color:#ffcf4a!important;text-shadow:0 1px 0 #5a3c00,0 0 6px rgba(255,207,74,.45)}
+.fmN.fn-smaragd{color:#4dffa0!important;text-shadow:0 1px 0 #053a1e,0 0 6px rgba(62,224,138,.5)}
+.fmN.fn-saphir{color:#6fa4ff!important;text-shadow:0 1px 0 #0a1e5a,0 0 7px rgba(79,140,255,.6)}
+.fmN.fn-rubin{color:#ff6680!important;text-shadow:0 1px 0 #4a0616,0 0 7px rgba(255,77,109,.6);animation:fmGlow 2.6s ease-in-out infinite;--g:rgba(255,77,109,.85)}
+.fmN.fn-amethyst{color:#c89bff!important;text-shadow:0 1px 0 #2a0a5a,0 0 8px rgba(183,123,255,.65);animation:fmGlow 2.4s ease-in-out infinite;--g:rgba(183,123,255,.9)}
+.fmN.fn-diamant{color:#f2fdff!important;text-shadow:0 1px 0 #1a4a60,0 0 6px #9fe8ff,0 0 12px rgba(160,230,255,.6);animation:fmDia 2s ease-in-out infinite}
+.fmN.fn-legende{animation:fmLeg 6s linear infinite;text-shadow:0 1px 0 #000,0 0 8px currentColor}
+@keyframes fmGlow{50%{text-shadow:0 1px 0 #000,0 0 12px var(--g),0 0 20px var(--g)}}
+@keyframes fmDia{0%,100%{text-shadow:0 1px 0 #1a4a60,0 0 6px #9fe8ff,0 0 12px rgba(160,230,255,.6)}50%{text-shadow:0 1px 0 #1a4a60,0 0 10px #fff,0 0 18px #9fe8ff}}
+@keyframes fmLeg{0%{color:#ffcf4a}16%{color:#4dffa0}33%{color:#6fa4ff}50%{color:#ff6680}66%{color:#c89bff}83%{color:#f2fdff}100%{color:#ffcf4a}}
+/* Ruhm-Emblem: geschliffener Edelstein */
+.fmEm{position:relative;display:inline-grid;place-items:center;width:20px;height:20px;flex:none;vertical-align:middle;clip-path:polygon(50% 0,100% 30%,82% 100%,18% 100%,0 30%);background:linear-gradient(160deg,#fff 0,var(--fc) 30%,var(--fd) 100%);filter:drop-shadow(0 0 3px var(--fc))}
+.fmEm::after{content:"";position:absolute;inset:3px;clip-path:polygon(50% 0,100% 30%,82% 100%,18% 100%,0 30%);background:linear-gradient(200deg,rgba(255,255,255,.55),transparent 45%)}
+.fmEm span{position:relative;z-index:1;font:7px var(--px);color:#10121c;margin-top:3px}
+.fmEm.big{width:64px;height:64px}.fmEm.big span{font-size:16px;margin-top:8px}
+.fmEm.leg{background:conic-gradient(from var(--bga),#ffcf4a,#4dffa0,#6fa4ff,#ff6680,#c89bff,#f2fdff,#ffcf4a);animation:bdgSpin 4s linear infinite}
+.fmEm.none{background:#2a3048;filter:none}.fmEm.none span{color:#8a93b0}
+/* Kartenrahmen */
+.tcard.fmFr{border-color:var(--fc);box-shadow:0 6px 0 rgba(0,0,0,.45),0 0 14px color-mix(in srgb,var(--fc) 55%,transparent),inset 0 0 0 3px color-mix(in srgb,var(--fc) 45%,#fff)}
+.tcFr{position:absolute;inset:0;z-index:6;pointer-events:none;border-radius:12px;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--fc) 80%,#fff),inset 0 0 14px color-mix(in srgb,var(--fc) 40%,transparent)}
+.tcFr s{display:none}
+.tcFr.plus{box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--fc) 80%,#fff),inset 0 0 0 5px var(--fd),inset 0 0 0 6px color-mix(in srgb,var(--fc) 70%,#fff),inset 0 0 18px color-mix(in srgb,var(--fc) 45%,transparent)}
+.tcFr.plus s{display:block;position:absolute;width:14px;height:14px;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%);background:linear-gradient(160deg,#fff,var(--fc) 45%,var(--fd));filter:drop-shadow(0 0 4px var(--fc));animation:fmCor 2.4s ease-in-out infinite}
+.tcFr.plus s:nth-child(1){left:2px;top:2px}.tcFr.plus s:nth-child(2){right:2px;top:2px;animation-delay:.6s}.tcFr.plus s:nth-child(3){left:2px;bottom:2px;animation-delay:1.2s}.tcFr.plus s:nth-child(4){right:2px;bottom:2px;animation-delay:1.8s}
+@keyframes fmCor{50%{transform:scale(1.25);filter:drop-shadow(0 0 7px var(--fc))}}
+.tcFr.leg{box-shadow:none;padding:4px;background:conic-gradient(from var(--bga),#ffcf4a,#4dffa0,#6fa4ff,#ff6680,#c89bff,#f2fdff,#ffcf4a);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:bdgSpin 4s linear infinite}
+.tcard.fr-legende{border-color:#ffd84a}
+.tcStats .tcFm{display:inline-flex;align-items:center}
+/* Ruhm-Reiter */
+.fmLock{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:18px 10px}
+.fmLockIc .ic{width:44px;height:44px;color:#ffd84a;filter:drop-shadow(0 0 10px rgba(255,216,74,.6))}
+.fmLock h3{margin:0;font:16px var(--px);color:#ffd84a}.fmLock p{max-width:560px;color:var(--muted);margin:0}
+.fmReq{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:8px;background:#161b28;color:var(--muted);font-size:13px}.fmReq b{color:#fff}.fmReq.ok{color:#4dffa6}.fmReq .ic{width:14px;height:14px}
+.fmPrev{display:flex;gap:10px;margin-top:6px}.fmPrev .fmEm{width:30px;height:30px}
+.fmTop{display:flex;align-items:center;gap:16px;padding:14px;border-radius:12px;background:linear-gradient(135deg,color-mix(in srgb,var(--fc) 16%,#151a28),#10141f);border:2px solid #0b0d13;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--fc) 40%,transparent)}
+.fmTopR{flex:1;display:flex;flex-direction:column;gap:6px;min-width:0}.fmTopR h3{margin:0;font:15px var(--px);color:var(--fc)}.fmTopR small{color:var(--muted)}
+.fmBar{height:20px}
+.fmInv{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.fmInv span{font-size:12px;color:var(--muted)}
+.fmPick{display:grid;grid-template-columns:1fr 1fr auto;gap:14px;margin-top:12px;align-items:start}
+.fmPick h5{margin:0 0 6px;font:9px var(--px);color:#ffd84a}
+.fmOpts{display:flex;flex-wrap:wrap;gap:6px}
+.fmO{padding:6px 10px;border-radius:7px;background:#1c2232;border:2px solid #0b0d13;color:#dfe3ff;font-size:12px;cursor:pointer;display:flex;align-items:center;gap:6px}
+.fmO.on{box-shadow:inset 0 0 0 2px #ffd84a;background:#262d42}
+.fmSw{width:16px;height:16px;border-radius:4px;border:3px solid var(--fc);box-shadow:0 0 6px var(--fc)}.fmSw.plus{outline:2px solid var(--fd);outline-offset:1px}
+.fmSw.leg{border-color:transparent;background:conic-gradient(#ffcf4a,#4dffa0,#6fa4ff,#ff6680,#c89bff,#ffcf4a)}
+.fmNo{color:var(--muted);font-size:11px}
+.fmCardP .tcard{opacity:1;animation:none}
+.fmRoad{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.fmGrp{padding:10px;border-radius:10px;background:linear-gradient(180deg,color-mix(in srgb,var(--fc) 10%,#141a28),#10141f);border:2px solid #0b0d13;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--fc) 30%,transparent)}
+.fmGrp h5{margin:0 0 8px;font:10px var(--px);color:var(--fc)}
+.fmStep{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:7px;background:rgba(0,0,0,.25);margin-bottom:5px;opacity:.65}
+.fmStep>div{flex:1;min-width:0;display:flex;flex-direction:column}.fmStep b{font-size:12px}.fmStep small{font-size:10px;color:var(--muted)}
+.fmStep em{font-style:normal;font-size:11px;color:var(--gem);display:flex;align-items:center;gap:3px}.fmStep em .ic{width:12px;height:12px}
+.fmStep.got{opacity:1}.fmStep.got em{color:#4dffa6}
+.fmStep.cur{opacity:1;box-shadow:inset 0 0 0 2px var(--fc)}
+@media (max-width:720px){.fmPick{grid-template-columns:1fr}.fmCardP{justify-self:center}}
+/* v1.39.0: Item-Knöpfe */
+.ovItB{display:flex;flex-direction:column;gap:4px;align-items:stretch;flex:none}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -7791,7 +7851,7 @@ function showMenu(){
   if(S&&S.phase==="shop")save();
   showScreen("menu");if(typeof GL!=="undefined"&&GL&&GL.ftMesh){GL.scene.remove(GL.ftMesh);GL.ftMesh=null;}if(typeof avatarCheck==="function")avatarCheck();if(typeof patchAuto==="function")patchAuto();
   const sv=LS.get(saveKey(),null);const total=Object.values(META.champs).reduce((a,b)=>a+b,0);
-  $("menuWho").innerHTML=`<span>${ic("user")} ${esc(USER||"Gast")}</span><span style="color:var(--gem)">${ic("gem")} ${META.gems}${gemEventMul()>1?` <small style="font-size:10px;background:var(--gem);color:#0b0d13;border-radius:6px;padding:1px 5px;margin-left:3px">+${Math.round((gemEventMul()-1)*100)} % HEUTE</small>`:""}</span><span style="color:var(--amber)">${ic("trophy")} ${total}</span>${typeof misChip==="function"?misChip():""}`;if($("mMis"))$("mMis").onclick=()=>misModal();
+  $("menuWho").innerHTML=`<span>${ic("user")} ${USER&&typeof fameNameHtml==="function"&&META&&META.fame?fameNameHtml(USER,{fn:META.fame.n}):esc(USER||"Gast")}</span><span style="color:var(--gem)">${ic("gem")} ${META.gems}${gemEventMul()>1?` <small style="font-size:10px;background:var(--gem);color:#0b0d13;border-radius:6px;padding:1px 5px;margin-left:3px">+${Math.round((gemEventMul()-1)*100)} % HEUTE</small>`:""}</span><span style="color:var(--amber)">${ic("trophy")} ${total}</span>${typeof misChip==="function"?misChip():""}`;if($("mMis"))$("mMis").onclick=()=>misModal();
   const mb=(id,icn,t,s,main)=>`<button class="mbtn ${main?"main":""}" id="${id}"><span class="mi">${ic(icn)}</span><div><b>${t}</b><small>${s}</small></div></button>`;
   $("menuBtns").innerHTML=(sv&&sv.S?mb("mCont","play","Weiterspielen",`${sv.S.tower?"Kampfturm · Ebene "+(sv.S.round-20):(sv.S.daily?"Täglicher Run":MODES[sv.S.mode].n)+" · Runde "+sv.S.round}`,1):"")+
    mb("mNew","plus","Neues Spiel","Singleplayer · Täglicher Run · Region & Schwierigkeit",!(sv&&sv.S))+mb("mMp","swords","Mehrspieler","Ranked · Live-Duell · Geisterkämpfe")+mb("mFr","users","Freunde","Anfragen · Einladen · Chat")+mb("mLbB","trophy","Bestenliste","Trainerpunkte · Ranked")+mb("mLab","lab","Forschungslabor","Dauerhafte Verbesserungen & neue Pokémon")+mb("mDex","dex","Pokédex","Sammlung · Schillernde · Mega-Formen")+mb("mCard","user","Trainerkarte","Lieblingspokémon · Hintergrund · 3 Abzeichen")+mb("mAch","trophy","Erfolge",(()=>{const n=Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length;return n+"/"+ACH.length+" freigeschaltet · Statistik · Verlauf";})())+mb("mSet","gear","Einstellungen","Anleitung · Sound · Grafik · "+(USER?"Abmelden":"Login"));
@@ -7924,7 +7984,8 @@ function labRegBind(mb){mb.querySelectorAll("[data-lreg]").forEach(h=>h.onclick=
 function labScreen(tab){
   const t=tab||"tree";
   let body="";
-  if(t==="tree"){
+  if(t==="fame"){}
+  else if(t==="tree"){
     body=`<div class="tree">${RESEARCH.map(c=>`<div class="tcol" style="--rc:${c.col}"><div class="th">${c.role?roleHex(c.role):`<span class="rh" style="--rc:${c.col}">${ic(c.ic)}</span>`}${c.n.toUpperCase()}</div>
       ${c.nodes.map((n,i)=>{const l=perkLv(n.id),mx=l>=n.max,ok=rsReq(n),cst=mx?0:n.cost[l];
         return `${i?`<div class="tlink ${l>0||perkLv(c.nodes[i-1].id)>0&&ok?"on":""}"></div>`:""}<div class="tnode ${l>0?"got":""} ${ok?"":"locked"}" title="${esc(n.d)}"><div class="ni">${ic(n.ic)}</div><b>${n.n}</b>${n.d}<div class="lvp">${Array.from({length:n.max},(_,k)=>`<i class="${k<l?"on":""}"></i>`).join("")}</div>
@@ -7942,11 +8003,12 @@ function labScreen(tab){
       html+=head(R,lk?`${ic("lock")} ${R.unlock}`:`${n}/${all.length} gesammelt`,lk,rk)+(all.length?`<div class="dex" data-lrb="${rk}"${LAB_OPEN.has(rk)?"":" hidden"}>${LAB_OPEN.has(rk)?LAB_BODY[rk]():""}</div>`:"");}
     body=(typeof bstTabHtml==="function"?bstTabHtml():"")+`<h4 class="cdCat" style="margin-top:18px">Sammlung</h4>${html}`;
   }
+  if(t==="fame"&&typeof fameTabHtml==="function")body=fameTabHtml();
   openModal(`<div class="labHd" style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h2>${ic("lab")} FORSCHUNGSLABOR</h2><span class="hs" style="color:var(--gem)">${ic("gem")}<b>${META.gems}</b></span></div>
     <div class="lead">Edelsteine gibt es am Ende jedes Laufs (je Runde, Boss und Elite-Sieg). Forschung wirkt dauerhaft in allen Läufen.</div>
-    <div class="dtabs"><button data-t="tree" class="${t==="tree"?"on":""}">SKILLBAUM</button><button data-t="mons" class="${t==="mons"?"on":""}">BOOSTER</button></div>${body}
+    <div class="dtabs"><button data-t="tree" class="${t==="tree"?"on":""}">SKILLBAUM</button><button data-t="mons" class="${t==="mons"?"on":""}">BOOSTER</button><button data-t="fame" class="${t==="fame"?"on":""}">${ic("crown")} RUHM</button></div>${body}
     <button class="pri" id="gBack" style="margin-top:16px">ZURÜCK</button>`,"wide",()=>{if($("menu").classList.contains("show"))showMenu();});
-  $("mbox").querySelectorAll(".pic[data-sp]").forEach(e=>e.appendChild(spriteEl(+e.dataset.sp)));if(t==="mons"&&typeof bstBind==="function")bstBind();if(t==="mons")labRegBind($("mbox"));
+  $("mbox").querySelectorAll(".pic[data-sp]").forEach(e=>e.appendChild(spriteEl(+e.dataset.sp)));if(t==="mons"&&typeof bstBind==="function")bstBind();if(t==="mons")labRegBind($("mbox"));if(t==="fame"&&typeof fameBind==="function")fameBind();
   $("mbox").querySelectorAll(".dtabs button").forEach(b=>b.onclick=()=>labScreen(b.dataset.t));
   $("mbox").querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{const n=RS_BY[b.dataset.r],l=perkLv(n.id),c=n.cost[l];if(l>=n.max||META.gems<c||!rsReq(n))return;META.gems-=c;META.perks[n.id]=l+1;saveMeta();toast(`${n.n} erforscht!`,"lab");labScreen("tree");refreshGems();});
   $("mbox").querySelectorAll("[data-u]").forEach(b=>b.onclick=()=>{const L=LINE_BY[b.dataset.u],c=UNLOCK_COST[L.tier];if(META.gems<c||L.achX)return;META.gems-=c;META.unlocked.push(L.k);if(typeof psOnUnlock==="function")psOnUnlock(L);saveMeta();toast(`${L.stages[0][1]} freigeschaltet!`,"ball");labScreen("mons");refreshGems();});
@@ -8661,7 +8723,7 @@ function lbTitle(a){if(!a)return null;const def=t=>!t||/^Trainer(in)?$/.test(t);
   const st=a.tt&&a.tt.text===c.title&&TITLE_FX[a.tt.style]?a.tt.style:(typeof evTitleStyle==="function"&&evTitleStyle(c.title))||(isT5Title(c.title)?(c.ts==="bernstein"?"bernstein":"geist"):null);
   return {text:c.title,style:st};}
 const lbTTHtml=a=>{const t=lbTitle(a);return t&&typeof ttCls==="function"?`<span class="lbTT"><span${ttCls(t.style)}>${esc(t.text)}</span></span>`:"";};
-function lbRowsHtml(rows,n){return rows.slice(0,n||10).map((a,i)=>`<button class="lbRow r${i+1}" data-n="${esc(a.n)}"><span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${esc(a.n)}</b>${lbTTHtml(a)}</div>
+function lbRowsHtml(rows,n){return rows.slice(0,n||10).map((a,i)=>`<button class="lbRow r${i+1}" data-n="${esc(a.n)}"><span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${typeof fameNameRow==="function"?fameNameRow(a.n,a.card):esc(a.n)}</b>${lbTTHtml(a)}</div>
      <div class="lbRegs">${Object.keys(REGIONS).map(rk=>{const P=a.per[rk];return `<i title="${REGIONS[rk].n}: ${P.top?"Champion auf "+LB_N[P.top]:P.best?"Runde "+P.best:"noch nicht gespielt"}" style="--c:${P.top?LB_COL[P.top]:"#3a4258"}">${REGIONS[rk].s||REGIONS[rk].n[0]}</i>`;}).join("")}</div>
      <small title="${a.titles} Champion-Titel · ${a.ach} Erfolge · ${a.own} Pokémon gefangen">${ic("crown")} ${a.titles} Titel · ${ic("trophy")} ${a.ach} · ${ic("dex")} ${a.own}</small></div><span class="lbPts">${a.pts.toLocaleString("de-DE")}<em>Punkte</em></span></button>`).join("");}
 function renderLeaderboard(rows,src){const el=$("lbList");if(!el)return;rows=rows||lbRows();const sm=document.querySelector("#lbList")&&document.querySelector("#lbList").parentNode.querySelector(".ttl small");if(sm)sm.textContent=src==="cloud"?"weltweit":"dieser Browser";
@@ -8675,7 +8737,7 @@ function lbDetail(a){if(!a)return;const regs=Object.keys(REGIONS);let cd=a.card&
   // eigene Karte immer live; Titel-Effekt nur, wenn der Titel laut Server wirklich vergeben ist
   let own=false;try{if(typeof CL!=="undefined"&&CL.sess&&a.id&&a.id===CL.sess.uid&&USER&&typeof cardMine==="function"){cd=cardMine();own=true;}}catch(e){}
   if(cd&&!own){const t=lbTitle(a);cd.ts=t&&t.text===cd.title?t.style:null;}
-  openModal(`<h2>${ic("trophy")} ${esc(a.n.toUpperCase())}${lbTTHtml(a)?" "+lbTTHtml(a):""}</h2><div class="lead" style="margin-bottom:10px"><b style="color:var(--amber)">${a.pts.toLocaleString("de-DE")} Trainerpunkte</b>${a.pk!=null?` · <b style="color:#ff7ad8">${a.pk.toLocaleString("de-DE")} Pokémon-Punkte</b>`:""} · ${a.titles} Champion-Titel · ${a.ach} Erfolge · ${a.own} Pokémon gefangen · ${a.shy} schillernd</div>
+  openModal(`<h2>${ic("trophy")} ${typeof fameNameRow==="function"?fameNameRow(a.n.toUpperCase(),a.card):esc(a.n.toUpperCase())}${lbTTHtml(a)?" "+lbTTHtml(a):""}</h2><div class="lead" style="margin-bottom:10px"><b style="color:var(--amber)">${a.pts.toLocaleString("de-DE")} Trainerpunkte</b>${a.pk!=null?` · <b style="color:#ff7ad8">${a.pk.toLocaleString("de-DE")} Pokémon-Punkte</b>`:""} · ${a.titles} Champion-Titel · ${a.ach} Erfolge · ${a.own} Pokémon gefangen · ${a.shy} schillernd</div>
    <div class="lbDet">${cd?`<div class="lbCard">${cardHTML(cd)}${cd.ph?`<p class="lbPh">${ic("info")} Noch keine Kampfkarte: Sie erscheint, sobald ${esc(cd.name)} wieder mit Konto spielt.</p>`:""}</div>`:""}<div class="lbDetR"><table class="lbTab"><tr><th>Region</th>${Object.keys(LB_W).map(md=>`<th style="color:${LB_COL[md]}">${LB_N[md]}<small>${LB_W[md]} P.</small></th>`).join("")}<th>Beste Runde</th></tr>
    ${regs.map(rk=>{const P=a.per[rk],c=P.top?LB_COL[P.top]:null;return `<tr><td><span class="lbRegC"><i style="--c:${c||"#3a4258"}"${c?"":' class="off"'}>${REGIONS[rk].s||REGIONS[rk].n[0]}</i>${REGIONS[rk].n}</span></td>${Object.keys(LB_W).map(md=>`<td>${P.row[md]?`<b style="color:${LB_COL[md]}">${P.row[md]}×</b>`:"–"}</td>`).join("")}<td>${c?`<b class="lbChamp" style="--c:${c}">${ic("crown")} Champion <small>${LB_N[P.top]}</small></b>`:P.best>20?"Champion":P.best?"Runde "+P.best:"–"}</td></tr>`;}).join("")}</table>
    <p class="lbNote">Je Region zählt der erste Titel pro Schwierigkeit voll, jede Wiederholung nur +25 % (höchstens 4×). Spätere Regionen geben etwas mehr. Ohne Titel zählt der Fortschritt anteilig (alles ×10).<span> Pokémon-Punkte (eigener Reiter): je Pokémon 2,5, je schillerndes 10, Erfolge 10 bis 150 je nach Stufe.</span></p></div></div>
@@ -12475,6 +12537,8 @@ function sell(u){
   if(selUid===u.uid){selUid=null;showInfoEmpty();}toast(`+${unitCost(u)} Gold für ${SPECIES[u.sp].name}`,"coin");render();
 }
 function sellItem(bi){const id=S.bag[bi];if(!id)return;const g=Math.ceil(IT_COST[IT_BY[id].r]/2);S.bag.splice(bi,1);S.gold+=g;toast(`${IT_BY[id].n} für ${g} Gold verkauft`,"coin");render();}
+/* v1.39.0: besondere Items (einmal pro Lauf, Megastein, Z-Kristall, legendäre) lassen sich zurück in die Tasche nehmen */
+let _IT_TAKE=null;function itTake(id){if(!_IT_TAKE){_IT_TAKE=new Set();for(const it of ITEMS)if(it.kind==="mega"||it.r==="l"||it.id==="zkristall"||/pro Lauf!/.test(it.d||""))_IT_TAKE.add(it.id);}return _IT_TAKE.has(id);}
 function equip(u,bi){
   const id=S.bag[bi];if(!id||!u)return false;const it=IT_BY[id],role=roleOf(u);
   if(it.kind==="mega"){if(!megaOk(u)){toast(`${SPECIES[u.sp].name} kann keine Mega-Entwicklung`,"mega");return false;}if(u.items.includes("mega")){toast(`${SPECIES[u.sp].name} trägt schon einen Megastein`,"mega");return false;}}
@@ -12584,7 +12648,7 @@ function unitOverview(u,ctx){
     row("drop","Energie (Start/Max)",0,null,"#5cf2ff",()=>{const a=f?Math.round(f.mana):m.mana,b=f?f.manaMax:st.mana;return `${a} / ${b}${a>b?` <small style="color:#7ff0e4">(+${a-b} bleibt nach der 1. Spezial)</small>`:""}`;}),row("crit","Krit-Chance",m.crit,f&&f.crit,"#ffc94a",pct,"crit"),row("ghost","Ausweichen",m.dodge,f&&f.dodge,"#9b7cff",pct,"dodge"),
     row("fang","Lebensraub",m.ls,f&&f.ls,"#ff4d6d",pct,"ls"),row("leaf","Regeneration/s",m.regen,f&&f.regen,"#8fd35a",pct,"regen"),row("bubble","Schild zu Beginn",m.shield,f&&f.shieldStart,"#9fd8ff",pct,"shield"),row("spark","Spezialattacke",m.ab,f&&f.abm,"#c27cff",pct,"ab")].join("");
   const its=u.items||[],slots=itemSlots(u),gc={};(u.gifts||[]).forEach(g=>gc[g]=(gc[g]||0)+1);
-  const canIt=mine&&S&&S.phase!=="battle";const itRows=its.map((id,k)=>{const s=IT_BY[id],g=Math.ceil(IT_COST[s.r]/2);return `<div class="ovI">${itmEl(id,"sm")}<div><b style="color:${s.col}">${s.n}</b><p>${s.d}</p></div>${canIt?(id==="mega"?`<button class="btn sm ovIt" data-k="${k}" data-a="bag" title="Megastein abnehmen und einem anderen Pokémon geben">${ic("pack")} In die Tasche</button>`:`<button class="btn sm ovIt" data-k="${k}" data-a="sell" title="Item verkaufen (es geht dabei verloren)">${ic("coin")} +${g}</button>`):""}</div>`;}).join("")+(mine?Array.from({length:Math.max(0,slots-its.length)},()=>`<div class="ovI empty"><span class="islot"></span><div><p>Freier Platz: Item aus der Tasche hierher ziehen</p></div></div>`).join(""):"");
+  const canIt=mine&&S&&S.phase!=="battle";const itRows=its.map((id,k)=>{const s=IT_BY[id],g=Math.ceil(IT_COST[s.r]/2);return `<div class="ovI">${itmEl(id,"sm")}<div><b style="color:${s.col}">${s.n}</b><p>${s.d}</p></div>${canIt?`<span class="ovItB">${itTake(id)?`<button class="btn sm ovIt" data-k="${k}" data-a="bag" title="Item abnehmen und einem anderen Pokémon geben">${ic("pack")} In die Tasche</button>`:""}${id==="mega"?"":`<button class="btn sm ovIt" data-k="${k}" data-a="sell" title="Item verkaufen (es geht dabei verloren)">${ic("coin")} +${g}</button>`}</span>`:""}</div>`;}).join("")+(mine?Array.from({length:Math.max(0,slots-its.length)},()=>`<div class="ovI empty"><span class="islot"></span><div><p>Freier Platz: Item aus der Tasche hierher ziehen</p></div></div>`).join(""):"");
   const gfRows=Object.entries(gc).map(([g,n])=>`<div class="ovI"><span class="gdot" style="--c:${GF_BY[g].col}">${ic(GF_BY[g].ic)}</span><div><b style="color:${GF_BY[g].col}">${GF_BY[g].n}${n>1?" ×"+n:""}</b><p>${GF_BY[g].d}</p></div></div>`).join("");
   const synRows=sp.types.map(t=>{const s=SYN[t];if(!s)return"";const c=cnt?cnt[t]||0:0,lv=synLv(c),v=s.raw?s.v*Math.max(lv,1):Math.round(s.v*1000*Math.max(lv,1))/10;return `<div class="ovI ${lv?"":"off"}">${pill(t)}<div><p>${s.d.replace("{v}",v)} ${cnt?`<b>(${c}/${c>=2?4:2})</b>`:""}${lv?"":" · inaktiv"}</p></div></div>`;}).join("");
   const relRows=ctx!=="enemy"&&S&&S.relics&&S.relics.length?S.relics.map(id=>{const r=RL_BY[id];return `<div class="ovI">${relicEl(id)}<div><b style="color:${r.col}">${r.n}</b><p>${r.d}</p></div></div>`;}).join(""):`<p class="empty" style="font-size:12px;margin:0">${ctx==="enemy"?"Gegner haben keine Relikte.":"Noch keine Relikte. Bosse und Ereignisse geben welche."}</p>`;
@@ -12610,7 +12674,7 @@ function unitOverview(u,ctx){
   if($("megaPickBtn"))$("megaPickBtn").onclick=()=>megaChoice(u,()=>unitOverview(u,ctx));
   $("ovClose").onclick=closeModal;if($("ovSell"))$("ovSell").onclick=()=>{closeModal();sell(u);};
   mb.querySelectorAll(".ovIt").forEach(b=>b.onclick=()=>{const k=+b.dataset.k,id=u.items[k];if(!id)return;
-    if(b.dataset.a==="bag"){if(S.bag.length>=BAG_MAX){toast("Tasche ist voll","pack");sfx("deny");return;}u.items.splice(k,1);S.bag.push(id);toast("Megastein zurück in der Tasche","mega");}
+    if(b.dataset.a==="bag"){if(S.bag.length>=BAG_MAX){toast("Tasche ist voll","pack");sfx("deny");return;}u.items.splice(k,1);S.bag.push(id);toast(`${IT_BY[id].n} zurück in der Tasche`,IT_BY[id].ic||"pack");}
     else{const it=IT_BY[id],g=Math.ceil(IT_COST[it.r]/2);u.items.splice(k,1);S.gold+=g;toast(`${it.n} für ${g} Gold verkauft`,"coin");}
     sfx("coin");save();render();unitOverview(u,ctx);});
 }
@@ -14340,6 +14404,10 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Ranked: Am Ende eines Ranked-Duell
 if(typeof EN!=="undefined")Object.assign(EN,{"Ranked: Verlustschutz in den unteren Rängen. Bei einer Niederlage verlierst du in Bronze nur halb so viel Elo, wie der Sieger bekommt, in Silber drei Viertel. Ab Gold zählt es voll. Unter 0 Elo fällst du nie.": "Ranked: loss protection in the lower ranks. When you lose in Bronze you only lose half the Elo the winner gets, in Silver three quarters. From Gold on it counts fully. You never drop below 0 Elo.", "Ranked-Bestenliste: Titel werden jetzt angezeigt, Platz 1 bis 3 leuchten wie in den anderen Listen. Tippst du auf einen Spieler, siehst du Rang, Elo, Siege, Niederlagen, Siegquote und seine Kampfkarte.": "Ranked leaderboard: titles are now shown and places 1 to 3 glow like in the other lists. Tap a player to see rank, Elo, wins, losses, win rate and their battle card.", "Sieg: Elo je nach Stärke des Gegners. Niederlage: in Bronze nur 50 %, in Silber 75 %, ab Gold 100 % von dem, was der Sieger bekommt. Unter 0 Elo fällt niemand.": "Win: Elo depends on the opponent's strength. Loss: in Bronze only 50 %, in Silver 75 %, from Gold 100 % of what the winner gets. Nobody drops below 0 Elo."});
 /* v1.38.0.10: Labor eingeklappt */
 if(typeof EN!=="undefined")Object.assign(EN,{"Labor → Booster: Die Sammlung ist jetzt nach Regionen eingeklappt. Tippe auf eine Region, um ihre Pokémon zu sehen. Das Labor öffnet dadurch deutlich schneller.": "Lab → Boosters: the collection is now collapsed by region. Tap a region to see its Pokémon. The lab opens much faster this way."});
+/* v1.39.0: Ruhm */
+if(typeof EN!=="undefined")Object.assign(EN,{"Neu: Ruhm im Forschungslabor. Hast du alle Booster geleert und den Skillbaum komplett, steckst du deine Edelsteine in Ruhm und steigst durch die Edelstein-Ränge Topas, Smaragd, Saphir, Rubin, Amethyst und Diamant (je I bis III) bis zur Ruhmeslegende.": "New: Fame in the research lab. Once you've emptied all boosters and completed the skill tree, you put your gems into Fame and climb the gem ranks Topaz, Emerald, Sapphire, Ruby, Amethyst and Diamond (each I to III) up to Fame Legend.", "Ruhm-Belohnungen: Auf jeder Stufe I gibt es eine neue Namensfarbe, auf II einen Kartenrand und auf III einen verzierten Kartenrand. Die Ruhmeslegende hat eine Namensfarbe, die durch alle Edelsteine wechselt, und einen eigenen Rand. Dein Name leuchtet in Bestenlisten, auf der Kampfkarte, im VS-Bildschirm, bei Freunden und im Chat. Dein Ruhm-Rang steht auf der Karte.": "Fame rewards: every tier I gives a new name colour, II a card frame and III an ornate card frame. Fame Legend has a name colour that cycles through all gems and its own frame. Your name glows in leaderboards, on your battle card, on the VS screen, with friends and in chat. Your fame rank is shown on the card.", "RUHM": "FAME", "Ruhm-Straße": "Fame road", "NAMENSFARBE": "NAME COLOUR", "KARTENRAND": "CARD FRAME", "Keiner": "None", "Einzahlen:": "Put in:", "Noch kein Ruhm": "No fame yet", "Höchster Ruhm erreicht": "Highest fame reached", "ab Topas I": "from Topaz I", "ab Topas II": "from Topaz II", "TOPAS": "TOPAZ", "SMARAGD": "EMERALD", "SAPHIR": "SAPPHIRE", "RUBIN": "RUBY", "DIAMANT": "DIAMOND", "RUHMESLEGENDE": "FAME LEGEND", "Topas": "Topaz", "Smaragd": "Emerald", "Saphir": "Sapphire", "Rubin": "Ruby", "Ruhmeslegende": "Fame Legend", "Legenden-Name + Kronenrand": "Legend name + crown frame", "Ruhm": "Fame"});
+/* v1.39.0: Edelsteine, Items */
+if(typeof EN!=="undefined")Object.assign(EN,{"Edelsteine: Am Ende eines Laufs gibt es jetzt etwas weniger Edelsteine (etwa 40 % weniger). Labor, Booster und Ruhm wollen erspielt werden.": "Gems: you now get somewhat fewer gems at the end of a run (about 40 % less). The lab, boosters and fame have to be earned.", "Besondere Items wie Megastein, Dynamax-Band, Tera-Orb, Alpha-Kern, die Festmasken, der Z-Kristall und legendäre Items lassen sich jetzt in der Pokémon-Übersicht zurück in die Tasche nehmen und einem anderen Pokémon geben.": "Special items such as Mega Stone, Dynamax Band, Tera Orb, Alpha Core, the festival masks, the Z-Crystal and legendary items can now be taken back to the bag in the Pokémon overview and given to another Pokémon.", "Item abnehmen und einem anderen Pokémon geben": "Take the item off and give it to another Pokémon"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -16511,18 +16579,19 @@ const noTitle=t=>!t||/^Trainer(in)?$/.test(String(t).trim());
 function cardTitles(C){const bs=badgeAll().map(b=>[b,badgeState(b).t]);return [...new Set([...(MYTITLE&&MYTITLE.text?[MYTITLE.text]:[]),...(((META&&META.ev&&META.ev.tt)||[]).map(t=>t.t)),...bs.filter(x=>x[1]>=5).map(x=>badgeT5n(x[0])),...bs.filter(x=>x[1]>=4).map(([b])=>b.n.replace(/^Partner: /,"")+(b.cat==="Partner"?"-Meister":""))])];}
 function cardMine(){const C=cardMeta();if(C.title&&!cardTitles(C).includes(C.title))C.title=null;const b=C.badges.map(id=>{const d=badgeDef(id);return[id,d?badgeShowT(d):0];}).filter(x=>x[1]>0);
   const title=noTitle(C.title)?"":C.title,ts=title?titleFxOf(title):null;
-  return{name:USER||mpName&&mpName()||"Gast",fav:C.fav,favSh:C.favSh?1:0,favM:C.favM||null,bg:C.bg,title,ts,badges:b,ch:Object.values(META.champs||{}).reduce((a,c)=>a+c,0),dw:(META.mp||{}).duelWins||0,dex:_dex().filter(d=>d.owned>0).length,tw:typeof twBest==="function"?twBest():0};}
+  return{name:USER||mpName&&mpName()||"Gast",fav:C.fav,favSh:C.favSh?1:0,favM:C.favM||null,bg:C.bg,title,ts,badges:b,ch:Object.values(META.champs||{}).reduce((a,c)=>a+c,0),dw:(META.mp||{}).duelWins||0,dex:_dex().filter(d=>d.owned>0).length,tw:typeof twBest==="function"?twBest():0,...((()=>{try{if(typeof fameMeta!=="function"||!META.fame)return{};const F=fameMeta(),L=fameLevel(F.g).L;return L?{fl:L,fn:F.n||null,ff:F.f||null}:{};}catch(e){return{};}})())};}
 function cardClean(c){if(!c||typeof c!=="object")return null;const n=v=>Math.max(0,Math.min(1e7,v|0)),fav=+c.fav;
   return{name:String(c.name||"?").slice(0,20),fav:SPECIES[fav]&&!(isExcl(fav)&&String(c.name||"").trim().toLowerCase()!=="requiem")?fav:25,favSh:c.favSh?1:0,favM:(typeof c.favM==="string"&&typeof MEGA!=="undefined"&&MEGA[fav]&&Object.values(MEGA[fav]).some(m=>m&&m.k===c.favM))?c.favM:null,bg:CARD_BG[c.bg]?c.bg:"std",title:noTitle(c.title)?"":String(c.title).replace(/[<>]/g,"").slice(0,24),ts:TITLE_FX[c.ts]?c.ts:null,
-    badges:(Array.isArray(c.badges)?c.badges:[]).slice(0,3).filter(x=>Array.isArray(x)&&badgeDef(String(x[0]))).map(x=>[String(x[0]).slice(0,40),Math.max(1,Math.min(TIER_MAX,x[1]|0))]),ch:n(c.ch),dw:n(c.dw),dex:n(c.dex),tw:n(c.tw)};}
+    badges:(Array.isArray(c.badges)?c.badges:[]).slice(0,3).filter(x=>Array.isArray(x)&&badgeDef(String(x[0]))).map(x=>[String(x[0]).slice(0,40),Math.max(1,Math.min(TIER_MAX,x[1]|0))]),ch:n(c.ch),dw:n(c.dw),dex:n(c.dex),tw:n(c.tw),...((()=>{try{if(typeof fameNames!=="function")return{};const L=Math.max(0,Math.min(FAME_MAX,c.fl|0));if(!L)return{};return{fl:L,fn:fameNames(L).includes(c.fn)?c.fn:null,ff:fameFrames(L).includes(c.ff)?c.ff:null};}catch(e){return{};}})())};}
 const ttCls=ts=>ts&&TITLE_FX[ts]?` class="tt tt-${ts}"`:"";
 function cardHTML(c,side){c=c||cardMine();const sl=[0,1,2].map(i=>c.badges[i]?badgeHTML(c.badges[i][0],c.badges[i][1]):badgeHTML(null,0)).join("");
   const bgk=CARD_BG[c.bg]?c.bg:"std";
-  return `<div class="tcard${side?" "+side:""}" data-tn="${esc((CARD_BG[bgk]||{}).n||"")}" data-td="${esc(bgWhy(bgk))}" data-tk="HINTERGRUND" data-tc="#9fe8ff">${bgHTML(c.bg)}<div class="tcShine"></div>
-   <div class="tcTop${c.title?"":" nt"}"><b${c.name.length>13?' class="long"':""}>${esc(c.name)}</b>${c.title?`<small class="${[c.ts&&TITLE_FX[c.ts]?"tt tt-"+c.ts:"",c.title.length>16?"xl":c.title.length>12?"long":""].join(" ").trim()}">${esc(c.title)}</small>`:""}</div>
+  const ffk=c.ff&&typeof FAME_C!=="undefined"?String(c.ff):"",fft=ffk?FAME_C[ffk.replace("+","")]:null;
+  return `<div class="tcard${side?" "+side:""}${fft?" fmFr fr-"+ffk.replace("+","")+(ffk.endsWith("+")?" frp":""):""}"${fft?` style="--fc:${fft.c};--fd:${fft.d}"`:""} data-tn="${esc((CARD_BG[bgk]||{}).n||"")}" data-td="${esc(bgWhy(bgk))}" data-tk="HINTERGRUND" data-tc="#9fe8ff">${bgHTML(c.bg)}<div class="tcShine"></div>${fft?`<i class="tcFr${ffk.endsWith("+")?" plus":""}${ffk==="legende"?" leg":""}"><s></s><s></s><s></s><s></s></i>`:""}
+   <div class="tcTop${c.title?"":" nt"}"><b${c.name.length>13?' class="long"':""}>${typeof fameNameHtml==="function"?fameNameHtml(c.name,c):esc(c.name)}</b>${c.title?`<small class="${[c.ts&&TITLE_FX[c.ts]?"tt tt-"+c.ts:"",c.title.length>16?"xl":c.title.length>12?"long":""].join(" ").trim()}">${esc(c.title)}</small>`:""}</div>
    <div class="tcAv"><i class="tcPlat"></i>${c.ph?`<span class="tcMon tcPh"><b>?</b></span>`:`<span class="tcMon" data-sp="${SPECIES[c.fav]?c.fav:25}" data-sh="${c.favSh?1:""}"${c.favM&&SPECIES[c.fav]?` data-mk="${esc(String(c.favM))}"`:""}></span>`}</div>
    <div class="tcBdg">${sl}</div>
-   ${c.sub?`<div class="tcStats"><span>${c.sub}</span></div>`:`<div class="tcStats"><span>${ic("crown")}${c.ch}</span><span>${ic("swords")}${c.dw}</span><span>${ic("dex")}${c.dex}</span>${c.tw?`<span>${ic("tower")}${c.tw}</span>`:""}</div>`}</div>`;}
+   ${c.sub?`<div class="tcStats"><span>${c.sub}</span></div>`:`<div class="tcStats"><span>${ic("crown")}${c.ch}</span><span>${ic("swords")}${c.dw}</span><span>${ic("dex")}${c.dex}</span>${c.tw?`<span>${ic("tower")}${c.tw}</span>`:""}${c.fl&&typeof fameEm==="function"?`<span class="tcFm">${fameEm(c.fl)}</span>`:""}</div>`}</div>`;}
 /* Sprite auf den sichtbaren Inhalt zuschneiden (für kleine Rahmen wie Abzeichen: immer mittig, gleich groß) */
 const SPR_TRIM={};
 function sprTrim(img){if(!img)return img;if(img.dataset&&img.dataset.spw){img.dataset.tr=1;return img;}if(img.tagName!=="IMG")return img;img.classList.add("spTrim");
@@ -16597,7 +16666,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.38.0.10",DUEL_HP=30;
+const MP_VER="1.39.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -16990,7 +17059,7 @@ async function friendsRefresh(quiet){const B=$("frBody");if(!B)return;const tab=
   const fav=f=>{const c=f.card&&typeof cardClean==="function"?cardClean(f.card):null;return c?c.fav:25;};
   if(tab==="list"){const F=L.filter(f=>f.st==="friend");const regs=Object.keys(REGIONS).filter(k=>!REGIONS[k].soon),cur=SOC.reg||(META.mp&&META.mp.reg)||"kanto";
     B.innerHTML=F.length?`<div class="frTop"><label>Region für Einladungen</label><select id="frReg">${regs.map(k=>`<option value="${k}" ${k===cur?"selected":""}>${REGIONS[k].n}</option>`).join("")}</select></div>
-      <div class="frList">${F.map((f,i)=>{const on=socOn(f.seen),un=SOC.chat[f.uid]|0;return `<div class="frRow${on?" on":""}"><span class="frMon" data-sp="${fav(f)}"></span><div class="frInfo"><b>${esc(f.name)}</b><small><i class="frDot"></i>${on?"online":socAgo(f.seen)}</small></div>${rankChip(f.rating,1)}
+      <div class="frList">${F.map((f,i)=>{const on=socOn(f.seen),un=SOC.chat[f.uid]|0;return `<div class="frRow${on?" on":""}"><span class="frMon" data-sp="${fav(f)}"></span><div class="frInfo"><b>${fameNameRow(f.name,f.card)}</b><small><i class="frDot"></i>${on?"online":socAgo(f.seen)}</small></div>${rankChip(f.rating,1)}
         <div class="frAct"><button class="btn sm" data-iv="${i}" data-k="fun" title="Zum Spaßkampf einladen">${ic("swords")} Spaß</button><button class="btn sm" data-iv="${i}" data-k="ranked" title="Zum Ranked-Kampf einladen">${ic("trophy")} Ranked</button><button class="btn sm" data-ch="${i}" title="Chat">${ic("chat")}${un?`<em>${un}</em>`:""}</button><button class="btn sm danger" data-rm="${i}" title="Entfernen">${ic("trash")}</button></div></div>`;}).join("")}</div>`
       :`<p class="empty">Noch keine Freunde. Unter <b>HINZUFÜGEN</b> eine Anfrage senden.</p>`;
     hydrateIcons(B);B.querySelectorAll(".frMon[data-sp]").forEach(e=>{try{e.appendChild(sprAlign(natFit(spriteEl(+e.dataset.sp),.95),true));}catch(x){}});
@@ -17010,7 +17079,7 @@ async function friendsRefresh(quiet){const B=$("frBody");if(!B)return;const tab=
 
 /* ---------- Chat ---------- */
 function chatModal(f){SOC.chatWith=f.uid;SOC.chatLast=0;SOC.chatF=f;clearInterval(SOC.chatIv);
-  openModal(`<h2>${ic("chat")} CHAT · ${esc(f.name)}</h2><div class="chatList" id="chatList"><p class="empty">Lade …</p></div>
+  openModal(`<h2>${ic("chat")} CHAT · ${fameNameRow(f.name,f.card)}</h2><div class="chatList" id="chatList"><p class="empty">Lade …</p></div>
    <div class="chatIn"><input id="chatT" maxlength="300" placeholder="Nachricht an ${esc(f.name)} …" autocomplete="off"><button class="pri" id="chatGo">${ic("check")} Senden</button></div>
    <div class="rbtns" style="margin-top:10px"><button class="btn" id="chatBack">${ic("back")} Zu den Freunden</button></div>`,"frM",()=>{SOC.chatWith=null;clearInterval(SOC.chatIv);});
   hydrateIcons($("mbox"));$("chatBack").onclick=()=>{SOC.chatWith=null;clearInterval(SOC.chatIv);friendsModal("list");};
@@ -17073,7 +17142,7 @@ async function rankedBoard(){openModal(`<h2>${ic("trophy")} RANKED-BESTENLISTE</
 /* v1.38.0.9: Ranked-Zeilen wie die übrigen Bestenlisten (Titel, Platz-Effekte) und Details beim Antippen */
 const rkFind=(br,n)=>(br||[]).find(y=>userKey(y.n)===userKey(n))||null;
 function rkRowsHtml(list,br,n){return list.slice(0,n||10).map((x,i)=>{const b=rkFind(br,x.name),me=typeof USER!=="undefined"&&USER&&userKey(x.name)===userKey(USER);
-  return `<button class="lbRow rkL r${i+1}${me?" me":""}" data-n="${esc(x.name)}"><span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${esc(x.name)}</b>${b?lbTTHtml(b):""}</div>
+  return `<button class="lbRow rkL r${i+1}${me?" me":""}" data-n="${esc(x.name)}"><span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${b?fameNameRow(x.name,b.card):esc(x.name)}</b>${b?lbTTHtml(b):""}</div>
     <small class="rkLSub">${rankChip(x.rating,1)}<span>${x.wins} S · ${x.losses} N</span></small></div><span class="lbPts">${eloShow(x.rating).toLocaleString("de-DE")}<em>Elo</em></span></button>`;}).join("");}
 function rkBind(el,list,br,back){el.querySelectorAll(".lbRow[data-n]").forEach(b=>b.onclick=()=>{const x=list.find(y=>userKey(y.name)===userKey(b.dataset.n));if(x)rankedDetail(x,rkFind(br,x.name),back);});}
 function rankedDetail(x,b,back){let cd=b&&b.card&&typeof cardClean==="function"?cardClean(b.card):null;if(cd&&b){try{const t=lbTitle(b);cd.ts=t&&t.text===cd.title?t.style:null;}catch(e){}}
@@ -17097,7 +17166,7 @@ function mlbSeaOpts(){const cur=seasonId();return seasonList().map(id=>`<option 
 function mlbCd(el){const c=el.querySelector(".mLbCd");if(!c)return;if(MLB.tab!=="pts"||MLB.sea!=="cur"){c.innerHTML=MLB.sea==="all"?"alle Läufe":"beendet";return;}const L=seasonLeft();
   c.innerHTML=`${ic("flag")} endet am ${L.end} · ${L.left>0?`noch ${L.left} ${L.left===1?"Tag":"Tage"}`:"heute 24 Uhr"}`;hydrateIcons(c);}
 function mlbSeaRows(list,sid){const br=MLB.rows||[],find=n=>br.find(r=>userKey(r.n)===userKey(n));
-  return list.slice(0,10).map((x,i)=>{const b=find(x.name),c=(x.info&&x.info.c)|0;return `<button class="lbRow r${i+1}" data-n="${esc(x.name)}"><span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${esc(x.name)}</b>${b?lbTTHtml(b):""}</div>
+  return list.slice(0,10).map((x,i)=>{const b=find(x.name),c=(x.info&&x.info.c)|0;return `<button class="lbRow r${i+1}" data-n="${esc(x.name)}"><span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${b?fameNameRow(x.name,b.card):esc(x.name)}</b>${b?lbTTHtml(b):""}</div>
     <small title="${c} Champion-Titel · ${(x.info&&x.info.k)|0} Pokémon besiegt · ${(x.info&&x.info.b)|0} Bosse">${ic("crown")} ${c} Titel · ${ic("skull")} ${(x.info&&x.info.k)|0} · ${ic("trophy")} ${(x.info&&x.info.b)|0} Bosse</small></div><span class="lbPts">${(x.pts|0).toLocaleString("de-DE")}<em>Punkte</em></span></button>`;}).join("");}
 /* Season-Details: Punkte, Champion-Titel je Region in dieser Season, Kampfkarte */
 function seasonDetail(x,sid,b){const i=x.info||{},LL={e:"easy",n:"normal",h:"hard",a:"night",z:"nuzlocke"},R={};
@@ -17110,7 +17179,7 @@ function seasonDetail(x,sid,b){const i=x.info||{},LL={e:"easy",n:"normal",h:"har
    <p class="lbNote">Season-Punkte: besiegtes Pokémon 1 · Boss 5 · jeder Sieg je nach Schwierigkeit (Leicht 1 · Normal 2 · Schwer 3 · Nuzlocke 4 · Albtraum 5) · Champion-Titel (Leicht 20 · Normal 40 · Schwer 60 · Nuzlocke 80 · Albtraum 100; gleiche Region und Schwierigkeit: 2. Titel 50 %, ab dem 3. Titel 25 %). Freigeschaltete Regionen und Schwierigkeitsgrade bleiben immer erhalten.</p></div></div>
    <div class="rbtns" style="margin-top:10px">${b?`<button class="btn" id="sdAll">${ic("crown")} Alle Titel (Allzeit)</button>`:""}<button class="pri" id="lbOk">SCHLIESSEN</button></div>`,"wide",true);
   if(cd)cardHydrate($("mbox"));$("lbOk").onclick=closeModal;if($("sdAll"))$("sdAll").onclick=()=>{closeModal();lbDetail(b);};}
-function mlbPkRows(rows){return rows.slice(0,10).map((a,i)=>`<button class="lbRow r${i+1}" data-n="${esc(a.n)}"><span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${esc(a.n)}</b>${lbTTHtml(a)}</div>
+function mlbPkRows(rows){return rows.slice(0,10).map((a,i)=>`<button class="lbRow r${i+1}" data-n="${esc(a.n)}"><span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${fameNameRow(a.n,a.card)}</b>${lbTTHtml(a)}</div>
     <small title="${a.own} Pokémon · ${a.shy} schillernd · ${a.ach} Erfolge">${ic("dex")} ${a.own} · ${ic("shiny")} ${a.shy} · ${ic("trophy")} ${a.ach}</small></div><span class="lbPts">${(a.pk|0).toLocaleString("de-DE")}<em>Punkte</em></span></button>`).join("");}
 function menuLbWire(el){el.querySelector(".mLbR").onclick=()=>menuLbLoad(el);
   el.querySelectorAll("[data-mt]").forEach(b=>b.onclick=()=>{MLB.tab=b.dataset.mt;el.querySelectorAll("[data-mt]").forEach(x=>x.classList.toggle("on",x===b));const sb=el.querySelector(".mLbSea");if(sb)sb.style.display=MLB.tab==="pts"?"":"none";menuLbLoad(el);});
@@ -21059,8 +21128,13 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.38.0.10"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.39.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.39.0",d:"04.11.2026",t:"Ruhm",items:[
+  ["crown", "Neu: Ruhm im Forschungslabor. Hast du alle Booster geleert und den Skillbaum komplett, steckst du deine Edelsteine in Ruhm und steigst durch die Edelstein-Ränge Topas, Smaragd, Saphir, Rubin, Amethyst und Diamant (je I bis III) bis zur Ruhmeslegende."],
+  ["user", "Ruhm-Belohnungen: Auf jeder Stufe I gibt es eine neue Namensfarbe, auf II einen Kartenrand und auf III einen verzierten Kartenrand. Die Ruhmeslegende hat eine Namensfarbe, die durch alle Edelsteine wechselt, und einen eigenen Rand. Dein Name leuchtet in Bestenlisten, auf der Kampfkarte, im VS-Bildschirm, bei Freunden und im Chat. Dein Ruhm-Rang steht auf der Karte."],
+  ["gem", "Edelsteine: Am Ende eines Laufs gibt es jetzt etwas weniger Edelsteine (etwa 40 % weniger). Labor, Booster und Ruhm wollen erspielt werden."],
+  ["pack", "Besondere Items wie Megastein, Dynamax-Band, Tera-Orb, Alpha-Kern, die Festmasken, der Z-Kristall und legendäre Items lassen sich jetzt in der Pokémon-Übersicht zurück in die Tasche nehmen und einem anderen Pokémon geben."]]},
  {v:"1.38.0.10",d:"04.11.2026",t:"Schnellfix",items:[
   ["lab", "Labor → Booster: Die Sammlung ist jetzt nach Regionen eingeklappt. Tippe auf eine Region, um ihre Pokémon zu sehen. Das Labor öffnet dadurch deutlich schneller."]]},
  {v:"1.38.0.9",d:"04.11.2026",t:"Schnellfix",items:[
@@ -22292,6 +22366,52 @@ function bstShow(rg,r){const R=REGIONS[rg]||{n:rg},nNew=r.cards.filter(c=>c.nu).
   r.cards.forEach((c,i)=>setTimeout(()=>{try{if(!$("mbox").querySelector(".bstOpen"))return;sfx(c.L.tier>=4?"sparkle":c.nu?"coin":"click");}catch(e){}},(350+i*600)+350));
   $("bstAgain").onclick=()=>{const r2=bstOpen(rg);if(!r2){sfx("deny");return;}refreshGems();bstShow(rg,r2);};
   $("bstBack").onclick=()=>{closeModal();labScreen("mons");};}
+/* ================================ RUHM (v1.39.0) ================================
+   Freigeschaltet, wenn alle Booster leer sind und der Skillbaum voll ist. Edelsteine kommen in den Ruhm-Topf (META.fame.g).
+   19 Stufen: 6 Edelstein-Ränge mit je I–III und zum Schluss die Ruhmeslegende. I = Namensfarbe, II = Kartenrand, III = verzierter Kartenrand. */
+const FAME_T=[{k:"topas",n:"Topas",c:"#ffcf4a",d:"#9a6a08",cost:100},{k:"smaragd",n:"Smaragd",c:"#3ee08a",d:"#0b6a3a",cost:175},{k:"saphir",n:"Saphir",c:"#4f8cff",d:"#173a96",cost:275},
+  {k:"rubin",n:"Rubin",c:"#ff4d6d",d:"#7a0c26",cost:400},{k:"amethyst",n:"Amethyst",c:"#b77bff",d:"#45188a",cost:550},{k:"diamant",n:"Diamant",c:"#d8f6ff",d:"#3f8fb0",cost:750}];
+const FAME_LEG={k:"legende",n:"Ruhmeslegende",c:"#ffd84a",d:"#7a2a9a",cost:1500},FAME_MAX=FAME_T.length*3+1;
+const fameStepInfo=L=>{if(L<1)return null;if(L>=FAME_MAX)return Object.assign({sub:0,leg:1,t:FAME_T.length},FAME_LEG);const t=Math.floor((L-1)/3);return Object.assign({sub:(L-1)%3+1,t},FAME_T[t]);};
+const fameCost=L=>L>=FAME_MAX?FAME_LEG.cost:FAME_T[Math.floor((L-1)/3)].cost;   /* Kosten, um Stufe L zu erreichen */
+function fameLevel(g){let L=0,acc=0;while(L<FAME_MAX&&acc+fameCost(L+1)<=g){acc+=fameCost(L+1);L++;}return{L,acc,next:L<FAME_MAX?fameCost(L+1):0,into:g-acc};}
+const ROM3=["","I","II","III"];
+const fameName_=L=>{const i=fameStepInfo(L);return i?(i.leg?i.n:i.n+" "+ROM3[i.sub]):"";};
+/* freigeschaltete Namensfarben / Ränder bei Stufe L */
+function fameNames(L){const o=[];FAME_T.forEach((t,i)=>{if(L>=i*3+1)o.push(t.k);});if(L>=FAME_MAX)o.push("legende");return o;}
+function fameFrames(L){const o=[];FAME_T.forEach((t,i)=>{if(L>=i*3+2)o.push(t.k);if(L>=i*3+3)o.push(t.k+"+");});if(L>=FAME_MAX)o.push("legende");return o;}
+const FAME_C=Object.fromEntries([...FAME_T,FAME_LEG].map(t=>[t.k,t]));
+function fameOpen(){try{const bst=Object.keys(REGIONS).every(rk=>!bstMissing(rk).length),tree=RESEARCH.every(c=>c.nodes.every(n=>perkLv(n.id)>=n.max));return{ok:bst&&tree,bst,tree};}catch(e){return{ok:false,bst:false,tree:false};}}
+function fameMeta(){META.fame=META.fame||{g:0,n:null,f:null};const F=META.fame;F.g=Math.max(0,F.g|0);const L=fameLevel(F.g).L;if(F.n&&!fameNames(L).includes(F.n))F.n=null;if(F.f&&!fameFrames(L).includes(F.f))F.f=null;return F;}
+/* Name mit Ruhm-Farbe; c = bereinigte Kampfkarte (oder null) */
+function fameNameHtml(name,c){const k=c&&c.fn&&FAME_C[c.fn]?c.fn:null;return k?`<span class="fmN fn-${k}">${esc(name)}</span>`:esc(name);}
+function fameNameRow(name,card){try{return fameNameHtml(name,card&&typeof cardClean==="function"?cardClean(card):null);}catch(e){return esc(name);}}
+const fameEm=(L,big)=>{const i=fameStepInfo(L);if(!i)return "";return `<i class="fmEm${big?" big":""}${i.leg?" leg":""}" style="--fc:${i.c};--fd:${i.d}" title="Ruhm: ${esc(fameName_(L))}"><span>${i.leg?"★":ROM3[i.sub]}</span></i>`;};
+function fameTabHtml(){const O=fameOpen();
+  if(!O.ok){const nb=Object.keys(REGIONS).filter(rk=>!bstMissing(rk).length).length,nr=Object.keys(REGIONS).length;let tl=0,tm=0;RESEARCH.forEach(c=>c.nodes.forEach(n=>{tm+=n.max;tl+=Math.min(n.max,perkLv(n.id));}));
+    return `<div class="fmLock"><div class="fmLockIc">${ic("crown")}</div><h3>RUHM</h3><p>Wenn du alles gesammelt und erforscht hast, steckst du deine Edelsteine in <b>Ruhm</b>. Dafür gibt es Edelstein-Ränge von Topas bis Diamant und die Ruhmeslegende, mit farbigen Spielernamen und Kartenrändern.</p>
+      <div class="fmReq${O.bst?" ok":""}">${ic(O.bst?"check":"lock")} Alle Booster leer <b>${nb}/${nr}</b></div><div class="fmReq${O.tree?" ok":""}">${ic(O.tree?"check":"lock")} Skillbaum komplett <b>${tl}/${tm}</b></div>
+      <div class="fmPrev">${FAME_T.map((t,i)=>fameEm(i*3+1)).join("")}${fameEm(FAME_MAX)}</div></div>`;}
+  const F=fameMeta(),lv=fameLevel(F.g),L=lv.L,inf=fameStepInfo(L),nx=fameStepInfo(L+1),p=lv.next?Math.min(1,lv.into/lv.next):1;
+  const step=k=>{const i=fameStepInfo(k),got=L>=k,cur=k===L+1,rw=i.leg?"Legenden-Name + Kronenrand":i.sub===1?"Namensfarbe "+i.n:i.sub===2?"Kartenrand "+i.n:"Verzierter Rand "+i.n;
+    return `<div class="fmStep${got?" got":""}${cur?" cur":""}" style="--fc:${i.c};--fd:${i.d}">${fameEm(k)}<div><b>${esc(fameName_(k))}</b><small>${rw}</small></div><em>${got?ic("check"):`${ic("gem")} ${fameCost(k)}`}</em></div>`;};
+  const groups=FAME_T.map((t,i)=>`<div class="fmGrp" style="--fc:${t.c};--fd:${t.d}"><h5>${t.n.toUpperCase()}</h5>${[1,2,3].map(j=>step(i*3+j)).join("")}</div>`).join("")+`<div class="fmGrp leg" style="--fc:${FAME_LEG.c};--fd:${FAME_LEG.d}"><h5>RUHMESLEGENDE</h5>${step(FAME_MAX)}</div>`;
+  const nm=fameNames(L),fr=fameFrames(L),me=USER||"Trainer";
+  return `<div class="fmTop" style="--fc:${inf?inf.c:"#8a93b0"};--fd:${inf?inf.d:"#2a3048"}">${L?fameEm(L,true):`<i class="fmEm big none"><span>?</span></i>`}<div class="fmTopR"><h3>${L?esc(fameName_(L)):"Noch kein Ruhm"}</h3>
+     <small>${ic("gem")} ${F.g.toLocaleString("de-DE")} Edelsteine im Ruhm</small>
+     ${lv.next?`<div class="rkProg fmBar" style="--rc:${nx.c}"><i style="width:${Math.round(p*100)}%"></i><span>${lv.into} / ${lv.next} bis ${esc(fameName_(L+1))}</span></div>`:`<div class="rkProg myth fmBar"><i style="width:100%"></i><span>Höchster Ruhm erreicht</span></div>`}
+     ${lv.next?`<div class="fmInv"><span>Einzahlen:</span>${[10,50,100].map(v=>`<button class="gemBtn" data-fmi="${v}" ${META.gems<1?"disabled":""}>${ic("gem")}${v}</button>`).join("")}<button class="gemBtn" data-fmi="next" ${META.gems<1?"disabled":""}>${ic("gem")}bis ${esc(fameName_(L+1))}</button></div>`:""}</div></div>
+   <div class="fmPick"><div><h5>NAMENSFARBE</h5><div class="fmOpts"><button class="fmO${!F.n?" on":""}" data-fmn="">Normal</button>${nm.map(k=>`<button class="fmO${F.n===k?" on":""}" data-fmn="${k}"><span class="fmN fn-${k}">${esc(me)}</span></button>`).join("")||`<small class="fmNo">ab Topas I</small>`}</div></div>
+     <div><h5>KARTENRAND</h5><div class="fmOpts"><button class="fmO${!F.f?" on":""}" data-fmf="">Keiner</button>${fr.map(k=>{const b=k.replace("+",""),t=FAME_C[b];return `<button class="fmO fmFrO${F.f===k?" on":""}" data-fmf="${k}" style="--fc:${t.c};--fd:${t.d}"><i class="fmSw${k.endsWith("+")?" plus":""}${b==="legende"?" leg":""}"></i>${t.n}${k.endsWith("+")?" ✦":""}</button>`;}).join("")||`<small class="fmNo">ab Topas II</small>`}</div></div>
+     <div class="fmCardP">${typeof cardHTML==="function"?cardHTML(cardMine()):""}</div></div>
+   <h4 class="cdCat" style="margin-top:14px">Ruhm-Straße</h4><div class="fmRoad">${groups}</div>`;}
+function fameBind(){const mb=$("mbox");if(!mb)return;if(typeof cardHydrate==="function")try{cardHydrate(mb.querySelector(".fmCardP")||mb);}catch(e){}
+  mb.querySelectorAll("[data-fmi]").forEach(b=>b.onclick=()=>{const F=fameMeta(),lv=fameLevel(F.g);if(!lv.next)return;let v=b.dataset.fmi==="next"?lv.next-lv.into:+b.dataset.fmi;v=Math.min(v,META.gems,lv.next-lv.into+(b.dataset.fmi==="next"?0:1e9));
+    if(v<=0){sfx("deny");return;}META.gems-=v;F.g+=v;const L2=fameLevel(F.g).L;if(L2>lv.L){const i=fameStepInfo(L2);toast(`Ruhm: ${fameName_(L2)} erreicht!`,"crown");try{sfx("levelUp");}catch(e){}if(i&&i.sub===1&&!F.n)F.n=i.k;if(i&&i.leg)F.n="legende";}else sfx("coin");
+    saveMeta();refreshGems();labScreen("fame");});
+  mb.querySelectorAll("[data-fmn]").forEach(b=>b.onclick=()=>{const F=fameMeta();F.n=b.dataset.fmn||null;saveMeta();sfx("click");labScreen("fame");});
+  mb.querySelectorAll("[data-fmf]").forEach(b=>b.onclick=()=>{const F=fameMeta();F.f=b.dataset.fmf||null;saveMeta();sfx("click");labScreen("fame");});}
+
 
 /* ================================ v1.36.0: Legendäre Items, neue Relikte, Kampfturm-Hintergründe, Turm in der Bestenliste ================================ */
 /* ---------- Legendäre Items: selten aus Elite-, Rivalen- und Koryphäen-Belohnungen (ab Runde 11), ganz selten im Shop (ab Runde 12) ---------- */
@@ -22343,6 +22463,8 @@ const lbTw=a=>a?((a.tw!=null?a.tw:(a.per&&a.per._tw))|0):0;
 const lbTwCol=n=>n>=50?"#ffd23f":n>=25?"#c27cff":n>=10?"#5cf2ff":"#9aa3bd";
 function lbTwHtml(a){const n=lbTw(a);return n>0?`<span class="lbTw" style="--c:${lbTwCol(n)}" title="Kampfturm: höchste geschaffte Ebene ${n}">${ic("tower")}${n}</span>`:"";}
 
+/* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
+const GEM_RUN_MUL=.6;
 /* ================================ KAMPF: 2 ATTACKEN + EIGENE KI ================================ */
 let B=null,speed=1;
 const RANGED=r=>r==="marksman"||r==="mage"||r==="support"||r==="stoerer";
@@ -23071,7 +23193,7 @@ function finish(win){
   if(S&&S.tower&&typeof towerFinish==="function")return towerFinish();
   clearZones();S.phase="over";enterBattleMode(false);
   const reached=win?21:S.round,mm=MODES[S.mode];if(win&&typeof misBump==="function")misBump("champ");
-  const gemB=gemEventMul(),gems=Math.max(3,Math.round((1.5*(reached-1)+4*S.bosses+3*S.elites+.5*(S.wins||0)+(win?15:0))*mm.gem*(1+.1*perk("gemhunter"))*gemB*(hasRelic("gembag")?1.2:1)));
+  const gemB=gemEventMul(),gems=Math.max(2,Math.round((1.5*(reached-1)+4*S.bosses+3*S.elites+.5*(S.wins||0)+(win?15:0))*mm.gem*(1+.1*perk("gemhunter"))*gemB*(hasRelic("gembag")?1.2:1)*GEM_RUN_MUL));
   META.gems+=gems;META.gemsTotal+=gems;META.games++;if(!S.daily){META.best[S.mode]=Math.max(META.best[S.mode]||0,reached);if(win)META.champs[S.mode]=(META.champs[S.mode]||0)+1;}if(!S.daily){const rg=S.region||"kanto";META.reg=META.reg||{};if(rg==="kanto"&&!META.reg.kanto){const J=META.reg.johto||{champs:{},best:{},games:0},ch={};for(const m in (META.champs||{}))ch[m]=Math.max(0,(META.champs[m]||0)-((J.champs||{})[m]||0)-(win&&m===S.mode?1:0));META.reg.kanto={champs:ch,best:Object.assign({},META.best||{}),games:Math.max(0,(META.games||1)-1-(J.games||0))};}const R=META.reg[rg]||(META.reg[rg]={champs:{},best:{},games:0});R.games++;R.best[S.mode]=Math.max(R.best[S.mode]||0,reached);if(win)R.champs[S.mode]=(R.champs[S.mode]||0)+1;if(typeof seasonRec==="function")seasonRec(rg,S.mode,reached,win);}
   META.runs.push({t:Date.now(),mode:S.mode,region:S.region||"kanto",daily:S.daily?1:0,mono:S.mono||undefined,iron:S.iron||undefined,poor:S.poor||undefined,small:S.small||undefined,allin:S.allin||undefined,weekly:S.weekly||undefined,round:Math.min(20,S.round),champ:win,wins:S.wins,gems,team:boardUnits().map(u=>u.sp).slice(0,8)});if(META.runs.length>30)META.runs.shift();
   const dRow=S.daily&&typeof dailyFinish==="function"?dailyFinish(win,reached):"";const mRow=((S.mono||S.iron||S.poor||S.small||S.allin)&&!S.daily&&typeof monoFinish==="function"?monoFinish(win):"")+(S.weekly&&typeof weeklyFinish==="function"?weeklyFinish(win,reached):"");
