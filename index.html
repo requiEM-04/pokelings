@@ -4361,7 +4361,48 @@ body:not(.battle) .wxLbl{display:none}
 .tcTop .tcFmB{position:absolute;left:-10px;top:50%;transform:translateY(-50%);z-index:3;display:block;filter:drop-shadow(0 2px 0 rgba(0,0,0,.55))}
 .tcTop .tcFmB .fmEm{width:28px;height:28px}
 .tcTop .tcFmB .fmEm span{font-size:9px;margin-top:4px}
-
+/* ===== v1.40.0.6: Skillbaum übersichtlich ===== */
+.tree2{display:flex;flex-direction:column;gap:14px;margin-top:10px}
+.trGrp{padding:10px 12px 12px;border-radius:8px;background:#1a2030;border:2px solid #0b0d13;border-top:4px solid var(--rc,#9fb4ff)}
+.trGrp h4{display:flex;align-items:center;gap:8px;margin:0 0 10px;font-family:var(--px);font-size:11px;color:#fff;text-shadow:1px 1px 0 #000;font-weight:400}
+.trGrp h4 .rh{width:24px;height:24px}.trGrp h4 .rh .ic{width:13px;height:13px}
+.trGrp h4 em{margin-left:auto;font:700 12px var(--ui);font-style:normal;color:var(--rc,#9fb4ff);text-shadow:none}
+.trGrp h4 small{margin-left:auto;font:600 11px var(--ui);color:var(--muted);text-shadow:none}
+.trCards{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:8px}
+.trCard{position:relative;display:grid;grid-template-columns:34px minmax(0,1fr);grid-template-rows:auto auto;column-gap:9px;row-gap:6px;padding:8px 9px;border-radius:6px;background:#232a3c;border:2px solid #0b0d13;min-height:86px}
+.trCard .ni{grid-row:1;width:34px;height:34px;border-radius:6px;display:flex;align-items:center;justify-content:center;background:#141926;border:2px solid #0b0d13;color:#6a7290}
+.trCard .ni .ic{width:18px;height:18px}
+.trCard .trTx{min-width:0}
+.trCard .trTx b{display:block;color:#fff;font-size:13.5px;line-height:1.15;overflow-wrap:anywhere;hyphens:auto}
+.trCard .trTx small{display:block;margin-top:2px;font-size:11.5px;line-height:1.25;color:var(--muted)}
+.trCard .trFt,.trCell .trFt{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:auto}
+.trCard .trNo{position:absolute;right:6px;top:5px;font:9px var(--px);font-style:normal;color:#4a5370}
+.tree2 .lvp{display:flex;gap:3px}.tree2 .lvp i{width:12px;height:5px;border-radius:1px;background:#0b0d13}.tree2 .lvp i.on{background:var(--rc)}
+.tree2 .gemBtn{height:24px;padding:0 7px;font-size:9px}
+.trMax{font-family:var(--px);font-size:9px;color:var(--rc)}
+.trCard.got,.trCell.got{background:linear-gradient(180deg,color-mix(in srgb,var(--rc) 14%,#232a3c),#232a3c)}
+.trCard.got .ni,.trCard.max .ni{color:var(--rc);border-color:color-mix(in srgb,var(--rc) 55%,#0b0d13)}
+.trCard.max,.trCell.max{background:linear-gradient(180deg,color-mix(in srgb,var(--rc) 20%,#232a3c),color-mix(in srgb,var(--rc) 6%,#232a3c));border-color:color-mix(in srgb,var(--rc) 45%,#0b0d13)}
+.trCard.locked,.trCell.locked{opacity:.5}
+.trMxW{overflow-x:auto;padding-bottom:2px}
+.trMx{display:grid;grid-template-columns:minmax(150px,1.25fr) repeat(var(--n),minmax(92px,1fr));gap:6px;min-width:940px}
+.trCorner{display:flex;align-items:center;justify-content:center;color:#4a5370}.trCorner .ic{width:18px;height:18px}
+.trRh{display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 2px 7px;border-radius:6px;background:#141926;border:2px solid #0b0d13;border-top:4px solid var(--rc)}
+.trRh .rh{width:26px;height:26px}.trRh .rh .ic{width:14px;height:14px}
+.trRh b{font-family:var(--px);font-weight:400;font-size:8px;color:#fff;text-shadow:1px 1px 0 #000;letter-spacing:.02em}
+.trRh em{font:700 11px var(--ui);font-style:normal;color:var(--rc)}
+.trRowH{display:grid;grid-template-columns:28px minmax(0,1fr);grid-template-rows:auto auto;column-gap:8px;align-content:center;padding:6px 8px;border-radius:6px;background:#141926;border:2px solid #0b0d13}
+.trRowH .ni{grid-row:1/3;width:28px;height:28px;border-radius:5px;display:flex;align-items:center;justify-content:center;background:#232a3c;color:#9fb4ff;align-self:center}.trRowH .ni .ic{width:15px;height:15px}
+.trRowH b{color:#fff;font-size:13px}.trRowH small{font-size:11px;line-height:1.25;color:var(--muted)}
+.trCell{position:relative;display:flex;flex-direction:column;justify-content:center;gap:5px;padding:7px 7px;border-radius:6px;background:#232a3c;border:2px solid #0b0d13;min-height:48px}
+.trCell .trFt{flex-wrap:wrap;justify-content:center}
+.trCell.sp{justify-content:flex-start;text-align:center}
+.trCell.sp b{color:#fff;font-size:12.5px;line-height:1.15}
+.trCell.sp small{font-size:10.5px;line-height:1.25;color:var(--muted)}
+.trCell.sp .trFt{margin-top:auto}
+.trCell .trLk{position:absolute;right:4px;top:3px;color:#6a7290}.trCell .trLk .ic{width:11px;height:11px}
+.trCell.empty{background:transparent;border-color:transparent}
+@media (max-width:700px){.trCards{grid-template-columns:1fr 1fr}.trCard{grid-template-columns:28px minmax(0,1fr)}.trCard .ni{width:28px;height:28px}}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -8082,15 +8123,28 @@ const LAB_OPEN=new Set(),LAB_BODY={};
 function labRegBind(mb){mb.querySelectorAll("[data-lreg]").forEach(h=>h.onclick=()=>{const rk=h.dataset.lreg,B=mb.querySelector(`[data-lrb="${rk}"]`);if(!B)return;const op=!LAB_OPEN.has(rk);
   if(op){LAB_OPEN.add(rk);if(!B.childElementCount&&LAB_BODY[rk]){B.innerHTML=LAB_BODY[rk]();hydrateIcons(B);B.querySelectorAll(".pic[data-sp]").forEach(e=>e.appendChild(spriteEl(+e.dataset.sp)));}B.hidden=false;}else{LAB_OPEN.delete(rk);B.hidden=true;}
   h.classList.toggle("open",op);try{sfx("click");}catch(e){}});}
+/* v1.40.0.6: Skillbaum – Allgemein als Kartenraster, Klassen als Tabelle */
+function labTreeHtml(){
+  const pips=(n,l)=>`<span class="lvp">${Array.from({length:n.max},(_,k)=>`<i class="${k<l?"on":""}"></i>`).join("")}</span>`;
+  const act=(n,l,ok)=>{const mx=l>=n.max,cst=mx?0:n.cost[l];return mx?`<span class="trMax">MAX</span>`:`<button class="gemBtn" data-r="${n.id}" ${!ok||META.gems<cst?"disabled":""}>${ic("gem")}${cst}</button>`;};
+  const st=(n,l,ok)=>l>=n.max?" max":l>0?" got":ok?"":" locked";
+  const cnt=c=>{let a=0,m=0;c.nodes.forEach(n=>{a+=Math.min(n.max,perkLv(n.id));m+=n.max;});return `<em>${a}/${m}</em>`;};
+  const gen=RESEARCH.filter(c=>!c.role).map(c=>`<section class="trGrp" style="--rc:${c.col}"><h4><span class="rh" style="--rc:${c.col}">${ic(c.ic)}</span>${c.n.toUpperCase()}${cnt(c)}</h4>
+    <div class="trCards">${c.nodes.map((n,i)=>{const l=perkLv(n.id),ok=rsReq(n);return `<div class="trCard${st(n,l,ok)}" title="${esc(n.d)}"><i class="trNo">${i+1}</i><div class="ni">${ic(ok?n.ic:"lock")}</div><div class="trTx"><b>${n.n}</b><small>${n.d}</small></div><div class="trFt">${pips(n,l)}${act(n,l,ok)}</div></div>`;}).join("")}</div></section>`).join("");
+  const R=RESEARCH.filter(c=>c.role);if(!R.length)return `<div class="tree2">${gen}</div>`;
+  const rows=[["dumbbell","Drill","+6 % KP & Angriff je Stufe"],["bolt","Spezial","eigene Fähigkeit je Klasse"],["star","Meister","+12 % Angriffstempo und +1 Item-Platz"],["crown","Veteran","+3 % KP & Angriff je Stufe"]];
+  let mx=`<div class="trMx" style="--n:${R.length}"><div class="trCorner">${ic("users")}</div>${R.map(c=>`<div class="trRh" style="--rc:${c.col}">${roleHex(c.role)}<b>${c.n.toUpperCase()}</b>${cnt(c)}</div>`).join("")}`;
+  rows.forEach((rw,j)=>{mx+=`<div class="trRowH"><span class="ni">${ic(rw[0])}</span><b>${rw[1]}</b><small>${rw[2]}</small></div>`;
+    mx+=R.map(c=>{const n=c.nodes[j];if(!n)return `<div class="trCell empty"></div>`;const l=perkLv(n.id),ok=rsReq(n);
+      return `<div class="trCell${st(n,l,ok)}${j===1?" sp":""}" style="--rc:${c.col}" title="${esc(n.n+": "+n.d)}">${j===1?`<b>${n.n}</b><small>${n.d}</small>`:""}${!ok&&l<1?`<span class="trLk">${ic("lock")}</span>`:""}<div class="trFt">${pips(n,l)}${act(n,l,ok)}</div></div>`;}).join("");});
+  mx+=`</div>`;
+  return `<div class="tree2">${gen}<section class="trGrp trCls"><h4><span class="rh" style="--rc:#9fb4ff">${ic("users")}</span>KLASSEN<small>Jede Spalte von oben nach unten freischalten</small></h4><div class="trMxW">${mx}</div></section></div>`;}
 function labScreen(tab){
   const t=tab||"tree";
   let body="";
   if(t==="fame"){}
   else if(t==="tree"){
-    body=`<div class="tree">${RESEARCH.map(c=>`<div class="tcol" style="--rc:${c.col}"><div class="th">${c.role?roleHex(c.role):`<span class="rh" style="--rc:${c.col}">${ic(c.ic)}</span>`}${c.n.toUpperCase()}</div>
-      ${c.nodes.map((n,i)=>{const l=perkLv(n.id),mx=l>=n.max,ok=rsReq(n),cst=mx?0:n.cost[l];
-        return `${i?`<div class="tlink ${l>0||perkLv(c.nodes[i-1].id)>0&&ok?"on":""}"></div>`:""}<div class="tnode ${l>0?"got":""} ${ok?"":"locked"}" title="${esc(n.d)}"><div class="ni">${ic(n.ic)}</div><b>${n.n}</b>${n.d}<div class="lvp">${Array.from({length:n.max},(_,k)=>`<i class="${k<l?"on":""}"></i>`).join("")}</div>
-          ${mx?`<span style="color:${c.col};font-family:var(--px);font-size:10px">MAX</span>`:`<button class="gemBtn" data-r="${n.id}" ${!ok||META.gems<cst?"disabled":""}>${ic("gem")}${cst}</button>`}</div>`;}).join("")}</div>`).join("")}</div>`;
+    body=labTreeHtml();
   }else{
     const jOk=typeof johtoUnlocked==="function"&&johtoUnlocked();
     const card=(L,bought)=>{const c=UNLOCK_COST[L.tier],dis=META.gems<c||!regUnlocked(L.region||"kanto");const xa=L.achX&&ACH_BY[L.achX];
@@ -8831,7 +8885,7 @@ function renderLeaderboard(rows,src){const el=$("lbList");if(!el)return;rows=row
   if(!rows.length){el.innerHTML=`<div class="empty">Noch keine Trainer registriert. Sei der Erste!</div>`;return;}
   el.innerHTML=`<div class="lbHint">${ic("info")} Trainerpunkte: höhere Schwierigkeit zählt mehr, Wiederholungen nur wenig. Klick auf einen Trainer für Details.</div>`+
    lbRowsHtml(rows);
-  hydrateIcons(el);el.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>lbDetail(rows.find(r=>r.n===b.dataset.n)));}
+  hydrateIcons(el);if(typeof lbAnimSync==="function")lbAnimSync(el);el.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>lbDetail(rows.find(r=>r.n===b.dataset.n)));}
 function lbDetail(a){if(!a)return;const regs=Object.keys(REGIONS);let cd=a.card&&typeof cardClean==="function"?cardClean(a.card):null;
   // noch keine Kampfkarte hochgeladen (älterer Spielstand): neutrale Karte, bis der Spieler wieder online spielt
   if(!cd)cd={name:String(a.n||"?").slice(0,20),title:"",ts:null,bg:"std",fav:0,favSh:0,badges:[],ch:a.titles||0,dw:0,dex:a.own||0,ph:1};
@@ -14517,6 +14571,10 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm: Jede Stufe kostet jetzt etwa
 if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm hat jetzt einen eigenen Punkt im Hauptmenü, sobald du alle Booster geleert und den Skillbaum komplett hast. Dort siehst du auch deinen aktuellen Ruhm-Rang.": "Fame now has its own entry in the main menu once you've emptied all boosters and completed the skill tree. It also shows your current fame rank.", "Edelsteine einzahlen · Namensfarbe · Kartenrand": "Deposit gems · name colour · card frame"});
 /* v1.40.0: Hintergründe */
 if(typeof EN!=="undefined")Object.assign(EN,{"Hintergründe: Bot-Gegner im Einzelspieler haben jetzt eigene Hintergründe je nach Kampf: Trainerpfad, Arenafeld, Glutarena, Elitesaal, Geheimversteck, Arenaleiter-Halle und Championsarena für Bosse. Geisterkämpfe zeigen weiter die Karte des Spielers.": "Backgrounds: bot opponents in single player now have their own backgrounds depending on the fight: Trainer Path, Arena Field, Ember Arena, Elite Hall, Hideout, Gym Leader Hall and Champion Arena for bosses. Ghost battles still show the player's card.", "VS-Bildschirm: Hintergründe wirken jetzt wie im Kino, mit Lichtschimmer und Abdunklung zu den Rändern, ohne Kartenrahmen. Farbige Ruhm-Namen erscheinen jetzt auch hier.": "VS screen: backgrounds now look cinematic, with a light sheen and darkening towards the edges, without card frames. Coloured fame names now show here as well.", "Die einfachen Hintergründe haben mehr Tiefe: Wiesenwind und Morgenroute mit Bergketten, Lichtstrahlen und Dunst, Herbstwald mit Bergen im Abendlicht, Sandsturm mit Dünen und Hitzeflimmern, Abendrot mit Felsküsten und ersten Sternen. Alle neuen und überarbeiteten Hintergründe sind detaillierter gestaltet, mit Licht, Nebel und feiner Körnung.": "The simple backgrounds have more depth: Meadow Breeze and Morning Route with mountain ranges, light rays and haze, Autumn Forest with mountains in evening light, Sandstorm with dunes and heat shimmer, Evening Glow with rocky coasts and the first stars. All new and reworked backgrounds are more detailed, with light, mist and fine grain.", "4 neue Hintergründe: Edelsteinmine (Ruhm Saphir I), Mondtempel (10× Albtraum-Champion), Nordlichtgipfel (3 Abzeichen auf Bernstein) und Ruhmeskrone (Ruhmeslegende).": "4 new backgrounds: Gem Mine (Fame Sapphire I), Moon Temple (10× Nightmare champion), Aurora Peak (3 badges at Amber) and Fame Crown (Fame Legend).", "Viele Hintergründe sind schwerer freizuschalten, zum Beispiel Bernsteinglut mit 2 Abzeichen auf Bernstein, Geisterreich mit 4 auf Mythisch und die Turm-Hintergründe ab Ebene 15, 45 und 85. Was du schon freigeschaltet hast, bleibt dir erhalten.": "Many backgrounds are harder to unlock, e.g. Amber Glow with 2 badges at Amber, Ghost Realm with 4 at Mythic and the tower backgrounds from floors 15, 45 and 85. Anything you've already unlocked stays yours.", "Kampfkarte: Das Ruhm-Abzeichen sitzt jetzt als Medaille am Namensschild und wird nicht mehr am Kartenrand abgeschnitten.": "Battle card: the fame emblem now sits as a medal on the name plate and is no longer cut off at the card edge.", "Bestenliste: Wer auf seiner Kampfkarte einen Ruhm-Rand+ oder den Ruhmeslegenden-Rand trägt, bekommt diesen Rand jetzt auch um seine Zeile in der Bestenliste.": "Leaderboard: anyone wearing a Fame frame+ or the Fame Legend frame on their battle card now gets that frame around their leaderboard row as well.", "Trainerkarte → Stil: Die Hintergründe bewegen sich nur noch, wenn du mit der Maus darüberfährst. Dadurch ruckelt die Auswahl nicht mehr.": "Trainer card → Style: backgrounds only animate while you hover over them. The selection no longer stutters.", "Edelsteinmine": "Gem Mine", "Mondtempel": "Moon Temple", "Nordlichtgipfel": "Aurora Peak", "Ruhmeskrone": "Fame Crown", "Ruhm: Saphir I erreichen": "Fame: reach Sapphire I", "Ruhm: Ruhmeslegende erreichen": "Fame: reach Fame Legend", "10× Albtraum-Champion (alle Regionen)": "10× Nightmare champion (all regions)", "3 Abzeichen auf Bernstein": "3 badges at Amber", "2 Abzeichen auf Bernstein": "2 badges at Amber", "4 Abzeichen auf Mythisch": "4 badges at Mythic", "3 Läufe beenden": "Finish 3 runs", "10 Bosse besiegen": "Defeat 10 bosses", "60 Pokémon im Pokédex": "60 Pokémon in the Pokédex", "3× Albtraum-Champion in Galar": "3× Nightmare champion in Galar", "Kampfturm: Ebene 15 schaffen": "Battle Tower: clear floor 15", "Kampfturm: Ebene 45 schaffen": "Battle Tower: clear floor 45", "Kampfturm: Ebene 85 schaffen": "Battle Tower: clear floor 85", "Perfektionist II (35 Erfolge)": "Perfectionist II (35 achievements)", "Pokédex-Profi II (300 Pokémon)": "Pokédex Pro II (300 Pokémon)", "Albtraumjäger II (5× Albtraum-Champion)": "Nightmare Hunter II (5× Nightmare champion)", "Glitzerjäger III (120 Schillernde)": "Glitter Hunter III (120 shinies)", "Glitzerjäger V (700 Schillernde)": "Glitter Hunter V (700 shinies)", "Unaufhaltsam III (15 Siege in Folge)": "Unstoppable III (15 wins in a row)", "Champion II (15 Champion-Titel)": "Champion II (15 champion titles)", "Trainerpfad": "Trainer Path", "Arenafeld": "Arena Field", "Glutarena": "Ember Arena", "Elitesaal": "Elite Hall", "Geheimversteck": "Hideout", "Arenaleiter-Halle": "Gym Leader Hall", "Championsarena": "Champion Arena", "Hintergründe": "Backgrounds"});
+/* v1.40.0.5: Bestenliste ruckelfrei */
+if(typeof EN!=="undefined")Object.assign(EN,{"Bestenliste: Die Effekte bei Platz 1 bis 3, Titeln, Ruhm-Namen und Rändern laufen beim automatischen Aktualisieren jetzt flüssig weiter, statt kurz zu stoppen und neu anzufangen.": "Leaderboard: the effects on places 1 to 3, titles, fame names and frames now keep running smoothly during the automatic refresh instead of stopping and restarting."});
+/* v1.40.0.6: Skillbaum-Ansicht */
+if(typeof EN!=="undefined")Object.assign(EN,{"Forschungslabor: Der Skillbaum ist übersichtlicher. Wirtschaft und Abenteuer stehen als Kartenraster nebeneinander, die Klassen als Tabelle mit den Zeilen Drill, Spezial, Meister und Veteran. Nichts wird mehr abgeschnitten, und lange Spalten zum Scrollen gibt es nicht mehr.": "Research lab: the skill tree is clearer. Economy and Adventure are shown as card grids, the classes as a table with the rows Drill, Special, Master and Veteran. Nothing gets cut off anymore and there are no more long columns to scroll through.", "KLASSEN": "CLASSES", "Spezial": "Special", "eigene Fähigkeit je Klasse": "unique ability per class", "+6 % KP & Angriff je Stufe": "+6 % HP & attack per level", "+12 % Angriffstempo und +1 Item-Platz": "+12 % attack speed and +1 item slot", "+3 % KP & Angriff je Stufe": "+3 % HP & attack per level", "Jede Spalte von oben nach unten freischalten": "Unlock each column from top to bottom", "WIRTSCHAFT": "ECONOMY", "ABENTEUER": "ADVENTURE"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -16954,7 +17012,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.40.0",DUEL_HP=30;
+const MP_VER="1.40.0.6",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -17426,7 +17484,7 @@ async function rankedBoard(){openModal(`<h2>${ic("trophy")} RANKED-BESTENLISTE</
   $("rkBx").onclick=()=>mpModal();const r=await clFetch("/rest/v1/rpc/ranked_board",{method:"POST",auth:false,body:{},timeout:8000});const B=$("rkBd");if(!B)return;
   if(!r.ok||!Array.isArray(r.j)){B.innerHTML=`<p class="empty">${socMissing(r)?"Ranked ist auf dem Server noch nicht eingerichtet.":"Bestenliste nicht ladbar."}</p>`;return;}
   let br=null;try{br=await clBoard();}catch(e){}if(!$("rkBd"))return;
-  B.innerHTML=r.j.length?`<div class="rkList">${rkRowsHtml(r.j,br,50)}</div>`:`<p class="empty">Noch keine Ranked-Kämpfe. Sei der Erste!</p>`;hydrateIcons(B);rkBind(B,r.j,br,()=>rankedBoard());}
+  B.innerHTML=r.j.length?`<div class="rkList">${rkRowsHtml(r.j,br,50)}</div>`:`<p class="empty">Noch keine Ranked-Kämpfe. Sei der Erste!</p>`;hydrateIcons(B);lbAnimSync(B);rkBind(B,r.j,br,()=>rankedBoard());}
 /* v1.38.0.9: Ranked-Zeilen wie die übrigen Bestenlisten (Titel, Platz-Effekte) und Details beim Antippen */
 const rkFind=(br,n)=>(br||[]).find(y=>userKey(y.n)===userKey(n))||null;
 function rkRowsHtml(list,br,n){return list.slice(0,n||10).map((x,i)=>{const b=rkFind(br,x.name),me=typeof USER!=="undefined"&&USER&&userKey(x.name)===userKey(USER);
@@ -17469,6 +17527,7 @@ function seasonDetail(x,sid,b){const i=x.info||{},LL={e:"easy",n:"normal",h:"har
   if(cd)cardHydrate($("mbox"));$("lbOk").onclick=closeModal;if($("sdAll"))$("sdAll").onclick=()=>{closeModal();lbDetail(b);};}
 function mlbPkRows(rows){return rows.slice(0,10).map((a,i)=>`<button class="lbRow r${i+1}"${fameRowA(a.card)} data-n="${esc(a.n)}">${fameRowI(a.card)}<span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${fameNameRow(a.n,a.card)}</b>${lbTTHtml(a)}</div>
     <small title="${a.own} Pokémon · ${a.shy} schillernd · ${a.ach} Erfolge">${ic("dex")} ${a.own} · ${ic("shiny")} ${a.shy} · ${ic("trophy")} ${a.ach}</small></div><span class="lbPts">${(a.pk|0).toLocaleString("de-DE")}<em>Punkte</em></span></button>`).join("");}
+function lbAnimSync(el){try{if(!el||!el.getAnimations)return;el.getAnimations({subtree:true}).forEach(a=>{try{const t=a.effect&&a.effect.getComputedTiming?a.effect.getComputedTiming():null;if(t&&t.iterations===Infinity&&a.timeline===document.timeline)a.startTime=0;}catch(e){}});}catch(e){}}
 function menuLbWire(el){el.querySelector(".mLbR").onclick=()=>menuLbLoad(el);
   el.querySelectorAll("[data-mt]").forEach(b=>b.onclick=()=>{MLB.tab=b.dataset.mt;el.querySelectorAll("[data-mt]").forEach(x=>x.classList.toggle("on",x===b));const sb=el.querySelector(".mLbSea");if(sb)sb.style.display=MLB.tab==="pts"?"":"none";menuLbLoad(el);});
   const sel=el.querySelector(".mLbSel");if(sel)sel.onchange=()=>{MLB.sea=sel.value;menuLbLoad(el);};hydrateIcons(el);}
@@ -17488,7 +17547,7 @@ async function menuLbLoad(el,quiet){if(!el||MLB.busy)return;MLB.busy=true;const 
         if(!r.ok||!Array.isArray(r.j)){L.innerHTML=hint+`<p class="empty">${socMissing(r)?"Seasons werden gerade eingerichtet.":"Season-Bestenliste nicht erreichbar."}</p>`;}
         else L.innerHTML=hint+(r.j.length?mlbSeaRows(r.j,sid):`<p class="empty">${sid===seasonId()?"Noch keine Punkte in dieser Season. Werde Champion oder komm weit in einem Lauf!":"In dieser Season hat niemand Punkte gesammelt."}</p>`)+(me?`<p class="mLbMe">${ic("user")} Deine Season-Punkte: <b>${me.pts.toLocaleString("de-DE")}</b></p>`:"");
         L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>{const x=(r.j||[]).find(y=>userKey(y.name)===userKey(b.dataset.n));if(x)seasonDetail(x,sid,rows.find(y=>userKey(y.n)===userKey(x.name)));});}}
-    hydrateIcons(L);MLB.t=Date.now();menuLbAge();}finally{MLB.busy=false;if(R)R.classList.remove("spin");}}
+    hydrateIcons(L);lbAnimSync(L);MLB.t=Date.now();menuLbAge();}finally{MLB.busy=false;if(R)R.classList.remove("spin");}}
 function menuLbAge(){document.querySelectorAll(".mLbAge").forEach(e=>{if(!MLB.t){e.textContent="";return;}const s=Math.round((Date.now()-MLB.t)/1000),en=typeof LANG!=="undefined"&&LANG==="en",v=s<60?s+" s":Math.round(s/60)+" min";e.textContent=s<10?(en?"just updated":"gerade aktualisiert"):en?`updated ${v} ago · refreshes every minute`:`aktualisiert vor ${v} · automatisch jede Minute`;});}
 function menuLbMount(){const M=$("menu");if(!M)return;let el=$("mLb");if(!el){el=document.createElement("div");el.id="mLb";el.className="glass mLb";M.appendChild(el);el.innerHTML=menuLbFrame();menuLbWire(el);}
   if(Date.now()-MLB.t>20000)menuLbLoad(el,!!MLB.t);
@@ -21416,8 +21475,12 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.40.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.40.0.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.40.0.6",d:"05.11.2026",t:"Schnellfix",items:[
+  ["lab", "Forschungslabor: Der Skillbaum ist übersichtlicher. Wirtschaft und Abenteuer stehen als Kartenraster nebeneinander, die Klassen als Tabelle mit den Zeilen Drill, Spezial, Meister und Veteran. Nichts wird mehr abgeschnitten, und lange Spalten zum Scrollen gibt es nicht mehr."]]},
+ {v:"1.40.0.5",d:"05.11.2026",t:"Schnellfix",items:[
+  ["trophy", "Bestenliste: Die Effekte bei Platz 1 bis 3, Titeln, Ruhm-Namen und Rändern laufen beim automatischen Aktualisieren jetzt flüssig weiter, statt kurz zu stoppen und neu anzufangen."]]},
  {v:"1.40.0",d:"05.11.2026",t:"Hintergründe",items:[
   ["swirl", "Hintergründe: Bot-Gegner im Einzelspieler haben jetzt eigene Hintergründe je nach Kampf: Trainerpfad, Arenafeld, Glutarena, Elitesaal, Geheimversteck, Arenaleiter-Halle und Championsarena für Bosse. Geisterkämpfe zeigen weiter die Karte des Spielers."],
   ["star", "VS-Bildschirm: Hintergründe wirken jetzt wie im Kino, mit Lichtschimmer und Abdunklung zu den Rändern, ohne Kartenrahmen. Farbige Ruhm-Namen erscheinen jetzt auch hier."],
