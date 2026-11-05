@@ -4403,6 +4403,47 @@ body:not(.battle) .wxLbl{display:none}
 .trCell .trLk{position:absolute;right:4px;top:3px;color:#6a7290}.trCell .trLk .ic{width:11px;height:11px}
 .trCell.empty{background:transparent;border-color:transparent}
 @media (max-width:700px){.trCards{grid-template-columns:1fr 1fr}.trCard{grid-template-columns:28px minmax(0,1fr)}.trCard .ni{width:28px;height:28px}}
+/* ===== v1.41.0: Skillbaum als Baum ===== */
+.ltTree{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;margin-top:10px;align-items:start}
+.ltSec{padding:12px 14px;border-radius:10px;background:radial-gradient(ellipse at 50% 0,#1e2640,#141927);border:2px solid #0b0d13;margin-bottom:12px}
+.ltSec h4{margin:0 0 10px;font:11px var(--px);color:#9fb4ff;font-weight:400;display:flex;gap:8px;align-items:center}.ltSec h4 .ic{width:14px;height:14px}
+.ltSec h4 em{margin-left:auto;font:9px var(--px);font-style:normal;color:#fff;background:#0b0d13;border-radius:5px;padding:4px 7px}
+.ltLane{display:flex;align-items:center;margin:14px 0 30px}.ltLane.cont{margin-top:-8px}
+.ltLab{flex:none;width:118px;display:flex;align-items:center;gap:8px;font:9px var(--px);color:#fff}.ltLab .rh{width:26px;height:26px}.ltLab .rh .ic{width:14px;height:14px}.ltLab em{display:block;font:700 11px var(--ui);font-style:normal;color:var(--rc);margin-top:3px}
+.ltLink{flex:1;min-width:8px;height:4px;background:#0b0d13;border-radius:2px}.ltLink.on{background:var(--rc);box-shadow:0 0 6px var(--rc)}
+.ltGap{flex:1}.ltGapN{flex:none;width:52px}
+.ltN{position:relative;flex:none;width:52px;height:52px;border-radius:50%;padding:4px;cursor:pointer;transition:transform .12s}
+.ltN:hover{transform:scale(1.08)}
+.ltN>span{width:100%;height:100%;border-radius:50%;display:grid;place-items:center;background:#1a2032;color:#56607e;border:2px solid #0b0d13}.ltN>span .ic{width:20px;height:20px}
+.ltN.got>span{color:#fff;background:radial-gradient(circle at 40% 30%,color-mix(in srgb,var(--rc) 55%,#1a2032),#141926)}
+.ltN.max>span{color:#fff;background:radial-gradient(circle at 40% 30%,var(--rc),color-mix(in srgb,var(--rc) 35%,#141926));box-shadow:0 0 14px color-mix(in srgb,var(--rc) 55%,transparent)}
+.ltN.avail>span{color:var(--rc);border-color:var(--rc);animation:ltPul 1.6s ease-in-out infinite}
+.ltN.lock{opacity:.45}
+.ltN.sel{outline:3px solid #fff;outline-offset:2px}
+.ltN b{position:absolute;left:50%;top:56px;transform:translateX(-50%);width:84px;text-align:center;font-size:10.5px;line-height:1.15;color:#c8d0e6;font-weight:700;pointer-events:none}
+.ltN i.lv{position:absolute;right:-6px;top:-5px;font:8px var(--px);font-style:normal;background:#0b0d13;color:#fff;border-radius:6px;padding:2px 4px}
+.ltN i.nw{position:absolute;left:-8px;top:-6px;font:7px var(--px);font-style:normal;background:#ff4d6d;color:#fff;border-radius:6px;padding:2px 4px;border:1px solid #0b0d13}
+@keyframes ltPul{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--rc) 60%,transparent)}50%{box-shadow:0 0 0 6px transparent}}
+.ltClsW{overflow-x:auto}
+.ltCls{display:grid;grid-template-columns:100px repeat(var(--n),minmax(64px,1fr));row-gap:8px;align-items:center;justify-items:center;min-width:700px}
+.ltRh{display:flex;flex-direction:column;align-items:center;gap:4px;font:8px var(--px);color:#fff;text-align:center}.ltRh .rh{width:30px;height:30px}.ltRh .rh .ic{width:16px;height:16px}.ltRh em{font:700 11px var(--ui);font-style:normal;color:var(--rc)}
+.ltRowL{justify-self:start;font:8.5px var(--px);color:#9fb4ff;line-height:1.5}.ltRowL small{display:block;font:600 10px var(--ui);color:var(--muted)}
+.ltVl{width:4px;height:14px;background:#0b0d13;border-radius:2px}.ltVl.on{background:var(--rc);box-shadow:0 0 6px var(--rc)}
+.ltCls .ltN b{display:none}
+.ltSide{position:sticky;top:0}
+.ltDet{display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:10px;background:linear-gradient(180deg,color-mix(in srgb,var(--rc) 16%,#1a2030),#151a28);border:2px solid #0b0d13;border-top:4px solid var(--rc)}
+.ltDetTop{display:flex;gap:12px;align-items:center}.ltDetIc{flex:none;width:56px;height:56px;border-radius:12px;display:grid;place-items:center;background:#0f1320;border:2px solid color-mix(in srgb,var(--rc) 60%,#0b0d13);color:var(--rc);box-shadow:0 0 18px color-mix(in srgb,var(--rc) 35%,transparent)}.ltDetIc .ic{width:28px;height:28px}
+.ltDetTop small{display:block;font:9px var(--px);color:var(--rc);letter-spacing:.04em}.ltDetTop b{display:block;font-size:20px;color:#fff;margin-top:3px}
+.ltNew{display:inline-block;margin-top:4px;font:7px var(--px);font-style:normal;background:#ff4d6d;color:#fff;border-radius:5px;padding:2px 5px}
+.ltDet p{margin:0;font-size:14px;line-height:1.4;color:#c8d0e6}
+.ltPips{display:flex;align-items:center;gap:4px}.ltPips i{width:22px;height:7px;border-radius:2px;background:#0b0d13}.ltPips i.on{background:var(--rc);box-shadow:0 0 6px var(--rc)}.ltPips span{margin-left:6px;font-weight:800;color:#fff;font-size:13px}
+.ltBuy{height:42px;border-radius:8px;border:2px solid #0b0d13;background:var(--gem);color:#0e2e2a;font:11px var(--px);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;box-shadow:inset 0 -4px 0 #3aa898}.ltBuy .ic{width:15px;height:15px}.ltBuy[disabled]{filter:grayscale(1);opacity:.5;cursor:default}
+.ltMax{text-align:center;font:11px var(--px);color:var(--rc);padding:11px;border-radius:8px;background:#0f1320}
+.ltReq{font-size:12px;color:#ff9a9a;display:flex;gap:5px;align-items:center}.ltReq .ic{width:12px;height:12px}
+.ltSum{margin-top:6px;padding-top:10px;border-top:1px solid #2a3248}.ltSum>div:first-child{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}.ltSum b{color:#fff}
+.ltBar{height:8px;border-radius:4px;background:#0b0d13;margin-top:6px;overflow:hidden}.ltBar i{display:block;height:100%;background:linear-gradient(90deg,#ffd84a,#5cf2ff,#b77bff)}
+@media (max-width:1100px){.ltTree{grid-template-columns:1fr}.ltSide{position:static;order:-1}}
+@media (max-width:760px){.ltLab{width:84px}.ltN{width:44px;height:44px}.ltN b{top:48px;width:70px;font-size:9.5px}.ltGapN{width:44px}}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -5842,7 +5883,8 @@ const secretBox=u=>{const S0=u&&u.secret&&SECRETS[u.secret];if(!S0)return"";retu
 const abilBox=spId=>{const k=abilOf(spId);if(!k)return"";const A=ABIL[k];return `<div class="abilP" data-tn="${A.n}" data-td="${A.d}" data-tc="#9fe8ff" data-tk="FÄHIGKEIT">${ic("spark")}<div><b>${A.n}</b><p>${A.d}</p></div></div>`;};
 const SHINY_BASE=1/64;
 const IT_COST={c:3,r:5,e:8};const IT_NAME={c:"Gewöhnlich",r:"Selten",e:"Episch"};const IT_COL={c:"#b6bccb",r:"#4fa8ff",e:"#b77bff"};
-const BAG_MAX=4;
+/* v1.41.0: Große Tasche (+1 Platz) */
+Object.defineProperty(window,"BAG_MAX",{configurable:true,get(){try{return 4+(typeof perk==="function"&&perk("bag")>0?1:0);}catch(e){return 4;}}});
 // Megastein: glänzende Glasmurmel mit Regenbogen-Doppelhelix (eigene Vektorgrafik, scharf in jeder Größe)
 const MEGA_MARBLE=`<svg class="marble" viewBox="0 0 64 64" aria-hidden="true"><defs>
  <radialGradient id="mmBody" cx="38%" cy="32%" r="70%"><stop offset="0" stop-color="#f4f0ff"/><stop offset=".22" stop-color="#c9b8ff"/><stop offset=".62" stop-color="#6a4ac8"/><stop offset="1" stop-color="#1c0f4a"/></radialGradient>
@@ -5912,12 +5954,17 @@ const RESEARCH=[
    {id:"treasure",n:"Schatzsucher",ic:"chest",d:"Ereignisse bieten 4 statt 3 Belohnungen zur Wahl.",max:1,cost:[45]},
    {id:"relicpick",n:"Reliktkenner",ic:"lens",d:"Relikt-Wahlen zeigen 4 statt 3 Relikte.",max:1,cost:[60]},
    {id:"gemhunter",n:"Edelsteinsucher",ic:"gem",d:"+10 % Edelsteine am Ende jedes Laufs je Stufe.",max:2,cost:[70,110]},
-   {id:"twslot",n:"Turmkletterer",ic:"tower",d:"+1 Teamplatz im Kampfturm.",max:1,cost:[75]}]},
+   {id:"twslot",n:"Turmkletterer",ic:"tower",d:"+1 Teamplatz im Kampfturm.",max:1,cost:[75]},
+   {id:"bag",n:"Große Tasche",ic:"pack",d:"+1 Taschenplatz für Items.",max:1,cost:[60],_gp:1,nw:1},
+   {id:"bosshunt",n:"Bossjäger",ic:"skull",d:"+5 % Schaden gegen Bosse je Stufe.",max:2,cost:[45,75],_gp:1,nw:1},
+   {id:"megaf",n:"Mega-Forschung",ic:"mega",d:"Nach der Mega-Entwicklung +40 % Energie: die Fähigkeit kommt früher.",max:1,cost:[80],_gp:1,nw:1}]},
  ...Object.keys(ROLES).map(r=>({k:r,n:ROLES[r].n,role:r,col:ROLES[r].col,nodes:[DRILL(r),
    {id:"s_"+r,n:{tank:"Bollwerk",warrior:"Blutrausch",assassin:"Hinterhalt",marksman:"Adlerauge",mage:"Arkanfluss",support:"Segen",stoerer:"Lähmfeld",berserk:"Raserei"}[r],ic:{tank:"bubble",warrior:"fang",assassin:"ghost",marksman:"aim",mage:"drop",support:"plus",stoerer:"swirl",berserk:"fire"}[r],
     d:{tank:"Tanks starten mit einem Schild über 15 % der KP.",warrior:"Krieger heilen sich um 10 % ihres Schadens.",assassin:"Der erste Treffer nach dem Sprung verursacht doppelten Schaden.",marksman:"Schützen +0,7 Reichweite und 10 % Krit.",mage:"Magier starten mit +35 Energie.",support:"Heilungen von Unterstützern +35 %.",stoerer:"Störer verlangsamen schon mit jedem 2. Angriff und rauben +4 Energie.",berserk:"Berserker erleiden unter 30 % KP 25 % weniger Schaden."}[r],max:1,cost:[18]},
    {id:"m_"+r,n:"Meister",ic:"star",d:`${ROLES[r].n} +12 % Angriffstempo und +1 Item-Platz.`,max:1,cost:[45]},
-   {id:"e_"+r,n:"Veteran",ic:"crown",d:`${ROLES[r].n} +3 % KP & Angriff je Stufe.`,max:2,cost:[45,70]}]}))
+   {id:"e_"+r,n:"Veteran",ic:"crown",d:`${ROLES[r].n} +3 % KP & Angriff je Stufe.`,max:2,cost:[45,70]},
+   {id:"g_"+r,n:{tank:"Unerschütterlich",warrior:"Vollstrecker",assassin:"Schattenkette",marksman:"Zwillingsschuss",mage:"Arkanfokus",support:"Schutzsegen",stoerer:"Zeitfessel",berserk:"Kampfrausch"}[r],ic:"badge",
+    d:{tank:"Der Schild erneuert sich einmal bei 30 % KP.",warrior:"+15 % Schaden gegen Gegner unter 50 % KP.",assassin:"Nach einem K.O. springt er sofort zum nächsten Ziel.",marksman:"Jeder 4. Schuss trifft auch ein zweites Ziel.",mage:"Fähigkeiten brauchen 10 % weniger Energie.",support:"Heilungen geben zusätzlich einen Schild über 20 % der Heilung.",stoerer:"Verlangsamungen halten 1 s länger.",berserk:"Unter 30 % KP +20 % Angriffstempo."}[r],max:1,cost:[85],_gp:1,nw:1}]}))
 ];
 const RS_BY={};RESEARCH.forEach(c=>c.nodes.forEach((n,i)=>{RS_BY[n.id]=Object.assign(n,{col:c.col,colK:c.k,idx:i});}));
 /* Edelstein-Preise: alles kostet nur noch 1× statt 1,5× (Forschung und Freischaltungen) */
@@ -6002,6 +6049,8 @@ const MODES={
  duel:{n:"Duell",ic:"swords",enemy:1,revive:0,gem:0,base:5,hidden:1,d:"Live-Duell"},
  nuzlocke:{n:"Nuzlocke",ic:"heart",enemy:1.08,bud:1.12,boss:1.1,bossR:{5:1.25,10:1,15:1.1,20:1.25},revive:.15,gem:3,base:5,perma:1,eIt:[8,17],eGift:[9,99],eForm:1,d:"Gegner fast so stark wie auf Schwer und in Formation, ab Runde 8 mit Items (ab 17 zwei). Besiegte Pokémon sind für den Rest des Laufs weg. Dafür dreifache Edelsteine.",unlock:"Champion auf Schwer in dieser Region"}
 };
+/* v1.41.0: Gegner und Bosse ab Normal 3 % stärker */
+for(const k of ["normal","hard","night","nuzlocke"])if(MODES[k])MODES[k].enemy=+(MODES[k].enemy*1.03).toFixed(4);
 const LV_XP=[0,4,9,15,23,33,45,60];
 const ODDS_LV={1:[70,30,0,0,0],2:[56,38,6,0,0],3:[46,40,14,0,0],4:[42,40,18,0,0],5:[28,36,26,8,2],6:[18,30,32,16,4],7:[12,24,34,23,7],8:[8,18,32,30,12]};
 /* Seltene Pokémon erst später im Lauf: Episch ab Runde 6, Legendär ab Runde 11 (nach dem ersten großen Boss) */
@@ -7991,6 +8040,7 @@ function signOut(){if(S&&S.phase==="shop")save();LS.del("pokelings_session");try
 function showMenu(){
   if(S&&S.duel){mpLeave(true);S=null;B=null;}
   if(S&&S.phase==="shop")save();
+  try{if(typeof fameReset141==="function")fameReset141();}catch(e){}
   showScreen("menu");if(typeof GL!=="undefined"&&GL&&GL.ftMesh){GL.scene.remove(GL.ftMesh);GL.ftMesh=null;}if(typeof avatarCheck==="function")avatarCheck();if(typeof patchAuto==="function")patchAuto();
   const sv=LS.get(saveKey(),null);const total=Object.values(META.champs).reduce((a,b)=>a+b,0);
   $("menuWho").innerHTML=`<span>${ic("user")} ${USER&&typeof fameNameHtml==="function"&&META&&META.fame?fameNameHtml(USER,{fn:META.fame.n}):esc(USER||"Gast")}</span><span style="color:var(--gem)">${ic("gem")} ${META.gems}${gemEventMul()>1?` <small style="font-size:10px;background:var(--gem);color:#0b0d13;border-radius:6px;padding:1px 5px;margin-left:3px">+${Math.round((gemEventMul()-1)*100)} % HEUTE</small>`:""}</span><span style="color:var(--amber)">${ic("trophy")} ${total}</span>${typeof misChip==="function"?misChip():""}`;if($("mMis"))$("mMis").onclick=()=>misModal();
@@ -8123,22 +8173,44 @@ const LAB_OPEN=new Set(),LAB_BODY={};
 function labRegBind(mb){mb.querySelectorAll("[data-lreg]").forEach(h=>h.onclick=()=>{const rk=h.dataset.lreg,B=mb.querySelector(`[data-lrb="${rk}"]`);if(!B)return;const op=!LAB_OPEN.has(rk);
   if(op){LAB_OPEN.add(rk);if(!B.childElementCount&&LAB_BODY[rk]){B.innerHTML=LAB_BODY[rk]();hydrateIcons(B);B.querySelectorAll(".pic[data-sp]").forEach(e=>e.appendChild(spriteEl(+e.dataset.sp)));}B.hidden=false;}else{LAB_OPEN.delete(rk);B.hidden=true;}
   h.classList.toggle("open",op);try{sfx("click");}catch(e){}});}
-/* v1.40.0.6: Skillbaum – Allgemein als Kartenraster, Klassen als Tabelle */
+/* v1.41.0: Skillbaum als Baum – runde Knoten mit Fortschrittsring, Klassen als Raster, Detailfenster rechts */
+let LAB_SEL=null;
+function labPick(){const all=[];RESEARCH.forEach(c=>c.nodes.forEach(n=>all.push(n)));if(LAB_SEL&&RS_BY[LAB_SEL])return RS_BY[LAB_SEL];
+  return all.find(n=>perkLv(n.id)<n.max&&rsReq(n))||all.find(n=>perkLv(n.id)<n.max)||all[0];}
+function labTot(){let a=0,m=0;RESEARCH.forEach(c=>c.nodes.forEach(n=>{a+=Math.min(n.max,perkLv(n.id));m+=n.max;}));return[a,m];}
+function labDetHtml(n){if(!n)return "";const c=RESEARCH.find(x=>x.k===n.colK)||{n:"",col:"#9fb4ff",nodes:[n]},i=n.idx||0,l=perkLv(n.id),mx=l>=n.max,ok=rsReq(n),cst=mx?0:n.cost[l],T=labTot();
+  return `<div class="ltDet" style="--rc:${c.col}"><div class="ltDetTop"><div class="ltDetIc">${ic(n.ic)}</div><div><small>${esc(c.n.toUpperCase())} · STUFE ${i+1}/${c.nodes.length}</small><b>${n.n}</b>${n.nw&&!l?`<em class="ltNew">NEU</em>`:""}</div></div>
+   <p>${n.d}</p><div class="ltPips">${Array.from({length:n.max},(_,k)=>`<i class="${k<l?"on":""}"></i>`).join("")}<span>${l}/${n.max}</span></div>
+   ${mx?`<div class="ltMax">VOLL ERFORSCHT</div>`:`<button class="ltBuy" data-r="${n.id}"${!ok||META.gems<cst?" disabled":""}>${ic("gem")} ${cst} · ERFORSCHEN</button>`}
+   ${!ok&&i>0?`<div class="ltReq">${ic("lock")} Erst „${c.nodes[i-1].n}“ erforschen</div>`:!mx&&META.gems<cst?`<div class="ltReq">${ic("gem")} Dir fehlen ${cst-META.gems} Edelsteine</div>`:""}
+   <div class="ltSum"><div><span>Gesamt erforscht</span><b>${T[0]}/${T[1]}</b></div><div class="ltBar"><i style="width:${(100*T[0]/Math.max(1,T[1])).toFixed(1)}%"></i></div></div></div>`;}
 function labTreeHtml(){
-  const pips=(n,l)=>`<span class="lvp">${Array.from({length:n.max},(_,k)=>`<i class="${k<l?"on":""}"></i>`).join("")}</span>`;
-  const act=(n,l,ok)=>{const mx=l>=n.max,cst=mx?0:n.cost[l];return mx?`<span class="trMax">MAX</span>`:`<button class="gemBtn" data-r="${n.id}" ${!ok||META.gems<cst?"disabled":""}>${ic("gem")}${cst}</button>`;};
-  const st=(n,l,ok)=>l>=n.max?" max":l>0?" got":ok?"":" locked";
-  const cnt=c=>{let a=0,m=0;c.nodes.forEach(n=>{a+=Math.min(n.max,perkLv(n.id));m+=n.max;});return `<em>${a}/${m}</em>`;};
-  const gen=RESEARCH.filter(c=>!c.role).map(c=>`<section class="trGrp" style="--rc:${c.col}"><h4><span class="rh" style="--rc:${c.col}">${ic(c.ic)}</span>${c.n.toUpperCase()}${cnt(c)}</h4>
-    <div class="trCards">${c.nodes.map((n,i)=>{const l=perkLv(n.id),ok=rsReq(n);return `<div class="trCard${st(n,l,ok)}" title="${esc(n.d)}"><i class="trNo">${i+1}</i><div class="ni">${ic(ok?n.ic:"lock")}</div><div class="trTx"><b>${n.n}</b><small>${n.d}</small></div><div class="trFt">${pips(n,l)}${act(n,l,ok)}</div></div>`;}).join("")}</div></section>`).join("");
-  const R=RESEARCH.filter(c=>c.role);if(!R.length)return `<div class="tree2">${gen}</div>`;
-  const rows=[["dumbbell","Drill","+6 % KP & Angriff je Stufe"],["bolt","Spezial","eigene Fähigkeit je Klasse"],["star","Meister","+12 % Angriffstempo und +1 Item-Platz"],["crown","Veteran","+3 % KP & Angriff je Stufe"]];
-  let mx=`<div class="trMx" style="--n:${R.length}"><div class="trCorner">${ic("users")}</div>${R.map(c=>`<div class="trRh" style="--rc:${c.col}">${roleHex(c.role)}<b>${c.n.toUpperCase()}</b>${cnt(c)}</div>`).join("")}`;
-  rows.forEach((rw,j)=>{mx+=`<div class="trRowH"><span class="ni">${ic(rw[0])}</span><b>${rw[1]}</b><small>${rw[2]}</small></div>`;
-    mx+=R.map(c=>{const n=c.nodes[j];if(!n)return `<div class="trCell empty"></div>`;const l=perkLv(n.id),ok=rsReq(n);
-      return `<div class="trCell${st(n,l,ok)}${j===1?" sp":""}" style="--rc:${c.col}" title="${esc(n.n+": "+n.d)}">${j===1?`<b>${n.n}</b><small>${n.d}</small>`:""}${!ok&&l<1?`<span class="trLk">${ic("lock")}</span>`:""}<div class="trFt">${pips(n,l)}${act(n,l,ok)}</div></div>`;}).join("");});
-  mx+=`</div>`;
-  return `<div class="tree2">${gen}<section class="trGrp trCls"><h4><span class="rh" style="--rc:#9fb4ff">${ic("users")}</span>KLASSEN<small>Jede Spalte von oben nach unten freischalten</small></h4><div class="trMxW">${mx}</div></section></div>`;}
+  const sel=labPick();
+  const tot=c=>{let a=0,m=0;c.nodes.forEach(n=>{a+=Math.min(n.max,perkLv(n.id));m+=n.max;});return[a,m];};
+  const st=(n)=>{const l=perkLv(n.id);return l>=n.max?"max":l>0?"got":rsReq(n)?"avail":"lock";};
+  const ring=(n,col)=>{const p=Math.round(100*Math.min(1,perkLv(n.id)/n.max));return `background:conic-gradient(${col} ${p}%,#0b0d13 ${p}% 100%)`;};
+  const node=(c,n)=>{const s=st(n),l=perkLv(n.id);return `<div class="ltN ${s}${n===sel?" sel":""}" data-n="${n.id}" style="--rc:${c.col};${ring(n,c.col)}" title="${esc(n.n+": "+n.d)}"><span>${ic(s==="lock"?"lock":n.ic)}</span>${n.max>1?`<i class="lv">${l}/${n.max}</i>`:""}${n.nw&&!l?`<i class="nw">NEU</i>`:""}<b>${n.n}</b></div>`;};
+  const ciHtml=c=>c.role?roleHex(c.role):`<span class="rh" style="--rc:${c.col}">${ic(c.ic)}</span>`;
+  const lane=c=>{const t=tot(c),K=7,ch=[];for(let i=0;i<c.nodes.length;i+=K)ch.push(i);
+    return ch.map((s0,ci)=>{const part=c.nodes.slice(s0,s0+K);return `<div class="ltLane${ci?" cont":""}" style="--rc:${c.col}"><div class="ltLab">${ci?"":`${ciHtml(c)}<div>${c.n.toUpperCase()}<em>${t[0]}/${t[1]}</em></div>`}</div>${part.map((n,j)=>((j||ci)?`<div class="ltLink${perkLv(n.id)>0?" on":""}"></div>`:"")+node(c,n)).join("")}${part.length<K?Array.from({length:K-part.length},()=>`<div class="ltGap"></div><div class="ltGapN"></div>`).join(""):""}</div>`;}).join("");};
+  const gen=RESEARCH.filter(c=>!c.role),R=RESEARCH.filter(c=>c.role);
+  const rows=[["Drill","+6 % KP & Angriff"],["Spezial","eigene Fähigkeit"],["Meister","+12 % Tempo, +1 Item"],["Veteran","+3 % KP & Angriff"],["Großmeister","Ultimativ-Fähigkeit"]];
+  const depth=Math.max(...R.map(c=>c.nodes.length));
+  let cls=`<div></div>${R.map(c=>{const t=tot(c);return `<div class="ltRh" style="--rc:${c.col}">${roleHex(c.role)}<span>${c.n.toUpperCase()}</span><em>${t[0]}/${t[1]}</em></div>`;}).join("")}`;
+  for(let j=0;j<depth;j++){const rw=rows[j]||["Stufe "+(j+1),""];
+    if(j)cls+=`<div></div>`+R.map(c=>`<div class="ltVl${c.nodes[j]&&perkLv(c.nodes[j].id)>0?" on":""}" style="--rc:${c.col}"></div>`).join("");
+    cls+=`<div class="ltRowL">${rw[0].toUpperCase()}<small>${rw[1]}</small></div>`+R.map(c=>c.nodes[j]?node(c,c.nodes[j]):`<div></div>`).join("");}
+  const sum=L=>L.reduce((o,c)=>{const t=tot(c);o[0]+=t[0];o[1]+=t[1];return o;},[0,0]),sg=sum(gen),sr=sum(R);
+  return `<div class="ltTree"><div class="ltMain"><div class="ltSec"><h4>${ic("route")} ALLGEMEIN<em>${sg[0]}/${sg[1]}</em></h4>${gen.map(lane).join("")}</div>
+    ${R.length?`<div class="ltSec"><h4>${ic("users")} KLASSEN<em>${sr[0]}/${sr[1]}</em></h4><div class="ltClsW"><div class="ltCls" style="--n:${R.length}">${cls}</div></div></div>`:""}</div>
+    <div class="ltSide" id="labDet">${labDetHtml(sel)}</div></div>`;}
+function labTreeBind(){const M=$("mbox");if(!M)return;
+  const buy=b=>{b.onclick=()=>{const n=RS_BY[b.dataset.r];if(!n)return;const l=perkLv(n.id),c=n.cost[l];if(l>=n.max||META.gems<c||!rsReq(n))return;META.gems-=c;META.perks[n.id]=l+1;saveMeta();toast(`${n.n} erforscht!`,"lab");
+    const y=M.scrollTop;LAB_SEL=n.id;labScreen("tree");refreshGems();try{$("mbox").scrollTop=y;}catch(e){}};};
+  M.querySelectorAll(".ltN[data-n]").forEach(e=>e.onclick=()=>{LAB_SEL=e.dataset.n;M.querySelectorAll(".ltN.sel").forEach(x=>x.classList.remove("sel"));e.classList.add("sel");
+    const d=$("labDet");if(d){d.innerHTML=labDetHtml(RS_BY[LAB_SEL]);try{hydrateIcons(d);}catch(x){}d.querySelectorAll("[data-r]").forEach(buy);}try{sfx("click");}catch(x){}});
+  M.querySelectorAll("#labDet [data-r]").forEach(buy);}
+
 function labScreen(tab){
   const t=tab||"tree";
   let body="";
@@ -8166,6 +8238,7 @@ function labScreen(tab){
   $("mbox").querySelectorAll(".pic[data-sp]").forEach(e=>e.appendChild(spriteEl(+e.dataset.sp)));if(t==="mons"&&typeof bstBind==="function")bstBind();if(t==="mons")labRegBind($("mbox"));if(t==="fame"&&typeof fameBind==="function")fameBind();
   $("mbox").querySelectorAll(".dtabs button").forEach(b=>b.onclick=()=>labScreen(b.dataset.t));
   $("mbox").querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{const n=RS_BY[b.dataset.r],l=perkLv(n.id),c=n.cost[l];if(l>=n.max||META.gems<c||!rsReq(n))return;META.gems-=c;META.perks[n.id]=l+1;saveMeta();toast(`${n.n} erforscht!`,"lab");labScreen("tree");refreshGems();});
+  if(t==="tree"&&typeof labTreeBind==="function")labTreeBind();
   $("mbox").querySelectorAll("[data-u]").forEach(b=>b.onclick=()=>{const L=LINE_BY[b.dataset.u],c=UNLOCK_COST[L.tier];if(META.gems<c||L.achX)return;META.gems-=c;META.unlocked.push(L.k);if(typeof psOnUnlock==="function")psOnUnlock(L);saveMeta();toast(`${L.stages[0][1]} freigeschaltet!`,"ball");labScreen("mons");refreshGems();});
   $("gBack").onclick=()=>{closeModal();if($("menu").classList.contains("show"))showMenu();};
 }
@@ -14575,6 +14648,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Hintergründe: Bot-Gegner im Einze
 if(typeof EN!=="undefined")Object.assign(EN,{"Bestenliste: Die Effekte bei Platz 1 bis 3, Titeln, Ruhm-Namen und Rändern laufen beim automatischen Aktualisieren jetzt flüssig weiter, statt kurz zu stoppen und neu anzufangen.": "Leaderboard: the effects on places 1 to 3, titles, fame names and frames now keep running smoothly during the automatic refresh instead of stopping and restarting."});
 /* v1.40.0.6: Skillbaum-Ansicht */
 if(typeof EN!=="undefined")Object.assign(EN,{"Forschungslabor: Der Skillbaum ist übersichtlicher. Wirtschaft und Abenteuer stehen als Kartenraster nebeneinander, die Klassen als Tabelle mit den Zeilen Drill, Spezial, Meister und Veteran. Nichts wird mehr abgeschnitten, und lange Spalten zum Scrollen gibt es nicht mehr.": "Research lab: the skill tree is clearer. Economy and Adventure are shown as card grids, the classes as a table with the rows Drill, Special, Master and Veteran. Nothing gets cut off anymore and there are no more long columns to scroll through.", "KLASSEN": "CLASSES", "Spezial": "Special", "eigene Fähigkeit je Klasse": "unique ability per class", "+6 % KP & Angriff je Stufe": "+6 % HP & attack per level", "+12 % Angriffstempo und +1 Item-Platz": "+12 % attack speed and +1 item slot", "+3 % KP & Angriff je Stufe": "+3 % HP & attack per level", "Jede Spalte von oben nach unten freischalten": "Unlock each column from top to bottom", "WIRTSCHAFT": "ECONOMY", "ABENTEUER": "ADVENTURE"});
+/* v1.41.0: Skillbaum & Großmeister */
+if(typeof EN!=="undefined")Object.assign(EN,{"Neuer Skillbaum: Alle Forschungen stehen als Baum mit runden Knoten auf einen Blick, die Klassen als Raster. Klick auf einen Knoten zeigt rechts die Details, dort erforschst du ihn auch.": "New skill tree: all research is shown as a tree with round nodes at a glance, the classes as a grid. Click a node to see its details on the right, where you also research it.", "Neue Perks im Abenteuer: Große Tasche (+1 Taschenplatz), Bossjäger (+5 % Schaden gegen Bosse je Stufe) und Mega-Forschung (nach der Mega-Entwicklung +40 % Energie).": "New Adventure perks: Big Bag (+1 bag slot), Boss Hunter (+5 % damage against bosses per level) and Mega Research (+40 % energy after Mega Evolution).", "Neue Klassen-Stufe Großmeister: Tank Unerschütterlich (Schild erneuert sich bei 30 % KP), Krieger Vollstrecker (+15 % Schaden gegen angeschlagene Gegner), Assassine Schattenkette (springt nach einem K.O. weiter), Schütze Zwillingsschuss (jeder 4. Schuss trifft ein zweites Ziel), Magier Arkanfokus (10 % weniger Energie), Unterstützer Schutzsegen (Heilungen geben einen Schild), Störer Zeitfessel (Verlangsamung 1 s länger), Berserker Kampfrausch (unter 30 % KP +20 % Angriffstempo).": "New class tier Grandmaster: Tank Unshakable (shield renews at 30 % HP), Warrior Executioner (+15 % damage against wounded foes), Assassin Shadow Chain (jumps on after a KO), Marksman Twin Shot (every 4th shot hits a second target), Mage Arcane Focus (10 % less energy), Support Shield Blessing (heals grant a shield), Disruptor Time Bind (slows last 1 s longer), Berserker Battle Fury (+20 % attack speed below 30 % HP).", "Ruhm wurde zurückgesetzt, weil der Skillbaum gewachsen ist. Alle eingezahlten Edelsteine bekommst du komplett zurück. Ruhm öffnet sich wieder, sobald auch die neuen Perks erforscht sind.": "Fame has been reset because the skill tree grew. You get all deposited gems back in full. Fame opens again once the new perks are researched as well.", "Gegner und Bosse auf Normal, Schwer, Albtraum und Nuzlocke sind 3 % stärker. Leicht bleibt gleich.": "Enemies and bosses on Normal, Hard, Nightmare and Nuzlocke are 3 % stronger. Easy stays the same.", "Große Tasche": "Big Bag", "+1 Taschenplatz für Items.": "+1 bag slot for items.", "Bossjäger": "Boss Hunter", "+5 % Schaden gegen Bosse je Stufe.": "+5 % damage against bosses per level.", "Mega-Forschung": "Mega Research", "Nach der Mega-Entwicklung +40 % Energie: die Fähigkeit kommt früher.": "+40 % energy after Mega Evolution: the ability comes sooner.", "Unerschütterlich": "Unshakable", "Vollstrecker": "Executioner", "Schattenkette": "Shadow Chain", "Zwillingsschuss": "Twin Shot", "Arkanfokus": "Arcane Focus", "Schutzsegen": "Shield Blessing", "Zeitfessel": "Time Bind", "Kampfrausch": "Battle Fury", "Der Schild erneuert sich einmal bei 30 % KP.": "The shield renews once at 30 % HP.", "+15 % Schaden gegen Gegner unter 50 % KP.": "+15 % damage against enemies below 50 % HP.", "Nach einem K.O. springt er sofort zum nächsten Ziel.": "After a KO it instantly jumps to the next target.", "Jeder 4. Schuss trifft auch ein zweites Ziel.": "Every 4th shot also hits a second target.", "Fähigkeiten brauchen 10 % weniger Energie.": "Abilities need 10 % less energy.", "Heilungen geben zusätzlich einen Schild über 20 % der Heilung.": "Heals also grant a shield worth 20 % of the heal.", "Verlangsamungen halten 1 s länger.": "Slows last 1 s longer.", "Unter 30 % KP +20 % Angriffstempo.": "+20 % attack speed below 30 % HP.", "ALLGEMEIN": "GENERAL", "GROSSMEISTER": "GRANDMASTER", "Ultimativ-Fähigkeit": "ultimate ability", "eigene Fähigkeit": "unique ability", "+6 % KP & Angriff": "+6 % HP & attack", "+12 % Tempo, +1 Item": "+12 % speed, +1 item", "+3 % KP & Angriff": "+3 % HP & attack", "VOLL ERFORSCHT": "FULLY RESEARCHED", "ERFORSCHEN": "RESEARCH", "Gesamt erforscht": "Total researched", "STUFE": "STEP", "NEU": "NEW"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17012,7 +17087,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.40.0.6",DUEL_HP=30;
+const MP_VER="1.41.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -21475,8 +21550,14 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.40.0.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.41.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.41.0",d:"05.11.2026",t:"Skillbaum & Großmeister",items:[
+  ["lab", "Neuer Skillbaum: Alle Forschungen stehen als Baum mit runden Knoten auf einen Blick, die Klassen als Raster. Klick auf einen Knoten zeigt rechts die Details, dort erforschst du ihn auch."],
+  ["star", "Neue Perks im Abenteuer: Große Tasche (+1 Taschenplatz), Bossjäger (+5 % Schaden gegen Bosse je Stufe) und Mega-Forschung (nach der Mega-Entwicklung +40 % Energie)."],
+  ["crown", "Neue Klassen-Stufe Großmeister: Tank Unerschütterlich (Schild erneuert sich bei 30 % KP), Krieger Vollstrecker (+15 % Schaden gegen angeschlagene Gegner), Assassine Schattenkette (springt nach einem K.O. weiter), Schütze Zwillingsschuss (jeder 4. Schuss trifft ein zweites Ziel), Magier Arkanfokus (10 % weniger Energie), Unterstützer Schutzsegen (Heilungen geben einen Schild), Störer Zeitfessel (Verlangsamung 1 s länger), Berserker Kampfrausch (unter 30 % KP +20 % Angriffstempo)."],
+  ["gem", "Ruhm wurde zurückgesetzt, weil der Skillbaum gewachsen ist. Alle eingezahlten Edelsteine bekommst du komplett zurück. Ruhm öffnet sich wieder, sobald auch die neuen Perks erforscht sind."],
+  ["skull", "Gegner und Bosse auf Normal, Schwer, Albtraum und Nuzlocke sind 3 % stärker. Leicht bleibt gleich."]]},
  {v:"1.40.0.6",d:"05.11.2026",t:"Schnellfix",items:[
   ["lab", "Forschungslabor: Der Skillbaum ist übersichtlicher. Wirtschaft und Abenteuer stehen als Kartenraster nebeneinander, die Klassen als Tabelle mit den Zeilen Drill, Spezial, Meister und Veteran. Nichts wird mehr abgeschnitten, und lange Spalten zum Scrollen gibt es nicht mehr."]]},
  {v:"1.40.0.5",d:"05.11.2026",t:"Schnellfix",items:[
@@ -22757,6 +22838,10 @@ function fameNameHtml(name,c){const k=c&&c.fn&&FAME_C[c.fn]?c.fn:null;return k?`
 function fameRowK(card){try{const c=card&&typeof cardClean==="function"?cardClean(card):null,k=c&&c.ff;if(!k||!(k.endsWith("+")||k==="legende"))return null;const t=k==="legende"?FAME_LEG:FAME_T.find(x=>x.k===k.slice(0,-1));return t?{k,t}:null;}catch(e){return null;}}
 function fameRowA(card){const r=fameRowK(card);return r?` data-fr="${r.k==="legende"?"leg":"p"}" style="--fc:${r.t.c};--fd:${r.t.d}"`:"";}
 function fameRowI(card){const r=fameRowK(card);return r?`<i class="tcFr lbFr ${r.k==="legende"?"leg":"plus"}"><s></s><s></s><s></s><s></s></i>`:"";}
+/* v1.41.0: Neue Perks → Ruhm einmalig zurückgesetzt, eingezahlte Edelsteine voll zurück (ohne neuen Zeitstempel, damit der Cloud-Abgleich nicht kippt) */
+function fameReset141(){if(!META||typeof USER==="undefined"||!USER||(META.fkv|0)>=141)return;const F=META.fame,g=F?Math.max(0,F.g|0):0;META.fkv=141;
+  if(g>0){META.gems=(META.gems|0)+g;META.fame={g:0,n:null,f:null};setTimeout(()=>{try{toast(`Ruhm zurückgesetzt: ${g.toLocaleString("de-DE")} Edelsteine erstattet`,"gem");}catch(e){}},900);}
+  try{LS.set(metaKey(USER),META);}catch(e){}}
 function fameNameRow(name,card){try{return fameNameHtml(name,card&&typeof cardClean==="function"?cardClean(card):null);}catch(e){return esc(name);}}
 const fameEm=(L,big)=>{const i=fameStepInfo(L);if(!i)return "";return `<i class="fmEm${big?" big":""}${i.leg?" leg":""}" style="--fc:${i.c};--fd:${i.d}" title="Ruhm: ${esc(fameName_(L))}"><span>${i.leg?"★":ROM3[i.sub]}</span></i>`;};
 function fameTabHtml(){const O=fameOpen();
@@ -22860,7 +22945,7 @@ function fighter(u,side,x,y,cnt){
   if(cnt)for(const t of sp.types){const s=SYN[t],lv=synLv(cnt[t]||0);if(!s||!lv)continue;const v=s.v*lv;({atk:()=>f.atk*=1+v,hp:()=>f.maxhp*=1+v,def:()=>f.def*=1+v,as:()=>f.as*=1+v,mana:()=>f.mana+=v,dodge:()=>f.dodge+=v,regen:()=>f.regen+=v,heal:()=>f.heal+=v,poison:()=>f.poisonOn=v,both:()=>{f.atk*=1+v;f.maxhp*=1+v;}})[s.k]();}
   if(mine){
     if(hasRelic("claw"))f.as*=1.15;if(hasRelic("leftovers"))f.regen+=.015;if(hasRelic("expert"))f.expert+=.6;if(hasRelic("scope")){f.manaMax=Math.round(f.manaMax*.7);f.mana+=Math.round(f.manaMax*.25);}if(hasRelic("stardust")&&f.L.tier>=4){f.maxhp*=1.3;f.atk*=1.3;}else if(hasRelic("stardust")&&f.L.tier===3){f.maxhp*=1.12;f.atk*=1.12;}if(hasRelic("banner")){f.atk*=1.08;f.def*=1.08;}if(hasRelic("critlens"))f.crit=(f.crit||0)+.1;if(hasRelic("vampir"))f.ls=(f.ls||0)+.08;
-    if(f.role==="support"&&perk("s_support"))f.heal+=.35;if(f.role==="assassin"&&perk("s_assassin"))f.ambush=true;
+    if(f.role==="support"&&perk("s_support"))f.heal+=.35;if(f.role==="assassin"&&perk("s_assassin"))f.ambush=true;if(f.role==="mage"&&perk("g_mage"))f.manaMax=Math.max(1,Math.round(f.manaMax*.9));
   }
   if(typeof twFx==="function")twFx(f);if(f.role==="mage")f.mana+=15;if(f.role==="stoerer")f.mana+=10;f.mana=Math.min(f.manaMax*2,f.mana);f.maxhp=Math.round(f.maxhp);f.hp=f.maxhp;f.shield=f.maxhp*f.shieldStart*f.shMul;return f;
 }
@@ -22871,7 +22956,7 @@ function startBattle(){
   for(const k in S.board){const[x,y]=k.split(",").map(Number);F.push(fighter(S.board[k],"mine",x,y,cnt));}
   for(const e of S.enemies)F.push(fighter(e,"enemy",e.x,e.y,null));}
 
-  clearZones();clearVis();clearFx();B={F,proj:[],timers:[],danger:[],zones:[],t:0,done:false,slowT:0,hitStop:0,pause:false,winSide:null,megaChecked:false,lastPunch:-9,hp0:{mine:F.filter(f=>f.side==="mine").reduce((a,f)=>a+f.maxhp,0),enemy:F.filter(f=>f.side==="enemy").reduce((a,f)=>a+f.maxhp,0)}};if(det){B.det=true;B.rng=det.rng;B.acc=0;setMir(!S.duel.host);}B.weather=(!S.duel&&!S.tower&&S.enc&&S.enc.weather)||null;if(typeof wxShow==="function")wxShow(B.weather);
+  clearZones();clearVis();clearFx();B={F,proj:[],timers:[],danger:[],zones:[],t:0,done:false,slowT:0,hitStop:0,pause:false,winSide:null,megaChecked:false,bossFight:!S.duel&&!!(typeof BOSSES!=="undefined"&&BOSSES&&BOSSES[S.round]),lastPunch:-9,hp0:{mine:F.filter(f=>f.side==="mine").reduce((a,f)=>a+f.maxhp,0),enemy:F.filter(f=>f.side==="enemy").reduce((a,f)=>a+f.maxhp,0)}};if(det){B.det=true;B.rng=det.rng;B.acc=0;setMir(!S.duel.host);}B.weather=(!S.duel&&!S.tower&&S.enc&&S.enc.weather)||null;if(typeof wxShow==="function")wxShow(B.weather);
   S.phase="battle";selUid=null;setView("battle");syncArena();
   // Fähigkeiten zu Kampfbeginn
   if(B.det)RNG=B.rng;
@@ -23007,7 +23092,7 @@ function step(dt){
       // nicht vor die eigenen Nahkämpfer laufen
       if(RANGED(f.role)&&!goal){let lim=null;for(const a of friends(f)){if(RANGED(a.role)||a===f)continue;lim=lim==null?a.x:(f.side==="mine"?Math.max(lim,a.x):Math.min(lim,a.x));}
         if(lim!=null){if(f.side==="mine"){lim-=.7;if(f.x>lim&&f.x>px)f.x=Math.max(px,lim);}else{lim+=.7;if(f.x<lim&&f.x<px)f.x=Math.min(px,lim);}}}}
-    if(d<=f.range+.05&&f.cd<=0){f.cd=1/(f.as*sl*(f.role==="berserk"?1+.45*(1-Math.max(0,f.hp)/f.maxhp):1));
+    if(d<=f.range+.05&&f.cd<=0){f.cd=1/(f.as*sl*(f.role==="berserk"?(1+.45*(1-Math.max(0,f.hp)/f.maxhp))*(f.side==="mine"&&f.hp<f.maxhp*.3&&perk("g_berserk")?1.2:1):1));
       if(f.mana>=f.manaMax){f.mana=Math.max(0,f.mana-f.manaMax);f.charge=.4;f.act=null;flash(f,"cast");ringFx(fw(f,.03),FXC[f.ab.t][0],.9,.35);}
       else if(!f.noM1&&f.m1cd<=0&&m1Ready(f,t)){f.m1cd=f.abil==="schnellschuss"&&Math.random()<.3?.1:f.m1.cd;f.mana=Math.min(f.manaMax*2,f.mana+12);castMove(f,t,f.m1,false);}
       else{f.mana=Math.min(f.manaMax*2,f.mana+10+(f.sx.manaHit||0));basic(f,t);}}
@@ -23058,6 +23143,7 @@ function applyTFX(f,t,s,tyO){if(!t||!t.alive)return;s=s||1;const ty=tyO||(f.sx&&
   if(Math.random()<.35&&TFX[ty])popAt(fw(t,1.5),TFX[ty].n+"!","s",TYPES[ty][1]);}
 function onKill(f,t){if(!f||!f.alive||f===t)return;if(typeof sigKill==="function"){sigKill(f,t);if(!f.alive)return;}if(t&&t.abil==="magenkrempler"&&typeof magenkrempler==="function"){magenkrempler(f,t);if(!f.alive)return;}const sx=f.sx||{};if(f.abil==="bestienboost"&&typeof ubBoost==="function")ubBoost(f);if(t&&t.alpha&&t.side==="enemy"&&f.side==="mine"&&!SIM&&!(S&&S.duel)&&typeof META!=="undefined"&&META){const st=META.stats||(META.stats={});st.alphaKO=(st.alphaKO||0)+1;}
   if(f.secret==="hochmut"){f.atk*=1.15;popAt(fw(f,1.5),SECRETS.hochmut.n+"!","s","#ffd84a");}
+  if(f.role==="assassin"&&f.side==="mine"&&B&&!B.done&&perk("g_assassin")){const n2=foes(f).filter(o=>o.alive);if(n2.length){const far=pickTarget(f)||n2[0];const nx=Math.max(0,Math.min(FW-1,far.x+.65));if(!SIM){try{act(f,"leap",.5,{from:[f.x,f.y]});}catch(e){}popAt(fw(f,1.4),"Schattenkette!","s","#e0c0ff");}f.x=nx;f.y=far.y;f.target=far;f.retarget=1.5;}}
   if(sx.killHeal){heal(f,f.maxhp*sx.killHeal,false,f);f.as*=1+(sx.killAs||0);popAt(fw(f,1.5),"Blutrausch!","s","#ff6a6a");}
   if(sx.killPhase){f.phaseT=sx.killPhase;f.nextCrit=true;popAt(fw(f,1.5),"Phantom!","s","#d7ccff");}}
 function reviveCheck(t){if(!B||B.done)return;const r=B.F.find(a=>a.alive&&a.side===t.side&&a!==t&&a.sx&&a.sx.revive&&!a.revUsed);if(!r){if(typeof relRevive==="function")relRevive(t);return;}r.revUsed=true;
@@ -23181,7 +23267,7 @@ function startMegas(){
 function applyMega(f,mf){if(!mf)return;
   f.megaK=mf.k;f.types=mf.types;const b=mf.b||{},r=f.hp/f.maxhp;f.maxhp=Math.round(f.maxhp*(1.15+(b.hp||0)));f.hp=Math.round(f.maxhp*Math.min(1,r+.1));
   f.atk*=1.1+(b.atk||0);f.def+=10+(b.def||0);f.abm*=1+(b.ab||0);f.as*=1+(b.as||0);f.range+=b.range||0;f.ls+=b.ls||0;f.regen+=b.regen||0;f.dodge+=b.dodge||0;f.crit+=b.crit||0;
-  if(b.burn)f.burnOn=1;if(b.sure)f.sure=1;if(b.mana)f.manaMax=Math.round(f.manaMax*(1-b.mana));if(b.full)f.mana=f.manaMax;if(b.shield){f.shield+=f.maxhp*b.shield;bubbleFx(f);}
+  if(b.burn)f.burnOn=1;if(b.sure)f.sure=1;if(b.mana)f.manaMax=Math.round(f.manaMax*(1-b.mana));if(b.full)f.mana=f.manaMax;if(f.side==="mine"&&perk("megaf"))f.mana=Math.min(f.manaMax,f.mana+f.manaMax*.4);if(b.shield){f.shield+=f.maxhp*b.shield;bubbleFx(f);}
   act(f,"mega",.5);if(GL){const p=fw(f,.5);burst(p,0xffffff,30,3,.3,.6);burst(p,0xff7ad8,20,2,.35,.8,{cols:[0xff5a5a,0xffd23f,0x5aff8a,0x5ac8ff,0xc87aff]});ringFx(fw(f,.04),0xffffff,1.6,.6);flashLight(p,0xff9ae8,2.4,.5,6);shake(.2,.4);}
   popAb(f,mf.n+" · "+mf.tag,TYPES[mf.types[0]][1]);if(f.side==="mine"&&!SIM)dexUp(f.u.sp,d=>{d.mega=(d.mega||0)+1;(d.mk=d.mk||{})[mf.k]=1;if(f.u.shiny)(d.msk=d.msk||{})[mf.k]=1;});}
 /* ---------- Dynamax & Gigadynamax (nur Galar) ----------
@@ -23362,10 +23448,13 @@ function hit(f,t,pow,crit,type,critB,ult,basicA){
   if(f.secret==="anpassung"&&(f.types||f.sp.types).includes(type))d*=1.3;if(t.secret==="wunderwache"&&m<=1)d*=.7;
   if(f.crypto)d*=t.crypto?CRYPTO.vsC:CRYPTO.vs;if(f.cRage)d*=CRYPTO.rageAtk;
   if(t.role==="berserk"&&t.side==="mine"&&perk("s_berserk")&&t.hp<t.maxhp*.3)d*=.75;
+  if(f.side==="mine"){if(f.role==="warrior"&&t.hp<t.maxhp*.5&&perk("g_warrior"))d*=1.15;const bh=perk("bosshunt");if(bh&&B&&B.bossFight)d*=1+.05*bh;}
   if(f.abil==="achtlos")d*=1.2;if(f.ffOn&&type==="fire")d*=1.5;
   if(typeof sigDmg==="function")d=sigDmg(f,t,d,type,ult,basicA);
   d=Math.max(1,Math.round(d));
   f.dmg+=d;t.taken+=d;if(f.side==="mine"&&d>(B.maxHit||0))B.maxHit=d;raw(t,d);
+  if(t.alive&&t.role==="tank"&&t.side==="mine"&&!t.gmS&&t.hp<t.maxhp*.3&&perk("g_tank")){t.gmS=1;t.shield=(t.shield||0)+t.maxhp*.15;if(!SIM){try{t._bubOn=false;bubbleFx(t);}catch(e){}popAt(fw(t,1.6),"Unerschütterlich!","s","#9fd8ff");}}
+  if(basicA===1&&f.role==="marksman"&&f.side==="mine"&&perk("g_marksman")){f.gmN=(f.gmN||0)+1;if(f.gmN>=4){f.gmN=0;const t2=foes(f).filter(o=>o!==t&&o.alive).sort((a,b)=>dist(a,t)-dist(b,t))[0];if(t2){if(!SIM)popAt(fw(t2,1.4),"Zwillingsschuss!","s","#a8ff9a");hit(f,t2,pow,false,type,0,false,2);if(!t2.alive)onKill(f,t2);}}}
   if(f.abil==="achtlos"&&f.alive&&f!==t)raw(f,d*.05);if(f.abil==="duftnote"&&t.alive&&Math.random()<.1&&!(t.sx&&t.sx.ccImm)){t.stunT=Math.max(t.stunT,.5);popAt(fw(t,1.4),"Schreckt zurück!","s","#ffd0a0");}
   if(t.alive&&t.abil==="zornesgeist"&&(t.zgN||0)<10){t.zgN=(t.zgN||0)+1;t.atk*=(1+.03*t.zgN)/(1+.03*(t.zgN-1));if(t.zgN===5||t.zgN===10)abilPop(t);}
   if(t.alive&&t.abil==="farbwechsler"&&CHART[type]&&!(tyOf(t).length===1&&tyOf(t)[0]===type)){t.types=[type];abilPop(t);popAt(fw(t,1.5),TYPES[type][0]+"!","s",TYPES[type][1]);}
@@ -23373,7 +23462,7 @@ function hit(f,t,pow,crit,type,critB,ult,basicA){
   if(t.alive&&basicA){if(sx.bleed){t.bleedT=3;t.bleedD=Math.max(t.bleedD||0,t.maxhp*sx.bleed);}if(sx.markT){t.markV=Math.max(t.markT>0?(t.markV||0):0,sx.markT);t.markT=4;}if(sx.hex){t.hexT=4;t.hexV=Math.max(t.hexV||0,Math.min(.6,sx.hex));}}
   if(ult&&t.alive&&sx.silence&&!(t.sx&&t.sx.ccImm)){if(!(t.silT>0))t.silM=t.mana;t.silT=Math.min(3.5,sx.silence);}
   // Rollen-Passiv: Störer rauben Energie und verlangsamen, Berserker saugen unter 50 % KP Leben
-  if(basicA===1&&f.role==="stoerer"&&t.alive){const sp=f.side==="mine"&&perk("s_stoerer");const dr=Math.min(t.mana,sp?10:6);t.mana-=dr;f.stS=(f.stS||0)+1;if(f.stS>=(sp?2:3)&&!(t.sx&&t.sx.ccImm)){f.stS=0;t.slowT=Math.max(t.slowT,1.2);popAt(fw(t,1.4),"Gelähmt","s","#7ff0e4");}}
+  if(basicA===1&&f.role==="stoerer"&&t.alive){const sp=f.side==="mine"&&perk("s_stoerer");const dr=Math.min(t.mana,sp?10:6);t.mana-=dr;f.stS=(f.stS||0)+1;if(f.stS>=(sp?2:3)&&!(t.sx&&t.sx.ccImm)){f.stS=0;t.slowT=Math.max(t.slowT,1.2+(f.side==="mine"&&perk("g_stoerer")?1:0));popAt(fw(t,1.4),"Gelähmt","s","#7ff0e4");}}
   if(f.role==="berserk"&&f.alive&&f.hp<f.maxhp*.5)heal(f,d*.1,true,f);
   if(t.alive&&sx.finisher&&t.hp<t.maxhp*sx.finisher){t.sturdy=false;t.focus=false;t.berry=false;t.shield=0;raw(t,t.hp+1);popAt(fw(t,1.6),"Hinrichtung!","s","#ff5a5a");}
   if(!t.alive)onKill(f,t);
@@ -23412,7 +23501,7 @@ function raw(t,d){if(!t.alive)return;if(t.shield>0){const a=Math.min(t.shield,d)
   if(t.sx&&t.sx.lastStand&&!t.lsU&&t.hp<t.maxhp*.25){t.lsU=true;if(t.hp<1)t.hp=1;t.phaseT=Math.max(t.phaseT||0,2);heal(t,t.maxhp*t.sx.lastStand,false,t);popAt(fw(t,1.6),"Letztes Gefecht!","s","#ffd84a");if(GL)ringFx(fw(t,.04),0xffd84a,1.1,.5);return;}
   if(t.hp<=0&&t.sturdy){t.sturdy=false;t.hp=1;abilPop(t);if(t.sx&&t.sx.sSturdy){t.shield+=t.maxhp*t.sx.sSturdy;popAt(fw(t,1.6),"Robustheit!","s","#e0c890");}return;}
   if(t.hp<=0){if(t.focus){t.focus=false;t.hp=Math.round(t.maxhp*.3);popAt(fw(t,1.4),"Fokusgurt!","s","#ffd23f");return;}if(t.regenW){t.regenW=false;t.hp=1;t.stunT=Math.max(t.stunT,.9);later(.9,()=>{if(!B||B.done||!t.alive)return;t.hp=Math.round(t.maxhp*.5);popAt(fw(t,1.5),"Regenbogenflügel!","s","#ff9a3d");if(GL){burst(fw(t,.4),0xffb050,26,2.2,.3,.7,{up:1,cols:[0xff5a3a,0xffd84a,0x5ae0ff]});ringFx(fw(t,.04),0xffb050,1.3,.5);}sfx("heal");});return;}t.alive=false;t.hp=0;reviveCheck(t);if(typeof koHookG==="function")koHookG(t);if(typeof koHook5==="function")koHook5(t);sfx("faint",.15);burst(fw(t,.4),0xffffff,18,2.2,.3,.6);burst(fw(t,.4),t.side==="mine"?0x58c8ff:0xff6a5a,10,1.4,.35,.8,{up:.8});ghostRise(t);}}
-function heal(f,a,silent,src){if(!f.alive)return;a*=fatigueHeal();if(typeof twHealMul==="function")a*=twHealMul(f);if(f.hexT>0)a*=1-(f.hexV||0);if(B&&B.unnerve&&B.unnerve[f.side])a*=.5;const b=f.hp;f.hp=Math.min(f.maxhp,f.hp+a);const g=f.hp-b;
+function heal(f,a,silent,src){if(!f.alive)return;a*=fatigueHeal();if(src&&src!==f&&src.role==="support"&&src.side==="mine"&&f.side==="mine"&&a>0&&perk("g_support"))f.shield=(f.shield||0)+a*.2;if(typeof twHealMul==="function")a*=twHealMul(f);if(f.hexT>0)a*=1-(f.hexV||0);if(B&&B.unnerve&&B.unnerve[f.side])a*=.5;const b=f.hp;f.hp=Math.min(f.maxhp,f.hp+a);const g=f.hp-b;
   if(src&&src!==f&&src.sx){if(src.sx.cleanse){f.burnT=0;f.poisT=0;f.slowT=0;}if(src.sx.healShield)f.shield=Math.min(f.maxhp*.6,f.shield+a*src.sx.healShield*(f.shMul||1));}if(src)src.healed+=g;if(src&&src!==f&&src.sx&&src.sx.haste&&!f.hasteOn&&g>=1&&B){f.hasteOn=1;const hv=src.sx.haste;f.as*=1+hv;later(3,()=>{f.as/=1+hv;f.hasteOn=0;});}if(!silent&&g>=1)popAt(fw(f,1.2),"+"+Math.round(g),"s","#7dffb0");}
 
 /* ================================ RUNDENABLAUF ================================ */
