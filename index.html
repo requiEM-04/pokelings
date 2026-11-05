@@ -14408,6 +14408,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Labor → Booster: Die Sammlung is
 if(typeof EN!=="undefined")Object.assign(EN,{"Neu: Ruhm im Forschungslabor. Hast du alle Booster geleert und den Skillbaum komplett, steckst du deine Edelsteine in Ruhm und steigst durch die Edelstein-Ränge Topas, Smaragd, Saphir, Rubin, Amethyst und Diamant (je I bis III) bis zur Ruhmeslegende.": "New: Fame in the research lab. Once you've emptied all boosters and completed the skill tree, you put your gems into Fame and climb the gem ranks Topaz, Emerald, Sapphire, Ruby, Amethyst and Diamond (each I to III) up to Fame Legend.", "Ruhm-Belohnungen: Auf jeder Stufe I gibt es eine neue Namensfarbe, auf II einen Kartenrand und auf III einen verzierten Kartenrand. Die Ruhmeslegende hat eine Namensfarbe, die durch alle Edelsteine wechselt, und einen eigenen Rand. Dein Name leuchtet in Bestenlisten, auf der Kampfkarte, im VS-Bildschirm, bei Freunden und im Chat. Dein Ruhm-Rang steht auf der Karte.": "Fame rewards: every tier I gives a new name colour, II a card frame and III an ornate card frame. Fame Legend has a name colour that cycles through all gems and its own frame. Your name glows in leaderboards, on your battle card, on the VS screen, with friends and in chat. Your fame rank is shown on the card.", "RUHM": "FAME", "Ruhm-Straße": "Fame road", "NAMENSFARBE": "NAME COLOUR", "KARTENRAND": "CARD FRAME", "Keiner": "None", "Einzahlen:": "Put in:", "Noch kein Ruhm": "No fame yet", "Höchster Ruhm erreicht": "Highest fame reached", "ab Topas I": "from Topaz I", "ab Topas II": "from Topaz II", "TOPAS": "TOPAZ", "SMARAGD": "EMERALD", "SAPHIR": "SAPPHIRE", "RUBIN": "RUBY", "DIAMANT": "DIAMOND", "RUHMESLEGENDE": "FAME LEGEND", "Topas": "Topaz", "Smaragd": "Emerald", "Saphir": "Sapphire", "Rubin": "Ruby", "Ruhmeslegende": "Fame Legend", "Legenden-Name + Kronenrand": "Legend name + crown frame", "Ruhm": "Fame"});
 /* v1.39.0: Edelsteine, Items */
 if(typeof EN!=="undefined")Object.assign(EN,{"Edelsteine: Am Ende eines Laufs gibt es jetzt etwas weniger Edelsteine (etwa 40 % weniger). Labor, Booster und Ruhm wollen erspielt werden.": "Gems: you now get somewhat fewer gems at the end of a run (about 40 % less). The lab, boosters and fame have to be earned.", "Besondere Items wie Megastein, Dynamax-Band, Tera-Orb, Alpha-Kern, die Festmasken, der Z-Kristall und legendäre Items lassen sich jetzt in der Pokémon-Übersicht zurück in die Tasche nehmen und einem anderen Pokémon geben.": "Special items such as Mega Stone, Dynamax Band, Tera Orb, Alpha Core, the festival masks, the Z-Crystal and legendary items can now be taken back to the bag in the Pokémon overview and given to another Pokémon.", "Item abnehmen und einem anderen Pokémon geben": "Take the item off and give it to another Pokémon"});
+/* v1.39.0.5: Preise */
+if(typeof EN!=="undefined")Object.assign(EN,{"Booster kosten jetzt 30 Edelsteine (vorher 20).": "Boosters now cost 30 gems (before 20).", "Ruhm ist deutlich teurer: Topas 400 · Smaragd 700 · Saphir 1.100 · Rubin 1.600 · Amethyst 2.200 · Diamant 3.000 Edelsteine je Stufe, die Ruhmeslegende 6.000. Wer schon eingezahlt hat, behält seine Edelsteine im Ruhm, die Stufe wird neu berechnet.": "Fame is much more expensive: Topaz 400 · Emerald 700 · Sapphire 1,100 · Ruby 1,600 · Amethyst 2,200 · Diamond 3,000 gems per tier, Fame Legend 6,000. If you already put gems in, they stay in fame and your tier is recalculated."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -16666,7 +16668,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.39.0",DUEL_HP=30;
+const MP_VER="1.39.0.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -21128,8 +21130,11 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.39.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.39.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.39.0.5",d:"05.11.2026",t:"Schnellfix",items:[
+  ["gem", "Booster kosten jetzt 30 Edelsteine (vorher 20)."],
+  ["crown", "Ruhm ist deutlich teurer: Topas 400 · Smaragd 700 · Saphir 1.100 · Rubin 1.600 · Amethyst 2.200 · Diamant 3.000 Edelsteine je Stufe, die Ruhmeslegende 6.000. Wer schon eingezahlt hat, behält seine Edelsteine im Ruhm, die Stufe wird neu berechnet."]]},
  {v:"1.39.0",d:"04.11.2026",t:"Ruhm",items:[
   ["crown", "Neu: Ruhm im Forschungslabor. Hast du alle Booster geleert und den Skillbaum komplett, steckst du deine Edelsteine in Ruhm und steigst durch die Edelstein-Ränge Topas, Smaragd, Saphir, Rubin, Amethyst und Diamant (je I bis III) bis zur Ruhmeslegende."],
   ["user", "Ruhm-Belohnungen: Auf jeder Stufe I gibt es eine neue Namensfarbe, auf II einen Kartenrand und auf III einen verzierten Kartenrand. Die Ruhmeslegende hat eine Namensfarbe, die durch alle Edelsteine wechselt, und einen eigenen Rand. Dein Name leuchtet in Bestenlisten, auf der Kampfkarte, im VS-Bildschirm, bei Freunden und im Chat. Dein Ruhm-Rang steht auf der Karte."],
@@ -22327,7 +22332,7 @@ function psModal(rg,back){const av=psAvail(rg),R=REGIONS[rg]||{n:rg},mn=psMinFor
    Jeder Booster bringt mindestens 1 neues Pokémon (solange in der Region noch welche fehlen). Doppelte geben Edelsteine zurück.
    Spätestens nach BOOST.pity Boostern einer Region ohne Legendäres ist eins sicher (falls noch eins fehlt).
    Nicht im Booster: Start-Pokémon, Pokémon nur über Erfolge, Geheimes. */
-const BOOST={cost:20,odds:[[1,44],[2,32],[3,16],[4,6],[5,2]],rare:[[3,62],[4,28],[5,10]],dup:{1:1,2:2,3:3,4:5,5:8},pity:10};
+const BOOST={cost:30,odds:[[1,44],[2,32],[3,16],[4,6],[5,2]],rare:[[3,62],[4,28],[5,10]],dup:{1:1,2:2,3:3,4:5,5:8},pity:10};
 function bstLines(rg){return LINES.filter(L=>(L.region||"kanto")===rg&&!L.start&&!L.excl&&!L.achX);}
 function bstMissing(rg){return bstLines(rg).filter(L=>!META.unlocked.includes(L.k));}
 function bstState(rg){META.boost=META.boost||{};return META.boost[rg]=META.boost[rg]||{n:0,dry:0};}
@@ -22369,9 +22374,9 @@ function bstShow(rg,r){const R=REGIONS[rg]||{n:rg},nNew=r.cards.filter(c=>c.nu).
 /* ================================ RUHM (v1.39.0) ================================
    Freigeschaltet, wenn alle Booster leer sind und der Skillbaum voll ist. Edelsteine kommen in den Ruhm-Topf (META.fame.g).
    19 Stufen: 6 Edelstein-Ränge mit je I–III und zum Schluss die Ruhmeslegende. I = Namensfarbe, II = Kartenrand, III = verzierter Kartenrand. */
-const FAME_T=[{k:"topas",n:"Topas",c:"#ffcf4a",d:"#9a6a08",cost:100},{k:"smaragd",n:"Smaragd",c:"#3ee08a",d:"#0b6a3a",cost:175},{k:"saphir",n:"Saphir",c:"#4f8cff",d:"#173a96",cost:275},
-  {k:"rubin",n:"Rubin",c:"#ff4d6d",d:"#7a0c26",cost:400},{k:"amethyst",n:"Amethyst",c:"#b77bff",d:"#45188a",cost:550},{k:"diamant",n:"Diamant",c:"#d8f6ff",d:"#3f8fb0",cost:750}];
-const FAME_LEG={k:"legende",n:"Ruhmeslegende",c:"#ffd84a",d:"#7a2a9a",cost:1500},FAME_MAX=FAME_T.length*3+1;
+const FAME_T=[{k:"topas",n:"Topas",c:"#ffcf4a",d:"#9a6a08",cost:400},{k:"smaragd",n:"Smaragd",c:"#3ee08a",d:"#0b6a3a",cost:700},{k:"saphir",n:"Saphir",c:"#4f8cff",d:"#173a96",cost:1100},
+  {k:"rubin",n:"Rubin",c:"#ff4d6d",d:"#7a0c26",cost:1600},{k:"amethyst",n:"Amethyst",c:"#b77bff",d:"#45188a",cost:2200},{k:"diamant",n:"Diamant",c:"#d8f6ff",d:"#3f8fb0",cost:3000}];
+const FAME_LEG={k:"legende",n:"Ruhmeslegende",c:"#ffd84a",d:"#7a2a9a",cost:6000},FAME_MAX=FAME_T.length*3+1;
 const fameStepInfo=L=>{if(L<1)return null;if(L>=FAME_MAX)return Object.assign({sub:0,leg:1,t:FAME_T.length},FAME_LEG);const t=Math.floor((L-1)/3);return Object.assign({sub:(L-1)%3+1,t},FAME_T[t]);};
 const fameCost=L=>L>=FAME_MAX?FAME_LEG.cost:FAME_T[Math.floor((L-1)/3)].cost;   /* Kosten, um Stufe L zu erreichen */
 function fameLevel(g){let L=0,acc=0;while(L<FAME_MAX&&acc+fameCost(L+1)<=g){acc+=fameCost(L+1);L++;}return{L,acc,next:L<FAME_MAX?fameCost(L+1):0,into:g-acc};}
@@ -22400,7 +22405,7 @@ function fameTabHtml(){const O=fameOpen();
   return `<div class="fmTop" style="--fc:${inf?inf.c:"#8a93b0"};--fd:${inf?inf.d:"#2a3048"}">${L?fameEm(L,true):`<i class="fmEm big none"><span>?</span></i>`}<div class="fmTopR"><h3>${L?esc(fameName_(L)):"Noch kein Ruhm"}</h3>
      <small>${ic("gem")} ${F.g.toLocaleString("de-DE")} Edelsteine im Ruhm</small>
      ${lv.next?`<div class="rkProg fmBar" style="--rc:${nx.c}"><i style="width:${Math.round(p*100)}%"></i><span>${lv.into} / ${lv.next} bis ${esc(fameName_(L+1))}</span></div>`:`<div class="rkProg myth fmBar"><i style="width:100%"></i><span>Höchster Ruhm erreicht</span></div>`}
-     ${lv.next?`<div class="fmInv"><span>Einzahlen:</span>${[10,50,100].map(v=>`<button class="gemBtn" data-fmi="${v}" ${META.gems<1?"disabled":""}>${ic("gem")}${v}</button>`).join("")}<button class="gemBtn" data-fmi="next" ${META.gems<1?"disabled":""}>${ic("gem")}bis ${esc(fameName_(L+1))}</button></div>`:""}</div></div>
+     ${lv.next?`<div class="fmInv"><span>Einzahlen:</span>${[50,100,500].map(v=>`<button class="gemBtn" data-fmi="${v}" ${META.gems<1?"disabled":""}>${ic("gem")}${v}</button>`).join("")}<button class="gemBtn" data-fmi="next" ${META.gems<1?"disabled":""}>${ic("gem")}bis ${esc(fameName_(L+1))}</button></div>`:""}</div></div>
    <div class="fmPick"><div><h5>NAMENSFARBE</h5><div class="fmOpts"><button class="fmO${!F.n?" on":""}" data-fmn="">Normal</button>${nm.map(k=>`<button class="fmO${F.n===k?" on":""}" data-fmn="${k}"><span class="fmN fn-${k}">${esc(me)}</span></button>`).join("")||`<small class="fmNo">ab Topas I</small>`}</div></div>
      <div><h5>KARTENRAND</h5><div class="fmOpts"><button class="fmO${!F.f?" on":""}" data-fmf="">Keiner</button>${fr.map(k=>{const b=k.replace("+",""),t=FAME_C[b];return `<button class="fmO fmFrO${F.f===k?" on":""}" data-fmf="${k}" style="--fc:${t.c};--fd:${t.d}"><i class="fmSw${k.endsWith("+")?" plus":""}${b==="legende"?" leg":""}"></i>${t.n}${k.endsWith("+")?" ✦":""}</button>`;}).join("")||`<small class="fmNo">ab Topas II</small>`}</div></div>
      <div class="fmCardP">${typeof cardHTML==="function"?cardHTML(cardMine()):""}</div></div>
