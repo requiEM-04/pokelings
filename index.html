@@ -14650,6 +14650,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Bestenliste: Die Effekte bei Platz
 if(typeof EN!=="undefined")Object.assign(EN,{"Forschungslabor: Der Skillbaum ist übersichtlicher. Wirtschaft und Abenteuer stehen als Kartenraster nebeneinander, die Klassen als Tabelle mit den Zeilen Drill, Spezial, Meister und Veteran. Nichts wird mehr abgeschnitten, und lange Spalten zum Scrollen gibt es nicht mehr.": "Research lab: the skill tree is clearer. Economy and Adventure are shown as card grids, the classes as a table with the rows Drill, Special, Master and Veteran. Nothing gets cut off anymore and there are no more long columns to scroll through.", "KLASSEN": "CLASSES", "Spezial": "Special", "eigene Fähigkeit je Klasse": "unique ability per class", "+6 % KP & Angriff je Stufe": "+6 % HP & attack per level", "+12 % Angriffstempo und +1 Item-Platz": "+12 % attack speed and +1 item slot", "+3 % KP & Angriff je Stufe": "+3 % HP & attack per level", "Jede Spalte von oben nach unten freischalten": "Unlock each column from top to bottom", "WIRTSCHAFT": "ECONOMY", "ABENTEUER": "ADVENTURE"});
 /* v1.41.0: Skillbaum & Großmeister */
 if(typeof EN!=="undefined")Object.assign(EN,{"Neuer Skillbaum: Alle Forschungen stehen als Baum mit runden Knoten auf einen Blick, die Klassen als Raster. Klick auf einen Knoten zeigt rechts die Details, dort erforschst du ihn auch.": "New skill tree: all research is shown as a tree with round nodes at a glance, the classes as a grid. Click a node to see its details on the right, where you also research it.", "Neue Perks im Abenteuer: Große Tasche (+1 Taschenplatz), Bossjäger (+5 % Schaden gegen Bosse je Stufe) und Mega-Forschung (nach der Mega-Entwicklung +40 % Energie).": "New Adventure perks: Big Bag (+1 bag slot), Boss Hunter (+5 % damage against bosses per level) and Mega Research (+40 % energy after Mega Evolution).", "Neue Klassen-Stufe Großmeister: Tank Unerschütterlich (Schild erneuert sich bei 30 % KP), Krieger Vollstrecker (+15 % Schaden gegen angeschlagene Gegner), Assassine Schattenkette (springt nach einem K.O. weiter), Schütze Zwillingsschuss (jeder 4. Schuss trifft ein zweites Ziel), Magier Arkanfokus (10 % weniger Energie), Unterstützer Schutzsegen (Heilungen geben einen Schild), Störer Zeitfessel (Verlangsamung 1 s länger), Berserker Kampfrausch (unter 30 % KP +20 % Angriffstempo).": "New class tier Grandmaster: Tank Unshakable (shield renews at 30 % HP), Warrior Executioner (+15 % damage against wounded foes), Assassin Shadow Chain (jumps on after a KO), Marksman Twin Shot (every 4th shot hits a second target), Mage Arcane Focus (10 % less energy), Support Shield Blessing (heals grant a shield), Disruptor Time Bind (slows last 1 s longer), Berserker Battle Fury (+20 % attack speed below 30 % HP).", "Ruhm wurde zurückgesetzt, weil der Skillbaum gewachsen ist. Alle eingezahlten Edelsteine bekommst du komplett zurück. Ruhm öffnet sich wieder, sobald auch die neuen Perks erforscht sind.": "Fame has been reset because the skill tree grew. You get all deposited gems back in full. Fame opens again once the new perks are researched as well.", "Gegner und Bosse auf Normal, Schwer, Albtraum und Nuzlocke sind 3 % stärker. Leicht bleibt gleich.": "Enemies and bosses on Normal, Hard, Nightmare and Nuzlocke are 3 % stronger. Easy stays the same.", "Große Tasche": "Big Bag", "+1 Taschenplatz für Items.": "+1 bag slot for items.", "Bossjäger": "Boss Hunter", "+5 % Schaden gegen Bosse je Stufe.": "+5 % damage against bosses per level.", "Mega-Forschung": "Mega Research", "Nach der Mega-Entwicklung +40 % Energie: die Fähigkeit kommt früher.": "+40 % energy after Mega Evolution: the ability comes sooner.", "Unerschütterlich": "Unshakable", "Vollstrecker": "Executioner", "Schattenkette": "Shadow Chain", "Zwillingsschuss": "Twin Shot", "Arkanfokus": "Arcane Focus", "Schutzsegen": "Shield Blessing", "Zeitfessel": "Time Bind", "Kampfrausch": "Battle Fury", "Der Schild erneuert sich einmal bei 30 % KP.": "The shield renews once at 30 % HP.", "+15 % Schaden gegen Gegner unter 50 % KP.": "+15 % damage against enemies below 50 % HP.", "Nach einem K.O. springt er sofort zum nächsten Ziel.": "After a KO it instantly jumps to the next target.", "Jeder 4. Schuss trifft auch ein zweites Ziel.": "Every 4th shot also hits a second target.", "Fähigkeiten brauchen 10 % weniger Energie.": "Abilities need 10 % less energy.", "Heilungen geben zusätzlich einen Schild über 20 % der Heilung.": "Heals also grant a shield worth 20 % of the heal.", "Verlangsamungen halten 1 s länger.": "Slows last 1 s longer.", "Unter 30 % KP +20 % Angriffstempo.": "+20 % attack speed below 30 % HP.", "ALLGEMEIN": "GENERAL", "GROSSMEISTER": "GRANDMASTER", "Ultimativ-Fähigkeit": "ultimate ability", "eigene Fähigkeit": "unique ability", "+6 % KP & Angriff": "+6 % HP & attack", "+12 % Tempo, +1 Item": "+12 % speed, +1 item", "+3 % KP & Angriff": "+3 % HP & attack", "VOLL ERFORSCHT": "FULLY RESEARCHED", "ERFORSCHEN": "RESEARCH", "Gesamt erforscht": "Total researched", "STUFE": "STEP", "NEU": "NEW"});
+/* v1.41.0.5: Turm-Rekord */
+if(typeof EN!=="undefined")Object.assign(EN,{"Kampfturm: Dein Rekord, deine Symbole und deine Bestwerte gehen beim Abgleich zwischen mehreren Geräten nicht mehr verloren. Es zählt immer der beste Stand.": "Battle Tower: your record, symbols and best results are no longer lost when syncing between several devices. The best progress always counts."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -14698,7 +14700,7 @@ function clBoardRow(m){const sc=trainerScore(m),per={};for(const rk in sc.per){c
 /* v1.35.6: Sammel-Fortschritt zusammenführen statt überschreiben. Bisher galt beim Abgleich „neuerer Stand gewinnt“ für den ganzen Spielstand –
    ein zweites Gerät oder ein alter Stand konnte so Pokédex-Einträge (z. B. schillernde Pokémon), Freischaltungen oder Erfolge löschen.
    Zusammengeführt wird nur, was nie weniger werden kann (Zähler: Maximum, Listen: Vereinigung). Edelsteine und der laufende Lauf bleiben „neuerer Stand gewinnt“. */
-const MERGE_MAX=["dex","perks","champs","best","stats","reg","mp"],MERGE_NUM=["gemsTotal","games","wins","losses"];
+const MERGE_MAX=["dex","perks","champs","best","stats","reg","mp","tower"],MERGE_NUM=["gemsTotal","games","wins","losses"];
 function mergeMax(a,b){if(!a||!b||typeof b!=="object")return a;for(const k in b){const v=b[k],x=a[k];
     if(typeof v==="number"){if(x==null||(typeof x==="number"&&v>x))a[k]=v;}
     else if(typeof v==="boolean"){if(x==null||x===false)a[k]=v;}
@@ -15138,6 +15140,7 @@ ${admSQL13()}
 ${admSQL14()}
 ${admSQL15()}
 ${admSQL16()}
+${admSQL17()}
 revoke all on function public.adm_log(text,text,text) from public, anon, authenticated;
 revoke all on function public.adm_name(uuid) from public, anon, authenticated;
 do $$ declare f text; begin
@@ -15151,6 +15154,42 @@ grant execute on function public.name_free(text) to anon, authenticated;
 notify pgrst, 'reload schema';`;}
 /* v1.32.0: Login-Schutz. Das Spiel prüft das Passwort zuerst in login_gate (3 Fehlversuche = Sperre bis zur Freigabe).
    Erst dann gibt der Server das eigentliche Anmelde-Passwort heraus (zufällig, 48 Zeichen) – direktes Durchprobieren am Login-Server bringt nichts mehr. */
+function admSQL17(){return `-- v1.41.0.5: Kampfturm-Rekorde können beim Cloud-Abgleich nicht mehr verloren gehen (jeweils das Maximum bleibt)
+create or replace function public.pkl_keep_tower() returns trigger language plpgsql as $f$
+declare o jsonb; n jsonb; r jsonb; k text; rk text; md text; v jsonb;
+begin
+  if new.meta is null or old.meta is null then return new; end if;
+  o := old.meta->'tower'; n := new.meta->'tower';
+  if o is null or jsonb_typeof(o)<>'object' then return new; end if;
+  if n is null or jsonb_typeof(n)<>'object' then new.meta := jsonb_set(new.meta,'{tower}',o,true); return new; end if;
+  r := n;
+  if jsonb_typeof(r->'sym') is distinct from 'object' then r := jsonb_set(r,'{sym}','{}'::jsonb,true); end if;
+  if jsonb_typeof(r->'best') is distinct from 'object' then r := jsonb_set(r,'{best}','{}'::jsonb,true); end if;
+  foreach k in array array['top','runs','kory','floors','seen'] loop
+    if jsonb_typeof(o->k)='number' and (jsonb_typeof(r->k) is distinct from 'number' or (o->>k)::numeric > (r->>k)::numeric) then r := jsonb_set(r,array[k],o->k,true); end if;
+  end loop;
+  if jsonb_typeof(o->'sym')='object' then
+    for k, v in select * from jsonb_each(o->'sym') loop
+      if jsonb_typeof(v)='number' and (jsonb_typeof(r->'sym'->k) is distinct from 'number' or (v#>>'{}')::numeric > (r->'sym'->>k)::numeric) then r := jsonb_set(r,array['sym',k],v,true); end if;
+    end loop;
+  end if;
+  if jsonb_typeof(o->'best')='object' then
+    for rk, v in select * from jsonb_each(o->'best') loop
+      if jsonb_typeof(v)<>'object' then continue; end if;
+      if jsonb_typeof(r->'best'->rk) is distinct from 'object' then r := jsonb_set(r,array['best',rk],v,true);
+      else
+        for md in select jsonb_object_keys(v) loop
+          if jsonb_typeof(v->md)='number' and (jsonb_typeof(r->'best'->rk->md) is distinct from 'number' or (v->>md)::numeric > (r->'best'->rk->>md)::numeric) then r := jsonb_set(r,array['best',rk,md],v->md,true); end if;
+        end loop;
+      end if;
+    end loop;
+  end if;
+  new.meta := jsonb_set(new.meta,'{tower}',r,true);
+  return new;
+end $f$;
+drop trigger if exists pkl_keep_tower on public.profiles;
+create trigger pkl_keep_tower before update on public.profiles for each row execute function public.pkl_keep_tower();
+`;}
 function admSQL16(){return `-- v1.38.0.9: Ranked-Verlustschutz – wer verliert, verliert in Bronze nur 50 %, in Silber 75 % dessen, was der Sieger bekommt, ab Gold 100 %; nie unter 0 Elo (kann gefahrlos mehrfach laufen)
 create or replace function public.pkl_ranked_apply(mid bigint,w uuid,l uuid) returns integer language plpgsql security definer set search_path=public as $$
 declare rw integer; rl integer; ew float8; d integer; dl integer;
@@ -17087,7 +17126,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.41.0",DUEL_HP=30;
+const MP_VER="1.41.0.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -21550,8 +21589,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.41.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.41.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.41.0.5",d:"06.11.2026",t:"Schnellfix",items:[
+  ["tower", "Kampfturm: Dein Rekord, deine Symbole und deine Bestwerte gehen beim Abgleich zwischen mehreren Geräten nicht mehr verloren. Es zählt immer der beste Stand."]]},
  {v:"1.41.0",d:"05.11.2026",t:"Skillbaum & Großmeister",items:[
   ["lab", "Neuer Skillbaum: Alle Forschungen stehen als Baum mit runden Knoten auf einen Blick, die Klassen als Raster. Klick auf einen Knoten zeigt rechts die Details, dort erforschst du ihn auch."],
   ["star", "Neue Perks im Abenteuer: Große Tasche (+1 Taschenplatz), Bossjäger (+5 % Schaden gegen Bosse je Stufe) und Mega-Forschung (nach der Mega-Entwicklung +40 % Energie)."],
