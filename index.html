@@ -4444,6 +4444,24 @@ body:not(.battle) .wxLbl{display:none}
 .ltBar{height:8px;border-radius:4px;background:#0b0d13;margin-top:6px;overflow:hidden}.ltBar i{display:block;height:100%;background:linear-gradient(90deg,#ffd84a,#5cf2ff,#b77bff)}
 @media (max-width:1100px){.ltTree{grid-template-columns:1fr}.ltSide{position:static;order:-1}}
 @media (max-width:760px){.ltLab{width:84px}.ltN{width:44px;height:44px}.ltN b{top:48px;width:70px;font-size:9.5px}.ltGapN{width:44px}}
+/* ===== v1.42.0: Season-Abzeichen ===== */
+.bdg.sea.p1{--mt:#ffe27a;--mt2:#c88a10;--md:#5a3a00}.bdg.sea.p2{--mt:#f2f6fc;--mt2:#8a96aa;--md:#2a3040}.bdg.sea.p3{--mt:#f6b47a;--mt2:#9a5424;--md:#3a1a06}
+.bdg.sea em{display:block;font-size:7px;padding:1px 4px;white-space:nowrap}
+.bdg.sea.sm em{font-size:6px}
+.bdg.sea .seaFlip{position:relative;z-index:2;width:30px;height:30px;perspective:120px;display:block}
+.bdg.sea.sm .seaFlip{width:22px;height:22px}
+.bdg.sea .seaN,.bdg.sea .seaT{position:absolute;inset:0;display:grid;place-items:center;backface-visibility:hidden;animation:seaFlipA 4s cubic-bezier(.6,0,.4,1) infinite}
+.bdg.sea .seaT{animation-name:seaFlipB}
+.bdg.sea .seaN{font:22px var(--px);font-weight:400;padding-top:3px;color:var(--mt);background:linear-gradient(180deg,#fff 15%,var(--mt) 50%,var(--mt2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 0 var(--md)) drop-shadow(0 0 4px rgba(255,255,255,.45))}
+.bdg.sea.sm .seaN{font-size:16px;padding-top:2px}
+.bdg.sea>i .seaT .ic{width:24px!important;height:24px!important;color:var(--mt)!important;animation:none!important;filter:drop-shadow(0 2px 0 var(--md)) drop-shadow(0 0 5px rgba(255,255,255,.4))!important}
+.bdg.sea.sm>i .seaT .ic{width:18px!important;height:18px!important}
+@keyframes seaFlipA{0%,42%{transform:rotateY(0) scale(1);opacity:1}50%{transform:rotateY(90deg) scale(1.15);opacity:1}50.1%,92%{transform:rotateY(90deg);opacity:0}100%{transform:rotateY(0);opacity:1}}
+@keyframes seaFlipB{0%,42%{transform:rotateY(-90deg);opacity:0}50%{transform:rotateY(-90deg);opacity:1}58%,92%{transform:rotateY(0) scale(1);opacity:1}96%{transform:rotateY(90deg) scale(1.1);opacity:1}96.1%,100%{transform:rotateY(90deg);opacity:0}}
+.bdg.sea.p1 .seaFlip::after{content:"";position:absolute;inset:-6px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.5),transparent 65%);animation:seaPop 4s ease-out infinite;z-index:-1}
+@keyframes seaPop{0%,44%{transform:scale(.3);opacity:0}50%{transform:scale(1.3);opacity:1}62%,100%{transform:scale(1.6);opacity:0}}
+.seaPv{display:flex;justify-content:center;gap:18px;margin:6px 0 10px}
+.seaPv>span{display:flex;flex-direction:column;align-items:center;gap:7px}.seaPv small{font:8px var(--px);color:var(--muted)}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -14652,6 +14670,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Forschungslabor: Der Skillbaum ist
 if(typeof EN!=="undefined")Object.assign(EN,{"Neuer Skillbaum: Alle Forschungen stehen als Baum mit runden Knoten auf einen Blick, die Klassen als Raster. Klick auf einen Knoten zeigt rechts die Details, dort erforschst du ihn auch.": "New skill tree: all research is shown as a tree with round nodes at a glance, the classes as a grid. Click a node to see its details on the right, where you also research it.", "Neue Perks im Abenteuer: Große Tasche (+1 Taschenplatz), Bossjäger (+5 % Schaden gegen Bosse je Stufe) und Mega-Forschung (nach der Mega-Entwicklung +40 % Energie).": "New Adventure perks: Big Bag (+1 bag slot), Boss Hunter (+5 % damage against bosses per level) and Mega Research (+40 % energy after Mega Evolution).", "Neue Klassen-Stufe Großmeister: Tank Unerschütterlich (Schild erneuert sich bei 30 % KP), Krieger Vollstrecker (+15 % Schaden gegen angeschlagene Gegner), Assassine Schattenkette (springt nach einem K.O. weiter), Schütze Zwillingsschuss (jeder 4. Schuss trifft ein zweites Ziel), Magier Arkanfokus (10 % weniger Energie), Unterstützer Schutzsegen (Heilungen geben einen Schild), Störer Zeitfessel (Verlangsamung 1 s länger), Berserker Kampfrausch (unter 30 % KP +20 % Angriffstempo).": "New class tier Grandmaster: Tank Unshakable (shield renews at 30 % HP), Warrior Executioner (+15 % damage against wounded foes), Assassin Shadow Chain (jumps on after a KO), Marksman Twin Shot (every 4th shot hits a second target), Mage Arcane Focus (10 % less energy), Support Shield Blessing (heals grant a shield), Disruptor Time Bind (slows last 1 s longer), Berserker Battle Fury (+20 % attack speed below 30 % HP).", "Ruhm wurde zurückgesetzt, weil der Skillbaum gewachsen ist. Alle eingezahlten Edelsteine bekommst du komplett zurück. Ruhm öffnet sich wieder, sobald auch die neuen Perks erforscht sind.": "Fame has been reset because the skill tree grew. You get all deposited gems back in full. Fame opens again once the new perks are researched as well.", "Gegner und Bosse auf Normal, Schwer, Albtraum und Nuzlocke sind 3 % stärker. Leicht bleibt gleich.": "Enemies and bosses on Normal, Hard, Nightmare and Nuzlocke are 3 % stronger. Easy stays the same.", "Große Tasche": "Big Bag", "+1 Taschenplatz für Items.": "+1 bag slot for items.", "Bossjäger": "Boss Hunter", "+5 % Schaden gegen Bosse je Stufe.": "+5 % damage against bosses per level.", "Mega-Forschung": "Mega Research", "Nach der Mega-Entwicklung +40 % Energie: die Fähigkeit kommt früher.": "+40 % energy after Mega Evolution: the ability comes sooner.", "Unerschütterlich": "Unshakable", "Vollstrecker": "Executioner", "Schattenkette": "Shadow Chain", "Zwillingsschuss": "Twin Shot", "Arkanfokus": "Arcane Focus", "Schutzsegen": "Shield Blessing", "Zeitfessel": "Time Bind", "Kampfrausch": "Battle Fury", "Der Schild erneuert sich einmal bei 30 % KP.": "The shield renews once at 30 % HP.", "+15 % Schaden gegen Gegner unter 50 % KP.": "+15 % damage against enemies below 50 % HP.", "Nach einem K.O. springt er sofort zum nächsten Ziel.": "After a KO it instantly jumps to the next target.", "Jeder 4. Schuss trifft auch ein zweites Ziel.": "Every 4th shot also hits a second target.", "Fähigkeiten brauchen 10 % weniger Energie.": "Abilities need 10 % less energy.", "Heilungen geben zusätzlich einen Schild über 20 % der Heilung.": "Heals also grant a shield worth 20 % of the heal.", "Verlangsamungen halten 1 s länger.": "Slows last 1 s longer.", "Unter 30 % KP +20 % Angriffstempo.": "+20 % attack speed below 30 % HP.", "ALLGEMEIN": "GENERAL", "GROSSMEISTER": "GRANDMASTER", "Ultimativ-Fähigkeit": "ultimate ability", "eigene Fähigkeit": "unique ability", "+6 % KP & Angriff": "+6 % HP & attack", "+12 % Tempo, +1 Item": "+12 % speed, +1 item", "+3 % KP & Angriff": "+3 % HP & attack", "VOLL ERFORSCHT": "FULLY RESEARCHED", "ERFORSCHEN": "RESEARCH", "Gesamt erforscht": "Total researched", "STUFE": "STEP", "NEU": "NEW"});
 /* v1.41.0.5: Turm-Rekord */
 if(typeof EN!=="undefined")Object.assign(EN,{"Kampfturm: Dein Rekord, deine Symbole und deine Bestwerte gehen beim Abgleich zwischen mehreren Geräten nicht mehr verloren. Es zählt immer der beste Stand.": "Battle Tower: your record, symbols and best results are no longer lost when syncing between several devices. The best progress always counts."});
+/* v1.42.0: Season-Abzeichen */
+if(typeof EN!=="undefined")Object.assign(EN,{"Season-Abzeichen neu: Jede Season bekommt ihr eigenes Design. Die November-Season hat Regenbogen, danach folgen Galaxie, Neon und weitere. In der Mitte steht dein Platz 1, 2 oder 3 und dreht sich immer wieder in einen Pokal. Die Abzeichen der laufenden Season siehst du in der Bestenliste unter Trainerpunkte.": "New season badges: every season gets its own design. The November season has Rainbow, followed by Galaxy, Neon and more. In the middle is your place 1, 2 or 3, which keeps flipping into a trophy. You can see the current season's badges in the leaderboard under Trainer points."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -15269,7 +15289,7 @@ begin
         order by x.pts desc,x.updated_at asc limit 10 loop
       i:=i+1;
       if i<=3 then
-        insert into public.badge_gifts(uid,badge,tier) values(r.uid,'c|trophy|'||(case i when 1 then 'regenbogen' when 2 then 'galaxie' else 'neon' end)||'|'||lbl,(case i when 1 then 5 when 2 then 4 else 3 end))
+        insert into public.badge_gifts(uid,badge,tier) values(r.uid,'s|'||s||'|'||i,(case i when 1 then 5 when 2 then 4 else 3 end))
           on conflict(uid,badge) do update set tier=excluded.tier,at=now();
         insert into public.gifts(uid,sp,shiny,note) values(r.uid,300000,true,lbl||': Platz '||i||'!');
       else
@@ -16718,7 +16738,13 @@ const cbName=n=>String(n||"").replace(/[|<>"&]/g,"").trim().slice(0,16);
 const cbId=(icn,fx,n)=>"c|"+icn+"|"+fx+"|"+cbName(n);
 function cbParse(id){if(!id||!String(id).startsWith("c|"))return null;const p=String(id).split("|");if(p.length<4)return null;const icn=p[1],fx=p[2],n=cbName(p.slice(3).join(""));
   if(!ICONS[icn]||!CBADGE_FX[fx]||!n)return null;return{icn,fx,n};}
+/* v1.42.0: Season-Abzeichen "s|JJJJ-MM|Platz" – je Season ein Design der Reihe nach */
+const SEA_FX=["regenbogen","galaxie","neon","feuer","eis","gold","smaragd","geist","bernstein","chrom"];
+const seaFx=sid=>{const m=/^(\d{4})-(\d{2})$/.exec(sid||"");if(!m)return "regenbogen";const k=(+m[1]-2026)*12+(+m[2]-11),L=SEA_FX.length;return SEA_FX[((k%L)+L)%L];};
+const seaTier=p=>({1:5,2:4,3:3})[p]||3;
+function seaParse(id){const m=/^s\|(\d{4})-(\d{2})\|([123])$/.exec(String(id||""));return m?{sid:m[1]+"-"+m[2],pl:+m[3],lbl:m[2]+"/"+m[1].slice(2)}:null;}
 function badgeDef(id){if(BADGE_BY[id])return BADGE_BY[id];
+  {const z=seaParse(id);if(z)return{id,cat:"Season",n:`Season ${z.lbl} · Platz ${z.pl}`,ic:"trophy",cfx:seaFx(z.sid),sea:z,d:`Platz ${z.pl} in der Season ${z.lbl}`,v:()=>0,T:[1e15,1e15,1e15,1e15,1e15],T6:null,t5n:`Season ${z.lbl} · Platz ${z.pl}`,custom:1};}
   {const c=cbParse(id);if(c)return{id,cat:"Verliehen",n:c.n,ic:c.icn,cfx:c.fx,d:"Persönlich verliehenes Abzeichen",v:()=>0,T:[1e15,1e15,1e15,1e15,1e15],T6:null,t5n:c.n,custom:1};}
   if(id&&id.startsWith("t_")){const t=id.slice(2);if(!TYPES[t])return null;return{id,cat:"Typen",n:TYPES[t][0]+"-Experte",ic:"ball",col:TYPES[t][1],d:`Siege mit ${TYPES[t][0]}-Pokémon im Team`,v:()=>((_st().typeW||{})[t])||0,T:[40,150,450,1400,3500],T6:10000,t5n:TYPES[t][0]+"-Großmeister"};}
   if(id&&id.startsWith("p_")){const L=LINE_BY[id.slice(2)];if(!L)return null;const last=L.stages[L.stages.length-1];
@@ -16762,12 +16788,12 @@ const _bU=(c,id)=>`<svg class="${c}" aria-hidden="true"><use href="#${id}"/></sv
 /* Medaille als HTML. Jede Stufe legt sichtbar etwas drauf:
    II Innenring · III Lorbeer · IV Lorbeer + Edelstein · V Flügel + Stern + kreisender Rand · VI Flügel + Krone + Strahlenkranz + Glut */
 function badgeHTML(id,tier,size){_bSym();const b=badgeDef(id);if(!b||!tier)return `<div class="bdg empty${size?" "+size:""}"><i></i></div>`;const T=TIER[tier];
-  const inner=b.sp?`<span class="bsp" data-sp="${b.sp}"></span>`:ic(b.ic,"",b.col?`color:${b.col}`:"");
+  const inner=b.sea?`<span class="seaFlip"><b class="seaN">${b.sea.pl}</b><span class="seaT">${ic("trophy")}</span></span>`:b.sp?`<span class="bsp" data-sp="${b.sp}"></span>`:ic(b.ic,"",b.col?`color:${b.col}`:"");
   const fx=tier>=5?`<u class="bPx">${"<s></s>".repeat(tier>=6?7:4)}</u>`:"";
   const back=(tier>=6?`<b class="bRy"></b>`:"")+(tier>=5?_bU("bWg","bsWg"):tier>=3?_bU("bLf","bsLf"):"");
   const top=tier>=6?`<b class="bCr"></b>`:tier>=4?`<b class="bGm"></b>`:"";
   const cfx=b.cfx&&CBADGE_FX[b.cfx];
-  return `<div class="bdg t${tier}${size?" "+size:""}${cfx?" cst cs-"+b.cfx:""}" style="--bc:${cfx?cfx.c:T.c}" data-tn="${esc(b.n)} ${ROMAN[tier]}" data-td="${esc(T.n)} · ${esc(b.d)}" data-tc="${T.c}">${back}<i>${inner}</i>${tier>=2?_bU("bRg","bsRg"):""}<b class="bSh"></b>${top}${fx}<em>${ROMAN[tier]}</em></div>`;}
+  return `<div class="bdg t${tier}${size?" "+size:""}${cfx?" cst cs-"+b.cfx:""}${b.sea?" sea p"+b.sea.pl:""}" style="--bc:${cfx?cfx.c:T.c}" data-tn="${esc(b.n)}${b.sea?"":" "+ROMAN[tier]}" data-td="${esc(T.n)} · ${esc(b.d)}" data-tc="${T.c}">${back}<i>${inner}</i>${tier>=2?_bU("bRg","bsRg"):""}<b class="bSh"></b>${top}${fx}<em>${b.sea?b.sea.lbl:ROMAN[tier]}</em></div>`;}
 /* Figuren (eigene Pixel-Trainer) */
 const AVATAR={boy:{skin:"#f0c090",hair:"#2a1a10",hs:"short",hat:"cap",hatC:"#e0402e",shirt:"#2a6ad8",shirt2:"#f4f4ee",pants:"#3a3a44",shoes:"#e0402e",role:"trainer",pack:"#d8b048"},
  girl:{skin:"#f8d8b8",hair:"#8a5a2a",hs:"long",hat:"sunhat",hatC:"#e0402e",shirt:"#e0402e",shirt2:"#f4f4ee",skirt:"#2a6ad8",shoes:"#f4f4ee",role:"trainer",pack:"#ffd23f"}};
@@ -17126,7 +17152,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.41.0.5",DUEL_HP=30;
+const MP_VER="1.42.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -17657,7 +17683,7 @@ async function menuLbLoad(el,quiet){if(!el||MLB.busy)return;MLB.busy=true;const 
       else if(MLB.sea==="all"){L.innerHTML=rows.length?lbRowsHtml(rows,10):`<p class="empty">Noch keine Trainer.</p>`;L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>det(b));}
       else{const sid=MLB.sea==="cur"?seasonId():MLB.sea,r=await clFetch("/rest/v1/rpc/season_board",{method:"POST",auth:false,body:{sid},timeout:8000});if(!L.isConnected)return;
         const me=sid===seasonId()&&typeof USER!=="undefined"&&USER?seasonMine():null;
-        const hint=sid===seasonId()?`<p class="mLbHint">${ic("trophy")} Platz 1–3: Season-Abzeichen und ein zufälliges schillerndes Pokémon · Platz 4–10: 10 Edelsteine</p><p class="mLbHint">${ic("info")} Punkte: besiegtes Pokémon 1 · Boss 5 · Sieg 1–5 je Schwierigkeit · Champion-Titel 20–100 (Wiederholung in gleicher Region 50 %, ab dem 3. Mal 25 %)</p>`:"";
+        const hint=sid===seasonId()?`<p class="mLbHint">${ic("trophy")} Platz 1–3: Season-Abzeichen und ein zufälliges schillerndes Pokémon · Platz 4–10: 10 Edelsteine</p>${typeof seaParse==="function"?`<div class="seaPv">${[1,2,3].map(p=>`<span>${badgeHTML("s|"+sid+"|"+p,seaTier(p),"sm")}<small>Platz ${p}</small></span>`).join("")}</div>`:""}<p class="mLbHint">${ic("info")} Punkte: besiegtes Pokémon 1 · Boss 5 · Sieg 1–5 je Schwierigkeit · Champion-Titel 20–100 (Wiederholung in gleicher Region 50 %, ab dem 3. Mal 25 %)</p>`:"";
         if(!r.ok||!Array.isArray(r.j)){L.innerHTML=hint+`<p class="empty">${socMissing(r)?"Seasons werden gerade eingerichtet.":"Season-Bestenliste nicht erreichbar."}</p>`;}
         else L.innerHTML=hint+(r.j.length?mlbSeaRows(r.j,sid):`<p class="empty">${sid===seasonId()?"Noch keine Punkte in dieser Season. Werde Champion oder komm weit in einem Lauf!":"In dieser Season hat niemand Punkte gesammelt."}</p>`)+(me?`<p class="mLbMe">${ic("user")} Deine Season-Punkte: <b>${me.pts.toLocaleString("de-DE")}</b></p>`:"");
         L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>{const x=(r.j||[]).find(y=>userKey(y.name)===userKey(b.dataset.n));if(x)seasonDetail(x,sid,rows.find(y=>userKey(y.n)===userKey(x.name)));});}}
@@ -21589,8 +21615,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.41.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.42.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.42.0",d:"07.11.2026",t:"Season-Abzeichen",items:[
+  ["trophy", "Season-Abzeichen neu: Jede Season bekommt ihr eigenes Design. Die November-Season hat Regenbogen, danach folgen Galaxie, Neon und weitere. In der Mitte steht dein Platz 1, 2 oder 3 und dreht sich immer wieder in einen Pokal. Die Abzeichen der laufenden Season siehst du in der Bestenliste unter Trainerpunkte."]]},
  {v:"1.41.0.5",d:"06.11.2026",t:"Schnellfix",items:[
   ["tower", "Kampfturm: Dein Rekord, deine Symbole und deine Bestwerte gehen beim Abgleich zwischen mehreren Geräten nicht mehr verloren. Es zählt immer der beste Stand."]]},
  {v:"1.41.0",d:"05.11.2026",t:"Skillbaum & Großmeister",items:[
