@@ -4887,6 +4887,57 @@ body:not(.battle) #abHud{top:auto;bottom:10px}
 .cdSide :is(.bdg,.tcBg,.fmAura,[class^="tt-"],[class*=" tt-"],[class^="cs-"],[class*=" cs-"]) *,
 .cdSide :is(.bdg,.tcBg,.fmAura,[class^="tt-"],[class*=" tt-"],[class^="cs-"],[class*=" cs-"]) *::before,
 .cdSide :is(.bdg,.tcBg,.fmAura,[class^="tt-"],[class*=" tt-"],[class^="cs-"],[class*=" cs-"]) *::after{animation:none!important}
+/* v1.46.0.11: Custom-Abzeichen-Stil Amethyst (lila) */
+.bdg.cs-amethyst>i{background:linear-gradient(160deg,#fbf2ff 0,#dcb4ff 18%,#c27cff 42%,#7a2ad6 72%,#34106e 100%);animation:bdgGlow 2.6s ease-in-out infinite}
+.bdg.cs-amethyst>i::after{background:radial-gradient(1.2px 1.2px at 30% 30%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 70% 38%,#f3e2ff 50%,transparent 51%),radial-gradient(1.2px 1.2px at 56% 74%,#fff 50%,transparent 51%),linear-gradient(115deg,transparent 40%,rgba(255,255,255,.35) 50%,transparent 60%)}
+.bdg.cs-amethyst>i .ic{color:#efdcff!important;filter:drop-shadow(0 0 3px #c27cff) drop-shadow(0 0 7px rgba(122,42,214,.7))}
+.bdg.cs-amethyst em{background:linear-gradient(90deg,#7a2ad6,#c27cff,#e8c8ff);color:#fff}
+.bdg.cs-amethyst .bWg,.bdg.cs-amethyst .bLf{color:#e2c8ff;filter:drop-shadow(0 1px 0 rgba(30,0,60,.8)) drop-shadow(0 0 4px #a85cff)}
+.bdg.cs-amethyst.t5::before{background:conic-gradient(from var(--bga),#34106e,#a85cff,#e8c8ff,#7a2ad6,#34106e)}
+.bdg.cs-amethyst.t5::after{background:radial-gradient(circle,rgba(194,124,255,.55),rgba(122,42,214,.2) 45%,transparent 66%)}
+.tt-amethyst{-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent;text-shadow:none!important;background-image:linear-gradient(110deg,transparent 42%,rgba(250,240,255,.95) 50%,transparent 58%),linear-gradient(180deg,#f3e2ff 0%,#c27cff 45%,#7a2ad6 72%,#dcb4ff 100%);background-size:260% 100%,100% 100%;animation:ttShine 2.8s linear infinite;filter:drop-shadow(0 1px 0 rgba(30,0,60,.8))}
+/* v1.46.0.11: Fluch-Fenster größer */
+#mbox.abCMM{width:min(860px,calc(96*var(--vw,1vw)))}
+#mbox.abCMM h2{width:100%;text-align:center;font-size:20px}
+#mbox.abCMM .lead{font-size:15px}
+.abCMM .abCuL{gap:14px}
+.abCMM .abCu{min-height:178px}
+.abCMM .abCu .abCuB{gap:8px;padding:16px 12px}
+.abCMM .abCuI{width:42px;height:42px;border-radius:10px}
+.abCMM .abCuI .ic{width:24px;height:24px}
+.abCMM .abCuB b{font-size:12px}
+.abCMM .abCuB small{font-size:13.5px;line-height:1.35}
+.abCMM .abCu .abCuF .ic{width:40px;height:40px}
+.abCMM .abCuL.list .abCu{min-height:130px}
+.abCMM .abTeamL{gap:8px;margin-top:4px}
+.abCMM .abTeamL i{width:64px;height:64px;border-radius:10px}
+.abCMM .abTeamL i img{max-width:60px;max-height:60px}
+.abCMM .pri.hot{font-size:15px;height:46px;padding:0 26px}
+@media (max-width:520px){.abCMM .abCu{min-height:120px}.abCMM .abTeamL i{width:48px;height:48px}.abCMM .abTeamL i img{max-width:44px;max-height:44px}}
+/* v1.47.0: Abgrund wie der Turm */
+#abHud{left:16px;top:70px;transform:none}
+#wwrap.abWorld::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:2;background:radial-gradient(ellipse at 50% 45%,transparent 35%,rgba(40,0,20,.55) 80%,rgba(10,0,6,.85) 100%),linear-gradient(0deg,rgba(255,40,90,.16),transparent 45%)}
+#arena.abArena::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:1;background:radial-gradient(ellipse at 50% 55%,transparent 45%,rgba(30,0,16,.5) 100%)}
+#twHud.abTw{border-color:#ff3b6b!important;box-shadow:0 0 18px rgba(255,59,107,.35)}
+#twHud.abTw .twL{color:#ff8aa8}
+#twHud.abTw .twFl.cur{border-color:#ff3b6b;background:rgba(255,59,107,.18)}
+#abCuBox{flex:none}
+#abCuBox .ttl small{font-size:10px;color:#ff8aa8}
+.abCuIcs{display:flex;flex-wrap:wrap;gap:6px}
+.abCuIc{display:flex;width:36px;height:36px;align-items:center;justify-content:center;border-radius:9px;background:rgba(255,59,107,.16);border:1px solid rgba(255,59,107,.45);color:#ff8aa8;padding:0;cursor:pointer}
+.abCuIc .ic{width:20px;height:20px}
+.abCuIc.g-m{background:rgba(194,124,255,.16);border-color:rgba(194,124,255,.45);color:#d8b0ff}
+.abCuIc.g-g{background:rgba(255,176,32,.14);border-color:rgba(255,176,32,.45);color:#ffd36a}
+.abCuIc:hover{filter:brightness(1.3)}
+.abCMh{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%}
+.abCMh .lead{text-align:center}
+.abCuL.one{grid-template-columns:minmax(0,340px);justify-content:center}
+.abCMM .abCuL.one .abCu{min-height:210px}
+.abCMM .abCuL.one .abCuB b{font-size:14px}
+.abCMM .abCuL.one .abCuB small{font-size:15px}
+.abCMM .abCuL.one .abCuI{width:52px;height:52px}
+.abCMM .abCuL.one .abCuI .ic{width:30px;height:30px}
+.abCM .rbtns,.abCM .abDrB{justify-content:center}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -8487,7 +8538,7 @@ function showMenu(){
   const sv=LS.get(saveKey("sp"),null);const total=Object.values(META.champs).reduce((a,b)=>a+b,0);
   $("menuWho").innerHTML=`<span>${ic("user")} ${USER&&typeof fameNameHtml==="function"&&META&&META.fame?fameNameHtml(USER,{fn:META.fame.n}):esc(USER||"Gast")}</span><span style="color:var(--gem)">${ic("gem")} ${META.gems}${gemEventMul()>1?` <small style="font-size:10px;background:var(--gem);color:#0b0d13;border-radius:6px;padding:1px 5px;margin-left:3px">+${Math.round((gemEventMul()-1)*100)} % HEUTE</small>`:""}</span><span style="color:var(--amber)">${ic("trophy")} ${total}</span>${typeof misChip==="function"?misChip():""}`;if($("mMis"))$("mMis").onclick=()=>misModal();
   const mb=(id,icn,t,s,main)=>`<button class="mbtn ${main?"main":""}" id="${id}"><span class="mi">${ic(icn)}</span><div><b>${t}</b><small>${s}</small></div></button>`;
-  $("menuBtns").innerHTML=(sv&&sv.S?mb("mCont","play","Weiterspielen",`${sv.S.tower?(sv.S.abyss?"Abgrund":"Kampfturm")+" · Ebene "+(sv.S.round-20):(sv.S.daily?"Täglicher Run":MODES[sv.S.mode].n)+" · Runde "+sv.S.round}`,1):"")+
+  $("menuBtns").innerHTML=(sv&&sv.S?mb("mCont","play","Weiterspielen",`${sv.S.tower?(sv.S.abyss?"Abgrund":"Kampfturm")+" · Ebene "+(sv.S.round-(sv.S.abyss?0:20)):(sv.S.daily?"Täglicher Run":MODES[sv.S.mode].n)+" · Runde "+sv.S.round}`,1):"")+
    mb("mNew","plus","Neues Spiel","Singleplayer · Region & Schwierigkeit",!(sv&&sv.S))+mb("mMp","swords","Mehrspieler","Ranked · Live-Duell · Geisterkämpfe")+mb("mFr","users","Freunde","Anfragen · Einladen · Chat")+mb("mLbB","trophy","Bestenliste","Trainerpunkte · Ranked")+((()=>{try{return typeof fameOpen==="function"&&fameOpen().ok;}catch(e){return false;}})()?mb("mFame","crown","Ruhm","Edelsteine einzahlen · Skillbaum · Booster"):mb("mLab","lab","Forschungslabor","Dauerhafte Verbesserungen & neue Pokémon"))+mb("mDex","dex","Pokédex","Sammlung · Schillernde · Mega-Formen")+mb("mCard","user","Trainerkarte","Lieblingspokémon · Hintergrund · 3 Abzeichen")+mb("mAch","trophy","Erfolge",(()=>{const n=Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length;return n+"/"+ACH.length+" freigeschaltet · Statistik · Verlauf";})())+mb("mSet","gear","Einstellungen","Anleitung · Sound · Grafik · "+(USER?"Abmelden":"Login"));
   if($("mCont"))$("mCont").onclick=()=>{const ab=!!(S&&S.abyss),rk=(!ab&&S&&S.phase!=="over"&&S.region)||(sv&&sv.S&&sv.S.region)||"kanto";needReg(rk,()=>{hideScreens();if(!S||S.phase==="over"||ab){if(ab&&S.phase==="shop")save();window.__svK="sp";try{loadGame();}finally{window.__svK=null;}}setTab("shop");render();});};
   $("mNew").onclick=chooseMode;$("mNew").insertAdjacentHTML("beforeend",`<em class="mBadge" id="mNewN" style="${window.__gbBadge?"":"display:none"}">!</em>`);$("mMp").onclick=()=>mpModal();if($("mLbB")){$("mLbB").classList.add("lbOnly");$("mLbB").onclick=()=>menuLbModal();}try{menuLbMount();}catch(e){}try{setTimeout(()=>{if(typeof seaRecap==="function")seaRecap();},2500);}catch(e){}if($("mFr")){$("mFr").insertAdjacentHTML("beforeend",`<em class="mBadge" id="mFrN" style="display:none"></em>`);$("mFr").onclick=()=>friendsModal();try{socBadges();}catch(e){}}if($("mLab"))$("mLab").onclick=()=>labScreen();if($("mFame")){$("mFame").classList.add("mFame");$("mFame").onclick=()=>labScreen("fame");try{const L=fameLevel(fameMeta().g).L;if(L)$("mFame").querySelector("b").insertAdjacentHTML("beforeend",` <span class="mFameR">${fameEm(L)}${esc(fameName_(L))}</span>`);}catch(e){}}$("mDex").onclick=()=>dexModal("dex");$("mAch").onclick=()=>achModal();if($("mCard"))$("mCard").onclick=()=>cardModal();$("mSet").onclick=settingsModal;
@@ -12476,7 +12527,7 @@ const mkUnit=(sp,stars=0,shiny=false)=>({uid:uidC++,sp,stars,items:[],gifts:[],.
 const shinyChance=()=>SHINY_BASE*(1+perk("shinycharm"));
 const hasRelic=id=>!!(S&&S.relics.includes(id));
 const level=()=>{let l=1;for(let i=0;i<LV_XP.length;i++)if(S.xp>=LV_XP[i])l=i+1;return l;};
-const capFor=()=>Math.max(1,level()+2+(hasRelic("pack")?1:0)+(S&&S.tower&&perk("twslot")?1:0)-(S&&S.small?2:0));
+const capFor=()=>Math.max(1,level()+2+(hasRelic("pack")?1:0)+(S&&S.tower&&perk("twslot")?1:0)-(S&&S.small?2:0)-(S&&S.abyss?1:0));
 const benchSize=()=>5+perk("bench");
 const boardUnits=()=>Object.values(S.board);
 const allUnits=()=>[...boardUnits(),...S.bench.filter(Boolean)];
@@ -12698,13 +12749,13 @@ function setTab(t){
 function render(){if(typeof achCheck==="function")setTimeout(achCheck,0);document.body.classList.toggle("duelMode",!!(S&&S.duel));
   if(!S)return;if(typeof BGM!=="undefined"&&BGM.region)BGM.region(S.enc&&S.enc.loc==="spukwald"?"spuk":(S.region||"kanto"));buildBench();
   const lv=level(),cap=capFor(),bu=boardUnits().length;
-  document.body.classList.toggle("towerMode",!!S.tower);$("sRound").textContent=S.tower?S.round-20:S.round;if($("sRoundMax"))$("sRoundMax").textContent=S.tower?" · TURM":"/20";$("sGold").textContent=S.gold;$("sInc").textContent="+"+income();goldFx();$("sMode").textContent=MODES[S.mode].n+(S.mono&&TYPES[S.mono]?" · "+TYPES[S.mono][0]:"");
+  document.body.classList.toggle("towerMode",!!S.tower);$("sRound").textContent=S.tower?S.round-twOff():S.round;if($("sRoundMax"))$("sRoundMax").textContent=S.tower?(S.abyss?" · ABGRUND":" · TURM"):"/20";$("sGold").textContent=S.gold;$("sInc").textContent="+"+income();goldFx();$("sMode").textContent=MODES[S.mode].n+(S.mono&&TYPES[S.mono]?" · "+TYPES[S.mono][0]:"");
   {const rb=$("revChip").querySelector("b");if(rb)rb.textContent=S.abyss?1:S.tower?S.tower.lives:1;}$("sRev").textContent=S.abyss?"Leben · keine Revanche":S.tower?"Turm-Leben":S.duel?`Duell-KP ${Math.max(0,S.duel.hp[0])}/${DUEL_HP}`:S.revives?`Leben · ${S.revives}× Revanche`:"Leben";$("revChip").title=S.tower?`Turm-Leben ${S.tower.lives}/${TW.lives}. Jede Revanche kostet ein Leben, jeder Koryphäen-Sieg gibt eines zurück.`:`Nur 1 Leben. Bisher ${S.revives}× per Revanche wiederbelebt.`;$("sLv").textContent="LV "+lv;$("sTeam").textContent=bu+"/"+cap+" Plätze";refreshGems();
   const lo=LV_XP[lv-1],hi=LV_XP[lv]||LV_XP[lv-1];$("xpBar").firstChild.style.width=(hi>lo?(S.xp-lo)/(hi-lo)*100:100)+"%";const enX=typeof LANG!=="undefined"&&LANG==="en";$("lvChip").title=hi>lo?(enX?`${S.xp-lo}/${hi-lo} XP · ${hi-S.xp} XP to level ${lv+1}`:`${S.xp-lo}/${hi-lo} EP · noch ${hi-S.xp} EP bis Level ${lv+1}`):"Max-Level";$("sXp").textContent=hi>lo?(enX?`${hi-S.xp} XP to go`:`noch ${hi-S.xp} EP`):"MAX";
   {let eg=$("eggChip");const E=S.eggs||[];if(E.length){if(!eg){eg=document.createElement("div");eg.id="eggChip";eg.className="hs";const rc=$("sRound").closest(".hs");if(rc)rc.after(eg);}const n=Math.max(0,Math.min(...E.map(e=>e.r))-S.round);
     eg.innerHTML=`<i class="eggI"></i><div class="hrow"><b>${E.length>1?E.length+"×":"Ei"}</b><small>${n<=1?"nach nächstem Kampf":"in "+n+" Runden"}</small></div>`;eg.title=`Pokémon-Ei: schlüpft ${n<=1?"nach dem nächsten Kampf":"in "+n+" Runden"}`;}else if(eg)eg.remove();}
   $("incPop").innerHTML=`<div class="ttl"><h3>EINKOMMEN NÄCHSTE RUNDE</h3></div>${incomeParts().map(p=>`<div class="incRow"><span>${p[0]}</span><span>+${p[1]}</span></div>`).join("")}<div class="incRow sum"><span>Summe</span><span>+${income()}</span></div><div style="font-size:12px;color:var(--muted);margin-top:8px;line-height:1.4">Dazu die Prämie bei Sieg (Leicht 2 · Mittel 4 · Schwer 6 · Elite 7 · Boss 10), +50 % ohne eigenen K.O.</div>`;
-  {const p=$("pips");if(S.tower){const b0=Math.floor((Math.max(1,S.round-20)-1)/5)*5;if(p.dataset.tw!==String(b0)){p.dataset.tw=b0;p.innerHTML="";for(let i=1;i<=5;i++){const e=document.createElement("i");if(i===5)e.classList.add("boss");p.appendChild(e);}}
+  {const p=$("pips");if(S.tower){const b0=Math.floor((Math.max(1,S.round-twOff())-1)/5)*5;if(p.dataset.tw!==String(b0)){p.dataset.tw=b0;p.innerHTML="";for(let i=1;i<=5;i++){const e=document.createElement("i");if(i===5)e.classList.add("boss");p.appendChild(e);}}
     [...p.children].forEach((e,i)=>{const r=20+b0+i+1;e.classList.toggle("now",r===S.round);["w","l","e"].forEach(c=>e.classList.toggle(c,S.results[r-1]===c));});}
   else{if(p.dataset.tw!=null){delete p.dataset.tw;p.innerHTML="";for(let i=1;i<=20;i++){const e=document.createElement("i");if(BOSSES[i])e.classList.add("boss");p.appendChild(e);}}
     [...p.children].forEach((e,i)=>{e.classList.toggle("now",i+1===S.round);["w","l","e"].forEach(c=>e.classList.toggle(c,S.results[i]===c));});}}
@@ -12873,7 +12924,7 @@ const giftId=()=>pick(GIFTS.filter(g=>g.id!=="g_slot")).id;
 function genEnemies(p){
   const r=S.round,boss=BOSSES[r],M=modeOf();let list=[];
   if(boss){const bm=(M.boss||1)*((M.bossR||{})[r]||1)*(((M.bossRK||{})[S.region||"kanto"]||{})[r]||1)*bossAdapt(r)*bossK(r),gx=modeStep(M.eGift,r),ix=modeStep(M.eIt,r);
-    list=boss.units.map(([sp,st,x,y,m,fl])=>{fl=fl||"";const raid=fl.includes("r"),its=[...(fl.includes("m")&&MEGA[sp]?["mega"]:[]),...(fl.includes("z")?["zkristall"]:[]),...(fl.includes("d")?["dynaband"]:[]),...(fl.includes("t")?["teraorb"]:[]),...(fl.includes("a")?["alphakern"]:[]),...(fl.includes("k")?[pick(MASK_IDS)]:[]),...(raid?[]:enemyItems(r,ix)),...(fl.includes("i")?enemyItems(Math.max(r,16),(fl.match(/i/g)||[]).length):[])];
+    list=boss.units.map(([sp,st,x,y,m,fl])=>{fl=fl||"";if(S.abyss)fl=fl.replace(/[zdtak]/g,"");const raid=fl.includes("r"),its=[...(fl.includes("m")&&MEGA[sp]?["mega"]:[]),...(fl.includes("z")?["zkristall"]:[]),...(fl.includes("d")?["dynaband"]:[]),...(fl.includes("t")?["teraorb"]:[]),...(fl.includes("a")?["alphakern"]:[]),...(fl.includes("k")?[pick(MASK_IDS)]:[]),...(raid?[]:enemyItems(r,ix)),...(fl.includes("i")?enemyItems(Math.max(r,16),(fl.match(/i/g)||[]).length):[])];
       return Object.assign(mkUnit(sp,st),{x:exOld(x),y:eyOld(y),mult:m*bm,gifts:raid?[]:Array.from({length:(r>=10?1:0)+(r>=16?1:0)+gx},giftId),items:its},fl.includes("c")||raid?{crypto:1}:{},raid?{raid:1}:{});});if(boss.tw&&typeof twPlace==="function")twPlace(list);}
   else if(p.type==="ultra"&&typeof ultraEnemies==="function")list=ultraEnemies(r);
   else if(p.type==="rival"&&typeof rivalEnemies==="function")list=rivalEnemies(p);
@@ -12985,7 +13036,7 @@ function rollPaths0(){
   if(!types.some(t=>t!=="event"))types[0]="easy";
   if(typeof rivalRound==="function"&&rivalRound(r)&&!types.includes("rival")){let j=types.indexOf("mid");if(j<0)j=types.findIndex(t=>t!=="event"&&t!=="easy");if(j<0)j=types.length-1;types[j]="rival";}
   const ord=["easy","mid","hard","elite","rival","rocket","ultra","event"];types.sort((a,b)=>ord.indexOf(a)-ord.indexOf(b));
-  const locs=S.tower&&typeof TW_LOCS!=="undefined"?shuffle(TW_LOCS.slice()):pickLocs(3);S.paths=types.map((t,i)=>{const p={type:t,name:t==="rocket"?pick(ROCKET_N[S.region||"kanto"]||ROCKET_N.kanto):t==="ultra"?"Ultrapforte":t==="rival"&&typeof rivalOf==="function"?"Rivale "+rivalOf().n:pick(TRAINERS),loc:locs[i]||pick(LOC_POOL)};if(t==="event")p.options=eventOptions();else{p.enemies=genEnemies(p);if(typeof rollWeather==="function"){const w=rollWeather(p.loc);if(w)p.weather=w;}}return p;});
+  const locs=S.tower&&typeof TW_LOCS!=="undefined"?shuffle(((S.abyss&&typeof AB_LOCS!=="undefined")?AB_LOCS:TW_LOCS).slice()):pickLocs(3);S.paths=types.map((t,i)=>{const p={type:t,name:t==="rocket"?pick(ROCKET_N[S.region||"kanto"]||ROCKET_N.kanto):t==="ultra"?"Ultrapforte":t==="rival"&&typeof rivalOf==="function"?"Rivale "+rivalOf().n:pick(TRAINERS),loc:locs[i]||pick(LOC_POOL)};if(t==="event")p.options=eventOptions();else{p.enemies=genEnemies(p);if(typeof rollWeather==="function"){const w=rollWeather(p.loc);if(w)p.weather=w;}}return p;});
   S.enc=null;S.encIdx=null;S.enemies=[];
 }
 let rolling=false;
@@ -13029,11 +13080,11 @@ function enemyMini(list){return `<div class="mini">${list.slice(0,8).map(e=>`<sp
 function fillMini(root){root.querySelectorAll(".mini span[data-sp]").forEach(e=>e.replaceWith(spriteEl(+e.dataset.sp)));}
 function renderEnc(){
   if(!S)return;const enc=S.enc,boss=BOSSES[S.round],m=$("encPanel");if(S.duel)return renderDuelEnc(m);
-  $("wTitleT").textContent=S.abyss?((boss?"BOSS · ":"")+"ABGRUND · EBENE "+S.round):S.tower?(boss?"KORYPHÄE · EBENE "+(S.round-20):"KAMPFTURM · EBENE "+(S.round-20)):boss?"BOSS-RUNDE":(REGIONS[S.region||"kanto"].n.toUpperCase()+"-ROUTE");$("wTitleS").textContent=S.abyss?`Abgrund · Gegner aus ${REGIONS[S.region||"kanto"].n} · ${(S.abyss.curses||[]).length} Flüche · 1 Leben`:S.tower?`${MODES[S.mode].n} · ${REGIONS[S.region||"kanto"].n} · Turm-Leben ${S.tower.lives}/${TW.lives}`:`${MODES[S.mode].n} · Runde ${S.round}/20`;
+  $("wTitleT").textContent=S.abyss?((boss?"BOSS · ":"")+"ABGRUND · EBENE "+S.round):S.tower?(boss?"KORYPHÄE · EBENE "+(S.round-twOff()):"KAMPFTURM · EBENE "+(S.round-twOff())):boss?"BOSS-RUNDE":(REGIONS[S.region||"kanto"].n.toUpperCase()+"-ROUTE");$("wTitleS").textContent=S.abyss?`Abgrund · Gegner aus ${REGIONS[S.region||"kanto"].n} · ${(S.abyss.curses||[]).length} Flüche · 1 Leben`:S.tower?`${MODES[S.mode].n} · ${REGIONS[S.region||"kanto"].n} · Turm-Leben ${S.tower.lives}/${TW.lives}`:`${MODES[S.mode].n} · Runde ${S.round}/20`;
   if(rolling||(!enc&&!S.paths&&!boss)){m.innerHTML=`<div id="encHead"><h2>WEGE WERDEN GEWÜRFELT</h2></div><div class="roll"><div class="reel">${ic("dice")}</div><p class="empty" style="max-width:340px">Die Route verzweigt sich. Gleich siehst du drei mögliche Wege.</p></div>`;return;}
   if(!enc){
     const me=powOf(armyStats(boardUnits(),1,true));
-    m.innerHTML=`<div id="encHead"><h2>WÄHLE DEINEN WEG</h2><span class="diff" style="--dc:var(--cyan)">${S.tower?"Ebene "+(S.round-20):"Runde "+S.round}</span></div>${S.tower?twRuleHtml():""}
+    m.innerHTML=`<div id="encHead"><h2>WÄHLE DEINEN WEG</h2><span class="diff" style="--dc:var(--cyan)">${S.tower?"Ebene "+(S.round-twOff()):"Runde "+S.round}</span></div>${S.tower?twRuleHtml():""}
      <div class="paths">${S.paths.map((p,i)=>{const D=DIFF[p.type];let right="",extra="";
        if(p.type==="event"){right=`<b>${ic("qbox","","width:14px;height:14px")}</b>Belohnung`;extra=`<p style="margin-top:4px">${p.options.map(o=>o.n).join(" · ")}</p>`;}
        else{right=`<b>+${D.reward}</b>Gold${prizeTxt(D)}`;
@@ -15132,6 +15183,10 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: Nach dem Draft wählst du
 if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: In der Partnerwahl stehen jetzt deine eigenen Draft-Pokémon (Stufe 1 bis 3) zur Auswahl, nicht mehr zufällige Start-Pokémon.": "Abyss: the partner choice now offers your own draft Pokémon (tier 1 to 3) instead of random starter Pokémon."});
 /* v1.46.0.10: Schnellfix */
 if(typeof EN!=="undefined")Object.assign(EN,{"Schnellerer Ladebildschirm: Er lädt nur noch die normalen Pokémon-Bilder. Die schillernden Bilder kommen danach unbemerkt im Hintergrund.": "Faster loading screen: it now only loads the regular Pokémon pictures. The shiny pictures follow quietly in the background."});
+/* v1.46.0.11: Schnellfix */
+if(typeof EN!=="undefined")Object.assign(EN,{"Kleine Verbesserungen im Hintergrund.": "Small improvements under the hood.", "Amethyst": "Amethyst"});
+/* v1.47.0: Abgrund wie der Turm */
+if(typeof EN!=="undefined")Object.assign(EN,{"Der Abgrund läuft jetzt von Ebene 1 an wie der Kampfturm, nur dunkler und schwerer. Bei „Begegnung“ siehst du eine eigene Abgrund-Karte mit Ebenen-Leiste, gekämpft wird auf Abgrund-Plätzen statt in Städten.": "The Abyss now plays like the Battle Tower from floor 1 on, just darker and harder. Under “Encounter” you see its own Abyss map with a floor ladder, and battles take place on Abyss grounds instead of towns.", "Alle 5 Ebenen wartet eine Koryphäe mit eigenem Auftritt, und jede Ebene hat eine Turmregel. Schurken-Teams und leichte Kämpfe gibt es im Abgrund nicht mehr, die Gegner rechnen wie auf Schwer.": "Every 5 floors a Frontier Brain awaits with its own entrance, and every floor has a tower rule. There are no villain teams and no easy battles in the Abyss anymore, foes are calculated like on Hard.", "Im Abgrund hast du einen Platz weniger im Raster.": "In the Abyss you have one slot less on the grid.", "Partnerwahl im Abgrund: Zur Auswahl stehen nur deine Draft-Pokémon aus Gewöhnlich und Ungewöhnlich.": "Abyss partner choice: only your draft Pokémon from Common and Uncommon are offered.", "Im Laden zeigt ein neues Feld „Flüche“ über den Relikten deine aktiven Flüche. Antippen zeigt die Details. Das Abgrund-Schild sitzt jetzt oben links und verdeckt keine Lebensleisten mehr.": "In the shop a new “Curses” panel above the relics shows your active curses. Tap for details. The Abyss badge now sits top left and no longer covers health bars.", "Neue Flüche erscheinen groß und mittig.": "New curses appear big and centered.", "FLÜCHE": "CURSES", "nächster nach Ebene": "next after floor", "Bezwungene Koryphäen": "Frontier Brains defeated", " · ABGRUND": " · ABYSS", "Schlund": "Maw", "Glutkammer": "Ember Chamber", "Nebeltiefe": "Mist Depths", "Thron des Abgrunds": "Throne of the Abyss", "Abgrund · der Boden ist nicht zu sehen": "Abyss · no bottom in sight", "Abgrund · Ruinen über der Glut": "Abyss · ruins above the embers", "Abgrund · kalter Nebel aus der Tiefe": "Abyss · cold mist from the depths", "Abgrund · die Koryphäe erwartet dich": "Abyss · the Frontier Brain awaits", "Im Laden gibt es nur deine 6 Draft-Pokémon. 1 Leben, keine Revanche. Alle 5 Ebenen wartet eine Koryphäe, und es geht ohne Ende weiter.": "The shop only has your 6 draft Pokémon. 1 life, no rematch. Every 5 floors a Frontier Brain awaits, and it never ends."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17183,7 +17238,7 @@ const BADGE_OLD={tower:{T:[5,10,20,30,45],T6:70},champ:{T:[1,10,40,100,250],T6:5
  gbon:{T:[1,5,15,40,100],T6:250},gbai:{T:[1,10,30,80,200],T6:500},gbpz:{T:[1,10,25,50,85],T6:null},t_:{T:[25,100,300,1000,2500],T6:8000},p_:{T:[25,100,300,800,2000],T6:6000}};
 const BADGE_BY={};BADGE_FIX.forEach(b=>BADGE_BY[b.id]=b);
 /* v1.37.0.7: eigene Abzeichen – die ID beschreibt sich selbst („c|Symbol|Design|Name“), damit jede Karte sie überall gleich zeigt */
-const CBADGE_FX={regenbogen:{n:"Regenbogen",c:"#ff7ad8"},galaxie:{n:"Galaxie",c:"#9a7cff"},feuer:{n:"Feuer",c:"#ff7a2a"},eis:{n:"Eis",c:"#7ad8ff"},neon:{n:"Neon",c:"#5cf2ff"},gold:{n:"Gold",c:"#ffd23f"},bernstein:{n:"Bernstein",c:"#ffae2b"},geist:{n:"Geist",c:"#b86bff"},smaragd:{n:"Smaragd",c:"#4de08a"},chrom:{n:"Chrom",c:"#dfe6ef"}};
+const CBADGE_FX={regenbogen:{n:"Regenbogen",c:"#ff7ad8"},galaxie:{n:"Galaxie",c:"#9a7cff"},feuer:{n:"Feuer",c:"#ff7a2a"},eis:{n:"Eis",c:"#7ad8ff"},neon:{n:"Neon",c:"#5cf2ff"},gold:{n:"Gold",c:"#ffd23f"},bernstein:{n:"Bernstein",c:"#ffae2b"},geist:{n:"Geist",c:"#b86bff"},smaragd:{n:"Smaragd",c:"#4de08a"},chrom:{n:"Chrom",c:"#dfe6ef"},amethyst:{n:"Amethyst",c:"#c27cff"}};
 Object.assign(ICONS,{
  cs_inf:'<path d="M12 12c-2-2.6-3.6-4-5.6-4a4 4 0 0 0 0 8c2 0 3.6-1.4 5.6-4zm0 0c2 2.6 3.6 4 5.6 4a4 4 0 0 0 0-8c-2 0-3.6 1.4-5.6 4z"/>',
  cs_moon:'<path class="fo" d="M15 3.5a8.5 8.5 0 1 0 5.5 14.5A7 7 0 0 1 15 3.5z"/><path d="M15 3.5a8.5 8.5 0 1 0 5.5 14.5A7 7 0 0 1 15 3.5z"/><path d="M19 4.5v3M17.5 6h3"/>',
@@ -17194,8 +17249,9 @@ Object.assign(ICONS,{
  cs_flower:'<circle class="fo" cx="12" cy="6.6" r="2.9"/><circle cx="12" cy="6.6" r="2.9"/><circle class="fo" cx="17.2" cy="10.4" r="2.9"/><circle cx="17.2" cy="10.4" r="2.9"/><circle class="fo" cx="15.2" cy="16.4" r="2.9"/><circle cx="15.2" cy="16.4" r="2.9"/><circle class="fo" cx="8.8" cy="16.4" r="2.9"/><circle cx="8.8" cy="16.4" r="2.9"/><circle class="fo" cx="6.8" cy="10.4" r="2.9"/><circle cx="6.8" cy="10.4" r="2.9"/><circle class="f" cx="12" cy="12" r="2.1"/>',
  cs_spark:'<path class="fo" d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/>',
  cs_music:'<path d="M9 17.5V5.5l10-2v12"/><circle class="fo" cx="6.5" cy="17.5" r="2.5"/><circle cx="6.5" cy="17.5" r="2.5"/><circle class="fo" cx="16.5" cy="15.5" r="2.5"/><circle cx="16.5" cy="15.5" r="2.5"/>',
+ cs_alpha:'<path class="fo" d="M18.5 6.5c-1.8 5-4 11-8.2 11-2.8 0-4.6-2.3-4.6-5.4 0-3.4 2.2-6.1 5.1-6.1 3.9 0 5.5 5 7 8.5.6 1.4 1.4 2.5 2.7 2.5"/><path d="M18.5 6.5c-1.8 5-4 11-8.2 11-2.8 0-4.6-2.3-4.6-5.4 0-3.4 2.2-6.1 5.1-6.1 3.9 0 5.5 5 7 8.5.6 1.4 1.4 2.5 2.7 2.5"/>',
  cs_pad:'<rect class="fo" x="2.5" y="7" width="19" height="10.5" rx="5.2"/><rect x="2.5" y="7" width="19" height="10.5" rx="5.2"/><path d="M7.2 10.2v4.2M5.1 12.3h4.2"/><circle class="f" cx="15.8" cy="11.2" r="1.15"/><circle class="f" cx="18" cy="13.4" r="1.15"/>'});
-const CBADGE_IC=["crown","star","heart","fire","bolt","gem","shiny","trophy","ghost","swords","skull","leaf","snow","drop","sun","mega","tera","tower","ball","rocket","clover","eye","cs_inf","cs_moon","cs_planet","cs_paw","cs_wing","cs_sword","cs_flower","cs_spark","cs_music","cs_pad"];
+const CBADGE_IC=["crown","star","heart","fire","bolt","gem","shiny","trophy","ghost","swords","skull","leaf","snow","drop","sun","mega","tera","tower","ball","rocket","clover","eye","cs_inf","cs_moon","cs_planet","cs_paw","cs_wing","cs_sword","cs_flower","cs_spark","cs_music","cs_pad","cs_alpha","alpha"];
 const cbName=n=>String(n||"").replace(/[|<>"&]/g,"").trim().slice(0,16);
 const cbId=(icn,fx,n)=>"c|"+icn+"|"+fx+"|"+cbName(n);
 function cbParse(id){if(!id||!String(id).startsWith("c|"))return null;const p=String(id).split("|");if(p.length<4)return null;const icn=p[1],fx=p[2],n=cbName(p.slice(3).join(""));
@@ -17717,7 +17773,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.46.0.10",DUEL_HP=30;
+const MP_VER="1.47.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -22207,8 +22263,17 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.46.0.10"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.47.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.47.0",d:"09.11.2026",t:"Abgrund wie der Turm",items:[
+  ["skull", "Der Abgrund läuft jetzt von Ebene 1 an wie der Kampfturm, nur dunkler und schwerer. Bei „Begegnung“ siehst du eine eigene Abgrund-Karte mit Ebenen-Leiste, gekämpft wird auf Abgrund-Plätzen statt in Städten."],
+  ["crown", "Alle 5 Ebenen wartet eine Koryphäe mit eigenem Auftritt, und jede Ebene hat eine Turmregel. Schurken-Teams und leichte Kämpfe gibt es im Abgrund nicht mehr, die Gegner rechnen wie auf Schwer."],
+  ["grid", "Im Abgrund hast du einen Platz weniger im Raster."],
+  ["ball", "Partnerwahl im Abgrund: Zur Auswahl stehen nur deine Draft-Pokémon aus Gewöhnlich und Ungewöhnlich."],
+  ["eye", "Im Laden zeigt ein neues Feld „Flüche“ über den Relikten deine aktiven Flüche. Antippen zeigt die Details. Das Abgrund-Schild sitzt jetzt oben links und verdeckt keine Lebensleisten mehr."],
+  ["star", "Neue Flüche erscheinen groß und mittig."]]},
+ {v:"1.46.0.11",d:"09.11.2026",t:"Schnellfix",items:[
+  ["spark", "Kleine Verbesserungen im Hintergrund."]]},
  {v:"1.46.0.10",d:"09.11.2026",t:"Schnellfix",items:[
   ["spark", "Schnellerer Ladebildschirm: Er lädt nur noch die normalen Pokémon-Bilder. Die schillernden Bilder kommen danach unbemerkt im Hintergrund."]]},
  {v:"1.46.0.9",d:"09.11.2026",t:"Schnellfix",items:[
@@ -22855,12 +22920,13 @@ const TW_CURSE={
  heal:{n:"Heilsperre",ic:"heart",d:"Heilungen deines Teams wirken {H} schwächer."},
  drain:{n:"Energieleck",ic:"drop",d:"Spezialattacken deines Teams brauchen {V} mehr Energie."}};
 const twCurseV=f=>Math.round(Math.min(.08,.03+.001*Math.max(0,f-25))*1000)/1000;
-function twCurse(f){f=f||twFloor();if(!f||f<TW.cf)return null;const R=twRng("curse"+f),ks=Object.keys(TW_CURSE);return{k:ks[Math.floor(R()*ks.length)],v:twCurseV(f)};}
+function twCurse(f){if(typeof S!=="undefined"&&S&&S.abyss)return null;f=f||twFloor();if(!f||f<TW.cf)return null;const R=twRng("curse"+f),ks=Object.keys(TW_CURSE);return{k:ks[Math.floor(R()*ks.length)],v:twCurseV(f)};}
 function twCurseTxt(c){if(!c)return"";const D=TW_CURSE[c.k];if(!D)return"";const pc=x=>String(Math.round(x*1000)/10).replace(".",",")+" %";return D.d.replace("{V}",pc(c.v)).replace("{H}",pc(Math.min(.2,c.v*2.5)));}
 function twCurseHtml(c){c=c||(S&&S.tower&&S.tower.curse);if(!c||!TW_CURSE[c.k])return"";const D=TW_CURSE[c.k];return `<div class="twRule curse">${ic(D.ic)}<b>${D.n}</b><small>${twCurseTxt(c)}</small></div>`;}
 const TW_LOCS=["twhalle","twdach","twnacht"];
+const twOff=()=>(typeof S!=="undefined"&&S&&S.abyss)?0:20;
 const twOn=()=>typeof S!=="undefined"&&!!(S&&S.tower&&!S.duel);
-const twFloor=()=>twOn()?Math.max(0,S.round-20):0;
+const twFloor=()=>twOn()?Math.max(0,S.round-twOff()):0;
 const twIsBoss=f=>f>0&&f%5===0;
 /* v1.37.0: Symbol-Stufen je Koryphäe: Silber (ab Ebene 5), Gold (ab 30), Platin (ab 60), Mythisch (ab 90) */
 const TW_SYMT=[null,{n:"Silber",f:5},{n:"Gold",f:30},{n:"Platin",f:60},{n:"Mythisch",f:90}];
@@ -22896,8 +22962,8 @@ function twFx(f){if(!twOn())return;
 const twNoHeal=()=>false;
 const twHealMul=f=>{if(!twOn()||!f||f.side!=="mine")return 1;const c=S.tower.curse;return (c&&c.k==="heal"?1-Math.min(.2,2.5*(c.v||.03)):1)*(typeof abHealMul==="function"?abHealMul(f):1);};
 /* Gegner werden je Ebene stärker (zusätzlich zur normalen Rundensteigerung) */
-const twScale=()=>{const f=twFloor();return f?(1+TW.ramp*(f-1))*(TW.mk[S.mode]||1):1;};
-const twEncOdds=()=>(S&&S.abyss?{easy:0,mid:30,hard:38,elite:26,event:6,rocket:0}:{easy:0,mid:34,hard:34,elite:20,event:6,rocket:6});
+const twScale=()=>{const f=twFloor();if(S&&S.abyss)return 1+TW.ramp*Math.max(0,f-20);return f?(1+TW.ramp*(f-1))*(TW.mk[S.mode]||1):1;};
+const twEncOdds=()=>(S&&S.abyss&&typeof abEncOdds==="function"?abEncOdds():{easy:0,mid:34,hard:34,elite:20,event:6,rocket:6});
 const twItems=()=>{const f=twFloor();return f?(f>=11?2:1):0;};
 /* Koryphäen-Stärke je Ebene (abgestimmt mit Bot-Läufen), über Ebene 30 hinaus sanft weiter steigend */
 const twBossMult=f=>{const B=TW.bf,ks=Object.keys(B).map(Number).sort((a,b)=>a-b);let v=B[ks[ks.length-1]]*(1+TW.bfR*Math.max(0,f-ks[ks.length-1]));for(let i=0;i<ks.length;i++){if(f<=ks[i]){v=i?B[ks[i-1]]+(B[ks[i]]-B[ks[i-1]])*(f-ks[i-1])/(ks[i]-ks[i-1]):B[ks[0]];break;}}return TW.bossM*v;};
@@ -22914,7 +22980,7 @@ function twBossDef(f){const K=twKor(f),reg=(S&&S.region)||"kanto",R=twRng("boss"
   let cand=sh(all.filter(want));if(K.th!=="rent")cand=byT(cand);
   const rest=byT(sh(all.filter(L=>!cand.includes(L)&&L.tier>=3))),out=[];let legs=0;
   for(const L of cand.concat(rest,byT(sh(all)))){if(out.length>=n)break;if(out.includes(L))continue;if(L.leg&&legs>=maxLeg)continue;if(L.leg)legs++;out.push(L);}
-  const its=f>=25?"ii":"i",gim={galar:"d",paldea:"t",hisui:"a",kitakami:"k",alola:"z"}[reg]||"m",bm=twBossMult(f);
+  const its=f>=25?"ii":"i",gim=(S&&S.abyss)?"m":({galar:"d",paldea:"t",hisui:"a",kitakami:"k",alola:"z"}[reg]||"m"),bm=twBossMult(f);
   const n2=f>=30?n:f>=25?Math.round(n*.8):f>=20?Math.round(n*.6):f>=15?Math.round(n*.4):f>=10?2:0;
   const units=out.map((L,i)=>{const sp=fin(L),st=i<n2?2:1;return [sp,st,0,0,+(bm*(K.m||1)*(L.leg?.82:1)).toFixed(3),its];});
   if(gim==="m"){const u=units.find(u=>MEGA[u[0]]);if(u)u[5]+="m";}else if(units[0])units[0][5]+=gim;
@@ -22925,11 +22991,11 @@ function twPlace(list){const used=new Set(),cols={nah:[ECOL0,ECOL0+1],mittel:[EC
     if(!ok)outer:for(let x=ECOL0;x<FW;x++)for(let y=0;y<FH;y++){const k=x+","+y;if(!used.has(k)){used.add(k);u.x=x;u.y=y;break outer;}}}}
 /* Bosse der kommenden Ebenen eintragen (eigene Kopie, die Region bleibt unverändert) */
 function towerInit(){if(!S||!S.tower)return;const base=BOSSES_BY[S.region||"kanto"]||{};if(BOSSES===base||!BOSSES||BOSSES===BOSSES_BY.kanto&&S.region!=="kanto")BOSSES=Object.assign({},base);
-  const f0=Math.max(1,S.round-20);for(let f=Math.ceil(f0/5)*5;f<=f0+15;f+=5){const r=20+f;if(!BOSSES[r]||!BOSSES[r].tw)BOSSES[r]=twBossDef(f);BOSS_LOC[r]="twkory";}
+  const f0=Math.max(1,S.round-twOff());for(let f=Math.ceil(f0/5)*5;f<=f0+15;f+=5){const r=twOff()+f;if(!BOSSES[r]||!(BOSSES[r].tw||BOSSES[r].abK))BOSSES[r]=(S.abyss&&typeof abBossDef==="function")?abBossDef(f,base):twBossDef(f);BOSS_LOC[r]=S.abyss?"ab_thron":"twkory";}
   if(!S.tower.cam){const fin=L=>L.stages[L.stages.length-1][0],R=twRng("cam"),ls=LINES.filter(L=>(L.region||"kanto")===(S.region||"kanto")&&!L.excl&&L.tier>=2);S.tower.cam=[];for(let i=0;i<5&&ls.length;i++)S.tower.cam.push(fin(ls[Math.floor(R()*ls.length)]));}
-  for(const id of TW_LOCS.concat("twkory"))if(LOCS[id])LOCS[id].cam=S.tower.cam.slice();}
+  for(const id of TW_LOCS.concat("twkory",typeof AB_LOCS!=="undefined"?AB_LOCS.concat("ab_thron"):[]))if(LOCS[id])LOCS[id].cam=S.tower.cam.slice();}
 /* v1.35.7: der Turm ist unabhängig von der gewählten Schwierigkeit – im Turm rechnet der Lauf wie „Normal“ (Gegner, Edelsteine, keine Nuzlocke-Regeln) */
-function twNeutral(){if(S&&S.tower&&!S.tower.m0){S.tower.m0=S.mode||"normal";S.mode="normal";}}
+function twNeutral(){if(S&&S.abyss)return;if(S&&S.tower&&!S.tower.m0){S.tower.m0=S.mode||"normal";S.mode="normal";}}
 function towerRound(){if(!twOn())return;towerInit();twNeutral();S.tower.rule=twRule(twFloor());S.tower.curse=twCurse(twFloor());}
 /* Champion → Kampfturm */
 function towerEnter(){if(!S||S.daily||S.duel||S.tower)return;const R=$("result");R.classList.remove("show");R.innerHTML="";
@@ -22990,9 +23056,9 @@ function towerWorldDrop(){if(!WL||!WL.tw)return;try{const D=WL.tw;if(D.loc){D.sc
 function towerHud(){const w=$("wwrap");if(!w)return;let h=$("twHud");if(!twOn()){if(h)h.remove();return;}
   if(!h){h=document.createElement("div");h.id="twHud";w.appendChild(h);}
   const f=Math.max(1,twFloor()),lo=Math.max(1,f-2),hi=lo+6;let rows="";
-  for(let x=hi;x>=lo;x--){const b=twIsBoss(x),K=b?twKor(x):null,cur=x===f,done=x<f,res=done?(S.results[20+x-1]||""):"",r=twRule(x);
+  for(let x=hi;x>=lo;x--){const b=twIsBoss(x),K=b?twKor(x):null,cur=x===f,done=x<f,res=done?(S.results[twOff()+x-1]||""):"",r=twRule(x);
     rows+=`<div class="twFl${b?" boss":""}${cur?" cur":""}${done?" done "+res:""}"${K?` style="--kc:${K.col}"`:""}><b>${x}</b>${b?`<i class="twSy">${ic(K.ic)}</i><span>${esc(K.n)}</span>`:`<span>${x>=f?esc(twRuleN(r)):""}</span>`}${x>=f&&x>=TW.cf?`<i class="twCu" title="Ab Ebene 25: leichter Fluch für dein Team">${ic("skull")}</i>`:""}${done?`<em>${ic(res==="l"?"close":"check")}</em>`:""}</div>`;}
-  const nb=Math.ceil(f/5)*5,K=twKor(nb),B0=BOSSES[20+nb];
+  const nb=Math.ceil(f/5)*5,K=twKor(nb),B0=BOSSES[twOff()+nb];
   h.innerHTML=`<div class="twH"><span class="twL">${ic("tower")} KAMPFTURM</span><span class="twLv">${Array.from({length:TW.lives},(_,i)=>`<i class="twHt${i<S.tower.lives?" on":""}">${ic("heart")}</i>`).join("")}</span></div>
    <div class="twStack">${rows}</div>
    <div class="twNext" style="--kc:${K.col}"><small>${nb===f?"JETZT: KORYPHÄE":"EBENE "+nb+": KORYPHÄE"}</small><b>${ic(K.ic)} ${esc(K.n)}</b><em>${esc(K.t)} · ${esc(TW_RULES[K.rule].n)}</em><div class="twNT">${(B0?B0.units:[]).slice(0,7).map(u=>`<i data-sp="${u[0]}"></i>`).join("")}</div></div>
@@ -24120,7 +24186,7 @@ function abHealMul(f){return f&&f.side==="mine"&&abHas("m_heal")?.5:1;}
 
 /* Laden: nur die Draft-Linien */
 /* ---------------- Draft + Startpartner ---------------- */
-const AB_DRAFT={per:[4,3,3,3,3],pick:6,maxLeg:2,rerolls:1,startMax:3};
+const AB_DRAFT={per:[4,3,3,3,3],pick:6,maxLeg:2,rerolls:1,startMax:2};
 const abFin=L=>L.stages[L.stages.length-1][0];
 function abOffer(R){const out=[];
   for(let t=1;t<=5;t++){const ls=LINES.filter(L=>L.tier===t&&!L.excl&&SPECIES[abFin(L)]&&!isExcl(abFin(L)));const used=new Set();
@@ -24135,7 +24201,8 @@ function abPrep(){const R=mkRng(strHash(Date.now()+"|"+Math.random()));const cur
   ABP.d={offer:abOffer(R),rr:AB_DRAFT.rerolls,curses,sel:new Set(),starter:null};return ABP.d;}
 /* in newRun0, bevor Shop und erste Runde ausgewürfelt werden: übernimmt Draft, Startpartner und Flüche aus der Vorbereitung */
 function abyssInit(o){const P=o.abyss||{};S.noRev=1;S.poolV2=1;S.poolSel=(P.pool||[]).slice();
-  S.abyss={v:3,curses:(P.curses||[]).slice(),best0:abBest(),ms:[],out:null,pool:(P.pool||[]).slice(),starter:P.starter||null,done:1};}
+  S.abyss={v:4,curses:(P.curses||[]).slice(),best0:abBest(),ms:[],out:null,pool:(P.pool||[]).slice(),starter:P.starter||null,done:1};
+  S.tower={lives:0,kory:0,lost:0,cl:0,k0:Math.floor(Math.random()*KORY.length),t0:Date.now(),runT:0,best0:0,ab:1};}
 function abDraftValid(sel){const a=[...sel].map(abLine);return a.length===AB_DRAFT.pick&&[1,2,3,4,5].every(t=>a.some(L=>L.tier===t))&&a.filter(L=>L.leg).length<=AB_DRAFT.maxLeg;}
 function abDraftModal(){const P=ABP.d;if(!P)return;const sel=P.sel;
   const draw=()=>{const D=P.offer,cnt={};for(const k of sel){const t=abLine(k).tier;cnt[t]=(cnt[t]|0)+1;}const nLeg=[...sel].filter(k=>abLine(k).leg).length;
@@ -24156,7 +24223,7 @@ function abDraftModal(){const P=ABP.d;if(!P)return;const sel=P.sel;
 /* Nach dem Draft: Lauf anlegen, dann Partnerwahl wie im normalen Lauf (Start-Pokémon aller Regionen), dann Flüche mit „Abstieg starten“ */
 function abBegin(){const P=ABP.d;if(!P)return;const pool=[...P.sel];ABP.d=null;closeModal();if(S&&!S.abyss&&S.phase==="shop")save();
   const regs=Object.keys(REGIONS),rk=regs[Math.floor(Math.random()*regs.length)];
-  abLoadRegs(pool).then(()=>newRun("normal",rk,{abyss:{pool,curses:P.curses}}));}
+  abLoadRegs(pool).then(()=>newRun("hard",rk,{abyss:{pool,curses:P.curses}}));}
 /* Startablauf im Lauf: normale Partnerwahl, danach die Flüche mit „Abstieg starten“ */
 function abyssSetup(cb){if(!S||!S.abyss){cb&&cb();return;}const A=abMeta();A.runs++;saveMeta();
   starterChoice(()=>{save();render();abHud();abCurseModal(S.abyss.curses,true,cb);});}
@@ -24172,8 +24239,8 @@ function abCurseModal(list,first,cb,P){const go=()=>{if(P){abBegin();return;}clo
   if(!P&&(window.__autoPick||window.__fast)){cb&&cb();return;}
   openModal(`<div class="abCM${first?" first":""}"><div class="abCMh"><i class="abAbyss">${ic("skull")}</i><h2>${first?"DER ABGRUND RUFT":"NEUER FLUCH"}</h2>
     <div class="lead">${first?"Drei Flüche begleiten dich hinab. Nach jeder 10. Ebene kommt einer dazu.":"Je tiefer du steigst, desto schwerer wird die Last."}</div></div>
-    <div class="abCuL">${list.map((c,i)=>abCurseCard(c,i)).join("")}</div>
-    ${first?`<div class="abTeamL">${[...((P&&P.sel)||(S&&S.abyss&&S.abyss.pool)||[])].map(k=>{const L=abLine(k);return L?`<i data-sp="${L.stages[0][0]}" title="${esc(L.stages[0][1])}" class="${P&&P.starter===k?"st":""}"></i>`:"";}).join("")}</div><p class="abNote">${ic("info")} Im Laden gibt es nur deine 6 Draft-Pokémon. 1 Leben, keine Revanche. Nach dem Champion geht es ohne Ende weiter.</p>`:""}
+    <div class="abCuL${list.length===1?" one":""}">${list.map((c,i)=>abCurseCard(c,i)).join("")}</div>
+    ${first?`<div class="abTeamL">${[...((P&&P.sel)||(S&&S.abyss&&S.abyss.pool)||[])].map(k=>{const L=abLine(k);return L?`<i data-sp="${L.stages[0][0]}" title="${esc(L.stages[0][1])}" class="${P&&P.starter===k?"st":""}"></i>`:"";}).join("")}</div><p class="abNote">${ic("info")} Im Laden gibt es nur deine 6 Draft-Pokémon. 1 Leben, keine Revanche. Alle 5 Ebenen wartet eine Koryphäe, und es geht ohne Ende weiter.</p>`:""}
     <div class="abDrB">${P?`<button class="btn" id="abCBack">${ic("back")} Zurück</button>`:""}<span style="flex:1"></span><button class="pri hot" id="abGo">${ic((P||first)?"skull":"arrow")} ${(P||first)?"ABSTIEG STARTEN":"WEITER"}</button></div></div>`,"narrow abCMM",P?true:go);
   $("mbox").querySelectorAll(".abTeamL i[data-sp]").forEach(e=>{try{e.appendChild(natFit(spriteEl(+e.dataset.sp),1));}catch(x){}});
   $("abGo").onclick=go;if($("abCBack"))$("abCBack").onclick=()=>{sfx("click");abDraftModal();};try{sfx(first?"megaCharge":"faint");}catch(e){}
@@ -24195,7 +24262,7 @@ function abCurseList(){if(!abOn())return;const nx=Math.ceil(Math.max(1,abFloor()
   if(abHas("m_out")){const us=boardUnits();S.abyss.out=us.length?us[Math.floor(abRng("out"+f)()*us.length)].uid:null;}else S.abyss.out=null;
   abHud();}}catch(e){console.warn("abyss round",e);}return r;};})();
 /* Kampfturm-Teil (ab Ebene 21): Koryphäen zählen, Turm-Rekorde bleiben unberührt */
-function abyssOnWin(){const f=twFloor(),out={f,rows:[],ab:1};if(S.enc&&S.enc.type==="boss"){S.tower.kory++;abMeta().kory++;saveMeta();}return out;}
+function abyssOnWin(){const f=twFloor(),out={f,rows:[],ab:1};if(S.enc&&S.enc.type==="boss"){if(f>20)S.tower.kory++;abMeta().kory++;saveMeta();}return out;}
 (()=>{const _tw=twWinRows;twWinRows=function(o){if(!o||!o.ab)return _tw.apply(this,arguments);
   return `<div class="incRow" style="color:#ff6b8a"><span>${ic("skull","","width:14px;height:14px")} Abgrund · Ebene ${S.round} geschafft</span><span>${S.round>(S.abyss.best0|0)?"REKORD!":""}</span></div>`;};})();
 /* nach dem Champion direkt weiter in die Tiefe */
@@ -24210,7 +24277,7 @@ function abyssFinish(){clearZones();S.phase="over";enterBattleMode(false);const 
   if(tA>tB){try{GIFT.q.push({type:"ev",kind:"badge",val:"abyss",tier:tA});}catch(e){}}
   const cu=(S.abyss.curses||[]).map(c=>{const D=AB_CURSE[c.k];return D?`<i class="g-${D.g}" title="${esc(D.n+": "+abCurseTxt(c))}">${ic(D.ic)}</i>`:"";}).join("");
   $("result").innerHTML=`<div class="rWrap"><div class="rHead ${rec?"win":"lose"}">${rec?"NEUER REKORD!":"DER ABGRUND HAT DICH"}</div><div class="rPanel glass abRes"><h4>${cl?`Im Abgrund geschafft: ${cl} ${cl===1?"Ebene":"Ebenen"}`:"Der Abstieg endet schon auf der ersten Ebene."}</h4>
-   <div class="rewards"><div class="incRow"><span>Geschaffte Ebenen</span><span>${cl}</span></div><div class="incRow"><span>Bosse und Koryphäen</span><span>${(S.bosses|0)+((S.tower&&S.tower.kory)|0)}</span></div><div class="incRow"><span>Dein Abgrund-Rekord</span><span>Ebene ${A.best}</span></div>
+   <div class="rewards"><div class="incRow"><span>Geschaffte Ebenen</span><span>${cl}</span></div><div class="incRow"><span>Bezwungene Koryphäen</span><span>${S.bosses|0}</span></div><div class="incRow"><span>Dein Abgrund-Rekord</span><span>Ebene ${A.best}</span></div>
    ${(S.abyss.ms||[]).map(m=>`<div class="incRow" style="color:var(--amber)"><span>${ic("trophy","","width:14px;height:14px")} Meilenstein Ebene ${m}</span><span>+${AB.msGem[m]}</span></div>`).join("")}
    ${gemB>1?`<div class="incRow" style="color:var(--gem)"><span>${ic("gem","","width:14px;height:14px")} Tagesbonus</span><span>+${Math.round((gemB-1)*100)} %</span></div>`:""}<div class="incRow sum"><span>Edelsteine</span><span style="color:var(--gem)">+${gems}</span></div></div>
    <div class="abResCu"><small>Flüche dieses Laufs</small><span>${cu}</span></div>
@@ -24219,7 +24286,7 @@ function abyssFinish(){clearZones();S.phase="over";enterBattleMode(false);const 
   const out=()=>{$("result").classList.remove("show");$("result").innerHTML="";S=null;showMenu();};$("rGo").onclick=out;$("rAbN").onclick=()=>{$("result").classList.remove("show");$("result").innerHTML="";S=null;abyssStart();};}
 (()=>{const _tf=towerFinish;towerFinish=function(){if(S&&S.abyss)return abyssFinish();return _tf.apply(this,arguments);};
   const _th=towerHud;towerHud=function(){const r=_th.apply(this,arguments);try{if(abOn()&&S.tower){const h=$("twHud");if(h){const L=h.querySelector(".twL");if(L)L.innerHTML=`${ic("skull")} ABGRUND`;const lv=h.querySelector(".twLv");if(lv)lv.innerHTML=`<i class="twHt on">${ic("heart")}</i>`;
-    const rc=h.querySelector(".twRec");if(rc)rc.innerHTML=`${ic("trophy")} Abgrund-Rekord: ${abBest()?"Ebene "+abBest():"noch keiner"}`;h.querySelectorAll(".twStack b").forEach(b=>{b.textContent=String(+b.textContent+20);});h.classList.add("abTw");}}abHud();}catch(e){}return r;};})();
+    const rc=h.querySelector(".twRec");if(rc)rc.innerHTML=`${ic("trophy")} Abgrund-Rekord: ${abBest()?"Ebene "+abBest():"noch keiner"}`;h.classList.add("abTw");}}abHud();}catch(e){}return r;};})();
 setTimeout(()=>{
   /* Laufende Abgrund-Runs nie über das normale Ende abrechnen (keine Champion-Titel, keine Season) */
   if(typeof finish==="function"){const _fn=finish;finish=function(win){if(S&&S.abyss){if(win&&!S.tower)return abToTower();return abyssFinish();}return _fn.apply(this,arguments);};}
@@ -24242,8 +24309,8 @@ function abyssContinue(){if(S&&S.abyss&&S.phase!=="over"){needReg(S.region||"kan
   needReg(d.S.region||"kanto",()=>{hideScreens();window.__svK="ab";try{loadGame();}finally{window.__svK=null;}setTab("shop");render();abHud();});}
 /* ---------------- Abzeichen „Abgrund“ (Stufe nach Rekord: 10/25/50/75/100) und Hintergrund ---------------- */
 const badgeTierOfAb=b=>AB.ms.filter(m=>b>=m).length;
-(()=>{const _bd=badgeDef;badgeDef=function(id){if(id==="abyss")return{id,cat:"Herausforderung",n:"Abgrund",ic:"skull",cfx:"abgrund",d:"Höchste Ebene im Abgrund",v:()=>abBest(),T:AB.ms.slice(),T6:null,t5n:"Herr des Abgrunds",custom:1};return _bd.apply(this,arguments);};
-  const _ba=badgeAll;badgeAll=function(){const out=_ba.apply(this,arguments);try{if(abBest()>=AB.ms[0]&&!out.some(b=>b.id==="abyss")){const d=badgeDef("abyss");if(d)out.push(d);}}catch(e){}return out;};})();
+(()=>{const _bd=badgeDef;badgeDef=function(id){if(id==="abyss")return{id,cat:"Kampf",n:"Abgrund",ic:"skull",cfx:"abgrund",d:"Höchste Ebene im Abgrund",v:()=>abBest(),T:AB.ms.slice(),T6:null,t5n:"Herr des Abgrunds"};return _bd.apply(this,arguments);};
+  const _ba=badgeAll;badgeAll=function(){const out=_ba.apply(this,arguments);try{if(!out.some(b=>b.id==="abyss")){const d=badgeDef("abyss");if(d){const i=out.findIndex(b=>b.id==="tower");if(i>=0)out.splice(i+1,0,d);else out.push(d);}}}catch(e){}return out;};})();
 Object.assign(CBADGE_FX,{abgrund:{n:"Abgrund",c:"#ff3b6b"}});
 try{Object.assign(CARD_BG,{abgrund:{n:"Abgrundtiefe",lv:6,ld:"Abgrund: Ebene 50 erreicht",lock:()=>abBest()>=50,
  html:`<i class="abgGlow"></i>${_stars(26,0,40,["#ff8aa8","#c27cff","#ffffff"],.2,.6)}
@@ -24289,6 +24356,44 @@ function chModal(){openModal(`<h2>${ic("flag")} HERAUSFORDERUNGEN</h2><div class
 function abDuoHtml(rows){const col=(t,icn,R)=>`<div class="lbDuo"><h5>${ic(icn)} ${t}</h5>${R.length?R.slice(0,10).map((a,i)=>`<button class="lbRow lbMini r${i+1}" data-n="${esc(a.n)}"><span class="lbRank">${i+1}</span><b>${esc(a.n)}</b><em>${a.v}</em></button>`).join(""):`<p class="empty">Noch niemand.</p>`}</div>`;
   const tw=rows.map(r=>Object.assign({},r,{v:twOf(r)})).filter(r=>r.v>0).sort((a,b)=>b.v-a.v||b.pts-a.pts),ab=rows.map(r=>Object.assign({},r,{v:abOf(r)})).filter(r=>r.v>0).sort((a,b)=>b.v-a.v||b.pts-a.pts);
   return `<div class="lbDuoW">${col("Turm","tower",tw)}${col("Abgrund","skull",ab)}</div><p class="mLbHint">${ic("trophy")} höchste geschaffte Ebene</p>`;}
+
+/* ================= v1.47.0: Abgrund wie der Kampfturm, ab Ebene 1 ================= */
+/* Eigene Orte: Kampfplätze und die Abgrund-Karte */
+const AB_LOCS=["ab_schlund","ab_glut","ab_tiefe"];
+(function(){try{Object.assign(LOCS,{
+  ab_schlund:{region:"tower",n:"Schlund",sub:"Abgrund · der Boden ist nicht zu sehen",kind:"volcano",ground:"volcano",sign:"ABGRUND",cam:[]},
+  ab_glut:{region:"tower",n:"Glutkammer",sub:"Abgrund · Ruinen über der Glut",kind:"ruins",ground:"rock",sign:"ABGRUND",cam:[]},
+  ab_tiefe:{region:"tower",n:"Nebeltiefe",sub:"Abgrund · kalter Nebel aus der Tiefe",kind:"cave",ground:"cave",sign:"ABGRUND",cam:[]},
+  ab_thron:{region:"tower",n:"Thron des Abgrunds",sub:"Abgrund · die Koryphäe erwartet dich",kind:"ruins",ground:"volcano",sign:"KORYPHÄE",cam:[]}});
+  if(typeof SIG!=="undefined")Object.assign(SIG,{ab_schlund:{t:"night",w:"embers"},ab_glut:{t:"night",w:"ash",p:[["kStatue",-7.5,-9,0],["kStatue",7.5,-9,0]]},ab_tiefe:{w:"fog"},ab_thron:{t:"night",w:"embers",p:[["kStatue",-7.5,-9,0],["kStatue",7.5,-9,0]]}});}catch(e){console.warn("abyss locs",e);}})();
+/* Kampfauswahl: kein leichter Kampf, keine Schurken-Teams, mit der Tiefe immer härter */
+function abEncOdds(){const f=Math.max(1,abFloor());return f<=2?{easy:55,mid:45,hard:0,elite:0,event:0,rocket:0}:f<=4?{easy:10,mid:62,hard:28,elite:0,event:0,rocket:0}:f<=9?{easy:0,mid:48,hard:36,elite:8,event:8,rocket:0}:f<=20?{easy:0,mid:36,hard:38,elite:18,event:8,rocket:0}:{easy:0,mid:30,hard:38,elite:26,event:6,rocket:0};}
+/* Koryphäe alle 5 Ebenen: bis Ebene 20 mit dem (ausgewogenen) Team des Regions-Bosses dieser Runde, danach wie im Kampfturm */
+function abBossDef(f,base){const K=twKor(f),ru=twRule(f),sub="Koryphäe · "+twRuleN(ru);
+  if(f<=20&&base&&base[f]){const b=base[f];return Object.assign({},b,{name:K.t+" "+K.n,sub,abK:K.id,units:(b.units||[]).map(u=>{const v=u.slice();if(typeof v[5]==="string")v[5]=v[5].replace(/[zdtak]/g,"");return v;})});}
+  const d=twBossDef(Math.max(1,f-20));return Object.assign(d,{name:K.t+" "+K.n,sub,tw:K.id,abK:K.id});}
+/* Abgrund-Karte (Begegnung): dunkler Schlund von oben statt Regionskarte */
+(()=>{if(typeof towerWorld!=="function")return;const _tw=towerWorld;towerWorld=function(dt,t){if(!(S&&S.abyss))return _tw.apply(this,arguments);if(!WL)return;let D=WL.tw;
+  if(D&&!D.ab){towerWorldDrop();D=null;}
+  if(!D){const scene=new THREE.Scene(),Lt=LIGHTING.night;const hemi=new THREE.HemisphereLight(0x8a5aa8,0x2a0610,Lt.hemi[2]*1.1);scene.add(hemi);const key=new THREE.DirectionalLight(0xff8a6a,Lt.key[1]*1.2);key.position.set(Lt.dir[0],Lt.dir[1],Lt.dir[2]).normalize().multiplyScalar(50);scene.add(key);scene.add(key.target);
+    const fill=new THREE.DirectionalLight(0xff3b6b,.55);fill.position.set(-10,-6,20);scene.add(fill);scene.fog=new THREE.Fog(0x1a0610,38,110);
+    let loc=null;try{loc=buildKanto(window.__abMap||"ab_schlund",666);scene.add(loc.grp);}catch(e){console.warn("abyssWorld",e);}
+    const cam=new THREE.PerspectiveCamera(42,WL.W/Math.max(1,WL.H2),.5,400);D=WL.tw={scene,cam,loc,clear:0x07020a,ab:1};}
+  const side=WL.W>900?470/WL.W:0,asp=WL.W/Math.max(1,WL.H2);D.cam.aspect=asp;D.cam.updateProjectionMatrix();
+  const zm=Math.min(1.9,Math.max(1,1.25/asp))*(WL.zoom||1),a=t*.04;
+  const look=new THREE.Vector3(side*18*zm+WL.pan.x,-1.5,-7.5+WL.pan.z);D.cam.position.set(look.x+Math.sin(a)*5*zm,27*zm,look.z+Math.cos(a)*7*zm);D.cam.lookAt(look);
+  if(D.loc&&D.loc.anim)for(const f of D.loc.anim)try{f(dt,t);}catch(e){}
+  WL.r.setClearColor(D.clear);WL.r.render(D.scene,D.cam);};})();
+/* Abgrund-Markierung an der Karte und am Kampfplatz (roter Schimmer, Vignette) */
+(()=>{const _h=abHud;abHud=function(){const r=_h.apply(this,arguments);try{const w=$("wwrap");if(w)w.classList.toggle("abWorld",!!abOn());const a=$("arena");if(a)a.classList.toggle("abArena",!!abOn());abCuBox();}catch(e){}return r;};})();
+/* Flüche im Laden: eigenes Feld über den Relikten */
+function abCuBox(){const st=$("sideStack");let b=$("abCuBox");if(!abOn()||!st){if(b)b.remove();return;}
+  if(!b){b=document.createElement("div");b.id="abCuBox";b.className="glass panel";const rb=$("relicBox");st.insertBefore(b,rb||null);}
+  const cs=S.abyss.curses||[],nx=Math.ceil(Math.max(1,abFloor())/AB.every)*AB.every;
+  b.innerHTML=`<div class="ttl"><h3>FLÜCHE</h3><small>${cs.length} · nächster nach Ebene ${nx}</small></div><div class="abCuIcs">${cs.map(c=>{const D=AB_CURSE[c.k];return D?`<button class="abCuIc g-${D.g}" title="${esc(D.n+": "+abCurseTxt(c))}">${ic(D.ic)}</button>`:"";}).join("")}</div>`;
+  b.querySelectorAll(".abCuIc").forEach(x=>x.onclick=()=>{sfx("click");abCurseList();});}
+(()=>{if(typeof render!=="function")return;const _r=render;render=function(){const x=_r.apply(this,arguments);try{abCuBox();}catch(e){}return x;};})();
+
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
@@ -24971,7 +25076,7 @@ function showResult(){
      <div class="rbtns"><button class="pri" id="rGo">WEITER ZUM SHOP ${ic("arrow")}</button><button class="btn" id="rRep">${ic("dex")} Kampfbericht</button></div></div></div>`;
     R.classList.add("show");$("rRep").onclick=report;$("rGo").onclick=()=>{R.classList.remove("show");R.innerHTML="";nextRound(r.prize);};
   }else if(S.tower){
-    const T=S.tower,L=T.lives,f=S.round-20;
+    const T=S.tower,L=T.lives,f=S.round-twOff();
     R.innerHTML=`<div class="rWrap"><div class="rHead lose">${r.abandoned?"ABGEBROCHEN":r.timeout?"ZEIT UM":"K.O."}</div><div class="rPanel glass"><h4>${L>0?`Kampfturm · Ebene ${f} · Turm-Leben ${L}/${TW.lives}`:"Kampfturm · keine Turm-Leben mehr"}</h4>
      <div class="twLives big">${Array.from({length:TW.lives},(_,i)=>`<i class="twHt${i<L?" on":""}">${ic("heart")}</i>`).join("")}</div>
      <div class="rewards">${L>0?`<div class="incRow"><span>Revanche</span><span style="color:var(--pink)">kostet 1 Turm-Leben</span></div><div class="incRow"><span>Gegner bei der Revanche</span><span style="color:var(--cyan)">gleich stark</span></div><div class="incRow"><span>Prämie bei Sieg</span><span style="color:var(--red)">halbiert</span></div>`:`<div class="incRow"><span>Der Aufstieg endet hier</span><span style="color:var(--cyan)">Edelsteine folgen</span></div>`}<div class="incRow"><span>Geschafft</span><span>${Math.max(0,f-1)} ${f-1===1?"Ebene":"Ebenen"}</span></div></div>
@@ -25066,13 +25171,13 @@ function pauseMenu(){
   if(!S||$("stScene")||document.querySelector(".cine-ov")||$("vs").classList.contains("show"))return;const inB=!!(B&&!B.done&&["battle","intro"].includes(S.phase));if(B&&!B.done)B.userPause=true;
   const resume=()=>{if(B)B.userPause=false;};
   const row=(id,icn,t,s,cls)=>`<button class="mbtn ${cls||""}" id="${id}"><span class="mi">${ic(icn)}</span><div><b>${t}</b><small>${s}</small></div></button>`;
-  openModal(`<h2>${ic("menu")} PAUSE</h2><div class="pauseInfo"><span>${S.abyss?`${ic("skull")} Abgrund · Ebene ${S.round}`:S.tower?`${ic("tower")} Kampfturm`:`${ic(MODES[S.mode].ic)} ${MODES[S.mode].n}`}</span>${S.mono&&TYPES[S.mono]?`<span style="color:${TYPES[S.mono][1]}">${ic("flag")} Monotyp: ${TYPES[S.mono][0]}</span>`:""}${S.iron?`<span>${ic("heart")} Eisenmann</span>`:""}${S.poor?`<span>${ic("coin")} Sparfuchs</span>`:""}${S.small?`<span>${ic("users")} Kleines Team</span>`:""}${S.allin?`<span>${ic("atk")} Alles oder nichts</span>`:""}<span>${ic(S.tower?"tower":"flag")} ${S.tower?"Kampfturm · Ebene "+(S.round-20):"Runde "+S.round+"/20"}</span><span>${ic("coin")} ${S.gold} Gold</span><span>${ic("trophy")} ${S.wins} Siege</span><span>${ic("heart")} ${S.revives} Wiederbelebungen</span></div>
+  openModal(`<h2>${ic("menu")} PAUSE</h2><div class="pauseInfo"><span>${S.abyss?`${ic("skull")} Abgrund · Ebene ${S.round}`:S.tower?`${ic("tower")} Kampfturm`:`${ic(MODES[S.mode].ic)} ${MODES[S.mode].n}`}</span>${S.mono&&TYPES[S.mono]?`<span style="color:${TYPES[S.mono][1]}">${ic("flag")} Monotyp: ${TYPES[S.mono][0]}</span>`:""}${S.iron?`<span>${ic("heart")} Eisenmann</span>`:""}${S.poor?`<span>${ic("coin")} Sparfuchs</span>`:""}${S.small?`<span>${ic("users")} Kleines Team</span>`:""}${S.allin?`<span>${ic("atk")} Alles oder nichts</span>`:""}<span>${ic(S.tower?"tower":"flag")} ${S.tower?"Kampfturm · Ebene "+(S.round-twOff()):"Runde "+S.round+"/20"}</span><span>${ic("coin")} ${S.gold} Gold</span><span>${ic("trophy")} ${S.wins} Siege</span><span>${ic("heart")} ${S.revives} Wiederbelebungen</span></div>
    <div class="setList pgrid">${row("pRes","play","Weiterspielen",inB?"Der Kampf läuft weiter":"Zurück ins Spiel","main")}${row("pHelp","help","Anleitung","So funktioniert Pokélings")}${row("pSnd","bolt",SFX.label(),"Klicken zum Wechseln")}${row("pGfx","eye",typeof gfxLabel==="function"?gfxLabel():"Grafik","Klicken zum Wechseln")}${row("pMus","play",typeof BGM!=="undefined"?BGM.label():"Musik","Klicken zum Wechseln")}${row("pLang","dex",LANG==="en"?"Language: English":"Sprache: Deutsch",LANG==="en"?"Click: Deutsch":"Klicken: English")}
    ${row("pMenu","logout","Hauptmenü",inB?"Achtung: ein laufender Kampf zählt als Niederlage":"Spielstand wird gespeichert")}${S.tower?row("pQuit","flag","Turm verlassen","Beendet den Aufstieg, du bekommst Edelsteine für jede geschaffte Ebene","danger"):row("pQuit","flag","Lauf aufgeben","Beendet den Lauf, du bekommst Edelsteine für deinen Fortschritt","danger")}</div>`,"narrow pauseM",resume);
   $("pRes").onclick=()=>{closeModal();resume();};$("pHelp").onclick=()=>{help();};
   $("pSnd").onclick=()=>{$("pSnd").querySelector("b").textContent=SFX.cycle();sfx("coin");};$("pMus").onclick=()=>{$("pMus").querySelector("b").textContent=BGM.cycle();sfx("click");};$("pGfx").onclick=()=>{$("pGfx").querySelector("b").textContent=gfxCycle();};$("pLang").onclick=()=>setLang(LANG==="en"?"de":"en");
   $("pMenu").onclick=()=>{closeModal();if(S.duel){duelSend("gg",{});mpLeave(true);if(B)B.done=true;S=null;B=null;clearVis();clearFx();$("texts").innerHTML="";$("vs").classList.remove("show");enterBattleMode(false);showMenu();return;}if(inB){abortBattle();}showMenu();};
-  $("pQuit").onclick=()=>{openModal(`<h2>${ic("flag")} ${S.tower?"TURM VERLASSEN?":"LAUF AUFGEBEN?"}</h2><div class="lead">${S.tower?`Der Aufstieg endet auf Ebene ${S.round-20}. Du bekommst Edelsteine für jede geschaffte Ebene. Das kann nicht rückgängig gemacht werden.`:`Der Lauf endet in Runde ${S.round}. Du bekommst Edelsteine für deinen bisherigen Fortschritt. Das kann nicht rückgängig gemacht werden.`}</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="qYes">${ic("flag")} ${S.tower?"JA, VERLASSEN":"JA, AUFGEBEN"}</button><button class="btn" id="qNo">${ic("back")} Doch nicht</button></div>`,"narrow",()=>pauseMenu());
+  $("pQuit").onclick=()=>{openModal(`<h2>${ic("flag")} ${S.tower?"TURM VERLASSEN?":"LAUF AUFGEBEN?"}</h2><div class="lead">${S.tower?`Der Aufstieg endet auf Ebene ${S.round-twOff()}. Du bekommst Edelsteine für jede geschaffte Ebene. Das kann nicht rückgängig gemacht werden.`:`Der Lauf endet in Runde ${S.round}. Du bekommst Edelsteine für deinen bisherigen Fortschritt. Das kann nicht rückgängig gemacht werden.`}</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="qYes">${ic("flag")} ${S.tower?"JA, VERLASSEN":"JA, AUFGEBEN"}</button><button class="btn" id="qNo">${ic("back")} Doch nicht</button></div>`,"narrow",()=>pauseMenu());
     $("qNo").onclick=()=>pauseMenu();$("qYes").onclick=()=>{closeModal();if(S.duel){duelSend("gg",{});duelFinal(false,"quit");return;}if(B&&!B.done){B.done=true;B.userPause=false;}if(typeof cineStop==="function")cineStop();$("result").classList.remove("show");$("vs").classList.remove("show");finish(false);};};
 }
 // Kampf abbrechen (zurück zum Stand vor dem Kampf)
