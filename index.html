@@ -12909,10 +12909,10 @@ function genEnemies(p){
   const megaC=list.filter(e=>MEGA[e.sp]);
   if(boss&&r===20){const m=list.find(e=>e.sp===150);if(m)m.items.push("mega");}
   else if(!boss&&p.type==="elite"&&r>=12&&megaC.length&&Math.random()<((S.region||"kanto")==="kanto"?.27:.5))pick(megaC).items.push("mega");
-  if(!boss&&S.region==="kitakami"&&(p.type==="elite"||p.type==="hard")&&r>=8&&list.length&&!list.some(e=>(e.items||[]).some(x=>MASK_IDS.includes(x)))&&Math.random()<(p.type==="elite"?.5:.2)){const a=list.slice().sort((x,y)=>(y.mult||1)*(1+((SPECIES[y.sp]||{}).stage||0))-(x.mult||1)*(1+((SPECIES[x.sp]||{}).stage||0)))[0];a.items=(a.items||[]).concat(pick(MASK_IDS));}
-  if(!boss&&S.region==="hisui"&&((p.type==="elite"||p.type==="hard")&&r>=4||p.type==="mid"&&r>=6)&&list.length&&!list.some(e=>(e.items||[]).includes("alphakern"))&&Math.random()<(p.type==="elite"?.6:p.type==="hard"?.3:.1)){const a=list.slice().sort((x,y)=>(y.mult||1)*(1+((SPECIES[y.sp]||{}).stage||0))-(x.mult||1)*(1+((SPECIES[x.sp]||{}).stage||0)))[0];a.items=(a.items||[]).concat("alphakern");}
-  if(!boss&&S.region==="paldea"&&(p.type==="elite"||p.type==="hard")&&r>=8&&list.length&&!list.some(e=>(e.items||[]).includes("teraorb"))&&Math.random()<(p.type==="elite"?.6:.25)){const a=list.slice().sort((x,y)=>(y.mult||1)*(1+((SPECIES[y.sp]||{}).stage||0))-(x.mult||1)*(1+((SPECIES[x.sp]||{}).stage||0)))[0];a.items=(a.items||[]).concat("teraorb");}
-  if(!boss&&S.region==="galar"&&(p.type==="elite"||p.type==="hard")&&r>=8&&list.length&&!list.some(e=>(e.items||[]).includes("dynaband"))&&Math.random()<(p.type==="elite"?.6:.25)){const a=list.slice().sort((x,y)=>(y.mult||1)*(1+((SPECIES[y.sp]||{}).stage||0))-(x.mult||1)*(1+((SPECIES[x.sp]||{}).stage||0)))[0];a.items=(a.items||[]).concat("dynaband");}
+  if(!boss&&!S.abyss&&S.region==="kitakami"&&(p.type==="elite"||p.type==="hard")&&r>=8&&list.length&&!list.some(e=>(e.items||[]).some(x=>MASK_IDS.includes(x)))&&Math.random()<(p.type==="elite"?.5:.2)){const a=list.slice().sort((x,y)=>(y.mult||1)*(1+((SPECIES[y.sp]||{}).stage||0))-(x.mult||1)*(1+((SPECIES[x.sp]||{}).stage||0)))[0];a.items=(a.items||[]).concat(pick(MASK_IDS));}
+  if(!boss&&!S.abyss&&S.region==="hisui"&&((p.type==="elite"||p.type==="hard")&&r>=4||p.type==="mid"&&r>=6)&&list.length&&!list.some(e=>(e.items||[]).includes("alphakern"))&&Math.random()<(p.type==="elite"?.6:p.type==="hard"?.3:.1)){const a=list.slice().sort((x,y)=>(y.mult||1)*(1+((SPECIES[y.sp]||{}).stage||0))-(x.mult||1)*(1+((SPECIES[x.sp]||{}).stage||0)))[0];a.items=(a.items||[]).concat("alphakern");}
+  if(!boss&&!S.abyss&&S.region==="paldea"&&(p.type==="elite"||p.type==="hard")&&r>=8&&list.length&&!list.some(e=>(e.items||[]).includes("teraorb"))&&Math.random()<(p.type==="elite"?.6:.25)){const a=list.slice().sort((x,y)=>(y.mult||1)*(1+((SPECIES[y.sp]||{}).stage||0))-(x.mult||1)*(1+((SPECIES[x.sp]||{}).stage||0)))[0];a.items=(a.items||[]).concat("teraorb");}
+  if(!boss&&!S.abyss&&S.region==="galar"&&(p.type==="elite"||p.type==="hard")&&r>=8&&list.length&&!list.some(e=>(e.items||[]).includes("dynaband"))&&Math.random()<(p.type==="elite"?.6:.25)){const a=list.slice().sort((x,y)=>(y.mult||1)*(1+((SPECIES[y.sp]||{}).stage||0))-(x.mult||1)*(1+((SPECIES[x.sp]||{}).stage||0)))[0];a.items=(a.items||[]).concat("dynaband");}
   return list;
 }
 const EVENTS=[
@@ -12970,7 +12970,7 @@ function cryptoChoice(cb){const seen=new Set(),opts=[];for(const e of (S.enc&&S.
   $("mbox").querySelectorAll(".choice").forEach(b=>b.onclick=()=>{const e=pickO[+b.dataset.i],f=S.bench.indexOf(null);if(f<0)return;const u=mkUnit(e.sp,0);u.crypto=CRYPTO.purify;S.bench[f]=u;dexUp(u.sp,d=>d.owned++);closeModal();toast(`${SPECIES[u.sp].name} schließt sich dir an: Crypto-Pokémon`,"heart");sfx("coin");render();save();cb&&cb();});
   $("cSkip").onclick=()=>{S.gold+=3;closeModal();render();save();cb&&cb();};hydrateIcons($("mbox"));bsBind(draw);};draw();}
 function eventOptions0(){const g=4+Math.floor(S.round/2),st=Math.max(3,Math.min(12,Math.floor((S.gold||0)/2))),tr=Math.max(5,6+Math.floor(S.round/4));
-  const ok=EVENTS.filter(e=>!(e.reg&&e.reg!==(S.region||"kanto"))&&!(e.id==="erkenntnis"&&(S.round<6||S.megaFound||S.megaGift))&&!(e.id==="candy"&&!allUnits().some(u=>SPECIES[u.sp].next))&&!(e.id==="altar"&&(S.relics.length>=RELIC_MAX||Math.random()<.6))&&!(e.id==="gift"&&!boardUnits().length)&&!(e.id==="egg"&&S.round>17)&&!(e.id==="kraftpunkt"&&(S.round<3||S.dynaGot))&&!(e.id==="terakristall"&&(S.round<3||S.teraGot))&&!(e.id==="herba"&&S.round<6)&&!(e.id==="alpharevier"&&(S.round<3||S.alphaGot))&&!(e.id==="raumzeit"&&S.round<5)&&!(e.id==="maskenfest"&&(S.round<3||S.maskGot))&&!(e.id==="apfel"&&S.round<5)&&!(e.id==="ultrapforte"&&S.round<6));
+  const ok=EVENTS.filter(e=>!(e.reg&&(S.abyss?e.id!=="erkenntnis":e.reg!==(S.region||"kanto")))&&!(e.id==="erkenntnis"&&(S.round<6||S.megaFound||S.megaGift))&&!(e.id==="candy"&&!allUnits().some(u=>SPECIES[u.sp].next))&&!(e.id==="altar"&&(S.relics.length>=RELIC_MAX||Math.random()<.6))&&!(e.id==="gift"&&!boardUnits().length)&&!(e.id==="egg"&&S.round>17)&&!(e.id==="kraftpunkt"&&(S.round<3||S.dynaGot))&&!(e.id==="terakristall"&&(S.round<3||S.teraGot))&&!(e.id==="herba"&&S.round<6)&&!(e.id==="alpharevier"&&(S.round<3||S.alphaGot))&&!(e.id==="raumzeit"&&S.round<5)&&!(e.id==="maskenfest"&&(S.round<3||S.maskGot))&&!(e.id==="apfel"&&S.round<5)&&!(e.id==="ultrapforte"&&S.round<6));
   const bag=[];for(const e of ok)for(let i=0;i<(e.w||1);i++)bag.push(e);const out=[];let gd=0;while(out.length<3+perk("treasure")&&bag.length&&gd++<60){const e=pick(bag);if(!out.some(o=>o.id===e.id))out.push(e);}
   const rn=(EV_REG[S.region||"kanto"]||{});return out.map(e=>({...e,n:rn[e.id]||e.n,d:e.d.replace("{g}",g).replace(/\{s\}/g,st).replace("{s3}",st*3).replace("{t}",tr),g,st,tr}));}
 function pickLocs(n){const recent=new Set(Object.values(S.locs||{}).slice(-3));const c=shuffle(LOC_POOL.filter(k=>!recent.has(k)));return c.slice(0,n);}
@@ -13132,7 +13132,7 @@ function popAb(f,txt,col,small){if(!GL||tab!=="raster")return;const w=fw(f,small
 function rollTier(){const o=oddsAt(level(),S.round);let r=Math.random()*100;for(let k=0;k<5;k++){if(r<o[k])return k+1;r-=o[k];}return 1;}
 function rollMon(){let t=rollTier();let cand=pool().filter(L=>L.tier===t);while(!cand.length&&t>1){t--;cand=pool().filter(L=>L.tier===t);}if(!cand.length)cand=pool();const id=pick(cand).stages[0][0];dexUp(id,d=>d.seen++);const sh=Math.random()<shinyChance();if(sh)dexUp(id,d=>d.shinySeen=(d.shinySeen||0)+1);return sh?{id,frozen:false,shiny:true}:{id,frozen:false};}
 const megaRegOk=rg=>LINES.some(L=>(L.region||"kanto")===rg&&megaLine(L));
-function pickItem(rs){const rg=(S&&S.region)||"kanto";return pick(ITEMS.filter(s=>rs.includes(s.r)&&(!s.reg||s.reg===rg)&&!(s.id==="mega"&&((S&&S.megaFound)||!megaRegOk(rg)))&&!(s.id==="dynaband"&&S&&S.dynaGot)&&!(s.id==="teraorb"&&S&&S.teraGot)&&!(s.id==="alphakern"&&S&&S.alphaGot)&&!(S&&S.maskGot&&typeof MASK_IDS!=="undefined"&&MASK_IDS.includes(s.id)))).id;}
+function pickItem(rs){const rg=(S&&S.region)||"kanto",ab=!!(S&&S.abyss);return pick(ITEMS.filter(s=>rs.includes(s.r)&&(!s.reg||(s.reg===rg&&!ab))&&!(s.id==="mega"&&((S&&S.megaFound)||!(ab||megaRegOk(rg))))&&!(s.id==="dynaband"&&S&&S.dynaGot)&&!(s.id==="teraorb"&&S&&S.teraGot)&&!(s.id==="alphakern"&&S&&S.alphaGot)&&!(S&&S.maskGot&&typeof MASK_IDS!=="undefined"&&MASK_IDS.includes(s.id)))).id;}
 function rollItemShop(){const r=Math.random()*100;if(S&&S.round>=12&&!S.duel&&Math.random()<.03)return{id:pickItem(["l"]),frozen:false};let id=pickItem([r<62?"c":r<95?"r":"e"]);if(id==="mega"&&(S.round<6||!allUnits().some(u=>megaLine(SPECIES[u.sp].line))))id="brille";else if(r>=95&&S.round>=6&&!S.megaFound&&allUnits().some(u=>megaLine(SPECIES[u.sp].line))&&Math.random()<.35)id="mega";return{id,frozen:false};}
 function rollShop0(){
   const n=3+perk("merchant"),old=S.shop.mons||[];const mons=[];
@@ -15126,6 +15126,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: Draft, Startpartner und F
 if(typeof EN!=="undefined")Object.assign(EN,{"Bestenliste, Hauptmenü und Herausforderungen sind wieder animiert. Stillstehen nur noch die Auswahllisten in der Trainerkarte (Abzeichen und Hintergründe), damit sie nicht ruckeln.": "Leaderboard, main menu and challenges are animated again. Only the selection lists in the trainer card (badges and backgrounds) stay still so they don't stutter.", "Abgrund: Im Draft fehlten bei Pokémon aus anderen Regionen die Bilder. Die Bilder werden jetzt geladen und erscheinen nach einem kurzen Moment, auch nach dem Neu-Würfeln.": "Abyss: in the draft, Pokémon from other regions were missing their pictures. The pictures now load and appear after a short moment, also after rerolling."});
 /* v1.46.0.7: Schnellfix */
 if(typeof EN!=="undefined")Object.assign(EN,{"„Pokémon im Lauf“: Das START-Schild und die gelbe Markierung der Start-Pokémon sind weg.": "“Pokémon in the run”: the START label and the yellow marking of the starter Pokémon are gone."});
+/* v1.46.0.8: Schnellfix */
+if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: Nach dem Draft wählst du deinen Partner wie in einem normalen Lauf, aus den Start-Pokémon aller Regionen. Danach siehst du deine Flüche und startest mit „Abstieg starten“ im Laden.": "Abyss: after the draft you choose your partner like in a normal run, from the starter Pokémon of all regions. Then you see your curses and begin in the shop with “Start descent”.", "Abgrund-Draft: Die Karten zeigen jetzt die Grundform, so wie sie auch im Laden auftaucht.": "Abyss draft: the cards now show the base form, just like it appears in the shop.", "Im Abgrund gibt es als besonderes Item nur noch den Megastein. Z-Kristalle, Dynamax, Tera, Masken und andere Regions-Items gibt es dort nicht mehr, auch nicht bei den Gegnern.": "In the Abyss the only special item is now the Mega Stone. Z-Crystals, Dynamax, Tera, masks and other regional items no longer appear there, not even for foes.", "Der Ladebildschirm lädt jetzt alle Pokémon-Bilder auf einmal (am PC immer, am Handy nur im WLAN). Danach haben Pokédex, Draft und alle Regionen sofort ihre Bilder. Wer nicht warten will, kann nach ein paar Sekunden überspringen.": "The loading screen now loads all Pokémon pictures at once (always on PC, on phones only on Wi-Fi). After that the Pokédex, draft and every region have their pictures right away. If you don't want to wait, you can skip after a few seconds.", "Weiter zur Partnerwahl": "On to partner choice"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17711,7 +17713,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.46.0.7",DUEL_HP=30;
+const MP_VER="1.46.0.8",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -22201,8 +22203,13 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.46.0.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.46.0.8"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.46.0.8",d:"09.11.2026",t:"Schnellfix",items:[
+  ["ball", "Abgrund: Nach dem Draft wählst du deinen Partner wie in einem normalen Lauf, aus den Start-Pokémon aller Regionen. Danach siehst du deine Flüche und startest mit „Abstieg starten“ im Laden."],
+  ["dice", "Abgrund-Draft: Die Karten zeigen jetzt die Grundform, so wie sie auch im Laden auftaucht."],
+  ["mega", "Im Abgrund gibt es als besonderes Item nur noch den Megastein. Z-Kristalle, Dynamax, Tera, Masken und andere Regions-Items gibt es dort nicht mehr, auch nicht bei den Gegnern."],
+  ["spark", "Der Ladebildschirm lädt jetzt alle Pokémon-Bilder auf einmal (am PC immer, am Handy nur im WLAN). Danach haben Pokédex, Draft und alle Regionen sofort ihre Bilder. Wer nicht warten will, kann nach ein paar Sekunden überspringen."]]},
  {v:"1.46.0.7",d:"09.11.2026",t:"Schnellfix",items:[
   ["ball", "„Pokémon im Lauf“: Das START-Schild und die gelbe Markierung der Start-Pokémon sind weg."]]},
  {v:"1.46.0.6",d:"09.11.2026",t:"Schnellfix",items:[
@@ -24125,34 +24132,28 @@ function abDraftValid(sel){const a=[...sel].map(abLine);return a.length===AB_DRA
 function abDraftModal(){const P=ABP.d;if(!P)return;const sel=P.sel;
   const draw=()=>{const D=P.offer,cnt={};for(const k of sel){const t=abLine(k).tier;cnt[t]=(cnt[t]|0)+1;}const nLeg=[...sel].filter(k=>abLine(k).leg).length;
     const free=AB_DRAFT.pick-sel.size,missing=[1,2,3,4,5].filter(t=>!cnt[t]).length;
-    const card=k=>{const L=abLine(k),sp=abFin(L),on=sel.has(k),blocked=!on&&(sel.size>=AB_DRAFT.pick||(L.leg&&nLeg>=AB_DRAFT.maxLeg)||(cnt[L.tier]&&free<=missing)),Rr=RAR[L.tier]||RAR[1],sd=SPECIES[sp];
+    const card=k=>{const L=abLine(k),sp=L.stages[0][0],on=sel.has(k),blocked=!on&&(sel.size>=AB_DRAFT.pick||(L.leg&&nLeg>=AB_DRAFT.maxLeg)||(cnt[L.tier]&&free<=missing)),Rr=RAR[L.tier]||RAR[1],sd=SPECIES[sp];
       return `<button class="abDr${on?" on":""}${blocked?" full":""}" data-k="${k}" style="--rc:${Rr.c}"><i class="abDrM" data-sp="${sp}"></i><b>${esc(sd.name)}</b><small>${(sd.types||[]).map(t=>`<em style="background:${TYPES[t][1]}">${TYPES[t][0]}</em>`).join("")}</small><span class="abDrR">${esc((ROLES[L.role]||{}).n||"")} · ${esc((REGIONS[L.region||"kanto"]||{}).n||"")}</span>${on?`<i class="abDrC">${ic("check")}</i>`:""}</button>`;};
     let rows="";for(let t=1;t<=5;t++){const ks=D.filter(k=>abLine(k).tier===t);if(ks.length)rows+=`<h4 class="abDrH" style="color:${RAR[t].c}">${RAR[t].n}<span class="${cnt[t]?"ok":""}">${cnt[t]|0}</span></h4><div class="abDrG">${ks.map(card).join("")}</div>`;}
     openModal(`<div class="abDraft"><div class="abDrHd"><h2>${ic("skull")} DRAFT · ABGRUND</h2><span class="abDrN"><b>${sel.size}</b>/${AB_DRAFT.pick} gewählt</span></div>
       <div class="lead">Wähle 6 Pokémon-Linien. Nur sie gibt es im Laden, den ganzen Abstieg lang. Aus jeder Seltenheit mindestens eine, höchstens ${AB_DRAFT.maxLeg} Legendäre.</div>${rows}
-      <div class="abDrB"><button class="btn" id="abRr"${P.rr>0?"":" disabled"}>${ic("dice")} Neu würfeln (${P.rr}×)</button><span style="flex:1"></span><button class="pri hot" id="abDrGo"${abDraftValid(sel)?"":" disabled"}>${ic("arrow")} Weiter zum Startpartner</button></div></div>`,"abDraftM",true);
+      <div class="abDrB"><button class="btn" id="abRr"${P.rr>0?"":" disabled"}>${ic("dice")} Neu würfeln (${P.rr}×)</button><span style="flex:1"></span><button class="pri hot" id="abDrGo"${abDraftValid(sel)?"":" disabled"}>${ic("arrow")} Weiter zur Partnerwahl</button></div></div>`,"abDraftM",true);
     $("mbox").querySelectorAll(".abDrM[data-sp]").forEach(e=>{try{e.appendChild(natFit(spriteEl(+e.dataset.sp),1));}catch(x){}});
     $("mbox").querySelectorAll(".abDr").forEach(b=>b.onclick=()=>{const k=b.dataset.k;if(sel.has(k))sel.delete(k);else if(!b.classList.contains("full"))sel.add(k);else{sfx("deny");return;}sfx("click");const st=$("mbox").scrollTop;draw();$("mbox").scrollTop=st;});
     $("abRr").onclick=()=>{if(P.rr<=0)return;P.rr--;sel.clear();P.offer=abOffer(mkRng(strHash(Date.now()+"|rr|"+Math.random())));sfx("click");draw();};
-    $("abDrGo").onclick=()=>{if(!abDraftValid(sel))return;sfx("click");abStarterModal();};
+    $("abDrGo").onclick=()=>{if(!abDraftValid(sel))return;sfx("click");abBegin();};
     /* Sprite-Pakete der angebotenen Regionen nachladen, dann neu zeichnen */
     const off=P.offer;if(P.ldOff!==off)abLoadRegs(off).then(()=>{P.ldOff=off;if(ABP.d!==P||P.offer!==off||!$("abDrGo"))return;const st=$("mbox").scrollTop;draw();$("mbox").scrollTop=st;});};
   draw();}
-function abStarterModal(){const P=ABP.d;if(!P)return;const keys=[...P.sel],ok=keys.filter(k=>abLine(k).tier<=AB_DRAFT.startMax);
-  openModal(`<div class="abDraft"><div class="abDrHd"><h2>${ic("ball")} STARTPARTNER</h2><span class="abDrN">Stufe 1–${AB_DRAFT.startMax}</span></div>
-    <div class="lead">Mit wem steigst du hinab? Die anderen findest du im Laden.</div>
-    <div class="abDrG">${keys.map(k=>{const L=abLine(k),sp=L.stages[0][0],can=ok.includes(k),Rr=RAR[L.tier]||RAR[1];return `<button class="abDr st${can?"":" full"}${P.starter===k?" on":""}" data-k="${k}" style="--rc:${Rr.c}"${can?"":` title="Legendäre und Episch können nicht starten"`}><i class="abDrM" data-sp="${sp}"></i><b>${esc(SPECIES[sp].name)}</b><span class="abDrR">${Rr.n}</span>${P.starter===k?`<i class="abDrC">${ic("check")}</i>`:""}</button>`;}).join("")}</div>
-    <div class="abDrB"><button class="btn" id="abBack">${ic("back")} Zurück zum Draft</button><span style="flex:1"></span><button class="pri hot" id="abStGo"${P.starter?"":" disabled"}>${ic("arrow")} Weiter</button></div></div>`,"abDraftM",true);
-  $("mbox").querySelectorAll(".abDrM[data-sp]").forEach(e=>{try{e.appendChild(natFit(spriteEl(+e.dataset.sp),1));}catch(x){}});
-  $("abBack").onclick=()=>{sfx("click");abDraftModal();};$("abStGo").onclick=()=>{if(!P.starter)return;sfx("click");abCurseModal(P.curses,true,null,P);};
-  $("mbox").querySelectorAll(".abDr").forEach(b=>b.onclick=()=>{if(b.classList.contains("full")){sfx("deny");return;}P.starter=b.dataset.k;sfx("click");abStarterModal();});}
-/* „Abstieg starten“: Lauf anlegen und direkt im Laden beginnen */
-function abBegin(){const P=ABP.d;if(!P||!P.starter)return;const pool=[...P.sel];ABP.d=null;closeModal();if(S&&!S.abyss&&S.phase==="shop")save();
+/* Nach dem Draft: Lauf anlegen, dann Partnerwahl wie im normalen Lauf (Start-Pokémon aller Regionen), dann Flüche mit „Abstieg starten“ */
+function abBegin(){const P=ABP.d;if(!P)return;const pool=[...P.sel];ABP.d=null;closeModal();if(S&&!S.abyss&&S.phase==="shop")save();
   const regs=Object.keys(REGIONS),rk=regs[Math.floor(Math.random()*regs.length)];
-  abLoadRegs(pool).then(()=>newRun("normal",rk,{abyss:{pool,curses:P.curses,starter:P.starter}}));}
-/* Startablauf im Lauf: statt Starterwahl den gewählten Startpartner aufs Raster stellen */
+  abLoadRegs(pool).then(()=>newRun("normal",rk,{abyss:{pool,curses:P.curses}}));}
+/* Startablauf im Lauf: normale Partnerwahl, danach die Flüche mit „Abstieg starten“ */
 function abyssSetup(cb){if(!S||!S.abyss){cb&&cb();return;}const A=abMeta();A.runs++;saveMeta();
-  const L=abLine(S.abyss.starter)||abLine((S.abyss.pool||[])[0]);if(L)placeStarter(L,Math.random()<1/200);save();render();abHud();try{sfx("vs");}catch(e){}cb&&cb();}
+  starterChoice(()=>{save();render();abHud();abCurseModal(S.abyss.curses,true,cb);});}
+/* Partnerwahl im Abgrund: Start-Pokémon aus allen Regionen zusammen */
+(function(){if(typeof starterPool!=="function")return;const _sp=starterPool;starterPool=function(){if(S&&S.abyss){const ls=LINES.filter(l=>l.start&&l.tier<=2&&!l.leg&&!l.ub);if(ls.length)return ls;}return _sp.apply(this,arguments);};})();
 /* Laden: Sprite-Pakete der Draft-Regionen nachladen; Draft wieder öffnen, falls er noch nicht fertig war */
 setTimeout(()=>{if(typeof loadGame!=="function")return;const _lg=loadGame;loadGame=function(){const r=_lg.apply(this,arguments);try{if(S&&S.abyss){abLoadRegs(S.abyss.pool||[]);
   abHud();}}catch(e){}return r;};},0);
@@ -24164,9 +24165,9 @@ function abCurseModal(list,first,cb,P){const go=()=>{if(P){abBegin();return;}clo
     <div class="lead">${first?"Drei Flüche begleiten dich hinab. Nach jeder 10. Ebene kommt einer dazu.":"Je tiefer du steigst, desto schwerer wird die Last."}</div></div>
     <div class="abCuL">${list.map((c,i)=>abCurseCard(c,i)).join("")}</div>
     ${first?`<div class="abTeamL">${[...((P&&P.sel)||(S&&S.abyss&&S.abyss.pool)||[])].map(k=>{const L=abLine(k);return L?`<i data-sp="${L.stages[0][0]}" title="${esc(L.stages[0][1])}" class="${P&&P.starter===k?"st":""}"></i>`:"";}).join("")}</div><p class="abNote">${ic("info")} Im Laden gibt es nur deine 6 Draft-Pokémon. 1 Leben, keine Revanche. Nach dem Champion geht es ohne Ende weiter.</p>`:""}
-    <div class="abDrB">${P?`<button class="btn" id="abCBack">${ic("back")} Zurück</button>`:""}<span style="flex:1"></span><button class="pri hot" id="abGo">${ic(P?"skull":"arrow")} ${P?"ABSTIEG STARTEN":"WEITER"}</button></div></div>`,"narrow abCMM",P?true:go);
+    <div class="abDrB">${P?`<button class="btn" id="abCBack">${ic("back")} Zurück</button>`:""}<span style="flex:1"></span><button class="pri hot" id="abGo">${ic((P||first)?"skull":"arrow")} ${(P||first)?"ABSTIEG STARTEN":"WEITER"}</button></div></div>`,"narrow abCMM",P?true:go);
   $("mbox").querySelectorAll(".abTeamL i[data-sp]").forEach(e=>{try{e.appendChild(natFit(spriteEl(+e.dataset.sp),1));}catch(x){}});
-  $("abGo").onclick=go;if($("abCBack"))$("abCBack").onclick=()=>{sfx("click");abStarterModal();};try{sfx(first?"megaCharge":"faint");}catch(e){}
+  $("abGo").onclick=go;if($("abCBack"))$("abCBack").onclick=()=>{sfx("click");abDraftModal();};try{sfx(first?"megaCharge":"faint");}catch(e){}
   $("mbox").querySelectorAll(".abCu").forEach((e,i)=>setTimeout(()=>{e.classList.add("on");try{sfx("pop");}catch(x){}},350+i*420));}
 /* kleine Leiste mit den Flüchen über dem Kampfplatz */
 function abHud(){const a=$("arena");if(!a)return;let h=$("abHud");if(!abOn()){if(h)h.remove();return;}
@@ -25110,7 +25111,14 @@ window.__pk={get GL(){return GL},step,buyXP,specOpts,SPECSall:SPECS,genEnemies,f
 </script>
 <script>(function(){var t0=Date.now(),l=document.getElementById("bootLd");if(!l)return;var t=document.getElementById("bootTxt");if(t)t.textContent=window.__EN?"BUILDING THE WORLD …":"BAUE DIE WELT AUF …";var q=document.getElementById("bootPct");if(q)q.textContent="100 %";var b=document.getElementById("bootBar");if(b)b.style.width="100%";
 function ready(){return document.querySelector(".screen.show,#intro,#stScene")||(typeof S!=="undefined"&&!!S);}
-(function chk(){if(ready()||Date.now()-t0>30000){setTimeout(function(){l.style.opacity=0;setTimeout(function(){l.remove();try{clearInterval(__tipT);clearInterval(__parT);clearInterval(__tipT0)}catch(e){}},450);},700);}else setTimeout(chk,120);})();})();</script>
+function hide(){setTimeout(function(){l.style.opacity=0;setTimeout(function(){l.remove();try{clearInterval(__tipT);clearInterval(__parT);clearInterval(__tipT0)}catch(e){}},450);},500);}
+function all(){var c=navigator.connection||{},mob=/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(window.matchMedia&&matchMedia("(pointer:coarse)").matches);if(c.saveData)return false;if(!mob)return true;return c.type==="wifi"||c.type==="ethernet";}
+function pre(){var M=window.__SPRM;if(!M||typeof __sprLoad!=="function"||!all())return hide();var ks=Object.keys(M),fs=[];ks.forEach(function(k){(M[k]||[]).forEach(function(x){fs.push(x);});});if(!fs.length)return hide();
+ var N=fs.length,fin=false,go=function(){if(fin)return;fin=true;clearInterval(iv);hide();};
+ var sk=document.createElement("button");sk.textContent=window.__EN?"Continue without waiting":"Weiter ohne Warten";sk.style.cssText="position:absolute;left:50%;bottom:64px;transform:translateX(-50%);z-index:3;padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;font:600 13px system-ui,sans-serif;cursor:pointer;opacity:0;transition:opacity .4s";sk.onclick=go;l.appendChild(sk);setTimeout(function(){sk.style.opacity=1;},8000);
+ var iv=setInterval(function(){var n=0;fs.forEach(function(x){if(__SPRF[x])n++;});if(t)t.textContent=window.__EN?"LOADING ALL POKÉMON …":"LADE ALLE POKÉMON …";if(q)q.textContent=n+" / "+N;if(b)b.style.width=Math.max(2,n/N*100)+"%";},150);
+ var i=0,run=function(){if(i>=ks.length)return Promise.resolve();var k=ks[i++];return __sprLoad(k).then(run,run);};Promise.all([run(),run(),run()]).then(go,go);setTimeout(go,180000);}
+(function chk(){if(ready()||Date.now()-t0>30000)pre();else setTimeout(chk,120);})();})();</script>
 </body>
 </html>
 
