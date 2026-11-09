@@ -2633,7 +2633,7 @@ body.duelB .cine-skip{display:none!important}
 #vs.v4 .v4P.boss{border-right-color:#ffd23f}
 #vs.v4 .v4P b{display:block;font-family:var(--px);font-weight:400;font-size:clamp(14px,calc(2.1*var(--vw,1vw)),30px);line-height:1.15;color:#fff;text-shadow:3px 3px 0 #0b0d13;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #vs.v4 .v4P small{display:inline-block;margin-top:8px;font-family:var(--px);font-size:clamp(8px,calc(.85*var(--vw,1vw)),11px);color:#ffcb05;text-shadow:2px 2px 0 #0b0d13}
-#vs.v4 .v4P em{display:inline-block;margin-bottom:8px;font-style:normal;font-family:var(--px);font-size:9px;color:#fff;background:#e0402e;padding:4px 8px 3px;border:2px solid #0b0d13;animation:blink .8s steps(2) infinite}
+#vs.v4 .v4P>em{display:inline-block;margin-bottom:8px;font-style:normal;font-family:var(--px);font-size:9px;color:#fff;background:#e0402e;padding:4px 8px 3px;border:2px solid #0b0d13;animation:blink .8s steps(2) infinite}
 #vs.v4 .v4wc{display:flex;justify-content:flex-end;align-items:center;gap:6px;margin-top:8px;font-family:var(--px);font-size:clamp(7px,calc(.7*var(--vw,1vw)),9px);color:var(--c);text-shadow:2px 2px 0 #000}#vs.v4 .v4wc .ic{width:14px;height:14px}
 @keyframes v4wipe{from{clip-path:inset(0 100% 0 0);transform:translateX(-40px)}to{clip-path:inset(0 0 0 0);transform:none}}@keyframes v4wipeR{from{clip-path:inset(0 0 0 100%);transform:translateX(40px)}to{clip-path:inset(0 0 0 0);transform:none}}
 #vs.v4 .v4B{position:absolute;z-index:5;top:calc(4% + clamp(62px,calc(7.6*var(--vw,1vw)),100px));display:flex;gap:clamp(8px,calc(1*var(--vw,1vw)),14px)}
@@ -3134,13 +3134,13 @@ body.duelB .cine-skip{display:none!important}
 @keyframes v4rim{0%,100%{box-shadow:inset 0 0 0 4px rgba(255,210,63,.45),inset 0 0 70px rgba(255,190,40,.25)}50%{box-shadow:inset 0 0 0 4px rgba(255,230,120,.8),inset 0 0 120px rgba(255,190,40,.45)}}
 #vs.v4 .v4R.en-ghost .tcBg{filter:saturate(.85) hue-rotate(-8deg)}
 #vs.v4 .v4R.en-ghost::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at 70% 60%,rgba(160,120,255,.22),transparent 60%);animation:v4emb 3s ease-in-out infinite}
-#vs.v4 .v4P em.gh{background:#6a4ac8;display:inline-flex;align-items:center;gap:5px;animation:none}
-#vs.v4 .v4P em.gh .ic{width:12px;height:12px}
-#vs.v4 .v4P em.ev{background:#c0203a;animation:none}
+#vs.v4 .v4P>em.gh{background:#6a4ac8;display:inline-flex;align-items:center;gap:5px;animation:none}
+#vs.v4 .v4P>em.gh .ic{width:12px;height:12px}
+#vs.v4 .v4P>em.ev{background:#c0203a;animation:none}
 #vs.v4 .v4P.vGh{border-right-color:#a98bff}
 #vs.v4 .v4P.vEv{border-right-color:#ff2a4a}
 #vs.v4 .v4P.R.boss{border-right-color:#ffd23f}
-#vs.v4 .v4P.boss em{background:linear-gradient(180deg,#ffe27a,#f0a818);color:#2a1800;animation:v4bossEm 1.2s ease-in-out infinite}
+#vs.v4 .v4P.boss>em{background:linear-gradient(180deg,#ffe27a,#f0a818);color:#2a1800;animation:v4bossEm 1.2s ease-in-out infinite}
 @keyframes v4bossEm{0%,100%{box-shadow:0 0 0 rgba(255,200,60,0)}50%{box-shadow:0 0 16px rgba(255,200,60,.85)}}
 #vs.v4 .v4P .v4Bi{display:flex;justify-content:flex-end;gap:clamp(8px,calc(.9*var(--vw,1vw)),14px);margin-top:10px}
 #vs.v4 .v4P .v4Bi .v4b{width:clamp(34px,calc(3.6*var(--vw,1vw)),58px);height:clamp(38px,calc(4*var(--vw,1vw)),64px)}
@@ -4536,6 +4536,39 @@ body:not(.battle) .wxLbl{display:none}
 
 .tcard:has(.fmCrown.onTop) .tcTop{margin-top:33px}
 
+/* v1.43.0.5: Schurken-Teams im VS-Bildschirm */
+.tcBg .tmE{left:var(--x);top:var(--y);width:var(--w);height:var(--w);margin:calc(var(--w) / -2) 0 0 calc(var(--w) / -2);overflow:visible;filter:drop-shadow(0 0 1cqmin var(--tc)) drop-shadow(0 0 4cqmin var(--tc));animation:tmPulse 2.6s ease-in-out infinite}
+@keyframes tmPulse{0%,100%{opacity:.96}50%{opacity:.76}}
+.tcBg .tmWash{inset:0;background:radial-gradient(ellipse at 50% 36%,var(--c),transparent 72%);animation:tmWa 2.4s ease-in-out infinite}
+@keyframes tmWa{0%,100%{opacity:.55}50%{opacity:1}}
+.bg-tmRocket{background:#07090d}.bg-tmMagmaAqua{background:#1a0604}.bg-tmGalaktik{background:radial-gradient(ellipse at 56% 28%,#22184a,#090a1e 60%,#04050f)}.bg-tmPlasma{background:#0a1028}.bg-tmFlare{background:#120606}
+.bg-tmSkull{background:#0a0812}.bg-tmYell{background:#0c0618}.bg-tmStar{background:radial-gradient(ellipse at 50% 36%,#2a1658,#0c0a24 70%)}.bg-tmHisui{background:linear-gradient(#0a0820,#2a1a48 60%,#141026)}.bg-tmMochi{background:#12061e}
+.bg-tmRocket .brBeam{width:70cqmin;height:70cqmin;margin-left:-35cqmin;border-radius:50%;background:conic-gradient(from var(--bga),rgba(255,40,40,.4),transparent 12%,transparent 50%,rgba(255,40,40,.4) 50%,transparent 62%);-webkit-mask:radial-gradient(circle,#000 0,transparent 68%);mask:radial-gradient(circle,#000 0,transparent 68%);mix-blend-mode:screen;animation:bdgSpin 2.4s linear infinite}
+.bg-tmRocket .brRed{inset:0;background:radial-gradient(ellipse at 50% 36%,rgba(255,30,30,.2),transparent 70%);animation:brA 1.2s ease-in-out infinite}
+.tcBg .tmSplit{inset:0;z-index:1;background:linear-gradient(100deg,transparent 54%,rgba(255,255,255,.18) 58.5%,transparent 63%);animation:tmWa 3s ease-in-out infinite;pointer-events:none}
+.bg-tmMagmaAqua .tmLava{animation:tmLv 2.2s ease-in-out infinite}@keyframes tmLv{50%{opacity:.75}}
+.tcBg .tmRift{left:56%;top:28%;width:130cqmin;height:130cqmin;margin:-65cqmin 0 0 -65cqmin;border-radius:50%;background:conic-gradient(from var(--bga),var(--c1),transparent 16%,var(--c2) 32%,transparent 50%,var(--c1) 68%,transparent 84%,var(--c1));-webkit-mask:radial-gradient(circle,transparent 7%,#000 13%,rgba(0,0,0,.55) 30%,transparent 56%);mask:radial-gradient(circle,transparent 7%,#000 13%,rgba(0,0,0,.55) 30%,transparent 56%);opacity:.6;filter:blur(1.5px);mix-blend-mode:screen;animation:bdgSpin 9s linear infinite}
+.tcBg .tmRock{left:var(--x);top:var(--y);width:var(--s);height:calc(var(--s) * .8);background:linear-gradient(160deg,#6a6088,#2a2440);clip-path:polygon(20% 0,80% 10%,100% 50%,70% 100%,20% 90%,0 40%);animation:cbFloat var(--d) ease-in-out var(--dl) infinite;--fy:-1.8cqmin}
+.tcBg .tmRain{inset:0;z-index:1;background:repeating-linear-gradient(104deg,transparent 0 11px,rgba(190,200,240,.16) 11px 12px,transparent 12px 27px),repeating-linear-gradient(98deg,transparent 0 17px,rgba(190,200,240,.1) 17px 18px,transparent 18px 41px);background-size:100% 70px,100% 110px;animation:tmRn .45s linear infinite;pointer-events:none}
+@keyframes tmRn{to{background-position:-12px 70px,-14px 110px}}
+.tcBg .tmFence{left:0;right:0;top:60%;bottom:0;z-index:1;background:repeating-linear-gradient(45deg,transparent 0 9px,rgba(150,150,175,.32) 9px 10.5px),repeating-linear-gradient(-45deg,transparent 0 9px,rgba(150,150,175,.32) 9px 10.5px);border-top:3px solid rgba(130,130,155,.65);-webkit-mask:linear-gradient(#000,#000 60%,transparent);mask:linear-gradient(#000,#000 60%,transparent)}
+.tcBg .tmDyna{left:62%;top:13%;width:44cqmin;height:44cqmin;margin:-22cqmin 0 0 -22cqmin;border-radius:50%;background:conic-gradient(from var(--bga),rgba(255,40,80,0),rgba(255,40,80,.75),rgba(255,40,80,0) 30%,rgba(255,130,170,.6) 55%,rgba(255,40,80,0) 75%);-webkit-mask:radial-gradient(circle,transparent 28%,#000 38%,transparent 70%);mask:radial-gradient(circle,transparent 28%,#000 38%,transparent 70%);filter:blur(1px);animation:bdgSpin 2.6s linear infinite}
+.tcBg .tmBurst{left:50%;top:36%;width:240cqmax;height:240cqmax;margin:-120cqmax 0 0 -120cqmax;background:repeating-conic-gradient(from var(--bga),rgba(255,74,216,.17) 0 6deg,transparent 6deg 18deg,rgba(255,226,74,.15) 18deg 24deg,transparent 24deg 36deg,rgba(74,220,255,.15) 36deg 42deg,transparent 42deg 54deg);animation:bdgSpin 40s linear infinite}
+.tcBg .tmSt{left:var(--x);top:var(--y);width:var(--s);height:var(--s);margin:calc(var(--s) / -2) 0 0 calc(var(--s) / -2);filter:drop-shadow(0 0 1cqmin var(--c)) drop-shadow(0 0 2.5cqmin var(--c));animation:tmTw 2.4s ease-in-out var(--dl) infinite}
+@keyframes tmTw{50%{opacity:.45;transform:scale(.88) rotate(10deg)}}
+.tcBg .tmCf{clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.tcBg .tmFog{left:-20%;right:-20%;height:30%;background:radial-gradient(ellipse 30% 50% at 30% 50%,rgba(200,90,255,.28),transparent 70%),radial-gradient(ellipse 25% 45% at 70% 60%,rgba(255,120,220,.22),transparent 70%);filter:blur(6px);animation:tmFg 22s linear infinite}
+.tcBg .tmFog.f1{bottom:6%}.tcBg .tmFog.f2{bottom:30%;opacity:.7;animation-duration:34s;animation-direction:reverse}
+@keyframes tmFg{from{transform:translateX(-6%)}to{transform:translateX(14%)}}
+.tcBg .tmMo{left:var(--x);top:var(--y);width:var(--s);height:calc(var(--s) * .78);border-radius:50% 50% 46% 46%/62% 62% 38% 38%;background:radial-gradient(circle at 35% 30%,#fff,#ffd0ec 40%,#d878c0);box-shadow:0 0 2.4cqmin rgba(255,120,220,.65);opacity:.85;animation:cbFloat var(--d) ease-in-out var(--dl) infinite;--fy:-2.2cqmin}
+/* Team-Kampf: Plattform in Team-Farbe statt Wiese */
+#vs.v4.tm .v4Plat{background:radial-gradient(ellipse at 50% 40%,rgba(255,255,255,.28) 0,color-mix(in srgb,var(--tp) 45%,#202430) 26%,#151821 52%,#0c0e14 64%,transparent 70.5%);box-shadow:none}
+#vs.v4.tm .v4Plat::after{content:"";position:absolute;inset:8% 6%;border-radius:50%;border:3px solid var(--tp);box-shadow:0 0 18px var(--tp),inset 0 0 18px var(--tp);opacity:.85;animation:tmWa 1.8s ease-in-out infinite}
+#vs.tmRocket{--tp:#ff2a3a}#vs.tmMagmaAqua{--tp:#c85aff}#vs.tmGalaktik{--tp:#2ad8c8}#vs.tmPlasma{--tp:#6aa0ff}#vs.tmFlare{--tp:#ff5a1a}#vs.tmSkull{--tp:#ff4ad8}#vs.tmYell{--tp:#ff3aa8}#vs.tmStar{--tp:#ffd24a}#vs.tmHisui{--tp:#ffb83a}#vs.tmMochi{--tp:#d84aff}
+/* Geisterkampf: Abzeichen wie auf der eigenen Seite, ohne Stufen-Nummern */
+#vs.v4 .v4P .v4Bi{gap:clamp(8px,calc(1*var(--vw,1vw)),14px);margin-top:12px}
+#vs.v4 .v4P .v4Bi .v4b{width:clamp(40px,calc(4.4*var(--vw,1vw)),70px);height:clamp(44px,calc(4.9*var(--vw,1vw)),78px)}
+@media (max-width:760px){#vs.v4 .v4P .v4Bi .v4b{width:34px;height:38px}#vs.v4 .v4P .v4Bi{gap:6px;margin-top:8px}}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -5972,7 +6005,7 @@ const SECRETS={
 const SECRET_CH=.02;
 const secretBox=u=>{const S0=u&&u.secret&&SECRETS[u.secret];if(!S0)return"";return `<div class="abilP secret" data-tn="${S0.n}" data-td="${S0.d}" data-tc="#ffd84a" data-tk="GEHEIME FÄHIGKEIT">${ic(S0.ic)}<div><b>${S0.n} <em>GEHEIM</em></b><p>${S0.d}</p></div></div>`;};
 const abilBox=spId=>{const k=abilOf(spId);if(!k)return"";const A=ABIL[k];return `<div class="abilP" data-tn="${A.n}" data-td="${A.d}" data-tc="#9fe8ff" data-tk="FÄHIGKEIT">${ic("spark")}<div><b>${A.n}</b><p>${A.d}</p></div></div>`;};
-const SHINY_BASE=1/64;
+const SHINY_BASE=1/85;
 const IT_COST={c:3,r:5,e:8};const IT_NAME={c:"Gewöhnlich",r:"Selten",e:"Episch"};const IT_COL={c:"#b6bccb",r:"#4fa8ff",e:"#b77bff"};
 /* v1.41.0: Große Tasche (+1 Platz) */
 Object.defineProperty(window,"BAG_MAX",{configurable:true,get(){try{return 4+(typeof perk==="function"&&perk("bag")>0?1:0);}catch(e){return 4;}}});
@@ -8373,7 +8406,7 @@ function help(tab){
     <li><b>Attacken wachsen mit:</b> Jede Entwicklung bringt stärkere Attacken, Sterne verstärken die Spezialattacke.</li>
     <li><b>Items:</b> Echte Pokémon-Items wie Leben-Orb, Beulenhelm, Evolith oder Wahlband. In der Tasche sammeln und auf ein Pokémon ziehen. 1 Platz, +1 pro Entwicklungsstufe. Wahl-Items sind stark, sperren aber Attacke 1.</li>
     <li><b>Mega-Entwicklung:</b> Nur <b>ein Megastein pro Lauf</b>. Damit mega-entwickelt sich Bisaflor, Glurak, Turtok, Tauboss, Simsala, Gengar, Stahlos oder Mewtu zu Beginn jedes Kampfs. Glurak und Mewtu haben zwei Formen (X oder Y).</li>
-    <li><b>Schillernde Pokémon</b> (1:64) sind rein optisch, aber selten. Fusionen behalten den Schimmer.</li></ul>`],
+    <li><b>Schillernde Pokémon</b> (1:85) sind rein optisch, aber selten. Fusionen behalten den Schimmer.</li></ul>`],
    eco:["Wirtschaft","coin",`<table><tr><td>Jede Runde</td><td>Grundeinkommen (Normal 5) · +1 Zins je 10 Gold (max. +3) · Siegesserie +1 / +2</td></tr>
     <tr><td>Prämie</td><td>Leicht 2 · Mittel 4 · Schwer 6 · Elite 9 + Item · Boss 10 + Relikt · +50 % ohne eigenen K.O.</td></tr>
     <tr><td>Erfahrung</td><td>+2 je Sieg, +2 je Ereignis, <b>+4 für 4 Gold</b> im Shop → Level bei 4, 9, 15, 23, 33, 45, 60 EP</td></tr>
@@ -12209,7 +12242,7 @@ function pxBall(open,glow,kind){kind=kind||"poke";const key=open+"|"+(glow||"")+
   g.putImageData(img,0,0);return(_pxB[key]=c.toDataURL());}
 /* Partnerwahl wie in den Originalspielen: Pokébälle zur Auswahl, der Balltyp verrät die Seltenheit.
    Seltenheit gewichtet, Legendäre (z. B. Mewtu) sehr selten, Schillernd selten */
-const CASE_ODDS=[[1,55],[2,28],[3,12],[4,4.2],[5,.8]],CASE_SHINY=1/50,CASE_SECRET=.08;
+const CASE_ODDS=[[1,55],[2,28],[3,12],[4,4.2],[5,.8]],CASE_SHINY=1/70,CASE_SECRET=.08;
 const BALL_T={1:{k:"poke",n:"Pokéball"},2:{k:"super",n:"Superball"},3:{k:"hyper",n:"Hyperball"},4:{k:"luxus",n:"Luxusball"},5:{k:"master",n:"Meisterball"}};
 const PROF={kanto:"PROF. EICH",johto:"PROF. LIND",hoenn:"PROF. BIRK",sinnoh:"PROF. EIBE",unova:"PROF. ESCHE",kalos:"PROF. PLATAN",alola:"PROF. KUKUI",galar:"PROF. MAGNOLICA",paldea:"PROF. ANTIQUA",hisui:"PROF. LAVEN",kitakami:"MS BRIANNA"};
 const L2=(de,en)=>typeof LANG!=="undefined"&&LANG==="en"?en:de;
@@ -14417,7 +14450,7 @@ const HELP_EN={
  mons:`<ul><li><b>Fusion:</b> drag 2 identical Pokémon onto each other (Charmander → Charmeleon → Charizard; final stages gain stars). A yellow <b>FUSION</b> badge shows where it works. The <b>1st fusion</b> gives a <b>subclass</b>, the <b>2nd</b> an <b>ascension</b> (first 2 to choose from, then 3, see Classes). After that every fusion gives a <b>fusion gift</b>. Important: only Pokémon with the <b>same specialization</b> can fuse.</li>
   <li><b>Abilities:</b> every line has a passive ability like in the games (Multiscale, Sturdy, Static, Blaze …). A badge appears when it triggers.</li><li><b>Moves grow:</b> every evolution brings stronger moves, stars boost the special attack.</li>
   <li><b>Items:</b> real Pokémon items like Life Orb, Rocky Helmet, Eviolite or Choice Band. Collect them in the bag and drag them onto a Pokémon. 1 slot, +1 per evolution stage. Choice items are strong but lock move 1.</li>
-  <li><b>Mega Evolution:</b> only <b>one Mega Stone per run</b>. Venusaur, Charizard, Blastoise, Pidgeot, Alakazam, Gengar, Steelix or Mewtwo mega evolve at the start of every battle. Charizard and Mewtwo have two forms (X or Y).</li><li><b>Shiny Pokémon</b> (1:64) are purely cosmetic but rare. Fusions keep the shimmer.</li></ul>`,
+  <li><b>Mega Evolution:</b> only <b>one Mega Stone per run</b>. Venusaur, Charizard, Blastoise, Pidgeot, Alakazam, Gengar, Steelix or Mewtwo mega evolve at the start of every battle. Charizard and Mewtwo have two forms (X or Y).</li><li><b>Shiny Pokémon</b> (1:85) are purely cosmetic but rare. Fusions keep the shimmer.</li></ul>`,
  eco:`<table><tr><td>Every round</td><td>Base income (Normal 5) · +1 interest per 10 gold (max. +3) · win streak +1 / +2</td></tr><tr><td>Reward</td><td>Easy 2 · Medium 4 · Hard 6 · Elite 9 + item · Boss 10 + relic · +50 % without losing a Pokémon</td></tr>
   <tr><td>Experience</td><td>+2 per win, +2 per event, <b>+4 for 4 gold</b> in the shop → levels at 4, 9, 15, 23, 33, 45, 60 XP</td></tr><tr><td>Level</td><td>Each level = 1 more team slot and rarer Pokémon in the shop (legendaries from level 5)</td></tr>
   <tr><td>Costs</td><td>Pokémon 2 / 3 / 4 / 5 (legendary 8) · item 3 / 5 / 8 · selling = full value</td></tr><tr><td>Reroll</td><td>Shop 1, 2, 3 … gold per round · paths 2, 4, 6 … gold</td></tr></table>`,
@@ -14759,6 +14792,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Bestenliste aufgeräumt: Unter Tra
 if(typeof EN!=="undefined")Object.assign(EN,{"Season-Abzeichen: Das Datum darunter ist jetzt kleiner und halbtransparent, damit das Abzeichen selbst besser zur Geltung kommt.": "Season badges: the date below is now smaller and semi-transparent so the badge itself stands out more."});
 /* v1.43.0: Ruhm-Effekte & Turm-Bestenliste */
 if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm schaltet jetzt sichtbare Effekte frei. Ab Rubin I leuchtet ein Ring mit aufsteigenden Edelsteinen unter deinem Lieblingspokémon auf der Kampfkarte. Ab Amethyst I erscheint die Aura auch im VS-Bildschirm, mit schwebenden Edelstein-Splittern. Ab Diamant I stehen Lichtsäulen in deiner Ruhm-Farbe hinter deiner Seite.": "Fame now unlocks visible effects. From Ruby I a glowing ring with rising gems appears under your favourite Pokémon on the battle card. From Amethyst I the aura also shows in the VS screen, with floating gem shards. From Diamond I light pillars in your fame colour stand behind your side.", "Ruhmeslegende: Alle Ruhm-Effekte in Regenbogenfarben, eine schwebende Krone über dem Pokémon, Holo-Glanz über der Kampfkarte und im VS-Bildschirm eine Krone am Namen mit „★ RUHMESLEGENDE ★“ darunter.": "Fame Legend: all fame effects in rainbow colours, a floating crown above the Pokémon, a holo sheen over the battle card and in the VS screen a crown by your name with “★ FAME LEGEND ★” below.", "Neue Turm-Bestenliste: Ein eigener Reiter „Turm“ zeigt, wer im Kampfturm am höchsten gekommen ist.": "New tower leaderboard: a separate “Tower” tab shows who climbed highest in the Battle Tower.", "Season-Abschluss: Beim ersten Start nach dem Ende einer Season siehst du deinen Platz, deine Punkte und deine Belohnung. Die Top 3 werden auf einem Podest gezeigt, in den Top 3 wird dein Season-Abzeichen feierlich enthüllt.": "Season wrap-up: on your first start after a season ends you see your place, your points and your reward. The top 3 are shown on a podium; if you're in the top 3 your season badge is unveiled.", "Bestenliste: Beim Drüberfahren über die Season-Abzeichen erscheint kein grauer Zusatztext des Browsers mehr.": "Leaderboard: hovering the season badges no longer shows an extra grey browser tooltip.", "7 neue Erfolge für die neuen Perks, zum Beispiel Meister aller Klassen, Forschung abgeschlossen, Doppelt hält besser, Felsenfest und Kettenreaktion.": "7 new achievements for the new perks, e.g. Master of All Classes, Research Complete, Twice as Nice, Rock Solid and Chain Reaction.", "Noch niemand im Kampfturm.": "Nobody in the Battle Tower yet.", "★ RUHMESLEGENDE ★": "★ FAME LEGEND ★", "Meister aller Klassen": "Master of All Classes", "Erforsche deinen ersten Großmeister-Perk.": "Research your first Grandmaster perk.", "Erforsche alle 8 Großmeister-Perks.": "Research all 8 Grandmaster perks.", "Forschung abgeschlossen": "Research Complete", "Erforsche den kompletten Skillbaum.": "Research the entire skill tree.", "Volle Taschen": "Full Pockets", "Habe 5 Items gleichzeitig in der Tasche.": "Hold 5 items in your bag at once.", "Doppelt hält besser": "Twice as Nice", "Triff mit Zwillingsschuss insgesamt 100-mal ein zweites Ziel.": "Hit a second target 100 times in total with Twin Shot.", "Felsenfest": "Rock Solid", "Lass deinen Schild durch Unerschütterlich insgesamt 25-mal erneuern.": "Have your shield renewed 25 times in total by Unshakable.", "Löse in einem Kampf 3-mal Schattenkette aus.": "Trigger Shadow Chain 3 times in one battle.", "Season-Abzeichen": "Season badge", "Schillerndes Pokémon": "Shiny Pokémon", "zufällig, kommt als Geschenk": "random, arrives as a gift", "10 Edelsteine": "10 gems", "kommen als Geschenk": "arrive as a gift", "Diesmal ohne Belohnung. Ab Platz 10 gibt es Edelsteine, in den Top 3 ein Season-Abzeichen.": "No reward this time. From place 10 up you get gems, in the top 3 a season badge."});
+/* v1.43.0.5: Geisterkampf-Abzeichen, Shiny-Rate, Team-Hintergründe */
+if(typeof EN!=="undefined")Object.assign(EN,{"Geisterkampf: An den Abzeichen des anderen Spielers waren rote Nummern zu sehen. Die sind weg, und die Abzeichen sind jetzt so groß wie auf deiner Seite.": "Ghost battle: red numbers were showing on the other player's badges. They're gone, and the badges are now as big as on your side.", "Team-Kämpfe: Jedes Schurken-Team hat im VS-Bildschirm einen eigenen Hintergrund mit Wappen, z. B. Rocket-Versteck, Plasma-Schloss, Flare-Labor, Po-Town oder die Star-Basis. Die Plattform leuchtet in der Team-Farbe.": "Team battles: every villain team now has its own VS screen background with a crest, e.g. Rocket Hideout, Plasma Castle, Flare Lab, Po Town or the Star base. The platform glows in the team colour.", "Schillernde Pokémon sind etwas seltener: im Shop 1:85 statt 1:64, bei der Starter-Wahl beim Professor 1:70 statt 1:50.": "Shiny Pokémon are a bit rarer: 1:85 instead of 1:64 in the shop, 1:70 instead of 1:50 when picking a starter from the professor.", "Rocket-Versteck": "Rocket Hideout", "Vulkan & Tiefsee": "Volcano & Deep Sea", "Plasma-Schloss": "Plasma Castle", "Flare-Labor": "Flare Lab", "Po-Town": "Po Town", "Rosenturm": "Rose Tower", "Star-Basis": "Star Base", "Raumzeit-Riss": "Space-Time Rift", "Giftmochi-Nebel": "Poison Mochi Mist"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -16975,6 +17010,8 @@ const _cloud=(x,y,w,h,c,d=24,dl=0)=>`<i class="x-cloud" style="--x:${x}%;--y:${y
 const _stripes=(y0,n,pw,col)=>{let d="";for(let k=0;k<n;k+=2){const a=y0+(100-y0)*Math.pow(k/n,pw),b=y0+(100-y0)*Math.pow((k+1)/n,pw);d+=`M-5 ${_f1(a)}H105V${_f1(b)}H-5Z`;}return `<path d="${d}" fill="${col}"/>`;};
 const _fw=(x,y,s,c,d,dl)=>`<i class="x-fw" style="--x:${x}%;--y:${y}%;--s:${s}cqw;--c:${c};--d:${d}s;--dl:-${dl}s"></i>`;
 
+/* v1.43.0.5: Team-Wappen (eigenes Seitenverhältnis, wird nicht verzerrt) */
+const _tmE=(svg,x,y,w,c)=>`<svg class="tmE" viewBox="0 0 100 100" style="--x:${x}%;--y:${y}%;--w:${w}cqmin;--tc:${c}">${svg}</svg>`;
 Object.assign(CARD_BG,{
  /* ---------- Edelsteinmine: Kristallhöhle ---------- */
  edelmine:{n:"Edelsteinmine",lv:4,html:`${_bl(15,80,40,"rgba(255,70,110,.5)")}${_bl(50,76,32,"rgba(60,230,140,.42)",";--d:6s")}${_bl(85,80,42,"rgba(80,130,255,.5)",";--d:7s")}${_bl(66,56,24,"rgba(190,120,255,.42)")}${_bl(34,58,22,"rgba(255,210,90,.38)")}
@@ -17080,6 +17117,107 @@ Object.assign(CARD_BG,{
    <path d="M16 50 L18 46 L19 48 L21 44 M84 50 L82 46 L81 48 L79 44" stroke="#3aff9a" stroke-opacity=".6" fill="none" stroke-width="1" vector-effect="non-scaling-stroke"/>
    <path d="M0 100 L38 58 M100 100 L62 58" stroke="#e8c020" stroke-opacity=".6" stroke-width="2" stroke-dasharray="6 5" vector-effect="non-scaling-stroke"/>`)}
   ${_bl(50,32,24,"rgba(255,40,40,.65)",";--d:1.2s")}${_bl(18.5,43,16,"rgba(58,255,154,.3)",";--d:3s")}${_bl(81.5,43,16,"rgba(58,255,154,.3)",";--d:3.4s")}<i class="brBeam b1"></i><i class="brBeam b2"></i><i class="brRed"></i>${_band(82,12,"rgba(180,200,220,.12)",18)}`},
+ /* v1.43.0.5: eigene VS-Hintergründe je Schurken-Team (nur Gegner) */
+ tmRocket:{n:"Rocket-Versteck",lv:3,bot:1,html:`<i class="tmWash" style="--c:rgba(255,30,40,.22)"></i>
+  ${_sv(`<defs>${_lg("tr1",[[0,"#151b26"],[1,"#0b0f16"]])}${_lg("tr2",[[0,"#0d1118"],[1,"#1a212e"]],1)}${_lg("tr3",[[0,"#1a212e"],[1,"#0d1118"]],1)}${_lg("tr4",[[0,"#1c2330"],[1,"#07090d"]])}${_lg("tr5",[[0,"#4a0c12"],[.5,"#7a1018"],[1,"#2a0608"]])}</defs>
+   <rect x="0" y="0" width="100" height="62" fill="url(#g_tr1)"/>
+   <path d="M0 0 L22 14 L22 58 L0 72Z" fill="url(#g_tr2)"/><path d="M100 0 L78 14 L78 58 L100 72Z" fill="url(#g_tr3)"/>
+   <path d="M22 14 H78 V58 H22Z" fill="#0f141d"/><path d="M34 18 H66 V54 H34Z" fill="url(#g_tr5)"/><path d="M34 18 H66 V54 H34Z" fill="none" stroke="#ff3a46" stroke-opacity=".7" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+   <path d="M28 14 V58 M72 14 V58 M22 24 H34 M66 24 H78 M22 44 H34 M66 44 H78" stroke="#2a3446" stroke-width="1" vector-effect="non-scaling-stroke"/>
+   <path d="M0 4 H100 M0 7 H100" stroke="#2c3646" stroke-width="3" vector-effect="non-scaling-stroke"/><path d="M12 2 V9 M38 2 V9 M62 2 V9 M88 2 V9" stroke="#46546a" stroke-width="2" vector-effect="non-scaling-stroke"/>
+   <path d="M0 72 L22 58 H78 L100 72 V100 H0Z" fill="url(#g_tr4)"/><path d="${_persp(50,40,58,[-60,-30,0,20,40,60,80,100,130,160],[61,65,71,80,92])}" stroke="#2a3446" stroke-opacity=".9" stroke-width="1" vector-effect="non-scaling-stroke"/>
+   <path d="M22 58 H78 L80 60.5 H20Z" fill="#e8c020" opacity=".7"/><path d="M24 58 L23 60.5 M30 58 L29 60.5 M36 58 L35 60.5 M42 58 L41 60.5 M48 58 L47 60.5 M54 58 L53 60.5 M60 58 L59 60.5 M66 58 L65 60.5 M72 58 L71 60.5 M78 58 L77 60.5" stroke="#111" stroke-width="2" vector-effect="non-scaling-stroke"/>
+   <g fill="#252d3a" stroke="#3c4a5e" stroke-width="1" vector-effect="non-scaling-stroke"><path d="M2 80 H18 V100 H2Z"/><path d="M4 70 H16 V80 H4Z"/><path d="M84 82 H99 V100 H84Z"/></g>
+   <g fill="#c8202c" opacity=".85"><path d="M7 86 h6 v2 h-6Z M7 90 h6 v2 h-6Z"/><path d="M88.5 88 h6 v2 h-6Z"/></g>
+   <path d="M6 30 L16 34 V50 L6 54Z M94 30 L84 34 V50 L94 54Z" fill="#06221a" stroke="#46566a" stroke-width="1" vector-effect="non-scaling-stroke"/>
+   <path d="M8 36 L14 38 M8 40 L13 42 M8 44 L12 45.4 M92 36 L86 38 M92 40 L87 42 M92 44 L88 45.4" stroke="#3aff9a" stroke-opacity=".8" stroke-width="1" vector-effect="non-scaling-stroke"/>`)}
+  ${_tmE(`<circle cx="50" cy="50" r="40" fill="#1a0406" stroke="#ff3a46" stroke-width="4"/><circle cx="50" cy="50" r="33" fill="none" stroke="#ff3a46" stroke-opacity=".4" stroke-width="2"/><text x="51" y="71" text-anchor="middle" style="font-family:var(--px);font-size:50px" fill="#ff2a38" stroke="#fff" stroke-width="2.5" paint-order="stroke">R</text>`,50,36,30,"#ff2a3a")}
+  <i class="brBeam b1" style="left:8%;top:-4%"></i><i class="brBeam b1" style="left:92%;top:-4%;animation-direction:reverse"></i><i class="brRed"></i>
+  ${_bl(11,42,14,"rgba(58,255,154,.3)",";--d:3s")}${_bl(89,42,14,"rgba(58,255,154,.3)",";--d:3.4s")}${_spk(6,32,52,["#3aff9a","#ff3a46"],.8,1.4)}${_band(84,14,"rgba(160,180,210,.12)",18)}`},
+ tmMagmaAqua:{n:"Vulkan & Tiefsee",lv:3,bot:1,html:`<i class="tmSplit"></i>
+  ${_sv(`<defs>${_lg("ma1",[[0,"#2a0604"],[.6,"#5a1006"],[1,"#8a2a08"]])}${_lg("ma2",[[0,"#021226"],[.6,"#063a6a"],[1,"#0a5a8a"]])}<clipPath id="g_maL"><path d="M0 0 H66 L52 100 H0Z"/></clipPath><clipPath id="g_maR"><path d="M66 0 H100 V100 H52Z"/></clipPath></defs>
+   <g clip-path="url(#g_maL)"><rect width="100" height="100" fill="url(#g_ma1)"/>${_ridge("ma3",811,30,14,.62,[[0,"#1a0402"],[1,"#2e0a04"]],"#ff7a2a",.5,1)}${_mtn("ma4",821,70,6,10,26,[[0,"#3a0e06"],[1,"#140302"]],"#ff8a3a",.55,.3)}
+    <path class="tmLava" d="M-5 84 Q15 78 30 83 T60 82 V100 H-5Z" fill="#ff7a1a"/><path d="M-5 88 Q18 84 34 88 T62 87 V100 H-5Z" fill="#ffc23a" opacity=".8"/>${_ridge("ma5",831,92,4,.5,[[0,"#1a0402"],[1,"#080100"]])}</g>
+   <g clip-path="url(#g_maR)"><rect width="100" height="100" fill="url(#g_ma2)"/><path d="M50 0 L64 100 M70 0 L76 100 M88 0 L90 100" stroke="#9fe8ff" stroke-opacity=".12" stroke-width="5" vector-effect="non-scaling-stroke"/>
+    ${_ridge("ma6",841,76,8,.55,[[0,"#06304e"],[1,"#021422"]],"#5ad8ff",.4)}<path d="M50 88 Q70 84 100 88 V100 H50Z" fill="#021018"/>
+    <path d="M52 20 Q62 17 72 20 T92 20 T112 20" fill="none" stroke="#bff0ff" stroke-opacity=".25" stroke-width="1.5" vector-effect="non-scaling-stroke"/><path d="M52 30 Q62 27 72 30 T92 30 T112 30" fill="none" stroke="#bff0ff" stroke-opacity=".18" stroke-width="1.5" vector-effect="non-scaling-stroke"/></g>
+   <path d="M66 0 L52 100" stroke="#ffffff" stroke-opacity=".7" stroke-width="2" vector-effect="non-scaling-stroke"/>`)}
+  ${_tmE(`<path d="M50 8 L62 30 L84 22 L74 46 L92 60 L50 92 L8 60 L26 46 L16 22 L38 30Z" fill="#3a0804" stroke="#ff6a2a" stroke-width="4" stroke-linejoin="round"/><text x="50" y="70" text-anchor="middle" style="font-family:var(--px);font-size:34px" fill="#ff7a2a" stroke="#fff" stroke-width="2" paint-order="stroke">M</text>`,34,30,24,"#ff5a1a")}
+  ${_tmE(`<path d="M50 6 C70 30 88 44 88 62 A38 30 0 0 1 12 62 C12 44 30 30 50 6Z" fill="#031a34" stroke="#3ab8ff" stroke-width="4"/><path d="M22 66 Q36 58 50 66 T78 66" fill="none" stroke="#9fe8ff" stroke-width="3"/><text x="50" y="58" text-anchor="middle" style="font-family:var(--px);font-size:30px" fill="#3ab8ff" stroke="#fff" stroke-width="2" paint-order="stroke">A</text>`,80,30,24,"#2a9aff")}
+  ${_ups(10,["#ffb03a","#ff6a1a","#ffd36a"],.5,1.1,3,5,2,50,";--g:6px")}${_ups(10,["#d8f6ff","#9fe8ff"],.6,1.4,4,7,58,98,";--o:.7")}`},
+ tmGalaktik:{n:"Speersäule",lv:3,bot:1,html:`${_stars(40,0,62,["#ffffff","#bff4ff","#e0d0ff"],.25,.7)}<i class="tmRift" style="--c1:#3ad8c8;--c2:#8a5aff"></i>
+  ${_sv(`${_ridge("ga1",851,70,8,.55,[[0,"#2a2a4a"],[1,"#12122a"]],"#7adcff",.45)}
+   <g fill="#1c1c38" stroke="#6ac8e8" stroke-opacity=".45" stroke-width="1" vector-effect="non-scaling-stroke"><path d="M16 70 V38 L19 35 L22 37 V70Z"/><path d="M30 70 V46 L32 43 L35 47 V70Z"/><path d="M70 70 V30 L73 26 L76 31 V70Z"/><path d="M86 70 V42 L88 40 L91 44 V70Z"/></g>
+   <path d="M14 38 H24 M28 46 H37 M68 30 H78 M84 42 H93" stroke="#2c2c50" stroke-width="3" vector-effect="non-scaling-stroke"/>
+   ${_ridge("ga2",861,82,5,.5,[[0,"#181834"],[1,"#08081a"]],"#4ab8d8",.35)}<path d="${_persp(50,62,82,[0,20,40,60,80,100],[86,92])}" stroke="#3a3a6a" stroke-opacity=".6" stroke-width="1" vector-effect="non-scaling-stroke"/>`)}
+  ${_tmE(`<ellipse cx="50" cy="50" rx="46" ry="16" fill="none" stroke="#3ad8c8" stroke-width="3" transform="rotate(-20 50 50)"/><circle cx="50" cy="50" r="28" fill="#06202a" stroke="#3ad8c8" stroke-width="4"/><text x="51" y="63" text-anchor="middle" style="font-family:var(--px);font-size:32px" fill="#5af0e0" stroke="#fff" stroke-width="2" paint-order="stroke">G</text>`,56,30,30,"#2ad8c8")}
+  ${_parts("tmRock",5,i=>`--x:${[24,44,66,82,12][i]}%;--y:${[22,14,18,30,48][i]}%;--s:${[3,2.2,2.8,2,2.4][i]}cqmin;--d:${rr(5,8)}s;--dl:-${rr(0,6)}s`)}${_spk(8,10,60,["#bff4ff","#e0d0ff"],.9,1.6)}`},
+ tmPlasma:{n:"Plasma-Schloss",lv:3,bot:1,html:`
+  ${_sv(`<defs>${_lg("pl1",[[0,"#0a1028"],[1,"#18224a"]])}${_lg("pl2",[[0,"#1c2858"],[1,"#0c1430"]])}${_lg("plb",[[0,"#f4f6ff"],[.8,"#c8d2ee"],[1,"#8a98c4"]])}</defs>
+   <rect width="100" height="64" fill="url(#g_pl1)"/>
+   <g fill="url(#g_pl2)" stroke="#3a4a8a" stroke-width="1" vector-effect="non-scaling-stroke"><path d="M0 64 V0 H10 V64Z"/><path d="M90 64 V0 H100 V64Z"/><path d="M26 64 V8 H32 V64Z"/><path d="M68 64 V8 H74 V64Z"/></g>
+   <path d="M10 22 Q18 6 26 22 M32 16 Q50 -4 68 16 M74 22 Q82 6 90 22" fill="none" stroke="#3a4a8a" stroke-width="2" vector-effect="non-scaling-stroke"/>
+   <path d="M14 10 H22 V40 L18 36 L14 40Z M78 10 H86 V40 L82 36 L78 40Z" fill="url(#g_plb)" stroke="#e8c050" stroke-width="1" vector-effect="non-scaling-stroke"/>
+   <path d="M16 18 L20 18 L20 24 Q18 28 16 24Z M80 18 L84 18 L84 24 Q82 28 80 24Z" fill="#1c2a68"/>
+   <path d="M0 64 H100 V100 H0Z" fill="#0a1230"/><path d="${_persp(50,44,64,[-40,-20,0,10,20,30,40,50,60,70,80,90,100,120,140],[67,71,77,86,98])}" stroke="#2a3a7a" stroke-opacity=".8" stroke-width="1" vector-effect="non-scaling-stroke"/>
+   <path d="M38 64 L62 64 L74 100 L26 100Z" fill="#1a2a6a" opacity=".55"/>
+   ${_cluster(871,8,98,14,"#e8fbff","#5ab4e8")}${_cluster(873,92,98,16,"#e8fbff","#5ab4e8")}${_cluster(875,60,100,8,"#f4fdff","#7ac8f0")}`)}
+  ${_shaft(18,10,10,"rgba(170,210,255,.22)")}${_shaft(82,10,-10,"rgba(170,210,255,.22)",2)}
+  ${_tmE(`<path d="M50 6 L88 18 V48 C88 72 70 86 50 94 C30 86 12 72 12 48 V18Z" fill="#f2f4ff" stroke="#e8c050" stroke-width="4"/><path d="M50 14 L80 24 V48 C80 66 66 78 50 85Z" fill="#1c2a68"/><text x="50" y="66" text-anchor="middle" style="font-family:var(--px);font-size:34px" fill="#4a7aff" stroke="#fff" stroke-width="2.5" paint-order="stroke">P</text>`,50,32,30,"#7ab0ff")}
+  ${_downs(14,"ngSnow",["#ffffff","#d8ecff"],.4,.9,9,15,";--ar:1;--o:.8")}${_spk(8,64,96,["#ffffff","#bfe6ff"],.8,1.5)}`},
+ tmFlare:{n:"Flare-Labor",lv:3,bot:1,html:`<i class="tmWash" style="--c:rgba(255,90,20,.2)"></i>
+  ${_sv(`<defs>${_lg("fl1",[[0,"#120606"],[1,"#2a0c08"]])}${_lg("fl2",[[0,"#1a0806"],[1,"#050202"]])}</defs><rect width="100" height="62" fill="url(#g_fl1)"/>
+   <g stroke="#ff5a1a" stroke-width="1.5" vector-effect="non-scaling-stroke" fill="none" opacity=".85"><path d="M0 16 H30 L36 10 H64 L70 16 H100"/><path d="M0 50 H24 L30 56 H70 L76 50 H100"/></g>
+   <g stroke="#ffb03a" stroke-opacity=".35" stroke-width="1" vector-effect="non-scaling-stroke"><path d="M12 16 V50 M88 16 V50 M24 16 V50 M76 16 V50"/></g>
+   <path d="M0 62 H100 V100 H0Z" fill="url(#g_fl2)"/><path d="M0 62 H100" stroke="#ff5a1a" stroke-opacity=".7" stroke-width="2" vector-effect="non-scaling-stroke"/>
+   <path d="${_persp(50,50,62,[-30,0,20,40,60,80,100,130],[66,72,82,96])}" stroke="#4a1a10" stroke-opacity=".9" stroke-width="1" vector-effect="non-scaling-stroke"/>
+   ${_cluster(881,50,62,22,"#ffd0a0","#d8201a")}${_cluster(883,30,62,10,"#ffb890","#a8140e")}${_cluster(885,72,62,11,"#ffb890","#a8140e")}
+   <path d="M36 66 Q50 63 64 66 L70 80 Q50 76 30 80Z" fill="#ff5a1a" opacity=".12"/>`)}
+  ${_bl(50,46,46,"rgba(255,60,20,.5)",";--d:2.4s")}
+  ${_tmE(`<path d="M50 4 C58 20 74 24 72 44 C80 38 82 30 82 24 C94 40 92 66 76 80 C68 88 58 92 50 92 C30 92 14 78 14 58 C14 42 24 34 30 22 C32 32 36 38 42 40 C38 26 42 14 50 4Z" fill="#2a0806" stroke="#ff6a1a" stroke-width="4" stroke-linejoin="round"/><text x="50" y="74" text-anchor="middle" style="font-family:var(--px);font-size:34px" fill="#ff7a2a" stroke="#fff" stroke-width="2" paint-order="stroke">F</text>`,50,26,26,"#ff5a1a")}
+  ${_ups(14,["#ffb03a","#ff6a1a","#ffd36a"],.4,1,3.5,6,10,90,";--g:5px")}`},
+ tmSkull:{n:"Po-Town",lv:3,bot:1,html:`<i class="tmRain"></i>
+  ${_sv(`<defs>${_lg("sk1",[[0,"#0a0812"],[1,"#221a30"]])}${_lg("skw",[[0,"#2a2436"],[1,"#18141f"]])}</defs><rect width="100" height="100" fill="url(#g_sk1)"/>
+   <path d="M0 24 H100 V74 H0Z" fill="url(#g_skw)"/><path d="M0 24 H100 M0 36 H100 M0 48 H100 M0 60 H100 M0 72 H100" stroke="#120e18" stroke-width="1" vector-effect="non-scaling-stroke"/>
+   <path d="M8 24 V36 M22 36 V48 M36 24 V36 M50 36 V48 M64 24 V36 M78 36 V48 M92 24 V36 M15 48 V60 M43 48 V60 M71 48 V60 M29 60 V72 M57 60 V72 M85 60 V72" stroke="#120e18" stroke-width="1" vector-effect="non-scaling-stroke"/>
+   <g fill="none" stroke-linecap="round" stroke-width="2.4" vector-effect="non-scaling-stroke"><path d="M6 64 Q10 54 16 62 T26 60" stroke="#ff4ad8" opacity=".75"/><path d="M76 34 L82 30 L80 38 L88 34" stroke="#ffe24a" opacity=".7"/><path d="M84 64 Q90 58 96 66" stroke="#4adcff" opacity=".7"/><path d="M8 32 L14 30 M10 36 L18 33" stroke="#ffffff" opacity=".45"/></g>
+   <path d="M18 66 V72 M24 64 V70 M82 38 V44 M90 68 V73" stroke="#ff4ad8" stroke-opacity=".55" stroke-width="1.4" vector-effect="non-scaling-stroke"/>
+   <path d="M0 74 H100 V100 H0Z" fill="#0e0b14"/><path d="M10 84 Q30 82 44 85 T80 84" fill="none" stroke="#6a5a8a" stroke-opacity=".5" stroke-width="1.2" vector-effect="non-scaling-stroke"/><path d="M50 90 Q66 88 86 91" fill="none" stroke="#ff4ad8" stroke-opacity=".3" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+   <path d="M0 6 L100 6" stroke="#3a3446" stroke-width="2" vector-effect="non-scaling-stroke"/>`)}<i class="tmFence"></i>
+  ${_tmE(`<path d="M50 8 C74 8 88 24 88 44 C88 58 80 64 76 68 V80 H24 V68 C20 64 12 58 12 44 C12 24 26 8 50 8Z" fill="#f2eef8" stroke="#1a1020" stroke-width="3"/><ellipse cx="34" cy="46" rx="10" ry="11" fill="#1a1020"/><ellipse cx="66" cy="46" rx="10" ry="11" fill="#1a1020"/><path d="M46 62 L50 54 L54 62Z" fill="#1a1020"/><path d="M32 72 V80 M42 72 V80 M50 72 V80 M58 72 V80 M68 72 V80" stroke="#1a1020" stroke-width="3"/><path d="M14 30 L4 22 M86 30 L96 22" stroke="#ff4ad8" stroke-width="5" stroke-linecap="round"/><path d="M30 80 V92 M70 80 V88" stroke="#f2eef8" stroke-width="4" stroke-linecap="round" opacity=".8"/>`,50,44,30,"#ff4ad8")}`},
+ tmYell:{n:"Rosenturm",lv:3,bot:1,html:`${_stars(18,0,40,["#ffffff","#ffd0f0"],.25,.6)}<i class="tmWash" style="--c:rgba(255,60,170,.18)"></i>
+  ${_sv(`<defs>${_lg("ye1",[[0,"#0c0618"],[.6,"#2a0c38"],[1,"#5a1650"]])}${_lg("ye2",[[0,"#2a2440"],[1,"#120e20"]],1)}</defs><rect width="100" height="74" fill="url(#g_ye1)"/>
+   <path d="M60 74 V22 L62 18 V10 H63 V18 L65 22 V74Z" fill="url(#g_ye2)"/><path d="M57 74 V34 L60 30 V74Z M65 30 L68 34 V74 H65Z" fill="#1a1630"/><path d="M62 10 V2" stroke="#ff3a5a" stroke-width="1.4" vector-effect="non-scaling-stroke"/>
+   <g fill="#ffd27a" opacity=".85"><rect x="61" y="28" width=".8" height="1.4"/><rect x="63.2" y="34" width=".8" height="1.4"/><rect x="61" y="42" width=".8" height="1.4"/><rect x="63.2" y="50" width=".8" height="1.4"/><rect x="61" y="58" width=".8" height="1.4"/></g>
+   ${_ridge("ye3",891,70,6,.5,[[0,"#1a1028"],[1,"#0c0814"]])}
+   <path d="M-2 10 Q25 22 50 12 Q75 22 102 10" fill="none" stroke="#0a0610" stroke-width="1" vector-effect="non-scaling-stroke"/>
+   ${[6,14,22,30,38,46,54,62,70,78,86,94].map((x,i)=>{const y=10+Math.sin(x/100*Math.PI*2)*-5+5;return `<path d="M${x-3} ${y.toFixed(1)} L${x+3} ${y.toFixed(1)} L${x} ${(y+6).toFixed(1)}Z" fill="${i%2?"#ff3aa8":"#141018"}" stroke="#ff8ad8" stroke-opacity=".4" stroke-width=".6" vector-effect="non-scaling-stroke"/>`;}).join("")}
+   <path d="M0 80 Q10 76 20 80 T40 80 T60 80 T80 80 T100 80 V100 H0Z" fill="#0a0612"/>`)}
+  <i class="tmDyna"></i>${_shaft(20,14,18,"rgba(255,90,190,.22)")}${_shaft(86,14,-16,"rgba(255,90,190,.22)",2)}
+  ${_tmE(`<path d="M10 14 H90 V64 L50 92 L10 64Z" fill="#141018" stroke="#ff3aa8" stroke-width="4" stroke-linejoin="round"/><path d="M10 14 H90 V26 H10Z" fill="#ff3aa8"/><text x="50" y="66" text-anchor="middle" style="font-family:var(--px);font-size:34px" fill="#ff5ab8" stroke="#fff" stroke-width="2" paint-order="stroke">Y</text>`,40,38,26,"#ff3aa8")}
+  ${_spk(18,80,98,["#ff3aa8","#ffffff","#ff8ad8"],.8,1.5)}`},
+ tmStar:{n:"Star-Basis",lv:3,bot:1,html:`<i class="tmBurst"></i>
+  ${_sv(`<defs>${_lg("st1",[[0,"#0c0a24"],[1,"#24124a"]])}</defs><rect width="100" height="70" fill="url(#g_st1)" opacity=".75"/>
+   <path d="M0 70 H100 V100 H0Z" fill="#0e0a20"/><path d="M14 70 H86 L94 78 H6Z" fill="#2a1a52"/><path d="M6 78 H94" stroke="#ff4ad8" stroke-width="2" vector-effect="non-scaling-stroke"/><path d="M14 70 H86" stroke="#ffe24a" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+   <path d="M0 0 L22 70 M100 0 L78 70" stroke="#3a2a6a" stroke-width="3" vector-effect="non-scaling-stroke"/>`)}
+  ${["#ff4ad8","#ffe24a","#4adcff","#5aff8a","#b07aff","#ff8a3a"].map((c,i)=>`<svg class="tmSt" viewBox="0 0 20 20" style="--x:${[12,86,20,80,8,92][i]}%;--y:${[18,22,52,56,36,40][i]}%;--s:${[9,8,7,8,6,6][i]}cqmin;--c:${c};--dl:-${i*.5}s"><path d="M10 1 L12.6 7.2 L19 7.6 L14 11.8 L15.6 18.4 L10 14.8 L4.4 18.4 L6 11.8 L1 7.6 L7.4 7.2Z" fill="none" stroke="${c}" stroke-width="1.6" stroke-linejoin="round"/></svg>`).join("")}
+  ${_tmE(`<path d="M50 4 L62 36 L96 38 L70 58 L80 92 L50 72 L20 92 L30 58 L4 38 L38 36Z" fill="#ffe24a" stroke="#fff" stroke-width="4" stroke-linejoin="round"/><path d="M50 16 L58 40 L82 41 L63 55 L70 79 L50 65 Z" fill="#ff4ad8" opacity=".55"/>`,50,36,28,"#ffd24a")}
+  ${_downs(16,"tmCf",["#ff4ad8","#ffe24a","#4adcff","#5aff8a","#b07aff"],.8,1.4,5,8,";--ar:1")}`},
+ tmHisui:{n:"Raumzeit-Riss",lv:3,bot:1,html:`${_stars(30,0,56,["#ffffff","#ffe8c0","#d8c8ff"],.25,.7)}<i class="tmRift" style="--c1:#ffc84a;--c2:#9a5aff"></i>
+  ${_sv(`${_mtn("hi1",901,62,6,10,26,[[0,"#3a2e5a"],[1,"#18122c"]],"#d8b8ff",.4,.3)}
+   <g fill="#2a2440" stroke="#c8a8ff" stroke-opacity=".4" stroke-width="1" vector-effect="non-scaling-stroke"><path d="M20 78 V44 H26 V78Z"/><path d="M74 78 V40 H80 V78Z"/><path d="M18 44 H28 V40 H18Z M72 40 H82 V36 H72Z"/><path d="M40 78 V56 H44 V52 L47 54 V78Z"/></g>
+   ${_ridge("hi2",911,78,5,.5,[[0,"#1c1830"],[1,"#0a0814"]],"#9a7ad8",.35)}${_blades(921,60,100,4,9).replace(/^/,'<path d="').concat('" fill="#0c0a16"/>')}`)}
+  ${_tmE(`<circle cx="50" cy="50" r="42" fill="none" stroke="#ffc84a" stroke-width="4"/><circle cx="50" cy="50" r="30" fill="#1a1028" stroke="#ffc84a" stroke-width="3"/>${Array.from({length:12},(_,i)=>{const a=i/12*Math.PI*2;return `<path d="M${(50+Math.cos(a)*30).toFixed(1)} ${(50+Math.sin(a)*30).toFixed(1)} L${(50+Math.cos(a)*42).toFixed(1)} ${(50+Math.sin(a)*42).toFixed(1)}" stroke="#ffc84a" stroke-width="3"/>`;}).join("")}<circle cx="50" cy="50" r="12" fill="#ffc84a"/><circle cx="50" cy="50" r="6" fill="#fff6d0"/>`,56,30,28,"#ffb83a")}
+  ${_parts("tmRock",5,i=>`--x:${[18,38,64,86,52][i]}%;--y:${[24,12,16,28,46][i]}%;--s:${[3,2.2,2.8,2,1.8][i]}cqmin;--d:${rr(5,8)}s;--dl:-${rr(0,6)}s`)}${_spk(8,10,60,["#ffe8c0","#d8c8ff"],.9,1.6)}`},
+ tmMochi:{n:"Giftmochi-Nebel",lv:3,bot:1,html:`<i class="tmWash" style="--c:rgba(200,60,255,.22)"></i>
+  ${_sv(`<defs>${_lg("mo1",[[0,"#12061e"],[.6,"#34104a"],[1,"#5a1a6a"]])}</defs><rect width="100" height="100" fill="url(#g_mo1)"/>
+   ${_mtn("mo2",931,58,4,18,34,[[0,"#3a1650"],[1,"#1c0a2a"]],"#ff7ae8",.45,.3)}${_ridge("mo3",941,72,8,.55,[[0,"#2a0e3a"],[1,"#12061c"]],"#c87aff",.35)}
+   <path d="M6 30 Q10 26 14 30 Q18 26 22 30 M78 22 Q82 18 86 22 Q90 18 94 22" fill="none" stroke="#c8a0e8" stroke-opacity=".5" stroke-width="2" vector-effect="non-scaling-stroke"/>
+   ${_ridge("mo4",951,88,4,.5,[[0,"#14061e"],[1,"#06020a"]])}`)}
+  <i class="tmFog f1"></i><i class="tmFog f2"></i>
+  ${_parts("tmMo",5,i=>`--x:${[16,34,70,88,52][i]}%;--y:${[44,24,30,50,14][i]}%;--s:${[7,5,6,5,4][i]}cqmin;--d:${rr(5,8)}s;--dl:-${rr(0,6)}s`)}
+  ${_tmE(`<path d="M50 20 C40 6 18 10 16 30 C14 56 30 82 50 90 C70 82 86 56 84 30 C82 10 60 6 50 20Z" fill="#ff9ad0" stroke="#3a0a3a" stroke-width="3"/><path d="M50 20 C46 34 46 60 50 88" fill="none" stroke="#d85aa0" stroke-width="3"/><path d="M50 20 C54 10 62 6 70 8 C64 14 58 18 50 20Z" fill="#5ad85a" stroke="#1a3a1a" stroke-width="2"/><circle cx="50" cy="52" r="44" fill="none" stroke="#c83aff" stroke-width="4" stroke-dasharray="10 6"/>`,50,36,28,"#d84aff")}
+  ${_ups(12,["#d84aff","#ff7ae8","#a83aff"],.6,1.4,4,7,4,96,";--o:.75")}`},
  /* Arenaleiter-Halle (Arenaleiter-Bosse) */
  botGym:{n:"Arenaleiter-Halle",lv:4,bot:1,html:`${_bl(50,30,70,"rgba(120,160,255,.3)")}
   ${_sv(`<defs>${_lg("bg1",[[0,"#070b1c"],[1,"#162448"]])}${_lg("bg2",[[0,"#1c2a58"],[1,"#0a1024"]])}${_lg("bgb",[[0,"#1a2c7a"],[1,"#0c1438"]])}${_lg("bgr",[[0,"#7a1a2c"],[1,"#380814"]])}</defs>
@@ -17224,11 +17362,11 @@ function cardModal(t){t=t||CARD_TAB;CARD_TAB=t;const C=cardMeta(),me=cardMine();
 /* Gegner-Kampfkarte im Einzelspieler (VS-Bildschirm): Hintergrund nach Kampfart, Klasse, Abzeichen nach Runde und Schwierigkeit */
 const EN_BG={easy:["botEasy"],mid:["botMid"],hard:["botHard"],elite:["botElite"],rocket:["botRocket"],ultra:["botElite"],rival:["botMid"],ghost:["geist"]};
 const BOSS_BG={5:["botGym"],10:["botGym"],15:["botElite"],20:["botChamp"]};
-const TEAM_EVIL={kanto:["Team Rocket","R"],johto:["Team Rocket","R"],hoenn:["Team Magma & Aqua","M"],sinnoh:["Team Galaktik","G"],unova:["Team Plasma","P"],kalos:["Team Flare","F"],alola:["Team Skull","S"],galar:["Team Yell & Macro Cosmos","Y"],paldea:["Team Star","S"],hisui:["Wilderer & Volo","V"],kitakami:["Infamomos Mochi","M"]};
+const TEAM_EVIL={kanto:["Team Rocket","R","tmRocket"],johto:["Team Rocket","R","tmRocket"],hoenn:["Team Magma & Aqua","M","tmMagmaAqua"],sinnoh:["Team Galaktik","G","tmGalaktik"],unova:["Team Plasma","P","tmPlasma"],kalos:["Team Flare","F","tmFlare"],alola:["Team Skull","S","tmSkull"],galar:["Team Yell & Macro Cosmos","Y","tmYell"],paldea:["Team Star","S","tmStar"],hisui:["Wilderer & Volo","V","tmHisui"],kitakami:["Infamomos Mochi","M","tmMochi"]};
 function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss?boss.name:(enc&&enc.name)||"Gegner",rg=(S&&S.region)||"kanto",r=(S&&S.round)||1,h=strHash(nm+"|"+rg+"|"+r);
   const pk=a=>{const ok=a.filter(k=>CARD_BG[k]);return ok.length?ok[h%ok.length]:"std";};
-  const bg=boss&&boss.tw?"botChamp":boss?pk(BOSS_BG[r]||(r>=20?["botChamp"]:r>=15?["botElite"]:["botGym"])):pk(EN_BG[ty]||["botMid"]);
   const team=ty==="rocket"?(TEAM_EVIL[rg]||TEAM_EVIL.kanto):ty==="ultra"?["Ultrapforte","U"]:ty==="rival"?["Rivale","R"]:null;
+  const bg=boss&&boss.tw?"botChamp":boss?pk(BOSS_BG[r]||(r>=20?["botChamp"]:r>=15?["botElite"]:["botGym"])):team&&team[2]&&CARD_BG[team[2]]?team[2]:pk(EN_BG[ty]||["botMid"]);
   const cls=boss?String(boss.sub||"Boss").split(" · ")[0]:team?team[0]:(nm.split(" ").slice(0,-1).join(" ")||"Trainer");
   const n=boss?3:({easy:1,mid:1,hard:2,elite:3,rocket:2,ultra:3,rival:3})[ty]||1,top=Math.min(boss?6:5,Math.max(1,Math.ceil(r/5)+(ty==="elite"?1:0)+(boss?(r>=20?2:1):0)));
   const pool=BADGE_FIX.filter(b=>b.id!=="coll"&&b.id!=="achv"&&b.id!=="daily"&&b.id!=="vet"),bd=[];
@@ -17239,7 +17377,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.43.0",DUEL_HP=30;
+const MP_VER="1.43.0.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -21729,8 +21867,12 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.43.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.43.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.43.0.5",d:"09.11.2026",t:"Schnellfix",items:[
+  ["ghost", "Geisterkampf: An den Abzeichen des anderen Spielers waren rote Nummern zu sehen. Die sind weg, und die Abzeichen sind jetzt so groß wie auf deiner Seite."],
+  ["swords", "Team-Kämpfe: Jedes Schurken-Team hat im VS-Bildschirm einen eigenen Hintergrund mit Wappen, z. B. Rocket-Versteck, Plasma-Schloss, Flare-Labor, Po-Town oder die Star-Basis. Die Plattform leuchtet in der Team-Farbe."],
+  ["shiny", "Schillernde Pokémon sind etwas seltener: im Shop 1:85 statt 1:64, bei der Starter-Wahl beim Professor 1:70 statt 1:50."]]},
  {v:"1.43.0",d:"09.11.2026",t:"Ruhm-Effekte & Turm-Bestenliste",items:[
   ["crown", "Ruhm schaltet jetzt sichtbare Effekte frei. Ab Rubin I leuchtet ein Ring mit aufsteigenden Edelsteinen unter deinem Lieblingspokémon auf der Kampfkarte. Ab Amethyst I erscheint die Aura auch im VS-Bildschirm, mit schwebenden Edelstein-Splittern. Ab Diamant I stehen Lichtsäulen in deiner Ruhm-Farbe hinter deiner Seite."],
   ["star", "Ruhmeslegende: Alle Ruhm-Effekte in Regenbogenfarben, eine schwebende Krone über dem Pokémon, Holo-Glanz über der Kampfkarte und im VS-Bildschirm eine Krone am Namen mit „★ RUHMESLEGENDE ★“ darunter."],
@@ -23734,12 +23876,12 @@ function vsSplash(cb){
   const ghost=!S.duel&&enc.type==="ghost";if(ghost&&typeof geistCardLoad==="function")geistCardLoad(enc.ghost);
   const gc=ghost&&typeof geistCardOf==="function"?geistCardOf(enc.ghost):null;
   const ec=S.duel?null:gc?Object.assign({},gc,{ghost:1}):Object.assign({},typeof enemyCard==="function"?enemyCard(enc,boss):{name:enc.name,bg:"std"},{badges:[]});   /* v1.23.0: Bot-Gegner ohne Abzeichen */
-  const rName=S.duel?op.name:(boss?boss.name:enc.name),rSub=S.duel?op.title:gc?(gc.title||"Geisterkampf"):`${boss?boss.sub:(ec.cls&&!ec.team?ec.cls+" · ":"")+D.n} · ${en.length} Pokémon`;
+  const rName=S.duel?op.name:(boss?boss.name:enc.name),rSub=S.duel?op.title:gc?(gc.title||"Geisterkampf"):`${boss?boss.sub:(ec.cls&&!ec.team?ec.cls+" · ":"")+(ec.team&&ec.team[2]?ec.team[0]:D.n)} · ${en.length} Pokémon`;
   const spk=Array.from({length:12},(_,i)=>{const a=i/12*Math.PI*2+.3,r=1+((i*37)%70)/150;return `<i class="spk" style="--dx:${(Math.cos(a)*r).toFixed(2)};--dy:${(Math.sin(a)*r).toFixed(2)}"></i>`;}).join("");
-  vs.className="v4"+(boss?" boss":"")+(S.duel?" duel":"");
+  vs.className="v4"+(boss?" boss":"")+(S.duel?" duel":"")+(ec&&ec.team&&ec.team[2]&&CARD_BG[ec.team[2]]?" tm "+ec.team[2]:"");
   vs.innerHTML=`<div class="v4St"><div class="v4St2">
    <div class="v4L">${bgHTML(me.bg)}${typeof fameVsBack==="function"?fameVsBack(me,"L"):""}<i class="v4Cine L"></i><i class="v4Spd"></i><i class="v4Sh"></i></div>
-   <div class="v4R${S.duel?"":" en en-"+(boss?"boss":enc.type)}">${S.duel?bgHTML(op.bg)+(typeof fameVsBack==="function"?fameVsBack(op,"R"):""):`<span class="v4RBg">${bgHTML(ec.bg)}</span><i class="v4RDim"></i>${ec.team?`<i class="v4Emb">${ec.team[1]}</i>`:""}${boss?`<i class="v4BossRim"></i>`:""}<i class="v4Str"></i>`}<i class="v4Cine R"></i><i class="v4ShR"></i></div>
+   <div class="v4R${S.duel?"":" en en-"+(boss?"boss":enc.type)}">${S.duel?bgHTML(op.bg)+(typeof fameVsBack==="function"?fameVsBack(op,"R"):""):`<span class="v4RBg">${bgHTML(ec.bg)}</span><i class="v4RDim"></i>${ec.team&&!(ec.team[2]&&CARD_BG[ec.team[2]])?`<i class="v4Emb">${ec.team[1]}</i>`:""}${boss?`<i class="v4BossRim"></i>`:""}<i class="v4Str"></i>`}<i class="v4Cine R"></i><i class="v4ShR"></i></div>
    <svg class="v4Seam" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="56.4,0 57.6,0 43.6,100 42.4,100"/></svg>
    ${typeof fameVsFront==="function"?fameVsFront(me,"L"):""}<div class="v4Fav L"><div class="bob"></div></div>
    ${S.duel?`${typeof fameVsFront==="function"?fameVsFront(op,"R"):""}<div class="v4Fav R"><div class="bob"></div></div>`:`<i class="v4Plat"></i><div class="v4Team">${ord.map(u=>`<div class="v4m${u===show[0]?" lead":""}" style="--d:${show.indexOf(u)}"><span class="sp" data-k="${show.indexOf(u)}"></span></div>`).join("")}${team.length>7?`<div class="v4more">+${team.length-7}</div>`:""}</div>`}
@@ -23758,7 +23900,7 @@ function vsSplash(cb){
   const putFav=(sel,id,sh,fl,mk)=>{const b=vs.querySelector(sel);if(b)try{const im=natFit(spriteEl(SPECIES[id]?id:25,"",{shiny:!!sh,mega:SPECIES[id]&&mk?mk:undefined}),1);b.appendChild(typeof sprAlign==="function"?sprAlign(im,fl):im);}catch(e){}};
   putFav(".v4Fav.L .bob",me.fav,me.favSh,true,me.favM);if(S.duel)putFav(".v4Fav.R .bob",op.fav,op.favSh,false,op.favM);
   vs.querySelectorAll(".v4m .sp[data-k]").forEach(e=>{const u=show[+e.dataset.k];if(u)try{e.appendChild(natFit(spriteEl(u),1));}catch(x){}});
-  $("bMine").textContent=(USER||"DU").toUpperCase();$("bMineS").textContent=`${boardUnits().length} Pokémon`;$("bEnemy").textContent=(S.duel?op.name:boss?boss.name:enc.name).toUpperCase();$("bEnemyS").textContent=S.duel?"Live-Duell":D.n+(S.revanche?" · Revanche":"");
+  $("bMine").textContent=(USER||"DU").toUpperCase();$("bMineS").textContent=`${boardUnits().length} Pokémon`;$("bEnemy").textContent=(S.duel?op.name:boss?boss.name:enc.name).toUpperCase();$("bEnemyS").textContent=S.duel?"Live-Duell":(ec&&ec.team&&ec.team[2]?ec.team[0]:D.n)+(S.revanche?" · Revanche":"");
   vs.onclick=null;vs.classList.add("show");sfx("vs");setTimeout(()=>{if(vs.classList.contains("show")){sfx("crit",.05);sfx("boom",.25);}},320);
   let done=false;const S0=S;const fin=()=>{if(done)return;done=true;vs.classList.add("out");setTimeout(()=>{vs.classList.remove("show","out");vs.innerHTML="";if(!S||S!==S0)return;cb();},window.__fast?0:360);};
   setTimeout(fin,window.__fast?10:vsSec*1000);
