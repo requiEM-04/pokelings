@@ -4464,6 +4464,10 @@ body:not(.battle) .wxLbl{display:none}
 .seaPv>span{display:flex;flex-direction:column;align-items:center;gap:7px}.seaPv small{font:8px var(--px);color:var(--muted)}
 /* v1.42.0.5: Season-Vorschau ohne Hinweistexte */
 .seaPv{margin:8px 0 12px;gap:22px}.seaPv small{margin-top:4px}
+/* v1.42.0.6: Datum unter dem Season-Abzeichen dezent */
+.bdg.sea em,.bdg.cst.sea em{bottom:-5px;padding:0 4px;border-radius:4px;border:1px solid rgba(255,255,255,.16)!important;background:rgba(8,10,20,.5)!important;color:rgba(255,255,255,.72)!important;font-size:6px;letter-spacing:.04em;text-shadow:0 1px 0 rgba(0,0,0,.6);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);box-shadow:none!important}
+.bdg.sea.sm em{font-size:5px;bottom:-4px;padding:0 3px;color:rgba(255,255,255,.6)!important}
+.bdg.sea:hover em{color:#fff!important;background:rgba(8,10,20,.72)!important}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -14676,6 +14680,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Kampfturm: Dein Rekord, deine Symb
 if(typeof EN!=="undefined")Object.assign(EN,{"Season-Abzeichen neu: Jede Season bekommt ihr eigenes Design. Die November-Season hat Regenbogen, danach folgen Galaxie, Neon und weitere. In der Mitte steht dein Platz 1, 2 oder 3 und dreht sich immer wieder in einen Pokal. Die Abzeichen der laufenden Season siehst du in der Bestenliste unter Trainerpunkte.": "New season badges: every season gets its own design. The November season has Rainbow, followed by Galaxy, Neon and more. In the middle is your place 1, 2 or 3, which keeps flipping into a trophy. You can see the current season's badges in the leaderboard under Trainer points."});
 /* v1.42.0.5: Bestenliste aufgeräumt */
 if(typeof EN!=="undefined")Object.assign(EN,{"Bestenliste aufgeräumt: Unter Trainerpunkte stehen nur noch die Season-Abzeichen ohne die beiden Hinweistexte. Die Infos zu Belohnungen und Punkten erscheinen, wenn du mit der Maus über die Abzeichen fährst.": "Leaderboard tidied up: under Trainer points only the season badges remain, without the two hint texts. Rewards and points info appears when you hover over the badges."});
+/* v1.42.0.6: Season-Label */
+if(typeof EN!=="undefined")Object.assign(EN,{"Season-Abzeichen: Das Datum darunter ist jetzt kleiner und halbtransparent, damit das Abzeichen selbst besser zur Geltung kommt.": "Season badges: the date below is now smaller and semi-transparent so the badge itself stands out more."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17156,7 +17162,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.42.0.5",DUEL_HP=30;
+const MP_VER="1.42.0.6",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -21619,8 +21625,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.42.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.42.0.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.42.0.6",d:"09.11.2026",t:"Schnellfix",items:[
+  ["trophy", "Season-Abzeichen: Das Datum darunter ist jetzt kleiner und halbtransparent, damit das Abzeichen selbst besser zur Geltung kommt."]]},
  {v:"1.42.0.5",d:"09.11.2026",t:"Schnellfix",items:[
   ["trophy", "Bestenliste aufgeräumt: Unter Trainerpunkte stehen nur noch die Season-Abzeichen ohne die beiden Hinweistexte. Die Infos zu Belohnungen und Punkten erscheinen, wenn du mit der Maus über die Abzeichen fährst."]]},
  {v:"1.42.0",d:"07.11.2026",t:"Season-Abzeichen",items:[
