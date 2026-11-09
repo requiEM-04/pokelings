@@ -4755,6 +4755,111 @@ button.xmD{cursor:pointer}button.xmD:hover{transform:translateY(-2px)}button.xmD
 .xmQc{position:absolute;right:5px;top:5px;color:#7fe0a0}.xmQc .ic{width:14px;height:14px}
 .xmQi{margin:9px 0 0;font-size:11px;line-height:1.35;color:var(--muted,#9aa6c8)}
 @media (max-width:520px){.xmQrow{grid-template-columns:1fr}.xmQs{padding:6px}.xmQv{width:38px;height:40px}}
+
+/* ================= v1.46.0: Herausforderungen-Panel + Abgrund ================= */
+#mCh.mCh{position:absolute;left:20px;top:50%;transform:translateY(-50%);width:340px;max-height:calc(100% - 140px);display:flex;flex-direction:column;gap:8px;padding:16px;border-radius:14px;z-index:5;overflow:auto}
+#mCh.mCh{width:min(370px,calc((100% - 540px)/2 - 24px))}
+.mCh .ttl h3{display:inline-flex;align-items:center;gap:8px;margin:0;font:13px var(--px);color:var(--amber);text-shadow:2px 2px 0 #000}
+.chOnly{display:none}
+#menu:has(#admWrap) #mCh{display:none}
+@media (max-width:1240px){#mCh.mCh{display:none}#menuBtns .mbtn.chOnly{display:flex}}
+.chList{display:flex;flex-direction:column;gap:10px}
+.chCard{position:relative;display:flex;flex-direction:column;gap:7px;padding:11px 12px 12px;border-radius:12px;background:linear-gradient(180deg,rgba(92,242,255,.1),rgba(255,255,255,.02));border:2px solid rgba(92,242,255,.35);overflow:hidden}
+.chCard::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:#5cf2ff}
+.chCard.wk{background:linear-gradient(180deg,rgba(255,180,80,.1),rgba(255,255,255,.02));border-color:rgba(255,190,90,.38)}.chCard.wk::before{background:#ffb34d}
+.chCard.ab{background:radial-gradient(ellipse at 50% 120%,rgba(255,40,90,.28),transparent 60%),linear-gradient(180deg,#22081c,#120612);border-color:rgba(255,59,107,.5);box-shadow:inset 0 0 24px rgba(255,40,90,.15)}.chCard.ab::before{background:linear-gradient(90deg,#ff3b6b,#c27cff)}
+.chCard.ab.lock{filter:saturate(.6) brightness(.85)}
+.chH{display:flex;align-items:center;gap:9px}.chH>div{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.chH b{font:11px var(--px);color:#fff}.chH small{font-size:10.5px;color:var(--muted);line-height:1.25}
+.chI{flex:none;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:rgba(92,242,255,.15);color:#5cf2ff}.chI .ic{width:18px;height:18px}
+.chCard.wk .chI{background:rgba(255,180,80,.16);color:#ffb34d}.chCard.ab .chI{background:rgba(255,59,107,.2);color:#ff6b8a;box-shadow:0 0 12px rgba(255,59,107,.4)}
+.chReg{flex:none;font:8px var(--px);padding:4px 6px;border-radius:5px;background:rgba(92,242,255,.14);color:#cff8ff}.chCard.wk .chReg{background:rgba(255,180,80,.16);color:#ffe2b0}
+.chRules{display:flex;flex-wrap:wrap;gap:5px}.chRules span{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;color:#dfe6f6;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);padding:3px 7px;border-radius:6px;cursor:help}.chRules .ic{width:12px;height:12px}
+.chNote{font-size:10.5px;color:var(--muted)}.chNote b{color:#fff}
+.chB{display:flex;gap:6px}.chB .pri{flex:1}.chCard button{height:34px;font-size:12px}.chCard>button{width:100%}
+.chAbRec{display:flex;align-items:center;gap:10px}.chAbRec>span{display:flex;flex-direction:column;gap:2px}.chAbRec small{font:7px var(--px);color:#ff8aa8;letter-spacing:.5px}.chAbRec b{font:12px var(--px);color:#fff}
+.chAbRec .chAbB{margin-left:auto}
+.chLock{display:flex;align-items:center;gap:8px;font-size:11px;color:#e8c8d4;line-height:1.35}.chLock .ic{width:18px;height:18px;color:#ff6b8a;flex:none}.chLock b{color:#fff}
+#mbox.chM .chList.m{margin-top:6px}
+/* Flüche */
+#mbox.abCMM{width:min(560px,calc(96*var(--vw,1vw)));background:radial-gradient(ellipse at 50% 0,#3a0c2a,#140612 60%,#08030a)!important;border-color:#ff3b6b!important}
+.abCM{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.abCMh h2{margin:6px 0 4px;color:#ff6b8a;text-shadow:0 0 18px rgba(255,59,107,.7),2px 2px 0 #000}
+.abAbyss{display:inline-flex;width:58px;height:58px;align-items:center;justify-content:center;border-radius:50%;background:radial-gradient(circle,#ff3b6b,#5a0a2a 70%);box-shadow:0 0 30px rgba(255,59,107,.8);color:#fff;animation:abPulse 2.2s ease-in-out infinite}.abAbyss .ic{width:34px;height:34px}
+@keyframes abPulse{50%{transform:scale(1.08);box-shadow:0 0 46px rgba(255,59,107,1)}}
+.abCuL{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;width:100%}.abCuL.list{grid-template-columns:1fr 1fr}
+.abCu{position:relative;min-height:128px;perspective:600px}
+.abCu .abCuF,.abCu .abCuB{position:absolute;inset:0;border-radius:10px;backface-visibility:hidden;transition:transform .6s cubic-bezier(.3,1.4,.5,1)}
+.abCu .abCuF{display:flex;align-items:center;justify-content:center;background:repeating-linear-gradient(45deg,#2a0a20 0 8px,#1a0614 8px 16px);border:2px solid #5a1a3a;color:#ff3b6b}.abCu .abCuF .ic{width:30px;height:30px}
+.abCu .abCuB{transform:rotateY(180deg);display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 8px;background:linear-gradient(180deg,#2c0c22,#160812);border:2px solid #ff3b6b;box-shadow:0 0 16px rgba(255,59,107,.35)}
+.abCu.on .abCuF{transform:rotateY(-180deg)}.abCu.on .abCuB{transform:rotateY(0)}
+.abCu.g-m .abCuB{border-color:#c27cff;box-shadow:0 0 16px rgba(194,124,255,.35)}.abCu.g-g .abCuB{border-color:#ffb020;box-shadow:0 0 16px rgba(255,176,32,.3)}
+.abCuI{display:flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:8px;background:rgba(255,59,107,.2);color:#ff8aa8}.abCuI .ic{width:18px;height:18px}
+.abCu.g-m .abCuI{background:rgba(194,124,255,.2);color:#d8b0ff}.abCu.g-g .abCuI{background:rgba(255,176,32,.18);color:#ffd36a}
+.abCuB b{font:9px var(--px);color:#fff}.abCuB small{font-size:11px;line-height:1.3;color:#e8d0dc}
+.abCuL.list .abCu{min-height:96px}
+.abTeamL{display:flex;flex-wrap:wrap;justify-content:center;gap:4px}.abTeamL i{width:44px;height:44px;display:flex;align-items:flex-end;justify-content:center;border-radius:8px;background:rgba(255,255,255,.05)}.abTeamL i img{max-width:42px;max-height:42px;image-rendering:pixelated}
+.abNote{display:flex;gap:6px;align-items:flex-start;margin:0;font-size:12px;color:#e8d0dc;text-align:left}.abNote .ic{flex:none;width:14px;height:14px;color:#ff8aa8}
+@media (max-width:520px){.abCuL{grid-template-columns:1fr}.abCu{min-height:96px}}
+#abHud{position:absolute;left:50%;top:10px;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:8px;padding:5px 10px;border-radius:9px;background:rgba(20,6,16,.88);border:2px solid #ff3b6b;box-shadow:0 0 14px rgba(255,59,107,.4);color:#fff;cursor:pointer;font:inherit}
+#abHud b{display:inline-flex;align-items:center;gap:5px;font:8px var(--px);color:#ff8aa8;white-space:nowrap}#abHud b .ic{width:12px;height:12px}
+#abHud span{display:flex;gap:3px}#abHud span i{display:flex;width:20px;height:20px;align-items:center;justify-content:center;border-radius:5px;background:rgba(255,59,107,.2);color:#ff8aa8}#abHud span i .ic{width:13px;height:13px}
+#abHud span i.g-m{background:rgba(194,124,255,.2);color:#d8b0ff}#abHud span i.g-g{background:rgba(255,176,32,.18);color:#ffd36a}
+body:not(.battle) #abHud{top:auto;bottom:10px}
+#twHud.abTw{border-color:#ff3b6b}
+.abResCu{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 0;padding:6px 8px;border-radius:8px;background:rgba(255,59,107,.08);border:1px solid rgba(255,59,107,.3)}.abResCu small{font-size:11px;color:#ff8aa8}.abResCu span{display:flex;gap:3px}
+.abResCu i{display:flex;width:22px;height:22px;align-items:center;justify-content:center;border-radius:5px;background:rgba(255,59,107,.2);color:#ff8aa8}.abResCu i .ic{width:14px;height:14px}.abResCu i.g-m{background:rgba(194,124,255,.2);color:#d8b0ff}.abResCu i.g-g{background:rgba(255,176,32,.18);color:#ffd36a}
+/* Rekord in der Spieler-Übersicht, im Stil der Modus-Überschriften */
+.abRec{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;padding:8px 10px;border-radius:10px;background:linear-gradient(90deg,rgba(255,59,107,.16),rgba(194,124,255,.12));border:2px solid rgba(255,59,107,.45)}
+.abRec small{font:9px var(--px);color:#ff6b8a;letter-spacing:.5px}.abRec b{font:12px var(--px);color:#fff}.abRec em{font:8px var(--px);font-style:normal;color:#ffd36a;background:rgba(255,176,32,.16);padding:2px 5px;border-radius:4px}
+.abRec em:empty{display:none}
+.abSw{display:flex;gap:4px;margin:0 0 8px}.abSw button{flex:1;height:26px;display:inline-flex;align-items:center;justify-content:center;gap:5px;border-radius:6px;font:8px var(--px);color:var(--muted);background:#1c2232;border:2px solid #0b0d13;cursor:pointer}
+.abSw button .ic{width:12px;height:12px}.abSw button.on{color:#fff;background:#3a1430;border-color:#ff3b6b}
+/* Abzeichen-Design Abgrund */
+.bdg.cs-abgrund>i{background:conic-gradient(from var(--bga),#ff3b6b,#5a0a2a,#c27cff,#1a0612,#ff3b6b);animation:bdgSpin 5s linear infinite}
+.bdg.cs-abgrund>i::after{background:radial-gradient(1px 1px at 30% 34%,#ff8aa8 50%,transparent 51%),radial-gradient(1px 1px at 66% 60%,#c27cff 50%,transparent 51%),radial-gradient(circle at 50% 70%,#5a0a2a 0,#1a0410 60%,#050002 100%)}
+.bdg.cs-abgrund>i .ic{color:#ff8aa8!important;filter:drop-shadow(0 0 4px #ff3b6b) drop-shadow(0 0 8px rgba(194,124,255,.6))}
+.bdg.cs-abgrund em{background:linear-gradient(90deg,#ff3b6b,#c27cff);color:#fff}
+.bdg.cs-abgrund .bWg,.bdg.cs-abgrund .bLf{color:#ff8aa8;filter:drop-shadow(0 1px 0 rgba(40,0,20,.8)) drop-shadow(0 0 4px #ff3b6b)}
+.bdg.cs-abgrund.t5::before{background:conic-gradient(from var(--bga),#ff3b6b,#c27cff,#5a0a2a,#ff3b6b)}
+.bdg.cs-abgrund.t5::after{background:radial-gradient(circle,rgba(255,59,107,.55),rgba(194,124,255,.2) 45%,transparent 66%)}
+/* Hintergrund Abgrundtiefe */
+.bg-abgrund{background:radial-gradient(ellipse at 50% 100%,#5a0a2a,#1a0410 45%,#06010a 80%)}
+.bg-abgrund .abgGlow{position:absolute;left:50%;bottom:-10%;width:90cqw;aspect-ratio:1;margin-left:-45cqw;border-radius:50%;background:radial-gradient(circle,rgba(255,59,107,.65),rgba(194,124,255,.2) 40%,transparent 66%);animation:abPulse 4s ease-in-out infinite}
+.bg-abgrund .abgRift{position:absolute;left:50%;bottom:0;width:30cqw;height:32cqh;margin-left:-15cqw;background:radial-gradient(ellipse at 50% 100%,rgba(255,120,160,.8),rgba(255,59,107,.3) 40%,transparent 70%);filter:blur(2px)}
+.bg-abgrund .abgEye{position:absolute;top:58%;width:5cqw;height:2cqw;border-radius:50%;background:radial-gradient(ellipse,#ff3b6b 0 35%,#ff3b6b55 60%,transparent 72%);box-shadow:0 0 8px #ff3b6b;animation:abgBlink 6s infinite}
+.bg-abgrund .abgEye.e1{left:40%}.bg-abgrund .abgEye.e2{left:55%;animation-delay:-.2s}
+@keyframes abgBlink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.bg-abgrund .abgEm{position:absolute;left:var(--x);bottom:-4%;width:var(--s);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#ffb0c8,#ff3b6b 50%,transparent 70%);animation:abgUp var(--d) linear infinite;animation-delay:var(--dl);opacity:.8}
+@keyframes abgUp{to{transform:translate(var(--dx),-110cqh);opacity:0}}
+/* Abgrund-Draft */
+#mbox.abDraftM{width:min(860px,calc(96*var(--vw,1vw)));max-width:none;background:radial-gradient(ellipse at 50% 0,#2c0a22,#140612 55%,#08030a)!important;border-color:#ff3b6b!important}
+.abDrHd{display:flex;align-items:center;justify-content:space-between;gap:10px}.abDrHd h2{margin:0;color:#ff6b8a;text-shadow:0 0 14px rgba(255,59,107,.6),2px 2px 0 #000}
+.abDrN{font:10px var(--px);color:#e8d0dc;background:rgba(255,59,107,.14);border:1px solid rgba(255,59,107,.4);padding:6px 9px;border-radius:6px;white-space:nowrap}.abDrN b{color:#fff;font-weight:400}
+.abDrH{margin:12px 0 6px;font:10px var(--px)}
+.abDrG{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.abDr{position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 6px 8px;border-radius:10px;background:rgba(255,255,255,.04);border:2px solid color-mix(in srgb,var(--rc) 45%,#0b0d13);cursor:pointer;color:#fff;font:inherit;transition:transform .12s}
+.abDr:hover{transform:translateY(-2px)}.abDr.on{background:color-mix(in srgb,var(--rc) 22%,#1a0814);border-color:var(--rc);box-shadow:0 0 14px color-mix(in srgb,var(--rc) 60%,transparent)}
+.abDr.full{opacity:.4;cursor:not-allowed}.abDr.full:hover{transform:none}
+.abDrM{display:flex;align-items:flex-end;justify-content:center;width:64px;height:58px}.abDrM img{max-width:64px;max-height:58px;image-rendering:pixelated}
+.abDr b{font:8px var(--px);text-align:center;line-height:1.3}.abDr small{display:flex;gap:3px}.abDr small em{font-style:normal;font-size:9px;padding:1px 5px;border-radius:4px;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.5)}
+.abDrR{font-size:10px;color:var(--muted)}
+.abDrC{position:absolute;right:6px;top:6px;display:flex;width:18px;height:18px;align-items:center;justify-content:center;border-radius:50%;background:var(--rc);color:#0b0d13}.abDrC .ic{width:12px;height:12px}
+.abDrB{display:flex;align-items:center;gap:8px;margin-top:14px}
+@media (max-width:640px){.abDrG{grid-template-columns:repeat(3,1fr)}.abDrM{width:48px;height:44px}.abDrM img{max-width:48px;max-height:44px}.abDrHd{flex-wrap:wrap;padding-right:40px}}
+.chAbRec b{white-space:nowrap;font-size:10px}
+.abDrH{display:flex;align-items:center;gap:8px}.abDrH span{font:8px var(--px);padding:2px 6px;border-radius:4px;background:rgba(255,80,110,.2);color:#ff8aa8}.abDrH span.ok{background:rgba(80,220,140,.2);color:#7fe0a0}
+.abDr.st .abDrM{width:72px;height:64px}
+/* Bestenliste: Turm und Abgrund nebeneinander */
+.lbDuoW{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.lbDuo{display:flex;flex-direction:column;gap:5px;min-width:0}
+.lbDuo h5{display:flex;align-items:center;gap:5px;margin:0 0 2px;font:8px var(--px);color:#9fd0ff}.lbDuo h5 .ic{width:12px;height:12px}
+.lbDuo:last-child h5{color:#ff8aa8}
+.lbRow.lbMini{display:flex;align-items:center;gap:6px;padding:5px 6px;min-width:0}
+.lbRow.lbMini .lbRank{flex:none;width:20px;height:20px;font-size:9px}
+.lbRow.lbMini b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;text-align:left}
+.lbRow.lbMini em{flex:none;font:9px var(--px);font-style:normal;color:#fff}
+.lbDuo .empty{font-size:11px;margin:6px 0}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -8228,7 +8333,7 @@ let USER=null,META=null;
 const accounts=()=>LS.get("pokelings_accounts",{});
 const userKey=n=>n.trim().toLowerCase();
 const metaKey=u=>"pokelings_v5_meta_"+(u?userKey(u):"_gast");
-const saveKey=()=>"pokelings_v7_save_"+(USER?userKey(USER):"_gast");
+const saveKey=k=>"pokelings_v7_save_"+(USER?userKey(USER):"_gast")+(((k||window.__svK||(typeof S!=="undefined"&&S&&S.abyss?"ab":"sp"))==="ab")?"_abgrund":"");
 function newMeta(){return{gems:0,gemsTotal:0,perks:{},unlocked:LINES.filter(L=>L.start).map(L=>L.k),dex:{},runs:[],best:{},champs:{},games:0,wins:0,losses:0,v:6};}
 function loadMeta(u){
   const m=LS.get(metaKey(u),null)||newMeta();const d=newMeta();for(const k in d)if(m[k]===undefined)m[k]=d[k];
@@ -8256,7 +8361,7 @@ function login(name,pw){const a=accounts()[userKey(name)];if(!a)return"Unbekannt
 const perk=id=>(typeof S!=="undefined"&&S&&(S.duel||S.daily))?0:(META&&META.perks[id])||0;
 /* v1.31.5: eigener Forschungsstand fürs Labor (perk() ist in Tageschallenge/Duell absichtlich 0) */
 const perkLv=id=>(META&&META.perks&&META.perks[id])||0;
-const pool=()=>LINES.filter(L=>L.region===((S&&S.region)||"kanto")&&(S&&S.poolV2&&Array.isArray(S.poolSel)?S.poolSel.includes(L.k):(L.start||(S&&S.weekly&&S.mono)||(S&&S.duel&&Array.isArray(S.duel.pool)?S.duel.pool.includes(L.k):(META.unlocked.includes(L.k)&&(!(S&&Array.isArray(S.poolSel))||S.poolSel.includes(L.k))))))&&(!(S&&S.mono)||typeof monoOk!=="function"||monoOk(L)));
+const pool=()=>LINES.filter(L=>(S&&S.abyss&&Array.isArray(S.abyss.pool)&&S.abyss.pool.length)?S.abyss.pool.includes(L.k):L.region===((S&&S.region)||"kanto")&&(S&&S.poolV2&&Array.isArray(S.poolSel)?S.poolSel.includes(L.k):(L.start||(S&&S.weekly&&S.mono)||(S&&S.duel&&Array.isArray(S.duel.pool)?S.duel.pool.includes(L.k):(META.unlocked.includes(L.k)&&(!(S&&Array.isArray(S.poolSel))||S.poolSel.includes(L.k))))))&&(!(S&&S.mono)||typeof monoOk!=="function"||monoOk(L)));
 const johtoUnlocked=()=>!!(META&&(((META.champs||{}).normal||0)+((META.champs||{}).hard||0)+((META.champs||{}).night||0)>0||(META.reg&&META.reg.kanto&&Object.values(META.reg.kanto.champs||{}).some(v=>v>0))));
 const hoennUnlocked=()=>!!(META&&META.reg&&META.reg.johto&&Object.values(META.reg.johto.champs||{}).some(v=>v>0));
 const sinnohUnlocked=()=>!!(META&&META.reg&&META.reg.hoenn&&Object.values(META.reg.hoenn.champs||{}).some(v=>v>0));
@@ -8352,12 +8457,12 @@ function showMenu(){
   if(S&&S.phase==="shop")save();
   try{if(typeof fameReset141==="function")fameReset141();}catch(e){}
   showScreen("menu");if(typeof GL!=="undefined"&&GL&&GL.ftMesh){GL.scene.remove(GL.ftMesh);GL.ftMesh=null;}if(typeof avatarCheck==="function")avatarCheck();if(typeof patchAuto==="function")patchAuto();
-  const sv=LS.get(saveKey(),null);const total=Object.values(META.champs).reduce((a,b)=>a+b,0);
+  const sv=LS.get(saveKey("sp"),null);const total=Object.values(META.champs).reduce((a,b)=>a+b,0);
   $("menuWho").innerHTML=`<span>${ic("user")} ${USER&&typeof fameNameHtml==="function"&&META&&META.fame?fameNameHtml(USER,{fn:META.fame.n}):esc(USER||"Gast")}</span><span style="color:var(--gem)">${ic("gem")} ${META.gems}${gemEventMul()>1?` <small style="font-size:10px;background:var(--gem);color:#0b0d13;border-radius:6px;padding:1px 5px;margin-left:3px">+${Math.round((gemEventMul()-1)*100)} % HEUTE</small>`:""}</span><span style="color:var(--amber)">${ic("trophy")} ${total}</span>${typeof misChip==="function"?misChip():""}`;if($("mMis"))$("mMis").onclick=()=>misModal();
   const mb=(id,icn,t,s,main)=>`<button class="mbtn ${main?"main":""}" id="${id}"><span class="mi">${ic(icn)}</span><div><b>${t}</b><small>${s}</small></div></button>`;
-  $("menuBtns").innerHTML=(sv&&sv.S?mb("mCont","play","Weiterspielen",`${sv.S.tower?"Kampfturm · Ebene "+(sv.S.round-20):(sv.S.daily?"Täglicher Run":MODES[sv.S.mode].n)+" · Runde "+sv.S.round}`,1):"")+
-   mb("mNew","plus","Neues Spiel","Singleplayer · Täglicher Run · Region & Schwierigkeit",!(sv&&sv.S))+mb("mMp","swords","Mehrspieler","Ranked · Live-Duell · Geisterkämpfe")+mb("mFr","users","Freunde","Anfragen · Einladen · Chat")+mb("mLbB","trophy","Bestenliste","Trainerpunkte · Ranked")+mb("mLab","lab","Forschungslabor","Dauerhafte Verbesserungen & neue Pokémon")+((()=>{try{return typeof fameOpen==="function"&&fameOpen().ok;}catch(e){return false;}})()?mb("mFame","crown","Ruhm","Edelsteine einzahlen · Namensfarbe · Kartenrand"):"")+mb("mDex","dex","Pokédex","Sammlung · Schillernde · Mega-Formen")+mb("mCard","user","Trainerkarte","Lieblingspokémon · Hintergrund · 3 Abzeichen")+mb("mAch","trophy","Erfolge",(()=>{const n=Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length;return n+"/"+ACH.length+" freigeschaltet · Statistik · Verlauf";})())+mb("mSet","gear","Einstellungen","Anleitung · Sound · Grafik · "+(USER?"Abmelden":"Login"));
-  if($("mCont"))$("mCont").onclick=()=>{const rk=(S&&S.phase!=="over"&&S.region)||(sv&&sv.S&&sv.S.region)||"kanto";needReg(rk,()=>{hideScreens();if(!S||S.phase==="over")loadGame();setTab("shop");render();});};
+  $("menuBtns").innerHTML=(sv&&sv.S?mb("mCont","play","Weiterspielen",`${sv.S.tower?(sv.S.abyss?"Abgrund":"Kampfturm")+" · Ebene "+(sv.S.round-20):(sv.S.daily?"Täglicher Run":MODES[sv.S.mode].n)+" · Runde "+sv.S.round}`,1):"")+
+   mb("mNew","plus","Neues Spiel","Singleplayer · Region & Schwierigkeit",!(sv&&sv.S))+mb("mMp","swords","Mehrspieler","Ranked · Live-Duell · Geisterkämpfe")+mb("mFr","users","Freunde","Anfragen · Einladen · Chat")+mb("mLbB","trophy","Bestenliste","Trainerpunkte · Ranked")+mb("mLab","lab","Forschungslabor","Dauerhafte Verbesserungen & neue Pokémon")+((()=>{try{return typeof fameOpen==="function"&&fameOpen().ok;}catch(e){return false;}})()?mb("mFame","crown","Ruhm","Edelsteine einzahlen · Namensfarbe · Kartenrand"):"")+mb("mDex","dex","Pokédex","Sammlung · Schillernde · Mega-Formen")+mb("mCard","user","Trainerkarte","Lieblingspokémon · Hintergrund · 3 Abzeichen")+mb("mAch","trophy","Erfolge",(()=>{const n=Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length;return n+"/"+ACH.length+" freigeschaltet · Statistik · Verlauf";})())+mb("mSet","gear","Einstellungen","Anleitung · Sound · Grafik · "+(USER?"Abmelden":"Login"));
+  if($("mCont"))$("mCont").onclick=()=>{const ab=!!(S&&S.abyss),rk=(!ab&&S&&S.phase!=="over"&&S.region)||(sv&&sv.S&&sv.S.region)||"kanto";needReg(rk,()=>{hideScreens();if(!S||S.phase==="over"||ab){if(ab&&S.phase==="shop")save();window.__svK="sp";try{loadGame();}finally{window.__svK=null;}}setTab("shop");render();});};
   $("mNew").onclick=chooseMode;$("mNew").insertAdjacentHTML("beforeend",`<em class="mBadge" id="mNewN" style="${window.__gbBadge?"":"display:none"}">!</em>`);$("mMp").onclick=()=>mpModal();if($("mLbB")){$("mLbB").classList.add("lbOnly");$("mLbB").onclick=()=>menuLbModal();}try{menuLbMount();}catch(e){}try{setTimeout(()=>{if(typeof seaRecap==="function")seaRecap();},2500);}catch(e){}if($("mFr")){$("mFr").insertAdjacentHTML("beforeend",`<em class="mBadge" id="mFrN" style="display:none"></em>`);$("mFr").onclick=()=>friendsModal();try{socBadges();}catch(e){}}$("mLab").onclick=()=>labScreen();if($("mFame")){$("mFame").classList.add("mFame");$("mFame").onclick=()=>labScreen("fame");try{const L=fameLevel(fameMeta().g).L;if(L)$("mFame").querySelector("b").insertAdjacentHTML("beforeend",` <span class="mFameR">${fameEm(L)}${esc(fameName_(L))}</span>`);}catch(e){}}$("mDex").onclick=()=>dexModal("dex");$("mAch").onclick=()=>achModal();if($("mCard"))$("mCard").onclick=()=>cardModal();$("mSet").onclick=settingsModal;
   const bs=[...$("menuBtns").querySelectorAll(".mbtn")];bs.forEach((b,i)=>{b.onmouseenter=()=>menuSel(i);});menuSel(0);
   menuFit();try{achRewardSync();_achT=0;achCheck();}catch(e){}
@@ -8443,10 +8548,10 @@ function regCardHtml(k,r,A,ok,soon){const st=soon?{champ:0,best:0,seen:0,total:0
       `<div class="rcStats"><div><span>${ic("crown")}Champion</span><b>${st.champ}</b></div><div><span>${ic("flag")}Bestleistung</span><b>${st.best>20?"Champion":st.best?"Runde "+st.best:"–"}</b></div><div><span>${ic("dex")}Pokédex</span><b>${st.seen}/${st.total}</b></div><div><span>${ic("shiny")}Schillernd</span><b>${st.shy}/${st.total}</b></div></div>`}
     </div>${ok&&!soon?`<span class="rcGo">${ic("arrow")}</span>`:""}</button>`;}
 function chooseMode(){
-  if(!regUnlocked(modeRegion))modeRegion="kanto";const has=LS.get(saveKey(),null);
+  if(!regUnlocked(modeRegion))modeRegion="kanto";const has=LS.get(saveKey("sp"),null);
   const reg=Object.entries(REGIONS).map(([k,r])=>regCardHtml(k,r,REG_ART[k]||REG_ART.kanto,regUnlocked(k),false)).join("")+Object.entries(SOON_REG).map(([k,r])=>regCardHtml(k,r,r,false,true)).join("");
   openModal(`<div class="ngHead"><h2>${ic("flag")} NEUES SPIEL</h2><div class="ngSteps"><span class="on"><b>1</b>Region</span><i></i><span><b>2</b>Schwierigkeit</span></div></div>
-    ${typeof dailyCardHtml==="function"?dailyCardHtml():""}${typeof weeklyCardHtml==="function"?weeklyCardHtml():""}<h4 class="ngSub">${ic("flag")} Freies Spiel: Region wählen</h4>
+    <h4 class="ngSub">${ic("flag")} Freies Spiel: Region wählen</h4>
     ${has?`<div class="ngWarn">${ic("info")} Ein laufendes Spiel wird überschrieben.</div>`:""}<div class="regList">${reg}</div>
     ${typeof gambitOpen==="function"?`<h4 class="ngSub ngGbH">${ic("crown")} Außerdem</h4><button class="ngGb" id="ngGb"><span class="mi">${ic("crown")}</span><div><b>Pokémon Gambit <em class="mBeta">BETA</em></b><small>Schach mit Pokémon · Online, lokal & gegen KI</small></div><em class="mBadge" id="mGbN" style="${window.__gbBadge?"":"display:none"}">!</em></button>`:""}`,"wide newGame",true);
   if($("ngGb"))$("ngGb").onclick=()=>{closeModal();if(typeof gambitOpen==="function")gambitOpen();};
@@ -12384,11 +12489,11 @@ function gainXP(n){const before=level();S.xp+=n;const after=level();if(after>bef
 
 function newRun0(mode,region,o){
   hideScreens();closeModal();const reg=setRegion(region||"kanto");o=o||{};if(o.duel)BOSSES={};
-  S={gridV:2,mode,region:reg,rollsTotal:0,round:1,gold:MODES[mode].base+1+2*perk("gold"),xp:0,board:{},bench:Array(benchSize()).fill(null),bag:[],relics:[],shop:{mons:[],item:null},shopRolls:0,phase:"shop",enemies:[],enc:null,encIdx:null,paths:null,encRolls:0,results:[],history:{},wins:0,streak:0,revives:0,revanche:false,bosses:0,elites:0,fuseQ:[],seed:Math.floor(Math.random()*1e9),locs:{}};if(MODES[mode]&&MODES[mode].noRev)S.noRev=1;
+  S={gridV:2,mode,region:reg,rollsTotal:0,round:1,gold:MODES[mode].base+1+2*perk("gold"),xp:0,board:{},bench:Array(benchSize()).fill(null),bag:[],relics:[],shop:{mons:[],item:null},shopRolls:0,phase:"shop",enemies:[],enc:null,encIdx:null,paths:null,encRolls:0,results:[],history:{},wins:0,streak:0,revives:0,revanche:false,bosses:0,elites:0,fuseQ:[],seed:Math.floor(Math.random()*1e9),locs:{}};if(MODES[mode]&&MODES[mode].noRev)S.noRev=1;if(o.abyss&&typeof abyssInit==="function")abyssInit(o);
   if(o.daily){S.daily=o.daily;S.rs=o.daily.seed;S.gold=MODES[mode].base+1;S.bench=Array(benchSize()).fill(null);if(o.daily.rules.includes("gold"))S.gold+=6;}if(o.duel){S.duel=o.duel;S.seed=o.duel.seed;S.gold=MODES.duel.base+1;S.bench=Array(benchSize()).fill(null);}if(o.mono&&!o.daily&&!o.duel&&TYPES[o.mono])S.mono=o.mono;if(!o.daily&&!o.duel){if(o.iron)S.iron=1;if(o.poor)S.poor=1;if(o.small)S.small=1;if(o.allin)S.allin=1;if(!o.mono&&!o.weekly&&typeof psSel==="function"){S.poolSel=psSel(reg);S.poolV2=1;}if(o.weekly&&S.mono)S.weekly=o.weekly;}if(o.duel&&typeof psSel==="function"){S.poolSel=psSel(reg);S.poolV2=1;}
   uidC=1;rollShop();if(S.daily&&S.daily.rules.includes("item"))dseed(()=>toBag(pickItem(["r"])),"item");setupRound();selUid=null;B=null;clearVis();clearFx();$("texts").innerHTML="";$("result").classList.remove("show");document.body.classList.remove("battle");setView("raster",true);
   showInfoEmpty();save();setTab("shop");render();
-  starterChoice(()=>{const after=()=>{if(S&&S.daily)dailyIntro();else if(S&&S.duel)duelIntro();else if(!LS.get("pokelings_tut1",false)&&!window.__autoPick){LS.set("pokelings_tut1",true);LS.set("pokelings_seen6",true);tutorial();}else if(!LS.get("pokelings_seen6",false)){LS.set("pokelings_seen6",true);help();}};if(perk("relicstart")&&!S.duel)relicChoice("Reliktjäger: Wähle dein Start-Relikt",after);else after();});
+  (S.abyss&&typeof abyssSetup==="function"?abyssSetup:starterChoice)(()=>{const after=()=>{if(S&&S.daily)dailyIntro();else if(S&&S.duel)duelIntro();else if(!LS.get("pokelings_tut1",false)&&!window.__autoPick){LS.set("pokelings_tut1",true);LS.set("pokelings_seen6",true);tutorial();}else if(!LS.get("pokelings_seen6",false)){LS.set("pokelings_seen6",true);help();}};if(perk("relicstart")&&!S.duel)relicChoice("Reliktjäger: Wähle dein Start-Relikt",after);else after();});
 }
 /* Retro-3D-Pokéball als Pixelgrafik (schattierte Kugel, gerastert) */
 const _pxB={};
@@ -12567,7 +12672,7 @@ function render(){if(typeof achCheck==="function")setTimeout(achCheck,0);documen
   if(!S)return;if(typeof BGM!=="undefined"&&BGM.region)BGM.region(S.enc&&S.enc.loc==="spukwald"?"spuk":(S.region||"kanto"));buildBench();
   const lv=level(),cap=capFor(),bu=boardUnits().length;
   document.body.classList.toggle("towerMode",!!S.tower);$("sRound").textContent=S.tower?S.round-20:S.round;if($("sRoundMax"))$("sRoundMax").textContent=S.tower?" · TURM":"/20";$("sGold").textContent=S.gold;$("sInc").textContent="+"+income();goldFx();$("sMode").textContent=MODES[S.mode].n+(S.mono&&TYPES[S.mono]?" · "+TYPES[S.mono][0]:"");
-  {const rb=$("revChip").querySelector("b");if(rb)rb.textContent=S.tower?S.tower.lives:1;}$("sRev").textContent=S.tower?"Turm-Leben":S.duel?`Duell-KP ${Math.max(0,S.duel.hp[0])}/${DUEL_HP}`:S.revives?`Leben · ${S.revives}× Revanche`:"Leben";$("revChip").title=S.tower?`Turm-Leben ${S.tower.lives}/${TW.lives}. Jede Revanche kostet ein Leben, jeder Koryphäen-Sieg gibt eines zurück.`:`Nur 1 Leben. Bisher ${S.revives}× per Revanche wiederbelebt.`;$("sLv").textContent="LV "+lv;$("sTeam").textContent=bu+"/"+cap+" Plätze";refreshGems();
+  {const rb=$("revChip").querySelector("b");if(rb)rb.textContent=S.abyss?1:S.tower?S.tower.lives:1;}$("sRev").textContent=S.abyss?"Leben · keine Revanche":S.tower?"Turm-Leben":S.duel?`Duell-KP ${Math.max(0,S.duel.hp[0])}/${DUEL_HP}`:S.revives?`Leben · ${S.revives}× Revanche`:"Leben";$("revChip").title=S.tower?`Turm-Leben ${S.tower.lives}/${TW.lives}. Jede Revanche kostet ein Leben, jeder Koryphäen-Sieg gibt eines zurück.`:`Nur 1 Leben. Bisher ${S.revives}× per Revanche wiederbelebt.`;$("sLv").textContent="LV "+lv;$("sTeam").textContent=bu+"/"+cap+" Plätze";refreshGems();
   const lo=LV_XP[lv-1],hi=LV_XP[lv]||LV_XP[lv-1];$("xpBar").firstChild.style.width=(hi>lo?(S.xp-lo)/(hi-lo)*100:100)+"%";const enX=typeof LANG!=="undefined"&&LANG==="en";$("lvChip").title=hi>lo?(enX?`${S.xp-lo}/${hi-lo} XP · ${hi-S.xp} XP to level ${lv+1}`:`${S.xp-lo}/${hi-lo} EP · noch ${hi-S.xp} EP bis Level ${lv+1}`):"Max-Level";$("sXp").textContent=hi>lo?(enX?`${hi-S.xp} XP to go`:`noch ${hi-S.xp} EP`):"MAX";
   {let eg=$("eggChip");const E=S.eggs||[];if(E.length){if(!eg){eg=document.createElement("div");eg.id="eggChip";eg.className="hs";const rc=$("sRound").closest(".hs");if(rc)rc.after(eg);}const n=Math.max(0,Math.min(...E.map(e=>e.r))-S.round);
     eg.innerHTML=`<i class="eggI"></i><div class="hrow"><b>${E.length>1?E.length+"×":"Ei"}</b><small>${n<=1?"nach nächstem Kampf":"in "+n+" Runden"}</small></div>`;eg.title=`Pokémon-Ei: schlüpft ${n<=1?"nach dem nächsten Kampf":"in "+n+" Runden"}`;}else if(eg)eg.remove();}
@@ -12897,7 +13002,7 @@ function enemyMini(list){return `<div class="mini">${list.slice(0,8).map(e=>`<sp
 function fillMini(root){root.querySelectorAll(".mini span[data-sp]").forEach(e=>e.replaceWith(spriteEl(+e.dataset.sp)));}
 function renderEnc(){
   if(!S)return;const enc=S.enc,boss=BOSSES[S.round],m=$("encPanel");if(S.duel)return renderDuelEnc(m);
-  $("wTitleT").textContent=S.tower?(boss?"KORYPHÄE · EBENE "+(S.round-20):"KAMPFTURM · EBENE "+(S.round-20)):boss?"BOSS-RUNDE":(REGIONS[S.region||"kanto"].n.toUpperCase()+"-ROUTE");$("wTitleS").textContent=S.tower?`${MODES[S.mode].n} · ${REGIONS[S.region||"kanto"].n} · Turm-Leben ${S.tower.lives}/${TW.lives}`:`${MODES[S.mode].n} · Runde ${S.round}/20`;
+  $("wTitleT").textContent=S.abyss?((boss?"BOSS · ":"")+"ABGRUND · EBENE "+S.round):S.tower?(boss?"KORYPHÄE · EBENE "+(S.round-20):"KAMPFTURM · EBENE "+(S.round-20)):boss?"BOSS-RUNDE":(REGIONS[S.region||"kanto"].n.toUpperCase()+"-ROUTE");$("wTitleS").textContent=S.abyss?`Abgrund · Gegner aus ${REGIONS[S.region||"kanto"].n} · ${(S.abyss.curses||[]).length} Flüche · 1 Leben`:S.tower?`${MODES[S.mode].n} · ${REGIONS[S.region||"kanto"].n} · Turm-Leben ${S.tower.lives}/${TW.lives}`:`${MODES[S.mode].n} · Runde ${S.round}/20`;
   if(rolling||(!enc&&!S.paths&&!boss)){m.innerHTML=`<div id="encHead"><h2>WEGE WERDEN GEWÜRFELT</h2></div><div class="roll"><div class="reel">${ic("dice")}</div><p class="empty" style="max-width:340px">Die Route verzweigt sich. Gleich siehst du drei mögliche Wege.</p></div>`;return;}
   if(!enc){
     const me=powOf(armyStats(boardUnits(),1,true));
@@ -14986,6 +15091,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Geisterkampf: An den Abzeichen des
 if(typeof EN!=="undefined")Object.assign(EN,{"Weihnachten kommt! Vom 1. bis 31. Dezember liegt die ganze 3D-Welt im Schnee, in den Orten stehen geschmückte Weihnachtsbäume, und statt Abendrot gibt es klares Winterlicht.": "Christmas is coming! From December 1 to 31 the whole 3D world is covered in snow, decorated Christmas trees stand in the towns, and clear winter light replaces the sunset.", "Festliches Menü: Schnee und Eiszapfen auf dem Logo, eine Mütze auf dem Pokéball, Lichterketten an Menü und Bestenliste und ein verschneiter Ladebildschirm mit Weihnachts-Tipps.": "Festive menu: snow and icicles on the logo, a hat on the Poké Ball, fairy lights on the menu and leaderboard, and a snowy loading screen with Christmas tips.", "Schneefall über Menü und Kampf. Wem das zu viel ist: In den Einstellungen unter Anzeige lässt er sich abschalten.": "Snowfall over the menu and battles. Too much? You can turn it off in the settings under Display.", "Adventskalender: Ab dem 1. Dezember wartet jeden Tag ein Türchen. Insgesamt 200 Edelsteine, 4 zufällige schillernde Pokémon, die Hintergründe Winterwald (Nikolaus) und Heilige Nacht (Heiligabend) und an Tür 24 ein schillerndes Botogel. Verpasste Türen kannst du bis zum 31.12. nachholen. Zum Öffnen brauchst du ein Konto.": "Advent calendar: from December 1 a new door waits every day. 200 gems in total, 4 random shiny Pokémon, the backgrounds Winter Forest (St. Nicholas) and Holy Night (Christmas Eve), and a shiny Delibird behind door 24. Missed doors can be opened until 31.12. You need an account to open doors.", "Weihnachts-Quest: Sammle im Dezember mit deinen Läufen Schneeflocken. Je gewonnener Kampf 1, als Champion extra: Leicht +10, Normal +25, Schwer +50, Nuzlocke +80, Albtraum +120. Ab 500 gibt es das Abzeichen „Advent 2026“, ab 2.000 den Titel „Weihnachtsheld 2026“, ab 5.000 wird das Abzeichen zur Prachtversion mit Flügeln. Tägliche Runs zählen nicht. Was du erreichst, bleibt für immer.": "Christmas quest: collect snowflakes with your runs in December. 1 per battle won, extra as champion: Easy +10, Normal +25, Hard +50, Nuzlocke +80, Nightmare +120. At 500 you get the badge “Advent 2026”, at 2,000 the title “Christmas Hero 2026”, at 5,000 the badge turns into the deluxe version with wings. Daily runs don't count. What you reach stays forever.", "Winter-Season 12/26: Die Season-Abzeichen kommen im Frost-Design, und die Top 3 bekommen zusätzlich den exklusiven Hintergrund Schneekugel (5 Sterne). Ab Januar geht es mit Galaxie weiter.": "Winter Season 12/26: the season badges come in a frost design, and the top 3 also get the exclusive Snow Globe background (5 stars). Galaxy continues in January.", "Weihnachtliche Klänge: Glöckchen und Jingle Bells in der Musik, Schlittenglocken nach jedem Sieg und ein eigener Sound beim Türchen-Öffnen.": "Festive sounds: bells and Jingle Bells in the music, sleigh bells after every win and a sound of its own when you open a door.", "FROHE FESTTAGE": "HAPPY HOLIDAYS", "Adventskalender": "Advent calendar", "ADVENTSKALENDER": "ADVENT CALENDAR", "jeden Tag eine Überraschung": "a surprise every day", "Tür": "Door", "Türen": "doors", "TÜR": "DOOR", "wartet": "is waiting", "zum Nachholen": "to catch up", "Frohe Festtage": "Happy holidays", "alle Türen geöffnet": "all doors opened", "Morgen wartet Tür": "Tomorrow: door", "bis Heiligabend": "until Christmas Eve", "Tage": "days", "Heute ist Heiligabend!": "Today is Christmas Eve!", "Frohe Festtage!": "Happy holidays!", "HEILIGABEND": "CHRISTMAS EVE", "NACHHOLEN": "CATCH UP", "IST BEREIT": "IS READY", "KANN NACHGEHOLT WERDEN": "CAN BE CAUGHT UP", "Jeden Tag ein Türchen. Verpasste Türen kannst du bis 31.12. nachholen.": "One door every day. Missed doors can be opened until 31.12.", "NUR MIT KONTO": "ACCOUNT ONLY", "Melde dich mit deinem Konto an, um Türchen zu öffnen. Die Belohnungen werden auf dem Server gespeichert.": "Log in with your account to open doors. Rewards are stored on the server.", "Melde dich mit deinem Konto an, um Türchen zu öffnen.": "Log in with your account to open doors.", "ALLE TÜREN GEÖFFNET": "ALL DOORS OPENED", "FÜR HEUTE ALLES GEÖFFNET": "ALL DONE FOR TODAY", "Frohe Festtage! Danke, dass du dabei warst.": "Happy holidays! Thanks for joining in.", "Morgen wartet die nächste Tür.": "The next door opens tomorrow.", "Öffnen": "Open", "schillernde Pokémon": "shiny Pokémon", "Kartenhintergründe": "card backgrounds", "schillerndes Botogel": "shiny Delibird", "öffnet am": "opens on", "Dezember": "December", "ist noch zu": "is still closed", "Der Adventskalender ist geschlossen": "The Advent calendar is closed", "Tür konnte gerade nicht geöffnet werden. Versuch es gleich noch einmal.": "The door couldn't be opened right now. Please try again in a moment.", "Vorschau": "Preview", "Tag": "day", "Türen werden nur simuliert, es gibt keine Belohnungen": "doors are only simulated, no rewards", "WEIHNACHTS-QUEST": "CHRISTMAS QUEST", "Weihnachts-Quest": "Christmas quest", "Schneeflocken": "snowflakes", "Stufe": "Tier", "Abzeichen": "Badge", "schlichte Version": "simple version", "für deine Trainerkarte": "for your trainer card", "Prachtversion": "Deluxe version", "das Abzeichen bekommt Flügel": "the badge gets wings", "Weihnachtsheld": "Christmas Hero", "Je gewonnener Kampf 1 · Champion: Leicht +10 · Normal +25 · Schwer +50 · Nuzlocke +80 · Albtraum +120. Nur Läufe im Dezember, tägliche Runs zählen nicht. Was du erreichst, bleibt für immer.": "1 per battle won · Champion: Easy +10 · Normal +25 · Hard +50 · Nuzlocke +80 · Nightmare +120. Only runs in December, daily runs don't count. What you reach stays forever.", "Weihnachts-Quest · Stufe 2": "Christmas quest · Tier 2", "Schneefall": "Snowfall", "Im Dezember über Menü und Kampf": "In December over menu and battles", "Weihnachts-Quest 2026: Schneeflocken mit Läufen im Dezember gesammelt": "Christmas quest 2026: snowflakes collected with runs in December", "Winterwald": "Winter Forest", "Heilige Nacht": "Holy Night", "Lichterglanz": "Twinkle Lights", "Winter-Season 12/26": "Winter Season 12/26", "Adventskalender 2026 · Tür 6 (Nikolaus)": "Advent calendar 2026 · door 6 (St. Nicholas)", "Adventskalender 2026 · Tür 24 (Heiligabend)": "Advent calendar 2026 · door 24 (Christmas Eve)", "Platz 1–3 der Winter-Season 12/26": "Places 1–3 of the Winter Season 12/26", "Besonderes Geschenk": "Special gift", "Hintergrund Schneekugel": "Snow Globe background", "exklusiv für die Top 3": "exclusive for the top 3"});
 /* v1.45.0: Albtraum & Nuzlocke */
 if(typeof EN!=="undefined")Object.assign(EN,{"Albtraum und Nuzlocke: Nur noch 1 Leben, keine Revanche. Ein K.O. beendet den Lauf. Läufe, die du vor dem Update begonnen hast, laufen mit den alten Regeln zu Ende.": "Nightmare and Nuzlocke: only 1 life, no rematch. A K.O. ends the run. Runs you started before the update finish with the old rules.", "Albtraum steht in der Auswahl jetzt ganz rechts, als schwerster Modus, und gibt dreifache Edelsteine. Nuzlocke gibt dafür 2,5-fache.": "Nightmare is now the rightmost choice, as the hardest mode, and gives triple gems. Nuzlocke gives 2.5× instead.", "Wer schon Albtraum gespielt hat, bekommt den Unterschied für seine letzten Läufe nachträglich als Edelstein-Geschenk.": "If you have already played Nightmare, you get the difference for your recent runs as a gem gift.", "Gegner in Formation, mit Items ab Runde 6 (ab 18 zwei) und mehr Fusionsgaben, stärkere Bosse, wenig Gold. Nur 1 Leben, keine Revanche. Dafür dreifache Edelsteine.": "Foes in formation, with items from round 6 (two from 18) and more fusion gifts, stronger bosses, little gold. Only 1 life, no rematch. In return, triple gems.", "Gegner fast so stark wie auf Schwer und in Formation, ab Runde 8 mit Items (ab 17 zwei). Besiegte Pokémon sind für den Rest des Laufs weg. Nur 1 Leben, keine Revanche. 2,5-fache Edelsteine.": "Foes almost as strong as on Hard and in formation, with items from round 8 (two from 17). Defeated Pokémon are gone for the rest of the run. Only 1 life, no rematch. 2.5× gems.", "1 Leben · keine Revanche": "1 life · no rematch", "Dieser Lauf endet hier.": "This run ends here.", "Lauf beenden": "End run", "Nachzahlung: Albtraum gibt jetzt dreifache Edelsteine": "Back pay: Nightmare now gives triple gems"});
+/* v1.46.0: Abgrund & Herausforderungen */
+if(typeof EN!=="undefined")Object.assign(EN,{"Neuer Modus: Abgrund. Ein endloser Abstieg für alle, die in jeder Region Champion auf Normal geworden sind. Er fängt wie ein normaler Lauf bei Runde 1 an, jede Runde ist eine Ebene, und nach dem Champion geht es ohne Pause weiter, mit Koryphäen alle 5 Ebenen. 1 Leben, keine Revanche.": "New mode: Abyss. An endless descent for everyone who has become champion on Normal in every region. It starts like a normal run at round 1, every round is a floor, and after the champion it keeps going without a break, with Frontier Brains every 5 floors. 1 life, no rematch.", "Draft: Zum Start bekommst du 16 Pokémon aus allen Regionen angeboten und wählst 6 davon, aus jeder Seltenheit mindestens eins, höchstens 2 Legendäre. Einmal darfst du neu würfeln. Danach wählst du deinen Startpartner. Im Laden gibt es nur deine 6 Linien.": "Draft: at the start you're offered 16 Pokémon from all regions and pick 6, at least one of each rarity, at most 2 legendaries. You may reroll once. Then you pick your starting partner. The shop only has your 6 lines.", "Flüche: 25 verschiedene Flüche, zum Start werden 3 ausgewürfelt, nach jeder 10. Ebene kommt einer dazu. Sie stärken die Gegner, schwächen dein Team oder kosten Gold. Oben über dem Kampfplatz siehst du sie jederzeit.": "Curses: 25 different curses, 3 are rolled at the start and one more is added after every 10th floor. They strengthen foes, weaken your team or cost gold. You can always see them above the battlefield.", "Belohnungen im Abgrund: Edelsteine für jede Ebene, jeden Boss und jede Koryphäe, 30 % mehr als im Kampfturm. Meilensteine bei Ebene 10, 25, 50, 75 und 100 bringen einmalig Edelsteine und lassen das neue Abzeichen „Abgrund“ aufsteigen. Ab Ebene 50 gibt es den Hintergrund Abgrundtiefe.": "Abyss rewards: gems for every floor, boss and Frontier Brain, 30 % more than in the Battle Tower. Milestones at floors 10, 25, 50, 75 and 100 give one-time gems and level up the new badge “Abyss”. From floor 50 you get the background Abyssal Depths.", "Dein Abgrund-Rekord steht in der Spieler-Übersicht, und in der Bestenliste zeigt der Reiter „Turm“ jetzt Kampfturm und Abgrund nebeneinander.": "Your Abyss record is shown in the player overview, and the leaderboard's “Tower” tab now shows Battle Tower and Abyss side by side.", "Herausforderungen: Täglicher Run, Wochen-Herausforderung und Abgrund stehen jetzt links im Hauptmenü. Am Handy findest du sie unter dem neuen Menüpunkt „Herausforderungen“. „Neues Spiel“ zeigt direkt die Regionen.": "Challenges: Daily Run, Weekly Challenge and Abyss are now on the left of the main menu. On phones you'll find them under the new menu item “Challenges”. “New game” shows the regions right away.", "„Pokémon im Lauf“ hat einen neuen Knopf „Alle abwählen“.": "“Pokémon in the run” has a new “Deselect all” button.", "Der Abgrund hat einen eigenen Spielstand. Dein normaler Lauf bleibt davon unberührt, und du kannst beide unabhängig weiterspielen.": "The Abyss has its own save. Your normal run stays untouched and you can continue both independently.", "HERAUSFORDERUNGEN": "CHALLENGES", "Täglicher Run · Woche · Abgrund": "Daily Run · Week · Abyss", "Singleplayer · Region & Schwierigkeit": "Singleplayer · Region & difficulty", "Abgrund": "Abyss", "ABGRUND": "ABYSS", "endlos · Draft · Flüche · 1 Leben": "endless · draft · curses · 1 life", "REKORD": "RECORD", "NÄCHSTER MEILENSTEIN": "NEXT MILESTONE", "alle geschafft": "all done", "Champion auf Normal in jeder Region": "Champion on Normal in every region", "Regionen geschafft": "regions done", "Gesperrt": "Locked", "Abstieg beginnen": "Begin descent", "Neuer Abstieg": "New descent", "NEUER ABSTIEG": "NEW DESCENT", "Heute:": "Today:", "gleiche Regeln für alle": "same rules for everyone", "Bestes Ergebnis:": "Best result:", "erster Champion-Titel": "first champion title", "DRAFT · ABGRUND": "DRAFT · ABYSS", "gewählt": "selected", "Wähle 6 Pokémon-Linien. Nur sie gibt es im Laden, den ganzen Abstieg lang. Aus jeder Seltenheit mindestens eine, höchstens": "Pick 6 Pokémon lines. Only these appear in the shop for the whole descent. At least one of each rarity, at most", "Legendäre.": "legendaries.", "Weiter zum Startpartner": "On to your partner", "STARTPARTNER": "STARTING PARTNER", "Mit wem steigst du hinab? Die anderen findest du im Laden.": "Who will you descend with? You'll find the others in the shop.", "Zurück zum Draft": "Back to the draft", "Legendäre und Episch können nicht starten": "Legendary and epic Pokémon can't start", "DER ABGRUND RUFT": "THE ABYSS CALLS", "NEUER FLUCH": "NEW CURSE", "Drei Flüche begleiten dich hinab. Nach jeder 10. Ebene kommt einer dazu.": "Three curses go down with you. One more is added after every 10th floor.", "Je tiefer du steigst, desto schwerer wird die Last.": "The deeper you go, the heavier the burden.", "Im Laden gibt es nur deine 6 Draft-Pokémon. 1 Leben, keine Revanche. Nach dem Champion geht es ohne Ende weiter.": "The shop only has your 6 draft Pokémon. 1 life, no rematch. After the champion it never ends.", "HINAB": "DESCEND", "FLÜCHE": "CURSES", "der nächste Fluch kommt nach Ebene": "the next curse comes after floor", "Flüche": "curses", "1 Leben": "1 life", "Gegner aus": "foes from", "Hast": "Haste", "Stahlhaut": "Steel Skin", "Volle Ladung": "Fully Charged", "Koryphäen-Zorn": "Brains' Wrath", "Typ-Fluch": "Type Curse", "Schwäche": "Weakness", "Brüchig": "Brittle", "Bleierne Glieder": "Leaden Limbs", "Rost": "Rust", "Leere": "Emptiness", "Kalter Start": "Cold Start", "Ausfall": "Benched", "Legendenbann": "Legend's Bane", "Pechsträhne": "Bad Luck", "Ebbe": "Low Tide", "Hungerlohn": "Pittance", "Gegner haben 20 % mehr KP.": "Foes have 20 % more HP.", "Gegner haben 15 % mehr Angriff.": "Foes have 15 % more attack.", "Gegner greifen 15 % schneller an.": "Foes attack 15 % faster.", "Gegner haben 30 % mehr Verteidigung.": "Foes have 30 % more defense.", "Gegner starten mit halber Energie.": "Foes start with half energy.", "Gegner starten mit einem Schild über 15 % ihrer KP.": "Foes start with a shield of 15 % of their HP.", "Gegner +12 % Krit-Chance.": "Foes +12 % crit chance.", "Gegner weichen 10 % häufiger aus.": "Foes dodge 10 % more often.", "Gegner regenerieren 0,8 % ihrer KP pro Sekunde.": "Foes regenerate 0.8 % of their HP per second.", "Koryphäen haben 25 % mehr KP und 15 % mehr Angriff.": "Frontier Brains have 25 % more HP and 15 % more attack.", "-Pokémon der Gegner haben 25 % mehr KP und Angriff.": " Pokémon of your foes have 25 % more HP and attack.", "Dein Team hat 12 % weniger Angriff.": "Your team has 12 % less attack.", "Dein Team hat 15 % weniger KP.": "Your team has 15 % less HP.", "Dein Team greift 12 % langsamer an.": "Your team attacks 12 % slower.", "Dein Team hat 25 % weniger Verteidigung.": "Your team has 25 % less defense.", "Spezialattacken deines Teams brauchen 20 % mehr Energie.": "Your team's special attacks need 20 % more energy.", "Heilungen deines Teams wirken nur halb so stark.": "Your team's healing is only half as strong.", "Dein Team hat 20 % mehr Angriff, aber 35 % weniger KP.": "Your team has 20 % more attack but 35 % less HP.", "Dein Team startet jeden Kampf ohne Energie.": "Your team starts every battle without energy.", "Auf jeder Ebene kämpft ein zufälliges Pokémon deines Teams mit halben KP und halbem Angriff.": "On every floor a random Pokémon of your team fights with half HP and half attack.", "Legendäre Pokémon deines Teams haben 20 % weniger KP und Angriff.": "Legendary Pokémon on your team have 20 % less HP and attack.", "Dein Team landet keine Volltreffer.": "Your team lands no critical hits.", "Keine Zinsen auf dein Gold.": "No interest on your gold.", "Das Grundeinkommen ist halbiert.": "Base income is halved.", "Kein Gold-Bonus für Siegesserien.": "No gold bonus for win streaks.", "Grundeinkommen (Hungerlohn)": "Base income (Pittance)", "Champion! Der Abgrund geht weiter …": "Champion! The Abyss goes on …", "Meilenstein Ebene": "Milestone floor", "Edelsteine beim Verlassen": "gems when you leave", "DER ABGRUND HAT DICH": "THE ABYSS GOT YOU", "Im Abgrund geschafft:": "Cleared in the Abyss:", "Der Abstieg endet schon auf der ersten Ebene.": "The descent ends on the very first floor.", "Bosse und Koryphäen": "Bosses and Frontier Brains", "Dein Abgrund-Rekord": "Your Abyss record", "Flüche dieses Laufs": "Curses of this run", "Dieser Abstieg endet hier": "This descent ends here", "Ergebnis ansehen": "See result", "Abgrund-Rekord:": "Abyss record:", "Du hast noch einen Abstieg auf Ebene": "You still have a descent on floor", "Ein neuer Abstieg beendet ihn ohne Belohnung.": "A new descent ends it without reward.", "Weiter auf Ebene": "Continue on floor", "Neu beginnen": "Start over", "Kein laufender Abstieg": "No descent in progress", "Abgrund: erst Champion auf Normal in jeder Region": "Abyss: first become champion on Normal in every region", "Herausforderung": "Challenge", "Höchste Ebene im Abgrund": "Highest floor in the Abyss", "Herr des Abgrunds": "Lord of the Abyss", "Abgrundtiefe": "Abyssal Depths", "Abgrund: Ebene 50 erreicht": "Abyss: reached floor 50", "höchste geschaffte Ebene": "highest floor cleared", "Noch niemand.": "Nobody yet.", "Alle abwählen": "Deselect all", "Leben · keine Revanche": "Life · no rematch", "Abgrund · Ebene": "Abyss · Floor"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -15029,7 +15136,7 @@ async function clRefresh(name){const t=LS.get(clTokKey(name),null);const rt=(CL.
   const r=await clFetch("/auth/v1/token?grant_type=refresh_token",{method:"POST",auth:false,body:{refresh_token:rt}});if(r.ok&&clSetSess(r.j,name)){clRenameCheck(r.j);return true;}if(r.status===400||r.status===401)LS.del(clTokKey(name));return false;}
 async function clReady(){if(!CL.sess)return false;if(Date.now()>CL.sess.exp-60000)return clRefresh(CL.sess.name);return true;}
 function clLocal(name){const m=LS.get(metaKey(name),null),sv=LS.get("pokelings_v7_save_"+userKey(name),null);return{m,sv};}
-function clBoardRow(m){const sc=trainerScore(m),per={};for(const rk in sc.per){const P=sc.per[rk];per[rk]={row:P.row,top:P.top,best:P.best};}if(sc.tw)per._tw=sc.tw;per._pk=sc.pk;const row={score:sc.pts,titles:sc.titles,ach:sc.ach,own:sc.own,shy:sc.shy,per};
+function clBoardRow(m){const sc=trainerScore(m),per={};for(const rk in sc.per){const P=sc.per[rk];per[rk]={row:P.row,top:P.top,best:P.best};}if(sc.tw)per._tw=sc.tw;try{const ab=(m&&m.abyss&&m.abyss.best)|0;if(ab)per._ab=ab;}catch(e){}per._pk=sc.pk;const row={score:sc.pts,titles:sc.titles,ach:sc.ach,own:sc.own,shy:sc.shy,per};
   if(!CL.noCard&&typeof cardMine==='function')try{row.card=cardClean(cardMine());}catch(e){}return row;}
 /* v1.35.6: Sammel-Fortschritt zusammenführen statt überschreiben. Bisher galt beim Abgleich „neuerer Stand gewinnt“ für den ganzen Spielstand –
    ein zweites Gerät oder ein alter Stand konnte so Pokédex-Einträge (z. B. schillernde Pokémon), Freischaltungen oder Erfolge löschen.
@@ -17571,7 +17678,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.45.0",DUEL_HP=30;
+const MP_VER="1.46.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -17607,7 +17714,7 @@ function dailyInfo(day){day=day||dayKey();const h=strHash("pkl-daily|"+day),R=mk
 function ruleTxt(k,D){const R=DAILY_RULES[k];return (typeof tr==="function"?tr(R.d):R.d).replace("{T}",(TYPES[D.ty]||["?"])[0]);}
 function dailyState(){const D=dailyInfo(),M=META.daily||{};return{D,played:M.day===D.day,score:M.day===D.day?M.score:null};}
 function startDaily(){const {D,played}=dailyState();const go=()=>{if(!played){META.daily={day:D.day,used:1};META.dailyN=(META.dailyN||0)+1;saveMeta();}newRun("normal",D.region,{daily:Object.assign({},D,{scored:!played})});};
-  const sv=LS.get(saveKey(),null);if(sv&&sv.S&&sv.S.round>1){openModal(`<h2>${ic("cal")} TÄGLICHER RUN</h2><div class="lead">Dein laufendes Spiel (Runde ${sv.S.round}) wird dabei beendet.</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="dGo">${ic("play")} Trotzdem starten</button><button class="btn" id="dNo">Abbrechen</button></div>`,"narrow",true);$("dGo").onclick=()=>{closeModal();go();};$("dNo").onclick=()=>chooseMode();}else go();}
+  const sv=LS.get(saveKey("sp"),null);if(sv&&sv.S&&sv.S.round>1){openModal(`<h2>${ic("cal")} TÄGLICHER RUN</h2><div class="lead">Dein laufendes Spiel (Runde ${sv.S.round}) wird dabei beendet.</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="dGo">${ic("play")} Trotzdem starten</button><button class="btn" id="dNo">Abbrechen</button></div>`,"narrow",true);$("dGo").onclick=()=>{closeModal();go();};$("dNo").onclick=()=>chooseMode();}else go();}
 function dailyIntro(){const D=S.daily;toast(`Täglicher Run ${D.day.split("-").reverse().join(".")}${D.scored?"":" · Übungslauf"} · ${D.rules.filter(k=>DAILY_RULES[k]).map(k=>DAILY_RULES[k].n).join(" · ")}`,"cal");}
 function dailyScore(win,reached){return Math.max(0,(reached-1)*100+S.wins*10+S.bosses*25+(win?300:0)-S.revives*40);}
 function dailyFinish(win,reached){const D=S.daily,sc=dailyScore(win,reached);
@@ -18125,7 +18232,7 @@ async function menuLbLoad(el,quiet){if(!el||MLB.busy)return;MLB.busy=true;const 
       const det=b=>{const r=rows.find(x=>userKey(x.n)===userKey(b.dataset.n));if(r)lbDetail(r);};mlbCd(el);
       if(MLB.tab==="pk"){const R=rows.slice().map(r=>Object.assign({},r,{pk:r.pk!=null?r.pk:lbPkEst(r)})).sort((a,b)=>b.pk-a.pk||b.shy-a.shy);
         L.innerHTML=R.length?`<p class="mLbHint">${ic("dex")} Pokémon 2,5 · ${ic("shiny")} Schillernd 10 · ${ic("trophy")} Erfolge 10–150 Punkte</p>`+mlbPkRows(R):`<p class="empty">Noch keine Trainer.</p>`;L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>det(b));}
-      else if(MLB.tab==="tw"){const R=rows.map(r=>Object.assign({},r,{tw:twOf(r)})).filter(r=>r.tw>0).sort((a,b)=>b.tw-a.tw||b.pts-a.pts);L.innerHTML=R.length?mlbTwRows(R):`<p class="empty">Noch niemand im Kampfturm.</p>`;L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>det(b));}
+      else if(MLB.tab==="tw"){if(typeof abDuoHtml==="function"){L.innerHTML=abDuoHtml(rows);}else{const R=rows.map(r=>Object.assign({},r,{tw:twOf(r)})).filter(r=>r.tw>0).sort((a,b)=>b.tw-a.tw||b.pts-a.pts);L.innerHTML=R.length?mlbTwRows(R):`<p class="empty">Noch niemand im Kampfturm.</p>`;}L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>det(b));}
       else if(MLB.sea==="all"){L.innerHTML=rows.length?lbRowsHtml(rows,10):`<p class="empty">Noch keine Trainer.</p>`;L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>det(b));}
       else{const sid=MLB.sea==="cur"?seasonId():MLB.sea,r=await clFetch("/rest/v1/rpc/season_board",{method:"POST",auth:false,body:{sid},timeout:8000});if(!L.isConnected)return;
         const me=sid===seasonId()&&typeof USER!=="undefined"&&USER?seasonMine():null;
@@ -22061,8 +22168,17 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.45.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.46.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.46.0",d:"09.11.2026",t:"Abgrund",items:[
+  ["skull", "Neuer Modus: Abgrund. Ein endloser Abstieg für alle, die in jeder Region Champion auf Normal geworden sind. Er fängt wie ein normaler Lauf bei Runde 1 an, jede Runde ist eine Ebene, und nach dem Champion geht es ohne Pause weiter, mit Koryphäen alle 5 Ebenen. 1 Leben, keine Revanche."],
+  ["dice", "Draft: Zum Start bekommst du 16 Pokémon aus allen Regionen angeboten und wählst 6 davon, aus jeder Seltenheit mindestens eins, höchstens 2 Legendäre. Einmal darfst du neu würfeln. Danach wählst du deinen Startpartner. Im Laden gibt es nur deine 6 Linien."],
+  ["eye", "Flüche: 25 verschiedene Flüche, zum Start werden 3 ausgewürfelt, nach jeder 10. Ebene kommt einer dazu. Sie stärken die Gegner, schwächen dein Team oder kosten Gold. Oben über dem Kampfplatz siehst du sie jederzeit."],
+  ["trophy", "Belohnungen im Abgrund: Edelsteine für jede Ebene, jeden Boss und jede Koryphäe, 30 % mehr als im Kampfturm. Meilensteine bei Ebene 10, 25, 50, 75 und 100 bringen einmalig Edelsteine und lassen das neue Abzeichen „Abgrund“ aufsteigen. Ab Ebene 50 gibt es den Hintergrund Abgrundtiefe."],
+  ["tower", "Dein Abgrund-Rekord steht in der Spieler-Übersicht, und in der Bestenliste zeigt der Reiter „Turm“ jetzt Kampfturm und Abgrund nebeneinander."],
+  ["flag", "Herausforderungen: Täglicher Run, Wochen-Herausforderung und Abgrund stehen jetzt links im Hauptmenü. Am Handy findest du sie unter dem neuen Menüpunkt „Herausforderungen“. „Neues Spiel“ zeigt direkt die Regionen."],
+  ["ball", "„Pokémon im Lauf“ hat einen neuen Knopf „Alle abwählen“."],
+  ["play", "Der Abgrund hat einen eigenen Spielstand. Dein normaler Lauf bleibt davon unberührt, und du kannst beide unabhängig weiterspielen."]]},
  {v:"1.45.0",d:"09.11.2026",t:"Albtraum & Nuzlocke",items:[
   ["skull", "Albtraum und Nuzlocke: Nur noch 1 Leben, keine Revanche. Ein K.O. beendet den Lauf. Läufe, die du vor dem Update begonnen hast, laufen mit den alten Regeln zu Ende."],
   ["ghost", "Albtraum steht in der Auswahl jetzt ganz rechts, als schwerster Modus, und gibt dreifache Edelsteine. Nuzlocke gibt dafür 2,5-fache."],
@@ -22720,10 +22836,10 @@ function twFx(f){if(!twOn())return;
   const c=S.tower.curse;if(!c||f.side!=="mine")return;const v=c.v||.03;
   if(c.k==="weak")f.atk*=1-v;else if(c.k==="frail")f.maxhp*=1-v;else if(c.k==="slow")f.as*=1-v;else if(c.k==="armor")f.def*=1-v;else if(c.k==="drain")f.manaMax=Math.round(f.manaMax*(1+v));}
 const twNoHeal=()=>false;
-const twHealMul=f=>{if(!twOn()||!f||f.side!=="mine")return 1;const c=S.tower.curse;return c&&c.k==="heal"?1-Math.min(.2,2.5*(c.v||.03)):1;};
+const twHealMul=f=>{if(!twOn()||!f||f.side!=="mine")return 1;const c=S.tower.curse;return (c&&c.k==="heal"?1-Math.min(.2,2.5*(c.v||.03)):1)*(typeof abHealMul==="function"?abHealMul(f):1);};
 /* Gegner werden je Ebene stärker (zusätzlich zur normalen Rundensteigerung) */
 const twScale=()=>{const f=twFloor();return f?(1+TW.ramp*(f-1))*(TW.mk[S.mode]||1):1;};
-const twEncOdds=()=>({easy:0,mid:34,hard:34,elite:20,event:6,rocket:6});
+const twEncOdds=()=>(S&&S.abyss?{easy:0,mid:30,hard:38,elite:26,event:6,rocket:0}:{easy:0,mid:34,hard:34,elite:20,event:6,rocket:6});
 const twItems=()=>{const f=twFloor();return f?(f>=11?2:1):0;};
 /* Koryphäen-Stärke je Ebene (abgestimmt mit Bot-Läufen), über Ebene 30 hinaus sanft weiter steigend */
 const twBossMult=f=>{const B=TW.bf,ks=Object.keys(B).map(Number).sort((a,b)=>a-b);let v=B[ks[ks.length-1]]*(1+TW.bfR*Math.max(0,f-ks[ks.length-1]));for(let i=0;i<ks.length;i++){if(f<=ks[i]){v=i?B[ks[i-1]]+(B[ks[i]]-B[ks[i-1]])*(f-ks[i-1])/(ks[i]-ks[i-1]):B[ks[0]];break;}}return TW.bossM*v;};
@@ -22775,7 +22891,7 @@ function twIntro(first,cb){let went=false;const go=()=>{if(went)return;went=true
 /* Rekord sofort mitschreiben, falls der Browser zugeht */
 function twRecord(cl){if(!S||!S.tower||cl<=0)return;const T=twMeta(),rk=S.region||"kanto",b=T.best[rk]||(T.best[rk]={});if(cl>(b[S.mode]|0))b[S.mode]=cl;if(cl>T.top)T.top=cl;S.tower.cl=Math.max(S.tower.cl|0,cl);}
 /* Sieg auf einer Turm-Ebene: Rekord, Koryphäen-Symbol, Turm-Leben zurück */
-function twOnWin(){if(!twOn())return null;const f=twFloor(),T=twMeta(),out={f,rows:[]};T.floors++;
+function twOnWin(){if(!twOn())return null;if(S.abyss&&typeof abyssOnWin==="function")return abyssOnWin();const f=twFloor(),T=twMeta(),out={f,rows:[]};T.floors++;
   if(S.enc&&S.enc.type==="boss"){const K=twKor(f),tier=twTierOf(f),old=T.sym[K.id]|0;S.tower.kory++;T.kory++;
     out.rows.push({k:K.id,tier,neu:tier>old});if(tier>old)T.sym[K.id]=tier;
     if(S.tower.lives<TW.lives){S.tower.lives++;out.rows.push({life:1});}}
@@ -23296,7 +23412,7 @@ function psModal(rg,back){const av=psAvail(rg),R=REGIONS[rg]||{n:rg},mn=psMinFor
   openModal(`<h2>${ic("ball")} POKÉMON IM LAUF · ${esc(R.n.toUpperCase())}</h2>
     <p class="cdHint">Wähle, welche Pokémon im Laden auftauchen, auch die Start-Pokémon (gelb): höchstens ${PS_MAX[1]} pro Stufe (Stufe 3: ${PS_MAX[3]}, Stufe 4: ${PS_MAX[4]}, Legendäre ${PS_MAX[5]}), insgesamt mindestens ${mn}, aus jeder Stufe mindestens eins. Weniger verschiedene Pokémon im Laden heißt: Du findest leichter Doppelte für Sterne. ${ic("info")} zeigt die Details.</p>
     <div class="psWrap">${html()}</div>
-    <div class="psFoot"><span class="psTot" id="psTot"></span><span style="flex:1"></span><button class="btn" id="psAuto">${ic("dice")} Automatisch</button><button class="pri" id="psOk">${ic("check")} Fertig</button></div>`,"wide psM",back||true);
+    <div class="psFoot"><span class="psTot" id="psTot"></span><span style="flex:1"></span><button class="btn" id="psNone">${ic("close")} Alle abwählen</button><button class="btn" id="psAuto">${ic("dice")} Automatisch</button><button class="pri" id="psOk">${ic("check")} Fertig</button></div>`,"wide psM",back||true);
   const mb=$("mbox");hydrateIcons(mb);mb.querySelectorAll(".fm[data-sp]").forEach(e=>e.appendChild(sprAlign(natFit(spriteEl(+e.dataset.sp),.9))));
   const upd=()=>{const cnt={};for(const k of sel){const t=LINE_BY[k].tier;cnt[t]=(cnt[t]|0)+1;}
     mb.querySelectorAll("[data-ps]").forEach(b=>{const on=sel.has(b.dataset.ps),t=+b.dataset.t;b.classList.toggle("on",on);b.classList.toggle("off",!on&&(cnt[t]|0)>=PS_MAX[t]);});
@@ -23307,7 +23423,7 @@ function psModal(rg,back){const av=psAvail(rg),R=REGIONS[rg]||{n:rg},mn=psMinFor
   mb.querySelectorAll("[data-pi]").forEach(b=>b.onclick=e=>{e.stopPropagation();const w=mb.querySelector(".psWrap"),st={sel:[...sel],top:w?w.scrollTop:0},again=()=>{PS_KEEP=st;psModal(rg,back);};
     try{unitOverview({sp:+b.dataset.pi,stars:0,items:[],gifts:[]},"shop");}catch(err){return;}try{sfx("click");}catch(err){}modalClose=again;const c=$("ovClose");if(c){c.textContent="ZURÜCK";c.onclick=()=>{closeModal();again();};}});
   mb.querySelectorAll("[data-ps]").forEach(b=>b.onclick=()=>{const k=b.dataset.ps,t=+b.dataset.t;if(sel.has(k))sel.delete(k);else{const n=[...sel].filter(x=>LINE_BY[x].tier===t).length;if(n>=PS_MAX[t]){sfx("deny");toast(`Stufe ${t} ist voll (${PS_MAX[t]}). Nimm erst eins heraus.`,"info");return;}sel.add(k);}sfx("click");upd();});
-  $("psAuto").onclick=()=>{sel=new Set(psAuto(rg));upd();sfx("click");};
+  $("psAuto").onclick=()=>{sel=new Set(psAuto(rg));upd();sfx("click");};$("psNone").onclick=()=>{sel=new Set();upd();sfx("click");};
   $("psOk").onclick=()=>{if(!psValid(rg,sel))return;const auto=psAuto(rg);psMigrate();META.poolSel=META.poolSel||{};META.poolSelV=2;
     if(sel.size===auto.length&&auto.every(k=>sel.has(k)))delete META.poolSel[rg];else META.poolSel[rg]=[...sel];saveMeta();sfx("coin");closeModal();if(back)back();};
   upd();}
@@ -23874,6 +23990,248 @@ end $$;
 revoke all on function public.season_roll() from public, anon, authenticated;
 notify pgrst, 'reload schema';
 `;
+
+/* ================================ v1.46.0: ABGRUND + HERAUSFORDERUNGEN ================================
+   Abgrund: eigener endloser Lauf, fängt wie ein normaler Lauf bei Runde 1 an. Jede Runde ist eine Ebene.
+   - Freischaltung: Champion auf Normal (oder höher) in jeder Region.
+   - Draft: 16 Angebote aus allen Regionen (4 · 3 · 3 · 3 · 3 je Seltenheit), 6 wählen (aus jeder Stufe mindestens eins, höchstens 2 Legendäre), 1× neu würfeln.
+     Danach einen Startpartner aus den 6 wählen. Im Laden gibt es nur diese 6 Linien, Level und Fusion wie gewohnt. Forschungslabor zählt mit.
+   - Gegner und Bosse aus einer zufälligen Region. Nach dem Champion (Ebene 20) geht es ohne Pause im Kampfturm-Stil weiter (Koryphäen alle 5 Ebenen).
+   - Flüche: 3 zum Start, nach jeder 10. Ebene einer mehr. 1 Leben, keine Revanche.
+   - Belohnung: Edelsteine wie Lauf + Turm, 30 % mehr; Meilensteine 10/25/50/75/100 (einmalig Edelsteine, Abzeichen-Stufen, Titel), Hintergrund ab Ebene 50.
+   - Eigener Spielstand (saveKey("ab")), unabhängig vom Einzelspieler-Spielstand. Zählt nicht für Season, Champion-Titel und Weihnachts-Quest.
+   Herausforderungen-Panel links im Hauptmenü: Täglicher Run, Wochen-Herausforderung, Abgrund. */
+const AB={gemMul:1.3,ms:[10,25,50,75,100],msGem:{10:50,25:100,50:200,75:300,100:500},every:10,start:3};
+const abOn=()=>typeof S!=="undefined"&&!!(S&&S.abyss&&!S.duel);
+const abFloor=()=>abOn()?S.round:0;
+function abMeta(){const A=META.abyss||(META.abyss={});A.best=A.best|0;A.runs=A.runs|0;A.floors=A.floors|0;A.kory=A.kory|0;A.ms=A.ms||{};return A;}
+const abBest=()=>{try{return((META&&META.abyss)||{}).best|0;}catch(e){return 0;}};
+const abOf=r=>{let v=Math.max(+((r&&r.per||{})._ab)||0,+((r&&r.card||{}).ab)||0);try{if(r&&USER&&userKey(r.n||r.name||"")===userKey(USER))v=Math.max(v,abBest());}catch(e){}return v;};
+const AB_MODES=["normal","hard","night","nuzlocke"];
+function abRegDone(rk){const c=(regProg(rk)||{}).champs||{};return AB_MODES.some(m=>(c[m]|0)>0);}
+function abUnlockN(){return Object.keys(REGIONS).filter(abRegDone).length;}
+const abUnlocked=()=>{try{return abUnlockN()>=Object.keys(REGIONS).length;}catch(e){return false;}};
+const abSave=()=>{try{const d=LS.get(saveKey("ab"),null);return d&&d.S&&d.S.abyss&&d.S.phase!=="over"?d:null;}catch(e){return null;}};
+/* ---------------- Flüche ---------------- */
+const AB_CURSE={
+ e_hp:{n:"Dicke Haut",ic:"hp",d:"Gegner haben 20 % mehr KP.",g:"e"},
+ e_atk:{n:"Blutrausch",ic:"atk",d:"Gegner haben 15 % mehr Angriff.",g:"e"},
+ e_as:{n:"Hast",ic:"fast",d:"Gegner greifen 15 % schneller an.",g:"e"},
+ e_def:{n:"Stahlhaut",ic:"def",d:"Gegner haben 30 % mehr Verteidigung.",g:"e"},
+ e_mana:{n:"Volle Ladung",ic:"bolt",d:"Gegner starten mit halber Energie.",g:"e"},
+ e_shield:{n:"Bollwerk",ic:"def",d:"Gegner starten mit einem Schild über 15 % ihrer KP.",g:"e"},
+ e_crit:{n:"Adlerauge",ic:"crit",d:"Gegner +12 % Krit-Chance.",g:"e"},
+ e_dodge:{n:"Nebelschleier",ic:"eye",d:"Gegner weichen 10 % häufiger aus.",g:"e"},
+ e_regen:{n:"Zähigkeit",ic:"heart",d:"Gegner regenerieren 0,8 % ihrer KP pro Sekunde.",g:"e"},
+ e_boss:{n:"Koryphäen-Zorn",ic:"crown",d:"Koryphäen haben 25 % mehr KP und 15 % mehr Angriff.",g:"e"},
+ e_type:{n:"Typ-Fluch",ic:"star",d:"{T}-Pokémon der Gegner haben 25 % mehr KP und Angriff.",g:"e",ty:1},
+ m_atk:{n:"Schwäche",ic:"atk",d:"Dein Team hat 12 % weniger Angriff.",g:"m"},
+ m_hp:{n:"Brüchig",ic:"hp",d:"Dein Team hat 15 % weniger KP.",g:"m"},
+ m_as:{n:"Bleierne Glieder",ic:"fast",d:"Dein Team greift 12 % langsamer an.",g:"m"},
+ m_def:{n:"Rost",ic:"def",d:"Dein Team hat 25 % weniger Verteidigung.",g:"m"},
+ m_mana:{n:"Leere",ic:"drop",d:"Spezialattacken deines Teams brauchen 20 % mehr Energie.",g:"m"},
+ m_heal:{n:"Heilsperre",ic:"heart",d:"Heilungen deines Teams wirken nur halb so stark.",g:"m"},
+ m_glass:{n:"Glaskanone",ic:"skull",d:"Dein Team hat 20 % mehr Angriff, aber 35 % weniger KP.",g:"m"},
+ m_cold:{n:"Kalter Start",ic:"drop",d:"Dein Team startet jeden Kampf ohne Energie.",g:"m"},
+ m_out:{n:"Ausfall",ic:"close",d:"Auf jeder Ebene kämpft ein zufälliges Pokémon deines Teams mit halben KP und halbem Angriff.",g:"m"},
+ m_leg:{n:"Legendenbann",ic:"crown",d:"Legendäre Pokémon deines Teams haben 20 % weniger KP und Angriff.",g:"m"},
+ m_crit:{n:"Pechsträhne",ic:"crit",d:"Dein Team landet keine Volltreffer.",g:"m"},
+ g_int:{n:"Ebbe",ic:"coin",d:"Keine Zinsen auf dein Gold.",g:"g"},
+ g_base:{n:"Hungerlohn",ic:"coin",d:"Das Grundeinkommen ist halbiert.",g:"g"},
+ g_streak:{n:"Gegenwind",ic:"coin",d:"Kein Gold-Bonus für Siegesserien.",g:"g"}};
+const abHas=k=>abOn()&&(S.abyss.curses||[]).some(c=>c.k===k);
+const abCurseOf=k=>abOn()?(S.abyss.curses||[]).find(c=>c.k===k):null;
+function abCurseTxt(c){const D=AB_CURSE[c.k];if(!D)return"";return D.d.replace("{T}",c.ty&&TYPES[c.ty]?TYPES[c.ty][0]:"?");}
+function abRollCurse(R,have){const ks=Object.keys(AB_CURSE).filter(k=>!have.some(c=>c.k===k));if(!ks.length)return null;const k=ks[Math.floor(R()*ks.length)],c={k};
+  if(AB_CURSE[k].ty){const T=Object.keys(TYPES);c.ty=T[Math.floor(R()*T.length)];}return c;}
+const abRng=tag=>mkRng(strHash(((S&&S.seed)||1)+"|ab|"+tag));
+/* Werte: vor dem Setzen der KP (twFx läuft in fighter() vor f.hp=f.maxhp) */
+(()=>{const _tf=twFx;twFx=function(f){const r=_tf.apply(this,arguments);if(!abOn())return r;try{const C=S.abyss.curses||[],has=k=>C.some(c=>c.k===k);
+  if(f.side==="enemy"){if(has("e_hp"))f.maxhp*=1.2;if(has("e_atk"))f.atk*=1.15;if(has("e_as"))f.as*=1.15;if(has("e_def"))f.def*=1.3;if(has("e_mana"))f.mana+=Math.round(f.manaMax*.5);
+    if(has("e_shield"))f.shieldStart=(f.shieldStart||0)+.15;if(has("e_crit"))f.crit=(f.crit||0)+.12;if(has("e_dodge"))f.dodge=(f.dodge||0)+.1;if(has("e_regen"))f.regen=(f.regen||0)+.008;
+    if(has("e_boss")&&S.enc&&S.enc.type==="boss"){f.maxhp*=1.25;f.atk*=1.15;}
+    const tc=C.find(c=>c.k==="e_type");if(tc&&tc.ty&&f.sp&&f.sp.types&&f.sp.types.includes(tc.ty)){f.maxhp*=1.25;f.atk*=1.25;}}
+  else if(f.side==="mine"){if(has("m_atk"))f.atk*=.88;if(has("m_hp"))f.maxhp*=.85;if(has("m_as"))f.as*=.88;if(has("m_def"))f.def*=.75;if(has("m_mana"))f.manaMax=Math.round(f.manaMax*1.2);
+    if(has("m_glass")){f.atk*=1.2;f.maxhp*=.65;}if(has("m_crit"))f.crit=0;}}catch(e){}return r;};})();
+/* Heilung: twHealMul fragt abHealMul */
+function abHealMul(f){return f&&f.side==="mine"&&abHas("m_heal")?.5:1;}
+/* Gold */
+(()=>{const _ip=incomeParts;incomeParts=function(){let p=_ip.apply(this,arguments);if(!abOn())return p;try{
+  if(abHas("g_int"))p=p.filter(x=>!/^Zinsen/.test(x[0]));if(abHas("g_streak"))p=p.filter(x=>!/^Siegesserie/.test(x[0]));
+  if(abHas("g_base"))p=p.map(x=>x[0]==="Grundeinkommen"?["Grundeinkommen (Hungerlohn)",Math.floor(x[1]/2)]:x);}catch(e){}return p;};})();
+
+/* Laden: nur die Draft-Linien */
+/* ---------------- Draft + Startpartner ---------------- */
+const AB_DRAFT={per:[4,3,3,3,3],pick:6,maxLeg:2,rerolls:1,startMax:3};
+const abFin=L=>L.stages[L.stages.length-1][0];
+function abOffer(R){const out=[];
+  for(let t=1;t<=5;t++){const ls=LINES.filter(L=>L.tier===t&&!L.excl&&SPECIES[abFin(L)]&&!isExcl(abFin(L)));const used=new Set();
+    for(let i=0;i<AB_DRAFT.per[t-1]&&used.size<ls.length;i++){let L,g=0;do{L=ls[Math.floor(R()*ls.length)];g++;}while(used.has(L.k)&&g<60);used.add(L.k);out.push(L.k);}}
+  return out;}
+const abLine=k=>LINES.find(L=>L.k===k);
+const abRegsOf=ks=>[...new Set(ks.map(k=>(abLine(k)||{}).region||"kanto"))];
+function abLoadRegs(ks){try{return Promise.all(abRegsOf(ks).map(r=>typeof __sprLoad==="function"?__sprLoad(r):null));}catch(e){return Promise.resolve();}}
+/* in newRun0, bevor Shop und erste Runde ausgewürfelt werden */
+function abyssInit(o){const R=mkRng(strHash(S.seed+"|abteam"));S.noRev=1;S.poolV2=1;S.poolSel=[];
+  const curses=[];for(let i=0;i<AB.start;i++){const c=abRollCurse(R,curses);if(c)curses.push(c);}
+  S.abyss={v:3,curses,best0:abBest(),ms:[],out:null,draft:abOffer(R),rr:AB_DRAFT.rerolls,pool:[],done:1};}
+/* Laden: nur die 6 Draft-Linien (pool() fragt S.abyss.pool) */
+function abDraftValid(sel){const a=[...sel].map(abLine);return a.length===AB_DRAFT.pick&&[1,2,3,4,5].every(t=>a.some(L=>L.tier===t))&&a.filter(L=>L.leg).length<=AB_DRAFT.maxLeg;}
+function abDraftModal(cb){if(!S||!S.abyss||!S.abyss.draft){cb&&cb();return;}
+  const sel=new Set();
+  if(window.__autoPick||window.__fast){for(let t=1;t<=5;t++){const k=S.abyss.draft.find(k=>abLine(k).tier===t);if(k)sel.add(k);}for(const k of S.abyss.draft){if(sel.size>=AB_DRAFT.pick)break;const L=abLine(k);if(!sel.has(k)&&!L.leg)sel.add(k);}abDraftDone([...sel],null,cb);return;}
+  const draw=()=>{const D=S.abyss.draft,cnt={};for(const k of sel){const t=abLine(k).tier;cnt[t]=(cnt[t]|0)+1;}const nLeg=[...sel].filter(k=>abLine(k).leg).length;
+    const free=AB_DRAFT.pick-sel.size,missing=[1,2,3,4,5].filter(t=>!cnt[t]).length;
+    const card=k=>{const L=abLine(k),sp=abFin(L),on=sel.has(k),blocked=!on&&(sel.size>=AB_DRAFT.pick||(L.leg&&nLeg>=AB_DRAFT.maxLeg)||(cnt[L.tier]&&free<=missing)),Rr=RAR[L.tier]||RAR[1],sd=SPECIES[sp];
+      return `<button class="abDr${on?" on":""}${blocked?" full":""}" data-k="${k}" style="--rc:${Rr.c}"><i class="abDrM" data-sp="${sp}"></i><b>${esc(sd.name)}</b><small>${(sd.types||[]).map(t=>`<em style="background:${TYPES[t][1]}">${TYPES[t][0]}</em>`).join("")}</small><span class="abDrR">${esc((ROLES[L.role]||{}).n||"")} · ${esc((REGIONS[L.region||"kanto"]||{}).n||"")}</span>${on?`<i class="abDrC">${ic("check")}</i>`:""}</button>`;};
+    let rows="";for(let t=1;t<=5;t++){const ks=D.filter(k=>abLine(k).tier===t);if(ks.length)rows+=`<h4 class="abDrH" style="color:${RAR[t].c}">${RAR[t].n}<span class="${cnt[t]?"ok":""}">${cnt[t]|0}</span></h4><div class="abDrG">${ks.map(card).join("")}</div>`;}
+    openModal(`<div class="abDraft"><div class="abDrHd"><h2>${ic("skull")} DRAFT · ABGRUND</h2><span class="abDrN"><b>${sel.size}</b>/${AB_DRAFT.pick} gewählt</span></div>
+      <div class="lead">Wähle 6 Pokémon-Linien. Nur sie gibt es im Laden, den ganzen Abstieg lang. Aus jeder Seltenheit mindestens eine, höchstens ${AB_DRAFT.maxLeg} Legendäre.</div>${rows}
+      <div class="abDrB"><button class="btn" id="abRr"${S.abyss.rr>0?"":" disabled"}>${ic("dice")} Neu würfeln (${S.abyss.rr}×)</button><span style="flex:1"></span><button class="pri hot" id="abDrGo"${abDraftValid(sel)?"":" disabled"}>${ic("arrow")} Weiter zum Startpartner</button></div></div>`,"abDraftM",false);
+    $("mbox").querySelectorAll(".abDrM[data-sp]").forEach(e=>{try{e.appendChild(natFit(spriteEl(+e.dataset.sp),1));}catch(x){}});
+    $("mbox").querySelectorAll(".abDr").forEach(b=>b.onclick=()=>{const k=b.dataset.k;if(sel.has(k))sel.delete(k);else if(!b.classList.contains("full"))sel.add(k);else{sfx("deny");return;}sfx("click");const st=$("mbox").scrollTop;draw();$("mbox").scrollTop=st;});
+    $("abRr").onclick=()=>{if(S.abyss.rr<=0)return;S.abyss.rr--;sel.clear();S.abyss.draft=abOffer(mkRng(strHash(S.seed+"|rr|"+S.abyss.rr+"|"+Date.now())));save();sfx("click");draw();};
+    $("abDrGo").onclick=()=>{if(!abDraftValid(sel))return;abStarterModal([...sel],cb);};};
+  draw();}
+function abStarterModal(keys,cb){const ok=keys.filter(k=>abLine(k).tier<=AB_DRAFT.startMax);
+  openModal(`<div class="abDraft"><div class="abDrHd"><h2>${ic("ball")} STARTPARTNER</h2><span class="abDrN">Stufe 1–${AB_DRAFT.startMax}</span></div>
+    <div class="lead">Mit wem steigst du hinab? Die anderen findest du im Laden.</div>
+    <div class="abDrG">${keys.map(k=>{const L=abLine(k),sp=L.stages[0][0],can=ok.includes(k),Rr=RAR[L.tier]||RAR[1];return `<button class="abDr st${can?"":" full"}" data-k="${k}" style="--rc:${Rr.c}"${can?"":` title="Legendäre und Episch können nicht starten"`}><i class="abDrM" data-sp="${sp}"></i><b>${esc(SPECIES[sp].name)}</b><span class="abDrR">${Rr.n}</span></button>`;}).join("")}</div>
+    <div class="abDrB"><button class="btn" id="abBack">${ic("back")} Zurück zum Draft</button></div></div>`,"abDraftM",false);
+  $("mbox").querySelectorAll(".abDrM[data-sp]").forEach(e=>{try{e.appendChild(natFit(spriteEl(+e.dataset.sp),1));}catch(x){}});
+  $("abBack").onclick=()=>abDraftModal(cb);
+  $("mbox").querySelectorAll(".abDr").forEach(b=>b.onclick=()=>{if(b.classList.contains("full")){sfx("deny");return;}sfx("evoDone");abDraftDone(keys,b.dataset.k,cb);});}
+function abDraftDone(keys,starter,cb){S.abyss.pool=keys.slice();S.poolSel=keys.slice();delete S.abyss.draft;
+  const st=starter||keys.find(k=>abLine(k).tier<=AB_DRAFT.startMax)||keys[0],L=abLine(st);
+  closeModal();abLoadRegs(keys).then(()=>{if(!S||!S.abyss)return;placeStarter(L,Math.random()<1/200);rollShop();save();render();cb&&cb();});}
+function abyssSetup(cb){if(!S||!S.abyss){cb&&cb();return;}const A=abMeta();A.runs++;saveMeta();save();render();
+  setTimeout(()=>abDraftModal(()=>abCurseModal(S.abyss.curses,true,cb)),250);}
+/* Laden: Sprite-Pakete der Draft-Regionen nachladen; Draft wieder öffnen, falls er noch nicht fertig war */
+setTimeout(()=>{if(typeof loadGame!=="function")return;const _lg=loadGame;loadGame=function(){const r=_lg.apply(this,arguments);try{if(S&&S.abyss){abLoadRegs(S.abyss.pool||[]);
+  if(S.abyss.draft&&!boardUnits().length)setTimeout(()=>abDraftModal(()=>abCurseModal(S.abyss.curses,true)),400);abHud();}}catch(e){}return r;};},0);
+/* ---------------- Flüche anzeigen ---------------- */
+function abCurseCard(c,i){const D=AB_CURSE[c.k];if(!D)return"";return `<div class="abCu g-${D.g}" style="--i:${i||0}"><i class="abCuF">${ic("skull")}</i><div class="abCuB"><span class="abCuI">${ic(D.ic)}</span><b>${esc(D.n)}</b><small>${esc(abCurseTxt(c))}</small></div></div>`;}
+function abCurseModal(list,first,cb){const go=()=>{closeModal();if(first){sfx("vs");}abHud();cb&&cb();};
+  if(window.__autoPick||window.__fast){cb&&cb();return;}
+  openModal(`<div class="abCM${first?" first":""}"><div class="abCMh"><i class="abAbyss">${ic("skull")}</i><h2>${first?"DER ABGRUND RUFT":"NEUER FLUCH"}</h2>
+    <div class="lead">${first?"Drei Flüche begleiten dich hinab. Nach jeder 10. Ebene kommt einer dazu.":"Je tiefer du steigst, desto schwerer wird die Last."}</div></div>
+    <div class="abCuL">${list.map((c,i)=>abCurseCard(c,i)).join("")}</div>
+    ${first?`<div class="abTeamL">${(S.abyss.pool||[]).map(k=>{const L=abLine(k);return L?`<i data-sp="${L.stages[0][0]}" title="${esc(L.stages[0][1])}"></i>`:"";}).join("")}</div><p class="abNote">${ic("info")} Im Laden gibt es nur deine 6 Draft-Pokémon. 1 Leben, keine Revanche. Nach dem Champion geht es ohne Ende weiter.</p>`:""}
+    <button class="pri hot" id="abGo">${ic("arrow")} ${first?"HINAB":"WEITER"}</button></div>`,"narrow abCMM",go);
+  $("mbox").querySelectorAll(".abTeamL i[data-sp]").forEach(e=>{try{e.appendChild(natFit(spriteEl(+e.dataset.sp),1));}catch(x){}});
+  $("abGo").onclick=go;try{sfx(first?"megaCharge":"faint");}catch(e){}
+  $("mbox").querySelectorAll(".abCu").forEach((e,i)=>setTimeout(()=>{e.classList.add("on");try{sfx("pop");}catch(x){}},350+i*420));}
+/* kleine Leiste mit den Flüchen über dem Kampfplatz */
+function abHud(){const a=$("arena");if(!a)return;let h=$("abHud");if(!abOn()){if(h)h.remove();return;}
+  if(!h){h=document.createElement("button");h.id="abHud";h.onclick=()=>abCurseList();a.appendChild(h);}
+  h.innerHTML=`<b>${ic("skull")} ABGRUND · EBENE ${abFloor()}</b><span>${(S.abyss.curses||[]).map(c=>{const D=AB_CURSE[c.k];return D?`<i class="g-${D.g}" title="${esc(D.n+": "+abCurseTxt(c))}">${ic(D.ic)}</i>`:"";}).join("")}</span>`;}
+function abCurseList(){if(!abOn())return;const nx=Math.ceil(Math.max(1,abFloor())/AB.every)*AB.every;
+  openModal(`<h2>${ic("skull")} FLÜCHE</h2><div class="lead">Ebene ${abFloor()} · der nächste Fluch kommt nach Ebene ${nx}.</div><div class="abCuL list">${(S.abyss.curses||[]).map((c,i)=>abCurseCard(c,i)).join("")}</div>`,"narrow abCMM",true);
+  $("mbox").querySelectorAll(".abCu").forEach(e=>e.classList.add("on"));}
+
+/* ---------------- Fortschritt: jede neue Runde = eine geschaffte Ebene mehr ---------------- */
+(()=>{const _sr=setupRound;setupRound=function(){const r=_sr.apply(this,arguments);try{if(abOn()){const f=S.round,cl=f-1,A=abMeta();
+  if(cl>=(S.abyss.done|0)+1){S.abyss.done=f;if(cl>A.best)A.best=cl;A.floors++;
+    for(const m of AB.ms)if(cl>=m&&!A.ms[m]){A.ms[m]=1;S.abyss.ms.push(m);setTimeout(()=>toast(`Meilenstein Ebene ${m}: +${AB.msGem[m]} Edelsteine beim Verlassen`,"trophy"),1200);}
+    if(cl>0&&cl%AB.every===0){const c=abRollCurse(abRng("c"+cl),S.abyss.curses);if(c){S.abyss.curses.push(c);setTimeout(()=>abCurseModal([c],false),900);}}
+    saveMeta();}
+  if(abHas("m_out")){const us=boardUnits();S.abyss.out=us.length?us[Math.floor(abRng("out"+f)()*us.length)].uid:null;}else S.abyss.out=null;
+  abHud();}}catch(e){console.warn("abyss round",e);}return r;};})();
+/* Kampfturm-Teil (ab Ebene 21): Koryphäen zählen, Turm-Rekorde bleiben unberührt */
+function abyssOnWin(){const f=twFloor(),out={f,rows:[],ab:1};if(S.enc&&S.enc.type==="boss"){S.tower.kory++;abMeta().kory++;saveMeta();}return out;}
+(()=>{const _tw=twWinRows;twWinRows=function(o){if(!o||!o.ab)return _tw.apply(this,arguments);
+  return `<div class="incRow" style="color:#ff6b8a"><span>${ic("skull","","width:14px;height:14px")} Abgrund · Ebene ${S.round} geschafft</span><span>${S.round>(S.abyss.best0|0)?"REKORD!":""}</span></div>`;};})();
+/* nach dem Champion direkt weiter in die Tiefe */
+function abToTower(){S.tower={lives:0,kory:0,lost:0,cl:0,k0:Math.floor(Math.random()*KORY.length),t0:Date.now(),runT:0,best0:0};twNeutral();S.phase="result";S.revanche=false;saveMeta();
+  const R=$("result");R.classList.remove("show");R.innerHTML="";toast("Champion! Der Abgrund geht weiter …","skull");nextRound(null);}
+/* Abgrund verlassen: Edelsteine, Meilensteine, Rekord */
+function abyssFinish(){clearZones();S.phase="over";enterBattleMode(false);const cl=Math.max(0,S.round-1),A=abMeta();if(cl>A.best)A.best=cl;
+  const tB=badgeTierOfAb(S.abyss.best0|0),tA=badgeTierOfAb(A.best),fl=Math.max(0,cl-20);
+  const gemB=gemEventMul(),base=Math.round((1.5*Math.min(cl,20)+4*(S.bosses|0)+3*(S.elites|0)+.5*(S.wins|0)+TW.gem*fl+TW.gemK*((S.tower&&S.tower.kory)|0))*AB.gemMul*(1+.1*perk("gemhunter"))*gemB*(hasRelic("gembag")?1.2:1));
+  const msg=(S.abyss.ms||[]).reduce((a,m)=>a+(AB.msGem[m]||0),0),gems=Math.max(2,base+msg);
+  META.gems+=gems;META.gemsTotal+=gems;const rec=cl>(S.abyss.best0|0);saveMeta();_achT=0;try{achCheck();}catch(e){}LS.del(saveKey("ab"));setTab("raster");const hud=$("abHud");if(hud)hud.remove();
+  if(tA>tB){try{GIFT.q.push({type:"ev",kind:"badge",val:"abyss",tier:tA});}catch(e){}}
+  const cu=(S.abyss.curses||[]).map(c=>{const D=AB_CURSE[c.k];return D?`<i class="g-${D.g}" title="${esc(D.n+": "+abCurseTxt(c))}">${ic(D.ic)}</i>`:"";}).join("");
+  $("result").innerHTML=`<div class="rWrap"><div class="rHead ${rec?"win":"lose"}">${rec?"NEUER REKORD!":"DER ABGRUND HAT DICH"}</div><div class="rPanel glass abRes"><h4>${cl?`Im Abgrund geschafft: ${cl} ${cl===1?"Ebene":"Ebenen"}`:"Der Abstieg endet schon auf der ersten Ebene."}</h4>
+   <div class="rewards"><div class="incRow"><span>Geschaffte Ebenen</span><span>${cl}</span></div><div class="incRow"><span>Bosse und Koryphäen</span><span>${(S.bosses|0)+((S.tower&&S.tower.kory)|0)}</span></div><div class="incRow"><span>Dein Abgrund-Rekord</span><span>Ebene ${A.best}</span></div>
+   ${(S.abyss.ms||[]).map(m=>`<div class="incRow" style="color:var(--amber)"><span>${ic("trophy","","width:14px;height:14px")} Meilenstein Ebene ${m}</span><span>+${AB.msGem[m]}</span></div>`).join("")}
+   ${gemB>1?`<div class="incRow" style="color:var(--gem)"><span>${ic("gem","","width:14px;height:14px")} Tagesbonus</span><span>+${Math.round((gemB-1)*100)} %</span></div>`:""}<div class="incRow sum"><span>Edelsteine</span><span style="color:var(--gem)">+${gems}</span></div></div>
+   <div class="abResCu"><small>Flüche dieses Laufs</small><span>${cu}</span></div>
+   <div class="rbtns"><button class="pri" id="rAbN">${ic("skull")} NEUER ABSTIEG</button>${B?`<button class="btn" id="rRep">${ic("dex")} Kampfbericht</button>`:""}<button class="btn" id="rGo">${ic("menu")} Hauptmenü</button></div></div></div>`;
+  $("result").classList.add("show");if($("rRep"))$("rRep").onclick=report;sfx(rec?"evoDone":"faint");
+  const out=()=>{$("result").classList.remove("show");$("result").innerHTML="";S=null;showMenu();};$("rGo").onclick=out;$("rAbN").onclick=()=>{$("result").classList.remove("show");$("result").innerHTML="";S=null;abyssStart();};}
+(()=>{const _tf=towerFinish;towerFinish=function(){if(S&&S.abyss)return abyssFinish();return _tf.apply(this,arguments);};
+  const _th=towerHud;towerHud=function(){const r=_th.apply(this,arguments);try{if(abOn()&&S.tower){const h=$("twHud");if(h){const L=h.querySelector(".twL");if(L)L.innerHTML=`${ic("skull")} ABGRUND`;const lv=h.querySelector(".twLv");if(lv)lv.innerHTML=`<i class="twHt on">${ic("heart")}</i>`;
+    const rc=h.querySelector(".twRec");if(rc)rc.innerHTML=`${ic("trophy")} Abgrund-Rekord: ${abBest()?"Ebene "+abBest():"noch keiner"}`;h.querySelectorAll(".twStack b").forEach(b=>{b.textContent=String(+b.textContent+20);});h.classList.add("abTw");}}abHud();}catch(e){}return r;};})();
+setTimeout(()=>{
+  /* Laufende Abgrund-Runs nie über das normale Ende abrechnen (keine Champion-Titel, keine Season) */
+  if(typeof finish==="function"){const _fn=finish;finish=function(win){if(S&&S.abyss){if(win&&!S.tower)return abToTower();return abyssFinish();}return _fn.apply(this,arguments);};}
+  /* K.O.: Abgrund-Texte */
+  if(typeof showResult==="function"){const _sr=showResult;showResult=function(){const r=_sr.apply(this,arguments);try{if(abOn()&&B&&B.res&&!B.res.win){const R=$("result");
+    const h=R.querySelector("h4");if(h)h.textContent=`Abgrund · Ebene ${abFloor()} · 1 Leben, keine Revanche`;const lv=R.querySelector(".twLives");if(lv)lv.remove();const rb=$("rRev");if(rb)rb.style.display="none";
+    const rw=R.querySelector(".rewards");if(rw)rw.innerHTML=`<div class="incRow"><span>Abgrund</span><span style="color:var(--red)">Dieser Abstieg endet hier</span></div>`;
+    const q=$("rQuit");if(q){q.className="pri";q.innerHTML=ic("skull")+" Ergebnis ansehen";}}}catch(e){}return r;};}
+  /* Ausfall, Kalter Start, Legendenbann: brauchen das Pokémon */
+  if(typeof fighter==="function"){const _fi=fighter;fighter=function(u,side){const f=_fi.apply(this,arguments);try{if(f&&abOn()&&side==="mine"){
+    if(abHas("m_cold"))f.mana=0;const L=SPECIES[u.sp]&&SPECIES[u.sp].line;if(abHas("m_leg")&&L&&L.leg){f.maxhp=Math.round(f.maxhp*.8);f.hp=f.maxhp;f.atk*=.8;}
+    if(abHas("m_out")&&S.abyss.out&&u.uid===S.abyss.out){f.maxhp=Math.round(f.maxhp*.5);f.hp=f.maxhp;f.atk*=.5;f.abOut=1;}}}catch(e){}return f;};}},0);
+
+/* ---------------- Start und Weiterspielen (eigener Spielstand) ---------------- */
+function abyssStart(){if(!abUnlocked()){toast(`Abgrund: erst Champion auf Normal in jeder Region (${abUnlockN()}/${Object.keys(REGIONS).length})`,"lock");sfx("deny");return;}
+  const go=()=>{closeModal();if(S&&!S.abyss&&S.phase==="shop")save();const regs=Object.keys(REGIONS),rk=regs[Math.floor(Math.random()*regs.length)];newRun("normal",rk,{abyss:1});};
+  const sv=abSave();if(sv){openModal(`<h2>${ic("skull")} ABGRUND</h2><div class="lead">Du hast noch einen Abstieg auf Ebene ${sv.S.round}. Ein neuer Abstieg beendet ihn ohne Belohnung.</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="abCont">${ic("play")} Weiter auf Ebene ${sv.S.round}</button><button class="btn" id="abYes">${ic("skull")} Neu beginnen</button></div>`,"narrow",true);$("abCont").onclick=()=>{closeModal();abyssContinue();};$("abYes").onclick=()=>{LS.del(saveKey("ab"));go();};}else go();}
+function abyssContinue(){if(S&&S.abyss&&S.phase!=="over"){needReg(S.region||"kanto",()=>{hideScreens();setTab("shop");render();abHud();});return;}
+  const d=abSave();if(!d){toast("Kein laufender Abstieg","info");return;}if(S&&!S.abyss&&S.phase==="shop")save();
+  needReg(d.S.region||"kanto",()=>{hideScreens();window.__svK="ab";try{loadGame();}finally{window.__svK=null;}setTab("shop");render();abHud();});}
+/* ---------------- Abzeichen „Abgrund“ (Stufe nach Rekord: 10/25/50/75/100) und Hintergrund ---------------- */
+const badgeTierOfAb=b=>AB.ms.filter(m=>b>=m).length;
+(()=>{const _bd=badgeDef;badgeDef=function(id){if(id==="abyss")return{id,cat:"Herausforderung",n:"Abgrund",ic:"skull",cfx:"abgrund",d:"Höchste Ebene im Abgrund",v:()=>abBest(),T:AB.ms.slice(),T6:null,t5n:"Herr des Abgrunds",custom:1};return _bd.apply(this,arguments);};
+  const _ba=badgeAll;badgeAll=function(){const out=_ba.apply(this,arguments);try{if(abBest()>=AB.ms[0]&&!out.some(b=>b.id==="abyss")){const d=badgeDef("abyss");if(d)out.push(d);}}catch(e){}return out;};})();
+Object.assign(CBADGE_FX,{abgrund:{n:"Abgrund",c:"#ff3b6b"}});
+try{Object.assign(CARD_BG,{abgrund:{n:"Abgrundtiefe",lv:6,ld:"Abgrund: Ebene 50 erreicht",lock:()=>abBest()>=50,
+ html:`<i class="abgGlow"></i>${_stars(26,0,40,["#ff8aa8","#c27cff","#ffffff"],.2,.6)}
+  ${_sv(`<defs><linearGradient id="abgR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a1030"/><stop offset="1" stop-color="#0a020c"/></linearGradient></defs>
+   <path d="M0 40 L18 44 L24 58 L30 100 L0 100Z" fill="url(#abgR)"/><path d="M100 36 L82 46 L76 60 L70 100 L100 100Z" fill="url(#abgR)"/>
+   <path d="M30 100 L36 70 L44 62 L56 62 L64 72 L70 100Z" fill="#05000a"/>
+   ${[[12,30,7,4],[86,26,6,3.5],[50,18,5,3],[26,14,4,2.6],[72,12,4.5,2.8]].map(([x,y,w,h])=>`<path d="M${x-w} ${y} L${x-w*.4} ${y-h} L${x+w*.6} ${y-h*.8} L${x+w} ${y} L${x+w*.3} ${y+h*1.6} L${x-w*.5} ${y+h*1.2}Z" fill="#2a0c24" stroke="#ff3b6b" stroke-width=".35" stroke-opacity=".6"/>`).join("")}`)}
+  <i class="abgEye e1"></i><i class="abgEye e2"></i>${_parts("abgEm",18,i=>`--x:${rr(30,70)}%;--s:${rr(2,4.5,1)}cqw;--d:${rr(4,8)}s;--dl:-${rr(0,8)}s;--dx:${rr(-6,6)}cqw`)}<i class="abgRift"></i>`}});}catch(e){console.warn("abyss bg",e);}
+
+/* ---------------- Rekord in Bestenliste und Spieler-Übersicht ---------------- */
+function abRecHtml(n){return n>0?`<div class="abRec"><small>ABGRUND</small><b>Ebene ${n}</b><em>${["","I","II","III","IV","V"][badgeTierOfAb(n)]||""}</em></div>`:"";}
+setTimeout(()=>{for(const fn of ["seasonDetail","lbDetail"]){if(typeof window[fn]!=="function")continue;const _f=window[fn];window[fn]=function(){const r=_f.apply(this,arguments);try{
+  const a=fn==="seasonDetail"?arguments[2]:arguments[0];const n=a?abOf(a):0;if(n>0){const d=$("mbox").querySelector(".lbDet");if(d){const c=d.querySelector(".lbCard");const h=abRecHtml(n);if(c)c.insertAdjacentHTML("beforeend",h);else d.insertAdjacentHTML("afterbegin",h);}}}catch(e){}return r;};}},0);
+
+/* ---------------- Herausforderungen-Panel (links im Hauptmenü) ---------------- */
+function chAbyssCard(){const ok=abUnlocked(),n=abUnlockN(),N=Object.keys(REGIONS).length,b=abBest(),t=badgeTierOfAb(b),nx=AB.ms.find(m=>b<m);
+  return `<div class="chCard ab${ok?"":" lock"}"><div class="chH"><i class="chI">${ic("skull")}</i><div><b>Abgrund</b><small>endlos · Draft · Flüche · 1 Leben</small></div></div>
+   ${ok?`<div class="chAbRec"><span><small>REKORD</small><b>${b?"Ebene "+b:"–"}</b></span><span><small>NÄCHSTER MEILENSTEIN</small><b>${nx?"Ebene "+nx:"alle geschafft"}</b></span>${t?`<span class="chAbB">${badgeHTML("abyss",t,"sm")}</span>`:""}</div>`
+     :`<div class="chLock">${ic("lock")}<span>Champion auf Normal in jeder Region<br><b>${n}/${N}</b> Regionen geschafft</span></div>`}
+   ${ok?(()=>{const sv=abSave();return sv?`<div class="chB"><button class="pri hot" data-ch="abc">${ic("play")} Weiter · Ebene ${sv.S.round}</button><button class="btn" data-ch="ab" title="Neuer Abstieg">${ic("skull")}</button></div>`:`<button class="pri hot" data-ch="ab">${ic("skull")} Abstieg beginnen</button>`;})():`<button class="btn" disabled>${ic("lock")} Gesperrt</button>`}</div>`;}
+function chDailyCard(){if(typeof dailyState!=="function")return"";const {D,played,score}=dailyState(),dd=D.day.split("-").reverse().join(".");
+  return `<div class="chCard dy"><div class="chH"><i class="chI">${ic("cal")}</i><div><b>Täglicher Run</b><small>${dd} · für alle gleich</small></div><span class="chReg">${REGIONS[D.region].n}</span></div>
+   <div class="chRules">${D.rules.map(k=>`<span title="${esc(ruleTxt(k,D))}">${ic(DAILY_RULES[k].ic)} ${DAILY_RULES[k].n}</span>`).join("")}</div>
+   ${played&&score!=null?`<small class="chNote">Heute: <b>${score}</b> Punkte</small>`:""}
+   <div class="chB"><button class="pri" data-ch="dy">${ic("play")} ${played?"Übungslauf":"Starten"}</button><button class="btn" data-ch="dyb" title="Bestenliste">${ic("trophy")}</button></div></div>`;}
+function chWeeklyCard(){if(typeof weeklyState!=="function")return"";const {W,M}=weeklyState(),T=TYPES[W.ty],wn=W.wk.split("-W")[1],rl=({iron:["heart","Eisenmann"],poor:["coin","Sparfuchs"],small:["users","Kleines Team"],allin:["atk","Alles oder nichts"]})[W.rule]||["coin","Sparfuchs"];
+  return `<div class="chCard wk"><div class="chH"><i class="chI">${ic("cal")}</i><div><b>Wochen-Herausforderung</b><small>Woche ${+wn} · gleiche Regeln für alle</small></div><span class="chReg">${REGIONS[W.region].n}</span></div>
+   <div class="chRules"><span style="--tc:${T[1]}">${ic("flag")} Monotyp: ${T[0]}</span><span>${ic(rl[0])} ${rl[1]}</span></div>
+   <small class="chNote">Bestes Ergebnis: <b>${M?(M.champ?"Champion":"Runde "+M.best):"noch kein Lauf"}</b> · erster Champion-Titel <b style="color:var(--gem)">+30</b></small>
+   <div class="chB"><button class="pri" data-ch="wk">${ic("play")} ${M?"Nochmal":"Starten"}</button></div></div>`;}
+function chWire(root){root.querySelectorAll("[data-ch]").forEach(b=>b.onclick=()=>{const k=b.dataset.ch;sfx("click");
+  if(k==="dy"){closeModal();startDaily();}else if(k==="dyb")dailyBoard();else if(k==="wk"){if(typeof startWeekly==="function")startWeekly();}else if(k==="ab"){closeModal();abyssStart();}else if(k==="abc"){closeModal();abyssContinue();}});}
+function chPanelHtml(){return `<div class="ttl"><h3>${ic("flag")} HERAUSFORDERUNGEN</h3></div><div class="chList">${chDailyCard()}${chWeeklyCard()}${chAbyssCard()}</div>`;}
+function chMount(){const M=$("menu");if(!M)return;let el=$("mCh");if(!el){el=document.createElement("div");el.id="mCh";el.className="glass mCh";M.appendChild(el);}
+  try{el.innerHTML=chPanelHtml();hydrateIcons(el);chWire(el);el.querySelectorAll(".bdg").forEach(()=>{});}catch(e){console.warn("ch",e);}}
+function chModal(){openModal(`<h2>${ic("flag")} HERAUSFORDERUNGEN</h2><div class="chList m">${chDailyCard()}${chWeeklyCard()}${chAbyssCard()}</div>`,"narrow chM",true);chWire($("mbox"));}
+(()=>{const _sm=showMenu;showMenu=function(){const r=_sm.apply(this,arguments);try{chMount();
+  const nb=$("mNew");if(nb&&!$("mChB")){nb.insertAdjacentHTML("afterend",`<button class="mbtn chOnly" id="mChB"><span class="mi">${ic("flag")}</span><div><b>Herausforderungen</b><small>Täglicher Run · Woche · Abgrund</small></div></button>`);
+    $("mChB").onclick=()=>{sfx("click");chModal();};const bs=[...$("menuBtns").querySelectorAll(".mbtn")];bs.forEach((x,i)=>{x.onmouseenter=()=>menuSel(i);});}
+  menuFit();}catch(e){console.warn("ch menu",e);}return r;};
+  const _mf=menuFit;menuFit=function(){const r=_mf.apply(this,arguments);try{const lb=$("mLb"),ch=$("mCh");if(ch&&lb)ch.style.zoom=lb.style.zoom;}catch(e){}return r;};})();
+/* Bestenliste: Turm und Abgrund nebeneinander im Reiter „Turm“ */
+function abDuoHtml(rows){const col=(t,icn,R)=>`<div class="lbDuo"><h5>${ic(icn)} ${t}</h5>${R.length?R.slice(0,10).map((a,i)=>`<button class="lbRow lbMini r${i+1}" data-n="${esc(a.n)}"><span class="lbRank">${i+1}</span><b>${esc(a.n)}</b><em>${a.v}</em></button>`).join(""):`<p class="empty">Noch niemand.</p>`}</div>`;
+  const tw=rows.map(r=>Object.assign({},r,{v:twOf(r)})).filter(r=>r.v>0).sort((a,b)=>b.v-a.v||b.pts-a.pts),ab=rows.map(r=>Object.assign({},r,{v:abOf(r)})).filter(r=>r.v>0).sort((a,b)=>b.v-a.v||b.pts-a.pts);
+  return `<div class="lbDuoW">${col("Turm","tower",tw)}${col("Abgrund","skull",ab)}</div><p class="mLbHint">${ic("trophy")} höchste geschaffte Ebene</p>`;}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
@@ -24651,7 +25009,7 @@ function pauseMenu(){
   if(!S||$("stScene")||document.querySelector(".cine-ov")||$("vs").classList.contains("show"))return;const inB=!!(B&&!B.done&&["battle","intro"].includes(S.phase));if(B&&!B.done)B.userPause=true;
   const resume=()=>{if(B)B.userPause=false;};
   const row=(id,icn,t,s,cls)=>`<button class="mbtn ${cls||""}" id="${id}"><span class="mi">${ic(icn)}</span><div><b>${t}</b><small>${s}</small></div></button>`;
-  openModal(`<h2>${ic("menu")} PAUSE</h2><div class="pauseInfo"><span>${S.tower?`${ic("tower")} Kampfturm`:`${ic(MODES[S.mode].ic)} ${MODES[S.mode].n}`}</span>${S.mono&&TYPES[S.mono]?`<span style="color:${TYPES[S.mono][1]}">${ic("flag")} Monotyp: ${TYPES[S.mono][0]}</span>`:""}${S.iron?`<span>${ic("heart")} Eisenmann</span>`:""}${S.poor?`<span>${ic("coin")} Sparfuchs</span>`:""}${S.small?`<span>${ic("users")} Kleines Team</span>`:""}${S.allin?`<span>${ic("atk")} Alles oder nichts</span>`:""}<span>${ic(S.tower?"tower":"flag")} ${S.tower?"Kampfturm · Ebene "+(S.round-20):"Runde "+S.round+"/20"}</span><span>${ic("coin")} ${S.gold} Gold</span><span>${ic("trophy")} ${S.wins} Siege</span><span>${ic("heart")} ${S.revives} Wiederbelebungen</span></div>
+  openModal(`<h2>${ic("menu")} PAUSE</h2><div class="pauseInfo"><span>${S.abyss?`${ic("skull")} Abgrund · Ebene ${S.round}`:S.tower?`${ic("tower")} Kampfturm`:`${ic(MODES[S.mode].ic)} ${MODES[S.mode].n}`}</span>${S.mono&&TYPES[S.mono]?`<span style="color:${TYPES[S.mono][1]}">${ic("flag")} Monotyp: ${TYPES[S.mono][0]}</span>`:""}${S.iron?`<span>${ic("heart")} Eisenmann</span>`:""}${S.poor?`<span>${ic("coin")} Sparfuchs</span>`:""}${S.small?`<span>${ic("users")} Kleines Team</span>`:""}${S.allin?`<span>${ic("atk")} Alles oder nichts</span>`:""}<span>${ic(S.tower?"tower":"flag")} ${S.tower?"Kampfturm · Ebene "+(S.round-20):"Runde "+S.round+"/20"}</span><span>${ic("coin")} ${S.gold} Gold</span><span>${ic("trophy")} ${S.wins} Siege</span><span>${ic("heart")} ${S.revives} Wiederbelebungen</span></div>
    <div class="setList pgrid">${row("pRes","play","Weiterspielen",inB?"Der Kampf läuft weiter":"Zurück ins Spiel","main")}${row("pHelp","help","Anleitung","So funktioniert Pokélings")}${row("pSnd","bolt",SFX.label(),"Klicken zum Wechseln")}${row("pGfx","eye",typeof gfxLabel==="function"?gfxLabel():"Grafik","Klicken zum Wechseln")}${row("pMus","play",typeof BGM!=="undefined"?BGM.label():"Musik","Klicken zum Wechseln")}${row("pLang","dex",LANG==="en"?"Language: English":"Sprache: Deutsch",LANG==="en"?"Click: Deutsch":"Klicken: English")}
    ${row("pMenu","logout","Hauptmenü",inB?"Achtung: ein laufender Kampf zählt als Niederlage":"Spielstand wird gespeichert")}${S.tower?row("pQuit","flag","Turm verlassen","Beendet den Aufstieg, du bekommst Edelsteine für jede geschaffte Ebene","danger"):row("pQuit","flag","Lauf aufgeben","Beendet den Lauf, du bekommst Edelsteine für deinen Fortschritt","danger")}</div>`,"narrow pauseM",resume);
   $("pRes").onclick=()=>{closeModal();resume();};$("pHelp").onclick=()=>{help();};
