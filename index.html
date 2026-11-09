@@ -4993,7 +4993,7 @@ uiScale();addEventListener("resize",uiScale);</script>
 <script>__ld(1,2)</script><script src="sprites-core-2.js?v=c3d4d11b"></script>
 <script>__ld(2,2,1)</script>
 <script>/* Sprite-Pakete der übrigen Regionen: erst bei Bedarf bzw. im Hintergrund nachladen */
-window.__SPRM={"kanto": ["sprites-kanto.js?v=05a23071"], "johto": ["sprites-johto.js?v=3a0daee1"], "sinnoh": ["sprites-sinnoh-1.js?v=069da017", "sprites-sinnoh-2.js?v=ed765859"], "hoenn": ["sprites-hoenn-1.js?v=6d31963c", "sprites-hoenn-2.js?v=826b46fa"], "unova": ["sprites-unova-1.js?v=e805f839", "sprites-unova-2.js?v=0d36b5a8", "sprites-unova-3.js?v=69cdc772"], "kalos": ["sprites-kalos-1.js?v=98b04be1", "sprites-kalos-2.js?v=f4f4613d"], "alola": ["sprites-alola-1.js?v=a2b825d8", "sprites-alola-2.js?v=4277ae94"], "galar": ["sprites-galar-1.js?v=b24fab89", "sprites-galar-2.js?v=157ef9f0", "sprites-galar-3.js?v=84d32173"], "hisui": ["sprites-hisui-1.js?v=f1cf2685", "sprites-hisui-2.js?v=1f61afc3"], "paldea": ["sprites-paldea-1.js?v=b382b394", "sprites-paldea-2.js?v=a1721648"], "kitakami": ["sprites-kitakami.js?v=52fa8ed8"]};window.__SPRL={};window.__SPRF={};
+window.__SPRM={"kanto": ["sprites-kanto.js?v=9e70358b", "sprites-kanto-shiny.js?v=022a452c"], "johto": ["sprites-johto.js?v=7224d923", "sprites-johto-shiny.js?v=b87e3e1c"], "sinnoh": ["sprites-sinnoh.js?v=25b6c7d9", "sprites-sinnoh-shiny.js?v=b7848dcd"], "hoenn": ["sprites-hoenn.js?v=8e428828", "sprites-hoenn-shiny.js?v=8702d50a"], "unova": ["sprites-unova-1.js?v=6b811d6e", "sprites-unova-2.js?v=e9642d77", "sprites-unova-shiny-1.js?v=ec752496", "sprites-unova-shiny-2.js?v=ceb0508f"], "kalos": ["sprites-kalos.js?v=80e470e1", "sprites-kalos-shiny.js?v=084b164e"], "alola": ["sprites-alola.js?v=a6d3b7eb", "sprites-alola-shiny.js?v=c92731af"], "galar": ["sprites-galar-1.js?v=3ee2aedb", "sprites-galar-2.js?v=35baedb7", "sprites-galar-shiny-1.js?v=e506ba4e", "sprites-galar-shiny-2.js?v=ea879b02"], "hisui": ["sprites-hisui.js?v=ca6e9f51", "sprites-hisui-shiny.js?v=683484bf"], "paldea": ["sprites-paldea.js?v=661a1f0f", "sprites-paldea-shiny.js?v=11ec4d26"], "kitakami": ["sprites-kitakami.js?v=7b4dcbf2", "sprites-kitakami-shiny.js?v=b5352959"]};window.__SPRN={"kanto": ["sprites-kanto.js?v=9e70358b"], "johto": ["sprites-johto.js?v=7224d923"], "sinnoh": ["sprites-sinnoh.js?v=25b6c7d9"], "hoenn": ["sprites-hoenn.js?v=8e428828"], "unova": ["sprites-unova-1.js?v=6b811d6e", "sprites-unova-2.js?v=e9642d77"], "kalos": ["sprites-kalos.js?v=80e470e1"], "alola": ["sprites-alola.js?v=a6d3b7eb"], "galar": ["sprites-galar-1.js?v=3ee2aedb", "sprites-galar-2.js?v=35baedb7"], "hisui": ["sprites-hisui.js?v=ca6e9f51"], "paldea": ["sprites-paldea.js?v=661a1f0f"], "kitakami": ["sprites-kitakami.js?v=7b4dcbf2"]};window.__SPRL={};window.__SPRF={};
 /* v1.31.7: Kommt ein Paket nicht an, gilt die Region nicht als geladen: später automatisch erneut versuchen (schon geladene Pakete werden übersprungen) */
 window.__sprLoad=function(r){if(!__SPRM[r])return Promise.resolve();if(__SPRL[r])return __SPRL[r];var bad=0;
  __SPRL[r]=__SPRM[r].reduce(function(p,f){return p.then(function(){if(__SPRF[f])return;return new Promise(function(ok){var tries=0;(function go(){var s=document.createElement("script");s.src=f+(tries?"&t="+tries+"_"+Date.now():"");s.onload=function(){__SPRF[f]=1;ok();};s.onerror=function(){s.remove();if(++tries<3)setTimeout(go,1500*tries);else{bad++;ok();}};document.head.appendChild(s);})();});});},Promise.resolve()).then(function(){var M=__SPRM[r];
@@ -15130,6 +15130,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"„Pokémon im Lauf“: Das START-
 if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: Nach dem Draft wählst du deinen Partner wie in einem normalen Lauf, aus den Start-Pokémon aller Regionen. Danach siehst du deine Flüche und startest mit „Abstieg starten“ im Laden.": "Abyss: after the draft you choose your partner like in a normal run, from the starter Pokémon of all regions. Then you see your curses and begin in the shop with “Start descent”.", "Abgrund-Draft: Die Karten zeigen jetzt die Grundform, so wie sie auch im Laden auftaucht.": "Abyss draft: the cards now show the base form, just like it appears in the shop.", "Im Abgrund gibt es als besonderes Item nur noch den Megastein. Z-Kristalle, Dynamax, Tera, Masken und andere Regions-Items gibt es dort nicht mehr, auch nicht bei den Gegnern.": "In the Abyss the only special item is now the Mega Stone. Z-Crystals, Dynamax, Tera, masks and other regional items no longer appear there, not even for foes.", "Der Ladebildschirm lädt jetzt alle Pokémon-Bilder auf einmal (am PC immer, am Handy nur im WLAN). Danach haben Pokédex, Draft und alle Regionen sofort ihre Bilder. Wer nicht warten will, kann nach ein paar Sekunden überspringen.": "The loading screen now loads all Pokémon pictures at once (always on PC, on phones only on Wi-Fi). After that the Pokédex, draft and every region have their pictures right away. If you don't want to wait, you can skip after a few seconds.", "Weiter zur Partnerwahl": "On to partner choice"});
 /* v1.46.0.9: Schnellfix */
 if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: In der Partnerwahl stehen jetzt deine eigenen Draft-Pokémon (Stufe 1 bis 3) zur Auswahl, nicht mehr zufällige Start-Pokémon.": "Abyss: the partner choice now offers your own draft Pokémon (tier 1 to 3) instead of random starter Pokémon."});
+/* v1.46.0.10: Schnellfix */
+if(typeof EN!=="undefined")Object.assign(EN,{"Schnellerer Ladebildschirm: Er lädt nur noch die normalen Pokémon-Bilder. Die schillernden Bilder kommen danach unbemerkt im Hintergrund.": "Faster loading screen: it now only loads the regular Pokémon pictures. The shiny pictures follow quietly in the background."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17715,7 +17717,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.46.0.9",DUEL_HP=30;
+const MP_VER="1.46.0.10",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -17945,11 +17947,11 @@ function needAll(cb){const ks=window.__SPRM?Object.keys(__SPRM).filter(k=>!__SPR
   let n=0;ks.reduce((p,k)=>p.then(()=>__sprLoad(k)).then(()=>{n++;const e=$("naN");if(e)e.textContent=n+"/"+ks.length;}),Promise.resolve()).then(()=>{closeModal();cb();});}
 function newRun(mode,region,o){const rk=REGIONS[region]?region:"kanto";LS.set("pokelings_lastreg",rk);needReg(rk,()=>newRun0(mode,region,o));}
 function dexModal(t){needAll(()=>dexModal0(t));}
-function sprRegionLoaded(r){for(const k in sprIdx)if(sprIdx[k]==="ph")delete sprIdx[k];try{sprSwapWaiting();}catch(e){}try{if(S&&S.region===r&&S.phase==="shop")render();}catch(e){}}
+function sprRegionLoaded(r){for(const k in sprIdx)if(sprIdx[k]==="ph")delete sprIdx[k];try{sprSwapWaiting();}catch(e){}try{if(S&&(S.region===r||S.abyss)&&S.phase==="shop")render();}catch(e){}}
 /* Nach dem Start leise im Hintergrund weiterladen: zuerst die zuletzt gespielte Region, bei Datensparmodus nur diese */
-setTimeout(()=>{if(!window.__SPRM)return;const save=!!(navigator.connection&&navigator.connection.saveData),last=LS.get("pokelings_lastreg","kanto");
+setTimeout(function bgL(){if(!window.__SPRM)return;if(document.getElementById("bootLd"))return setTimeout(bgL,800);const save=!!(navigator.connection&&navigator.connection.saveData),last=LS.get("pokelings_lastreg","kanto");
   const order=[...new Set([last,...Object.keys(__SPRM)])].filter(k=>__SPRM[k]);let ch=Promise.resolve();
-  for(const r of save?order.slice(0,1):order)ch=ch.then(()=>new Promise(ok=>setTimeout(ok,1200))).then(()=>__sprLoad(r));},6000);
+  for(const r of save?order.slice(0,1):order)ch=ch.then(()=>new Promise(ok=>setTimeout(ok,150))).then(()=>__sprLoad(r));},6000);
 
 /* ================================ TUTORIAL (erster Lauf) ================================ */
 const TUT=[
@@ -22205,8 +22207,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.46.0.9"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.46.0.10"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.46.0.10",d:"09.11.2026",t:"Schnellfix",items:[
+  ["spark", "Schnellerer Ladebildschirm: Er lädt nur noch die normalen Pokémon-Bilder. Die schillernden Bilder kommen danach unbemerkt im Hintergrund."]]},
  {v:"1.46.0.9",d:"09.11.2026",t:"Schnellfix",items:[
   ["ball", "Abgrund: In der Partnerwahl stehen jetzt deine eigenen Draft-Pokémon (Stufe 1 bis 3) zur Auswahl, nicht mehr zufällige Start-Pokémon."]]},
  {v:"1.46.0.8",d:"09.11.2026",t:"Schnellfix",items:[
@@ -25118,11 +25122,12 @@ window.__pk={get GL(){return GL},step,buyXP,specOpts,SPECSall:SPECS,genEnemies,f
 function ready(){return document.querySelector(".screen.show,#intro,#stScene")||(typeof S!=="undefined"&&!!S);}
 function hide(){setTimeout(function(){l.style.opacity=0;setTimeout(function(){l.remove();try{clearInterval(__tipT);clearInterval(__parT);clearInterval(__tipT0)}catch(e){}},450);},500);}
 function all(){var c=navigator.connection||{},mob=/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(window.matchMedia&&matchMedia("(pointer:coarse)").matches);if(c.saveData)return false;if(!mob)return true;return c.type==="wifi"||c.type==="ethernet";}
-function pre(){var M=window.__SPRM;if(!M||typeof __sprLoad!=="function"||!all())return hide();var ks=Object.keys(M),fs=[];ks.forEach(function(k){(M[k]||[]).forEach(function(x){fs.push(x);});});if(!fs.length)return hide();
+function pre(){var M=window.__SPRN||window.__SPRM;if(!M||typeof __sprLoad!=="function"||!all())return hide();var fs=[];Object.keys(M).forEach(function(k){(M[k]||[]).forEach(function(x){fs.push(x);});});if(!fs.length)return hide();
  var N=fs.length,fin=false,go=function(){if(fin)return;fin=true;clearInterval(iv);hide();};
  var sk=document.createElement("button");sk.textContent=window.__EN?"Continue without waiting":"Weiter ohne Warten";sk.style.cssText="position:absolute;left:50%;bottom:64px;transform:translateX(-50%);z-index:3;padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;font:600 13px system-ui,sans-serif;cursor:pointer;opacity:0;transition:opacity .4s";sk.onclick=go;l.appendChild(sk);setTimeout(function(){sk.style.opacity=1;},8000);
  var iv=setInterval(function(){var n=0;fs.forEach(function(x){if(__SPRF[x])n++;});if(t)t.textContent=window.__EN?"LOADING ALL POKÉMON …":"LADE ALLE POKÉMON …";if(q)q.textContent=n+" / "+N;if(b)b.style.width=Math.max(2,n/N*100)+"%";},150);
- var i=0,run=function(){if(i>=ks.length)return Promise.resolve();var k=ks[i++];return __sprLoad(k).then(run,run);};Promise.all([run(),run(),run()]).then(go,go);setTimeout(go,180000);}
+ var one=function(x){return new Promise(function(ok){if(__SPRF[x])return ok();var tr=0;(function g(){var e=document.createElement("script");e.src=x+(tr?"&t="+tr+"_"+Date.now():"");e.onload=function(){__SPRF[x]=1;ok();};e.onerror=function(){e.remove();if(++tr<3)setTimeout(g,1500*tr);else ok();};document.head.appendChild(e);})();});};
+ var i=0,run=function(){if(i>=fs.length)return Promise.resolve();var x=fs[i++];return one(x).then(run,run);};Promise.all([run(),run(),run()]).then(go,go);setTimeout(go,180000);}
 (function chk(){if(ready()||Date.now()-t0>30000)pre();else setTimeout(chk,120);})();})();</script>
 </body>
 </html>
