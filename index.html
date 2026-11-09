@@ -15124,6 +15124,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Neuer Modus: Abgrund. Ein endloser
 if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: Draft, Startpartner und Flüche wählst du jetzt über dem Hauptmenü. Der Lauf beginnt erst, wenn du auf „Abstieg starten“ drückst, und dann direkt im Laden.": "Abyss: you now choose your draft, starter partner and curses above the main menu. The run only begins when you press “Start descent”, and then right in the shop.", "Herausforderungen links im Menü haben mehr Platz. Titel, Rekord und Meilenstein überlappen nicht mehr.": "Challenges on the left of the menu have more room. Titles, record and milestone no longer overlap.", "Weniger Ruckeln: Hintergründe, Abzeichen und Titel bewegen sich nur noch auf der großen Trainerkarte. In Menü, Bestenliste und Auswahllisten stehen sie still.": "Less stutter: backgrounds, badges and titles only move on the large trainer card. In the menu, leaderboard and selection lists they stay still.", "Sobald Ruhm freigeschaltet ist, steht Ruhm im Hauptmenü an der Stelle vom Forschungslabor. Skillbaum und Booster findest du dort weiterhin als Reiter.": "Once Fame is unlocked, Fame takes the place of the Research Lab in the main menu. Skill tree and boosters are still there as tabs.", "Edelsteine einzahlen · Skillbaum · Booster": "Deposit gems · Skill tree · Boosters", "ABSTIEG STARTEN": "START DESCENT", "Weiter zum Startpartner": "On to your starter partner", "Zurück zum Draft": "Back to the draft", "Zurück": "Back"});
 /* v1.46.0.6: Schnellfix */
 if(typeof EN!=="undefined")Object.assign(EN,{"Bestenliste, Hauptmenü und Herausforderungen sind wieder animiert. Stillstehen nur noch die Auswahllisten in der Trainerkarte (Abzeichen und Hintergründe), damit sie nicht ruckeln.": "Leaderboard, main menu and challenges are animated again. Only the selection lists in the trainer card (badges and backgrounds) stay still so they don't stutter.", "Abgrund: Im Draft fehlten bei Pokémon aus anderen Regionen die Bilder. Die Bilder werden jetzt geladen und erscheinen nach einem kurzen Moment, auch nach dem Neu-Würfeln.": "Abyss: in the draft, Pokémon from other regions were missing their pictures. The pictures now load and appear after a short moment, also after rerolling."});
+/* v1.46.0.7: Schnellfix */
+if(typeof EN!=="undefined")Object.assign(EN,{"„Pokémon im Lauf“: Das START-Schild und die gelbe Markierung der Start-Pokémon sind weg.": "“Pokémon in the run”: the START label and the yellow marking of the starter Pokémon are gone."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17709,7 +17711,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.46.0.6",DUEL_HP=30;
+const MP_VER="1.46.0.7",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -22199,8 +22201,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.46.0.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.46.0.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.46.0.7",d:"09.11.2026",t:"Schnellfix",items:[
+  ["ball", "„Pokémon im Lauf“: Das START-Schild und die gelbe Markierung der Start-Pokémon sind weg."]]},
  {v:"1.46.0.6",d:"09.11.2026",t:"Schnellfix",items:[
   ["spark", "Bestenliste, Hauptmenü und Herausforderungen sind wieder animiert. Stillstehen nur noch die Auswahllisten in der Trainerkarte (Abzeichen und Hintergründe), damit sie nicht ruckeln."],
   ["skull", "Abgrund: Im Draft fehlten bei Pokémon aus anderen Regionen die Bilder. Die Bilder werden jetzt geladen und erscheinen nach einem kurzen Moment, auch nach dem Neu-Würfeln."]]},
@@ -23445,11 +23449,11 @@ let PS_KEEP=null;
 function psModal(rg,back){const av=psAvail(rg),R=REGIONS[rg]||{n:rg},mn=psMinFor(rg),need=psNeedT(rg);const keep=PS_KEEP;PS_KEEP=null;let sel=new Set(keep?keep.sel:psSel(rg));
   const tiers=[1,2,3,4,5].filter(t=>av.some(L=>L.tier===t));
   const psRole=x=>{const r=(SPECIES[x.stages[0][0]]&&SPECIES[x.stages[0][0]].role)||x.role;return ROLES[r]?ROLES[r].n:"";};
-  const card=x=>`<button class="psB${x.start?" st":""}" data-ps="${x.k}" data-t="${x.tier}" title="${esc(psRole(x))}"><span class="fm" data-sp="${x.stages[0][0]}"></span><small>${esc(x.stages[0][1])}</small><i class="psChk">${ic("check")}</i>${x.start?`<em class="psSt">START</em>`:""}<span class="psInf" data-pi="${x.stages[0][0]}" title="Details ansehen">${ic("info")}</span></button>`;
+  const card=x=>`<button class="psB" data-ps="${x.k}" data-t="${x.tier}" title="${esc(psRole(x))}"><span class="fm" data-sp="${x.stages[0][0]}"></span><small>${esc(x.stages[0][1])}</small><i class="psChk">${ic("check")}</i><span class="psInf" data-pi="${x.stages[0][0]}" title="Details ansehen">${ic("info")}</span></button>`;
   const html=()=>tiers.map(t=>{const L=av.filter(x=>x.tier===t).sort((a,b)=>(b.start?1:0)-(a.start?1:0)||a.stages[0][0]-b.stages[0][0]);
     return `<div class="psTier" data-pt="${t}"><h4 class="cdCat">${t===5?"Stufe 5 · Legendär":"Stufe "+t}<span class="psCnt" data-pc="${t}"></span></h4><div class="psGrid">${L.map(card).join("")}</div></div>`;}).join("");
   openModal(`<h2>${ic("ball")} POKÉMON IM LAUF · ${esc(R.n.toUpperCase())}</h2>
-    <p class="cdHint">Wähle, welche Pokémon im Laden auftauchen, auch die Start-Pokémon (gelb): höchstens ${PS_MAX[1]} pro Stufe (Stufe 3: ${PS_MAX[3]}, Stufe 4: ${PS_MAX[4]}, Legendäre ${PS_MAX[5]}), insgesamt mindestens ${mn}, aus jeder Stufe mindestens eins. Weniger verschiedene Pokémon im Laden heißt: Du findest leichter Doppelte für Sterne. ${ic("info")} zeigt die Details.</p>
+    <p class="cdHint">Wähle, welche Pokémon im Laden auftauchen: höchstens ${PS_MAX[1]} pro Stufe (Stufe 3: ${PS_MAX[3]}, Stufe 4: ${PS_MAX[4]}, Legendäre ${PS_MAX[5]}), insgesamt mindestens ${mn}, aus jeder Stufe mindestens eins. Weniger verschiedene Pokémon im Laden heißt: Du findest leichter Doppelte für Sterne. ${ic("info")} zeigt die Details.</p>
     <div class="psWrap">${html()}</div>
     <div class="psFoot"><span class="psTot" id="psTot"></span><span style="flex:1"></span><button class="btn" id="psNone">${ic("close")} Alle abwählen</button><button class="btn" id="psAuto">${ic("dice")} Automatisch</button><button class="pri" id="psOk">${ic("check")} Fertig</button></div>`,"wide psM",back||true);
   const mb=$("mbox");hydrateIcons(mb);mb.querySelectorAll(".fm[data-sp]").forEach(e=>e.appendChild(sprAlign(natFit(spriteEl(+e.dataset.sp),.9))));
