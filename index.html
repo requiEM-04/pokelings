@@ -15128,6 +15128,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Bestenliste, Hauptmenü und Heraus
 if(typeof EN!=="undefined")Object.assign(EN,{"„Pokémon im Lauf“: Das START-Schild und die gelbe Markierung der Start-Pokémon sind weg.": "“Pokémon in the run”: the START label and the yellow marking of the starter Pokémon are gone."});
 /* v1.46.0.8: Schnellfix */
 if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: Nach dem Draft wählst du deinen Partner wie in einem normalen Lauf, aus den Start-Pokémon aller Regionen. Danach siehst du deine Flüche und startest mit „Abstieg starten“ im Laden.": "Abyss: after the draft you choose your partner like in a normal run, from the starter Pokémon of all regions. Then you see your curses and begin in the shop with “Start descent”.", "Abgrund-Draft: Die Karten zeigen jetzt die Grundform, so wie sie auch im Laden auftaucht.": "Abyss draft: the cards now show the base form, just like it appears in the shop.", "Im Abgrund gibt es als besonderes Item nur noch den Megastein. Z-Kristalle, Dynamax, Tera, Masken und andere Regions-Items gibt es dort nicht mehr, auch nicht bei den Gegnern.": "In the Abyss the only special item is now the Mega Stone. Z-Crystals, Dynamax, Tera, masks and other regional items no longer appear there, not even for foes.", "Der Ladebildschirm lädt jetzt alle Pokémon-Bilder auf einmal (am PC immer, am Handy nur im WLAN). Danach haben Pokédex, Draft und alle Regionen sofort ihre Bilder. Wer nicht warten will, kann nach ein paar Sekunden überspringen.": "The loading screen now loads all Pokémon pictures at once (always on PC, on phones only on Wi-Fi). After that the Pokédex, draft and every region have their pictures right away. If you don't want to wait, you can skip after a few seconds.", "Weiter zur Partnerwahl": "On to partner choice"});
+/* v1.46.0.9: Schnellfix */
+if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: In der Partnerwahl stehen jetzt deine eigenen Draft-Pokémon (Stufe 1 bis 3) zur Auswahl, nicht mehr zufällige Start-Pokémon.": "Abyss: the partner choice now offers your own draft Pokémon (tier 1 to 3) instead of random starter Pokémon."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17713,7 +17715,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.46.0.8",DUEL_HP=30;
+const MP_VER="1.46.0.9",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -22203,8 +22205,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.46.0.8"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.46.0.9"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.46.0.9",d:"09.11.2026",t:"Schnellfix",items:[
+  ["ball", "Abgrund: In der Partnerwahl stehen jetzt deine eigenen Draft-Pokémon (Stufe 1 bis 3) zur Auswahl, nicht mehr zufällige Start-Pokémon."]]},
  {v:"1.46.0.8",d:"09.11.2026",t:"Schnellfix",items:[
   ["ball", "Abgrund: Nach dem Draft wählst du deinen Partner wie in einem normalen Lauf, aus den Start-Pokémon aller Regionen. Danach siehst du deine Flüche und startest mit „Abstieg starten“ im Laden."],
   ["dice", "Abgrund-Draft: Die Karten zeigen jetzt die Grundform, so wie sie auch im Laden auftaucht."],
@@ -24152,8 +24156,9 @@ function abBegin(){const P=ABP.d;if(!P)return;const pool=[...P.sel];ABP.d=null;c
 /* Startablauf im Lauf: normale Partnerwahl, danach die Flüche mit „Abstieg starten“ */
 function abyssSetup(cb){if(!S||!S.abyss){cb&&cb();return;}const A=abMeta();A.runs++;saveMeta();
   starterChoice(()=>{save();render();abHud();abCurseModal(S.abyss.curses,true,cb);});}
-/* Partnerwahl im Abgrund: Start-Pokémon aus allen Regionen zusammen */
-(function(){if(typeof starterPool!=="function")return;const _sp=starterPool;starterPool=function(){if(S&&S.abyss){const ls=LINES.filter(l=>l.start&&l.tier<=2&&!l.leg&&!l.ub);if(ls.length)return ls;}return _sp.apply(this,arguments);};})();
+/* Partnerwahl im Abgrund: deine Draft-Linien (Stufe 1–3) als Grundform, in der normalen Partnerwahl */
+(function(){if(typeof starterOpts!=="function")return;const _so=starterOpts;starterOpts=function(n){if(S&&S.abyss&&Array.isArray(S.abyss.pool)&&S.abyss.pool.length){const ls=S.abyss.pool.map(abLine).filter(L=>L&&L.tier<=AB_DRAFT.startMax);
+  if(ls.length)return ls.sort((x,y)=>x.tier-y.tier).map(L=>({L,shiny:Math.random()<(typeof CASE_SHINY==="number"?CASE_SHINY:0),secret:null}));}return _so.apply(this,arguments);};})();
 /* Laden: Sprite-Pakete der Draft-Regionen nachladen; Draft wieder öffnen, falls er noch nicht fertig war */
 setTimeout(()=>{if(typeof loadGame!=="function")return;const _lg=loadGame;loadGame=function(){const r=_lg.apply(this,arguments);try{if(S&&S.abyss){abLoadRegs(S.abyss.pool||[]);
   abHud();}}catch(e){}return r;};},0);
