@@ -4462,6 +4462,8 @@ body:not(.battle) .wxLbl{display:none}
 @keyframes seaPop{0%,44%{transform:scale(.3);opacity:0}50%{transform:scale(1.3);opacity:1}62%,100%{transform:scale(1.6);opacity:0}}
 .seaPv{display:flex;justify-content:center;gap:18px;margin:6px 0 10px}
 .seaPv>span{display:flex;flex-direction:column;align-items:center;gap:7px}.seaPv small{font:8px var(--px);color:var(--muted)}
+/* v1.42.0.5: Season-Vorschau ohne Hinweistexte */
+.seaPv{margin:8px 0 12px;gap:22px}.seaPv small{margin-top:4px}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -14672,6 +14674,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Neuer Skillbaum: Alle Forschungen 
 if(typeof EN!=="undefined")Object.assign(EN,{"Kampfturm: Dein Rekord, deine Symbole und deine Bestwerte gehen beim Abgleich zwischen mehreren Geräten nicht mehr verloren. Es zählt immer der beste Stand.": "Battle Tower: your record, symbols and best results are no longer lost when syncing between several devices. The best progress always counts."});
 /* v1.42.0: Season-Abzeichen */
 if(typeof EN!=="undefined")Object.assign(EN,{"Season-Abzeichen neu: Jede Season bekommt ihr eigenes Design. Die November-Season hat Regenbogen, danach folgen Galaxie, Neon und weitere. In der Mitte steht dein Platz 1, 2 oder 3 und dreht sich immer wieder in einen Pokal. Die Abzeichen der laufenden Season siehst du in der Bestenliste unter Trainerpunkte.": "New season badges: every season gets its own design. The November season has Rainbow, followed by Galaxy, Neon and more. In the middle is your place 1, 2 or 3, which keeps flipping into a trophy. You can see the current season's badges in the leaderboard under Trainer points."});
+/* v1.42.0.5: Bestenliste aufgeräumt */
+if(typeof EN!=="undefined")Object.assign(EN,{"Bestenliste aufgeräumt: Unter Trainerpunkte stehen nur noch die Season-Abzeichen ohne die beiden Hinweistexte. Die Infos zu Belohnungen und Punkten erscheinen, wenn du mit der Maus über die Abzeichen fährst.": "Leaderboard tidied up: under Trainer points only the season badges remain, without the two hint texts. Rewards and points info appears when you hover over the badges."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17152,7 +17156,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.42.0",DUEL_HP=30;
+const MP_VER="1.42.0.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -17683,7 +17687,7 @@ async function menuLbLoad(el,quiet){if(!el||MLB.busy)return;MLB.busy=true;const 
       else if(MLB.sea==="all"){L.innerHTML=rows.length?lbRowsHtml(rows,10):`<p class="empty">Noch keine Trainer.</p>`;L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>det(b));}
       else{const sid=MLB.sea==="cur"?seasonId():MLB.sea,r=await clFetch("/rest/v1/rpc/season_board",{method:"POST",auth:false,body:{sid},timeout:8000});if(!L.isConnected)return;
         const me=sid===seasonId()&&typeof USER!=="undefined"&&USER?seasonMine():null;
-        const hint=sid===seasonId()?`<p class="mLbHint">${ic("trophy")} Platz 1–3: Season-Abzeichen und ein zufälliges schillerndes Pokémon · Platz 4–10: 10 Edelsteine</p>${typeof seaParse==="function"?`<div class="seaPv">${[1,2,3].map(p=>`<span>${badgeHTML("s|"+sid+"|"+p,seaTier(p),"sm")}<small>Platz ${p}</small></span>`).join("")}</div>`:""}<p class="mLbHint">${ic("info")} Punkte: besiegtes Pokémon 1 · Boss 5 · Sieg 1–5 je Schwierigkeit · Champion-Titel 20–100 (Wiederholung in gleicher Region 50 %, ab dem 3. Mal 25 %)</p>`:"";
+        const hint=sid===seasonId()&&typeof seaParse==="function"?`<div class="seaPv" title="Platz 1–3: Season-Abzeichen und ein zufälliges schillerndes Pokémon · Platz 4–10: 10 Edelsteine&#10;Punkte: besiegtes Pokémon 1 · Boss 5 · Sieg 1–5 je Schwierigkeit · Champion-Titel 20–100 (Wiederholung in gleicher Region 50 %, ab dem 3. Mal 25 %)">${[1,2,3].map(p=>`<span>${badgeHTML("s|"+sid+"|"+p,seaTier(p),"sm")}<small>Platz ${p}</small></span>`).join("")}</div>`:"";
         if(!r.ok||!Array.isArray(r.j)){L.innerHTML=hint+`<p class="empty">${socMissing(r)?"Seasons werden gerade eingerichtet.":"Season-Bestenliste nicht erreichbar."}</p>`;}
         else L.innerHTML=hint+(r.j.length?mlbSeaRows(r.j,sid):`<p class="empty">${sid===seasonId()?"Noch keine Punkte in dieser Season. Werde Champion oder komm weit in einem Lauf!":"In dieser Season hat niemand Punkte gesammelt."}</p>`)+(me?`<p class="mLbMe">${ic("user")} Deine Season-Punkte: <b>${me.pts.toLocaleString("de-DE")}</b></p>`:"");
         L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>{const x=(r.j||[]).find(y=>userKey(y.name)===userKey(b.dataset.n));if(x)seasonDetail(x,sid,rows.find(y=>userKey(y.n)===userKey(x.name)));});}}
@@ -21615,8 +21619,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.42.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.42.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.42.0.5",d:"09.11.2026",t:"Schnellfix",items:[
+  ["trophy", "Bestenliste aufgeräumt: Unter Trainerpunkte stehen nur noch die Season-Abzeichen ohne die beiden Hinweistexte. Die Infos zu Belohnungen und Punkten erscheinen, wenn du mit der Maus über die Abzeichen fährst."]]},
  {v:"1.42.0",d:"07.11.2026",t:"Season-Abzeichen",items:[
   ["trophy", "Season-Abzeichen neu: Jede Season bekommt ihr eigenes Design. Die November-Season hat Regenbogen, danach folgen Galaxie, Neon und weitere. In der Mitte steht dein Platz 1, 2 oder 3 und dreht sich immer wieder in einen Pokal. Die Abzeichen der laufenden Season siehst du in der Bestenliste unter Trainerpunkte."]]},
  {v:"1.41.0.5",d:"06.11.2026",t:"Schnellfix",items:[
