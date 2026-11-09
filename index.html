@@ -15187,6 +15187,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Schnellerer Ladebildschirm: Er lä
 if(typeof EN!=="undefined")Object.assign(EN,{"Kleine Verbesserungen im Hintergrund.": "Small improvements under the hood.", "Amethyst": "Amethyst"});
 /* v1.47.0: Abgrund wie der Turm */
 if(typeof EN!=="undefined")Object.assign(EN,{"Der Abgrund läuft jetzt von Ebene 1 an wie der Kampfturm, nur dunkler und schwerer. Bei „Begegnung“ siehst du eine eigene Abgrund-Karte mit Ebenen-Leiste, gekämpft wird auf Abgrund-Plätzen statt in Städten.": "The Abyss now plays like the Battle Tower from floor 1 on, just darker and harder. Under “Encounter” you see its own Abyss map with a floor ladder, and battles take place on Abyss grounds instead of towns.", "Alle 5 Ebenen wartet eine Koryphäe mit eigenem Auftritt, und jede Ebene hat eine Turmregel. Schurken-Teams und leichte Kämpfe gibt es im Abgrund nicht mehr, die Gegner rechnen wie auf Schwer.": "Every 5 floors a Frontier Brain awaits with its own entrance, and every floor has a tower rule. There are no villain teams and no easy battles in the Abyss anymore, foes are calculated like on Hard.", "Im Abgrund hast du einen Platz weniger im Raster.": "In the Abyss you have one slot less on the grid.", "Partnerwahl im Abgrund: Zur Auswahl stehen nur deine Draft-Pokémon aus Gewöhnlich und Ungewöhnlich.": "Abyss partner choice: only your draft Pokémon from Common and Uncommon are offered.", "Im Laden zeigt ein neues Feld „Flüche“ über den Relikten deine aktiven Flüche. Antippen zeigt die Details. Das Abgrund-Schild sitzt jetzt oben links und verdeckt keine Lebensleisten mehr.": "In the shop a new “Curses” panel above the relics shows your active curses. Tap for details. The Abyss badge now sits top left and no longer covers health bars.", "Neue Flüche erscheinen groß und mittig.": "New curses appear big and centered.", "FLÜCHE": "CURSES", "nächster nach Ebene": "next after floor", "Bezwungene Koryphäen": "Frontier Brains defeated", " · ABGRUND": " · ABYSS", "Schlund": "Maw", "Glutkammer": "Ember Chamber", "Nebeltiefe": "Mist Depths", "Thron des Abgrunds": "Throne of the Abyss", "Abgrund · der Boden ist nicht zu sehen": "Abyss · no bottom in sight", "Abgrund · Ruinen über der Glut": "Abyss · ruins above the embers", "Abgrund · kalter Nebel aus der Tiefe": "Abyss · cold mist from the depths", "Abgrund · die Koryphäe erwartet dich": "Abyss · the Frontier Brain awaits", "Im Laden gibt es nur deine 6 Draft-Pokémon. 1 Leben, keine Revanche. Alle 5 Ebenen wartet eine Koryphäe, und es geht ohne Ende weiter.": "The shop only has your 6 draft Pokémon. 1 life, no rematch. Every 5 floors a Frontier Brain awaits, and it never ends."});
+/* v1.47.0.5: Schnellfix */
+if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund ab Ebene 11 fairer: Die Gegner werden bis Ebene 20 schrittweise etwas schwächer, und es gibt mehr mittlere und weniger schwere und Elite-Kämpfe. Die Gegner rechnen wieder wie auf Normal.": "Abyss is fairer from floor 11: foes get gradually a bit weaker up to floor 20, and there are more medium and fewer hard and elite battles. Foes are calculated like on Normal again."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17773,7 +17775,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.47.0",DUEL_HP=30;
+const MP_VER="1.47.0.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -22263,8 +22265,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.47.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.47.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.47.0.5",d:"09.11.2026",t:"Schnellfix",items:[
+  ["skull", "Abgrund ab Ebene 11 fairer: Die Gegner werden bis Ebene 20 schrittweise etwas schwächer, und es gibt mehr mittlere und weniger schwere und Elite-Kämpfe. Die Gegner rechnen wieder wie auf Normal."]]},
  {v:"1.47.0",d:"09.11.2026",t:"Abgrund wie der Turm",items:[
   ["skull", "Der Abgrund läuft jetzt von Ebene 1 an wie der Kampfturm, nur dunkler und schwerer. Bei „Begegnung“ siehst du eine eigene Abgrund-Karte mit Ebenen-Leiste, gekämpft wird auf Abgrund-Plätzen statt in Städten."],
   ["crown", "Alle 5 Ebenen wartet eine Koryphäe mit eigenem Auftritt, und jede Ebene hat eine Turmregel. Schurken-Teams und leichte Kämpfe gibt es im Abgrund nicht mehr, die Gegner rechnen wie auf Schwer."],
@@ -22962,7 +22966,7 @@ function twFx(f){if(!twOn())return;
 const twNoHeal=()=>false;
 const twHealMul=f=>{if(!twOn()||!f||f.side!=="mine")return 1;const c=S.tower.curse;return (c&&c.k==="heal"?1-Math.min(.2,2.5*(c.v||.03)):1)*(typeof abHealMul==="function"?abHealMul(f):1);};
 /* Gegner werden je Ebene stärker (zusätzlich zur normalen Rundensteigerung) */
-const twScale=()=>{const f=twFloor();if(S&&S.abyss)return 1+TW.ramp*Math.max(0,f-20);return f?(1+TW.ramp*(f-1))*(TW.mk[S.mode]||1):1;};
+const twScale=()=>{const f=twFloor();if(S&&S.abyss)return (f>20?.88:f>10?1-.012*(f-10):1)*(1+TW.ramp*Math.max(0,f-20));return f?(1+TW.ramp*(f-1))*(TW.mk[S.mode]||1):1;};
 const twEncOdds=()=>(S&&S.abyss&&typeof abEncOdds==="function"?abEncOdds():{easy:0,mid:34,hard:34,elite:20,event:6,rocket:6});
 const twItems=()=>{const f=twFloor();return f?(f>=11?2:1):0;};
 /* Koryphäen-Stärke je Ebene (abgestimmt mit Bot-Läufen), über Ebene 30 hinaus sanft weiter steigend */
@@ -24223,7 +24227,7 @@ function abDraftModal(){const P=ABP.d;if(!P)return;const sel=P.sel;
 /* Nach dem Draft: Lauf anlegen, dann Partnerwahl wie im normalen Lauf (Start-Pokémon aller Regionen), dann Flüche mit „Abstieg starten“ */
 function abBegin(){const P=ABP.d;if(!P)return;const pool=[...P.sel];ABP.d=null;closeModal();if(S&&!S.abyss&&S.phase==="shop")save();
   const regs=Object.keys(REGIONS),rk=regs[Math.floor(Math.random()*regs.length)];
-  abLoadRegs(pool).then(()=>newRun("hard",rk,{abyss:{pool,curses:P.curses}}));}
+  abLoadRegs(pool).then(()=>newRun("normal",rk,{abyss:{pool,curses:P.curses}}));}
 /* Startablauf im Lauf: normale Partnerwahl, danach die Flüche mit „Abstieg starten“ */
 function abyssSetup(cb){if(!S||!S.abyss){cb&&cb();return;}const A=abMeta();A.runs++;saveMeta();
   starterChoice(()=>{save();render();abHud();abCurseModal(S.abyss.curses,true,cb);});}
@@ -24367,7 +24371,7 @@ const AB_LOCS=["ab_schlund","ab_glut","ab_tiefe"];
   ab_thron:{region:"tower",n:"Thron des Abgrunds",sub:"Abgrund · die Koryphäe erwartet dich",kind:"ruins",ground:"volcano",sign:"KORYPHÄE",cam:[]}});
   if(typeof SIG!=="undefined")Object.assign(SIG,{ab_schlund:{t:"night",w:"embers"},ab_glut:{t:"night",w:"ash",p:[["kStatue",-7.5,-9,0],["kStatue",7.5,-9,0]]},ab_tiefe:{w:"fog"},ab_thron:{t:"night",w:"embers",p:[["kStatue",-7.5,-9,0],["kStatue",7.5,-9,0]]}});}catch(e){console.warn("abyss locs",e);}})();
 /* Kampfauswahl: kein leichter Kampf, keine Schurken-Teams, mit der Tiefe immer härter */
-function abEncOdds(){const f=Math.max(1,abFloor());return f<=2?{easy:55,mid:45,hard:0,elite:0,event:0,rocket:0}:f<=4?{easy:10,mid:62,hard:28,elite:0,event:0,rocket:0}:f<=9?{easy:0,mid:48,hard:36,elite:8,event:8,rocket:0}:f<=20?{easy:0,mid:36,hard:38,elite:18,event:8,rocket:0}:{easy:0,mid:30,hard:38,elite:26,event:6,rocket:0};}
+function abEncOdds(){const f=Math.max(1,abFloor());return f<=2?{easy:55,mid:45,hard:0,elite:0,event:0,rocket:0}:f<=4?{easy:10,mid:62,hard:28,elite:0,event:0,rocket:0}:f<=9?{easy:0,mid:48,hard:36,elite:8,event:8,rocket:0}:f<=20?{easy:0,mid:46,hard:32,elite:12,event:10,rocket:0}:{easy:0,mid:30,hard:38,elite:26,event:6,rocket:0};}
 /* Koryphäe alle 5 Ebenen: bis Ebene 20 mit dem (ausgewogenen) Team des Regions-Bosses dieser Runde, danach wie im Kampfturm */
 function abBossDef(f,base){const K=twKor(f),ru=twRule(f),sub="Koryphäe · "+twRuleN(ru);
   if(f<=20&&base&&base[f]){const b=base[f];return Object.assign({},b,{name:K.t+" "+K.n,sub,abK:K.id,units:(b.units||[]).map(u=>{const v=u.slice();if(typeof v[5]==="string")v[5]=v[5].replace(/[zdtak]/g,"");return v;})});}
