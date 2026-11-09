@@ -4468,6 +4468,73 @@ body:not(.battle) .wxLbl{display:none}
 .bdg.sea em,.bdg.cst.sea em{bottom:-5px;padding:0 4px;border-radius:4px;border:1px solid rgba(255,255,255,.16)!important;background:rgba(8,10,20,.5)!important;color:rgba(255,255,255,.72)!important;font-size:6px;letter-spacing:.04em;text-shadow:0 1px 0 rgba(0,0,0,.6);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);box-shadow:none!important}
 .bdg.sea.sm em{font-size:5px;bottom:-4px;padding:0 3px;color:rgba(255,255,255,.6)!important}
 .bdg.sea:hover em{color:#fff!important;background:rgba(8,10,20,.72)!important}
+/* ===== v1.43.0: Ruhm-Effekte ===== */
+.tcAv .fmAura{position:absolute;left:50%;bottom:8px;width:168px;height:40px;margin-left:-84px;z-index:0;pointer-events:none}
+.fmAura::before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(ellipse,color-mix(in srgb,var(--fc) 90%,transparent) 0,color-mix(in srgb,var(--fc) 40%,transparent) 45%,transparent 72%);filter:blur(2px);animation:fmAuP 2.4s ease-in-out infinite}
+.fmAura::after{content:"";position:absolute;inset:4% 3%;border-radius:50%;background:repeating-conic-gradient(from var(--bga),color-mix(in srgb,var(--fc) 85%,#fff) 0 9deg,transparent 9deg 18deg);-webkit-mask:radial-gradient(ellipse,transparent 57%,#000 59%,#000 69%,transparent 71%);mask:radial-gradient(ellipse,transparent 57%,#000 59%,#000 69%,transparent 71%);opacity:.9;animation:bdgSpin 6s linear infinite}
+@keyframes fmAuP{0%,100%{opacity:.7;transform:scale(.95)}50%{opacity:1;transform:scale(1.06)}}
+@keyframes fmAuR{to{transform:rotate(360deg)}}
+.fmAura s{position:absolute;bottom:40%;width:7px;height:9px;clip-path:polygon(50% 0,100% 40%,50% 100%,0 40%);background:linear-gradient(160deg,#fff,var(--sc,var(--fc)));filter:drop-shadow(0 0 4px var(--fc));animation:fmAuS 2.6s linear infinite;opacity:0}
+.fmAura s:nth-child(1){left:12%}.fmAura s:nth-child(2){left:30%;animation-delay:.6s}.fmAura s:nth-child(3){left:52%;animation-delay:1.2s}.fmAura s:nth-child(4){left:70%;animation-delay:1.8s}.fmAura s:nth-child(5){left:86%;animation-delay:.9s}
+@keyframes fmAuS{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:1}100%{transform:translateY(-120px) scale(1);opacity:0}}
+.fmAura.leg::before{background:radial-gradient(ellipse,rgba(255,216,74,.8),rgba(183,123,255,.35) 45%,transparent 70%)}
+.fmAura.leg::after{border:none;background:conic-gradient(from var(--bga),#ffcf4a,#4dffa0,#6fa4ff,#ff6680,#c89bff,#ffcf4a);-webkit-mask:radial-gradient(ellipse,transparent 58%,#000 60%,#000 70%,transparent 72%);mask:radial-gradient(ellipse,transparent 58%,#000 60%,#000 70%,transparent 72%);animation:bdgSpin 3s linear infinite}
+.fmAura.leg s:nth-child(1){--sc:#ffcf4a}.fmAura.leg s:nth-child(2){--sc:#4dffa0}.fmAura.leg s:nth-child(3){--sc:#6fa4ff}.fmAura.leg s:nth-child(4){--sc:#ff6680}.fmAura.leg s:nth-child(5){--sc:#c89bff}
+/* Krone (ohne SVG-Verläufe, rein per CSS) */
+.fmCrown{display:inline-block;position:relative;width:34px;height:26px;filter:drop-shadow(0 0 6px rgba(255,216,74,.9)) drop-shadow(0 2px 0 rgba(0,0,0,.5))}
+.fmCrown b{position:absolute;inset:0;clip-path:polygon(10% 88%,5% 26%,28% 52%,50% 8%,72% 52%,95% 26%,90% 88%);background:linear-gradient(90deg,#ffcf4a,#4dffa0,#6fa4ff,#ff6680,#c89bff,#ffcf4a);background-size:200% 100%;animation:fmTx 3s linear infinite}
+.fmCrown::after{content:"";position:absolute;left:8%;right:8%;bottom:0;height:22%;border-radius:2px;background:linear-gradient(180deg,#fff2a8,#e0a020);box-shadow:inset 0 -2px 0 rgba(0,0,0,.25)}
+.tcard .fmCrown.onTop{position:absolute;left:50%;top:1px;width:40px;height:28px;margin-left:-20px;z-index:8;pointer-events:none}
+.tcard .fmCrown.onTop::before{content:"";position:absolute;left:-14px;right:-14px;top:-6px;bottom:-4px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,230,140,.55),transparent 70%);z-index:-1;animation:fmAuP 2.4s ease-in-out infinite}
+.fmHolo{position:absolute;inset:0;z-index:5;pointer-events:none;border-radius:12px;background:linear-gradient(115deg,transparent 30%,rgba(255,120,200,.16) 42%,rgba(120,255,220,.18) 50%,rgba(140,160,255,.16) 58%,transparent 70%);background-size:250% 100%;mix-blend-mode:screen;animation:fmHolo 4s linear infinite}
+@keyframes fmHolo{from{background-position:120% 0}to{background-position:-120% 0}}
+@keyframes fmTx{to{background-position:200% 0}}
+/* VS-Bildschirm */
+#vs.v4 .fmVsP{position:absolute;top:0;bottom:0;width:46%;z-index:1;pointer-events:none;overflow:hidden}
+#vs.v4 .fmVsP.L{left:0;clip-path:polygon(0 0,100% 0,78% 100%,0 100%)}
+#vs.v4 .fmVsP.R{right:0;clip-path:polygon(22% 0,100% 0,100% 100%,0 100%)}
+#vs.v4 .fmVsP i{position:absolute;bottom:-10%;width:9%;height:130%;transform-origin:50% 100%;background:linear-gradient(0deg,var(--pc),transparent 85%);filter:blur(6px);mix-blend-mode:screen;opacity:.55;animation:fmPil 3s ease-in-out infinite alternate}
+@keyframes fmPil{from{opacity:.3;transform:scaleY(.9)}to{opacity:.75;transform:scaleY(1.05)}}
+#vs.v4 .fmVsRing{position:absolute;bottom:4%;width:30%;height:9%;z-index:2;border-radius:50%;pointer-events:none;background:radial-gradient(ellipse,color-mix(in srgb,var(--fc) 65%,transparent),color-mix(in srgb,var(--fc) 25%,transparent) 45%,transparent 70%);filter:blur(1px);animation:fmAuP 2.4s ease-in-out infinite}
+#vs.v4 .fmVsRing.L{left:4%}#vs.v4 .fmVsRing.R{right:4%}
+#vs.v4 .fmVsRing::after{content:"";position:absolute;inset:6% 3%;border-radius:50%;background:repeating-conic-gradient(from var(--bga),color-mix(in srgb,var(--fc) 85%,#fff) 0 8deg,transparent 8deg 16deg);-webkit-mask:radial-gradient(ellipse,transparent 59%,#000 61%,#000 70%,transparent 72%);mask:radial-gradient(ellipse,transparent 59%,#000 61%,#000 70%,transparent 72%);animation:bdgSpin 6s linear infinite}
+#vs.v4 .fmVsRing.leg{background:radial-gradient(ellipse,rgba(255,216,74,.65),rgba(183,123,255,.3) 45%,transparent 70%)}
+#vs.v4 .fmVsRing.leg::after{border:none;background:conic-gradient(from var(--bga),#ffcf4a,#4dffa0,#6fa4ff,#ff6680,#c89bff,#ffcf4a);-webkit-mask:radial-gradient(ellipse,transparent 60%,#000 62%,#000 70%,transparent 72%);mask:radial-gradient(ellipse,transparent 60%,#000 62%,#000 70%,transparent 72%);animation:bdgSpin 3s linear infinite}
+#vs.v4 .fmShard{position:absolute;z-index:3;width:14px;height:18px;clip-path:polygon(50% 0,100% 40%,50% 100%,0 40%);background:linear-gradient(160deg,#fff,var(--c));filter:drop-shadow(0 0 8px var(--c));animation:fmSh 2.8s ease-in-out infinite;pointer-events:none}
+@keyframes fmSh{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-14px) rotate(20deg)}}
+#vs.v4 .v4P b:has(.fmCrown){position:relative;overflow:visible}
+#vs.v4 .v4P .fmCrown.onName{position:absolute;left:-4px;top:-27px;width:34px;height:25px;transform:rotate(-14deg);animation:fmCrB 2.6s ease-in-out infinite}
+#vs.v4 .v4P.R .fmCrown.onName{left:auto;right:-4px;transform:rotate(14deg);animation-name:fmCrBR}
+@keyframes fmCrB{0%,100%{transform:rotate(-14deg) translateY(0)}50%{transform:rotate(-10deg) translateY(-3px)}}
+@keyframes fmCrBR{0%,100%{transform:rotate(14deg) translateY(0)}50%{transform:rotate(10deg) translateY(-3px)}}
+#vs.v4 .fmLegT{display:block;margin-top:6px;font:12px var(--px);letter-spacing:.06em;background:linear-gradient(90deg,#ffcf4a,#4dffa0,#6fa4ff,#ff6680,#c89bff,#ffcf4a);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:fmTx 3s linear infinite;filter:drop-shadow(2px 2px 0 #0b0d13)}
+/* ===== v1.43.0: Bestenliste – 4 Reiter ===== */
+.mLbTabs button{font-size:7px;white-space:nowrap;padding:0 2px}
+/* ===== v1.43.0: Season-Abschluss ===== */
+.srWrap{position:relative;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;overflow:hidden;padding:4px 6px 2px;min-width:min(440px,calc(86*var(--vw,1vw)))}
+.srWrap h2{margin:0;font:14px var(--px);color:var(--amber);display:flex;gap:8px;align-items:center;justify-content:center;text-shadow:2px 2px 0 #0b0d13}
+.srHero{height:150px;display:grid;place-items:center}
+.srBadge{transform:scale(2.3);animation:srIn .9s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes srIn{0%{transform:scale(0) rotate(-200deg);opacity:0;filter:brightness(3)}60%{opacity:1}100%{transform:scale(2.3) rotate(0);filter:none}}
+.srNum{font:54px var(--px);color:#fff;text-shadow:4px 4px 0 #0b0d13,0 0 20px rgba(120,160,255,.6);animation:srPop .6s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes srPop{from{transform:scale(.2);opacity:0}to{transform:scale(1);opacity:1}}
+.srPl{font:18px var(--px);color:#fff;text-shadow:2px 2px 0 #0b0d13}.srPl small{display:block;margin-top:6px;font:700 13px var(--ui);color:var(--muted);text-shadow:none}
+.srRw{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.srRw>span{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:150px;padding:10px 12px;border-radius:8px;background:var(--win);border:3px solid var(--wout);box-shadow:inset 0 0 0 2px #56658a}
+.srRw b{font-size:13px;color:#fff}.srRw small{font-size:11px;color:var(--muted)}
+.srIc{width:44px;height:44px;display:grid;place-items:center;border-radius:10px;background:#141926;color:#ffd84a}.srIc .ic{width:24px;height:24px}.srIc.gem{color:var(--gem)}
+.srNo{margin:0;font-size:13px;color:var(--muted);max-width:360px}
+.srPods{display:flex;align-items:flex-end;gap:6px;margin-top:4px}
+.srPod{width:110px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 4px 0;border-radius:8px 8px 0 0;background:linear-gradient(180deg,#2a3350,#1a2034);border:2px solid #0b0d13;border-bottom:none}
+.srPod b{font-size:12px;color:#fff;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.srPod small{font-size:11px;color:var(--muted)}
+.srPod i{font:16px var(--px);font-style:normal;color:#10131c;width:100%;margin-top:6px;padding:8px 0 6px;border-radius:4px 4px 0 0}
+.srPod.p1 i{background:linear-gradient(#ffe680,#e0a020);height:52px}.srPod.p2 i{background:linear-gradient(#f0f4fa,#a8b2c4);height:36px}.srPod.p3 i{background:linear-gradient(#f0b07a,#b0642c);height:24px}
+.srPod.me{box-shadow:0 0 0 2px var(--amber),0 0 14px rgba(255,216,74,.5)}
+.srConf{position:absolute;top:-6%;left:var(--x);width:7px;height:12px;background:var(--c);opacity:.9;animation:srConf var(--d) linear var(--dl) infinite;pointer-events:none;z-index:0}
+@keyframes srConf{from{transform:translateY(0) rotate(0)}to{transform:translateY(620px) rotate(540deg)}}
+.srWrap>*:not(.srConf){position:relative;z-index:1}
+
+.tcard:has(.fmCrown.onTop) .tcTop{margin-top:33px}
 
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
@@ -8072,7 +8139,7 @@ function showMenu(){
   $("menuBtns").innerHTML=(sv&&sv.S?mb("mCont","play","Weiterspielen",`${sv.S.tower?"Kampfturm · Ebene "+(sv.S.round-20):(sv.S.daily?"Täglicher Run":MODES[sv.S.mode].n)+" · Runde "+sv.S.round}`,1):"")+
    mb("mNew","plus","Neues Spiel","Singleplayer · Täglicher Run · Region & Schwierigkeit",!(sv&&sv.S))+mb("mMp","swords","Mehrspieler","Ranked · Live-Duell · Geisterkämpfe")+mb("mFr","users","Freunde","Anfragen · Einladen · Chat")+mb("mLbB","trophy","Bestenliste","Trainerpunkte · Ranked")+mb("mLab","lab","Forschungslabor","Dauerhafte Verbesserungen & neue Pokémon")+((()=>{try{return typeof fameOpen==="function"&&fameOpen().ok;}catch(e){return false;}})()?mb("mFame","crown","Ruhm","Edelsteine einzahlen · Namensfarbe · Kartenrand"):"")+mb("mDex","dex","Pokédex","Sammlung · Schillernde · Mega-Formen")+mb("mCard","user","Trainerkarte","Lieblingspokémon · Hintergrund · 3 Abzeichen")+mb("mAch","trophy","Erfolge",(()=>{const n=Object.keys(META.ach||{}).filter(k=>ACH_BY[k]).length;return n+"/"+ACH.length+" freigeschaltet · Statistik · Verlauf";})())+mb("mSet","gear","Einstellungen","Anleitung · Sound · Grafik · "+(USER?"Abmelden":"Login"));
   if($("mCont"))$("mCont").onclick=()=>{const rk=(S&&S.phase!=="over"&&S.region)||(sv&&sv.S&&sv.S.region)||"kanto";needReg(rk,()=>{hideScreens();if(!S||S.phase==="over")loadGame();setTab("shop");render();});};
-  $("mNew").onclick=chooseMode;$("mNew").insertAdjacentHTML("beforeend",`<em class="mBadge" id="mNewN" style="${window.__gbBadge?"":"display:none"}">!</em>`);$("mMp").onclick=()=>mpModal();if($("mLbB")){$("mLbB").classList.add("lbOnly");$("mLbB").onclick=()=>menuLbModal();}try{menuLbMount();}catch(e){}if($("mFr")){$("mFr").insertAdjacentHTML("beforeend",`<em class="mBadge" id="mFrN" style="display:none"></em>`);$("mFr").onclick=()=>friendsModal();try{socBadges();}catch(e){}}$("mLab").onclick=()=>labScreen();if($("mFame")){$("mFame").classList.add("mFame");$("mFame").onclick=()=>labScreen("fame");try{const L=fameLevel(fameMeta().g).L;if(L)$("mFame").querySelector("b").insertAdjacentHTML("beforeend",` <span class="mFameR">${fameEm(L)}${esc(fameName_(L))}</span>`);}catch(e){}}$("mDex").onclick=()=>dexModal("dex");$("mAch").onclick=()=>achModal();if($("mCard"))$("mCard").onclick=()=>cardModal();$("mSet").onclick=settingsModal;
+  $("mNew").onclick=chooseMode;$("mNew").insertAdjacentHTML("beforeend",`<em class="mBadge" id="mNewN" style="${window.__gbBadge?"":"display:none"}">!</em>`);$("mMp").onclick=()=>mpModal();if($("mLbB")){$("mLbB").classList.add("lbOnly");$("mLbB").onclick=()=>menuLbModal();}try{menuLbMount();}catch(e){}try{setTimeout(()=>{if(typeof seaRecap==="function")seaRecap();},2500);}catch(e){}if($("mFr")){$("mFr").insertAdjacentHTML("beforeend",`<em class="mBadge" id="mFrN" style="display:none"></em>`);$("mFr").onclick=()=>friendsModal();try{socBadges();}catch(e){}}$("mLab").onclick=()=>labScreen();if($("mFame")){$("mFame").classList.add("mFame");$("mFame").onclick=()=>labScreen("fame");try{const L=fameLevel(fameMeta().g).L;if(L)$("mFame").querySelector("b").insertAdjacentHTML("beforeend",` <span class="mFameR">${fameEm(L)}${esc(fameName_(L))}</span>`);}catch(e){}}$("mDex").onclick=()=>dexModal("dex");$("mAch").onclick=()=>achModal();if($("mCard"))$("mCard").onclick=()=>cardModal();$("mSet").onclick=settingsModal;
   const bs=[...$("menuBtns").querySelectorAll(".mbtn")];bs.forEach((b,i)=>{b.onmouseenter=()=>menuSel(i);});menuSel(0);
   menuFit();try{achRewardSync();_achT=0;achCheck();}catch(e){}
   if(typeof introNeed==="function"&&introNeed())setTimeout(()=>{try{introShow();}catch(e){}},650);
@@ -8749,6 +8816,14 @@ const ACH=[
  {id:"shiny50",cat:"coll",t:4,ic:"shiny",n:"Funkelsammler",d:"Finde insgesamt 50 schillernde Pokémon.",prog:()=>[_shinyN(),50]},
  {id:"shinyleg",cat:"coll",t:4,ic:"shiny",n:"Glückspilz",d:"Besitze ein schillerndes legendäres Pokémon.",chk:()=>_all().some(u=>u.shiny&&SPECIES[u.sp].line.leg),rw:"jirachi"},
  {id:"unlock40",cat:"coll",t:4,ic:"lab",n:"Laborleitung",d:"Schalte 40 Pokémon im Forschungslabor frei.",prog:()=>[_unlockN(),40]},
+/* v1.43.0: Erfolge für die neuen Perks */
+ {id:"gm1",cat:"coll",t:3,ic:"badge",n:"Großmeister",d:"Erforsche deinen ersten Großmeister-Perk.",chk:()=>Object.keys(ROLES).some(r=>perkLv("g_"+r)>0)},
+ {id:"gm8",cat:"coll",t:4,ic:"crown",n:"Meister aller Klassen",d:"Erforsche alle 8 Großmeister-Perks.",prog:()=>[Object.keys(ROLES).filter(r=>perkLv("g_"+r)>0).length,Object.keys(ROLES).length]},
+ {id:"treefull",cat:"coll",t:4,ic:"lab",n:"Forschung abgeschlossen",d:"Erforsche den kompletten Skillbaum.",chk:()=>RESEARCH.every(c=>c.nodes.every(n=>perkLv(n.id)>=n.max))},
+ {id:"bag5",cat:"coll",t:2,ic:"pack",n:"Volle Taschen",d:"Habe 5 Items gleichzeitig in der Tasche.",chk:()=>!!(S&&Array.isArray(S.bag)&&S.bag.length>=5)},
+ {id:"gmtwin",cat:"fight",t:3,ic:"aim",n:"Doppelt hält besser",d:"Triff mit Zwillingsschuss insgesamt 100-mal ein zweites Ziel.",prog:()=>[(META.stats||{}).gmTwin||0,100]},
+ {id:"gmshield",cat:"fight",t:3,ic:"bubble",n:"Felsenfest",d:"Lass deinen Schild durch Unerschütterlich insgesamt 25-mal erneuern.",prog:()=>[(META.stats||{}).gmShield||0,25]},
+ {id:"gmchain",cat:"fight",t:3,ic:"ghost",n:"Kettenreaktion",d:"Löse in einem Kampf 3-mal Schattenkette aus.",chk:()=>false},
  {id:"purify25",cat:"coll",t:4,ic:"heart",n:"Seelenretter",d:"Erlöse insgesamt 25 Crypto-Pokémon.",prog:()=>[(META.stats||{}).purified||0,25]},
  {id:"gem10k",cat:"coll",t:4,ic:"gem",n:"Schatzkammer",d:"Sammle insgesamt 10.000 Edelsteine.",prog:()=>[META.gemsTotal||0,10000]},
  {id:"typeall",cat:"coll",t:4,ic:"grid",n:"Typen-Meister",d:"Erreiche bei allen 18 Typ-Abzeichen mindestens Bronze.",chk:()=>Object.keys(TYPES).every(t=>badgeState(badgeDef("t_"+t)).t>=1)},
@@ -8853,7 +8928,7 @@ function achRewardSync(){if(!META||!META.ach)return;const got=[];for(const a of 
 let _achT=0;function achCheck(){if(!META)return;const now=performance.now();if(now-_achT<400)return;_achT=now;
   for(const a of ACH){if(META.ach&&META.ach[a.id])continue;try{if(a.chk&&a.chk())achGrant(a.id);else if(a.prog){const [v,m]=a.prog();if(v>=m)achGrant(a.id);}}catch(e){}}}
 // Kampfende: Bedingungen, die nur im Kampf prüfbar sind
-function achBattle(win){if(!S||!B)return;const mine=B.F.filter(f=>f.side==="mine"&&!f.u.minion),lost=mine.some(f=>!f.alive),boss=!!BOSSES[S.round];
+function achBattle(win){if(!S||!B)return;try{if((B.gmChain|0)>=3)achGrant("gmchain");}catch(e){}const mine=B.F.filter(f=>f.side==="mine"&&!f.u.minion),lost=mine.some(f=>!f.alive),boss=!!BOSSES[S.round];
   if(win){achGrant("win1");if(boss&&S.round===5)achGrant("boss1");if(boss&&mine.length===1)achGrant("solo");if(B.F.some(f=>f.side==="enemy"&&f.raid)&&!lost)achGrant("raidclean");
     if(S.enc&&S.enc.type==="ghost")achGrant("ghost1");
     if(S.round===20&&boss){if(!lost)achGrant("untouched");if(B.t-(typeof INTRO!=="undefined"?INTRO:0)<12)achGrant("blitz");}}
@@ -14682,6 +14757,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Season-Abzeichen neu: Jede Season 
 if(typeof EN!=="undefined")Object.assign(EN,{"Bestenliste aufgeräumt: Unter Trainerpunkte stehen nur noch die Season-Abzeichen ohne die beiden Hinweistexte. Die Infos zu Belohnungen und Punkten erscheinen, wenn du mit der Maus über die Abzeichen fährst.": "Leaderboard tidied up: under Trainer points only the season badges remain, without the two hint texts. Rewards and points info appears when you hover over the badges."});
 /* v1.42.0.6: Season-Label */
 if(typeof EN!=="undefined")Object.assign(EN,{"Season-Abzeichen: Das Datum darunter ist jetzt kleiner und halbtransparent, damit das Abzeichen selbst besser zur Geltung kommt.": "Season badges: the date below is now smaller and semi-transparent so the badge itself stands out more."});
+/* v1.43.0: Ruhm-Effekte & Turm-Bestenliste */
+if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm schaltet jetzt sichtbare Effekte frei. Ab Rubin I leuchtet ein Ring mit aufsteigenden Edelsteinen unter deinem Lieblingspokémon auf der Kampfkarte. Ab Amethyst I erscheint die Aura auch im VS-Bildschirm, mit schwebenden Edelstein-Splittern. Ab Diamant I stehen Lichtsäulen in deiner Ruhm-Farbe hinter deiner Seite.": "Fame now unlocks visible effects. From Ruby I a glowing ring with rising gems appears under your favourite Pokémon on the battle card. From Amethyst I the aura also shows in the VS screen, with floating gem shards. From Diamond I light pillars in your fame colour stand behind your side.", "Ruhmeslegende: Alle Ruhm-Effekte in Regenbogenfarben, eine schwebende Krone über dem Pokémon, Holo-Glanz über der Kampfkarte und im VS-Bildschirm eine Krone am Namen mit „★ RUHMESLEGENDE ★“ darunter.": "Fame Legend: all fame effects in rainbow colours, a floating crown above the Pokémon, a holo sheen over the battle card and in the VS screen a crown by your name with “★ FAME LEGEND ★” below.", "Neue Turm-Bestenliste: Ein eigener Reiter „Turm“ zeigt, wer im Kampfturm am höchsten gekommen ist.": "New tower leaderboard: a separate “Tower” tab shows who climbed highest in the Battle Tower.", "Season-Abschluss: Beim ersten Start nach dem Ende einer Season siehst du deinen Platz, deine Punkte und deine Belohnung. Die Top 3 werden auf einem Podest gezeigt, in den Top 3 wird dein Season-Abzeichen feierlich enthüllt.": "Season wrap-up: on your first start after a season ends you see your place, your points and your reward. The top 3 are shown on a podium; if you're in the top 3 your season badge is unveiled.", "Bestenliste: Beim Drüberfahren über die Season-Abzeichen erscheint kein grauer Zusatztext des Browsers mehr.": "Leaderboard: hovering the season badges no longer shows an extra grey browser tooltip.", "7 neue Erfolge für die neuen Perks, zum Beispiel Meister aller Klassen, Forschung abgeschlossen, Doppelt hält besser, Felsenfest und Kettenreaktion.": "7 new achievements for the new perks, e.g. Master of All Classes, Research Complete, Twice as Nice, Rock Solid and Chain Reaction.", "Noch niemand im Kampfturm.": "Nobody in the Battle Tower yet.", "★ RUHMESLEGENDE ★": "★ FAME LEGEND ★", "Meister aller Klassen": "Master of All Classes", "Erforsche deinen ersten Großmeister-Perk.": "Research your first Grandmaster perk.", "Erforsche alle 8 Großmeister-Perks.": "Research all 8 Grandmaster perks.", "Forschung abgeschlossen": "Research Complete", "Erforsche den kompletten Skillbaum.": "Research the entire skill tree.", "Volle Taschen": "Full Pockets", "Habe 5 Items gleichzeitig in der Tasche.": "Hold 5 items in your bag at once.", "Doppelt hält besser": "Twice as Nice", "Triff mit Zwillingsschuss insgesamt 100-mal ein zweites Ziel.": "Hit a second target 100 times in total with Twin Shot.", "Felsenfest": "Rock Solid", "Lass deinen Schild durch Unerschütterlich insgesamt 25-mal erneuern.": "Have your shield renewed 25 times in total by Unshakable.", "Löse in einem Kampf 3-mal Schattenkette aus.": "Trigger Shadow Chain 3 times in one battle.", "Season-Abzeichen": "Season badge", "Schillerndes Pokémon": "Shiny Pokémon", "zufällig, kommt als Geschenk": "random, arrives as a gift", "10 Edelsteine": "10 gems", "kommen als Geschenk": "arrive as a gift", "Diesmal ohne Belohnung. Ab Platz 10 gibt es Edelsteine, in den Top 3 ein Season-Abzeichen.": "No reward this time. From place 10 up you get gems, in the top 3 a season badge."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17083,9 +17160,9 @@ const ttCls=ts=>ts&&TITLE_FX[ts]?` class="tt tt-${ts}"`:"";
 function cardHTML(c,side){c=c||cardMine();const sl=[0,1,2].map(i=>c.badges[i]?badgeHTML(c.badges[i][0],c.badges[i][1]):badgeHTML(null,0)).join("");
   const bgk=CARD_BG[c.bg]?c.bg:"std";
   const ffk=c.ff&&typeof FAME_C!=="undefined"?String(c.ff):"",fft=ffk?FAME_C[ffk.replace("+","")]:null;
-  return `<div class="tcard${side?" "+side:""}${fft?" fmFr fr-"+ffk.replace("+","")+(ffk.endsWith("+")?" frp":""):""}"${fft?` style="--fc:${fft.c};--fd:${fft.d}"`:""} data-tn="${esc((CARD_BG[bgk]||{}).n||"")}" data-td="${esc(bgWhy(bgk))}" data-tk="HINTERGRUND" data-tc="#9fe8ff">${bgHTML(c.bg)}<div class="tcShine"></div>${fft?`<i class="tcFr${ffk.endsWith("+")?" plus":""}${ffk==="legende"?" leg":""}"><s></s><s></s><s></s><s></s></i>`:""}
+  return `<div class="tcard${side?" "+side:""}${fft?" fmFr fr-"+ffk.replace("+","")+(ffk.endsWith("+")?" frp":""):""}"${fft?` style="--fc:${fft.c};--fd:${fft.d}"`:""} data-tn="${esc((CARD_BG[bgk]||{}).n||"")}" data-td="${esc(bgWhy(bgk))}" data-tk="HINTERGRUND" data-tc="#9fe8ff">${bgHTML(c.bg)}<div class="tcShine"></div>${typeof fameHolo==="function"?fameHolo(c):""}${fft?`<i class="tcFr${ffk.endsWith("+")?" plus":""}${ffk==="legende"?" leg":""}"><s></s><s></s><s></s><s></s></i>`:""}
    <div class="tcTop${c.title?"":" nt"}${c.fl&&typeof fameEm==="function"?" hasFm":""}">${c.fl&&typeof fameEm==="function"?`<i class="tcFmB">${fameEm(c.fl)}</i>`:""}<b${c.name.length>13?' class="long"':""}>${typeof fameNameHtml==="function"?fameNameHtml(c.name,c):esc(c.name)}</b>${c.title?`<small class="${[c.ts&&TITLE_FX[c.ts]?"tt tt-"+c.ts:"",c.title.length>16?"xl":c.title.length>12?"long":""].join(" ").trim()}">${esc(c.title)}</small>`:""}</div>
-   <div class="tcAv"><i class="tcPlat"></i>${c.ph?`<span class="tcMon tcPh"><b>?</b></span>`:`<span class="tcMon" data-sp="${SPECIES[c.fav]?c.fav:25}" data-sh="${c.favSh?1:""}"${c.favM&&SPECIES[c.fav]?` data-mk="${esc(String(c.favM))}"`:""}></span>`}</div>
+   <div class="tcAv"><i class="tcPlat"></i>${typeof fameAura==="function"?fameAura(c):""}${c.ph?`<span class="tcMon tcPh"><b>?</b></span>`:`<span class="tcMon" data-sp="${SPECIES[c.fav]?c.fav:25}" data-sh="${c.favSh?1:""}"${c.favM&&SPECIES[c.fav]?` data-mk="${esc(String(c.favM))}"`:""}></span>`}</div>
    <div class="tcBdg">${sl}</div>
    ${c.sub?`<div class="tcStats"><span>${c.sub}</span></div>`:`<div class="tcStats"><span>${ic("crown")}${c.ch}</span><span>${ic("swords")}${c.dw}</span><span>${ic("dex")}${c.dex}</span>${c.tw?`<span>${ic("tower")}${c.tw}</span>`:""}</div>`}</div>`;}
 /* Sprite auf den sichtbaren Inhalt zuschneiden (für kleine Rahmen wie Abzeichen: immer mittig, gleich groß) */
@@ -17162,7 +17239,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.42.0.6",DUEL_HP=30;
+const MP_VER="1.43.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -17654,7 +17731,7 @@ function rankedMeInto(el){if(!el)return;if(typeof CL==="undefined"||!CL.sess){el
 /* ---------- Bestenliste im Menü: rechts am Rand (große Bildschirme) bzw. als Menüpunkt; aktualisiert sich jede Minute + Knopf ---------- */
 const MLB={tab:"pts",sea:"cur",t:0,iv:0,busy:false,rows:null};
 function menuLbFrame(){return `<div class="ttl"><h3>${ic("trophy")} BESTENLISTE</h3><button class="btn sm mLbR" title="Jetzt aktualisieren">${ic("dice")}</button></div>
-  <div class="mLbTabs"><button data-mt="pts" class="${MLB.tab==="pts"?"on":""}">Trainerpunkte</button><button data-mt="pk" class="${MLB.tab==="pk"?"on":""}">Pokémon</button><button data-mt="rk" class="${MLB.tab==="rk"?"on":""}">Ranked</button></div>
+  <div class="mLbTabs"><button data-mt="pts" class="${MLB.tab==="pts"?"on":""}">Trainerpunkte</button><button data-mt="pk" class="${MLB.tab==="pk"?"on":""}">Pokémon</button><button data-mt="tw" class="${MLB.tab==="tw"?"on":""}">Turm</button><button data-mt="rk" class="${MLB.tab==="rk"?"on":""}">Ranked</button></div>
   <div class="mLbSea"${MLB.tab==="pts"?"":' style="display:none"'}><select class="mLbSel">${mlbSeaOpts()}</select><small class="mLbCd"></small></div>
   <div class="mLbList"><p class="empty">Lade …</p></div><small class="mLbAge"></small>`;}
 /* v1.38.0: Season-Auswahl (laufende Season, vergangene Seasons, Allzeit) */
@@ -17675,6 +17752,32 @@ function seasonDetail(x,sid,b){const i=x.info||{},LL={e:"easy",n:"normal",h:"har
    <p class="lbNote">Season-Punkte: besiegtes Pokémon 1 · Boss 5 · jeder Sieg je nach Schwierigkeit (Leicht 1 · Normal 2 · Schwer 3 · Nuzlocke 4 · Albtraum 5) · Champion-Titel (Leicht 20 · Normal 40 · Schwer 60 · Nuzlocke 80 · Albtraum 100; gleiche Region und Schwierigkeit: 2. Titel 50 %, ab dem 3. Titel 25 %). Freigeschaltete Regionen und Schwierigkeitsgrade bleiben immer erhalten.</p></div></div>
    <div class="rbtns" style="margin-top:10px">${b?`<button class="btn" id="sdAll">${ic("crown")} Alle Titel (Allzeit)</button>`:""}<button class="pri" id="lbOk">SCHLIESSEN</button></div>`,"wide",true);
   if(cd)cardHydrate($("mbox"));$("lbOk").onclick=closeModal;if($("sdAll"))$("sdAll").onclick=()=>{closeModal();lbDetail(b);};}
+
+/* v1.43.0: Turm-Bestenliste */
+const twOf=r=>Math.max(+(r&&r.tw)||0,+((r&&r.per||{})._tw)||0,+((r&&r.card||{}).tw)||0);
+function mlbTwRows(rows){return rows.slice(0,10).map((a,i)=>`<button class="lbRow r${i+1}"${fameRowA(a.card)} data-n="${esc(a.n)}">${fameRowI(a.card)}<span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${fameNameRow(a.n,a.card)}</b>${lbTTHtml(a)}</div>
+    <small>${ic("crown")} ${a.titles|0} Titel · ${ic("trophy")} ${a.ach|0} Erfolge</small></div><span class="lbPts">${a.tw}<em>Ebene</em></span></button>`).join("");}
+/* v1.43.0: Season-Abschluss – beim ersten Start nach dem Season-Ende: Platz, Punkte, Belohnung */
+let SEA_RC=false;
+function seaPrevId(){const [y,m]=seasonId().split("-").map(Number);const pm=m===1?12:m-1,py=m===1?y-1:y;return py+"-"+String(pm).padStart(2,"0");}
+async function seaRecap(){try{if(SEA_RC||!META||typeof USER==="undefined"||!USER)return;const prev=seaPrevId();if(prev<"2026-11"||(META.seaRc||"")>=prev)return;SEA_RC=true;
+  const r=await clFetch("/rest/v1/rpc/season_board",{method:"POST",auth:false,body:{sid:prev},timeout:8000});if(!r||!r.ok||!Array.isArray(r.j)){SEA_RC=false;return;}
+  META.seaRc=prev;try{LS.set(metaKey(USER),META);}catch(e){}
+  const i=r.j.findIndex(x=>x&&userKey(x.name)===userKey(USER));if(i<0)return;
+  let n=0;const go=()=>{if(++n>40)return;if($("modal").classList.contains("show")||!$("menu").classList.contains("show")){setTimeout(go,1500);return;}seaRecapShow(prev,i+1,r.j[i],r.j);};setTimeout(go,900);}catch(e){SEA_RC=false;}}
+function seaRecapShow(sid,pl,row,list){const [y,m]=sid.split("-"),lbl=m+"/"+y.slice(2),pts=(row&&row.pts|0).toLocaleString("de-DE"),N=(list||[]).length;
+  const top=pl<=3,rw=top?`<div class="srRw"><span>${badgeHTML("s|"+sid+"|"+pl,seaTier(pl),"sm")}<b>Season-Abzeichen</b><small>Platz ${pl} · ${lbl}</small></span><span><i class="srIc">${ic("shiny")}</i><b>Schillerndes Pokémon</b><small>zufällig, kommt als Geschenk</small></span></div>`
+    :pl<=10?`<div class="srRw"><span><i class="srIc gem">${ic("gem")}</i><b>10 Edelsteine</b><small>kommen als Geschenk</small></span></div>`:`<p class="srNo">Diesmal ohne Belohnung. Ab Platz 10 gibt es Edelsteine, in den Top 3 ein Season-Abzeichen.</p>`;
+  const pod=(list||[]).slice(0,3).map((x,k)=>`<div class="srPod p${k+1}${k===pl-1?" me":""}"><b>${esc(x.name)}</b><small>${(x.pts|0).toLocaleString("de-DE")}</small><i>${k+1}</i></div>`);
+  const podH=pod.length===3?`<div class="srPods">${pod[1]}${pod[0]}${pod[2]}</div>`:"";
+  openModal(`<div class="srWrap${top?" top":""}">${top?Array.from({length:22},(_,k)=>`<i class="srConf" style="--x:${(k*4.6+2).toFixed(1)}%;--d:${(2.4+(k%5)*.35).toFixed(2)}s;--dl:-${((k*.37)%2.4).toFixed(2)}s;--c:${["#ffd23f","#ff4d6d","#4f8cff","#3ee08a","#ffffff","#c89bff"][k%6]}"></i>`).join(""):""}
+    <h2>${ic("trophy")} SEASON ${lbl} IST VORBEI</h2>
+    <div class="srHero">${top?`<div class="srBadge">${badgeHTML("s|"+sid+"|"+pl,seaTier(pl))}</div>`:`<div class="srNum">#${pl}</div>`}</div>
+    <div class="srPl">PLATZ ${pl}<small>von ${N}${N>=50?"+":""} · ${pts} Punkte</small></div>
+    ${rw}${podH}
+    <button class="pri" id="srOk">${ic("check")} WEITER</button></div>`,"",null);
+  try{hydrateIcons($("mbox"));}catch(e){}const b=$("srOk");if(b)b.onclick=()=>closeModal();try{sfx(top?"evoDone":"coin");}catch(e){}}
+
 function mlbPkRows(rows){return rows.slice(0,10).map((a,i)=>`<button class="lbRow r${i+1}"${fameRowA(a.card)} data-n="${esc(a.n)}">${fameRowI(a.card)}<span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${fameNameRow(a.n,a.card)}</b>${lbTTHtml(a)}</div>
     <small title="${a.own} Pokémon · ${a.shy} schillernd · ${a.ach} Erfolge">${ic("dex")} ${a.own} · ${ic("shiny")} ${a.shy} · ${ic("trophy")} ${a.ach}</small></div><span class="lbPts">${(a.pk|0).toLocaleString("de-DE")}<em>Punkte</em></span></button>`).join("");}
 function lbAnimSync(el){try{if(!el||!el.getAnimations)return;el.getAnimations({subtree:true}).forEach(a=>{try{const t=a.effect&&a.effect.getComputedTiming?a.effect.getComputedTiming():null;if(t&&t.iterations===Infinity&&a.timeline===document.timeline)a.startTime=0;}catch(e){}});}catch(e){}}
@@ -17690,10 +17793,11 @@ async function menuLbLoad(el,quiet){if(!el||MLB.busy)return;MLB.busy=true;const 
       const det=b=>{const r=rows.find(x=>userKey(x.n)===userKey(b.dataset.n));if(r)lbDetail(r);};mlbCd(el);
       if(MLB.tab==="pk"){const R=rows.slice().map(r=>Object.assign({},r,{pk:r.pk!=null?r.pk:lbPkEst(r)})).sort((a,b)=>b.pk-a.pk||b.shy-a.shy);
         L.innerHTML=R.length?`<p class="mLbHint">${ic("dex")} Pokémon 2,5 · ${ic("shiny")} Schillernd 10 · ${ic("trophy")} Erfolge 10–150 Punkte</p>`+mlbPkRows(R):`<p class="empty">Noch keine Trainer.</p>`;L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>det(b));}
+      else if(MLB.tab==="tw"){const R=rows.map(r=>Object.assign({},r,{tw:twOf(r)})).filter(r=>r.tw>0).sort((a,b)=>b.tw-a.tw||b.pts-a.pts);L.innerHTML=R.length?mlbTwRows(R):`<p class="empty">Noch niemand im Kampfturm.</p>`;L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>det(b));}
       else if(MLB.sea==="all"){L.innerHTML=rows.length?lbRowsHtml(rows,10):`<p class="empty">Noch keine Trainer.</p>`;L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>det(b));}
       else{const sid=MLB.sea==="cur"?seasonId():MLB.sea,r=await clFetch("/rest/v1/rpc/season_board",{method:"POST",auth:false,body:{sid},timeout:8000});if(!L.isConnected)return;
         const me=sid===seasonId()&&typeof USER!=="undefined"&&USER?seasonMine():null;
-        const hint=sid===seasonId()&&typeof seaParse==="function"?`<div class="seaPv" title="Platz 1–3: Season-Abzeichen und ein zufälliges schillerndes Pokémon · Platz 4–10: 10 Edelsteine&#10;Punkte: besiegtes Pokémon 1 · Boss 5 · Sieg 1–5 je Schwierigkeit · Champion-Titel 20–100 (Wiederholung in gleicher Region 50 %, ab dem 3. Mal 25 %)">${[1,2,3].map(p=>`<span>${badgeHTML("s|"+sid+"|"+p,seaTier(p),"sm")}<small>Platz ${p}</small></span>`).join("")}</div>`:"";
+        const hint=sid===seasonId()&&typeof seaParse==="function"?`<div class="seaPv">${[1,2,3].map(p=>`<span>${badgeHTML("s|"+sid+"|"+p,seaTier(p),"sm")}<small>Platz ${p}</small></span>`).join("")}</div>`:"";
         if(!r.ok||!Array.isArray(r.j)){L.innerHTML=hint+`<p class="empty">${socMissing(r)?"Seasons werden gerade eingerichtet.":"Season-Bestenliste nicht erreichbar."}</p>`;}
         else L.innerHTML=hint+(r.j.length?mlbSeaRows(r.j,sid):`<p class="empty">${sid===seasonId()?"Noch keine Punkte in dieser Season. Werde Champion oder komm weit in einem Lauf!":"In dieser Season hat niemand Punkte gesammelt."}</p>`)+(me?`<p class="mLbMe">${ic("user")} Deine Season-Punkte: <b>${me.pts.toLocaleString("de-DE")}</b></p>`:"");
         L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>{const x=(r.j||[]).find(y=>userKey(y.name)===userKey(b.dataset.n));if(x)seasonDetail(x,sid,rows.find(y=>userKey(y.n)===userKey(x.name)));});}}
@@ -21625,8 +21729,15 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.42.0.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.43.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.43.0",d:"09.11.2026",t:"Ruhm-Effekte & Turm-Bestenliste",items:[
+  ["crown", "Ruhm schaltet jetzt sichtbare Effekte frei. Ab Rubin I leuchtet ein Ring mit aufsteigenden Edelsteinen unter deinem Lieblingspokémon auf der Kampfkarte. Ab Amethyst I erscheint die Aura auch im VS-Bildschirm, mit schwebenden Edelstein-Splittern. Ab Diamant I stehen Lichtsäulen in deiner Ruhm-Farbe hinter deiner Seite."],
+  ["star", "Ruhmeslegende: Alle Ruhm-Effekte in Regenbogenfarben, eine schwebende Krone über dem Pokémon, Holo-Glanz über der Kampfkarte und im VS-Bildschirm eine Krone am Namen mit „★ RUHMESLEGENDE ★“ darunter."],
+  ["tower", "Neue Turm-Bestenliste: Ein eigener Reiter „Turm“ zeigt, wer im Kampfturm am höchsten gekommen ist."],
+  ["trophy", "Season-Abschluss: Beim ersten Start nach dem Ende einer Season siehst du deinen Platz, deine Punkte und deine Belohnung. Die Top 3 werden auf einem Podest gezeigt, in den Top 3 wird dein Season-Abzeichen feierlich enthüllt."],
+  ["trophy", "Bestenliste: Beim Drüberfahren über die Season-Abzeichen erscheint kein grauer Zusatztext des Browsers mehr."],
+  ["lab", "7 neue Erfolge für die neuen Perks, zum Beispiel Meister aller Klassen, Forschung abgeschlossen, Doppelt hält besser, Felsenfest und Kettenreaktion."]]},
  {v:"1.42.0.6",d:"09.11.2026",t:"Schnellfix",items:[
   ["trophy", "Season-Abzeichen: Das Datum darunter ist jetzt kleiner und halbtransparent, damit das Abzeichen selbst besser zur Geltung kommt."]]},
  {v:"1.42.0.5",d:"09.11.2026",t:"Schnellfix",items:[
@@ -22925,6 +23036,24 @@ function fameRowI(card){const r=fameRowK(card);return r?`<i class="tcFr lbFr ${r
 function fameReset141(){if(!META||typeof USER==="undefined"||!USER||(META.fkv|0)>=141)return;const F=META.fame,g=F?Math.max(0,F.g|0):0;META.fkv=141;
   if(g>0){META.gems=(META.gems|0)+g;META.fame={g:0,n:null,f:null};setTimeout(()=>{try{toast(`Ruhm zurückgesetzt: ${g.toLocaleString("de-DE")} Edelsteine erstattet`,"gem");}catch(e){}},900);}
   try{LS.set(metaKey(USER),META);}catch(e){}}
+
+/* v1.43.0: Ruhm-Effekte – Aura (ab Rubin I), VS-Auftritt (ab Amethyst I), Lichtsäulen (ab Diamant I), Ruhmeslegende (Regenbogen, Krone, Holo) */
+const FAME_FX={aura:10,vs:13,pil:16};
+const FAME_RB=["#ffcf4a","#4dffa0","#6fa4ff","#ff6680","#c89bff","#ffcf4a"];
+const fameL_=c=>{const L=c&&c.fl|0;return L>0?Math.min(FAME_MAX,L):0;};
+const fameCol=L=>{try{const i=fameStepInfo(L);return i?i.c:"#ffd84a";}catch(e){return "#ffd84a";}};
+const fameCrownI=cls=>`<i class="fmCrown ${cls||""}"><b></b></i>`;
+function fameAura(c){const L=fameL_(c);if(L<FAME_FX.aura)return "";const leg=L>=FAME_MAX;
+  return `<i class="fmAura${leg?" leg":""}" style="--fc:${fameCol(L)}"><s></s><s></s><s></s><s></s><s></s></i>`;}
+function fameHolo(c){return fameL_(c)>=FAME_MAX?`<i class="fmHolo"></i>${fameCrownI("onTop")}`:"";}
+function fameVsBack(c,side){const L=fameL_(c);if(L<FAME_FX.pil)return "";const leg=L>=FAME_MAX,col=fameCol(L);
+  return `<div class="fmVsP ${side}">${Array.from({length:6},(_,i)=>`<i style="left:${4+i*15}%;--pc:${leg?FAME_RB[i]:col};animation-delay:-${(i*.5).toFixed(1)}s"></i>`).join("")}</div>`;}
+function fameVsFront(c,side){const L=fameL_(c);if(L<FAME_FX.vs)return "";const leg=L>=FAME_MAX,col=fameCol(L);
+  const P=[[6,30],[30,22],[38,48],[4,58],[26,66]];
+  return `<i class="fmVsRing ${side}${leg?" leg":""}" style="--fc:${col}"></i>${P.map(([x,y],i)=>`<i class="fmShard" style="${side==="R"?"right":"left"}:${x}%;top:${y}%;--c:${leg?FAME_RB[i]:col};animation-delay:-${(i*.6).toFixed(1)}s"></i>`).join("")}`;}
+function fameLegCrown(c){return fameL_(c)>=FAME_MAX?fameCrownI("onName"):"";}
+function fameLegLine(c){return fameL_(c)>=FAME_MAX?`<div class="fmLegT">★ RUHMESLEGENDE ★</div>`:"";}
+
 function fameNameRow(name,card){try{return fameNameHtml(name,card&&typeof cardClean==="function"?cardClean(card):null);}catch(e){return esc(name);}}
 const fameEm=(L,big)=>{const i=fameStepInfo(L);if(!i)return "";return `<i class="fmEm${big?" big":""}${i.leg?" leg":""}" style="--fc:${i.c};--fd:${i.d}" title="Ruhm: ${esc(fameName_(L))}"><span>${i.leg?"★":ROM3[i.sub]}</span></i>`;};
 function fameTabHtml(){const O=fameOpen();
@@ -23226,7 +23355,7 @@ function applyTFX(f,t,s,tyO){if(!t||!t.alive)return;s=s||1;const ty=tyO||(f.sx&&
   if(Math.random()<.35&&TFX[ty])popAt(fw(t,1.5),TFX[ty].n+"!","s",TYPES[ty][1]);}
 function onKill(f,t){if(!f||!f.alive||f===t)return;if(typeof sigKill==="function"){sigKill(f,t);if(!f.alive)return;}if(t&&t.abil==="magenkrempler"&&typeof magenkrempler==="function"){magenkrempler(f,t);if(!f.alive)return;}const sx=f.sx||{};if(f.abil==="bestienboost"&&typeof ubBoost==="function")ubBoost(f);if(t&&t.alpha&&t.side==="enemy"&&f.side==="mine"&&!SIM&&!(S&&S.duel)&&typeof META!=="undefined"&&META){const st=META.stats||(META.stats={});st.alphaKO=(st.alphaKO||0)+1;}
   if(f.secret==="hochmut"){f.atk*=1.15;popAt(fw(f,1.5),SECRETS.hochmut.n+"!","s","#ffd84a");}
-  if(f.role==="assassin"&&f.side==="mine"&&B&&!B.done&&perk("g_assassin")){const n2=foes(f).filter(o=>o.alive);if(n2.length){const far=pickTarget(f)||n2[0];const nx=Math.max(0,Math.min(FW-1,far.x+.65));if(!SIM){try{act(f,"leap",.5,{from:[f.x,f.y]});}catch(e){}popAt(fw(f,1.4),"Schattenkette!","s","#e0c0ff");}f.x=nx;f.y=far.y;f.target=far;f.retarget=1.5;}}
+  if(f.role==="assassin"&&f.side==="mine"&&B&&!B.done&&perk("g_assassin")){const n2=foes(f).filter(o=>o.alive);if(n2.length){const far=pickTarget(f)||n2[0];const nx=Math.max(0,Math.min(FW-1,far.x+.65));if(!SIM){try{act(f,"leap",.5,{from:[f.x,f.y]});}catch(e){}popAt(fw(f,1.4),"Schattenkette!","s","#e0c0ff");B.gmChain=(B.gmChain|0)+1;}f.x=nx;f.y=far.y;f.target=far;f.retarget=1.5;}}
   if(sx.killHeal){heal(f,f.maxhp*sx.killHeal,false,f);f.as*=1+(sx.killAs||0);popAt(fw(f,1.5),"Blutrausch!","s","#ff6a6a");}
   if(sx.killPhase){f.phaseT=sx.killPhase;f.nextCrit=true;popAt(fw(f,1.5),"Phantom!","s","#d7ccff");}}
 function reviveCheck(t){if(!B||B.done)return;const r=B.F.find(a=>a.alive&&a.side===t.side&&a!==t&&a.sx&&a.sx.revive&&!a.revUsed);if(!r){if(typeof relRevive==="function")relRevive(t);return;}r.revUsed=true;
@@ -23536,8 +23665,8 @@ function hit(f,t,pow,crit,type,critB,ult,basicA){
   if(typeof sigDmg==="function")d=sigDmg(f,t,d,type,ult,basicA);
   d=Math.max(1,Math.round(d));
   f.dmg+=d;t.taken+=d;if(f.side==="mine"&&d>(B.maxHit||0))B.maxHit=d;raw(t,d);
-  if(t.alive&&t.role==="tank"&&t.side==="mine"&&!t.gmS&&t.hp<t.maxhp*.3&&perk("g_tank")){t.gmS=1;t.shield=(t.shield||0)+t.maxhp*.15;if(!SIM){try{t._bubOn=false;bubbleFx(t);}catch(e){}popAt(fw(t,1.6),"Unerschütterlich!","s","#9fd8ff");}}
-  if(basicA===1&&f.role==="marksman"&&f.side==="mine"&&perk("g_marksman")){f.gmN=(f.gmN||0)+1;if(f.gmN>=4){f.gmN=0;const t2=foes(f).filter(o=>o!==t&&o.alive).sort((a,b)=>dist(a,t)-dist(b,t))[0];if(t2){if(!SIM)popAt(fw(t2,1.4),"Zwillingsschuss!","s","#a8ff9a");hit(f,t2,pow,false,type,0,false,2);if(!t2.alive)onKill(f,t2);}}}
+  if(t.alive&&t.role==="tank"&&t.side==="mine"&&!t.gmS&&t.hp<t.maxhp*.3&&perk("g_tank")){t.gmS=1;t.shield=(t.shield||0)+t.maxhp*.15;if(!SIM){try{t._bubOn=false;bubbleFx(t);}catch(e){}popAt(fw(t,1.6),"Unerschütterlich!","s","#9fd8ff");try{if(typeof META!=="undefined"&&META&&!(S&&S.duel)){const st=META.stats||(META.stats={});st.gmShield=(st.gmShield||0)+1;}}catch(e){}}}
+  if(basicA===1&&f.role==="marksman"&&f.side==="mine"&&perk("g_marksman")){f.gmN=(f.gmN||0)+1;if(f.gmN>=4){f.gmN=0;const t2=foes(f).filter(o=>o!==t&&o.alive).sort((a,b)=>dist(a,t)-dist(b,t))[0];if(t2){if(!SIM)popAt(fw(t2,1.4),"Zwillingsschuss!","s","#a8ff9a");hit(f,t2,pow,false,type,0,false,2);if(!t2.alive)onKill(f,t2);if(!SIM)try{if(typeof META!=="undefined"&&META&&!(S&&S.duel)){const st=META.stats||(META.stats={});st.gmTwin=(st.gmTwin||0)+1;}}catch(e){}}}}
   if(f.abil==="achtlos"&&f.alive&&f!==t)raw(f,d*.05);if(f.abil==="duftnote"&&t.alive&&Math.random()<.1&&!(t.sx&&t.sx.ccImm)){t.stunT=Math.max(t.stunT,.5);popAt(fw(t,1.4),"Schreckt zurück!","s","#ffd0a0");}
   if(t.alive&&t.abil==="zornesgeist"&&(t.zgN||0)<10){t.zgN=(t.zgN||0)+1;t.atk*=(1+.03*t.zgN)/(1+.03*(t.zgN-1));if(t.zgN===5||t.zgN===10)abilPop(t);}
   if(t.alive&&t.abil==="farbwechsler"&&CHART[type]&&!(tyOf(t).length===1&&tyOf(t)[0]===type)){t.types=[type];abilPop(t);popAt(fw(t,1.5),TYPES[type][0]+"!","s",TYPES[type][1]);}
@@ -23609,14 +23738,14 @@ function vsSplash(cb){
   const spk=Array.from({length:12},(_,i)=>{const a=i/12*Math.PI*2+.3,r=1+((i*37)%70)/150;return `<i class="spk" style="--dx:${(Math.cos(a)*r).toFixed(2)};--dy:${(Math.sin(a)*r).toFixed(2)}"></i>`;}).join("");
   vs.className="v4"+(boss?" boss":"")+(S.duel?" duel":"");
   vs.innerHTML=`<div class="v4St"><div class="v4St2">
-   <div class="v4L">${bgHTML(me.bg)}<i class="v4Cine L"></i><i class="v4Spd"></i><i class="v4Sh"></i></div>
-   <div class="v4R${S.duel?"":" en en-"+(boss?"boss":enc.type)}">${S.duel?bgHTML(op.bg):`<span class="v4RBg">${bgHTML(ec.bg)}</span><i class="v4RDim"></i>${ec.team?`<i class="v4Emb">${ec.team[1]}</i>`:""}${boss?`<i class="v4BossRim"></i>`:""}<i class="v4Str"></i>`}<i class="v4Cine R"></i><i class="v4ShR"></i></div>
+   <div class="v4L">${bgHTML(me.bg)}${typeof fameVsBack==="function"?fameVsBack(me,"L"):""}<i class="v4Cine L"></i><i class="v4Spd"></i><i class="v4Sh"></i></div>
+   <div class="v4R${S.duel?"":" en en-"+(boss?"boss":enc.type)}">${S.duel?bgHTML(op.bg)+(typeof fameVsBack==="function"?fameVsBack(op,"R"):""):`<span class="v4RBg">${bgHTML(ec.bg)}</span><i class="v4RDim"></i>${ec.team?`<i class="v4Emb">${ec.team[1]}</i>`:""}${boss?`<i class="v4BossRim"></i>`:""}<i class="v4Str"></i>`}<i class="v4Cine R"></i><i class="v4ShR"></i></div>
    <svg class="v4Seam" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polygon points="56.4,0 57.6,0 43.6,100 42.4,100"/></svg>
-   <div class="v4Fav L"><div class="bob"></div></div>
-   ${S.duel?`<div class="v4Fav R"><div class="bob"></div></div>`:`<i class="v4Plat"></i><div class="v4Team">${ord.map(u=>`<div class="v4m${u===show[0]?" lead":""}" style="--d:${show.indexOf(u)}"><span class="sp" data-k="${show.indexOf(u)}"></span></div>`).join("")}${team.length>7?`<div class="v4more">+${team.length-7}</div>`:""}</div>`}
-   <div class="v4P L"><b>${typeof fameNameHtml==="function"?fameNameHtml(me.name,me):esc(me.name)}</b>${me.title?`<small${tt(me)}>${esc(me.title)}</small>`:""}</div>
+   ${typeof fameVsFront==="function"?fameVsFront(me,"L"):""}<div class="v4Fav L"><div class="bob"></div></div>
+   ${S.duel?`${typeof fameVsFront==="function"?fameVsFront(op,"R"):""}<div class="v4Fav R"><div class="bob"></div></div>`:`<i class="v4Plat"></i><div class="v4Team">${ord.map(u=>`<div class="v4m${u===show[0]?" lead":""}" style="--d:${show.indexOf(u)}"><span class="sp" data-k="${show.indexOf(u)}"></span></div>`).join("")}${team.length>7?`<div class="v4more">+${team.length-7}</div>`:""}</div>`}
+   <div class="v4P L"><b>${typeof fameLegCrown==="function"?fameLegCrown(me):""}${typeof fameNameHtml==="function"?fameNameHtml(me.name,me):esc(me.name)}</b>${me.title?`<small${tt(me)}>${esc(me.title)}</small>`:""}${typeof fameLegLine==="function"?fameLegLine(me):""}</div>
    <div class="v4B L">${bdg(me)}</div>
-   <div class="v4P R${boss?" boss":""}${ghost?" vGh":""}${ec&&ec.team?" vEv":""}">${boss?`<em>BOSSKAMPF</em>`:ghost?`<em class="gh">${ic("ghost")} GEISTERKAMPF</em>`:ec&&ec.team?`<em class="ev">${esc(ec.team[0]).toUpperCase()}</em>`:""}<b>${typeof fameNameHtml==="function"&&(S.duel?op:gc)?fameNameHtml(rName,S.duel?op:gc):esc(rName)}</b>${rSub?`<small${S.duel?tt(op):gc?tt(gc):""}>${esc(rSub)}</small>`:""}${S.duel?"":`<span class="v4wc" style="--c:${wcol}">${ic("swords")} Siegchance ~${wv} %</span>`}${ghost?`<div class="v4Bi" id="v4GhB">${gc?bdg(gc):""}</div>`:""}</div>
+   <div class="v4P R${boss?" boss":""}${ghost?" vGh":""}${ec&&ec.team?" vEv":""}">${boss?`<em>BOSSKAMPF</em>`:ghost?`<em class="gh">${ic("ghost")} GEISTERKAMPF</em>`:ec&&ec.team?`<em class="ev">${esc(ec.team[0]).toUpperCase()}</em>`:""}<b>${typeof fameNameHtml==="function"&&(S.duel?op:gc)?fameNameHtml(rName,S.duel?op:gc):esc(rName)}${typeof fameLegCrown==="function"&&(S.duel?op:gc)?fameLegCrown(S.duel?op:gc):""}</b>${rSub?`<small${S.duel?tt(op):gc?tt(gc):""}>${esc(rSub)}</small>`:""}${typeof fameLegLine==="function"&&(S.duel?op:gc)?fameLegLine(S.duel?op:gc):""}${S.duel?"":`<span class="v4wc" style="--c:${wcol}">${ic("swords")} Siegchance ~${wv} %</span>`}${ghost?`<div class="v4Bi" id="v4GhB">${gc?bdg(gc):""}</div>`:""}</div>
    ${S.duel?`<div class="v4B R">${bdg(op)}</div>`:""}
    <div class="v4VS"><i class="bu"></i><i class="ri"></i>${spk}<b>VS</b></div>
    <i class="v4Fl"></i></div></div>
