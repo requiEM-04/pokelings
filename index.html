@@ -4974,6 +4974,46 @@ body:not(.battle) #abHud{top:auto;bottom:10px}
 .cdPrev .tcard{will-change:transform}
 /* großes Fenster offen: alles dahinter (Menü, Bestenliste, Herausforderungen) hält seine Animationen an */
 body.mHeavy :is(#menu,#mCh,#lbSide,.mLb,#menuLb) *,body.mHeavy :is(#menu,#mCh,#lbSide,.mLb,#menuLb) *::before,body.mHeavy :is(#menu,#mCh,#lbSide,.mLb,#menuLb) *::after{animation-play-state:paused!important}
+/* v1.51.0: Abgrund-Ausbau – Gaben (grün-gold), Fluch-Wahl, Nachschub, Verlauf */
+.abCu.g-b .abCuB{border-color:#4de0a0;background:linear-gradient(180deg,#0c2a22,#08160f);box-shadow:0 0 16px rgba(77,224,160,.35)}
+.abCu.g-b .abCuF{background:repeating-linear-gradient(45deg,#0c2a20 0 8px,#081a14 8px 16px);border-color:#1f6a4a;color:#4de0a0}
+.abCu.g-b .abCuI{background:rgba(77,224,160,.18);color:#8af5c8}
+.abCu.g-b .abCuB small{color:#d4f2e4}
+.abGiX{font-style:normal;color:#8af5c8;font-size:.9em}
+.abAbyss.gi{background:radial-gradient(circle,#4de0a0,#0a3a26 70%);box-shadow:0 0 30px rgba(77,224,160,.7);color:#fff}
+#mbox.abCMM .abCMh h2{justify-content:center;text-align:center;width:100%}
+.abCM.gift .abCMh h2,.abCM.more .abCMh h2{color:#7df0c0;text-shadow:0 0 18px rgba(77,224,160,.6),2px 2px 0 #000}
+.abCM .lead b{color:#fff}
+/* anklickbare Karten */
+.abPick .abPk{all:unset;display:block;cursor:pointer;border-radius:12px;transition:transform .14s,filter .14s}
+.abPick .abPk:hover{transform:translateY(-4px);filter:brightness(1.18)}
+.abPick .abPk:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.abPick .abPk .abCu{pointer-events:none}
+/* Nachschub */
+.abMoreG{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%}
+.abMoreG .abDr{padding:14px 8px}.abMoreG .abDrM{width:84px;height:76px}.abMoreG .abDr b{font-size:10px}
+.abCM.more .abTeamL{opacity:.85}
+@media (max-width:520px){.abMoreG{grid-template-columns:1fr}.abMoreG .abDrM{width:64px;height:58px}}
+/* Gaben im Laden und in Listen */
+.abCuIc.g-b,#abCuBox .abCuIc.g-b{position:relative;background:rgba(77,224,160,.14);border-color:rgba(77,224,160,.45);color:#8af5c8}
+.abCuIc em,.abResCu i em{position:absolute;right:-4px;bottom:-4px;font:7px var(--px);font-style:normal;background:#0a1a14;border:1px solid #4de0a0;color:#8af5c8;border-radius:4px;padding:1px 2px}
+#abCuBox .abGiT{margin-top:8px}#abCuBox .abGiT small{color:#8af5c8}
+.abResCu i.g-b{position:relative;background:rgba(77,224,160,.18);color:#8af5c8}
+.abGiH{width:100%;margin:14px 0 6px;font:10px var(--px);color:#7df0c0;display:flex;align-items:center;justify-content:center;gap:6px}.abGiH .ic{width:14px;height:14px}
+/* Verlauf */
+#mbox.abHiM{width:min(760px,calc(96*var(--vw,1vw)));background:radial-gradient(ellipse at 50% 0,#3a0c2a,#140612 60%,#08030a)!important;border-color:#ff3b6b!important}
+#mbox.abHiM h2{color:#ff6b8a;text-align:center}
+.abHiL{display:flex;flex-direction:column;gap:9px;max-height:min(calc(66*var(--vh,1vh)),620px);overflow:auto;padding-right:4px}
+.abHi{border:1px solid rgba(255,59,107,.35);border-radius:10px;background:rgba(255,255,255,.03);padding:9px 11px;display:flex;flex-direction:column;gap:7px}
+.abHi.best{border-color:#ffd23f;box-shadow:0 0 12px rgba(255,210,63,.25)}
+.abHiH{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}.abHiH b{font:11px var(--px);color:#fff}.abHiH b span{color:#ff8aa8}.abHi.best .abHiH b span{color:#ffd23f}
+.abHiH small{color:#b9a3b0;font-size:12px}.abHiH em{margin-left:auto;font-style:normal;font-size:12.5px;color:#ffb3c4}
+.abHiT{display:flex;flex-wrap:wrap;gap:5px}
+.abHiT i{position:relative;width:44px;height:44px;border-radius:8px;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center}
+.abHiT i img,.abHiT i canvas{max-width:40px;max-height:40px}
+.abHiT i s{position:absolute;bottom:0;right:1px;text-decoration:none;font-size:9px;color:#ffd23f;text-shadow:0 1px 0 #000}
+.abHiC{display:flex;flex-wrap:wrap;gap:10px}.abHiC .abResCu{margin:0}
+.chCard.ab .chB{display:flex;gap:6px}.chCard.ab .chB .pri{flex:1}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -9132,7 +9172,7 @@ const _unlockN=()=>(META.unlocked||[]).filter(k=>LINE_BY[k]&&!LINE_BY[k].start&&
 const _mp=k=>((META&&META.mp)||{})[k]||0;
 const _bdgMax=()=>{try{return Math.max(0,...badgeAll().map(b=>badgeState(b).t));}catch(e){return 0;}};
 const _gb=k=>((META&&META.gbst)||{})[k]||0,_gbAI=l=>((((META&&META.gbst)||{}).ai)||{})[l]||0,_gbPz=k=>{const p=((META&&META.gbst)||{}).pz||{};return k==="days"?(p.days||[]).length:(p[k]||0);};
-const ACH_CAT=[["start","Erste Schritte","flag"],["reg","Regionen","route"],["champ","Champion","crown"],["fight","Kampf & Team","swords"],["coll","Sammeln & Forschen","dex"],["mp","Mehrspieler & Täglich","users"],["tower","Kampfturm","tower"],["gambit","Pokémon Gambit","crown"]];
+const ACH_CAT=[["start","Erste Schritte","flag"],["reg","Regionen","route"],["champ","Champion","crown"],["fight","Kampf & Team","swords"],["coll","Sammeln & Forschen","dex"],["mp","Mehrspieler & Täglich","users"],["tower","Kampfturm","tower"]];
 const ACH=[
  // Erste Schritte
  {id:"win1",cat:"start",t:1,ic:"swords",n:"Erster Sieg",d:"Gewinne deinen ersten Kampf."},
@@ -9321,26 +9361,7 @@ const ACH=[
  {id:"daily30",cat:"mp",t:3,ic:"cal",n:"Gewohnheitstier",d:"Spiele 30 Tägliche Runs.",prog:()=>[META.dailyN||0,30]},
  {id:"rkgold",cat:"mp",t:3,ic:"trophy",n:"Goldliga",d:"Erreiche im Ranked den Rang Gold.",chk:()=>_mp("rkBest")>=1240},
  {id:"duel25",cat:"mp",t:4,ic:"swords",n:"Duellmeister",d:"Gewinne 25 Live-Duelle.",prog:()=>[_mp("duelWins"),25]},
- {id:"rkmaster",cat:"mp",t:5,ic:"crown",n:"Gipfelstürmer",d:"Erreiche im Ranked den Rang Mythisch.",chk:()=>_mp("rkBest")>=1480,rw:"zekrom"},
- // Pokémon Gambit (Siege gegen Neon-Kurt zählt das Spiel, Online-Werte kommen vom Server)
- {id:"gbai1",cat:"gambit",t:1,ic:"crown",n:"Schachmatt!",d:"Besiege einen Gambit-Trainer: NEON-KURT, NOVA oder DRAKON.",prog:()=>[_gbAI(1)+_gbAI(2)+_gbAI(3),1]},
- {id:"gbon1",cat:"gambit",t:1,ic:"users",n:"Online-Debüt",d:"Spiele eine Online-Partie Pokémon Gambit zu Ende.",prog:()=>[_gb("played"),1]},
- {id:"gbai2",cat:"gambit",t:2,ic:"spark",n:"Taktiker",d:"Besiege NOVA (Mittel) oder DRAKON (Schwer).",prog:()=>[_gbAI(2)+_gbAI(3),1]},
- {id:"gbpz1",cat:"gambit",t:1,ic:"star",n:"Rätselfreund",d:"Löse ein Schachrätsel ohne Fehler.",prog:()=>[_gbPz("done"),1]},
- {id:"gbpzd",cat:"gambit",t:2,ic:"cal",n:"Tagesrätsel",d:"Löse an 7 Tagen das Rätsel des Tages.",prog:()=>[_gbPz("days"),7]},
- {id:"gbpzs",cat:"gambit",t:2,ic:"bolt",n:"Konzentriert",d:"Löse 10 Schachrätsel in Folge ohne Fehler.",prog:()=>[_gbPz("best"),10]},
- {id:"gbwin1",cat:"gambit",t:2,ic:"trophy",n:"Erster Online-Sieg",d:"Gewinne eine Online-Partie Pokémon Gambit.",prog:()=>[_gb("won"),1]},
- {id:"gbai3",cat:"gambit",t:3,ic:"crown",n:"Drachenbezwinger",d:"Besiege DRAKON auf der Stufe Schwer.",prog:()=>[_gbAI(3),1]},
- {id:"gbpz30",cat:"gambit",t:3,ic:"star",n:"Rätselmeister",d:"Löse 30 Schachrätsel.",prog:()=>[_gbPz("done"),30]},
- {id:"gbpzall",cat:"gambit",t:4,ic:"crown",n:"Großmeister der Rätsel",d:"Löse 85 Schachrätsel.",prog:()=>[_gbPz("done"),85]},
- {id:"gbpz235",cat:"gambit",t:5,ic:"crown",n:"Rätsel-Legende",d:"Löse alle 235 Schachrätsel.",prog:()=>[_gbPz("done"),235]},
- {id:"gbrush",cat:"gambit",t:3,ic:"fast",n:"Rätsel-Rush",d:"Löse 15 Rätsel in einem Rätsel-Rush.",prog:()=>[_gbPz("rush"),15]},
- {id:"gblad1",cat:"gambit",t:2,ic:"badge",n:"Erster Orden",d:"Gewinne im Gambit-Orden-Weg deinen ersten Orden.",prog:()=>[_gb("lad"),1]},
- {id:"gblad4",cat:"gambit",t:3,ic:"badge",n:"Halbzeit im Orden-Weg",d:"Sammle 4 Orden im Gambit-Orden-Weg.",prog:()=>[_gb("lad"),4]},
- {id:"gblad8",cat:"gambit",t:4,ic:"crown",n:"Gambit-Champion",d:"Sammle alle 8 Orden im Gambit-Orden-Weg.",prog:()=>[_gb("lad"),8]},
- {id:"gbrk10",cat:"gambit",t:3,ic:"trophy",n:"Elo-Jäger",d:"Gewinne 10 gewertete Partien gegen Zufallsgegner.",prog:()=>[_gb("w"),10]},
- {id:"gbelo12",cat:"gambit",t:4,ic:"crown",n:"Meisterklasse",d:"Erreiche 1200 Gambit-Elo.",prog:()=>[_gb("best"),1200]},
- {id:"gbelo15",cat:"gambit",t:5,ic:"crown",n:"Gambit-Legende",d:"Erreiche 1500 Gambit-Elo.",prog:()=>[_gb("best"),1500]}
+ {id:"rkmaster",cat:"mp",t:5,ic:"crown",n:"Gipfelstürmer",d:"Erreiche im Ranked den Rang Mythisch.",chk:()=>_mp("rkBest")>=1480,rw:"zekrom"}
 ];
 const ACH_BY={};ACH.forEach(a=>ACH_BY[a.id]=a);
 /* Exklusive Pokémon: Linie -> Erfolg; im Labor nicht kaufbar */
@@ -12787,7 +12808,7 @@ function render(){if(typeof achCheck==="function")setTimeout(achCheck,0);documen
   if(!S)return;if(typeof BGM!=="undefined"&&BGM.region)BGM.region(S.enc&&S.enc.loc==="spukwald"?"spuk":(S.region||"kanto"));buildBench();
   const lv=level(),cap=capFor(),bu=boardUnits().length;
   document.body.classList.toggle("towerMode",!!S.tower);$("sRound").textContent=S.tower?S.round-twOff():S.round;if($("sRoundMax"))$("sRoundMax").textContent=S.tower?(S.abyss?" · ABGRUND":" · TURM"):"/20";$("sGold").textContent=S.gold;$("sInc").textContent="+"+income();goldFx();$("sMode").textContent=MODES[S.mode].n+(S.mono&&TYPES[S.mono]?" · "+TYPES[S.mono][0]:"");
-  {const rb=$("revChip").querySelector("b");if(rb)rb.textContent=S.abyss?1:S.tower?S.tower.lives:1;}$("sRev").textContent=S.abyss?"Leben · keine Revanche":S.tower?"Turm-Leben":S.duel?`Duell-KP ${Math.max(0,S.duel.hp[0])}/${DUEL_HP}`:S.revives?`Leben · ${S.revives}× Revanche`:"Leben";$("revChip").title=S.tower?`Turm-Leben ${S.tower.lives}/${TW.lives}. Jede Revanche kostet ein Leben, jeder Koryphäen-Sieg gibt eines zurück.`:`Nur 1 Leben. Bisher ${S.revives}× per Revanche wiederbelebt.`;$("sLv").textContent="LV "+lv;$("sTeam").textContent=bu+"/"+cap+" Plätze";refreshGems();
+  {const rb=$("revChip").querySelector("b");if(rb)rb.textContent=S.abyss?1+((S.tower&&S.tower.lives)|0):S.tower?S.tower.lives:1;}$("sRev").textContent=S.abyss?(S.tower&&S.tower.lives>0?"Leben · Zweite Chance":"Leben · keine Revanche"):S.tower?"Turm-Leben":S.duel?`Duell-KP ${Math.max(0,S.duel.hp[0])}/${DUEL_HP}`:S.revives?`Leben · ${S.revives}× Revanche`:"Leben";$("revChip").title=S.tower?`Turm-Leben ${S.tower.lives}/${TW.lives}. Jede Revanche kostet ein Leben, jeder Koryphäen-Sieg gibt eines zurück.`:`Nur 1 Leben. Bisher ${S.revives}× per Revanche wiederbelebt.`;$("sLv").textContent="LV "+lv;$("sTeam").textContent=bu+"/"+cap+" Plätze";refreshGems();
   const lo=LV_XP[lv-1],hi=LV_XP[lv]||LV_XP[lv-1];$("xpBar").firstChild.style.width=(hi>lo?(S.xp-lo)/(hi-lo)*100:100)+"%";const enX=typeof LANG!=="undefined"&&LANG==="en";$("lvChip").title=hi>lo?(enX?`${S.xp-lo}/${hi-lo} XP · ${hi-S.xp} XP to level ${lv+1}`:`${S.xp-lo}/${hi-lo} EP · noch ${hi-S.xp} EP bis Level ${lv+1}`):"Max-Level";$("sXp").textContent=hi>lo?(enX?`${hi-S.xp} XP to go`:`noch ${hi-S.xp} EP`):"MAX";
   {let eg=$("eggChip");const E=S.eggs||[];if(E.length){if(!eg){eg=document.createElement("div");eg.id="eggChip";eg.className="hs";const rc=$("sRound").closest(".hs");if(rc)rc.after(eg);}const n=Math.max(0,Math.min(...E.map(e=>e.r))-S.round);
     eg.innerHTML=`<i class="eggI"></i><div class="hrow"><b>${E.length>1?E.length+"×":"Ei"}</b><small>${n<=1?"nach nächstem Kampf":"in "+n+" Runden"}</small></div>`;eg.title=`Pokémon-Ei: schlüpft ${n<=1?"nach dem nächsten Kampf":"in "+n+" Runden"}`;}else if(eg)eg.remove();}
@@ -12968,7 +12989,7 @@ function genEnemies(p){
   else{
     const D=DIFF[p.type],lvE=expLevel(r);
     const bu=boardUnits(),pv=playerVal();
-    const hard=p.type==="hard"||p.type==="elite",n=clamp(Math.max(expCap(r),bu.length)+D.dn,2,10);
+    const hard=p.type==="hard"||p.type==="elite",n=clamp(Math.max(expCap(r)-(S.abyss?1:0),bu.length)+D.dn,2,10);
     let budget=Math.max(expCap(r)*unitVal(r)*BAL.fl,pv*BAL.bud)*D.bm*(M.bud||1)*((M.tk||{})[p.type]||1)*budR(r)*(hard&&r>=16?BAL.hl:hard&&r>=14?(1+BAL.hl)/2:1);
     const rr=r+(hard?1:0),myMax=bu.reduce((a,u)=>Math.max(a,SPECIES[u.sp].stage),0),myStars=bu.reduce((a,u)=>Math.max(a,u.stars),0);
     const maxSt=Math.max(rr>=8?2:rr>=3?1:0,Math.min(2,myMax-(hard?0:1))),maxStars=Math.max(rr>=18?2:rr>=13?1:0,myStars-(hard?0:1));
@@ -15244,6 +15265,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Nach einem Lauf führt der Knopf m
 if(typeof EN!=="undefined")Object.assign(EN,{"Trainerkarte: Der Hinweis zum Hintergrund erscheint nur noch auf dem Hintergrund selbst. Abzeichen zeigen jetzt Stufe, genaue Bedingung und auf Mythisch den Titel, und das Rang-Symbol hat einen eigenen Hinweis.": "Trainer card: the background hint now only appears on the background itself. Badges now show their tier, the exact requirement and, on Mythical, the title, and the rank symbol has its own hint.", "Pokémon Gambit wurde aus dem Spiel entfernt.": "Pokémon Gambit has been removed from the game.", "Doppelklick auf einen Weg in der Wegwahl startet den Kampf sofort, ohne Bestätigung.": "Double-click a path in the path choice to start the battle right away, without confirming.", "RUHM": "FAME", "Ruhm-Rang": "Fame rank", "Rang-Effekt: ": "Rank effect: ", "Rand: ": "Frame: "});
 /* v1.50.0: Schneller Start */
 if(typeof EN!=="undefined")Object.assign(EN,{"Schnellerer Start: Die Pokémon-Bilder werden jetzt dauerhaft im Browser gespeichert. Nur der allererste Start dauert etwas länger, danach kommen sie bei jedem Neuladen sofort aus dem Speicher. Es wird nur noch geprüft, ob es ein Update gibt.": "Faster start: Pokémon pictures are now stored permanently in your browser. Only the very first start takes a little longer, after that they load instantly from storage on every reload. The game only checks whether there is an update.", "Der Ladebildschirm lädt nur noch die Grundbilder und deine zuletzt gespielte Region, alles andere folgt im Hintergrund.": "The loading screen now only loads the basic pictures and your last played region, everything else follows in the background.", "Abgrund-Draft: Schließt du die Auswahl oder lädst neu, stehen beim nächsten Öffnen dieselben Pokémon, dieselben Flüche und dein Neu-Würfeln zur Wahl. Die Bilder fürs Neu-Würfeln sind schon vorgeladen.": "Abyss draft: if you close the selection or reload, the same Pokémon, the same curses and your reroll are offered the next time you open it. The pictures for the reroll are already preloaded.", "Trainerkarte: Die Listen unter „Stil“ und „Abzeichen“ laufen deutlich flüssiger.": "Trainer card: the lists under “Style” and “Badges” run much smoother."});
+/* v1.51.0: Abgrund-Ausbau */
+if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: Die Gegner ab Ebene 8 sind neu abgestimmt. Mittlere, schwere und Elite-Kämpfe sind jetzt hart, aber machbar. Ab etwa Ebene 30 wird es richtig brutal.": "Abyss: enemies from floor 8 on have been rebalanced. Medium, hard and elite battles are now tough but doable. From about floor 30 it gets truly brutal.", "Abgrund: Du startest mit 2 statt 3 Flüchen. Nach jeder 10. Ebene wählst du den neuen Fluch selbst aus 3 Vorschlägen.": "Abyss: you start with 2 curses instead of 3. After every 10th floor you choose the new curse yourself from 3 options.", "Neu im Abgrund: Gaben. Nach jeder Koryphäe wählst du 1 von 3 Gaben, zum Beispiel mehr KP oder Angriff, eine Zweite Chance, Gold, ein Relikt oder eine sofortige Entwicklung.": "New in the Abyss: gifts. After every Frontier Brain you choose 1 of 3 gifts, for example more HP or attack, a Second Chance, gold, a relic or an instant evolution.", "Neu im Abgrund: Nachschub. Alle 10 Ebenen darfst du eine neue Pokémon-Linie aus 3 Vorschlägen in deinen Laden aufnehmen, oder keine.": "New in the Abyss: reinforcements. Every 10 floors you may add a new Pokémon line from 3 options to your shop, or none.", "Mehr Abgrund-Meilensteine mit Edelsteinen: Ebene 5, 10, 15, 20, 25, 30, 40, 50, 75 und 100. Das Abgrund-Abzeichen steigt bei Ebene 10, 20, 30, 50 und 75, Bernstein gibt es ab Ebene 100.": "More Abyss milestones with gems: floor 5, 10, 15, 20, 25, 30, 40, 50, 75 and 100. The Abyss badge rises at floor 10, 20, 30, 50 and 75, Amber comes at floor 100.", "Abgrund-Verlauf: Unter Herausforderungen siehst du deine letzten 10 Abstiege mit Team, Flüchen, Gaben und dem Kampf, in dem es endete.": "Abyss history: under Challenges you can see your last 10 descents with team, curses, gifts and the battle in which it ended.", "Fehler behoben: Im Abgrund wurde nicht jede geschaffte Ebene gezählt, dadurch fehlten manche Meilensteine.": "Bug fixed: in the Abyss not every cleared floor was counted, so some milestones were missing.", "Die Partner-Abzeichen, der Schachmeister und die Gambit-Erfolge sind entfernt. Deine Stufen bei Perfektionist und Abzeichen-Sammler bleiben erhalten.": "The partner badges, the Chess Master badge and the Gambit achievements have been removed. Your tiers for Perfectionist and Badge Collector are kept.", "Typ-Abzeichen sind oben etwas leichter: Platin ab 1.200, Mythisch ab 3.000 und Bernstein ab 8.000 Siegen.": "Type badges are a little easier at the top: Platinum from 1,200, Mythic from 3,000 and Amber from 8,000 wins.", "Zähe Haut": "Tough Skin", "Dein Team hat 10 % mehr KP.": "Your team has 10% more HP.", "Kampfgeist": "Fighting Spirit", "Dein Team hat 8 % mehr Angriff.": "Your team has 8% more attack.", "Rückenwind": "Tailwind", "Dein Team greift 8 % schneller an.": "Your team attacks 8% faster.", "Panzerung": "Plating", "Dein Team hat 15 % mehr Verteidigung.": "Your team has 15% more defense.", "Funkenflug": "Sparks", "Dein Team startet jeden Kampf mit einem Viertel Energie.": "Your team starts every battle with a quarter of its energy.", "Scharfblick": "Keen Eye", "Dein Team hat 8 % mehr Krit-Chance.": "Your team has 8% more crit chance.", "Lebensquell": "Wellspring", "Dein Team regeneriert 0,6 % seiner KP pro Sekunde.": "Your team regenerates 0.6% of its HP per second.", "Zweite Chance": "Second Chance", "Verlierst du einen Kampf, darfst du ihn einmal wiederholen.": "If you lose a battle, you may retry it once.", "Läuterung": "Purification", "Einer deiner Flüche wird zufällig aufgehoben.": "One of your curses is lifted at random.", "Schatzfund": "Treasure", "Du bekommst sofort": "You instantly get", "Trainer-EP": "trainer XP", "Erfahrung": "Experience", "Reifung": "Maturing", "Dein stärkstes Pokémon, das sich noch entwickeln kann, entwickelt sich sofort.": "Your strongest Pokémon that can still evolve evolves right away.", "Fundstück": "Found Item", "Du wählst sofort ein Relikt.": "You choose a relic right away.", "Fluch aufgehoben:": "Curse lifted:", "entwickelt sich zu": "evolves into", "ist jetzt in deinem Laden": "is now in your shop", "Gabe des Abgrunds": "Gift of the Abyss", "GABEN": "GIFTS", "nächste nach Ebene": "next after floor", "GABE DES ABGRUNDS": "GIFT OF THE ABYSS", "Die Koryphäe von Ebene": "The Frontier Brain of floor", "ist besiegt. Wähle eine Gabe für den Rest des Abstiegs.": "is defeated. Choose a gift for the rest of the descent.", "NEUER FLUCH": "NEW CURSE", "geschafft. Einer dieser Flüche kommt mit, du entscheidest welcher.": "cleared. One of these curses comes along, you decide which.", "NACHSCHUB": "REINFORCEMENTS", "Nimm eine neue Pokémon-Linie in deinen Laden auf. Mehr Auswahl heißt aber auch: Doppelte kommen seltener.": "Add a new Pokémon line to your shop. But more choice also means: duplicates come less often.", "Keine nehmen": "Take none", "ABGRUND · VERLAUF": "ABYSS · HISTORY", "Dein letzter Abstieg.": "Your last descent.", "Deine letzten": "Your last", "Abstiege.": "descents.", "Rekord: Ebene": "Record: floor", "Abstieg beendet": "Descent ended", "K.O. gegen": "K.O. against", "K.O. im Kampf:": "K.O. in battle:", "Noch kein Abstieg beendet": "No descent finished yet", "Verlauf": "History", "Gaben dieses Laufs": "Gifts this run", "einmal Revanche": "one rematch", "ZWEITE CHANCE · REVANCHE": "SECOND CHANCE · REMATCH", "Abstieg beenden": "End descent", "Leben · Zweite Chance": "Life · Second Chance", "Zwei Flüche begleiten dich hinab. Nach jeder 10. Ebene wählst du einen weiteren. Nach jeder Koryphäe wartet eine Gabe.": "Two curses follow you down. After every 10th floor you choose another one. After every Frontier Brain a gift awaits."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17032,7 +17055,7 @@ function admCBadgeBody(a,B){let icn="crown",fx="regenbogen",tier=5,nm="";
     const r=await admRpc("admin_badge",{target:a.id,bid:id,btier:tier});if(!r.ok){$("admCbE").innerHTML=admEvErr(r);return;}toast(`Abzeichen „${n}“ an ${a.name} verliehen`,"badge");B.dataset.cb="";admBadgeBody0(a,B);};
   prev();}
 function admBadgeBody0(a,B){let sel="champ",tier=5,q="";
-  const all=[...BADGE_FIX.map(b=>b.id),...Object.keys(TYPES).map(t=>"t_"+t),...LINES.filter(L=>!L.excl).map(L=>"p_"+L.k)].map(id=>badgeDef(id)).filter(Boolean);
+  const all=[...BADGE_FIX.map(b=>b.id),...Object.keys(TYPES).map(t=>"t_"+t)].map(id=>badgeDef(id)).filter(Boolean);
   B.innerHTML=`<p class="admLead">${ic("info")}<span>Verleiht ein Abzeichen auf einer festen Stufe. Es erscheint auf der Trainerkarte des Spielers (VS-Bildschirm, Bestenliste), zählt aber nicht für Erfolge, Titel oder Hintergründe.</span></p>
    <div class="admCbNew"><button class="btn" id="admCbNew">${ic("star")} Eigenes Abzeichen gestalten</button><small>eigener Name, Symbol und Design (Regenbogen, Galaxie …)</small></div>
    <div class="favBar"><input id="admBq" placeholder="Abzeichen suchen (z. B. Champion, Feuer, Glurak) …" maxlength="24" autocomplete="off"></div><div class="admBGrid" id="admBg"></div>
@@ -17252,7 +17275,7 @@ function admSetup(){openModal(`<h2>${ic("gear")} SERVER-SETUP</h2><div class="le
 
 /* ================================ TRAINERKARTE & ABZEICHEN ================================
    Eigene Trainerkarte (Lieblingspokémon, Hintergrund, Titel, 3 Abzeichen) – erscheint im VS-Bildschirm und in der Bestenliste.
-   Abzeichen haben 5 Stufen (Bronze, Silber, Gold, Platin, Mythisch) und sind echte Grind-Ziele: Typen, Partner-Pokémon, Kampf, Champion, Sammeln.
+   Abzeichen haben 5 Stufen (Bronze, Silber, Gold, Platin, Mythisch) und sind echte Grind-Ziele: Typen, Kampf, Champion, Sammeln. (v1.51.0: Partner- und Gambit-Abzeichen entfernt)
    v1.0.1: Stufe V "Mythisch" (lila) über Platin – jedes Abzeichen auf Mythisch schaltet einen eigenen Titel im Geister-Look frei. */
 const TIER=[null,{n:"Bronze",c:"#d8904e"},{n:"Silber",c:"#d2dbe8"},{n:"Gold",c:"#ffd23f"},{n:"Platin",c:"#8af0ff"},{n:"Mythisch",c:"#b86bff"},{n:"Bernstein",c:"#ffae2b"}];
 const ROMAN=["","I","II","III","IV","V","VI"];
@@ -17284,7 +17307,6 @@ const BADGE_FIX=[
  {id:"daily",cat:"Sammeln",n:"Tagesheld",ic:"cal",d:"Gespielte tägliche Runs",v:()=>META.dailyN||0,T:[7,40,120,365,700],T6:1500,t5n:"Zeitlos"},
  {id:"vet",cat:"Sammeln",n:"Veteran",ic:"play",d:"Spielzeit in Stunden",v:()=>Math.floor((_st().time||0)/60),T:[10,40,150,400,800],T6:2000,t5n:"Altmeister"},
  {id:"coll",cat:"Sammeln",n:"Abzeichen-Sammler",ic:"badge",d:"Erreichte Abzeichen-Stufen (alle zusammen)",v:()=>badgeTierSum(),T:[15,45,80,130,180],T6:240,t5n:"Mythensammler"},
- {id:"gbon",cat:"Gambit",n:"Schachmeister",ic:"crown",d:"Gewertete Siege in Pokémon Gambit",v:()=>((META.gbst||{}).w)||0,T:[1,8,25,60,150],T6:350,t5n:"Gambit-Großmeister"},
 ];
 /* v1.2.1: Schwellen angehoben. Die alten Werte braucht es nur für die einmalige Übernahme schon erreichter Stufen (META.bkeep): niemand verliert etwas. */
 const BADGE_OLD={tower:{T:[5,10,20,30,45],T6:70},champ:{T:[1,10,40,100,250],T6:500},world:{T:[1,3,5,7],T5:7,T6:7},nightm:{T:[1,3,10,30,75],T6:200},iron:{T:[1,3,10,30,75],T6:200},duel:{T:[3,15,50,150,400],T6:1000},streak:{T:[5,10,15,20],T5:5,T6:25},
@@ -17320,9 +17342,7 @@ function seaParse(id){const m=/^s\|(\d{4})-(\d{2})\|([123])$/.exec(String(id||""
 function badgeDef(id){if(BADGE_BY[id])return BADGE_BY[id];
   {const z=seaParse(id);if(z)return{id,cat:"Season",n:`Season ${z.lbl} · Platz ${z.pl}`,ic:"trophy",cfx:seaFx(z.sid),sea:z,d:`Platz ${z.pl} in der Season ${z.lbl}`,v:()=>0,T:[1e15,1e15,1e15,1e15,1e15],T6:null,t5n:`Season ${z.lbl} · Platz ${z.pl}`,custom:1};}
   {const c=cbParse(id);if(c)return{id,cat:"Verliehen",n:c.n,ic:c.icn,cfx:c.fx,d:"Persönlich verliehenes Abzeichen",v:()=>0,T:[1e15,1e15,1e15,1e15,1e15],T6:null,t5n:c.n,custom:1};}
-  if(id&&id.startsWith("t_")){const t=id.slice(2);if(!TYPES[t])return null;return{id,cat:"Typen",n:TYPES[t][0]+"-Experte",ic:"ball",col:TYPES[t][1],d:`Siege mit ${TYPES[t][0]}-Pokémon im Team`,v:()=>((_st().typeW||{})[t])||0,T:[40,150,450,1400,3500],T6:10000,t5n:TYPES[t][0]+"-Großmeister"};}
-  if(id&&id.startsWith("p_")){const L=LINE_BY[id.slice(2)];if(!L)return null;const last=L.stages[L.stages.length-1];
-    return{id,cat:"Partner",n:"Partner: "+last[1],ic:"heart",sp:last[0],d:`Siege mit ${last[1]} (ganze Linie) im Team`,v:()=>lineSp(L).reduce((a,s)=>a+(((META.dex||{})[s[0]]||{}).wins||0),0),T:[40,150,400,1100,2800],T6:8000,t5n:last[1]+"-Legende"};}
+  if(id&&id.startsWith("t_")){const t=id.slice(2);if(!TYPES[t])return null;return{id,cat:"Typen",n:TYPES[t][0]+"-Experte",ic:"ball",col:TYPES[t][1],d:`Siege mit ${TYPES[t][0]}-Pokémon im Team`,v:()=>((_st().typeW||{})[t])||0,T:[40,150,450,1200,3000],T6:8000,t5n:TYPES[t][0]+"-Großmeister"};}
   return null;}
 const badgeTier=(b,v)=>{let n=0;for(const t of b.T)if(v>=t)n++;return n;};
 /* Geschenke an alle (Titel, Hintergründe) und verliehene Abzeichen (nur Anzeige auf der Karte, zählen nicht für Erfolge) */
@@ -17331,7 +17351,6 @@ const bGiftT=id=>{try{return Math.max(0,Math.min(TIER_MAX,(((META&&META.bgift)||
 const badgeShowT=b=>{if(!b)return 0;let t=0;try{t=badgeState(b).t;}catch(e){}return Math.max(t,bGiftT(b.id));};
 function badgeTierSum(){let s=0;for(const b of BADGE_FIX)if(b.id!=="coll")try{s+=badgeState(b).t;}catch(e){}for(const t in TYPES){const b=badgeDef("t_"+t);s+=badgeState(b).t;}return s;}
 function badgeAll(){const out=[];for(const b of BADGE_FIX)out.push(b);for(const t in TYPES)out.push(badgeDef("t_"+t));
-  const lines=[];for(const L of LINES){const b=badgeDef("p_"+L.k);const v=b.v();if(v>0)lines.push([b,v]);}lines.sort((a,b)=>b[1]-a[1]).slice(0,40).forEach(x=>out.push(x[0]));
   for(const id in ((META&&META.bgift)||{})){if(!out.some(b=>b.id===id)){const d=badgeDef(id);if(d)out.push(d);}}return out;}
 /* Stufe aus dem Wert; fl = Mindeststufe (übernommen). Während der Übernahme (_bOld) gelten die alten Schwellen. */
 let _bOld=false;
@@ -17341,7 +17360,13 @@ function badgeStateRaw(b,fl){const D=_bDef(b),n=D.T.length;let v=0;try{v=b.v();}
   if(t>=5&&D.T6!=null){v6=v;if(b.v6){try{v6=b.v6();}catch(e){v6=0;}}if(v6>=D.T6)t=6;}return{v,t,next,v5,v6};}
 function badgeKeep3(){if(_bOld||!META||!(META.bkv>=2)||META.bkv>=3)return;try{const b=badgeDef("tower");if(b){_bOld=true;let t=0;try{t=badgeStateRaw(b,0).t;}finally{_bOld=false;}META.bkeep=META.bkeep||{};if(t>(META.bkeep.tower|0))META.bkeep.tower=t;}}catch(e){}META.bkv=3;try{LS.set(metaKey(USER),META);}catch(e){}}
 let _bg4=false;function bgKeep4(){if(_bg4||_bOld||!META||META.bgkv>=4)return;_bg4=true;try{badgeKeep();badgeKeep3();const G=META.bgkeep=Array.isArray(META.bgkeep)?META.bgkeep:[];for(const k in CARD_BG){const c=CARD_BG[k];if(!c.lockPrev||G.includes(k))continue;try{if(c.lockPrev())G.push(k);}catch(e){}}}catch(e){}finally{_bg4=false;}META.bgkv=4;try{LS.set(metaKey(USER),META);}catch(e){}}
-function badgeState(b){if(_bOld)return badgeStateRaw(b,0);badgeKeep();badgeKeep3();return badgeStateRaw(b,((META&&META.bkeep)||{})[b.id]|0);}
+const GB_ACH=["gbai1","gbon1","gbai2","gbpz1","gbpzd","gbpzs","gbwin1","gbai3","gbpz30","gbpzall","gbpz235","gbrush","gblad1","gblad4","gblad8","gbrk10","gbelo12","gbelo15"];
+let _bk51=false;function badgeKeep51(){if(_bk51||_bOld||!META||META.bkv51)return;_bk51=true;try{const K=META.bkeep=META.bkeep||{},got=Object.keys(META.ach||{});
+  const v=got.filter(k=>ACH_BY[k]||GB_ACH.includes(k)).length,L=ACH.length+GB_ACH.length;let t=0;for(const x of [15,35,60,L-8,L])if(v>=x)t++;if(t>(K.achv|0))K.achv=t;
+  const w=((META.gbst||{}).w)||0;let g=0;for(const x of [1,8,25,60,150])if(w>=x)g++;if(w>=350)g=6;
+  if(g){const c=badgeDef("coll"),sm=badgeTierSum()+g;let ct=0;for(const x of c.T)if(sm>=x)ct++;if(ct>=5&&sm>=c.T6)ct=6;if(ct>(K.coll|0))K.coll=ct;}}catch(e){}finally{_bk51=false;}
+  META.bkv51=1;try{LS.set(metaKey(USER),META);}catch(e){}}
+function badgeState(b){if(_bOld)return badgeStateRaw(b,0);badgeKeep();badgeKeep3();badgeKeep51();return badgeStateRaw(b,((META&&META.bkeep)||{})[b.id]|0);}
 /* Einmalig je Spielstand: Stufen und Hintergründe nach den alten Regeln merken. Ohne neuen Zeitstempel, damit der Cloud-Abgleich nicht kippt. */
 function badgeKeep(){if(_bOld||!META||META.bkv>=2)return;_bOld=true;const K={},G=[];
   try{const L=badgeAll();for(const Ln of LINES){const id="p_"+Ln.k;if(!L.some(x=>x.id===id)){const d=badgeDef(id);try{if(d&&d.v()>0)L.push(d);}catch(e){}}}
@@ -17784,7 +17809,7 @@ function avatarCheck(){} // Figurwahl entfernt (v9.5)
 let CARD_TAB="badges",FAV_Q="",FAV_N=60,FAV_R="all";
 function favMatches(){const q=FAV_Q.trim().toLowerCase();let L=favEntries();if(FAV_R!=="all")L=L.filter(e=>favReg(e.id)===FAV_R);return q?L.filter(e=>e.n.toLowerCase().includes(q)||SPECIES[e.id].name.toLowerCase().includes(q)||String(e.id)===q||(q==="mega"&&e.mk)):L;}
 function cardModal(t){t=t||CARD_TAB;CARD_TAB=t;const C=cardMeta(),me=cardMine();let body="";
-  if(t==="badges"){const all=badgeAll(),cats=["Verliehen","Champion","Kampf","Gambit","Sammeln","Typen","Partner"];const got=all.filter(b=>badgeShowT(b)>0).length;
+  if(t==="badges"){const all=badgeAll(),cats=["Verliehen","Champion","Kampf","Sammeln","Typen"];const got=all.filter(b=>badgeShowT(b)>0).length;
     body=`<p class="cdHint">Tippe ein freigeschaltetes Abzeichen an, um es in eines der 3 Felder zu legen (nochmal tippen = entfernen). ${got} von ${all.length} Abzeichen freigeschaltet.</p>`+cats.map(cat=>{const L=all.filter(b=>b.cat===cat);if(!L.length)return"";
       return `<h4 class="cdCat">${cat}</h4><div class="cdGrid">${L.map(b=>{const s0=badgeState(b),gt=bGiftT(b.id),gv=gt>s0.t,s=gv?Object.assign({},s0,{t:gt}):s0,on=C.badges.includes(b.id),pr=gv?1:s.next?Math.min(1,s.v/s.next):b.v5&&s.t===4?Math.min(1,(s.v5||0)/b.T5):s.t===5&&b.T6?Math.min(1,(s.v6||0)/b.T6):1;
         return `<button class="cdB${on?" on":""}${s.t?"":" lock"}" data-b="${b.id}">${badgeHTML(b.id,Math.max(1,s.t),"sm")}${s.t?"":`<span class="cdL">${ic("lock")}</span>`}<div><b>${esc(b.n)} ${s.t?ROMAN[s.t]:""}</b><small>${esc(b.d)}</small>
@@ -17839,7 +17864,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.50.0",DUEL_HP=30;
+const MP_VER="1.51.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18476,8 +18501,18 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.50.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.51.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.51.0",d:"10.11.2026",t:"Abgrund-Ausbau",items:[
+  ["skull", "Abgrund: Die Gegner ab Ebene 8 sind neu abgestimmt. Mittlere, schwere und Elite-Kämpfe sind jetzt hart, aber machbar. Ab etwa Ebene 30 wird es richtig brutal."],
+  ["skull", "Abgrund: Du startest mit 2 statt 3 Flüchen. Nach jeder 10. Ebene wählst du den neuen Fluch selbst aus 3 Vorschlägen."],
+  ["spark", "Neu im Abgrund: Gaben. Nach jeder Koryphäe wählst du 1 von 3 Gaben, zum Beispiel mehr KP oder Angriff, eine Zweite Chance, Gold, ein Relikt oder eine sofortige Entwicklung."],
+  ["ball", "Neu im Abgrund: Nachschub. Alle 10 Ebenen darfst du eine neue Pokémon-Linie aus 3 Vorschlägen in deinen Laden aufnehmen, oder keine."],
+  ["trophy", "Mehr Abgrund-Meilensteine mit Edelsteinen: Ebene 5, 10, 15, 20, 25, 30, 40, 50, 75 und 100. Das Abgrund-Abzeichen steigt bei Ebene 10, 20, 30, 50 und 75, Bernstein gibt es ab Ebene 100."],
+  ["scroll", "Abgrund-Verlauf: Unter Herausforderungen siehst du deine letzten 10 Abstiege mit Team, Flüchen, Gaben und dem Kampf, in dem es endete."],
+  ["check", "Fehler behoben: Im Abgrund wurde nicht jede geschaffte Ebene gezählt, dadurch fehlten manche Meilensteine."],
+  ["badge", "Die Partner-Abzeichen, der Schachmeister und die Gambit-Erfolge sind entfernt. Deine Stufen bei Perfektionist und Abzeichen-Sammler bleiben erhalten."],
+  ["star", "Typ-Abzeichen sind oben etwas leichter: Platin ab 1.200, Mythisch ab 3.000 und Bernstein ab 8.000 Siegen."]]},
  {v:"1.50.0",d:"10.11.2026",t:"Schneller Start",items:[
   ["spark", "Schnellerer Start: Die Pokémon-Bilder werden jetzt dauerhaft im Browser gespeichert. Nur der allererste Start dauert etwas länger, danach kommen sie bei jedem Neuladen sofort aus dem Speicher. Es wird nur noch geprüft, ob es ein Update gibt."],
   ["dice", "Der Ladebildschirm lädt nur noch die Grundbilder und deine zuletzt gespielte Region, alles andere folgt im Hintergrund."],
@@ -19195,9 +19230,11 @@ function twFx(f){if(!twOn())return;
 const twNoHeal=()=>false;
 const twHealMul=f=>{if(!twOn()||!f||f.side!=="mine")return 1;const c=S.tower.curse;return (c&&c.k==="heal"?1-Math.min(.2,2.5*(c.v||.03)):1)*(typeof abHealMul==="function"?abHealMul(f):1);};
 /* Gegner werden je Ebene stärker (zusätzlich zur normalen Rundensteigerung) */
-const twScale=()=>{const f=twFloor();if(S&&S.abyss)return (f>20?.88:f>10?1-.012*(f-10):1)*(1+TW.ramp*Math.max(0,f-20));return f?(1+TW.ramp*(f-1))*(TW.mk[S.mode]||1):1;};
+const abRamp=r=>1+Math.max(0,r-8)*BAL.ramp1+Math.max(0,r-14)*BAL.ramp2;
+const abES=f=>{const A=window.__ABES||AB_ES;return f<=8?abRamp(f):f<=14?1+(A[0]-1)*(f-8)/6:f<=26?A[0]+(A[1]-A[0])*(f-14)/12:A[1]*(1+A[2]*(f-26));};
+const twScale=()=>{const f=twFloor();if(S&&S.abyss)return abES(Math.max(1,f))/abRamp(S.round);return f?(1+TW.ramp*(f-1))*(TW.mk[S.mode]||1):1;};
 const twEncOdds=()=>(S&&S.abyss&&typeof abEncOdds==="function"?abEncOdds():{easy:0,mid:34,hard:34,elite:20,event:6,rocket:6});
-const twItems=()=>{const f=twFloor();return f?(f>=11?2:1):0;};
+const twItems=()=>{const f=twFloor();if(S&&S.abyss)return f<=5?0:f<=17?1:2;return f?(f>=11?2:1):0;};
 /* Koryphäen-Stärke je Ebene (abgestimmt mit Bot-Läufen), über Ebene 30 hinaus sanft weiter steigend */
 const twBossMult=f=>{const B=TW.bf,ks=Object.keys(B).map(Number).sort((a,b)=>a-b);let v=B[ks[ks.length-1]]*(1+TW.bfR*Math.max(0,f-ks[ks.length-1]));for(let i=0;i<ks.length;i++){if(f<=ks[i]){v=i?B[ks[i-1]]+(B[ks[i]]-B[ks[i-1]])*(f-ks[i-1])/(ks[i]-ks[i-1]):B[ks[0]];break;}}return TW.bossM*v;};
 /* Koryphäen-Team: aus dem Pool der Region nach Thema, Ass mit dem Gimmick der Region */
@@ -20362,11 +20399,16 @@ notify pgrst, 'reload schema';
    - Draft: 16 Angebote aus allen Regionen (4 · 3 · 3 · 3 · 3 je Seltenheit), 6 wählen (aus jeder Stufe mindestens eins, höchstens 2 Legendäre), 1× neu würfeln.
      Danach einen Startpartner aus den 6 wählen. Im Laden gibt es nur diese 6 Linien, Level und Fusion wie gewohnt. Forschungslabor zählt mit.
    - Gegner und Bosse aus einer zufälligen Region. Nach dem Champion (Ebene 20) geht es ohne Pause im Kampfturm-Stil weiter (Koryphäen alle 5 Ebenen).
-   - Flüche: 3 zum Start, nach jeder 10. Ebene einer mehr. 1 Leben, keine Revanche.
+   - Flüche: 2 zum Start, nach jeder 10. Ebene einer aus 3 zur Wahl (v1.51.0). 1 Leben, keine Revanche.
+   - v1.51.0: Gaben nach jeder Koryphäe (1 aus 3), Nachschub alle 10 Ebenen (eine neue Linie aus 3), Verlauf der letzten 10 Abstiege.
    - Belohnung: Edelsteine wie Lauf + Turm, 30 % mehr; Meilensteine 10/25/50/75/100 (einmalig Edelsteine, Abzeichen-Stufen, Titel), Hintergrund ab Ebene 50.
    - Eigener Spielstand (saveKey("ab")), unabhängig vom Einzelspieler-Spielstand. Zählt nicht für Season, Champion-Titel und Weihnachts-Quest.
    Herausforderungen-Panel links im Hauptmenü: Täglicher Run, Wochen-Herausforderung, Abgrund. */
-const AB={gemMul:1.3,ms:[10,25,50,75,100],msGem:{10:50,25:100,50:200,75:300,100:500},every:10,start:3};
+const AB={gemMul:1.3,ms:[5,10,15,20,25,30,40,50,75,100],msGem:{5:20,10:50,15:60,20:80,25:100,30:120,40:150,50:200,75:300,100:500},every:10,start:2};
+/* v1.51.0: Abzeichen-Stufen nach Rekord (I–V), Bernstein ab Ebene 100 */
+const AB_BT=[10,20,30,50,75],AB_B6=100;
+/* v1.51.0: Gesamtstärke der Gegner ab Ebene 8 (Ebene 14, Ebene 26, Anstieg je Ebene danach), mit Probekämpfen abgestimmt */
+const AB_ES=[1,1.04,.018];
 const abOn=()=>typeof S!=="undefined"&&!!(S&&S.abyss&&!S.duel);
 const abFloor=()=>abOn()?S.round:0;
 function abMeta(){const A=META.abyss||(META.abyss={});A.best=A.best|0;A.runs=A.runs|0;A.floors=A.floors|0;A.kory=A.kory|0;A.ms=A.ms||{};return A;}
@@ -20441,12 +20483,12 @@ const ABP={d:null};
 /* v1.50.0: Draft-Angebot, Neu-Würfeln und Flüche werden einmal festgelegt und gespeichert (Fenster zu oder F5 = dasselbe Angebot); das Angebot fürs Neu-Würfeln liegt schon bereit */
 function abPrepSave(){try{const P=ABP.d,A=abMeta();if(!P)return;A.pre={offer:P.offer,next:P.next||null,rr:P.rr,curses:P.curses,sel:[...P.sel]};saveMeta();}catch(e){}}
 function abPrep(){const A=abMeta(),q=A.pre;
-  if(q&&Array.isArray(q.offer)&&q.offer.length&&q.offer.every(k=>abLine(k))){ABP.d={offer:q.offer,next:Array.isArray(q.next)&&q.next.every(k=>abLine(k))?q.next:null,rr:q.rr|0,curses:Array.isArray(q.curses)?q.curses:[],sel:new Set((q.sel||[]).filter(k=>q.offer.includes(k))),starter:null};return ABP.d;}
+  if(q&&Array.isArray(q.offer)&&q.offer.length&&q.offer.every(k=>abLine(k))){ABP.d={offer:q.offer,next:Array.isArray(q.next)&&q.next.every(k=>abLine(k))?q.next:null,rr:q.rr|0,curses:Array.isArray(q.curses)?q.curses.slice(0,AB.start):[],sel:new Set((q.sel||[]).filter(k=>q.offer.includes(k))),starter:null};return ABP.d;}
   const R=mkRng(strHash(Date.now()+"|"+Math.random()));const curses=[];for(let i=0;i<AB.start;i++){const c=abRollCurse(R,curses);if(c)curses.push(c);}
   ABP.d={offer:abOffer(R),next:AB_DRAFT.rerolls>0?abOffer(mkRng(strHash(Date.now()+"|rr|"+Math.random()))):null,rr:AB_DRAFT.rerolls,curses,sel:new Set(),starter:null};abPrepSave();return ABP.d;}
 /* in newRun0, bevor Shop und erste Runde ausgewürfelt werden: übernimmt Draft, Startpartner und Flüche aus der Vorbereitung */
 function abyssInit(o){const P=o.abyss||{};S.noRev=1;S.poolV2=1;S.poolSel=(P.pool||[]).slice();
-  S.abyss={v:4,curses:(P.curses||[]).slice(),best0:abBest(),ms:[],out:null,pool:(P.pool||[]).slice(),starter:P.starter||null,done:1};
+  S.abyss={v:4,curses:(P.curses||[]).slice(),best0:abBest(),ms:[],out:null,pool:(P.pool||[]).slice(),starter:P.starter||null,done:0,gifts:[],pend:[]};
   S.tower={lives:0,kory:0,lost:0,cl:0,k0:Math.floor(Math.random()*KORY.length),t0:Date.now(),runT:0,best0:0,ab:1};}
 function abDraftValid(sel){const a=[...sel].map(abLine);return a.length===AB_DRAFT.pick&&[1,2,3,4,5].every(t=>a.some(L=>L.tier===t))&&a.filter(L=>L.leg).length<=AB_DRAFT.maxLeg;}
 function abDraftModal(){const P=ABP.d;if(!P)return;const sel=P.sel;
@@ -20477,13 +20519,13 @@ function abyssSetup(cb){if(!S||!S.abyss){cb&&cb();return;}const A=abMeta();A.run
   if(ls.length)return ls.sort((x,y)=>x.tier-y.tier).map(L=>({L,shiny:Math.random()<(typeof CASE_SHINY==="number"?CASE_SHINY:0),secret:null}));}return _so.apply(this,arguments);};})();
 /* Laden: Sprite-Pakete der Draft-Regionen nachladen; Draft wieder öffnen, falls er noch nicht fertig war */
 setTimeout(()=>{if(typeof loadGame!=="function")return;const _lg=loadGame;loadGame=function(){const r=_lg.apply(this,arguments);try{if(S&&S.abyss){abLoadRegs(S.abyss.pool||[]);
-  abHud();}}catch(e){}return r;};},0);
+  abHud();setTimeout(abPendNext,1200);}}catch(e){}return r;};},0);
 /* ---------------- Flüche anzeigen ---------------- */
 function abCurseCard(c,i){const D=AB_CURSE[c.k];if(!D)return"";return `<div class="abCu g-${D.g}" style="--i:${i||0}"><i class="abCuF">${ic("skull")}</i><div class="abCuB"><span class="abCuI">${ic(D.ic)}</span><b>${esc(D.n)}</b><small>${esc(abCurseTxt(c))}</small></div></div>`;}
 function abCurseModal(list,first,cb,P){const go=()=>{if(P){abBegin();return;}closeModal();abHud();cb&&cb();};
   if(!P&&(window.__autoPick||window.__fast)){cb&&cb();return;}
   openModal(`<div class="abCM${first?" first":""}"><div class="abCMh"><i class="abAbyss">${ic("skull")}</i><h2>${first?"DER ABGRUND RUFT":"NEUER FLUCH"}</h2>
-    <div class="lead">${first?"Drei Flüche begleiten dich hinab. Nach jeder 10. Ebene kommt einer dazu.":"Je tiefer du steigst, desto schwerer wird die Last."}</div></div>
+    <div class="lead">${first?"Zwei Flüche begleiten dich hinab. Nach jeder 10. Ebene wählst du einen weiteren. Nach jeder Koryphäe wartet eine Gabe.":"Je tiefer du steigst, desto schwerer wird die Last."}</div></div>
     <div class="abCuL${list.length===1?" one":""}">${list.map((c,i)=>abCurseCard(c,i)).join("")}</div>
     ${first?`<div class="abTeamL">${[...((P&&P.sel)||(S&&S.abyss&&S.abyss.pool)||[])].map(k=>{const L=abLine(k);return L?`<i data-sp="${L.stages[0][0]}" title="${esc(L.stages[0][1])}" class="${P&&P.starter===k?"st":""}"></i>`:"";}).join("")}</div><p class="abNote">${ic("info")} Im Laden gibt es nur deine 6 Draft-Pokémon. 1 Leben, keine Revanche. Alle 5 Ebenen wartet eine Koryphäe, und es geht ohne Ende weiter.</p>`:""}
     <div class="abDrB">${P?`<button class="btn" id="abCBack">${ic("back")} Zurück</button>`:""}<span style="flex:1"></span><button class="pri hot" id="abGo">${ic((P||first)?"skull":"arrow")} ${(P||first)?"ABSTIEG STARTEN":"WEITER"}</button></div></div>`,"narrow abCMM",P?true:go);
@@ -20495,14 +20537,14 @@ function abHud(){const a=$("arena");if(!a)return;let h=$("abHud");if(!abOn()){if
   if(!h){h=document.createElement("button");h.id="abHud";h.onclick=()=>abCurseList();a.appendChild(h);}
   h.innerHTML=`<b>${ic("skull")} ABGRUND · EBENE ${abFloor()}</b><span>${(S.abyss.curses||[]).map(c=>{const D=AB_CURSE[c.k];return D?`<i class="g-${D.g}" title="${esc(D.n+": "+abCurseTxt(c))}">${ic(D.ic)}</i>`:"";}).join("")}</span>`;}
 function abCurseList(){if(!abOn())return;const nx=Math.ceil(Math.max(1,abFloor())/AB.every)*AB.every;
-  openModal(`<h2>${ic("skull")} FLÜCHE</h2><div class="lead">Ebene ${abFloor()} · der nächste Fluch kommt nach Ebene ${nx}.</div><div class="abCuL list">${(S.abyss.curses||[]).map((c,i)=>abCurseCard(c,i)).join("")}</div>`,"narrow abCMM",true);
+  openModal(`<h2>${ic("skull")} FLÜCHE</h2><div class="lead">Ebene ${abFloor()} · der nächste Fluch kommt nach Ebene ${nx}.</div><div class="abCuL list">${(S.abyss.curses||[]).map((c,i)=>abCurseCard(c,i)).join("")}</div>${abGiftList()}`,"narrow abCMM",true);
   $("mbox").querySelectorAll(".abCu").forEach(e=>e.classList.add("on"));}
 
 /* ---------------- Fortschritt: jede neue Runde = eine geschaffte Ebene mehr ---------------- */
 (()=>{const _sr=setupRound;setupRound=function(){const r=_sr.apply(this,arguments);try{if(abOn()){const f=S.round,cl=f-1,A=abMeta();
-  if(cl>=(S.abyss.done|0)+1){S.abyss.done=f;if(cl>A.best)A.best=cl;A.floors++;
+  if(cl>(S.abyss.done|0)){S.abyss.done=cl;if(cl>A.best)A.best=cl;A.floors++;
     for(const m of AB.ms)if(cl>=m&&!A.ms[m]){A.ms[m]=1;S.abyss.ms.push(m);setTimeout(()=>toast(`Meilenstein Ebene ${m}: +${AB.msGem[m]} Edelsteine beim Verlassen`,"trophy"),1200);}
-    if(cl>0&&cl%AB.every===0){const c=abRollCurse(abRng("c"+cl),S.abyss.curses);if(c){S.abyss.curses.push(c);setTimeout(()=>abCurseModal([c],false),900);}}
+    if(cl>0)abQueue(cl);
     saveMeta();}
   if(abHas("m_out")){const us=boardUnits();S.abyss.out=us.length?us[Math.floor(abRng("out"+f)()*us.length)].uid:null;}else S.abyss.out=null;
   abHud();}}catch(e){console.warn("abyss round",e);}return r;};})();
@@ -20518,6 +20560,7 @@ function abyssFinish(){clearZones();S.phase="over";enterBattleMode(false);const 
   const tB=badgeTierOfAb(S.abyss.best0|0),tA=badgeTierOfAb(A.best),fl=Math.max(0,cl-20);
   const gemB=gemEventMul(),base=Math.round((1.5*Math.min(cl,20)+4*(S.bosses|0)+3*(S.elites|0)+.5*(S.wins|0)+TW.gem*fl+TW.gemK*((S.tower&&S.tower.kory)|0))*AB.gemMul*(1+.1*perk("gemhunter"))*gemB*(hasRelic("gembag")?1.2:1));
   const msg=(S.abyss.ms||[]).reduce((a,m)=>a+(AB.msGem[m]||0),0),gems=Math.max(2,base+msg);
+  try{abHistAdd(cl);}catch(e){console.warn("abyss hist",e);}
   META.gems+=gems;META.gemsTotal+=gems;const rec=cl>(S.abyss.best0|0);saveMeta();_achT=0;try{achCheck();}catch(e){}LS.del(saveKey("ab"));setTab("raster");const hud=$("abHud");if(hud)hud.remove();
   if(tA>tB){try{GIFT.q.push({type:"ev",kind:"badge",val:"abyss",tier:tA});}catch(e){}}
   const cu=(S.abyss.curses||[]).map(c=>{const D=AB_CURSE[c.k];return D?`<i class="g-${D.g}" title="${esc(D.n+": "+abCurseTxt(c))}">${ic(D.ic)}</i>`:"";}).join("");
@@ -20525,7 +20568,7 @@ function abyssFinish(){clearZones();S.phase="over";enterBattleMode(false);const 
    <div class="rewards"><div class="incRow"><span>Geschaffte Ebenen</span><span>${cl}</span></div><div class="incRow"><span>Bezwungene Koryphäen</span><span>${S.bosses|0}</span></div><div class="incRow"><span>Dein Abgrund-Rekord</span><span>Ebene ${A.best}</span></div>
    ${(S.abyss.ms||[]).map(m=>`<div class="incRow" style="color:var(--amber)"><span>${ic("trophy","","width:14px;height:14px")} Meilenstein Ebene ${m}</span><span>+${AB.msGem[m]}</span></div>`).join("")}
    ${gemB>1?`<div class="incRow" style="color:var(--gem)"><span>${ic("gem","","width:14px;height:14px")} Tagesbonus</span><span>+${Math.round((gemB-1)*100)} %</span></div>`:""}<div class="incRow sum"><span>Edelsteine</span><span style="color:var(--gem)">+${gems}</span></div></div>
-   <div class="abResCu"><small>Flüche dieses Laufs</small><span>${cu}</span></div>
+   <div class="abResCu"><small>Flüche dieses Laufs</small><span>${cu}</span></div>${(S.abyss.gifts||[]).length?`<div class="abResCu gi"><small>Gaben dieses Laufs</small><span>${abGiftIcons(S.abyss.gifts,"i")}</span></div>`:""}
    <div class="rbtns"><button class="pri" id="rAbN">${ic("skull")} NEUER ABSTIEG</button>${B?`<button class="btn" id="rRep">${ic("dex")} Kampfbericht</button>`:""}<button class="btn" id="rGo">${ic("menu")} Hauptmenü</button></div></div></div>`;
   $("result").classList.add("show");if($("rRep"))$("rRep").onclick=report;sfx(rec?"evoDone":"faint");
   const out=()=>{$("result").classList.remove("show");$("result").innerHTML="";S=null;showMenu();};$("rGo").onclick=out;$("rAbN").onclick=()=>{$("result").classList.remove("show");$("result").innerHTML="";S=null;abyssStart();};}
@@ -20537,9 +20580,12 @@ setTimeout(()=>{
   if(typeof finish==="function"){const _fn=finish;finish=function(win){if(S&&S.abyss){if(win&&!S.tower)return abToTower();return abyssFinish();}return _fn.apply(this,arguments);};}
   /* K.O.: Abgrund-Texte */
   if(typeof showResult==="function"){const _sr=showResult;showResult=function(){const r=_sr.apply(this,arguments);try{if(abOn()&&B&&B.res&&!B.res.win){const R=$("result");
-    const h=R.querySelector("h4");if(h)h.textContent=`Abgrund · Ebene ${abFloor()} · 1 Leben, keine Revanche`;const lv=R.querySelector(".twLives");if(lv)lv.remove();const rb=$("rRev");if(rb)rb.style.display="none";
-    const rw=R.querySelector(".rewards");if(rw)rw.innerHTML=`<div class="incRow"><span>Abgrund</span><span style="color:var(--red)">Dieser Abstieg endet hier</span></div>`;
-    const q=$("rQuit");if(q){q.className="pri";q.innerHTML=ic("skull")+" Ergebnis ansehen";}}}catch(e){}return r;};}
+    const lv=R.querySelector(".twLives");if(lv)lv.remove();const h=R.querySelector("h4"),rb=$("rRev"),rw=R.querySelector(".rewards"),q=$("rQuit");
+    if(S.tower&&S.tower.lives>0){if(h)h.textContent=`Abgrund · Ebene ${abFloor()} · Zweite Chance`;if(rb)rb.innerHTML=ic("heart")+" ZWEITE CHANCE · REVANCHE";
+      if(rw)rw.innerHTML=`<div class="incRow"><span>Zweite Chance</span><span style="color:var(--cyan)">einmal Revanche</span></div><div class="incRow"><span>Prämie bei Sieg</span><span style="color:var(--red)">halbiert</span></div>`;if(q)q.innerHTML=ic("skull")+" Abstieg beenden";}
+    else{if(h)h.textContent=`Abgrund · Ebene ${abFloor()} · 1 Leben, keine Revanche`;if(rb)rb.style.display="none";
+      if(rw)rw.innerHTML=`<div class="incRow"><span>Abgrund</span><span style="color:var(--red)">Dieser Abstieg endet hier</span></div>`;
+      if(q){q.className="pri";q.innerHTML=ic("skull")+" Ergebnis ansehen";}}}}catch(e){}return r;};}
   /* Ausfall, Kalter Start, Legendenbann: brauchen das Pokémon */
   if(typeof fighter==="function"){const _fi=fighter;fighter=function(u,side){const f=_fi.apply(this,arguments);try{if(f&&abOn()&&side==="mine"){
     if(abHas("m_cold"))f.mana=0;const L=SPECIES[u.sp]&&SPECIES[u.sp].line;if(abHas("m_leg")&&L&&L.leg){f.maxhp=Math.round(f.maxhp*.8);f.hp=f.maxhp;f.atk*=.8;}
@@ -20549,12 +20595,12 @@ setTimeout(()=>{
 function abyssStart(){if(!abUnlocked()){toast(`Abgrund: erst Champion auf Normal in jeder Region (${abUnlockN()}/${Object.keys(REGIONS).length})`,"lock");sfx("deny");return;}
   const go=()=>{abPrep();abDraftModal();};
   const sv=abSave();if(sv){openModal(`<h2>${ic("skull")} ABGRUND</h2><div class="lead">Du hast noch einen Abstieg auf Ebene ${sv.S.round}. Ein neuer Abstieg beendet ihn ohne Belohnung.</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="abCont">${ic("play")} Weiter auf Ebene ${sv.S.round}</button><button class="btn" id="abYes">${ic("skull")} Neu beginnen</button></div>`,"narrow",true);$("abCont").onclick=()=>{closeModal();abyssContinue();};$("abYes").onclick=()=>{LS.del(saveKey("ab"));go();};}else go();}
-function abyssContinue(){if(S&&S.abyss&&S.phase!=="over"){needReg(S.region||"kanto",()=>{hideScreens();setTab("shop");render();abHud();});return;}
+function abyssContinue(){if(S&&S.abyss&&S.phase!=="over"){needReg(S.region||"kanto",()=>{hideScreens();setTab("shop");render();abHud();setTimeout(abPendNext,900);});return;}
   const d=abSave();if(!d){toast("Kein laufender Abstieg","info");return;}if(S&&!S.abyss&&S.phase==="shop")save();
   needReg(d.S.region||"kanto",()=>{hideScreens();window.__svK="ab";try{loadGame();}finally{window.__svK=null;}setTab("shop");render();abHud();});}
 /* ---------------- Abzeichen „Abgrund“ (Stufe nach Rekord: 10/25/50/75/100) und Hintergrund ---------------- */
-const badgeTierOfAb=b=>AB.ms.filter(m=>b>=m).length;
-(()=>{const _bd=badgeDef;badgeDef=function(id){if(id==="abyss")return{id,cat:"Kampf",n:"Abgrund",ic:"skull",cfx:"abgrund",d:"Höchste Ebene im Abgrund",v:()=>abBest(),T:AB.ms.slice(),T6:null,t5n:"Herr des Abgrunds"};return _bd.apply(this,arguments);};
+const badgeTierOfAb=b=>AB_BT.filter(m=>b>=m).length+(b>=AB_B6?1:0);
+(()=>{const _bd=badgeDef;badgeDef=function(id){if(id==="abyss")return{id,cat:"Kampf",n:"Abgrund",ic:"skull",cfx:"abgrund",d:"Höchste Ebene im Abgrund",v:()=>abBest(),T:AB_BT.slice(),T6:AB_B6,t5n:"Herr des Abgrunds"};return _bd.apply(this,arguments);};
   const _ba=badgeAll;badgeAll=function(){const out=_ba.apply(this,arguments);try{if(!out.some(b=>b.id==="abyss")){const d=badgeDef("abyss");if(d){const i=out.findIndex(b=>b.id==="tower");if(i>=0)out.splice(i+1,0,d);else out.push(d);}}}catch(e){}return out;};})();
 Object.assign(CBADGE_FX,{abgrund:{n:"Abgrund",c:"#ff3b6b"}});
 try{Object.assign(CARD_BG,{abgrund:{n:"Abgrundtiefe",lv:6,ld:"Abgrund: Ebene 50 erreicht",lock:()=>abBest()>=50,
@@ -20566,7 +20612,7 @@ try{Object.assign(CARD_BG,{abgrund:{n:"Abgrundtiefe",lv:6,ld:"Abgrund: Ebene 50 
   <i class="abgEye e1"></i><i class="abgEye e2"></i>${_parts("abgEm",18,i=>`--x:${rr(30,70)}%;--s:${rr(2,4.5,1)}cqw;--d:${rr(4,8)}s;--dl:-${rr(0,8)}s;--dx:${rr(-6,6)}cqw`)}<i class="abgRift"></i>`}});}catch(e){console.warn("abyss bg",e);}
 
 /* ---------------- Rekord in Bestenliste und Spieler-Übersicht ---------------- */
-function abRecHtml(n){return n>0?`<div class="abRec"><small>ABGRUND</small><b>Ebene ${n}</b><em>${["","I","II","III","IV","V"][badgeTierOfAb(n)]||""}</em></div>`:"";}
+function abRecHtml(n){return n>0?`<div class="abRec"><small>ABGRUND</small><b>Ebene ${n}</b><em>${["","I","II","III","IV","V","VI"][badgeTierOfAb(n)]||""}</em></div>`:"";}
 setTimeout(()=>{for(const fn of ["seasonDetail","lbDetail"]){if(typeof window[fn]!=="function")continue;const _f=window[fn];window[fn]=function(){const r=_f.apply(this,arguments);try{
   const a=fn==="seasonDetail"?arguments[2]:arguments[0];const n=a?abOf(a):0;if(n>0){const d=$("mbox").querySelector(".lbDet");if(d){const c=d.querySelector(".lbCard");const h=abRecHtml(n);if(c)c.insertAdjacentHTML("beforeend",h);else d.insertAdjacentHTML("afterbegin",h);}}}catch(e){}return r;};}},0);
 
@@ -20575,7 +20621,7 @@ function chAbyssCard(){const ok=abUnlocked(),n=abUnlockN(),N=Object.keys(REGIONS
   return `<div class="chCard ab${ok?"":" lock"}"><div class="chH"><i class="chI">${ic("skull")}</i><div><b>Abgrund</b><small>endlos · Draft · Flüche · 1 Leben</small></div></div>
    ${ok?`<div class="chAbRec"><span><small>REKORD</small><b>${b?"Ebene "+b:"–"}</b></span><span><small>NÄCHSTER MEILENSTEIN</small><b>${nx?"Ebene "+nx:"alle geschafft"}</b></span>${t?`<span class="chAbB">${badgeHTML("abyss",t,"sm")}</span>`:""}</div>`
      :`<div class="chLock">${ic("lock")}<span>Champion auf Normal in jeder Region<br><b>${n}/${N}</b> Regionen geschafft</span></div>`}
-   ${ok?(()=>{const sv=abSave();return sv?`<div class="chB"><button class="pri hot" data-ch="abc">${ic("play")} Weiter · Ebene ${sv.S.round}</button><button class="btn" data-ch="ab" title="Neuer Abstieg">${ic("skull")}</button></div>`:`<button class="pri hot" data-ch="ab">${ic("skull")} Abstieg beginnen</button>`;})():`<button class="btn" disabled>${ic("lock")} Gesperrt</button>`}</div>`;}
+   ${ok?(()=>{const sv=abSave();const hb=(abMeta().hist||[]).length?`<button class="btn" data-ch="abh" title="Verlauf">${ic("scroll")}</button>`:"";return sv?`<div class="chB"><button class="pri hot" data-ch="abc">${ic("play")} Weiter · Ebene ${sv.S.round}</button><button class="btn" data-ch="ab" title="Neuer Abstieg">${ic("skull")}</button>${hb}</div>`:`<div class="chB"><button class="pri hot" data-ch="ab">${ic("skull")} Abstieg beginnen</button>${hb}</div>`;})():`<button class="btn" disabled>${ic("lock")} Gesperrt</button>`}</div>`;}
 function chDailyCard(){if(typeof dailyState!=="function")return"";const {D,played,score}=dailyState(),dd=D.day.split("-").reverse().join(".");
   return `<div class="chCard dy"><div class="chH"><i class="chI">${ic("cal")}</i><div><b>Täglicher Run</b><small>${dd} · für alle gleich</small></div><span class="chReg">${REGIONS[D.region].n}</span></div>
    <div class="chRules">${D.rules.map(k=>`<span title="${esc(ruleTxt(k,D))}">${ic(DAILY_RULES[k].ic)} ${DAILY_RULES[k].n}</span>`).join("")}</div>
@@ -20587,7 +20633,7 @@ function chWeeklyCard(){if(typeof weeklyState!=="function")return"";const {W,M}=
    <small class="chNote">Bestes Ergebnis: <b>${M?(M.champ?"Champion":"Runde "+M.best):"noch kein Lauf"}</b> · erster Champion-Titel <b style="color:var(--gem)">+30</b></small>
    <div class="chB"><button class="pri" data-ch="wk">${ic("play")} ${M?"Nochmal":"Starten"}</button></div></div>`;}
 function chWire(root){root.querySelectorAll("[data-ch]").forEach(b=>b.onclick=()=>{const k=b.dataset.ch;sfx("click");
-  if(k==="dy"){closeModal();startDaily();}else if(k==="dyb")dailyBoard();else if(k==="wk"){if(typeof startWeekly==="function")startWeekly();}else if(k==="ab"){closeModal();abyssStart();}else if(k==="abc"){closeModal();abyssContinue();}});}
+  if(k==="dy"){closeModal();startDaily();}else if(k==="dyb")dailyBoard();else if(k==="wk"){if(typeof startWeekly==="function")startWeekly();}else if(k==="ab"){closeModal();abyssStart();}else if(k==="abc"){closeModal();abyssContinue();}else if(k==="abh")abHistModal();});}
 function chPanelHtml(){return `<div class="ttl"><h3>${ic("flag")} HERAUSFORDERUNGEN</h3></div><div class="chList">${chDailyCard()}${chWeeklyCard()}${chAbyssCard()}</div>`;}
 function chMount(){const M=$("menu");if(!M)return;let el=$("mCh");if(!el){el=document.createElement("div");el.id="mCh";el.className="glass mCh";M.appendChild(el);}
   try{el.innerHTML=chPanelHtml();hydrateIcons(el);chWire(el);el.querySelectorAll(".bdg").forEach(()=>{});}catch(e){console.warn("ch",e);}}
@@ -20635,10 +20681,106 @@ function abBossDef(f,base){const K=twKor(f),ru=twRule(f),sub="Koryphäe · "+twR
 function abCuBox(){const st=$("sideStack");let b=$("abCuBox");if(!abOn()||!st){if(b)b.remove();return;}
   if(!b){b=document.createElement("div");b.id="abCuBox";b.className="glass panel";const rb=$("relicBox");st.insertBefore(b,rb||null);}
   const cs=S.abyss.curses||[],nx=Math.ceil(Math.max(1,abFloor())/AB.every)*AB.every;
-  b.innerHTML=`<div class="ttl"><h3>FLÜCHE</h3><small>${cs.length} · nächster nach Ebene ${nx}</small></div><div class="abCuIcs">${cs.map(c=>{const D=AB_CURSE[c.k];return D?`<button class="abCuIc g-${D.g}" title="${esc(D.n+": "+abCurseTxt(c))}">${ic(D.ic)}</button>`:"";}).join("")}</div>`;
+  b.innerHTML=`<div class="ttl"><h3>FLÜCHE</h3><small>${cs.length} · nächster nach Ebene ${nx}</small></div><div class="abCuIcs">${cs.map(c=>{const D=AB_CURSE[c.k];return D?`<button class="abCuIc g-${D.g}" title="${esc(D.n+": "+abCurseTxt(c))}">${ic(D.ic)}</button>`:"";}).join("")}</div>${abGiftKeep().length?`<div class="ttl abGiT"><h3>GABEN</h3><small>${abGiftKeep().length} · nächste nach Ebene ${Math.ceil(Math.max(1,abFloor())/5)*5}</small></div><div class="abCuIcs">${abGiftIcons(abGiftKeep(),"button")}</div>`:""}`;
   b.querySelectorAll(".abCuIc").forEach(x=>x.onclick=()=>{sfx("click");abCurseList();});}
 (()=>{if(typeof render!=="function")return;const _r=render;render=function(){const x=_r.apply(this,arguments);try{abCuBox();}catch(e){}return x;};})();
 
+
+/* ================= v1.51.0: Gaben, Fluch-Wahl, Nachschub, Verlauf ================= */
+/* Gaben: nach jeder Koryphäe (alle 5 Ebenen) eine aus drei. Werte-Gaben stapeln sich, Sofort-Gaben wirken einmal. */
+const AB_GIFT={
+ b_hp:{n:"Zähe Haut",ic:"hp",d:"Dein Team hat 10 % mehr KP.",w:10},
+ b_atk:{n:"Kampfgeist",ic:"atk",d:"Dein Team hat 8 % mehr Angriff.",w:10},
+ b_as:{n:"Rückenwind",ic:"fast",d:"Dein Team greift 8 % schneller an.",w:9},
+ b_def:{n:"Panzerung",ic:"def",d:"Dein Team hat 15 % mehr Verteidigung.",w:8},
+ b_mana:{n:"Funkenflug",ic:"bolt",d:"Dein Team startet jeden Kampf mit einem Viertel Energie.",w:6},
+ b_crit:{n:"Scharfblick",ic:"crit",d:"Dein Team hat 8 % mehr Krit-Chance.",w:6},
+ b_regen:{n:"Lebensquell",ic:"heart",d:"Dein Team regeneriert 0,6 % seiner KP pro Sekunde.",w:6},
+ b_life:{n:"Zweite Chance",ic:"heart",d:"Verlierst du einen Kampf, darfst du ihn einmal wiederholen.",w:4,inst:1},
+ b_clean:{n:"Läuterung",ic:"swirl",d:"Einer deiner Flüche wird zufällig aufgehoben.",w:3,inst:1},
+ b_gold:{n:"Schatzfund",ic:"coin",d:"Du bekommst sofort {G} Gold.",w:7,inst:1},
+ b_xp:{n:"Erfahrung",ic:"school",d:"Du bekommst sofort {X} Trainer-EP.",w:6,inst:1},
+ b_evo:{n:"Reifung",ic:"up",d:"Dein stärkstes Pokémon, das sich noch entwickeln kann, entwickelt sich sofort.",w:6,inst:1},
+ b_relic:{n:"Fundstück",ic:"relic",d:"Du wählst sofort ein Relikt.",w:5,inst:1}};
+const abGiftN=k=>abOn()?(S.abyss.gifts||[]).filter(x=>x===k).length:0;
+const abGiftKeep=()=>abOn()?(S.abyss.gifts||[]).filter(k=>AB_GIFT[k]&&!AB_GIFT[k].inst).concat(S.tower&&S.tower.lives>0?["b_life"]:[]):[];
+const abGiftG=f=>8+Math.floor(f/2),abGiftX=f=>6+Math.floor(f/4);
+function abGiftTxt(k,f){const D=AB_GIFT[k];if(!D)return"";f=f||abFloor();return D.d.replace("{G}",abGiftG(f)).replace("{X}",abGiftX(f));}
+function abEvoUnit(){const us=boardUnits().filter(u=>SPECIES[u.sp]&&SPECIES[u.sp].next);us.sort((a,b)=>unitCost(b)-unitCost(a));return us[0]||null;}
+function abGiftOk(k){const D=AB_GIFT[k];if(!D)return false;
+  if(k==="b_life")return !(S.tower&&S.tower.lives>0);if(k==="b_clean")return (S.abyss.curses||[]).length>0;if(k==="b_evo")return !!abEvoUnit();
+  if(k==="b_relic")return S.relics.length<RELIC_MAX&&RELICS.some(r=>!S.relics.includes(r.id));if(k==="b_crit")return !abHas("m_crit");if(k==="b_mana")return !abHas("m_cold");
+  if(k==="b_regen"||k==="b_hp")return abGiftN(k)<4;return abGiftN(k)<5;}
+function abGiftOpts(R){const out=[];for(let i=0;i<3;i++){const ks=Object.keys(AB_GIFT).filter(k=>!out.includes(k)&&abGiftOk(k));if(!ks.length)break;
+  let x=R()*ks.reduce((a,k)=>a+AB_GIFT[k].w,0),k=ks[0];for(const q of ks){x-=AB_GIFT[q].w;if(x<=0){k=q;break;}}out.push(k);}return out;}
+function abGiftApply(k){const D=AB_GIFT[k];if(!D)return;const f=abFloor();S.abyss.gifts=S.abyss.gifts||[];S.abyss.gifts.push(k);
+  if(k==="b_life"){S.tower.lives=(S.tower.lives|0)+1;}
+  else if(k==="b_clean"){const C=S.abyss.curses||[];if(C.length){const i=Math.floor(abRng("cl"+f)()*C.length),c=C.splice(i,1)[0],CD=AB_CURSE[c.k];if(CD)setTimeout(()=>toast(`Fluch aufgehoben: ${CD.n}`,"swirl"),300);}}
+  else if(k==="b_gold"){S.gold+=abGiftG(f);}
+  else if(k==="b_xp"){gainXP(abGiftX(f));}
+  else if(k==="b_evo"){const u=abEvoUnit();if(u){const n0=SPECIES[u.sp].name;evolve(u);setTimeout(()=>toast(`${n0} entwickelt sich zu ${SPECIES[u.sp].name}!`,"up"),300);}else S.gold+=abGiftG(f);}}
+/* Werte-Gaben im Kampf (auch in den Probekämpfen) */
+(()=>{const _tf=twFx;twFx=function(f){const r=_tf.apply(this,arguments);if(!abOn()||f.side!=="mine")return r;try{const n=abGiftN;
+  if(n("b_hp"))f.maxhp*=1+.1*n("b_hp");if(n("b_atk"))f.atk*=1+.08*n("b_atk");if(n("b_as"))f.as*=1+.08*n("b_as");if(n("b_def"))f.def*=1+.15*n("b_def");
+  if(n("b_mana"))f.mana+=Math.round(f.manaMax*.25*n("b_mana"));if(n("b_crit")&&!abHas("m_crit"))f.crit=(f.crit||0)+.08*n("b_crit");if(n("b_regen"))f.regen=(f.regen||0)+.006*n("b_regen");}catch(e){}return r;};})();
+function abGiftIcons(list,tag){const cnt={};for(const k of list)cnt[k]=(cnt[k]|0)+1;return Object.keys(cnt).map(k=>{const D=AB_GIFT[k];if(!D)return"";const t=D.n+": "+abGiftTxt(k);
+  return tag==="button"?`<button class="abCuIc g-b" title="${esc(t)}">${ic(D.ic)}${cnt[k]>1?`<em>${cnt[k]}</em>`:""}</button>`:`<i class="g-b" title="${esc(t)}">${ic(D.ic)}${cnt[k]>1?`<em>${cnt[k]}</em>`:""}</i>`;}).join("");}
+function abGiftCard(k,i,cnt){const D=AB_GIFT[k];if(!D)return"";return `<div class="abCu g-b" style="--i:${i||0}"><i class="abCuF">${ic("spark")}</i><div class="abCuB"><span class="abCuI">${ic(D.ic)}</span><b>${esc(D.n)}${cnt>1?` <em class="abGiX">×${cnt}</em>`:""}</b><small>${esc(abGiftTxt(k))}</small></div></div>`;}
+function abGiftList(){const L=abGiftKeep();if(!L.length)return"";const cnt={};for(const k of L)cnt[k]=(cnt[k]|0)+1;
+  return `<h4 class="abGiH">${ic("spark")} GABEN</h4><div class="abCuL list">${Object.keys(cnt).map((k,i)=>abGiftCard(k,i,cnt[k])).join("")}</div>`;}
+/* Nachschub: alle 10 Ebenen eine neue Linie aus drei (oder keine) */
+function abMoreOffer(R){const have=new Set(S.abyss.pool||[]),nLeg=(S.abyss.pool||[]).filter(k=>(abLine(k)||{}).leg).length,out=[];
+  for(const t of [2+Math.floor(R()*2),3+Math.floor(R()*2),4+Math.floor(R()*2)]){const ls=LINES.filter(L=>L.tier===t&&!L.excl&&!have.has(L.k)&&!out.includes(L.k)&&SPECIES[abFin(L)]&&!isExcl(abFin(L))&&!(L.leg&&nLeg>=AB_DRAFT.maxLeg+1));
+    if(ls.length)out.push(ls[Math.floor(R()*ls.length)].k);}return out;}
+/* Warteschlange nach einer geschafften Ebene: Gabe (nach der Koryphäe), Nachschub, Fluch-Wahl */
+function abQueue(cl){const P=S.abyss.pend=S.abyss.pend||[];if(P.some(q=>q.cl===cl))return;
+  if(cl%5===0){const o=abGiftOpts(abRng("g"+cl));if(o.length)P.push({k:"gift",cl,o});}
+  if(cl%AB.every===0){const o=abMoreOffer(abRng("d"+cl));if(o.length){P.push({k:"more",cl,o});abLoadRegs(o);}
+    const R=abRng("c"+cl),c=[];for(let i=0;i<3;i++){const x=abRollCurse(R,(S.abyss.curses||[]).concat(c));if(x)c.push(x);}if(c.length)P.push({k:"curse",cl,o:c});}
+  clearTimeout(abPendNext.t);abPendNext.t=setTimeout(abPendNext,900);}
+function abPendNext(){clearTimeout(abPendNext.t);if(!abOn())return;const P=S.abyss.pend;if(!P||!P.length)return;
+  const busy=S.phase!=="shop"||($("modal")&&$("modal").classList.contains("show"))||($("result")&&$("result").classList.contains("show"))||($("menu")&&$("menu").classList.contains("show"))||($("auth")&&$("auth").classList.contains("show"));
+  if(busy){abPendNext.t=setTimeout(abPendNext,700);return;}
+  const q=P[0],done=pick=>{if(P[0]!==q)return;P.shift();if(q.k==="gift")abGiftApply(q.o[pick]);else if(q.k==="more"){if(pick>=0){const k=q.o[pick];S.abyss.pool.push(k);if(Array.isArray(S.poolSel))S.poolSel.push(k);abLoadRegs([k]).then(()=>{try{render();}catch(e){}});const L=abLine(k);if(L)setTimeout(()=>toast(`${L.stages[0][1]} ist jetzt in deinem Laden`,"ball"),300);}}
+    else if(q.k==="curse"){S.abyss.curses.push(q.o[pick]);}
+    closeModal();save();abHud();render();if(q.k==="gift"&&q.o[pick]==="b_relic"){relicChoice("Gabe des Abgrunds",()=>{save();render();abPendNext.t=setTimeout(abPendNext,350);});return;}abPendNext.t=setTimeout(abPendNext,350);};
+  if(window.__autoPick||window.__fast){done(q.k==="more"?-1:0);return;}
+  if(q.k==="gift")abGiftModal(q,done);else if(q.k==="more")abMoreModal(q,done);else abCursePick(q,done);}
+function abPickWire(sel,done){$("mbox").querySelectorAll(sel).forEach(b=>b.onclick=()=>{sfx("click");done(+b.dataset.i);});
+  $("mbox").querySelectorAll(".abCu").forEach((e,i)=>setTimeout(()=>{e.classList.add("on");try{sfx("pop");}catch(x){}},300+i*300));}
+function abGiftModal(q,done){
+  openModal(`<div class="abCM gift"><div class="abCMh"><i class="abAbyss gi">${ic("spark")}</i><h2>GABE DES ABGRUNDS</h2><div class="lead">Die Koryphäe von Ebene <b>${q.cl}</b> ist besiegt. Wähle eine Gabe für den Rest des Abstiegs.</div></div>
+    <div class="abCuL abPick">${q.o.map((k,i)=>`<button class="abPk" data-i="${i}">${abGiftCard(k,i,abGiftN(k)+1)}</button>`).join("")}</div></div>`,"narrow abCMM",false);
+  abPickWire(".abPk",done);try{sfx("evoDone");}catch(e){}}
+function abCursePick(q,done){
+  openModal(`<div class="abCM"><div class="abCMh"><i class="abAbyss">${ic("skull")}</i><h2>NEUER FLUCH</h2><div class="lead">Ebene <b>${q.cl}</b> geschafft. Einer dieser Flüche kommt mit, du entscheidest welcher.</div></div>
+    <div class="abCuL abPick">${q.o.map((c,i)=>`<button class="abPk" data-i="${i}">${abCurseCard(c,i)}</button>`).join("")}</div></div>`,"narrow abCMM",false);
+  abPickWire(".abPk",done);try{sfx("faint");}catch(e){}}
+function abMoreModal(q,done){
+  const card=(k,i)=>{const L=abLine(k);if(!L)return"";const sp=L.stages[0][0],sd=SPECIES[sp],Rr=RAR[L.tier]||RAR[1];
+    return `<button class="abDr abPk" data-i="${i}" style="--rc:${Rr.c}"><i class="abDrM" data-sp="${sp}"></i><b>${esc(sd.name)}</b><small>${(sd.types||[]).map(t=>`<em style="background:${TYPES[t][1]}">${TYPES[t][0]}</em>`).join("")}</small><span class="abDrR" style="color:${Rr.c}">${esc(Rr.n)}</span><span class="abDrR">${esc((ROLES[L.role]||{}).n||"")} · ${esc((REGIONS[L.region||"kanto"]||{}).n||"")}</span></button>`;};
+  const draw=()=>{openModal(`<div class="abCM more"><div class="abCMh"><i class="abAbyss gi">${ic("ball")}</i><h2>NACHSCHUB</h2><div class="lead">Nimm eine neue Pokémon-Linie in deinen Laden auf. Mehr Auswahl heißt aber auch: Doppelte kommen seltener.</div></div>
+    <div class="abMoreG">${q.o.map(card).join("")}</div>
+    <div class="abTeamL">${(S.abyss.pool||[]).map(k=>{const L=abLine(k);return L?`<i data-sp="${L.stages[0][0]}" title="${esc(L.stages[0][1])}"></i>`:"";}).join("")}</div>
+    <div class="abDrB"><span style="flex:1"></span><button class="btn" id="abMoreNo">${ic("close")} Keine nehmen</button></div></div>`,"narrow abCMM",false);
+    $("mbox").querySelectorAll("[data-sp]").forEach(e=>{try{e.appendChild(natFit(spriteEl(+e.dataset.sp),1));}catch(x){}});
+    $("mbox").querySelectorAll(".abPk").forEach(b=>b.onclick=()=>{sfx("click");done(+b.dataset.i);});$("abMoreNo").onclick=()=>{sfx("click");done(-1);};};
+  draw();abLoadRegs(q.o).then(()=>{if(S&&S.abyss&&S.abyss.pend&&S.abyss.pend[0]===q&&$("abMoreNo"))draw();});}
+/* Verlauf: die letzten 10 Abstiege */
+function abHistAdd(cl){const A=abMeta(),H=A.hist=Array.isArray(A.hist)?A.hist:[];let end="q";
+  try{if(B&&B.res&&!B.res.win){const ty=(S.enc&&S.enc.type)||"mid";end=ty==="boss"?"b:"+(((BOSSES[S.round]||{}).name)||""):"t:"+ty;}}catch(e){}
+  const team=boardUnits().slice().sort((a,b)=>unitCost(b)-unitCost(a)).slice(0,10).map(u=>[u.sp,u.stars|0]);
+  H.unshift({t:Date.now(),f:cl,end,team,cu:(S.abyss.curses||[]).map(c=>c.ty?c.k+":"+c.ty:c.k),gi:(S.abyss.gifts||[]).slice(),pool:(S.abyss.pool||[]).slice()});H.length=Math.min(H.length,10);}
+function abHistEnd(e){if(!e||e==="q")return "Abstieg beendet";if(e.startsWith("b:"))return "K.O. gegen "+(e.slice(2)||"die Koryphäe");const ty=e.slice(2);return "K.O. im Kampf: "+(((DIFF[ty]||{}).n)||ty);}
+function abHistModal(){const H=(abMeta().hist||[]);if(!H.length){toast("Noch kein Abstieg beendet","info");return;}
+  const row=(h,i)=>{const d=new Date(h.t),dd=d.toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit"})+" "+d.toLocaleTimeString("de-DE",{hour:"2-digit",minute:"2-digit"});
+    const cu=(h.cu||[]).map(x=>{const[k,ty]=String(x).split(":"),D=AB_CURSE[k];return D?`<i class="g-${D.g}" title="${esc(D.n+": "+abCurseTxt({k,ty}))}">${ic(D.ic)}</i>`:"";}).join("");
+    const gi=(h.gi||[]).length?abGiftIcons(h.gi,"i"):"";
+    return `<div class="abHi${h.f>=abBest()&&h.f>0?" best":""}"><div class="abHiH"><b>Ebene <span>${h.f}</span></b><small>${esc(dd)}</small><em>${esc(abHistEnd(h.end))}</em></div>
+      <div class="abHiT">${(h.team||[]).map(([sp,st])=>`<i data-sp="${sp}">${st?`<s>${"★".repeat(st)}</s>`:""}</i>`).join("")}</div>
+      <div class="abHiC"><span class="abResCu"><span>${cu||"–"}</span></span>${gi?`<span class="abResCu gi"><span>${gi}</span></span>`:""}</div></div>`;};
+  openModal(`<h2>${ic("scroll")} ABGRUND · VERLAUF</h2><div class="lead">${H.length===1?"Dein letzter Abstieg.":`Deine letzten <b>${H.length}</b> Abstiege.`} Rekord: Ebene <b>${abBest()}</b>.</div><div class="abHiL">${H.map(row).join("")}</div>`,"abHiM",true);
+  $("mbox").querySelectorAll(".abHiT i[data-sp]").forEach(e=>{try{e.prepend(natFit(spriteEl(+e.dataset.sp),1));}catch(x){}});}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
