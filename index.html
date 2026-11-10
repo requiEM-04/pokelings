@@ -4967,6 +4967,13 @@ body:not(.battle) #abHud{top:auto;bottom:10px}
 .tcard .tcAv .tcMon{pointer-events:auto}
 .tcard .tcFmB{cursor:help}
 .paths .path.pre{filter:brightness(1.25);transform:scale(.985)}
+/* v1.50.0: Trainerkarte flüssiger – keine teuren Leucht-/Schatten-Filter in den Auswahllisten, Kacheln einzeln gezeichnet, Vorschau-Karte getrennt */
+.cdSide .bdg,.cdSide .bdg *,.cdSide .bdg *::before,.cdSide .bdg *::after,.cdSide .bgThumb *,.cdSide .bgThumb *::before,.cdSide .bgThumb *::after{filter:none!important;mix-blend-mode:normal!important}
+.cdSide .cdB,.cdSide .cdBg,.cdSide .cdT{contain:layout paint style}
+.cdPrev{contain:layout paint;isolation:isolate}
+.cdPrev .tcard{will-change:transform}
+/* großes Fenster offen: alles dahinter (Menü, Bestenliste, Herausforderungen) hält seine Animationen an */
+body.mHeavy :is(#menu,#mCh,#lbSide,.mLb,#menuLb) *,body.mHeavy :is(#menu,#mCh,#lbSide,.mLb,#menuLb) *::before,body.mHeavy :is(#menu,#mCh,#lbSide,.mLb,#menuLb) *::after{animation-play-state:paused!important}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -5069,6 +5076,7 @@ uiScale();addEventListener("resize",uiScale);</script>
 <div class="screen" id="menu"><div class="mwrap"><div class="big1"><svg class="ic" viewBox="0 0 24 24" data-i="ball"></svg><span class="lg">POKÉ<b>LINGS</b></span></div><div class="tagline"><span>SAMMELN · FUSIONIEREN · KÄMPFEN</span></div><div class="who" id="menuWho"></div><div id="menuBtns"></div><div class="menuLoc" id="menuLoc"></div></div><div class="fanNote">Inoffizielles Fan-Spiel · nicht kommerziell · Pokémon © Nintendo / Creatures Inc. / GAME FREAK / The Pokémon Company · keine Verbindung zu diesen Unternehmen</div></div>
 <div id="modal"><div id="mbox" class="glass"></div></div>
 <div id="toast"></div>
+<script>try{if("serviceWorker" in navigator&&window.isSecureContext)navigator.serviceWorker.register("sw.js").catch(function(){});}catch(e){}</script>
 <script>__ld(0,2)</script><script src="sprites-core-1.js?v=37ddfbf2"></script>
 <script>__ld(1,2)</script><script src="sprites-core-2.js?v=c3d4d11b"></script>
 <script>__ld(2,2,1)</script>
@@ -8613,11 +8621,11 @@ function settingsModal(){
   $("sLegal").onclick=()=>legalModal();if($("sFb"))$("sFb").onclick=()=>{closeModal();if(typeof feedbackModal==="function")feedbackModal();};$("sBkExp").onclick=()=>backupExport();$("sBkImp").onclick=()=>backupImport();$("sOut").onclick=()=>{closeModal();signOut();};
 }
 let modalClose=null;
-function openModal(html,cls,closable){window.__mHeavy=html.length>15000;$("mbox").className="glass "+(cls||"")+(closable?" closable":"");modalClose=closable?(typeof closable==="function"?closable:()=>{}):null;
+function openModal(html,cls,closable){window.__mHeavy=html.length>15000;try{document.body.classList.toggle("mHeavy",window.__mHeavy);}catch(e){}$("mbox").className="glass "+(cls||"")+(closable?" closable":"");modalClose=closable?(typeof closable==="function"?closable:()=>{}):null;
   $("mbox").innerHTML=(closable?`<button class="mclose" title="Schließen (Esc)" aria-label="Schließen">${ic("close")}</button>`:"")+html;hydrateIcons($("mbox"));$("modal").classList.add("show");
   if(closable)$("mbox").querySelector(".mclose").onclick=closeModalX;}
 function closeModalX(){const f=modalClose;closeModal();if(f)f();}
-function closeModal(){window.__mHeavy=false;$("modal").classList.remove("show");modalClose=null;}
+function closeModal(){window.__mHeavy=false;try{document.body.classList.remove("mHeavy");}catch(e){}$("modal").classList.remove("show");modalClose=null;}
 $("modal").addEventListener("mousedown",e=>{if(e.target===$("modal")&&modalClose)closeModalX();});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&modalClose&&$("modal").classList.contains("show")){e.stopImmediatePropagation();closeModalX();}},true);
 let modeRegion="kanto";
@@ -15234,6 +15242,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm-Straße neu: Jeder Rang hat j
 if(typeof EN!=="undefined")Object.assign(EN,{"Nach einem Lauf führt der Knopf mit freigeschaltetem Ruhm jetzt direkt zum Ruhm statt ins Forschungslabor.": "After a run, with Fame unlocked, the button now leads straight to Fame instead of the Research Lab.", "ZUM RUHM": "TO FAME", "ZUM FORSCHUNGSLABOR": "TO THE RESEARCH LAB"});
 /* v1.49.0.6: Schnellfix */
 if(typeof EN!=="undefined")Object.assign(EN,{"Trainerkarte: Der Hinweis zum Hintergrund erscheint nur noch auf dem Hintergrund selbst. Abzeichen zeigen jetzt Stufe, genaue Bedingung und auf Mythisch den Titel, und das Rang-Symbol hat einen eigenen Hinweis.": "Trainer card: the background hint now only appears on the background itself. Badges now show their tier, the exact requirement and, on Mythical, the title, and the rank symbol has its own hint.", "Pokémon Gambit wurde aus dem Spiel entfernt.": "Pokémon Gambit has been removed from the game.", "Doppelklick auf einen Weg in der Wegwahl startet den Kampf sofort, ohne Bestätigung.": "Double-click a path in the path choice to start the battle right away, without confirming.", "RUHM": "FAME", "Ruhm-Rang": "Fame rank", "Rang-Effekt: ": "Rank effect: ", "Rand: ": "Frame: "});
+/* v1.50.0: Schneller Start */
+if(typeof EN!=="undefined")Object.assign(EN,{"Schnellerer Start: Die Pokémon-Bilder werden jetzt dauerhaft im Browser gespeichert. Nur der allererste Start dauert etwas länger, danach kommen sie bei jedem Neuladen sofort aus dem Speicher. Es wird nur noch geprüft, ob es ein Update gibt.": "Faster start: Pokémon pictures are now stored permanently in your browser. Only the very first start takes a little longer, after that they load instantly from storage on every reload. The game only checks whether there is an update.", "Der Ladebildschirm lädt nur noch die Grundbilder und deine zuletzt gespielte Region, alles andere folgt im Hintergrund.": "The loading screen now only loads the basic pictures and your last played region, everything else follows in the background.", "Abgrund-Draft: Schließt du die Auswahl oder lädst neu, stehen beim nächsten Öffnen dieselben Pokémon, dieselben Flüche und dein Neu-Würfeln zur Wahl. Die Bilder fürs Neu-Würfeln sind schon vorgeladen.": "Abyss draft: if you close the selection or reload, the same Pokémon, the same curses and your reroll are offered the next time you open it. The pictures for the reroll are already preloaded.", "Trainerkarte: Die Listen unter „Stil“ und „Abzeichen“ laufen deutlich flüssiger.": "Trainer card: the lists under “Style” and “Badges” run much smoother."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17829,7 +17839,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.49.0.6",DUEL_HP=30;
+const MP_VER="1.50.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18466,8 +18476,13 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.49.0.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.50.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.50.0",d:"10.11.2026",t:"Schneller Start",items:[
+  ["spark", "Schnellerer Start: Die Pokémon-Bilder werden jetzt dauerhaft im Browser gespeichert. Nur der allererste Start dauert etwas länger, danach kommen sie bei jedem Neuladen sofort aus dem Speicher. Es wird nur noch geprüft, ob es ein Update gibt."],
+  ["dice", "Der Ladebildschirm lädt nur noch die Grundbilder und deine zuletzt gespielte Region, alles andere folgt im Hintergrund."],
+  ["skull", "Abgrund-Draft: Schließt du die Auswahl oder lädst neu, stehen beim nächsten Öffnen dieselben Pokémon, dieselben Flüche und dein Neu-Würfeln zur Wahl. Die Bilder fürs Neu-Würfeln sind schon vorgeladen."],
+  ["user", "Trainerkarte: Die Listen unter „Stil“ und „Abzeichen“ laufen deutlich flüssiger."]]},
  {v:"1.49.0.6",d:"10.11.2026",t:"Schnellfix",items:[
   ["user", "Trainerkarte: Der Hinweis zum Hintergrund erscheint nur noch auf dem Hintergrund selbst. Abzeichen zeigen jetzt Stufe, genaue Bedingung und auf Mythisch den Titel, und das Rang-Symbol hat einen eigenen Hinweis."],
   ["close", "Pokémon Gambit wurde aus dem Spiel entfernt."],
@@ -20423,8 +20438,12 @@ const abRegsOf=ks=>[...new Set(ks.map(k=>(abLine(k)||{}).region||"kanto"))];
 function abLoadRegs(ks){try{return Promise.all(abRegsOf(ks).map(r=>typeof __sprLoad==="function"?__sprLoad(r):null));}catch(e){return Promise.resolve();}}
 /* Vorbereitung vor dem Lauf (über dem Hauptmenü): Draft → Startpartner → Flüche → „Abstieg starten“. Erst dann wird der Lauf angelegt. */
 const ABP={d:null};
-function abPrep(){const R=mkRng(strHash(Date.now()+"|"+Math.random()));const curses=[];for(let i=0;i<AB.start;i++){const c=abRollCurse(R,curses);if(c)curses.push(c);}
-  ABP.d={offer:abOffer(R),rr:AB_DRAFT.rerolls,curses,sel:new Set(),starter:null};return ABP.d;}
+/* v1.50.0: Draft-Angebot, Neu-Würfeln und Flüche werden einmal festgelegt und gespeichert (Fenster zu oder F5 = dasselbe Angebot); das Angebot fürs Neu-Würfeln liegt schon bereit */
+function abPrepSave(){try{const P=ABP.d,A=abMeta();if(!P)return;A.pre={offer:P.offer,next:P.next||null,rr:P.rr,curses:P.curses,sel:[...P.sel]};saveMeta();}catch(e){}}
+function abPrep(){const A=abMeta(),q=A.pre;
+  if(q&&Array.isArray(q.offer)&&q.offer.length&&q.offer.every(k=>abLine(k))){ABP.d={offer:q.offer,next:Array.isArray(q.next)&&q.next.every(k=>abLine(k))?q.next:null,rr:q.rr|0,curses:Array.isArray(q.curses)?q.curses:[],sel:new Set((q.sel||[]).filter(k=>q.offer.includes(k))),starter:null};return ABP.d;}
+  const R=mkRng(strHash(Date.now()+"|"+Math.random()));const curses=[];for(let i=0;i<AB.start;i++){const c=abRollCurse(R,curses);if(c)curses.push(c);}
+  ABP.d={offer:abOffer(R),next:AB_DRAFT.rerolls>0?abOffer(mkRng(strHash(Date.now()+"|rr|"+Math.random()))):null,rr:AB_DRAFT.rerolls,curses,sel:new Set(),starter:null};abPrepSave();return ABP.d;}
 /* in newRun0, bevor Shop und erste Runde ausgewürfelt werden: übernimmt Draft, Startpartner und Flüche aus der Vorbereitung */
 function abyssInit(o){const P=o.abyss||{};S.noRev=1;S.poolV2=1;S.poolSel=(P.pool||[]).slice();
   S.abyss={v:4,curses:(P.curses||[]).slice(),best0:abBest(),ms:[],out:null,pool:(P.pool||[]).slice(),starter:P.starter||null,done:1};
@@ -20440,14 +20459,14 @@ function abDraftModal(){const P=ABP.d;if(!P)return;const sel=P.sel;
       <div class="lead">Wähle 6 Pokémon-Linien. Nur sie gibt es im Laden, den ganzen Abstieg lang. Aus jeder Seltenheit mindestens eine, höchstens ${AB_DRAFT.maxLeg} Legendäre.</div>${rows}
       <div class="abDrB"><button class="btn" id="abRr"${P.rr>0?"":" disabled"}>${ic("dice")} Neu würfeln (${P.rr}×)</button><span style="flex:1"></span><button class="pri hot" id="abDrGo"${abDraftValid(sel)?"":" disabled"}>${ic("arrow")} Weiter zur Partnerwahl</button></div></div>`,"abDraftM",true);
     $("mbox").querySelectorAll(".abDrM[data-sp]").forEach(e=>{try{e.appendChild(natFit(spriteEl(+e.dataset.sp),1));}catch(x){}});
-    $("mbox").querySelectorAll(".abDr").forEach(b=>b.onclick=()=>{const k=b.dataset.k;if(sel.has(k))sel.delete(k);else if(!b.classList.contains("full"))sel.add(k);else{sfx("deny");return;}sfx("click");const st=$("mbox").scrollTop;draw();$("mbox").scrollTop=st;});
-    $("abRr").onclick=()=>{if(P.rr<=0)return;P.rr--;sel.clear();P.offer=abOffer(mkRng(strHash(Date.now()+"|rr|"+Math.random())));sfx("click");draw();};
+    $("mbox").querySelectorAll(".abDr").forEach(b=>b.onclick=()=>{const k=b.dataset.k;if(sel.has(k))sel.delete(k);else if(!b.classList.contains("full"))sel.add(k);else{sfx("deny");return;}abPrepSave();sfx("click");const st=$("mbox").scrollTop;draw();$("mbox").scrollTop=st;});
+    $("abRr").onclick=()=>{if(P.rr<=0)return;P.rr--;sel.clear();P.offer=P.next||abOffer(mkRng(strHash(Date.now()+"|rr|"+Math.random())));P.next=P.rr>0?abOffer(mkRng(strHash(Date.now()+"|rr2|"+Math.random()))):null;abPrepSave();sfx("click");draw();};
     $("abDrGo").onclick=()=>{if(!abDraftValid(sel))return;sfx("click");abBegin();};
     /* Sprite-Pakete der angebotenen Regionen nachladen, dann neu zeichnen */
-    const off=P.offer;if(P.ldOff!==off)abLoadRegs(off).then(()=>{P.ldOff=off;if(ABP.d!==P||P.offer!==off||!$("abDrGo"))return;const st=$("mbox").scrollTop;draw();$("mbox").scrollTop=st;});};
+    const off=P.offer;if(P.ldOff!==off)abLoadRegs(off).then(()=>{P.ldOff=off;if(P.next)setTimeout(()=>{try{abLoadRegs(P.next);}catch(e){}},300);if(ABP.d!==P||P.offer!==off||!$("abDrGo"))return;const st=$("mbox").scrollTop;draw();$("mbox").scrollTop=st;});};
   draw();}
 /* Nach dem Draft: Lauf anlegen, dann Partnerwahl wie im normalen Lauf (Start-Pokémon aller Regionen), dann Flüche mit „Abstieg starten“ */
-function abBegin(){const P=ABP.d;if(!P)return;const pool=[...P.sel];ABP.d=null;closeModal();if(S&&!S.abyss&&S.phase==="shop")save();
+function abBegin(){const P=ABP.d;if(!P)return;const pool=[...P.sel];ABP.d=null;try{delete abMeta().pre;saveMeta();}catch(e){}closeModal();if(S&&!S.abyss&&S.phase==="shop")save();
   const regs=Object.keys(REGIONS),rk=regs[Math.floor(Math.random()*regs.length)];
   abLoadRegs(pool).then(()=>newRun("normal",rk,{abyss:{pool,curses:P.curses}}));}
 /* Startablauf im Lauf: normale Partnerwahl, danach die Flüche mit „Abstieg starten“ */
@@ -21453,10 +21472,10 @@ window.__pk={get GL(){return GL},step,buyXP,specOpts,SPECSall:SPECS,genEnemies,f
 function ready(){return document.querySelector(".screen.show,#intro,#stScene")||(typeof S!=="undefined"&&!!S);}
 function hide(){setTimeout(function(){l.style.opacity=0;setTimeout(function(){l.remove();try{clearInterval(__tipT);clearInterval(__parT);clearInterval(__tipT0)}catch(e){}},450);},500);}
 function all(){var c=navigator.connection||{},mob=/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(window.matchMedia&&matchMedia("(pointer:coarse)").matches);if(c.saveData)return false;if(!mob)return true;return c.type==="wifi"||c.type==="ethernet";}
-function pre(){var M=window.__SPRN||window.__SPRM;if(!M||typeof __sprLoad!=="function"||!all())return hide();var fs=[];Object.keys(M).forEach(function(k){(M[k]||[]).forEach(function(x){fs.push(x);});});if(!fs.length)return hide();
+function pre(){var M=window.__SPRN||window.__SPRM;if(!M||typeof __sprLoad!=="function"||!all())return hide();var last="kanto";try{last=JSON.parse(localStorage.getItem("pokelings_lastreg"))||"kanto";}catch(e){}var fs=(M[last]||[]).slice();if(!fs.length)return hide();
  var N=fs.length,fin=false,go=function(){if(fin)return;fin=true;clearInterval(iv);hide();};
  var sk=document.createElement("button");sk.textContent=window.__EN?"Continue without waiting":"Weiter ohne Warten";sk.style.cssText="position:absolute;left:50%;bottom:64px;transform:translateX(-50%);z-index:3;padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;font:600 13px system-ui,sans-serif;cursor:pointer;opacity:0;transition:opacity .4s";sk.onclick=go;l.appendChild(sk);setTimeout(function(){sk.style.opacity=1;},8000);
- var iv=setInterval(function(){var n=0;fs.forEach(function(x){if(__SPRF[x])n++;});if(t)t.textContent=window.__EN?"LOADING ALL POKÉMON …":"LADE ALLE POKÉMON …";if(q)q.textContent=n+" / "+N;if(b)b.style.width=Math.max(2,n/N*100)+"%";},150);
+ var iv=setInterval(function(){var n=0;fs.forEach(function(x){if(__SPRF[x])n++;});if(t)t.textContent=window.__EN?"LOADING POKÉMON …":"LADE POKÉMON …";if(q)q.textContent=n+" / "+N;if(b)b.style.width=Math.max(2,n/N*100)+"%";},150);
  var one=function(x){return new Promise(function(ok){if(__SPRF[x])return ok();var tr=0;(function g(){var e=document.createElement("script");e.src=x+(tr?"&t="+tr+"_"+Date.now():"");e.onload=function(){__SPRF[x]=1;ok();};e.onerror=function(){e.remove();if(++tr<3)setTimeout(g,1500*tr);else ok();};document.head.appendChild(e);})();});};
  var i=0,run=function(){if(i>=fs.length)return Promise.resolve();var x=fs[i++];return one(x).then(run,run);};Promise.all([run(),run(),run()]).then(go,go);setTimeout(go,180000);}
 (function chk(){if(ready()||Date.now()-t0>30000)pre();else setTimeout(chk,120);})();})();</script>
