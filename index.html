@@ -5014,6 +5014,10 @@ body.mHeavy :is(#menu,#mCh,#lbSide,.mLb,#menuLb) *,body.mHeavy :is(#menu,#mCh,#l
 .abHiT i s{position:absolute;bottom:0;right:1px;text-decoration:none;font-size:9px;color:#ffd23f;text-shadow:0 1px 0 #000}
 .abHiC{display:flex;flex-wrap:wrap;gap:10px}.abHiC .abResCu{margin:0}
 .chCard.ab .chB{display:flex;gap:6px}.chCard.ab .chB .pri{flex:1}
+/* v1.51.0.5: zwei Karten mittig, Kartentitel mit Abstand, Abgrund-Leiste im VS-Bildschirm aus */
+.abCuL.two{grid-template-columns:repeat(2,minmax(0,230px));justify-content:center}
+.abCuB b{line-height:1.4}
+body:has(#vs.show:not(.out)) #abHud{visibility:hidden}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -15267,6 +15271,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Trainerkarte: Der Hinweis zum Hint
 if(typeof EN!=="undefined")Object.assign(EN,{"Schnellerer Start: Die Pokémon-Bilder werden jetzt dauerhaft im Browser gespeichert. Nur der allererste Start dauert etwas länger, danach kommen sie bei jedem Neuladen sofort aus dem Speicher. Es wird nur noch geprüft, ob es ein Update gibt.": "Faster start: Pokémon pictures are now stored permanently in your browser. Only the very first start takes a little longer, after that they load instantly from storage on every reload. The game only checks whether there is an update.", "Der Ladebildschirm lädt nur noch die Grundbilder und deine zuletzt gespielte Region, alles andere folgt im Hintergrund.": "The loading screen now only loads the basic pictures and your last played region, everything else follows in the background.", "Abgrund-Draft: Schließt du die Auswahl oder lädst neu, stehen beim nächsten Öffnen dieselben Pokémon, dieselben Flüche und dein Neu-Würfeln zur Wahl. Die Bilder fürs Neu-Würfeln sind schon vorgeladen.": "Abyss draft: if you close the selection or reload, the same Pokémon, the same curses and your reroll are offered the next time you open it. The pictures for the reroll are already preloaded.", "Trainerkarte: Die Listen unter „Stil“ und „Abzeichen“ laufen deutlich flüssiger.": "Trainer card: the lists under “Style” and “Badges” run much smoother."});
 /* v1.51.0: Abgrund-Ausbau */
 if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: Die Gegner ab Ebene 8 sind neu abgestimmt. Mittlere, schwere und Elite-Kämpfe sind jetzt hart, aber machbar. Ab etwa Ebene 30 wird es richtig brutal.": "Abyss: enemies from floor 8 on have been rebalanced. Medium, hard and elite battles are now tough but doable. From about floor 30 it gets truly brutal.", "Abgrund: Du startest mit 2 statt 3 Flüchen. Nach jeder 10. Ebene wählst du den neuen Fluch selbst aus 3 Vorschlägen.": "Abyss: you start with 2 curses instead of 3. After every 10th floor you choose the new curse yourself from 3 options.", "Neu im Abgrund: Gaben. Nach jeder Koryphäe wählst du 1 von 3 Gaben, zum Beispiel mehr KP oder Angriff, eine Zweite Chance, Gold, ein Relikt oder eine sofortige Entwicklung.": "New in the Abyss: gifts. After every Frontier Brain you choose 1 of 3 gifts, for example more HP or attack, a Second Chance, gold, a relic or an instant evolution.", "Neu im Abgrund: Nachschub. Alle 10 Ebenen darfst du eine neue Pokémon-Linie aus 3 Vorschlägen in deinen Laden aufnehmen, oder keine.": "New in the Abyss: reinforcements. Every 10 floors you may add a new Pokémon line from 3 options to your shop, or none.", "Mehr Abgrund-Meilensteine mit Edelsteinen: Ebene 5, 10, 15, 20, 25, 30, 40, 50, 75 und 100. Das Abgrund-Abzeichen steigt bei Ebene 10, 20, 30, 50 und 75, Bernstein gibt es ab Ebene 100.": "More Abyss milestones with gems: floor 5, 10, 15, 20, 25, 30, 40, 50, 75 and 100. The Abyss badge rises at floor 10, 20, 30, 50 and 75, Amber comes at floor 100.", "Abgrund-Verlauf: Unter Herausforderungen siehst du deine letzten 10 Abstiege mit Team, Flüchen, Gaben und dem Kampf, in dem es endete.": "Abyss history: under Challenges you can see your last 10 descents with team, curses, gifts and the battle in which it ended.", "Fehler behoben: Im Abgrund wurde nicht jede geschaffte Ebene gezählt, dadurch fehlten manche Meilensteine.": "Bug fixed: in the Abyss not every cleared floor was counted, so some milestones were missing.", "Die Partner-Abzeichen, der Schachmeister und die Gambit-Erfolge sind entfernt. Deine Stufen bei Perfektionist und Abzeichen-Sammler bleiben erhalten.": "The partner badges, the Chess Master badge and the Gambit achievements have been removed. Your tiers for Perfectionist and Badge Collector are kept.", "Typ-Abzeichen sind oben etwas leichter: Platin ab 1.200, Mythisch ab 3.000 und Bernstein ab 8.000 Siegen.": "Type badges are a little easier at the top: Platinum from 1,200, Mythic from 3,000 and Amber from 8,000 wins.", "Zähe Haut": "Tough Skin", "Dein Team hat 10 % mehr KP.": "Your team has 10% more HP.", "Kampfgeist": "Fighting Spirit", "Dein Team hat 8 % mehr Angriff.": "Your team has 8% more attack.", "Rückenwind": "Tailwind", "Dein Team greift 8 % schneller an.": "Your team attacks 8% faster.", "Panzerung": "Plating", "Dein Team hat 15 % mehr Verteidigung.": "Your team has 15% more defense.", "Funkenflug": "Sparks", "Dein Team startet jeden Kampf mit einem Viertel Energie.": "Your team starts every battle with a quarter of its energy.", "Scharfblick": "Keen Eye", "Dein Team hat 8 % mehr Krit-Chance.": "Your team has 8% more crit chance.", "Lebensquell": "Wellspring", "Dein Team regeneriert 0,6 % seiner KP pro Sekunde.": "Your team regenerates 0.6% of its HP per second.", "Zweite Chance": "Second Chance", "Verlierst du einen Kampf, darfst du ihn einmal wiederholen.": "If you lose a battle, you may retry it once.", "Läuterung": "Purification", "Einer deiner Flüche wird zufällig aufgehoben.": "One of your curses is lifted at random.", "Schatzfund": "Treasure", "Du bekommst sofort": "You instantly get", "Trainer-EP": "trainer XP", "Erfahrung": "Experience", "Reifung": "Maturing", "Dein stärkstes Pokémon, das sich noch entwickeln kann, entwickelt sich sofort.": "Your strongest Pokémon that can still evolve evolves right away.", "Fundstück": "Found Item", "Du wählst sofort ein Relikt.": "You choose a relic right away.", "Fluch aufgehoben:": "Curse lifted:", "entwickelt sich zu": "evolves into", "ist jetzt in deinem Laden": "is now in your shop", "Gabe des Abgrunds": "Gift of the Abyss", "GABEN": "GIFTS", "nächste nach Ebene": "next after floor", "GABE DES ABGRUNDS": "GIFT OF THE ABYSS", "Die Koryphäe von Ebene": "The Frontier Brain of floor", "ist besiegt. Wähle eine Gabe für den Rest des Abstiegs.": "is defeated. Choose a gift for the rest of the descent.", "NEUER FLUCH": "NEW CURSE", "geschafft. Einer dieser Flüche kommt mit, du entscheidest welcher.": "cleared. One of these curses comes along, you decide which.", "NACHSCHUB": "REINFORCEMENTS", "Nimm eine neue Pokémon-Linie in deinen Laden auf. Mehr Auswahl heißt aber auch: Doppelte kommen seltener.": "Add a new Pokémon line to your shop. But more choice also means: duplicates come less often.", "Keine nehmen": "Take none", "ABGRUND · VERLAUF": "ABYSS · HISTORY", "Dein letzter Abstieg.": "Your last descent.", "Deine letzten": "Your last", "Abstiege.": "descents.", "Rekord: Ebene": "Record: floor", "Abstieg beendet": "Descent ended", "K.O. gegen": "K.O. against", "K.O. im Kampf:": "K.O. in battle:", "Noch kein Abstieg beendet": "No descent finished yet", "Verlauf": "History", "Gaben dieses Laufs": "Gifts this run", "einmal Revanche": "one rematch", "ZWEITE CHANCE · REVANCHE": "SECOND CHANCE · REMATCH", "Abstieg beenden": "End descent", "Leben · Zweite Chance": "Life · Second Chance", "Zwei Flüche begleiten dich hinab. Nach jeder 10. Ebene wählst du einen weiteren. Nach jeder Koryphäe wartet eine Gabe.": "Two curses follow you down. After every 10th floor you choose another one. After every Frontier Brain a gift awaits."});
+/* v1.51.0.5: Abgrund schwerer */
+if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund deutlich schwerer: Die Gegner werden ab Ebene 8 stetig stärker und ab Ebene 20 viel steiler. Auch mit einem voll ausgebauten Team ist irgendwo um Ebene 40 Schluss.": "Abyss much harder: enemies grow steadily stronger from floor 8 and much more steeply from floor 20. Even a fully upgraded team hits its limit somewhere around floor 40.", "Mehr Edelsteine in der Tiefe: Ab Ebene 21 bringt jede Ebene mehr als die davor. Meilensteine gibt es jetzt alle 5 Ebenen bis 50, danach bei 60, 70, 80, 90 und 100, und sie sind deutlich mehr wert.": "More gems in the depths: from floor 21 every floor gives more than the one before. Milestones now come every 5 floors up to 50, then at 60, 70, 80, 90 and 100, and they are worth much more.", "Gaben gibt es jetzt bei Ebene 5, 15, 25 und so weiter. Bei 10, 20, 30 kommen Nachschub und Fluch-Wahl.": "Gifts now come at floor 5, 15, 25 and so on. At 10, 20, 30 you get reinforcements and the curse choice.", "Die Start-Flüche stehen mittig, die Abgrund-Leiste ist im VS-Bildschirm ausgeblendet, und lange Kartentitel wie „Zweite Chance“ haben mehr Abstand.": "The starting curses are centered, the Abyss bar is hidden on the VS screen, and long card titles like “Second Chance” have more spacing.", "Zwei Flüche begleiten dich hinab. Nach jeder 10. Ebene wählst du einen weiteren. Bei Ebene 5, 15, 25 … wartet eine Gabe.": "Two curses follow you down. After every 10th floor you choose another one. At floor 5, 15, 25 … a gift awaits."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17864,7 +17870,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.51.0",DUEL_HP=30;
+const MP_VER="1.51.0.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18501,8 +18507,13 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.51.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.51.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.51.0.5",d:"10.11.2026",t:"Abgrund schwerer",items:[
+  ["skull", "Abgrund deutlich schwerer: Die Gegner werden ab Ebene 8 stetig stärker und ab Ebene 20 viel steiler. Auch mit einem voll ausgebauten Team ist irgendwo um Ebene 40 Schluss."],
+  ["gem", "Mehr Edelsteine in der Tiefe: Ab Ebene 21 bringt jede Ebene mehr als die davor. Meilensteine gibt es jetzt alle 5 Ebenen bis 50, danach bei 60, 70, 80, 90 und 100, und sie sind deutlich mehr wert."],
+  ["spark", "Gaben gibt es jetzt bei Ebene 5, 15, 25 und so weiter. Bei 10, 20, 30 kommen Nachschub und Fluch-Wahl."],
+  ["check", "Die Start-Flüche stehen mittig, die Abgrund-Leiste ist im VS-Bildschirm ausgeblendet, und lange Kartentitel wie „Zweite Chance“ haben mehr Abstand."]]},
  {v:"1.51.0",d:"10.11.2026",t:"Abgrund-Ausbau",items:[
   ["skull", "Abgrund: Die Gegner ab Ebene 8 sind neu abgestimmt. Mittlere, schwere und Elite-Kämpfe sind jetzt hart, aber machbar. Ab etwa Ebene 30 wird es richtig brutal."],
   ["skull", "Abgrund: Du startest mit 2 statt 3 Flüchen. Nach jeder 10. Ebene wählst du den neuen Fluch selbst aus 3 Vorschlägen."],
@@ -19231,7 +19242,8 @@ const twNoHeal=()=>false;
 const twHealMul=f=>{if(!twOn()||!f||f.side!=="mine")return 1;const c=S.tower.curse;return (c&&c.k==="heal"?1-Math.min(.2,2.5*(c.v||.03)):1)*(typeof abHealMul==="function"?abHealMul(f):1);};
 /* Gegner werden je Ebene stärker (zusätzlich zur normalen Rundensteigerung) */
 const abRamp=r=>1+Math.max(0,r-8)*BAL.ramp1+Math.max(0,r-14)*BAL.ramp2;
-const abES=f=>{const A=window.__ABES||AB_ES;return f<=8?abRamp(f):f<=14?1+(A[0]-1)*(f-8)/6:f<=26?A[0]+(A[1]-A[0])*(f-14)/12:A[1]*(1+A[2]*(f-26));};
+/* v1.51.0.5: Gesamtstärke als Stützpunkte [Ebene, Stärke], dazwischen gerade, nach dem letzten Punkt je Ebene AB_ESG mehr */
+const abES=f=>{const A=window.__ABES||AB_ES,g=window.__ABESG!=null?window.__ABESG:AB_ESG;if(f<=A[0][0])return abRamp(f);for(let i=1;i<A.length;i++){const[a,va]=A[i-1],[b,vb]=A[i];if(f<=b)return va+(vb-va)*(f-a)/(b-a);}const[l,vl]=A[A.length-1];return vl*Math.pow(1+g,f-l);};
 const twScale=()=>{const f=twFloor();if(S&&S.abyss)return abES(Math.max(1,f))/abRamp(S.round);return f?(1+TW.ramp*(f-1))*(TW.mk[S.mode]||1):1;};
 const twEncOdds=()=>(S&&S.abyss&&typeof abEncOdds==="function"?abEncOdds():{easy:0,mid:34,hard:34,elite:20,event:6,rocket:6});
 const twItems=()=>{const f=twFloor();if(S&&S.abyss)return f<=5?0:f<=17?1:2;return f?(f>=11?2:1):0;};
@@ -20404,11 +20416,11 @@ notify pgrst, 'reload schema';
    - Belohnung: Edelsteine wie Lauf + Turm, 30 % mehr; Meilensteine 10/25/50/75/100 (einmalig Edelsteine, Abzeichen-Stufen, Titel), Hintergrund ab Ebene 50.
    - Eigener Spielstand (saveKey("ab")), unabhängig vom Einzelspieler-Spielstand. Zählt nicht für Season, Champion-Titel und Weihnachts-Quest.
    Herausforderungen-Panel links im Hauptmenü: Täglicher Run, Wochen-Herausforderung, Abgrund. */
-const AB={gemMul:1.3,ms:[5,10,15,20,25,30,40,50,75,100],msGem:{5:20,10:50,15:60,20:80,25:100,30:120,40:150,50:200,75:300,100:500},every:10,start:2};
+const AB={gemMul:1.3,ms:[5,10,15,20,25,30,35,40,45,50,60,70,80,90,100],msGem:{5:20,10:50,15:60,20:80,25:100,30:130,35:160,40:200,45:250,50:300,60:400,70:500,80:600,90:750,100:1000},every:10,start:2};
 /* v1.51.0: Abzeichen-Stufen nach Rekord (I–V), Bernstein ab Ebene 100 */
 const AB_BT=[10,20,30,50,75],AB_B6=100;
 /* v1.51.0: Gesamtstärke der Gegner ab Ebene 8 (Ebene 14, Ebene 26, Anstieg je Ebene danach), mit Probekämpfen abgestimmt */
-const AB_ES=[1,1.04,.018];
+const AB_ES=[[8,1],[20,1.3],[30,2.4],[40,3.6]],AB_ESG=.04;
 const abOn=()=>typeof S!=="undefined"&&!!(S&&S.abyss&&!S.duel);
 const abFloor=()=>abOn()?S.round:0;
 function abMeta(){const A=META.abyss||(META.abyss={});A.best=A.best|0;A.runs=A.runs|0;A.floors=A.floors|0;A.kory=A.kory|0;A.ms=A.ms||{};return A;}
@@ -20525,8 +20537,8 @@ function abCurseCard(c,i){const D=AB_CURSE[c.k];if(!D)return"";return `<div clas
 function abCurseModal(list,first,cb,P){const go=()=>{if(P){abBegin();return;}closeModal();abHud();cb&&cb();};
   if(!P&&(window.__autoPick||window.__fast)){cb&&cb();return;}
   openModal(`<div class="abCM${first?" first":""}"><div class="abCMh"><i class="abAbyss">${ic("skull")}</i><h2>${first?"DER ABGRUND RUFT":"NEUER FLUCH"}</h2>
-    <div class="lead">${first?"Zwei Flüche begleiten dich hinab. Nach jeder 10. Ebene wählst du einen weiteren. Nach jeder Koryphäe wartet eine Gabe.":"Je tiefer du steigst, desto schwerer wird die Last."}</div></div>
-    <div class="abCuL${list.length===1?" one":""}">${list.map((c,i)=>abCurseCard(c,i)).join("")}</div>
+    <div class="lead">${first?"Zwei Flüche begleiten dich hinab. Nach jeder 10. Ebene wählst du einen weiteren. Bei Ebene 5, 15, 25 … wartet eine Gabe.":"Je tiefer du steigst, desto schwerer wird die Last."}</div></div>
+    <div class="abCuL${list.length===1?" one":list.length===2?" two":""}">${list.map((c,i)=>abCurseCard(c,i)).join("")}</div>
     ${first?`<div class="abTeamL">${[...((P&&P.sel)||(S&&S.abyss&&S.abyss.pool)||[])].map(k=>{const L=abLine(k);return L?`<i data-sp="${L.stages[0][0]}" title="${esc(L.stages[0][1])}" class="${P&&P.starter===k?"st":""}"></i>`:"";}).join("")}</div><p class="abNote">${ic("info")} Im Laden gibt es nur deine 6 Draft-Pokémon. 1 Leben, keine Revanche. Alle 5 Ebenen wartet eine Koryphäe, und es geht ohne Ende weiter.</p>`:""}
     <div class="abDrB">${P?`<button class="btn" id="abCBack">${ic("back")} Zurück</button>`:""}<span style="flex:1"></span><button class="pri hot" id="abGo">${ic((P||first)?"skull":"arrow")} ${(P||first)?"ABSTIEG STARTEN":"WEITER"}</button></div></div>`,"narrow abCMM",P?true:go);
   $("mbox").querySelectorAll(".abTeamL i[data-sp]").forEach(e=>{try{e.appendChild(natFit(spriteEl(+e.dataset.sp),1));}catch(x){}});
@@ -20558,7 +20570,7 @@ function abToTower(){S.tower={lives:0,kory:0,lost:0,cl:0,k0:Math.floor(Math.rand
 /* Abgrund verlassen: Edelsteine, Meilensteine, Rekord */
 function abyssFinish(){clearZones();S.phase="over";enterBattleMode(false);const cl=Math.max(0,S.round-1),A=abMeta();if(cl>A.best)A.best=cl;
   const tB=badgeTierOfAb(S.abyss.best0|0),tA=badgeTierOfAb(A.best),fl=Math.max(0,cl-20);
-  const gemB=gemEventMul(),base=Math.round((1.5*Math.min(cl,20)+4*(S.bosses|0)+3*(S.elites|0)+.5*(S.wins|0)+TW.gem*fl+TW.gemK*((S.tower&&S.tower.kory)|0))*AB.gemMul*(1+.1*perk("gemhunter"))*gemB*(hasRelic("gembag")?1.2:1));
+  const gemB=gemEventMul(),base=Math.round((1.5*Math.min(cl,20)+4*(S.bosses|0)+3*(S.elites|0)+.5*(S.wins|0)+(TW.gem*fl+.15*fl*(fl+1))+TW.gemK*((S.tower&&S.tower.kory)|0))*AB.gemMul*(1+.1*perk("gemhunter"))*gemB*(hasRelic("gembag")?1.2:1));
   const msg=(S.abyss.ms||[]).reduce((a,m)=>a+(AB.msGem[m]||0),0),gems=Math.max(2,base+msg);
   try{abHistAdd(cl);}catch(e){console.warn("abyss hist",e);}
   META.gems+=gems;META.gemsTotal+=gems;const rec=cl>(S.abyss.best0|0);saveMeta();_achT=0;try{achCheck();}catch(e){}LS.del(saveKey("ab"));setTab("raster");const hud=$("abHud");if(hud)hud.remove();
@@ -20681,7 +20693,7 @@ function abBossDef(f,base){const K=twKor(f),ru=twRule(f),sub="Koryphäe · "+twR
 function abCuBox(){const st=$("sideStack");let b=$("abCuBox");if(!abOn()||!st){if(b)b.remove();return;}
   if(!b){b=document.createElement("div");b.id="abCuBox";b.className="glass panel";const rb=$("relicBox");st.insertBefore(b,rb||null);}
   const cs=S.abyss.curses||[],nx=Math.ceil(Math.max(1,abFloor())/AB.every)*AB.every;
-  b.innerHTML=`<div class="ttl"><h3>FLÜCHE</h3><small>${cs.length} · nächster nach Ebene ${nx}</small></div><div class="abCuIcs">${cs.map(c=>{const D=AB_CURSE[c.k];return D?`<button class="abCuIc g-${D.g}" title="${esc(D.n+": "+abCurseTxt(c))}">${ic(D.ic)}</button>`:"";}).join("")}</div>${abGiftKeep().length?`<div class="ttl abGiT"><h3>GABEN</h3><small>${abGiftKeep().length} · nächste nach Ebene ${Math.ceil(Math.max(1,abFloor())/5)*5}</small></div><div class="abCuIcs">${abGiftIcons(abGiftKeep(),"button")}</div>`:""}`;
+  b.innerHTML=`<div class="ttl"><h3>FLÜCHE</h3><small>${cs.length} · nächster nach Ebene ${nx}</small></div><div class="abCuIcs">${cs.map(c=>{const D=AB_CURSE[c.k];return D?`<button class="abCuIc g-${D.g}" title="${esc(D.n+": "+abCurseTxt(c))}">${ic(D.ic)}</button>`:"";}).join("")}</div>${abGiftKeep().length?`<div class="ttl abGiT"><h3>GABEN</h3><small>${abGiftKeep().length} · nächste nach Ebene ${Math.max(0,Math.ceil((abFloor()-5)/10))*10+5}</small></div><div class="abCuIcs">${abGiftIcons(abGiftKeep(),"button")}</div>`:""}`;
   b.querySelectorAll(".abCuIc").forEach(x=>x.onclick=()=>{sfx("click");abCurseList();});}
 (()=>{if(typeof render!=="function")return;const _r=render;render=function(){const x=_r.apply(this,arguments);try{abCuBox();}catch(e){}return x;};})();
 
@@ -20734,7 +20746,7 @@ function abMoreOffer(R){const have=new Set(S.abyss.pool||[]),nLeg=(S.abyss.pool|
     if(ls.length)out.push(ls[Math.floor(R()*ls.length)].k);}return out;}
 /* Warteschlange nach einer geschafften Ebene: Gabe (nach der Koryphäe), Nachschub, Fluch-Wahl */
 function abQueue(cl){const P=S.abyss.pend=S.abyss.pend||[];if(P.some(q=>q.cl===cl))return;
-  if(cl%5===0){const o=abGiftOpts(abRng("g"+cl));if(o.length)P.push({k:"gift",cl,o});}
+  if(cl%10===5){const o=abGiftOpts(abRng("g"+cl));if(o.length)P.push({k:"gift",cl,o});}
   if(cl%AB.every===0){const o=abMoreOffer(abRng("d"+cl));if(o.length){P.push({k:"more",cl,o});abLoadRegs(o);}
     const R=abRng("c"+cl),c=[];for(let i=0;i<3;i++){const x=abRollCurse(R,(S.abyss.curses||[]).concat(c));if(x)c.push(x);}if(c.length)P.push({k:"curse",cl,o:c});}
   clearTimeout(abPendNext.t);abPendNext.t=setTimeout(abPendNext,900);}
@@ -20750,11 +20762,11 @@ function abPickWire(sel,done){$("mbox").querySelectorAll(sel).forEach(b=>b.oncli
   $("mbox").querySelectorAll(".abCu").forEach((e,i)=>setTimeout(()=>{e.classList.add("on");try{sfx("pop");}catch(x){}},300+i*300));}
 function abGiftModal(q,done){
   openModal(`<div class="abCM gift"><div class="abCMh"><i class="abAbyss gi">${ic("spark")}</i><h2>GABE DES ABGRUNDS</h2><div class="lead">Die Koryphäe von Ebene <b>${q.cl}</b> ist besiegt. Wähle eine Gabe für den Rest des Abstiegs.</div></div>
-    <div class="abCuL abPick">${q.o.map((k,i)=>`<button class="abPk" data-i="${i}">${abGiftCard(k,i,abGiftN(k)+1)}</button>`).join("")}</div></div>`,"narrow abCMM",false);
+    <div class="abCuL abPick${q.o.length===2?" two":""}">${q.o.map((k,i)=>`<button class="abPk" data-i="${i}">${abGiftCard(k,i,abGiftN(k)+1)}</button>`).join("")}</div></div>`,"narrow abCMM",false);
   abPickWire(".abPk",done);try{sfx("evoDone");}catch(e){}}
 function abCursePick(q,done){
   openModal(`<div class="abCM"><div class="abCMh"><i class="abAbyss">${ic("skull")}</i><h2>NEUER FLUCH</h2><div class="lead">Ebene <b>${q.cl}</b> geschafft. Einer dieser Flüche kommt mit, du entscheidest welcher.</div></div>
-    <div class="abCuL abPick">${q.o.map((c,i)=>`<button class="abPk" data-i="${i}">${abCurseCard(c,i)}</button>`).join("")}</div></div>`,"narrow abCMM",false);
+    <div class="abCuL abPick${q.o.length===2?" two":""}">${q.o.map((c,i)=>`<button class="abPk" data-i="${i}">${abCurseCard(c,i)}</button>`).join("")}</div></div>`,"narrow abCMM",false);
   abPickWire(".abPk",done);try{sfx("faint");}catch(e){}}
 function abMoreModal(q,done){
   const card=(k,i)=>{const L=abLine(k);if(!L)return"";const sp=L.stages[0][0],sd=SPECIES[sp],Rr=RAR[L.tier]||RAR[1];
