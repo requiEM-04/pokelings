@@ -4938,6 +4938,12 @@ body:not(.battle) #abHud{top:auto;bottom:10px}
 .abCMM .abCuL.one .abCuI{width:52px;height:52px}
 .abCMM .abCuL.one .abCuI .ic{width:30px;height:30px}
 .abCM .rbtns,.abCM .abDrB{justify-content:center}
+/* v1.48.0: Siegchance wird noch gerechnet – ruhiger Lade-Balken statt springender Zahlen */
+.chance.wait{--cc:#9aa3b5}
+.chance.wait .cbar i{width:38%!important;background:linear-gradient(90deg,transparent,rgba(154,163,181,.85),transparent)!important;animation:chWait 1.1s ease-in-out infinite}
+.chance.wait b{opacity:.7}
+@keyframes chWait{0%{transform:translateX(-110%)}100%{transform:translateX(280%)}}
+.roll .rollSim{font-size:11px;color:var(--muted);margin-top:6px}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -12291,7 +12297,7 @@ function refreshWorld(){
   WL.flags.instanceMatrix.needsUpdate=true;if(WL.flags.instanceColor)WL.flags.instanceColor.needsUpdate=true;
   WL.forks.forEach(f=>f.g.visible=false);
   while(WL.forkLines.children.length){const c=WL.forkLines.children.pop();c.geometry.dispose();c.material.dispose();}
-  const opts=BOSSES[r]?null:S.paths;
+  const opts=(BOSSES[r]||(typeof rolling!=="undefined"&&rolling))?null:S.paths;
   if(opts){const dir=WL.NP[r].clone().sub(WL.NP[r-1]).setY(0).normalize();const P=[],C=[],A=[];opts.forEach((o,i)=>{const f=WL.forks[i],pos=forkPos(i);f.g.position.copy(pos);const D=DIFF[o.type];const chosen=S.enc&&S.encIdx===i;const dim=S.enc&&!chosen;
     setNode(f,D.ic,D.col,{op:dim?.45:1,halo:chosen?.6:.22,beam:0,glow:dim?.2:chosen?.9:.6});list.push({id:o.loc,x:pos.x,z:pos.z,boss:false});
     const a=WL.NP[r-1].clone().setY(.12),b=pos.clone().setY(pos.y+.12),mid=a.clone().lerp(b,.5);mid.y+=.35;const cu=new THREE.QuadraticBezierCurve3(a,mid,b);const n=Math.max(8,Math.round(a.distanceTo(b)*3));const cc=new THREE.Color(D.col);
@@ -12312,7 +12318,7 @@ function refreshWorld(){
   const sty=(d,bg,fg,br,op,sh)=>{Object.assign(d.style,{background:bg,color:fg,border:"2px solid "+br,boxShadow:"0 2px 0 "+sh+",inset 0 1px 0 rgba(255,255,255,.45)",opacity:op});};
   [...lab.children].forEach((d,i)=>{if(i<=20){const L=locOfNode(i);d.textContent=(L?LOCS[L].n:"Runde "+i)+(BOSSES[i]?" · BOSS":"");d.classList.toggle("cur",i===r);d.classList.toggle("boss",!!BOSSES[i]);
       if(BOSSES[i])sty(d,"#e0503c","#fff","#5a1a14",i<r?.8:1,"#3a100c");else if(i>r+1)sty(d,"#d8d4c8","#4a4a52","#6a6a72",0,"#2a2a30");else if(i<r)sty(d,"#ead2a0","#4a3018","#6a4a28",i>=r-1?.88:0,"#3a2410");else if(i===r-1||i===0&&r===1)sty(d,"#ffd84a","#3a2410","#6a4a10",1,"#3a2410");else sty(d,"#d8d4c8","#4a4a52","#6a6a72",.75,"#2a2a30");}
-    else{const o=opts&&opts[i-21];if(o){const pc=o.type!=="event"&&o.enemies?Math.round(winChance(o.enemies,o.type)*100):null,cc=pc==null?"":pc>=65?"#38b048":pc>=35?"#e0a020":"#e0402e";d.innerHTML=`${o.type!=="event"?`<i class="wlIc" style="background:${DIFF[o.type].col}">${ic(DIFF[o.type].ic)}</i>`:""}${o.weather&&typeof WX!=="undefined"&&WX[o.weather]?`<i class="wlWx" style="color:${WX[o.weather].col}">${ic(WX[o.weather].ic)}</i>`:""}<span>${LOCS[o.loc].n}</span>${pc!=null?`<b class="wch" style="background:${cc}">${pc} %</b>`:""}`;}else d.textContent="";d.classList.add("fork");if(o){const c=DIFF[o.type].col;const dim=S.enc&&S.encIdx!==i-21;sty(d,"#fffaf0","#1a1c28",c,dim?.5:1,"#1a1c28");}}});
+    else{const o=opts&&opts[i-21];if(o){const pc=o.type!=="event"&&o.enemies&&(typeof simReady!=="function"||!boardUnits().length||simReady(o.enemies))?Math.round(winChance(o.enemies,o.type)*100):null,cc=pc==null?"":pc>=65?"#38b048":pc>=35?"#e0a020":"#e0402e";d.innerHTML=`${o.type!=="event"?`<i class="wlIc" style="background:${DIFF[o.type].col}">${ic(DIFF[o.type].ic)}</i>`:""}${o.weather&&typeof WX!=="undefined"&&WX[o.weather]?`<i class="wlWx" style="color:${WX[o.weather].col}">${ic(WX[o.weather].ic)}</i>`:""}<span>${LOCS[o.loc].n}</span>${pc!=null?`<b class="wch" style="background:${cc}">${pc} %</b>`:""}`;}else d.textContent="";d.classList.add("fork");if(o){const c=DIFF[o.type].col;const dim=S.enc&&S.encIdx!==i-21;sty(d,"#fffaf0","#1a1c28",c,dim?.5:1,"#1a1c28");}}});
   try{wExtrasRefresh(opts);}catch(e){console.warn("wExtrasRefresh",e);}
 }
 const _wv=new THREE.Vector3(),_wm=new THREE.Matrix4(),_wq=new THREE.Quaternion(),_ws=new THREE.Vector3(),_wc=new THREE.Color(),_wf=new THREE.Vector3(),_wo=new THREE.Vector3();
@@ -13040,7 +13046,12 @@ function rollPaths0(){
   S.enc=null;S.encIdx=null;S.enemies=[];
 }
 let rolling=false;
-function autoRoll(){if(rolling||(S&&S.duel))return;rolling=true;renderEnc();setTimeout(()=>{rolling=false;if(S&&!S.paths&&S.phase==="shop"){rollPaths();save();}render();refreshWorld();},window.__fast?0:850);}
+function autoRoll(){if(rolling||(S&&S.duel))return;rolling=true;if(S&&!S.paths&&S.phase==="shop"){rollPaths();save();}
+  /* Probekämpfe schon während der Würfel-Animation; aufgedeckt wird, wenn alle Wege fertig gerechnet sind (mind. 0,85 s, höchstens 2,6 s) */
+  const pend=()=>(S&&S.paths||[]).filter(p=>p.type!=="event"&&p.enemies&&p.enemies.length&&boardUnits().length&&typeof simReady==="function"&&!simReady(p.enemies));
+  try{for(const p of pend())simChance(p.enemies,p.type,1);}catch(e){}renderEnc();const t0=Date.now();
+  const done=()=>{rolling=false;render();refreshWorld();};if(window.__fast)return done();
+  const wait=()=>{if(!rolling)return;const dt=Date.now()-t0;let left=0;try{left=pend().length;}catch(e){}if((!left&&dt>=850)||dt>=2600)done();else setTimeout(wait,90);};setTimeout(wait,150);}
 function rerollPaths(){if(!S||S.phase!=="shop"||BOSSES[S.round]||rolling||S.revanche)return;const c=encRollCost();if(S.gold<c){{toast("Nicht genug Gold","coin");sfx("deny");}return;}S.gold-=c;S.encRolls++;S.paths=null;S.enc=null;S.encIdx=null;autoRoll();render();}
 function choosePath(i){if(!S||!S.paths||!S.paths[i]||S.phase!=="shop")return;S.enc=S.paths[i];S.encIdx=i;S.enemies=S.enc.enemies||[];save();render();refreshWorld();if(typeof wxShow==="function")wxShow(S.enc.weather);
   // Kampfort schon jetzt bauen (nicht erst beim Kampfstart → kein Ruckler beim Start)
@@ -13068,7 +13079,10 @@ function winFeat(en){const cnt=SYN_ON?synCounts(boardUnits()):null,M=[];for(cons
 // Kalibriert auf ~2000 simulierte Kämpfe (Normal/Schwer/Albtraum): Kampftyp und Crypto-Gegner verschieben die Chance
 const WC_TY={easy:.84,mid:.3,hard:.37,elite:0,rocket:-.29,ultra:-2.8,rival:-.1};
 const winChanceH=(en,ty)=>{if(!en||!en.length||!boardUnits().length)return .5;let z=WC_W[0];try{const f=winFeat(en);z+=WC_W[1]*f[0]+WC_W[2]*f[1];z=.958*z+(BOSSES[S.round]&&(!ty||ty==="boss")?WC_W[3]:(WC_TY[ty]||0))+(en.some(e=>e.crypto)?-.15:0);}catch(e){z=(winShare(en)-.45)*38;}return Math.max(.03,Math.min(.95,1/(1+Math.exp(-z))));};
-function chanceTag(p,big){const [t,c]=p>=.9?["Sicher","var(--green)"]:p>=.65?["Gut","var(--cyan)"]:p>=.35?["Riskant","var(--amber)"]:["Gefährlich","var(--red)"];const v=Math.round(p*100);return `<div class="chance${big?" big":""}" style="--cc:${c}" title="Geschätzte Siegchance (grobe Schätzung aus Stärke und Typen)"><span class="cl">${ic("trophy")}Siegchance</span><span class="cbar"><i style="width:${v}%"></i></span><b>~${v}%</b><em>${t}</em></div>`;}
+/* v1.48.0: Siegchance aus den Probekämpfen – erst anzeigen, wenn alle fertig sind */
+function chanceSim(en,ty,big){try{if(S&&!S.duel&&en&&en.length&&boardUnits().length&&typeof simChance==="function"){const p=simChance(en,ty,1);
+  if(!simReady(en))return `<div class="chance${big?" big":""} wait"><span class="cl">${ic("trophy")}Siegchance</span><span class="cbar"><i></i></span><b>…</b><em>rechnet</em></div>`;return chanceTag(p,big,1);}}catch(e){}return chanceTag(winChance(en,ty),big);}
+function chanceTag(p,big,exact){const [t,c]=p>=.9?["Sicher","var(--green)"]:p>=.65?["Gut","var(--cyan)"]:p>=.35?["Riskant","var(--amber)"]:["Gefährlich","var(--red)"];const v=Math.round(p*100);return `<div class="chance${big?" big":""}" style="--cc:${c}" title="${exact?"Siegchance aus 24 Probekämpfen":"Geschätzte Siegchance (grobe Schätzung aus Stärke und Typen)"}"><span class="cl">${ic("trophy")}Siegchance</span><span class="cbar"><i style="width:${v}%"></i></span><b>${exact?"":"~"}${v}%</b><em>${t}</em></div>`;}
 const enemyScale=()=>(S&&S.daily&&S.daily.rules.includes("hard")?1.12:1)*(S&&S.scout?.85:1)*(S&&S.flare?1.2:1)*1.0*(1+Math.max(0,S.round-8)*BAL.ramp1+Math.max(0,S.round-14)*BAL.ramp2)*MODES[S.mode].enemy*(typeof twScale==="function"?twScale():1)*(S.revanche&&!S.tower?1+S.revives*Math.max(.03,MODES[S.mode].revive-.03*perk("phoenix")):1);
 // Sprite nach sichtbarem Inhalt zentrieren (GIF-Leinwand ist oft einseitig leer, z.B. Schweif)
 function centerSpr(img){if(!img||img.tagName!=="IMG")return img;
@@ -13081,14 +13095,14 @@ function fillMini(root){root.querySelectorAll(".mini span[data-sp]").forEach(e=>
 function renderEnc(){
   if(!S)return;const enc=S.enc,boss=BOSSES[S.round],m=$("encPanel");if(S.duel)return renderDuelEnc(m);
   $("wTitleT").textContent=S.abyss?((boss?"BOSS · ":"")+"ABGRUND · EBENE "+S.round):S.tower?(boss?"KORYPHÄE · EBENE "+(S.round-twOff()):"KAMPFTURM · EBENE "+(S.round-twOff())):boss?"BOSS-RUNDE":(REGIONS[S.region||"kanto"].n.toUpperCase()+"-ROUTE");$("wTitleS").textContent=S.abyss?`Abgrund · Gegner aus ${REGIONS[S.region||"kanto"].n} · ${(S.abyss.curses||[]).length} Flüche · 1 Leben`:S.tower?`${MODES[S.mode].n} · ${REGIONS[S.region||"kanto"].n} · Turm-Leben ${S.tower.lives}/${TW.lives}`:`${MODES[S.mode].n} · Runde ${S.round}/20`;
-  if(rolling||(!enc&&!S.paths&&!boss)){m.innerHTML=`<div id="encHead"><h2>WEGE WERDEN GEWÜRFELT</h2></div><div class="roll"><div class="reel">${ic("dice")}</div><p class="empty" style="max-width:340px">Die Route verzweigt sich. Gleich siehst du drei mögliche Wege.</p></div>`;return;}
+  if(rolling||(!enc&&!S.paths&&!boss)){m.innerHTML=`<div id="encHead"><h2>WEGE WERDEN GEWÜRFELT</h2></div><div class="roll"><div class="reel">${ic("dice")}</div><p class="empty" style="max-width:340px">Die Route verzweigt sich. Gleich siehst du drei mögliche Wege.</p><p class="rollSim">Probekämpfe laufen …</p></div>`;return;}
   if(!enc){
     const me=powOf(armyStats(boardUnits(),1,true));
     m.innerHTML=`<div id="encHead"><h2>WÄHLE DEINEN WEG</h2><span class="diff" style="--dc:var(--cyan)">${S.tower?"Ebene "+(S.round-twOff()):"Runde "+S.round}</span></div>${S.tower?twRuleHtml():""}
      <div class="paths">${S.paths.map((p,i)=>{const D=DIFF[p.type];let right="",extra="";
        if(p.type==="event"){right=`<b>${ic("qbox","","width:14px;height:14px")}</b>Belohnung`;extra=`<p style="margin-top:4px">${p.options.map(o=>o.n).join(" · ")}</p>`;}
        else{right=`<b>+${D.reward}</b>Gold${prizeTxt(D)}`;
-         extra=`${enemyMini(p.enemies)}${chanceTag(winChance(p.enemies,p.type))}`;}
+         extra=`${enemyMini(p.enemies)}${chanceSim(p.enemies,p.type)}`;}
        return `<button class="path" data-i="${i}" style="--dc:${D.col};animation-delay:${i*.08}s"><span class="pi">${ic(D.ic)}</span><div style="flex:1;min-width:0"><h4>${D.n}</h4><p class="ploc">${ic(LOC_ICON[LOCS[p.loc].kind]||"route")} ${LOCS[p.loc].n}${typeof wxTag==="function"?wxTag(p.weather):""}</p><p>${p.type==="event"?D.d:`${esc(p.name)} · ${p.enemies.length} Pokémon`}</p>${extra}</div><div class="pr">${right}</div></button>`;}).join("")}</div>
      <div id="encFoot"><span class="empty" style="font-size:12px;max-width:230px">Klicke einen Weg an, auch direkt auf der Karte.</span><button class="btn" id="encReroll" ${S.gold<encRollCost()?"disabled":""}>${ic("dice")} Neue Wege ${coinTxt(encRollCost())}</button></div>`;
     fillMini(m);m.querySelectorAll(".path").forEach(b=>{b.onclick=()=>choosePath(+b.dataset.i);b.onmouseenter=()=>{if(WL)WL.hover=+b.dataset.i;};b.onmouseleave=()=>{if(WL)WL.hover=-1;};});$("encReroll").onclick=rerollPaths;return;
@@ -13103,7 +13117,7 @@ function renderEnc(){
   const me=armyStats(boardUnits(),1,true),en=armyStats(S.enemies,enemyScale(),false),ws=winShare(S.enemies),pm=ws,pe=1-ws;
   m.innerHTML=`<div id="encHead"><h2>${esc(title.toUpperCase())}</h2><span class="diff" style="--dc:${D.col}">${ic(D.ic)} ${esc(boss?boss.sub:enc.name)}</span></div><p class="ploc" style="margin:-4px 0 8px">${ic(LOC_ICON[LOCS[enc.loc].kind]||"route")} ${LOCS[enc.loc].n} · ${LOCS[enc.loc].sub}</p>${typeof wxBox==="function"?wxBox(enc.weather):""}${S.tower?twRuleHtml():""}
    <div id="encTeam"></div>
-   ${chanceTag(winChance(S.enemies,S.enc&&S.enc.type),1)}${S.revives&&S.revanche&&!S.tower?`<div style="font-size:11px;color:var(--pink);margin-top:3px">Revanche-Malus aktiv: Gegner +${reviveMalus(S.revives)} %</div>`:""}
+   ${chanceSim(S.enemies,S.enc&&S.enc.type,1)}${S.revives&&S.revanche&&!S.tower?`<div style="font-size:11px;color:var(--pink);margin-top:3px">Revanche-Malus aktiv: Gegner +${reviveMalus(S.revives)} %</div>`:""}
    <div class="vsLine"><span style="color:var(--cyan)">Du: ${me.n} Pokémon</span><span style="color:var(--pink)">Gegner: ${en.n} Pokémon</span></div>
    <div id="encFoot"><div style="font-size:12px;color:var(--muted);line-height:1.5">Prämie <b style="color:var(--amber);font-family:var(--px)">+${D.reward}</b> Gold${prizeTxt(D)}<br>+50 % ohne eigenen K.O. · +${2+perk("school")} EP</div>
    <span style="flex:1"></span>${boss||S.revanche?"":`<button class="btn" id="encBack">${ic("back")} Anderer Weg</button>`}
@@ -15189,6 +15203,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Kleine Verbesserungen im Hintergru
 if(typeof EN!=="undefined")Object.assign(EN,{"Der Abgrund läuft jetzt von Ebene 1 an wie der Kampfturm, nur dunkler und schwerer. Bei „Begegnung“ siehst du eine eigene Abgrund-Karte mit Ebenen-Leiste, gekämpft wird auf Abgrund-Plätzen statt in Städten.": "The Abyss now plays like the Battle Tower from floor 1 on, just darker and harder. Under “Encounter” you see its own Abyss map with a floor ladder, and battles take place on Abyss grounds instead of towns.", "Alle 5 Ebenen wartet eine Koryphäe mit eigenem Auftritt, und jede Ebene hat eine Turmregel. Schurken-Teams und leichte Kämpfe gibt es im Abgrund nicht mehr, die Gegner rechnen wie auf Schwer.": "Every 5 floors a Frontier Brain awaits with its own entrance, and every floor has a tower rule. There are no villain teams and no easy battles in the Abyss anymore, foes are calculated like on Hard.", "Im Abgrund hast du einen Platz weniger im Raster.": "In the Abyss you have one slot less on the grid.", "Partnerwahl im Abgrund: Zur Auswahl stehen nur deine Draft-Pokémon aus Gewöhnlich und Ungewöhnlich.": "Abyss partner choice: only your draft Pokémon from Common and Uncommon are offered.", "Im Laden zeigt ein neues Feld „Flüche“ über den Relikten deine aktiven Flüche. Antippen zeigt die Details. Das Abgrund-Schild sitzt jetzt oben links und verdeckt keine Lebensleisten mehr.": "In the shop a new “Curses” panel above the relics shows your active curses. Tap for details. The Abyss badge now sits top left and no longer covers health bars.", "Neue Flüche erscheinen groß und mittig.": "New curses appear big and centered.", "FLÜCHE": "CURSES", "nächster nach Ebene": "next after floor", "Bezwungene Koryphäen": "Frontier Brains defeated", " · ABGRUND": " · ABYSS", "Schlund": "Maw", "Glutkammer": "Ember Chamber", "Nebeltiefe": "Mist Depths", "Thron des Abgrunds": "Throne of the Abyss", "Abgrund · der Boden ist nicht zu sehen": "Abyss · no bottom in sight", "Abgrund · Ruinen über der Glut": "Abyss · ruins above the embers", "Abgrund · kalter Nebel aus der Tiefe": "Abyss · cold mist from the depths", "Abgrund · die Koryphäe erwartet dich": "Abyss · the Frontier Brain awaits", "Im Laden gibt es nur deine 6 Draft-Pokémon. 1 Leben, keine Revanche. Alle 5 Ebenen wartet eine Koryphäe, und es geht ohne Ende weiter.": "The shop only has your 6 draft Pokémon. 1 life, no rematch. Every 5 floors a Frontier Brain awaits, and it never ends."});
 /* v1.47.0.5: Schnellfix */
 if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund ab Ebene 11 fairer: Die Gegner werden bis Ebene 20 schrittweise etwas schwächer, und es gibt mehr mittlere und weniger schwere und Elite-Kämpfe. Die Gegner rechnen wieder wie auf Normal.": "Abyss is fairer from floor 11: foes get gradually a bit weaker up to floor 20, and there are more medium and fewer hard and elite battles. Foes are calculated like on Normal again."});
+/* v1.48.0: Siegchance */
+if(typeof EN!=="undefined")Object.assign(EN,{"Siegchance ohne Hin und Her: Die 24 Probekämpfe laufen schon, während die Wege ausgewürfelt werden. Die Prozente erscheinen erst, wenn sie fertig sind, statt mehrmals zu springen.": "Win chance without flickering: the 24 test battles already run while the paths are rolled. The percentages only appear once they are done instead of jumping around.", "Kaufst du ein Pokémon oder stellst um, rechnet das Spiel die Wege leise im Hintergrund neu. Gehst du zurück zu „Begegnung“, stehen die Prozente meist schon fest.": "When you buy a Pokémon or rearrange, the game quietly recalculates the paths in the background. When you go back to “Encounter”, the percentages are usually ready.", "rechnet": "calculating", "Probekämpfe laufen …": "Test battles running …", "Siegchance aus 24 Probekämpfen": "Win chance from 24 test battles"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17775,7 +17791,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.47.0.5",DUEL_HP=30;
+const MP_VER="1.48.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -22215,6 +22231,10 @@ function gbnCss(){return `
    Ändert sich das Team (Aufstellung, Items, Kauf), wird neu gerechnet – so sieht man direkt, ob eine Umstellung hilft. */
 const SIM_N=24,SIM_DT=1/20;
 const SIMC={cache:new Map(),queue:[],tm:0,last:0,dirty:false};
+/* v1.48.0: Rechenzeit je Häppchen: in „Begegnung“ (und beim Würfeln) zügig, sonst gedrosselt im Hintergrund, damit Laden und Raster flüssig bleiben */
+const simOnEnc=()=>typeof tab!=="undefined"&&tab==="enc";
+const simBudget=()=>document.hidden?40:simOnEnc()?((typeof rolling!=="undefined"&&rolling)?45:24):14;
+const simGap=()=>simOnEnc()?4:24;
 function simBoardSig(){if(!S)return"";const p=[];for(const k in S.board){const u=S.board[k];if(!u)continue;p.push(k+":"+u.sp+"/"+(u.stars||0)+"/"+(u.items||[]).join(".")+"/"+(u.gifts||[]).join(".")+"/"+(u.spec||[]).join(".")+"/"+(u.secret||"")+"/"+(u.megaF||"")+"/"+(u.crypto||0));}
   p.sort();return p.join("|")+"#"+(S.relics||[]).join(".")+"#"+S.round+"#"+(S.revives||0)+(S.revanche?"r":"")+(S.scout?"s":"")+(S.flare?"f":"")+(S.mode||"");}
 function simEnSig(en){return en.map(e=>e.sp+"/"+(e.stars||0)+"/"+e.x+","+e.y+"/"+(e.items||[]).join(".")+"/"+(e.gifts||[]).join(".")+"/"+(e.spec||[]).join(".")+"/"+(e.crypto?1:0)+"/"+(e.raid?1:0)+"/"+(e.mult||1)).join("|")+(typeof wxOf==="function"&&wxOf(en)?"|wx:"+wxOf(en):"");}
@@ -22236,14 +22256,19 @@ function simPump(){if(SIMC.tm)return;SIMC.tm=setTimeout(simWork,30);}
 function simWork(){SIMC.tm=0;if(!S||B&&!B.done&&!B.sim){SIMC.queue.length=0;return;}const bs=simBoardSig();
   SIMC.queue=SIMC.queue.filter(q=>q.k.startsWith(bs+"@"));if(!SIMC.queue.length)return;
   const t0=performance.now();let changed=false;
-  while(SIMC.queue.length&&performance.now()-t0<(document.hidden?40:22)){const q=SIMC.queue[0];const c=SIMC.cache.get(q.k)||{w:0,n:0,fail:0};
+  let full=false;while(SIMC.queue.length&&performance.now()-t0<simBudget()){const q=SIMC.queue[0];const c=SIMC.cache.get(q.k)||{w:0,n:0,fail:0};
     const r=simOnce(q.en);if(r===null)c.fail++;else{c.n++;if(r)c.w++;}SIMC.cache.set(q.k,c);
-    if(c.n>=SIM_N||c.fail>4){SIMC.queue.shift();changed=true;if(c.fail>4&&c.n<SIM_N){c.n=Math.max(c.n,SIM_N);}}
+    if(c.n>=SIM_N||c.fail>4){SIMC.queue.shift();changed=true;full=true;if(c.fail>4&&c.n<SIM_N){c.n=Math.max(c.n,SIM_N);}}
     else if(c.n>=8&&c.n%4===0)changed=true;}
   if(SIMC.cache.size>400){const ks=[...SIMC.cache.keys()].slice(0,200);for(const k of ks)SIMC.cache.delete(k);}
-  if(changed)simRefreshUI();
-  if(SIMC.queue.length)SIMC.tm=setTimeout(simWork,4);}
-function simRefreshUI(){clearTimeout(SIMC.ui);SIMC.ui=setTimeout(()=>{try{if(!S||S.phase!=="shop")return;if(typeof tab!=="undefined"&&tab==="enc"){renderEnc();if(typeof refreshWorld==="function")refreshWorld();}simChip();}catch(e){}},60);}
+  if(changed)simRefreshUI(full);
+  if(SIMC.queue.length)SIMC.tm=setTimeout(simWork,simGap());}
+function simRefreshUI(full){if(full)SIMC.full=1;clearTimeout(SIMC.ui);SIMC.ui=setTimeout(()=>{try{const fu=SIMC.full;SIMC.full=0;if(!S||S.phase!=="shop")return;if(fu&&simOnEnc()&&!(typeof rolling!=="undefined"&&rolling)){renderEnc();if(typeof refreshWorld==="function")refreshWorld();}simChip();}catch(e){}},60);}
+/* v1.48.0: Wege, die schon stehen, nach jeder Teamänderung leise im Hintergrund neu durchrechnen */
+function simPrefetch(){clearTimeout(SIMC.pre);SIMC.pre=setTimeout(()=>{try{if(!S||S.duel||S.phase!=="shop"||!boardUnits().length)return;const L=[];
+  if(S.paths)for(const p of S.paths)if(p.type!=="event"&&p.enemies&&p.enemies.length)L.push([p.enemies,p.type]);if(S.enc&&S.enemies&&S.enemies.length&&S.enc.type!=="event")L.push([S.enemies,S.enc.type]);
+  for(const[en,ty]of L)if(!simReady(en))simChance(en,ty);}catch(e){}},450);}
+(()=>{if(typeof render!=="function")return;const _r=render;render=function(){const x=_r.apply(this,arguments);try{simPrefetch();}catch(e){}return x;};})();
 /* kleiner Hinweis im Raster: Siegchance gegen den gewählten Gegner, aktualisiert sich bei jeder Umstellung */
 function simChip(){const a=$("arena");if(!a)return;let c=$("simChip");const en=S&&S.phase==="shop"&&S.enc&&S.enc.type!=="event"&&S.enemies&&S.enemies.length?S.enemies:null;
   if(!en||typeof tab==="undefined"||tab!=="raster"||S.duel||!boardUnits().length){if(c)c.style.display="none";return;}
@@ -22265,8 +22290,11 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.47.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.48.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.48.0",d:"10.11.2026",t:"Siegchance",items:[
+  ["dice", "Siegchance ohne Hin und Her: Die 24 Probekämpfe laufen schon, während die Wege ausgewürfelt werden. Die Prozente erscheinen erst, wenn sie fertig sind, statt mehrmals zu springen."],
+  ["swords", "Kaufst du ein Pokémon oder stellst um, rechnet das Spiel die Wege leise im Hintergrund neu. Gehst du zurück zu „Begegnung“, stehen die Prozente meist schon fest."]]},
  {v:"1.47.0.5",d:"09.11.2026",t:"Schnellfix",items:[
   ["skull", "Abgrund ab Ebene 11 fairer: Die Gegner werden bis Ebene 20 schrittweise etwas schwächer, und es gibt mehr mittlere und weniger schwere und Elite-Kämpfe. Die Gegner rechnen wieder wie auf Normal."]]},
  {v:"1.47.0",d:"09.11.2026",t:"Abgrund wie der Turm",items:[
