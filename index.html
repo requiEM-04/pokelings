@@ -4944,6 +4944,24 @@ body:not(.battle) #abHud{top:auto;bottom:10px}
 .chance.wait b{opacity:.7}
 @keyframes chWait{0%{transform:translateX(-110%)}100%{transform:translateX(280%)}}
 .roll .rollSim{font-size:11px;color:var(--muted);margin-top:6px}
+/* v1.49.0: Rang-Effekte Glitzer (Topas) und Schweif (Amethyst) */
+.fmGlit{position:absolute;inset:0;z-index:5;pointer-events:none}
+.fmGlit s{position:absolute;width:17px;height:17px;background:linear-gradient(135deg,#fff,var(--fc));clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);filter:drop-shadow(0 0 5px var(--fc)) drop-shadow(0 0 2px #fff);opacity:0;animation:fmGl 2.8s ease-in-out infinite}
+.fmGlit s:nth-child(1){left:12%;top:18%}
+.fmGlit s:nth-child(2){left:78%;top:12%;animation-delay:.5s;transform:scale(.8)}
+.fmGlit s:nth-child(3){left:86%;top:46%;animation-delay:1.1s}
+.fmGlit s:nth-child(4){left:8%;top:52%;animation-delay:1.6s;transform:scale(.7)}
+.fmGlit s:nth-child(5){left:24%;top:78%;animation-delay:.8s}
+.fmGlit s:nth-child(6){left:70%;top:80%;animation-delay:2s;transform:scale(.85)}
+.fmGlit s:nth-child(7){left:48%;top:8%;animation-delay:1.4s;transform:scale(.6)}
+.fmGlit s:nth-child(8){left:52%;top:62%;animation-delay:2.3s;transform:scale(.6)}
+.fmGlit.leg s:nth-child(2n){--fc:#4dffa0}.fmGlit.leg s:nth-child(3n){--fc:#6fa4ff}.fmGlit.leg s:nth-child(4n){--fc:#ff6680}
+@keyframes fmGl{0%,100%{opacity:0;transform:scale(.3) rotate(0)}45%{opacity:1;transform:scale(1.1) rotate(45deg)}70%{opacity:.2}}
+.fmTrail{position:absolute;inset:9px;z-index:8;pointer-events:none;border-radius:10px;padding:4px;background:conic-gradient(from var(--bga),transparent 0 62%,color-mix(in srgb,var(--fc) 60%,transparent) 78%,#fff 86%,var(--fc) 88%,transparent 94%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:bdgSpin 3.2s linear infinite;filter:drop-shadow(0 0 6px var(--fc))}
+.fmTrail.leg{background:conic-gradient(from var(--bga),transparent 0 55%,#ffcf4a 66%,#4dffa0 74%,#6fa4ff 82%,#ff6680 88%,#c89bff 93%,transparent 97%)}
+.fmFxO .fmFxI{display:inline-flex;width:14px;height:14px;margin-right:4px;border-radius:4px;background:var(--fc);box-shadow:0 0 6px var(--fc);vertical-align:-2px}
+.fmFxO .fmFxI.leg{background:conic-gradient(#ffcf4a,#4dffa0,#6fa4ff,#ff6680,#c89bff,#ffcf4a)}
+.fmPick h5.fmH2{margin-top:14px}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -15205,6 +15223,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Der Abgrund läuft jetzt von Ebene
 if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund ab Ebene 11 fairer: Die Gegner werden bis Ebene 20 schrittweise etwas schwächer, und es gibt mehr mittlere und weniger schwere und Elite-Kämpfe. Die Gegner rechnen wieder wie auf Normal.": "Abyss is fairer from floor 11: foes get gradually a bit weaker up to floor 20, and there are more medium and fewer hard and elite battles. Foes are calculated like on Normal again."});
 /* v1.48.0: Siegchance */
 if(typeof EN!=="undefined")Object.assign(EN,{"Siegchance ohne Hin und Her: Die 24 Probekämpfe laufen schon, während die Wege ausgewürfelt werden. Die Prozente erscheinen erst, wenn sie fertig sind, statt mehrmals zu springen.": "Win chance without flickering: the 24 test battles already run while the paths are rolled. The percentages only appear once they are done instead of jumping around.", "Kaufst du ein Pokémon oder stellst um, rechnet das Spiel die Wege leise im Hintergrund neu. Gehst du zurück zu „Begegnung“, stehen die Prozente meist schon fest.": "When you buy a Pokémon or rearrange, the game quietly recalculates the paths in the background. When you go back to “Encounter”, the percentages are usually ready.", "rechnet": "calculating", "Probekämpfe laufen …": "Test battles running …", "Siegchance aus 24 Probekämpfen": "Win chance from 24 test battles"});
+/* v1.49.0: Ruhm-Effekte */
+if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm-Straße neu: Jeder Rang hat jetzt nur noch einen Kartenrand, den verzierten auf Stufe III, zusammen mit dem Hintergrund in der Bestenliste. Wer bisher den einfachen Rand trug, bekommt den verzierten oder „Keiner“.": "New Fame road: each rank now has only one card frame, the ornate one at tier III, together with the leaderboard background. If you wore the simple frame, you get the ornate one or “None”.", "Stufe II jedes Rangs schaltet einen eigenen Rang-Effekt frei: Topas Glitzer, Smaragd Aura, Saphir Lichtsäulen, Rubin VS-Auftritt, Amethyst Schweif und Diamant Holo-Glanz. Unter „Rang-Effekt“ wählst du frei, welchen du trägst.": "Tier II of every rank unlocks its own rank effect: Topaz Glitter, Emerald Aura, Sapphire Light Pillars, Ruby VS Entrance, Amethyst Trail and Diamond Holo Shine. Under “Rank effect” you freely choose which one you wear.", "Siegchance schneller: Bei eindeutigen Kämpfen reichen 12 Probekämpfe, nur knappe Kämpfe rechnen alle 24.": "Faster win chance: clear-cut battles only need 12 test battles, close ones still run all 24.", "RANG-EFFEKT": "RANK EFFECT", "Rang-Effekt: ": "Rank effect: ", "Glitzer": "Glitter", "Aura": "Aura", "Lichtsäulen": "Light Pillars", "VS-Auftritt": "VS Entrance", "Schweif": "Trail", "Holo-Glanz": "Holo Shine", "Legende": "Legend", "ab Topas III": "from Topaz III"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17704,15 +17724,15 @@ const noTitle=t=>!t||/^Trainer(in)?$/.test(String(t).trim());
 function cardTitles(C){const bs=badgeAll().map(b=>[b,badgeState(b).t]);return [...new Set([...(MYTITLE&&MYTITLE.text?[MYTITLE.text]:[]),...(((META&&META.ev&&META.ev.tt)||[]).map(t=>t.t)),...bs.filter(x=>x[1]>=5).map(x=>badgeT5n(x[0])),...bs.filter(x=>x[1]>=4).map(([b])=>b.n.replace(/^Partner: /,"")+(b.cat==="Partner"?"-Meister":""))])];}
 function cardMine(){const C=cardMeta();if(C.title&&!cardTitles(C).includes(C.title))C.title=null;const b=C.badges.map(id=>{const d=badgeDef(id);return[id,d?badgeShowT(d):0];}).filter(x=>x[1]>0);
   const title=noTitle(C.title)?"":C.title,ts=title?titleFxOf(title):null;
-  return{name:USER||mpName&&mpName()||"Gast",fav:C.fav,favSh:C.favSh?1:0,favM:C.favM||null,bg:C.bg,title,ts,badges:b,ch:Object.values(META.champs||{}).reduce((a,c)=>a+c,0),dw:(META.mp||{}).duelWins||0,dex:_dex().filter(d=>d.owned>0).length,tw:typeof twBest==="function"?twBest():0,...((()=>{try{if(typeof fameMeta!=="function"||!META.fame)return{};const F=fameMeta(),L=fameLevel(F.g).L;return L?{fl:L,fn:F.n||null,ff:F.f||null}:{};}catch(e){return{};}})())};}
+  return{name:USER||mpName&&mpName()||"Gast",fav:C.fav,favSh:C.favSh?1:0,favM:C.favM||null,bg:C.bg,title,ts,badges:b,ch:Object.values(META.champs||{}).reduce((a,c)=>a+c,0),dw:(META.mp||{}).duelWins||0,dex:_dex().filter(d=>d.owned>0).length,tw:typeof twBest==="function"?twBest():0,...((()=>{try{if(typeof fameMeta!=="function"||!META.fame)return{};const F=fameMeta(),L=fameLevel(F.g).L;return L?{fl:L,fn:F.n||null,ff:F.f||null,fe:F.e||null}:{};}catch(e){return{};}})())};}
 function cardClean(c){if(!c||typeof c!=="object")return null;const n=v=>Math.max(0,Math.min(1e7,v|0)),fav=+c.fav;
   return{name:String(c.name||"?").slice(0,20),fav:SPECIES[fav]&&!(isExcl(fav)&&String(c.name||"").trim().toLowerCase()!=="requiem")?fav:25,favSh:c.favSh?1:0,favM:(typeof c.favM==="string"&&typeof MEGA!=="undefined"&&MEGA[fav]&&Object.values(MEGA[fav]).some(m=>m&&m.k===c.favM))?c.favM:null,bg:CARD_BG[c.bg]?c.bg:"std",title:noTitle(c.title)?"":String(c.title).replace(/[<>]/g,"").slice(0,24),ts:TITLE_FX[c.ts]?c.ts:null,
-    badges:(Array.isArray(c.badges)?c.badges:[]).slice(0,3).filter(x=>Array.isArray(x)&&badgeDef(String(x[0]))).map(x=>[String(x[0]).slice(0,40),Math.max(1,Math.min(TIER_MAX,x[1]|0))]),ch:n(c.ch),dw:n(c.dw),dex:n(c.dex),tw:n(c.tw),...((()=>{try{if(typeof fameNames!=="function")return{};const L=Math.max(0,Math.min(FAME_MAX,c.fl|0));if(!L)return{};return{fl:L,fn:fameNames(L).includes(c.fn)?c.fn:null,ff:fameFrames(L).includes(c.ff)?c.ff:null};}catch(e){return{};}})())};}
+    badges:(Array.isArray(c.badges)?c.badges:[]).slice(0,3).filter(x=>Array.isArray(x)&&badgeDef(String(x[0]))).map(x=>[String(x[0]).slice(0,40),Math.max(1,Math.min(TIER_MAX,x[1]|0))]),ch:n(c.ch),dw:n(c.dw),dex:n(c.dex),tw:n(c.tw),...((()=>{try{if(typeof fameNames!=="function")return{};const L=Math.max(0,Math.min(FAME_MAX,c.fl|0));if(!L)return{};const fr=fameFrames(L),fx=typeof fameFxs==="function"?fameFxs(L):[];return{fl:L,fn:fameNames(L).includes(c.fn)?c.fn:null,ff:fr.includes(c.ff)?c.ff:fr.includes(c.ff+"+")?c.ff+"+":null,fe:c.fe===undefined?(L>=FAME_MAX?"legende":null):(fx.includes(c.fe)?c.fe:null)};}catch(e){return{};}})())};}
 const ttCls=ts=>ts&&TITLE_FX[ts]?` class="tt tt-${ts}"`:"";
 function cardHTML(c,side){c=c||cardMine();const sl=[0,1,2].map(i=>c.badges[i]?badgeHTML(c.badges[i][0],c.badges[i][1]):badgeHTML(null,0)).join("");
   const bgk=CARD_BG[c.bg]?c.bg:"std";
   const ffk=c.ff&&typeof FAME_C!=="undefined"?String(c.ff):"",fft=ffk?FAME_C[ffk.replace("+","")]:null;
-  return `<div class="tcard${side?" "+side:""}${fft?" fmFr fr-"+ffk.replace("+","")+(ffk.endsWith("+")?" frp":""):""}"${fft?` style="--fc:${fft.c};--fd:${fft.d}"`:""} data-tn="${esc((CARD_BG[bgk]||{}).n||"")}" data-td="${esc(bgWhy(bgk))}" data-tk="HINTERGRUND" data-tc="#9fe8ff">${bgHTML(c.bg)}<div class="tcShine"></div>${typeof fameHolo==="function"?fameHolo(c):""}${fft?`<i class="tcFr${ffk.endsWith("+")?" plus":""}${ffk==="legende"?" leg":""}"><s></s><s></s><s></s><s></s></i>`:""}
+  return `<div class="tcard${side?" "+side:""}${fft?" fmFr fr-"+ffk.replace("+","")+(ffk.endsWith("+")?" frp":""):""}"${fft?` style="--fc:${fft.c};--fd:${fft.d}"`:""} data-tn="${esc((CARD_BG[bgk]||{}).n||"")}" data-td="${esc(bgWhy(bgk))}" data-tk="HINTERGRUND" data-tc="#9fe8ff">${bgHTML(c.bg)}<div class="tcShine"></div>${typeof fameHolo==="function"?fameHolo(c):""}${typeof fameGlit==="function"?fameGlit(c)+fameTrail(c):""}${fft?`<i class="tcFr${ffk.endsWith("+")?" plus":""}${ffk==="legende"?" leg":""}"><s></s><s></s><s></s><s></s></i>`:""}
    <div class="tcTop${c.title?"":" nt"}${c.fl&&typeof fameEm==="function"?" hasFm":""}">${c.fl&&typeof fameEm==="function"?`<i class="tcFmB">${fameEm(c.fl)}</i>`:""}<b${c.name.length>13?' class="long"':""}>${typeof fameNameHtml==="function"?fameNameHtml(c.name,c):esc(c.name)}</b>${c.title?`<small class="${[c.ts&&TITLE_FX[c.ts]?"tt tt-"+c.ts:"",c.title.length>16?"xl":c.title.length>12?"long":""].join(" ").trim()}">${esc(c.title)}</small>`:""}</div>
    <div class="tcAv"><i class="tcPlat"></i>${typeof fameAura==="function"?fameAura(c):""}${c.ph?`<span class="tcMon tcPh"><b>?</b></span>`:`<span class="tcMon" data-sp="${SPECIES[c.fav]?c.fav:25}" data-sh="${c.favSh?1:""}"${c.favM&&SPECIES[c.fav]?` data-mk="${esc(String(c.favM))}"`:""}></span>`}</div>
    <div class="tcBdg">${sl}</div>
@@ -17791,7 +17811,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.48.0",DUEL_HP=30;
+const MP_VER="1.49.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -22258,6 +22278,7 @@ function simWork(){SIMC.tm=0;if(!S||B&&!B.done&&!B.sim){SIMC.queue.length=0;retu
   const t0=performance.now();let changed=false;
   let full=false;while(SIMC.queue.length&&performance.now()-t0<simBudget()){const q=SIMC.queue[0];const c=SIMC.cache.get(q.k)||{w:0,n:0,fail:0};
     const r=simOnce(q.en);if(r===null)c.fail++;else{c.n++;if(r)c.w++;}SIMC.cache.set(q.k,c);
+    if(c.n>=12&&(c.w===0||c.w===c.n)&&c.n<SIM_N){c.w=c.w?SIM_N:0;c.n=SIM_N;}
     if(c.n>=SIM_N||c.fail>4){SIMC.queue.shift();changed=true;full=true;if(c.fail>4&&c.n<SIM_N){c.n=Math.max(c.n,SIM_N);}}
     else if(c.n>=8&&c.n%4===0)changed=true;}
   if(SIMC.cache.size>400){const ks=[...SIMC.cache.keys()].slice(0,200);for(const k of ks)SIMC.cache.delete(k);}
@@ -22273,9 +22294,9 @@ function simPrefetch(){clearTimeout(SIMC.pre);SIMC.pre=setTimeout(()=>{try{if(!S
 function simChip(){const a=$("arena");if(!a)return;let c=$("simChip");const en=S&&S.phase==="shop"&&S.enc&&S.enc.type!=="event"&&S.enemies&&S.enemies.length?S.enemies:null;
   if(!en||typeof tab==="undefined"||tab!=="raster"||S.duel||!boardUnits().length){if(c)c.style.display="none";return;}
   if(!c){c=document.createElement("div");c.id="simChip";c.className="ov rasterOnly";a.appendChild(c);}
-  const p=simChance(en,S.enc.type,1),v=p==null?null:Math.round(p*100),col=v==null?"#9aa3b5":v>=65?"#38b048":v>=35?"#e0a020":"#e0402e";
+  const p0=simChance(en,S.enc.type,1),p=simReady(en)?p0:null,v=p==null?null:Math.round(p*100),col=v==null?"#9aa3b5":v>=65?"#38b048":v>=35?"#e0a020":"#e0402e";
   const cc=SIMC.cache.get(simBoardSig()+"@"+simEnSig(en)),nn=cc?Math.min(cc.n,SIM_N):0,part=v!=null&&nn<SIM_N;
-  c.style.display="";c.innerHTML=`${ic("swords")}<span>Siegchance gegen ${esc(BOSSES[S.round]?BOSSES[S.round].name:S.enc.name||"Gegner")}</span><b style="background:${col}">${v==null?"…":(part?"~":"")+v+" %"}</b><small>${v==null||part?"simuliere "+nn+"/"+SIM_N:"aus "+SIM_N+" Probekämpfen"}</small>`;}
+  c.style.display="";c.innerHTML=`${ic("swords")}<span>Siegchance gegen ${esc(BOSSES[S.round]?BOSSES[S.round].name:S.enc.name||"Gegner")}</span><b style="background:${col}">${v==null?"…":v+" %"}</b><small>${v==null?"rechnet …":"aus "+SIM_N+" Probekämpfen"}</small>`;}
 /* echte Simulation, solange sie läuft die alte Schätzung */
 function winChance(en,ty){const s=simChance(en,ty);return s==null?winChanceH(en,ty):s;}
 
@@ -22290,8 +22311,12 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.48.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.49.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.49.0",d:"10.11.2026",t:"Ruhm-Effekte",items:[
+  ["crown", "Ruhm-Straße neu: Jeder Rang hat jetzt nur noch einen Kartenrand, den verzierten auf Stufe III, zusammen mit dem Hintergrund in der Bestenliste. Wer bisher den einfachen Rand trug, bekommt den verzierten oder „Keiner“."],
+  ["star", "Stufe II jedes Rangs schaltet einen eigenen Rang-Effekt frei: Topas Glitzer, Smaragd Aura, Saphir Lichtsäulen, Rubin VS-Auftritt, Amethyst Schweif und Diamant Holo-Glanz. Unter „Rang-Effekt“ wählst du frei, welchen du trägst."],
+  ["dice", "Siegchance schneller: Bei eindeutigen Kämpfen reichen 12 Probekämpfe, nur knappe Kämpfe rechnen alle 24."]]},
  {v:"1.48.0",d:"10.11.2026",t:"Siegchance",items:[
   ["dice", "Siegchance ohne Hin und Her: Die 24 Probekämpfe laufen schon, während die Wege ausgewürfelt werden. Die Prozente erscheinen erst, wenn sie fertig sind, statt mehrmals zu springen."],
   ["swords", "Kaufst du ein Pokémon oder stellst um, rechnet das Spiel die Wege leise im Hintergrund neu. Gehst du zurück zu „Begegnung“, stehen die Prozente meist schon fest."]]},
@@ -23643,10 +23668,13 @@ const ROM3=["","I","II","III"];
 const fameName_=L=>{const i=fameStepInfo(L);return i?(i.leg?i.n:i.n+" "+ROM3[i.sub]):"";};
 /* freigeschaltete Namensfarben / Ränder bei Stufe L */
 function fameNames(L){const o=[];FAME_T.forEach((t,i)=>{if(L>=i*3+1)o.push(t.k);});if(L>=FAME_MAX)o.push("legende");return o;}
-function fameFrames(L){const o=[];FAME_T.forEach((t,i)=>{if(L>=i*3+2)o.push(t.k);if(L>=i*3+3)o.push(t.k+"+");});if(L>=FAME_MAX)o.push("legende");return o;}
+function fameFrames(L){const o=[];FAME_T.forEach((t,i)=>{if(L>=i*3+3)o.push(t.k+"+");});if(L>=FAME_MAX)o.push("legende");return o;}
+/* v1.49.0: Rang-Effekte (Stufe II jedes Rangs), frei wählbar wie Namensfarbe und Rand */
+const FAME_FXN={topas:"Glitzer",smaragd:"Aura",saphir:"Lichtsäulen",rubin:"VS-Auftritt",amethyst:"Schweif",diamant:"Holo-Glanz",legende:"Legende"};
+function fameFxs(L){const o=[];FAME_T.forEach((t,i)=>{if(L>=i*3+2)o.push(t.k);});if(L>=FAME_MAX)o.push("legende");return o;}
 const FAME_C=Object.fromEntries([...FAME_T,FAME_LEG].map(t=>[t.k,t]));
 function fameOpen(){try{const bst=Object.keys(REGIONS).every(rk=>!bstMissing(rk).length),tree=RESEARCH.every(c=>c.nodes.every(n=>perkLv(n.id)>=n.max));return{ok:bst&&tree,bst,tree};}catch(e){return{ok:false,bst:false,tree:false};}}
-function fameMeta(){META.fame=META.fame||{g:0,n:null,f:null};const F=META.fame;F.g=Math.max(0,F.g|0);const L=fameLevel(F.g).L;if(F.n&&!fameNames(L).includes(F.n))F.n=null;if(F.f&&!fameFrames(L).includes(F.f))F.f=null;return F;}
+function fameMeta(){META.fame=META.fame||{g:0,n:null,f:null};const F=META.fame;F.g=Math.max(0,F.g|0);const L=fameLevel(F.g).L;if(F.n&&!fameNames(L).includes(F.n))F.n=null;{const fr=fameFrames(L);if(F.f&&!fr.includes(F.f))F.f=fr.includes(F.f+"+")?F.f+"+":null;}const fx=fameFxs(L);if(F.e===undefined)F.e=fx.length?fx[fx.length-1]:null;if(F.e&&!fx.includes(F.e))F.e=null;return F;}
 /* Name mit Ruhm-Farbe; c = bereinigte Kampfkarte (oder null) */
 function fameNameHtml(name,c){const k=c&&c.fn&&FAME_C[c.fn]?c.fn:null;return k?`<span class="fmN fn-${k}">${esc(name)}</span>`:esc(name);}
 function fameRowK(card){try{const c=card&&typeof cardClean==="function"?cardClean(card):null,k=c&&c.ff;if(!k||!(k.endsWith("+")||k==="legende"))return null;const t=k==="legende"?FAME_LEG:FAME_T.find(x=>x.k===k.slice(0,-1));return t?{k,t}:null;}catch(e){return null;}}
@@ -23660,15 +23688,18 @@ function fameReset141(){if(!META||typeof USER==="undefined"||!USER||(META.fkv|0)
 /* v1.43.0: Ruhm-Effekte – Aura (ab Rubin I), VS-Auftritt (ab Amethyst I), Lichtsäulen (ab Diamant I), Ruhmeslegende (Regenbogen, Krone, Holo) */
 const FAME_FX={aura:10,vs:13,pil:16};
 const FAME_RB=["#ffcf4a","#4dffa0","#6fa4ff","#ff6680","#c89bff","#ffcf4a"];
+const fameFxK=c=>c&&c.fe?String(c.fe):null,fameFxOn=(c,k)=>{const e=fameFxK(c);return e===k||e==="legende";},fameFxC=k=>(FAME_C[k]||FAME_LEG).c;
 const fameL_=c=>{const L=c&&c.fl|0;return L>0?Math.min(FAME_MAX,L):0;};
 const fameCol=L=>{try{const i=fameStepInfo(L);return i?i.c:"#ffd84a";}catch(e){return "#ffd84a";}};
 const fameCrownI=cls=>`<i class="fmCrown ${cls||""}"><b></b></i>`;
-function fameAura(c){const L=fameL_(c);if(L<FAME_FX.aura)return "";const leg=L>=FAME_MAX;
-  return `<i class="fmAura${leg?" leg":""}" style="--fc:${fameCol(L)}"><s></s><s></s><s></s><s></s><s></s></i>`;}
-function fameHolo(c){return fameL_(c)>=FAME_MAX?`<i class="fmHolo"></i>${fameCrownI("onTop")}`:"";}
-function fameVsBack(c,side){const L=fameL_(c);if(L<FAME_FX.pil)return "";const leg=L>=FAME_MAX,col=fameCol(L);
+function fameAura(c){if(!fameFxOn(c,"smaragd"))return "";const leg=fameFxK(c)==="legende";
+  return `<i class="fmAura${leg?" leg":""}" style="--fc:${fameFxC("smaragd")}"><s></s><s></s><s></s><s></s><s></s></i>`;}
+function fameHolo(c){return (fameFxOn(c,"diamant")?`<i class="fmHolo"></i>`:"")+(fameL_(c)>=FAME_MAX?fameCrownI("onTop"):"");}
+function fameGlit(c){if(!fameFxOn(c,"topas"))return "";return `<i class="fmGlit${fameFxK(c)==="legende"?" leg":""}" style="--fc:${fameFxC("topas")}">${"<s></s>".repeat(8)}</i>`;}
+function fameTrail(c){if(!fameFxOn(c,"amethyst"))return "";return `<i class="fmTrail${fameFxK(c)==="legende"?" leg":""}" style="--fc:${fameFxC("amethyst")}"></i>`;}
+function fameVsBack(c,side){if(!fameFxOn(c,"saphir"))return "";const leg=fameFxK(c)==="legende",col=fameFxC("saphir");
   return `<div class="fmVsP ${side}">${Array.from({length:6},(_,i)=>`<i style="left:${4+i*15}%;--pc:${leg?FAME_RB[i]:col};animation-delay:-${(i*.5).toFixed(1)}s"></i>`).join("")}</div>`;}
-function fameVsFront(c,side){const L=fameL_(c);if(L<FAME_FX.vs)return "";const leg=L>=FAME_MAX,col=fameCol(L);
+function fameVsFront(c,side){if(!fameFxOn(c,"rubin"))return "";const leg=fameFxK(c)==="legende",col=fameFxC("rubin");
   const P=[[6,30],[30,22],[38,48],[4,58],[26,66]];
   return `<i class="fmVsRing ${side}${leg?" leg":""}" style="--fc:${col}"></i>${P.map(([x,y],i)=>`<i class="fmShard" style="${side==="R"?"right":"left"}:${x}%;top:${y}%;--c:${leg?FAME_RB[i]:col};animation-delay:-${(i*.6).toFixed(1)}s"></i>`).join("")}`;}
 function fameLegCrown(c){return fameL_(c)>=FAME_MAX?fameCrownI("onName"):"";}
@@ -23682,24 +23713,26 @@ function fameTabHtml(){const O=fameOpen();
       <div class="fmReq${O.bst?" ok":""}">${ic(O.bst?"check":"lock")} Alle Booster leer <b>${nb}/${nr}</b></div><div class="fmReq${O.tree?" ok":""}">${ic(O.tree?"check":"lock")} Skillbaum komplett <b>${tl}/${tm}</b></div>
       <div class="fmPrev">${FAME_T.map((t,i)=>fameEm(i*3+1)).join("")}${fameEm(FAME_MAX)}</div></div>`;}
   const F=fameMeta(),lv=fameLevel(F.g),L=lv.L,inf=fameStepInfo(L),nx=fameStepInfo(L+1),p=lv.next?Math.min(1,lv.into/lv.next):1;
-  const step=k=>{const i=fameStepInfo(k),got=L>=k,cur=k===L+1,rw=i.leg?"Legenden-Name + Kronenrand":i.sub===1?"Namensfarbe "+i.n:i.sub===2?"Kartenrand "+i.n:"Verzierter Rand "+i.n;
+  const step=k=>{const i=fameStepInfo(k),got=L>=k,cur=k===L+1,rw=i.leg?"Legenden-Name + Kronenrand":i.sub===1?"Namensfarbe "+i.n:i.sub===2?"Rang-Effekt: "+(FAME_FXN[i.k]||i.n):"Verzierter Rand "+i.n+" · Bestenliste";
     return `<div class="fmStep${got?" got":""}${cur?" cur":""}" style="--fc:${i.c};--fd:${i.d}">${fameEm(k)}<div><b>${esc(fameName_(k))}</b><small>${rw}</small></div><em>${got?ic("check"):`${ic("gem")} ${fameCost(k)}`}</em></div>`;};
   const groups=FAME_T.map((t,i)=>`<div class="fmGrp" style="--fc:${t.c};--fd:${t.d}"><h5>${t.n.toUpperCase()}</h5>${[1,2,3].map(j=>step(i*3+j)).join("")}</div>`).join("")+`<div class="fmGrp leg" style="--fc:${FAME_LEG.c};--fd:${FAME_LEG.d}"><h5>RUHMESLEGENDE</h5>${step(FAME_MAX)}</div>`;
-  const nm=fameNames(L),fr=fameFrames(L),me=USER||"Trainer";
+  const nm=fameNames(L),fr=fameFrames(L),fx=fameFxs(L),me=USER||"Trainer";
   return `<div class="fmTop" style="--fc:${inf?inf.c:"#8a93b0"};--fd:${inf?inf.d:"#2a3048"}">${L?fameEm(L,true):`<i class="fmEm big none"><span>?</span></i>`}<div class="fmTopR"><h3>${L?esc(fameName_(L)):"Noch kein Ruhm"}</h3>
      <small>${ic("gem")} ${F.g.toLocaleString("de-DE")} Edelsteine im Ruhm</small>
      ${lv.next?`<div class="rkProg fmBar" style="--rc:${nx.c}"><i style="width:${Math.round(p*100)}%"></i><span>${lv.into} / ${lv.next} bis ${esc(fameName_(L+1))}</span></div>`:`<div class="rkProg myth fmBar"><i style="width:100%"></i><span>Höchster Ruhm erreicht</span></div>`}
      ${lv.next?`<div class="fmInv"><span>Einzahlen:</span>${[50,100,500].map(v=>`<button class="gemBtn" data-fmi="${v}" ${META.gems<1?"disabled":""}>${ic("gem")}${v}</button>`).join("")}<button class="gemBtn" data-fmi="next" ${META.gems<1?"disabled":""}>${ic("gem")}bis ${esc(fameName_(L+1))}</button></div>`:""}</div></div>
    <div class="fmPick"><div><h5>NAMENSFARBE</h5><div class="fmOpts"><button class="fmO${!F.n?" on":""}" data-fmn="">Normal</button>${nm.map(k=>`<button class="fmO${F.n===k?" on":""}" data-fmn="${k}"><span class="fmN fn-${k}">${esc(me)}</span></button>`).join("")||`<small class="fmNo">ab Topas I</small>`}</div></div>
-     <div><h5>KARTENRAND</h5><div class="fmOpts"><button class="fmO${!F.f?" on":""}" data-fmf="">Keiner</button>${fr.map(k=>{const b=k.replace("+",""),t=FAME_C[b];return `<button class="fmO fmFrO${F.f===k?" on":""}" data-fmf="${k}" style="--fc:${t.c};--fd:${t.d}"><i class="fmSw${k.endsWith("+")?" plus":""}${b==="legende"?" leg":""}"></i>${t.n}${k.endsWith("+")?" ✦":""}</button>`;}).join("")||`<small class="fmNo">ab Topas II</small>`}</div></div>
+     <div><h5>KARTENRAND</h5><div class="fmOpts"><button class="fmO${!F.f?" on":""}" data-fmf="">Keiner</button>${fr.map(k=>{const b=k.replace("+",""),t=FAME_C[b];return `<button class="fmO fmFrO${F.f===k?" on":""}" data-fmf="${k}" style="--fc:${t.c};--fd:${t.d}"><i class="fmSw${k.endsWith("+")?" plus":""}${b==="legende"?" leg":""}"></i>${t.n}${k.endsWith("+")?" ✦":""}</button>`;}).join("")||`<small class="fmNo">ab Topas III</small>`}</div>
+       <h5 class="fmH2">RANG-EFFEKT</h5><div class="fmOpts"><button class="fmO${!F.e?" on":""}" data-fme="">Keiner</button>${fx.map(k=>`<button class="fmO fmFxO${F.e===k?" on":""}" data-fme="${k}" style="--fc:${fameFxC(k)}"><i class="fmFxI${k==="legende"?" leg":""}"></i>${esc(FAME_FXN[k]||k)}</button>`).join("")||`<small class="fmNo">ab Topas II</small>`}</div></div>
      <div class="fmCardP">${typeof cardHTML==="function"?cardHTML(cardMine()):""}</div></div>
    <h4 class="cdCat" style="margin-top:14px">Ruhm-Straße</h4><div class="fmRoad">${groups}</div>`;}
 function fameBind(){const mb=$("mbox");if(!mb)return;if(typeof cardHydrate==="function")try{cardHydrate(mb.querySelector(".fmCardP")||mb);}catch(e){}
   mb.querySelectorAll("[data-fmi]").forEach(b=>b.onclick=()=>{const F=fameMeta(),lv=fameLevel(F.g);if(!lv.next)return;let v=b.dataset.fmi==="next"?lv.next-lv.into:+b.dataset.fmi;v=Math.min(v,META.gems,lv.next-lv.into+(b.dataset.fmi==="next"?0:1e9));
-    if(v<=0){sfx("deny");return;}META.gems-=v;F.g+=v;const L2=fameLevel(F.g).L;if(L2>lv.L){const i=fameStepInfo(L2);toast(`Ruhm: ${fameName_(L2)} erreicht!`,"crown");try{sfx("levelUp");}catch(e){}if(i&&i.sub===1&&!F.n)F.n=i.k;if(i&&i.leg)F.n="legende";}else sfx("coin");
+    if(v<=0){sfx("deny");return;}META.gems-=v;F.g+=v;const L2=fameLevel(F.g).L;if(L2>lv.L){const i=fameStepInfo(L2);toast(`Ruhm: ${fameName_(L2)} erreicht!`,"crown");try{sfx("levelUp");}catch(e){}if(i&&i.sub===1&&!F.n)F.n=i.k;if(i&&i.sub===2)F.e=i.k;if(i&&i.sub===3&&!F.f)F.f=i.k+"+";if(i&&i.leg){F.n="legende";F.e="legende";}}else sfx("coin");
     saveMeta();refreshGems();labScreen("fame");});
   mb.querySelectorAll("[data-fmn]").forEach(b=>b.onclick=()=>{const F=fameMeta();F.n=b.dataset.fmn||null;saveMeta();sfx("click");labScreen("fame");});
-  mb.querySelectorAll("[data-fmf]").forEach(b=>b.onclick=()=>{const F=fameMeta();F.f=b.dataset.fmf||null;saveMeta();sfx("click");labScreen("fame");});}
+  mb.querySelectorAll("[data-fmf]").forEach(b=>b.onclick=()=>{const F=fameMeta();F.f=b.dataset.fmf||null;saveMeta();sfx("click");labScreen("fame");});
+  mb.querySelectorAll("[data-fme]").forEach(b=>b.onclick=()=>{const F=fameMeta();F.e=b.dataset.fme||null;saveMeta();sfx("click");labScreen("fame");});}
 
 
 /* ================================ v1.36.0: Legendäre Items, neue Relikte, Kampfturm-Hintergründe, Turm in der Bestenliste ================================ */
