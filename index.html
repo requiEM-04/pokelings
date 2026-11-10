@@ -15275,6 +15275,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: Die Gegner ab Ebene 8 sin
 if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund deutlich schwerer: Die Gegner werden ab Ebene 8 stetig stärker und ab Ebene 20 viel steiler. Auch mit einem voll ausgebauten Team ist irgendwo um Ebene 40 Schluss.": "Abyss much harder: enemies grow steadily stronger from floor 8 and much more steeply from floor 20. Even a fully upgraded team hits its limit somewhere around floor 40.", "Mehr Edelsteine in der Tiefe: Ab Ebene 21 bringt jede Ebene mehr als die davor. Meilensteine gibt es jetzt alle 5 Ebenen bis 50, danach bei 60, 70, 80, 90 und 100, und sie sind deutlich mehr wert.": "More gems in the depths: from floor 21 every floor gives more than the one before. Milestones now come every 5 floors up to 50, then at 60, 70, 80, 90 and 100, and they are worth much more.", "Gaben gibt es jetzt bei Ebene 5, 15, 25 und so weiter. Bei 10, 20, 30 kommen Nachschub und Fluch-Wahl.": "Gifts now come at floor 5, 15, 25 and so on. At 10, 20, 30 you get reinforcements and the curse choice.", "Die Start-Flüche stehen mittig, die Abgrund-Leiste ist im VS-Bildschirm ausgeblendet, und lange Kartentitel wie „Zweite Chance“ haben mehr Abstand.": "The starting curses are centered, the Abyss bar is hidden on the VS screen, and long card titles like “Second Chance” have more spacing.", "Zwei Flüche begleiten dich hinab. Nach jeder 10. Ebene wählst du einen weiteren. Bei Ebene 5, 15, 25 … wartet eine Gabe.": "Two curses follow you down. After every 10th floor you choose another one. At floor 5, 15, 25 … a gift awaits."});
 /* v1.51.0.6: Abgrund Tiefe */
 if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: Ab Ebene 40 steigt die Gegnerstärke langsamer. Sehr gute Läufe kommen so noch ein Stück tiefer.": "Abyss: from floor 40 on enemy strength rises more slowly. Very good runs can now get a bit deeper.", "Abgrund-Abzeichen: Die Stufen kommen jetzt bei Ebene 10, 20, 30, 35 und 40, Bernstein schon ab Ebene 50.": "Abyss badge: the tiers now come at floor 10, 20, 30, 35 and 40, Amber already from floor 50.", "Fehler behoben: Meilensteine, die du schon erreicht, aber nie bekommen hast, gibt es beim nächsten Ende eines Abstiegs nachträglich.": "Bug fixed: milestones you already reached but never received are now awarded when your next descent ends."});
+/* v1.51.0.7 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Die Abgrund-Karte im Hauptmenü ist aufgeräumt.": "The Abyss card in the main menu has been tidied up."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17336,8 +17338,9 @@ Object.assign(ICONS,{
  cs_spark:'<path class="fo" d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/>',
  cs_music:'<path d="M9 17.5V5.5l10-2v12"/><circle class="fo" cx="6.5" cy="17.5" r="2.5"/><circle cx="6.5" cy="17.5" r="2.5"/><circle class="fo" cx="16.5" cy="15.5" r="2.5"/><circle cx="16.5" cy="15.5" r="2.5"/>',
  cs_alpha:'<path class="fo" d="M18.5 6.5c-1.8 5-4 11-8.2 11-2.8 0-4.6-2.3-4.6-5.4 0-3.4 2.2-6.1 5.1-6.1 3.9 0 5.5 5 7 8.5.6 1.4 1.4 2.5 2.7 2.5"/><path d="M18.5 6.5c-1.8 5-4 11-8.2 11-2.8 0-4.6-2.3-4.6-5.4 0-3.4 2.2-6.1 5.1-6.1 3.9 0 5.5 5 7 8.5.6 1.4 1.4 2.5 2.7 2.5"/>',
+ cs_beta:'<path class="fo" d="M8.2 21V8c0-2.9 1.7-4.6 4.1-4.6 2.2 0 3.8 1.5 3.8 3.5 0 1.9-1.4 3.2-3.5 3.4 2.9.1 4.8 1.9 4.8 4.4 0 2.7-2 4.5-4.7 4.5-1.8 0-3.3-.7-4.5-2"/><path d="M8.2 21V8c0-2.9 1.7-4.6 4.1-4.6 2.2 0 3.8 1.5 3.8 3.5 0 1.9-1.4 3.2-3.5 3.4 2.9.1 4.8 1.9 4.8 4.4 0 2.7-2 4.5-4.7 4.5-1.8 0-3.3-.7-4.5-2"/>',
  cs_pad:'<rect class="fo" x="2.5" y="7" width="19" height="10.5" rx="5.2"/><rect x="2.5" y="7" width="19" height="10.5" rx="5.2"/><path d="M7.2 10.2v4.2M5.1 12.3h4.2"/><circle class="f" cx="15.8" cy="11.2" r="1.15"/><circle class="f" cx="18" cy="13.4" r="1.15"/>'});
-const CBADGE_IC=["crown","star","heart","fire","bolt","gem","shiny","trophy","ghost","swords","skull","leaf","snow","drop","sun","mega","tera","tower","ball","rocket","clover","eye","cs_inf","cs_moon","cs_planet","cs_paw","cs_wing","cs_sword","cs_flower","cs_spark","cs_music","cs_pad","cs_alpha","alpha"];
+const CBADGE_IC=["crown","star","heart","fire","bolt","gem","shiny","trophy","ghost","swords","skull","leaf","snow","drop","sun","mega","tera","tower","ball","rocket","clover","eye","cs_inf","cs_moon","cs_planet","cs_paw","cs_wing","cs_sword","cs_flower","cs_spark","cs_music","cs_pad","cs_alpha","alpha","cs_beta"];
 const cbName=n=>String(n||"").replace(/[|<>"&]/g,"").trim().slice(0,16);
 const cbId=(icn,fx,n)=>"c|"+icn+"|"+fx+"|"+cbName(n);
 function cbParse(id){if(!id||!String(id).startsWith("c|"))return null;const p=String(id).split("|");if(p.length<4)return null;const icn=p[1],fx=p[2],n=cbName(p.slice(3).join(""));
@@ -17872,7 +17875,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.51.0.6",DUEL_HP=30;
+const MP_VER="1.51.0.7",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18509,8 +18512,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.51.0.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.51.0.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.51.0.7",d:"10.11.2026",t:"Kleinigkeiten",items:[
+  ["check", "Die Abgrund-Karte im Hauptmenü ist aufgeräumt."]]},
  {v:"1.51.0.6",d:"10.11.2026",t:"Abgrund: Tiefe",items:[
   ["skull", "Abgrund: Ab Ebene 40 steigt die Gegnerstärke langsamer. Sehr gute Läufe kommen so noch ein Stück tiefer."],
   ["badge", "Abgrund-Abzeichen: Die Stufen kommen jetzt bei Ebene 10, 20, 30, 35 und 40, Bernstein schon ab Ebene 50."],
@@ -20639,7 +20644,7 @@ setTimeout(()=>{for(const fn of ["seasonDetail","lbDetail"]){if(typeof window[fn
 /* ---------------- Herausforderungen-Panel (links im Hauptmenü) ---------------- */
 function chAbyssCard(){const ok=abUnlocked(),n=abUnlockN(),N=Object.keys(REGIONS).length,b=abBest(),t=badgeTierOfAb(b),nx=AB.ms.find(m=>b<m);
   return `<div class="chCard ab${ok?"":" lock"}"><div class="chH"><i class="chI">${ic("skull")}</i><div><b>Abgrund</b><small>endlos · Draft · Flüche · 1 Leben</small></div></div>
-   ${ok?`<div class="chAbRec"><span><small>REKORD</small><b>${b?"Ebene "+b:"–"}</b></span><span><small>NÄCHSTER MEILENSTEIN</small><b>${nx?"Ebene "+nx:"alle geschafft"}</b></span>${t?`<span class="chAbB">${badgeHTML("abyss",t,"sm")}</span>`:""}</div>`
+   ${ok?`<div class="chAbRec"><span><small>REKORD</small><b>${b?"Ebene "+b:"–"}</b></span><span><small>NÄCHSTER MEILENSTEIN</small><b>${nx?"Ebene "+nx:"alle geschafft"}</b></span></div>`
      :`<div class="chLock">${ic("lock")}<span>Champion auf Normal in jeder Region<br><b>${n}/${N}</b> Regionen geschafft</span></div>`}
    ${ok?(()=>{const sv=abSave();const hb=(abMeta().hist||[]).length?`<button class="btn" data-ch="abh" title="Verlauf">${ic("scroll")}</button>`:"";return sv?`<div class="chB"><button class="pri hot" data-ch="abc">${ic("play")} Weiter · Ebene ${sv.S.round}</button><button class="btn" data-ch="ab" title="Neuer Abstieg">${ic("skull")}</button>${hb}</div>`:`<div class="chB"><button class="pri hot" data-ch="ab">${ic("skull")} Abstieg beginnen</button>${hb}</div>`;})():`<button class="btn" disabled>${ic("lock")} Gesperrt</button>`}</div>`;}
 function chDailyCard(){if(typeof dailyState!=="function")return"";const {D,played,score}=dailyState(),dd=D.day.split("-").reverse().join(".");
