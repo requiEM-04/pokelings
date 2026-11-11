@@ -13029,7 +13029,7 @@ function genEnemies(p){
       const per=budget/(n-i)*rnd(.85,1.2);let x=Math.random()*100,tier=1;for(let k=0;k<5;k++){if(x<o[k]){tier=k+1;break;}x-=o[k];}
       while(tier>1&&COST[tier]>per)tier--;
       const RL=LINES.filter(l=>l.region===(S.region||"kanto")&&!l.ub&&!(l.eMin>maxSt)),L=pick(RL.filter(l=>l.tier===tier).length?RL.filter(l=>l.tier===tier):RL),c=COST[tier];let st=0;while(st<Math.min(maxSt,L.stages.length-1)&&c*2**(st+1)<=per)st++;if(L.eMin&&st<L.eMin)st=Math.min(L.eMin,L.stages.length-1);
-      let stars=0;if(st===L.stages.length-1)while(stars<Math.min(maxStars,L.stages.length<3?3:2)&&c*2**(st+stars+1)<=per)stars++;
+      let stars=0;if(st===L.stages.length-1)while(stars<Math.min(!hard&&i<(typeof abMidK==="function"?abMidK(r):0)?Math.max(maxStars,myStars):maxStars,L.stages.length<3?3:2)&&c*2**(st+stars+1)<=per)stars++;
       const br=st>0&&SPECIES[L.stages[st-1][0]].branch,u=mkUnit(br?pick(br):L.stages[st][0],stars);budget-=unitCost(u);u.gifts=Array.from({length:giftN},giftId);if(itN)u.items=enemyItems(r,itN);
       const rk=ROLES[roleOf(u)].range,cols=rk==="nah"?[ECOL0,ECOL0,ECOL0+1]:rk==="mittel"?[ECOL0+1,ECOL0+2]:[FW-1,FW-1,FW-2];
       let xx,yy,tr=0;do{xx=pick(cols);yy=Math.floor(Math.random()*FH);tr++;}while(used.has(xx+","+yy)&&tr<50);
@@ -15305,6 +15305,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: Ab Ebene 40 steigt die Ge
 if(typeof EN!=="undefined")Object.assign(EN,{"Die Abgrund-Karte im Hauptmenü ist aufgeräumt.": "The Abyss card in the main menu has been tidied up."});
 /* v1.51.0.8 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm: Die Rang-Effekte Lichtsäulen (Saphir) und VS-Auftritt (Rubin) sieht man jetzt auch direkt auf der Trainerkarte, nicht nur im VS-Bildschirm.": "Fame: the rank effects Light Pillars (Sapphire) and VS Entrance (Ruby) are now also shown right on the trainer card, not only on the VS screen."});
+/* v1.51.0.9 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: Ab Ebene 21 bekommen mittlere Kämpfe alle 3 Ebenen einen stärkeren Gegner mehr. Der mittlere Weg ist in der Tiefe nicht mehr geschenkt, wird aber langsam schwerer statt auf einmal.": "Abyss: from floor 21, medium battles gain one more strong enemy every 3 floors. The medium path is no longer a free win in the depths, but it gets harder gradually instead of all at once."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17903,7 +17905,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.51.0.8",DUEL_HP=30;
+const MP_VER="1.51.0.9",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18540,8 +18542,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.51.0.8"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.51.0.9"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.51.0.9",d:"11.11.2026",t:"Abgrund: mittlere Kämpfe",items:[
+  ["skull", "Abgrund: Ab Ebene 21 bekommen mittlere Kämpfe alle 3 Ebenen einen stärkeren Gegner mehr. Der mittlere Weg ist in der Tiefe nicht mehr geschenkt, wird aber langsam schwerer statt auf einmal."]]},
  {v:"1.51.0.8",d:"11.11.2026",t:"Rang-Effekte auf der Karte",items:[
   ["spark", "Ruhm: Die Rang-Effekte Lichtsäulen (Saphir) und VS-Auftritt (Rubin) sieht man jetzt auch direkt auf der Trainerkarte, nicht nur im VS-Bildschirm."]]},
  {v:"1.51.0.7",d:"10.11.2026",t:"Kleinigkeiten",items:[
@@ -20842,6 +20846,9 @@ function abHistModal(){const H=(abMeta().hist||[]);if(!H.length){toast("Noch kei
       <div class="abHiC"><span class="abResCu"><span>${cu||"–"}</span></span>${gi?`<span class="abResCu gi"><span>${gi}</span></span>`:""}</div></div>`;};
   openModal(`<h2>${ic("scroll")} ABGRUND · VERLAUF</h2><div class="lead">${H.length===1?"Dein letzter Abstieg.":`Deine letzten <b>${H.length}</b> Abstiege.`} Rekord: Ebene <b>${abBest()}</b>.</div><div class="abHiL">${H.map(row).join("")}</div>`,"abHiM",true);
   $("mbox").querySelectorAll(".abHiT i[data-sp]").forEach(e=>{try{e.prepend(natFit(spriteEl(+e.dataset.sp),1));}catch(x){}});}
+/* v1.51.0.9: Mittlere Kämpfe im Abgrund: ab Ebene 21 alle 3 Ebenen ein Gegner mehr ohne Sterne-Abschlag (Ebene 21: 1, Ebene 30: 4, ab Ebene 48: alle) */
+const abMidK=f=>(typeof S!=="undefined"&&S&&S.abyss&&f>=20)?Math.min(10,Math.floor((f-18)/(window.__ABMK||3))):0;
+
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
