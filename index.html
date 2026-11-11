@@ -5094,6 +5094,10 @@ img.aur,.card .pic img.aur,.u img.aur{filter:url(#aurF) drop-shadow(0 0 2px rgba
 .aurBoxes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.aurBox{padding:10px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(95,240,224,.25);text-align:center}
 .aurBox .ic{width:22px;height:22px;color:#5ff0e0}.aurBox b{display:block;margin:6px 0 4px;font:9px var(--px);color:#fff}.aurBox small{font-size:11.5px;color:#cfd6ea;line-height:1.35}
 @media (max-width:560px){.aurBoxes{grid-template-columns:1fr}.aurTrio div{width:70px}.aurTrio i{width:64px;height:64px}}
+/* v1.53.0.5: Aurora im Admin und im Geschenk-Fenster */
+.admAurB.on{background:linear-gradient(90deg,#7a2bd0,#ff5fb8,#46e6d8)!important;color:#fff!important;border-color:transparent!important}
+.giftSh.aur{background:linear-gradient(90deg,#7a2bd0,#ff5fb8,#46e6d8);color:#fff;padding:1px 6px;border-radius:5px}
+
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -15373,6 +15377,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: Mittlere Kämpfe sind wie
 if(typeof EN!=="undefined")Object.assign(EN,{"Trainerkarte: Unter „Stil“ stehen nur noch deine eigenen Hintergründe, beste zuerst. Das Fenster läuft dadurch deutlich flüssiger.": "Trainer card: “Style” now only shows your own backgrounds, best first. The window runs much smoother.", "Neuer Reiter „Titel“ auf der Trainerkarte: sortiert nach Event, Verliehen, Bernstein, Mythisch und Platin.": "New “Titles” tab on the trainer card: sorted by Event, Awarded, Amber, Mythic and Platinum.", "Neu unter Erfolge: „Hintergründe“. Dort siehst du alle Hintergründe, nach Sternen sortiert, mit der Bedingung zum Freischalten.": "New under Achievements: “Backgrounds”. It shows all backgrounds sorted by stars, with the condition to unlock them.", "Die Sterne zeigen jetzt, wie schwer ein Hintergrund zu bekommen ist. Sechs Sterne gibt es nur noch für das Schwerste. Event-Hintergründe tragen statt Sternen ihr Event-Siegel. Freigeschaltete Hintergründe behältst du.": "Stars now show how hard a background is to get. Six stars are reserved for the very hardest. Event backgrounds carry their event seal instead of stars. You keep every background you already unlocked.", "Ruhm: Die Lichtsäulen auf der Trainerkarte sind neu, mit breiten Lichtkegeln, Lichtkranz und Glitzerstaub.": "Fame: the Light Pillars on the trainer card are new, with wide light cones, a halo and glitter dust.", "Deine Hintergründe": "Your backgrounds", "Gesperrte Hintergründe und was du dafür tun musst, findest du unter": "Locked backgrounds and what you need to do for them are under", "Erfolge → Hintergründe": "Achievements → Backgrounds", "Ansehen": "View", "Dein Titel steht unter deinem Namen auf der Kampfkarte, im VS-Bildschirm und in der Bestenliste.": "Your title is shown under your name on your battle card, on the VS screen and in the leaderboard.", "TITEL": "TITLES", "Verliehen": "Awarded", "HINTERGRÜNDE": "BACKGROUNDS", "Hintergründen freigeschaltet. Je mehr Sterne, desto schwerer ist ein Hintergrund zu bekommen. Event-Hintergründe gibt es nur zu besonderen Anlässen.": "backgrounds unlocked. The more stars, the harder a background is to get. Event backgrounds are only given on special occasions."});
 /* v1.53.0: Aurora */
 if(typeof EN!=="undefined")Object.assign(EN,{"Neu: Aurora-Pokémon. Eine noch seltenere Art von Schillernden mit eigenen Polarlicht-Farben, halb so oft wie Schillernde.": "New: Aurora Pokémon. An even rarer kind of shiny with its own aurora colors, half as common as shinies.", "Aurora-Pokémon haben ×1,5 KP, Angriff und Verteidigung, überall, auch im Duell und in Ranked.": "Aurora Pokémon have ×1.5 HP, attack and defense everywhere, including duels and Ranked.", "Beim Fusionieren bleibt Aurora zu 90 % erhalten. Zwei Aurora bleiben immer Aurora.": "When fusing, Aurora is kept 90% of the time. Two Aurora always stay Aurora.", "Pokédex mit eigener Aurora-Ansicht, Aurora als Lieblingspokémon, neues Abzeichen „Aurora-Jäger“ und drei neue Erfolge.": "Pokédex with its own Aurora view, Aurora as favorite Pokémon, new badge “Aurora Hunter” and three new achievements.", "NEU: AURORA-POKÉMON": "NEW: AURORA POKÉMON", "Eine neue, noch seltenere Art von Schillernden, mit eigenen Polarlicht-Farben. Aurora-Pokémon sind im Kampf deutlich stärker.": "A new, even rarer kind of shiny with its own aurora colors. Aurora Pokémon are much stronger in battle.", "WIE SELTEN?": "HOW RARE?", "halb so oft": "half as often", "WAS SIE KÖNNEN": "WHAT THEY DO", "×1,5 STÄRKER": "×1.5 STRONGER", "KP, Angriff und Verteidigung ×1,5, überall, auch im Duell und in Ranked.": "HP, attack and defense ×1.5 everywhere, including duels and Ranked.", "Eigene Pokédex-Ansicht, als Lieblingspokémon wählbar, Abzeichen „Aurora-Jäger“ und neue Erfolge.": "Own Pokédex view, selectable as favorite Pokémon, badge “Aurora Hunter” and new achievements.", "VERSTANDEN": "GOT IT", "bleibt Aurora!": "stays Aurora!", "hat sein Aurora-Leuchten verloren": "lost its aurora glow", "Aurora gefangen": "Aurora caught", "Aurora-Jäger": "Aurora Hunter", "Aurora-Pokémon gefunden": "Aurora Pokémon found", "Polarlichtgeist": "Aurora Spirit", "Erstes Polarlicht": "First Aurora", "Finde dein erstes Aurora-Pokémon.": "Find your first Aurora Pokémon.", "Aurora-Sammler": "Aurora Collector", "Finde 10 Aurora-Pokémon.": "Find 10 Aurora Pokémon.", "Himmelsleuchten": "Sky Glow", "Finde 50 Aurora-Pokémon.": "Find 50 Aurora Pokémon."});
+/* v1.53.0.5 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Die Aurora-Einführung erscheint jetzt zuverlässig, sobald im Hauptmenü kein anderes Fenster offen ist.": "The Aurora introduction now shows up reliably as soon as no other window is open in the main menu."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -15568,6 +15574,10 @@ function giftApply(){if(!USER||!META)return;const k=giftKey(USER),L=LS.get(k,nul
       if(!C.length){META.gems=(META.gems||0)+50;toast("Alle Pokémon schon schillernd: +50 Edelsteine","gem");continue;}const pid=C[Math.floor(Math.random()*C.length)];g.mon=pid;g.shy=true;
       dexUp(pid,d=>{d.seen=Math.max(d.seen||0,1);d.owned=(d.owned||0)+1;d.shiny=(d.shiny||0)+1;});const Lr=SPECIES[pid].line;let nr=false;if(Lr&&!Lr.start&&!META.unlocked.includes(Lr.k)){META.unlocked.push(Lr.k);nr=true;if(typeof psOnUnlock==="function")psOnUnlock(Lr);}
       got.push({id:pid,sh:true,msg:String(g.msg||g.note||"").slice(0,120),nu:nr});continue;}
+    /* v1.53.0.5: Aurora-Geschenk (400000 + Nr.) */
+    if(id>400000&&id<440001){const pid=id-400000;if(!SPECIES[pid]||(isExcl(pid)&&!exclOk()))continue;dexUp(pid,d=>{d.seen=Math.max(d.seen||0,1);d.owned=(d.owned||0)+1;d.shiny=(d.shiny||0)+1;d.aur=(d.aur||0)+1;});
+      const La=SPECIES[pid].line;let na=false;if(La&&!La.start&&!META.unlocked.includes(La.k)){META.unlocked.push(La.k);na=true;if(typeof psOnUnlock==="function")psOnUnlock(La);}
+      got.push({id:pid,sh:"a",msg:String(g.msg||g.note||"").slice(0,120),nu:na});continue;}
     if(!SPECIES[id]||(isExcl(id)&&!exclOk()))continue;
     dexUp(id,d=>{d.seen=Math.max(d.seen||0,1);d.owned=(d.owned||0)+1;if(sh)d.shiny=(d.shiny||0)+1;});
     const Ln=SPECIES[id].line;let nu=false;if(Ln&&!Ln.start&&!META.unlocked.includes(Ln.k)){META.unlocked.push(Ln.k);nu=true;if(typeof psOnUnlock==="function")psOnUnlock(Ln);}
@@ -15586,11 +15596,11 @@ function giftShow(){if(!GIFT.q.length||(!USER&&GIFT.q[0].type!=="ev"))return;con
   if(!free){if(!GIFT.note&&!$("menu").classList.contains("show")){GIFT.note=1;toast("Du hast ein Geschenk bekommen – im Menü wartet es auf dich!","star");}return;}
   GIFT.note=0;const g=GIFT.q.shift();if(g.type==="reply")return repShow(g);if(g.type==="ev")return evShow(g);const sp=SPECIES[g.id],R=REGIONS[(sp.line&&sp.line.region)||"kanto"];
   openModal(`<div class="giftBox"><i class="giftRays"></i><small class="giftK">${ic("star")} GESCHENK FÜR DICH</small><div class="giftStage"><div class="giftMon" id="giftMon"></div></div>
-    <h3 class="giftH">${esc(g.mk&&typeof favMegaName==="function"?(favMegaName(g.id,g.mk)||sp.name):sp.name)}${g.sh?` <span class="giftSh">${ic("shiny")} schillernd</span>`:""}</h3>
+    <h3 class="giftH">${esc(g.mk&&typeof favMegaName==="function"?(favMegaName(g.id,g.mk)||sp.name):sp.name)}${g.sh==="a"?` <span class="giftSh aur">${ic("shiny")} Aurora</span>`:g.sh?` <span class="giftSh">${ic("shiny")} schillernd</span>`:""}</h3>
     ${g.msg?`<p class="giftMsg">„${esc(g.msg)}“</p>`:""}<p class="giftLead">Steht jetzt in deinem Pokédex und ist als Lieblingspokémon wählbar.${g.nu&&R?` Ab sofort kann es dir auch in ${esc(R.n)}-Läufen im Laden begegnen.`:""}</p>
     <div class="giftBtns"><button class="pri" id="giftFav">${ic("heart")} Als Lieblingspokémon</button><button class="btn" id="giftOk">Super!</button></div></div>`,"narrow gift",true);
   try{$("giftMon").appendChild(sprAlign(natFit(spriteEl(g.id,"",{shiny:g.sh,mega:g.mk||undefined}),1),false));}catch(e){}try{sfx("sparkle");}catch(e){}
-  $("giftOk").onclick=closeModal;$("giftFav").onclick=()=>{try{META.card=META.card||{};META.card.fav=g.id;META.card.favSh=g.sh?1:0;META.card.favM=g.mk||null;saveMeta();toast(`${g.mk&&typeof favMegaName==="function"?(favMegaName(g.id,g.mk)||sp.name):sp.name} ist jetzt dein Lieblingspokémon`,"heart");}catch(e){}closeModal();};}
+  $("giftOk").onclick=closeModal;$("giftFav").onclick=()=>{try{META.card=META.card||{};META.card.fav=g.id;META.card.favSh=g.sh==="a"?2:g.sh?1:0;META.card.favM=g.mk||null;saveMeta();toast(`${g.mk&&typeof favMegaName==="function"?(favMegaName(g.id,g.mk)||sp.name):sp.name} ist jetzt dein Lieblingspokémon`,"heart");}catch(e){}closeModal();};}
 /* ===== Geschenke an alle (Titel, Hintergründe): öffentliche Liste, jedes Geschenk einmal pro Spielstand ===== */
 const EVG={list:null,t:0,busy:false},EVG_KEY="pokelings_evg";
 function evList(){if(EVG.list)return EVG.list;try{EVG.list=LS.get(EVG_KEY,null)||[];}catch(e){EVG.list=[];}evI18n();return EVG.list;}
@@ -17214,31 +17224,33 @@ async function admGiftBody(a,B){B.innerHTML=`<p class="empty">${a?"Lade Sammlung
     const h=!!a&&has(sp);if(!h)all.push({id:sp.id,mk:null,n:sp.name,o:0});else if(full&&!shyS.has(sp.id))all.push({id:sp.id,mk:null,n:sp.name,o:1});
     if(typeof MEGA!=="undefined"&&MEGA[sp.id])for(const fx in MEGA[sp.id]){const m=MEGA[sp.id][fx];if(!m||m.k==null)continue;const k=String(m.k);
       if(!a||!mkS.has(k))all.push({id:sp.id,mk:k,n:m.n,o:0});else if(!mskS.has(k))all.push({id:sp.id,mk:k,n:m.n,o:1});}}
+  const allN=all.slice(),allA=Object.values(SPECIES).filter(sp=>sp.line&&!sp.line.excl&&!(typeof isExcl==="function"&&isExcl(sp.id))).sort((x,y)=>x.id-y.id).map(sp=>({id:sp.id,mk:null,n:sp.name,o:0}));let aurM=false;
   if(!all.length){B.innerHTML=`<p class="empty">${esc(a.name)} hat schon alles, auch schillernd.</p>`;return;}
   const regOf=e=>e.mk?"mega":((SPECIES[e.id].line&&SPECIES[e.id].line.region)||"kanto");
   let sel=0,shy=false,q="",sure=false,rg="all",N=60;const rc={};for(const e of all){const r=regOf(e);rc[r]=(rc[r]||0)+1;}const nShy=all.filter(e=>e.o).length;
   B.innerHTML=`<p class="admLead">${ic("info")}<span>${a?`Neue Pokémon, die <b>${esc(a.name)}</b> noch nicht hat, die <b>schillernde Version</b> von Pokémon, die er schon hat (${nShy} mit ${ic("shiny")}), und <b>Mega-Formen</b> (auch schillernd). ${all.length} Möglichkeiten.${none?" Noch kein Online-Spielstand.":""}${!full?" Für schillernde Versionen vorhandener Pokémon unter <b>Server-Setup</b> den Code ausführen.":""}`:`Geht an <b>alle Konten</b>, die es noch nicht haben (bei schillernd: die es noch nicht schillernd haben).`} Kommt beim nächsten Login mit Einblendung an und landet im Pokédex.</span></p>
-   <div class="admGiftTop"><div class="admGiftPrev" id="admGp"></div><div class="admGiftInfo"><b id="admGn"></b><small id="admGr"></small><button class="btn sm" id="admGs">${ic("shiny")} Schillernd</button></div></div>
+   <div class="admGiftTop"><div class="admGiftPrev" id="admGp"></div><div class="admGiftInfo"><b id="admGn"></b><small id="admGr"></small><button class="btn sm" id="admGs">${ic("shiny")} Schillernd</button><button class="btn sm admAurB" id="admGa">${ic("shiny")} Aurora</button></div></div>
    <div class="favBar"><input id="admGq" placeholder="Pokémon suchen (Name, Nr. oder „mega“) …" maxlength="20" autocomplete="off"><small class="admSprSt" id="admGsp"></small></div><div class="favRegs admGRegs">${["all",...Object.keys(REGIONS).filter(r=>rc[r]),...(rc.mega?["mega"]:[])].map(r=>`<button class="${r==="all"?"on":""}" data-grg="${r}">${r==="all"?"Alle":r==="mega"?"Mega":esc(REGIONS[r].n)} <small>${r==="all"?all.length:rc[r]}</small></button>`).join("")}</div><div class="admGiftGrid" id="admGg"></div><div class="admGMore"><button class="btn sm" id="admGmore" style="display:none">${ic("plus")} <span>Mehr anzeigen</span></button></div>
    <div class="admSec" style="margin-top:14px"><h5>NACHRICHT ${a?"AN DEN SPIELER":"IM GESCHENK-FENSTER"} <small>optional</small></h5><div class="admLang"><label><i>DE</i><input id="admGm" maxlength="120" autocomplete="off" placeholder="z. B. Danke fürs Testen!"></label></div></div>
    <div class="admGFoot"><div class="aerr" id="admGe"></div><button class="pri" id="admGo">${ic("check")} Schenken</button></div>`;
-  const prev=()=>{const e=all[sel],sp=SPECIES[e.id],P=$("admGp");if(e.o)shy=true;P.innerHTML="";try{P.appendChild(sprAlign(natFit(spriteEl(e.id,"",{shiny:shy,mega:e.mk||undefined}),1)));}catch(x){}
+  const prev=()=>{const e=all[sel],sp=SPECIES[e.id],P=$("admGp");if(e.o)shy=true;P.innerHTML="";try{P.appendChild(sprAlign(natFit(spriteEl(e.id,"",{shiny:aurM?"a":shy,mega:e.mk||undefined}),1)));}catch(x){}
     $("admGn").textContent=`#${e.id} ${e.n}`;$("admGr").textContent=(e.mk?"Mega-Form · ":"")+((REGIONS[(sp.line&&sp.line.region)||"kanto"]||{}).n||"")+" · "+sp.types.map(t=>TYPES[t]?TYPES[t][0]:t).join(" / ")+(e.o?" · hat er schon, nur schillernd":"");
-    const sb=$("admGs");sb.classList.toggle("on",shy);sb.disabled=!!e.o;
-    $("admGo").innerHTML=`${ic("check")} ${esc(e.n)}${shy?" (schillernd)":""} ${a?"schenken":"an alle schenken"}`;hydrateIcons($("admGo"));sure=false;$("admGe").textContent="";
+    const sb=$("admGs");sb.classList.toggle("on",shy&&!aurM);sb.disabled=!!e.o||aurM;$("admGa").classList.toggle("on",aurM);
+    $("admGo").innerHTML=`${ic("check")} ${esc(e.n)}${aurM?" (Aurora)":shy?" (schillernd)":""} ${a?"schenken":"an alle schenken"}`;hydrateIcons($("admGo"));sure=false;$("admGe").textContent="";
     B.querySelectorAll("[data-gi]").forEach(b=>b.classList.toggle("on",+b.dataset.gi===sel));};
   const grid=()=>{const t=q.trim().toLowerCase().replace(/^#/,""),F=[];all.forEach((e,i)=>{if(rg!=="all"&&regOf(e)!==rg)return;if(t&&!(e.n.toLowerCase().includes(t)||String(e.id)===t||String(dexNo(e.id))===t||(t==="mega"&&e.mk)))return;F.push(i);});
     const L=F.slice(0,N),G=$("admGg");const mo=$("admGmore");if(mo){mo.style.display=F.length>N?"":"none";const sm=mo.querySelector("span");if(sm)sm.textContent=`Mehr anzeigen (${F.length-N})`;}
-    G.innerHTML=L.map(i=>{const e=all[i];return `<button class="favB${i===sel?" on":""}${e.mk?" mg":""}" data-gi="${i}" title="#${e.id} ${esc(e.n)}${e.o?" (nur schillernd)":""}"><span class="fm" data-sp="${e.id}" data-mk="${e.mk||""}" data-sh="${e.o?1:""}"></span><small>${esc(e.n)}</small>${e.mk?`<em class="favMg">MEGA</em>`:""}${e.o?`<em class="admShyT">${ic("shiny")}</em>`:""}</button>`;}).join("")||`<p class="empty">Nichts gefunden.</p>`;hydrateIcons(G);
-    G.querySelectorAll(".fm[data-sp]").forEach(x=>x.appendChild(sprAlign(natFit(spriteEl(+x.dataset.sp,"",{shiny:!!x.dataset.sh,mega:x.dataset.mk||undefined}),.9))));G.querySelectorAll("[data-gi]").forEach(b=>b.onclick=()=>{sel=+b.dataset.gi;if(!all[sel].o)shy=false;prev();});};
+    G.innerHTML=L.map(i=>{const e=all[i];return `<button class="favB${i===sel?" on":""}${e.mk?" mg":""}" data-gi="${i}" title="#${e.id} ${esc(e.n)}${e.o?" (nur schillernd)":""}"><span class="fm" data-sp="${e.id}" data-mk="${e.mk||""}" data-sh="${aurM?"a":e.o?1:""}"></span><small>${esc(e.n)}</small>${e.mk?`<em class="favMg">MEGA</em>`:""}${e.o?`<em class="admShyT">${ic("shiny")}</em>`:""}</button>`;}).join("")||`<p class="empty">Nichts gefunden.</p>`;hydrateIcons(G);
+    G.querySelectorAll(".fm[data-sp]").forEach(x=>x.appendChild(sprAlign(natFit(spriteEl(+x.dataset.sp,"",{shiny:x.dataset.sh==="a"?"a":!!x.dataset.sh,mega:x.dataset.mk||undefined}),.9))));G.querySelectorAll("[data-gi]").forEach(b=>b.onclick=()=>{sel=+b.dataset.gi;if(!all[sel].o)shy=false;prev();});};
   prev();grid();hydrateIcons(B);let tm=0;$("admGq").oninput=e=>{clearTimeout(tm);tm=setTimeout(()=>{q=e.target.value;N=60;grid();},200);};
   B.querySelectorAll("[data-grg]").forEach(b=>b.onclick=()=>{rg=b.dataset.grg;N=60;B.querySelectorAll("[data-grg]").forEach(x=>x.classList.toggle("on",x===b));grid();});
   if($("admGmore"))$("admGmore").onclick=()=>{N+=60;grid();};admSprWarm($("admGsp"));
-  $("admGs").onclick=()=>{if(all[sel].o)return;shy=!shy;prev();};
+  $("admGs").onclick=()=>{if(all[sel].o||aurM)return;shy=!shy;prev();};
+  $("admGa").onclick=()=>{aurM=!aurM;all.length=0;all.push(...(aurM?allA:allN));sel=0;shy=false;N=60;prev();grid();};
   $("admGo").onclick=async()=>{const E=$("admGe"),e=all[sel],sp=SPECIES[e.id];if(!a&&!sure){sure=true;$("admGo").innerHTML=`${ic("check")} Wirklich an ALLE schenken?`;hydrateIcons($("admGo"));return;}
-    const mon=e.mk?200000+(+e.mk):e.id;const r=await admRpc("admin_gift",{target:a?a.id:null,mon,shy:!!(shy||e.o),msg:$("admGm").value.trim(),lk:e.mk||sp.line.start?null:sp.line.k});
-    if(!r.ok){const t=JSON.stringify(r.j||"");E.innerHTML=/already_shiny/.test(t)?"Das hat der Spieler schon schillernd.":/already_owned/.test(t)?"Das hat der Spieler schon (oder im Labor gekauft). Schillernd geht es nach dem Server-Update.":/already_pending/.test(t)?"Liegt schon als Geschenk für ihn bereit.":/mon_invalid|admin_gift|function|schema/i.test(t)?"Auf dem Server fehlt noch das Update: unter <b>Server-Setup</b> den Code ausführen.":"Fehlgeschlagen: "+admErr(r);return;}
-    closeModal();toast(`${e.n}${(shy||e.o)?" (schillernd)":""} an ${a?a.name:(+r.j||0)+" Spieler"} verschenkt`,"ball");};}
+    const mon=aurM?400000+e.id:e.mk?200000+(+e.mk):e.id;const r=await admRpc("admin_gift",{target:a?a.id:null,mon,shy:!!(aurM||shy||e.o),msg:$("admGm").value.trim(),lk:e.mk||sp.line.start?null:sp.line.k});
+    if(!r.ok){const t=JSON.stringify(r.j||"");E.innerHTML=/already_aurora/.test(t)?"Das hat der Spieler schon als Aurora.":/already_shiny/.test(t)?"Das hat der Spieler schon schillernd.":/already_owned/.test(t)?"Das hat der Spieler schon (oder im Labor gekauft). Schillernd geht es nach dem Server-Update.":/already_pending/.test(t)?"Liegt schon als Geschenk für ihn bereit.":/mon_invalid|admin_gift|function|schema/i.test(t)?"Auf dem Server fehlt noch das Update: unter <b>Server-Setup</b> den Code ausführen.":"Fehlgeschlagen: "+admErr(r);return;}
+    closeModal();toast(`${e.n}${aurM?" (Aurora)":(shy||e.o)?" (schillernd)":""} an ${a?a.name:(+r.j||0)+" Spieler"} verschenkt`,"ball");};}
 /* v1.31.7: Sprites aller Regionen im Hintergrund laden (die Vergabe zeigt Pokémon aus allen Regionen) */
 function admSprWarm(el){if(!window.__SPRM||typeof __sprLoad!=="function"){if(el)el.textContent="";return;}const ks=Object.keys(__SPRM),open=()=>ks.filter(k=>!__SPRM[k].done);
   const upd=()=>{if(!el||!el.isConnected)return;const o=open().length;el.textContent=o?`Sprites ${ks.length-o}/${ks.length} …`:"";};upd();
@@ -17985,7 +17997,7 @@ function achBgBody(){const L=Object.entries(CARD_BG).filter(([k,b])=>!b.bot&&k!=
     grp.map(g=>g.L.length?`<h4 class="cdCat">${g.n} <small>${g.L.filter(([k])=>bgOk(k)).length}/${g.L.length}</small></h4><div class="cdBgs achBgs">${g.L.map(([k,b])=>{const ok=bgOk(k);
       return `<div class="cdBg${ok?" got":" lock"}"><i class="bgThumb">${bgHTML(k)}${b.gift?`<em class="cdEd">${esc(b.ed||"Event")}</em>`:""}</i><b>${ic(ok?"check":"lock")}${esc(b.n)}</b><small>${esc(b.ld||"")}</small></div>`;}).join("")}</div>`:"").join("");}
 /* v1.53.0: kurze Einführung zu Aurora (einmal pro Gerät, nach dem Hauptmenü) */
-function aurIntro(force){try{if(!force&&localStorage.getItem("pokelings_aur1"))return;localStorage.setItem("pokelings_aur1","1");}catch(e){}
+function aurIntro(force){try{if(!force&&localStorage.getItem("pokelings_aur2"))return;}catch(e){}const seen=()=>{try{localStorage.setItem("pokelings_aur2","1");}catch(e){}};
   const bar=n=>`<span class="aurBar">${Array.from({length:10},(_,i)=>`<i class="${i>=10-n?"on":""}"></i>`).join("")}</span>`;
   openModal(`<div class="aurI"><h2>${ic("shiny")} NEU: AURORA-POKÉMON</h2><div class="aurTop"><p class="lead">Eine neue, noch seltenere Art von Schillernden, mit eigenen Polarlicht-Farben. Aurora-Pokémon sind im Kampf deutlich stärker.</p>
     <div class="aurTrio"><div><i data-ai="0"></i><b>Normal</b></div><span class="arr">${ic("arrow")}</span><div class="sh"><i data-ai="1"></i><b>Schillernd</b><small>1 von ${Math.round(1/SHINY_BASE)}</small></div><span class="arr">${ic("arrow")}</span><div class="au"><i data-ai="2"></i><b>Aurora</b><small>1 von ${Math.round(1/(SHINY_BASE*AUR_RATE))}</small></div></div></div>
@@ -17995,15 +18007,19 @@ function aurIntro(force){try{if(!force&&localStorage.getItem("pokelings_aur1"))r
      <div class="aurBox">${ic("merge")}<b>FUSION</b><small>Beim Fusionieren bleibt Aurora zu 90 % erhalten. Zwei Aurora bleiben immer Aurora.</small></div>
      <div class="aurBox">${ic("dex")}<b>SAMMELN</b><small>Eigene Pokédex-Ansicht, als Lieblingspokémon wählbar, Abzeichen „Aurora-Jäger“ und neue Erfolge.</small></div></div>
     <div class="rbtns" style="margin-top:14px"><button class="pri" id="aurOk">VERSTANDEN</button></div></div>`,"aurIM",true);
-  const mb=$("mbox");mb.querySelectorAll("[data-ai]").forEach(e=>{const v=+e.dataset.ai;try{e.appendChild(spriteEl(6,"",{shiny:v===2?"a":v===1}));}catch(x){}});$("aurOk").onclick=closeModal;}
-setTimeout(()=>{if(typeof showMenu!=="function")return;const _sm=showMenu;showMenu=function(){const r=_sm.apply(this,arguments);setTimeout(()=>{try{if(!$("modal").classList.contains("show")&&$("menu").classList.contains("show")&&!window.__autoPick)aurIntro();}catch(e){}},1500);return r;};},0);
+  const mb=$("mbox");mb.querySelectorAll("[data-ai]").forEach(e=>{const v=+e.dataset.ai;try{e.appendChild(spriteEl(6,"",{shiny:v===2?"a":v===1}));}catch(x){}});$("aurOk").onclick=()=>{seen();closeModal();};try{const _mc=modalClose;modalClose=()=>{seen();if(typeof _mc==="function")_mc();};}catch(e){}}
+setTimeout(()=>{if(typeof showMenu!=="function")return;const _sm=showMenu;showMenu=function(){const r=_sm.apply(this,arguments);aurTry(0);return r;};},0);
+/* v1.53.0.5: Einführung erst zeigen, wenn im Hauptmenü kein anderes Fenster (z. B. Patchnotes) offen ist; bis zu 10 Minuten lang alle 2 s prüfen */
+function aurTry(n){clearTimeout(aurTry.t);try{if(localStorage.getItem("pokelings_aur2"))return;}catch(e){}if(window.__autoPick||n>300)return;
+  aurTry.t=setTimeout(()=>{try{if(USER&&$("menu").classList.contains("show")&&!$("modal").classList.contains("show"))aurIntro();}catch(e){}aurTry(n+1);},2000);}
+setTimeout(()=>aurTry(0),3000);
 
 
 /* ================================ MEHRSPIELER ================================
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.53.0",DUEL_HP=30;
+const MP_VER="1.53.0.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18640,8 +18656,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.53.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.53.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.53.0.5",d:"11.11.2026",t:"Aurora: Einführung",items:[
+  ["shiny", "Die Aurora-Einführung erscheint jetzt zuverlässig, sobald im Hauptmenü kein anderes Fenster offen ist."]]},
  {v:"1.53.0",d:"11.11.2026",t:"Aurora-Pokémon",items:[
   ["shiny", "Neu: Aurora-Pokémon. Eine noch seltenere Art von Schillernden mit eigenen Polarlicht-Farben, halb so oft wie Schillernde."],
   ["atk", "Aurora-Pokémon haben ×1,5 KP, Angriff und Verteidigung, überall, auch im Duell und in Ranked."],
