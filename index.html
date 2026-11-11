@@ -15307,6 +15307,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Die Abgrund-Karte im Hauptmenü is
 if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm: Die Rang-Effekte Lichtsäulen (Saphir) und VS-Auftritt (Rubin) sieht man jetzt auch direkt auf der Trainerkarte, nicht nur im VS-Bildschirm.": "Fame: the rank effects Light Pillars (Sapphire) and VS Entrance (Ruby) are now also shown right on the trainer card, not only on the VS screen."});
 /* v1.51.0.9 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: Ab Ebene 21 bekommen mittlere Kämpfe alle 3 Ebenen einen stärkeren Gegner mehr. Der mittlere Weg ist in der Tiefe nicht mehr geschenkt, wird aber langsam schwerer statt auf einmal.": "Abyss: from floor 21, medium battles gain one more strong enemy every 3 floors. The medium path is no longer a free win in the depths, but it gets harder gradually instead of all at once."});
+/* v1.51.0.10 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: Mittlere Kämpfe sind wieder so wie vorher.": "Abyss: medium battles are back to how they were before."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17905,7 +17907,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.51.0.9",DUEL_HP=30;
+const MP_VER="1.51.0.10",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18542,8 +18544,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.51.0.9"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.51.0.10"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.51.0.10",d:"11.11.2026",t:"Abgrund: zurück",items:[
+  ["back", "Abgrund: Mittlere Kämpfe sind wieder so wie vorher."]]},
  {v:"1.51.0.9",d:"11.11.2026",t:"Abgrund: mittlere Kämpfe",items:[
   ["skull", "Abgrund: Ab Ebene 21 bekommen mittlere Kämpfe alle 3 Ebenen einen stärkeren Gegner mehr. Der mittlere Weg ist in der Tiefe nicht mehr geschenkt, wird aber langsam schwerer statt auf einmal."]]},
  {v:"1.51.0.8",d:"11.11.2026",t:"Rang-Effekte auf der Karte",items:[
@@ -20847,7 +20851,9 @@ function abHistModal(){const H=(abMeta().hist||[]);if(!H.length){toast("Noch kei
   openModal(`<h2>${ic("scroll")} ABGRUND · VERLAUF</h2><div class="lead">${H.length===1?"Dein letzter Abstieg.":`Deine letzten <b>${H.length}</b> Abstiege.`} Rekord: Ebene <b>${abBest()}</b>.</div><div class="abHiL">${H.map(row).join("")}</div>`,"abHiM",true);
   $("mbox").querySelectorAll(".abHiT i[data-sp]").forEach(e=>{try{e.prepend(natFit(spriteEl(+e.dataset.sp),1));}catch(x){}});}
 /* v1.51.0.9: Mittlere Kämpfe im Abgrund: ab Ebene 21 alle 3 Ebenen ein Gegner mehr ohne Sterne-Abschlag (Ebene 21: 1, Ebene 30: 4, ab Ebene 48: alle) */
-const abMidK=f=>(typeof S!=="undefined"&&S&&S.abyss&&f>=20)?Math.min(10,Math.floor((f-18)/(window.__ABMK||3))):0;
+/* v1.51.0.10: wieder aus (wie 1.51.0.8). Zum Einschalten AB_MIDK auf die Ebenen-Schrittweite setzen, z. B. 3 */
+const AB_MIDK=0;
+const abMidK=f=>{const k=window.__ABMK||AB_MIDK;return (k&&typeof S!=="undefined"&&S&&S.abyss&&f>=20)?Math.min(10,Math.floor((f-18)/k)):0;};
 
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
