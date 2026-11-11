@@ -5018,6 +5018,32 @@ body.mHeavy :is(#menu,#mCh,#lbSide,.mLb,#menuLb) *,body.mHeavy :is(#menu,#mCh,#l
 .abCuL.two{grid-template-columns:repeat(2,minmax(0,230px));justify-content:center}
 .abCuB b{line-height:1.4}
 body:has(#vs.show:not(.out)) #abHud{visibility:hidden}
+/* v1.51.0.8: Lichtsäulen (Saphir) und VS-Auftritt (Rubin) auch auf der Trainerkarte */
+.tcAv .fmPil{position:absolute;left:50%;bottom:12px;width:190px;height:230px;margin-left:-95px;z-index:0;pointer-events:none}
+.fmPil::before{content:"";position:absolute;left:4%;right:4%;bottom:-6px;height:38px;border-radius:50%;background:radial-gradient(ellipse,#fff 0,color-mix(in srgb,var(--fc) 85%,#fff) 18%,color-mix(in srgb,var(--fc) 55%,transparent) 42%,transparent 72%);filter:blur(2px);animation:fmPilB 1.8s ease-in-out infinite}
+.fmPil::after{content:"";position:absolute;left:50%;bottom:6px;width:170px;height:34px;margin-left:-85px;border-radius:50%;border:2px solid color-mix(in srgb,var(--fc) 70%,#fff);box-shadow:0 0 12px var(--fc),inset 0 0 10px var(--fc);opacity:0;animation:fmPilW 2.4s ease-out infinite}
+.fmPil i{position:absolute;bottom:4px;left:var(--x);width:var(--w,14px);height:100%;margin-left:calc(var(--w,14px) / -2);border-radius:50% 50% 0 0;background:linear-gradient(0deg,#fff 0,var(--pc) 14%,color-mix(in srgb,var(--pc) 55%,transparent) 48%,transparent 92%);filter:blur(2.5px);mix-blend-mode:screen;transform-origin:50% 100%;opacity:0;animation:fmPilC var(--d,2.6s) ease-in-out var(--dl,0s) infinite}
+.fmPil i.core{--w:7px;filter:blur(.6px);background:linear-gradient(0deg,#fff 0,#fff 30%,var(--pc) 60%,transparent 96%)}
+.fmPil s{position:absolute;bottom:10px;left:var(--x);width:4px;height:4px;border-radius:50%;background:#fff;box-shadow:0 0 6px 2px var(--pc);opacity:0;animation:fmPilS var(--d,2.4s) linear var(--dl,0s) infinite}
+@keyframes fmPilC{0%,100%{transform:scaleY(.25) scaleX(.5);opacity:0}35%{transform:scaleY(1) scaleX(1);opacity:.95}65%{transform:scaleY(.9) scaleX(.85);opacity:.7}}
+@keyframes fmPilB{0%,100%{opacity:.65;transform:scaleX(.92)}50%{opacity:1;transform:scaleX(1.05)}}
+@keyframes fmPilW{0%{transform:scale(.25);opacity:.95}80%{opacity:.15}100%{transform:scale(1.15);opacity:0}}
+@keyframes fmPilS{0%{transform:translateY(0) scale(.6);opacity:0}15%{opacity:1}100%{transform:translateY(-200px) scale(1.2);opacity:0}}
+/* Rubin: Kristall-Wappen hinter dem Pokémon, Schockwelle, Splitter auf einer Umlaufbahn davor */
+.tcAv .fmRubyB{position:absolute;left:50%;bottom:36px;width:156px;height:156px;margin-left:-78px;z-index:0;pointer-events:none}
+.fmRubyB::before{content:"";position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--fc) 70%,transparent) 0,color-mix(in srgb,var(--fc) 30%,transparent) 42%,transparent 70%);filter:blur(4px);animation:fmRbG 1.6s ease-in-out infinite}
+.fmRubyB i{position:absolute;inset:0;clip-path:polygon(50% 0,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);background:conic-gradient(from var(--bga),transparent 0 20%,color-mix(in srgb,var(--fc) 85%,#fff) 30%,transparent 42% 70%,var(--fc) 82%,transparent 92%);-webkit-mask:radial-gradient(circle,transparent 60%,#000 62%,#000 70%,transparent 72%);mask:radial-gradient(circle,transparent 60%,#000 62%,#000 70%,transparent 72%);filter:drop-shadow(0 0 6px var(--fc));animation:bdgSpin 3.2s linear infinite}
+.fmRubyB i.r2{inset:13%;animation-direction:reverse;animation-duration:4.4s;opacity:.75}
+.fmRubyB b{position:absolute;inset:-6%;border-radius:50%;border:3px solid color-mix(in srgb,var(--fc) 80%,#fff);box-shadow:0 0 18px var(--fc),inset 0 0 14px var(--fc);opacity:0;animation:fmRbW 2.8s ease-out infinite}
+.fmRubyB b.w2{animation-delay:1.4s}
+.tcAv .fmRubyF{position:absolute;left:50%;bottom:44px;width:190px;height:60px;margin-left:-95px;z-index:3;pointer-events:none}
+.fmRubyF s{position:absolute;left:0;top:0;width:12px;height:18px;clip-path:polygon(50% 0,100% 38%,70% 100%,30% 100%,0 38%);background:linear-gradient(160deg,#fff,var(--sc,var(--fc)) 55%,color-mix(in srgb,var(--sc,var(--fc)) 50%,#000));filter:drop-shadow(0 0 5px var(--sc,var(--fc)));offset-path:path("M95 52 A95 26 0 1 1 95 0 A95 26 0 1 1 95 52");offset-rotate:0deg;animation:fmRbO 4.2s linear infinite}
+.fmRubyF s:nth-child(2){animation-delay:-.84s}.fmRubyF s:nth-child(3){animation-delay:-1.68s}.fmRubyF s:nth-child(4){animation-delay:-2.52s}.fmRubyF s:nth-child(5){animation-delay:-3.36s}
+@keyframes fmRbO{0%{offset-distance:0%;transform:scale(1.15);opacity:1}25%{transform:scale(.8);opacity:.75}50%{offset-distance:50%;transform:scale(.45);opacity:.25}75%{transform:scale(.8);opacity:.75}100%{offset-distance:100%;transform:scale(1.15);opacity:1}}
+@keyframes fmRbG{0%,100%{opacity:.6;transform:scale(.94)}50%{opacity:1;transform:scale(1.04)}}
+@keyframes fmRbW{0%{transform:scale(.35);opacity:.9}100%{transform:scale(1.15);opacity:0}}
+.fmRubyB.leg i{background:conic-gradient(from var(--bga),#ffcf4a,#4dffa0,#6fa4ff,#ff6680,#c89bff,#ffcf4a)}
+@media (prefers-reduced-motion:reduce){.fmPil i,.fmPil s,.fmRubyF s,.fmRubyB b{animation:none}}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -15277,6 +15303,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund deutlich schwerer: Die Geg
 if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund: Ab Ebene 40 steigt die Gegnerstärke langsamer. Sehr gute Läufe kommen so noch ein Stück tiefer.": "Abyss: from floor 40 on enemy strength rises more slowly. Very good runs can now get a bit deeper.", "Abgrund-Abzeichen: Die Stufen kommen jetzt bei Ebene 10, 20, 30, 35 und 40, Bernstein schon ab Ebene 50.": "Abyss badge: the tiers now come at floor 10, 20, 30, 35 and 40, Amber already from floor 50.", "Fehler behoben: Meilensteine, die du schon erreicht, aber nie bekommen hast, gibt es beim nächsten Ende eines Abstiegs nachträglich.": "Bug fixed: milestones you already reached but never received are now awarded when your next descent ends."});
 /* v1.51.0.7 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Die Abgrund-Karte im Hauptmenü ist aufgeräumt.": "The Abyss card in the main menu has been tidied up."});
+/* v1.51.0.8 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm: Die Rang-Effekte Lichtsäulen (Saphir) und VS-Auftritt (Rubin) sieht man jetzt auch direkt auf der Trainerkarte, nicht nur im VS-Bildschirm.": "Fame: the rank effects Light Pillars (Sapphire) and VS Entrance (Ruby) are now also shown right on the trainer card, not only on the VS screen."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -17798,7 +17826,7 @@ function cardHTML(c,side){c=c||cardMine();const sl=[0,1,2].map(i=>c.badges[i]?ba
   const ffk=c.ff&&typeof FAME_C!=="undefined"?String(c.ff):"",fft=ffk?FAME_C[ffk.replace("+","")]:null;
   return `<div class="tcard${side?" "+side:""}${fft?" fmFr fr-"+ffk.replace("+","")+(ffk.endsWith("+")?" frp":""):""}"${fft?` style="--fc:${fft.c};--fd:${fft.d}"`:""}>${bgHTML(c.bg).replace('<div class="tcBg','<div data-tn="'+esc((CARD_BG[bgk]||{}).n||"")+'" data-td="'+esc(bgWhy(bgk))+'" data-tk="HINTERGRUND" data-tc="#9fe8ff" class="tcBg')}<div class="tcShine"></div>${typeof fameHolo==="function"?fameHolo(c):""}${typeof fameGlit==="function"?fameGlit(c)+fameTrail(c):""}${fft?`<i class="tcFr${ffk.endsWith("+")?" plus":""}${ffk==="legende"?" leg":""}"><s></s><s></s><s></s><s></s></i>`:""}
    <div class="tcTop${c.title?"":" nt"}${c.fl&&typeof fameEm==="function"?" hasFm":""}">${c.fl&&typeof fameEm==="function"?`<i class="tcFmB"${fameTipA(c)}>${fameEm(c.fl).replace(/ title="[^"]*"/,"")}</i>`:""}<b${c.name.length>13?' class="long"':""}>${typeof fameNameHtml==="function"?fameNameHtml(c.name,c):esc(c.name)}</b>${c.title?`<small class="${[c.ts&&TITLE_FX[c.ts]?"tt tt-"+c.ts:"",c.title.length>16?"xl":c.title.length>12?"long":""].join(" ").trim()}">${esc(c.title)}</small>`:""}</div>
-   <div class="tcAv"><i class="tcPlat"></i>${typeof fameAura==="function"?fameAura(c):""}${c.ph?`<span class="tcMon tcPh"><b>?</b></span>`:`<span class="tcMon" data-sp="${SPECIES[c.fav]?c.fav:25}" data-sh="${c.favSh?1:""}"${c.favM&&SPECIES[c.fav]?` data-mk="${esc(String(c.favM))}"`:""}></span>`}</div>
+   <div class="tcAv"><i class="tcPlat"></i>${typeof fameAura==="function"?fameAura(c):""}${typeof famePilC==="function"?famePilC(c)+fameRubyBk(c):""}${c.ph?`<span class="tcMon tcPh"><b>?</b></span>`:`<span class="tcMon" data-sp="${SPECIES[c.fav]?c.fav:25}" data-sh="${c.favSh?1:""}"${c.favM&&SPECIES[c.fav]?` data-mk="${esc(String(c.favM))}"`:""}></span>`}${typeof fameRubyFr==="function"?fameRubyFr(c):""}</div>
    <div class="tcBdg">${sl}</div>
    ${c.sub?`<div class="tcStats"><span>${c.sub}</span></div>`:`<div class="tcStats"><span>${ic("crown")}${c.ch}</span><span>${ic("swords")}${c.dw}</span><span>${ic("dex")}${c.dex}</span>${c.tw?`<span>${ic("tower")}${c.tw}</span>`:""}</div>`}</div>`;}
 /* Sprite auf den sichtbaren Inhalt zuschneiden (für kleine Rahmen wie Abzeichen: immer mittig, gleich groß) */
@@ -17875,7 +17903,7 @@ function enemyCard(enc,boss){const ty=boss?"boss":(enc&&enc.type)||"mid",nm=boss
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.51.0.7",DUEL_HP=30;
+const MP_VER="1.51.0.8",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18512,8 +18540,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.51.0.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.51.0.8"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.51.0.8",d:"11.11.2026",t:"Rang-Effekte auf der Karte",items:[
+  ["spark", "Ruhm: Die Rang-Effekte Lichtsäulen (Saphir) und VS-Auftritt (Rubin) sieht man jetzt auch direkt auf der Trainerkarte, nicht nur im VS-Bildschirm."]]},
  {v:"1.51.0.7",d:"10.11.2026",t:"Kleinigkeiten",items:[
   ["check", "Die Abgrund-Karte im Hauptmenü ist aufgeräumt."]]},
  {v:"1.51.0.6",d:"10.11.2026",t:"Abgrund: Tiefe",items:[
@@ -19969,6 +19999,12 @@ function fameBind(){const mb=$("mbox");if(!mb)return;if(typeof cardHydrate==="fu
   mb.querySelectorAll("[data-fmn]").forEach(b=>b.onclick=()=>{const F=fameMeta();F.n=b.dataset.fmn||null;saveMeta();sfx("click");labScreen("fame");});
   mb.querySelectorAll("[data-fmf]").forEach(b=>b.onclick=()=>{const F=fameMeta();F.f=b.dataset.fmf||null;saveMeta();sfx("click");labScreen("fame");});
   mb.querySelectorAll("[data-fme]").forEach(b=>b.onclick=()=>{const F=fameMeta();F.e=b.dataset.fme||null;saveMeta();sfx("click");labScreen("fame");});}
+/* v1.51.0.8: Lichtsäulen und VS-Auftritt auch auf der Karte (wie die Aura) */
+function famePilC(c){if(!fameFxOn(c,"saphir"))return "";const leg=fameFxK(c)==="legende",col=fameFxC("saphir");
+  const B=[[12,16,2.8,0],[30,12,2.3,-.9],[50,18,2.6,-1.6],[70,12,2.4,-.4],[88,16,2.9,-1.2]],S=[[18,2.6,0],[36,2.2,-.8],[58,2.8,-1.5],[76,2.3,-.3],[44,2.5,-1.9],[64,2.7,-1.1]];
+  return `<i class="fmPil" style="--fc:${col}">${B.map(([x,w,d,dl],i)=>`<i style="--x:${x}%;--w:${w}px;--d:${d}s;--dl:${dl}s;--pc:${leg?FAME_RB[i]:col}"></i>`).join("")}<i class="core" style="--x:50%;--d:2.2s;--dl:-.5s;--pc:${leg?"#fff":col}"></i>${S.map(([x,d,dl],i)=>`<s style="--x:${x}%;--d:${d}s;--dl:${dl}s;--pc:${leg?FAME_RB[i%5]:col}"></s>`).join("")}</i>`;}
+function fameRubyBk(c){if(!fameFxOn(c,"rubin"))return "";const leg=fameFxK(c)==="legende";return `<i class="fmRubyB${leg?" leg":""}" style="--fc:${fameFxC("rubin")}"><i></i><i class="r2"></i><b></b><b class="w2"></b></i>`;}
+function fameRubyFr(c){if(!fameFxOn(c,"rubin"))return "";const leg=fameFxK(c)==="legende";return `<i class="fmRubyF" style="--fc:${fameFxC("rubin")}">${Array.from({length:5},(_,i)=>`<s${leg?` style="--sc:${FAME_RB[i]}"`:""}></s>`).join("")}</i>`;}
 
 
 /* ================================ v1.36.0: Legendäre Items, neue Relikte, Kampfturm-Hintergründe, Turm in der Bestenliste ================================ */
