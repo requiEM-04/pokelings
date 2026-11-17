@@ -5097,7 +5097,153 @@ img.aur,.card .pic img.aur,.u img.aur{filter:url(#aurF) drop-shadow(0 0 2px rgba
 /* v1.53.0.5: Aurora im Admin und im Geschenk-Fenster */
 .admAurB.on{background:linear-gradient(90deg,#7a2bd0,#ff5fb8,#46e6d8)!important;color:#fff!important;border-color:transparent!important}
 .giftSh.aur{background:linear-gradient(90deg,#7a2bd0,#ff5fb8,#46e6d8);color:#fff;padding:1px 6px;border-radius:5px}
+/* v1.54.0 bg54 */
+/* ================= v1.54.0: ★5/★6-Hintergründe neu ================= */
+.tcBg [class^="rk5"],.tcBg [class^="ts5"],.tcBg [class^="ab5"],.tcBg [class^="am5"],.tcBg [class^="my5"]{position:absolute;display:block;pointer-events:none}
+.tcBg svg[class^="rk5"],.tcBg svg[class^="ts5"],.tcBg svg[class^="ab5"],.tcBg svg[class^="am5"],.tcBg svg[class^="my5"]{overflow:visible}
+/* Kreisbahn um eine Hauptfigur: außen vorn/hinten (z-index), innen links/rechts */
+@keyframes k54oy{0%{transform:translateY(calc(var(--ry) * -1)) scale(.6);z-index:1;opacity:.65}100%{transform:translateY(var(--ry)) scale(1.1);z-index:3;opacity:1}}
+@keyframes k54ox{0%{transform:translateX(calc(var(--rx) * -1))}100%{transform:translateX(var(--rx))}}
+@keyframes k54drift{to{transform:translateX(-50%)}}
+@keyframes k54spin{to{rotate:360deg}}
+@keyframes k54bob{0%,100%{transform:translateY(calc(var(--b,1.2cqmin) * -1))}50%{transform:translateY(var(--b,1.2cqmin))}}
+@keyframes k54glint{0%,70%,100%{opacity:0;transform:scale(.2)}80%{opacity:1;transform:scale(1)}90%{opacity:.4;transform:scale(.6)}}
+@keyframes k54ring{0%{transform:scale(.15);opacity:0}30%{opacity:.9}100%{transform:scale(6.5);opacity:0}}
+@keyframes k54pulse{0%,100%{opacity:var(--lo,.65);transform:scale(1)}50%{opacity:1;transform:scale(var(--sc,1.08))}}
 
+/* ---------- Ruhmeskrone ---------- */
+.bg-ruhmkrone{background:#160a24}
+.bg-ruhmkrone .rk5Sky{inset:0;background:linear-gradient(180deg,#0c0418 0,#2a0c40 24%,#6a1a5a 42%,#c8487a 54%,#ffb070 64%,#ffd9a0 72%,#f4a0b8 100%)}
+.bg-ruhmkrone .rk5Sun{left:50%;top:27%;width:78cqmin;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,#fffbe8 0,rgba(255,236,170,.9) 12%,rgba(255,196,110,.45) 32%,transparent 66%);--lo:.8;--sc:1.05;animation:k54pulse 5s ease-in-out infinite}
+.bg-ruhmkrone .rk5Burst{left:50%;top:27%;width:190cqmax;aspect-ratio:1;translate:-50% -50%;background:repeating-conic-gradient(from 0deg,rgba(255,232,170,.3) 0 5deg,transparent 5deg 14deg);-webkit-mask:radial-gradient(circle,#000 0,rgba(0,0,0,.6) 18%,transparent 42%);mask:radial-gradient(circle,#000 0,rgba(0,0,0,.6) 18%,transparent 42%);animation:k54spin 90s linear infinite}
+.bg-ruhmkrone .rk5C{left:0;top:0;width:200%;height:100%;animation:k54drift var(--d,80s) linear infinite}
+.bg-ruhmkrone .rk5C.c1{--d:120s;opacity:.85}.bg-ruhmkrone .rk5C.c2{--d:80s}.bg-ruhmkrone .rk5C.c3{--d:55s}
+.bg-ruhmkrone .rk5Halo{left:50%;top:32.5%;width:66cqmin;height:14cqmin;translate:-50% -50%;border-radius:50%;border:.55cqmin solid rgba(255,236,170,.85);box-shadow:0 0 2.4cqmin rgba(255,210,100,.9),inset 0 0 2cqmin rgba(255,210,100,.6);--lo:.55;--sc:1.04;animation:k54pulse 3.2s ease-in-out infinite}
+.bg-ruhmkrone .rk5HaloB{left:50%;top:27%;width:48cqmin;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,rgba(255,255,240,.85) 0,rgba(255,220,130,.45) 30%,transparent 62%);mix-blend-mode:screen}
+.bg-ruhmkrone .rk5Stage{left:50%;top:28%;width:0;height:0;z-index:2;--rx:32cqmin;--ry:7.5cqmin}
+.bg-ruhmkrone .rk5Cr{position:absolute;left:-23cqmin;top:-18.5cqmin;width:46cqmin;z-index:2;filter:drop-shadow(0 0 1.6cqmin rgba(255,200,80,.85));--b:1.1cqmin;animation:k54bob 4.4s ease-in-out infinite}
+.bg-ruhmkrone .rk5Gl path{transform-box:fill-box;transform-origin:center;animation:k54glint 3.6s ease-in-out infinite;animation-delay:calc(var(--i) * -.75s)}
+.tcBg .rk5O,.tcBg .my5O{position:absolute;left:0;top:0;width:0;height:0;animation:k54oy calc(var(--T) / 2) ease-in-out var(--dl) infinite alternate}
+.tcBg .rk5O>b,.tcBg .my5O>b{position:absolute;display:block;animation:k54ox calc(var(--T) / 2) ease-in-out calc(var(--dl) - var(--T) / 4) infinite alternate}
+.bg-ruhmkrone .rk5O>b{width:3.6cqmin;height:4.6cqmin;margin:-2.3cqmin 0 0 -1.8cqmin;clip-path:polygon(50% 0,100% 40%,50% 100%,0 40%);background:linear-gradient(155deg,#fff 0,var(--c) 32%,var(--c2) 100%)}
+.bg-ruhmkrone .rk5O::before{content:"";position:absolute;width:7cqmin;height:7cqmin;margin:-3.5cqmin 0 0 -3.5cqmin;border-radius:50%;background:radial-gradient(circle,var(--c) 0,transparent 65%);opacity:.55}
+.bg-ruhmkrone .rk5Cf{border-radius:.3cqmin}
+.bg-ruhmkrone .rk5La{top:16cqh;height:72cqh;aspect-ratio:40/165;filter:drop-shadow(0 0 1.2cqmin rgba(255,200,80,.6));transform-origin:70% 100%;animation:rk5Sw 6s ease-in-out infinite alternate}
+.bg-ruhmkrone .rk5La.l{left:-1cqw}.bg-ruhmkrone .rk5La.r{right:-1cqw;scale:-1 1;transform-origin:50% 100%;animation-delay:-3s}
+@keyframes rk5Sw{0%{rotate:-1.2deg}100%{rotate:1.2deg}}
+.bg-ruhmkrone .rk5Vg{inset:0;background:linear-gradient(180deg,transparent 70%,rgba(30,6,36,.55))}
+
+/* ---------- Turmspitze ---------- */
+.bg-turmspitze{background:#07041a}
+.bg-turmspitze .ts5Sky{inset:0;background:linear-gradient(180deg,#03020c 0,#0e0828 26%,#26124e 44%,#5a2a7a 54%,#c46a9a 60%,#2a1a4a 72%,#0a0616 100%)}
+.bg-turmspitze .ts5Moon{left:71%;top:22%;width:12cqmin;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle at 36% 34%,#ffffff 0,#f2eaff 40%,#bfaee8 72%,#8a78c8 100%);box-shadow:0 0 5cqmin rgba(200,180,255,.55),0 0 14cqmin rgba(140,110,255,.3)}
+.bg-turmspitze .ts5Bolt{left:4%;top:44%;width:30cqw;height:18cqh;border-radius:50%;background:radial-gradient(ellipse,rgba(230,220,255,.9) 0,rgba(160,140,255,.35) 35%,transparent 70%);opacity:0;animation:ts5Flash 7.5s linear infinite}
+@keyframes ts5Flash{0%,86%,100%{opacity:0}87%{opacity:.9}88%{opacity:.15}89.5%{opacity:.75}92%{opacity:0}}
+.bg-turmspitze .ts5C{left:0;top:0;width:200%;height:100%;animation:k54drift var(--d,80s) linear infinite}
+.bg-turmspitze .ts5C.c1{--d:140s;opacity:.9}.bg-turmspitze .ts5C.c2{--d:70s}
+.bg-turmspitze .ts5Sp{left:50%;top:13cqh;height:66cqh;aspect-ratio:60/170;translate:-50% 0}
+.bg-turmspitze .ts5W rect{animation:ts5Win 3.4s ease-in-out infinite;animation-delay:calc(var(--i) * -.5s)}
+@keyframes ts5Win{0%,100%{opacity:.95}45%{opacity:.55}60%{opacity:1}}
+.bg-turmspitze .ts5Orb{left:50%;top:15.3cqh;width:5.4cqmin;aspect-ratio:1;translate:-50% -50%;border-radius:50%;z-index:1;background:radial-gradient(circle,#ffffff 0,#fff2b0 35%,#ffb030 70%,transparent 72%);box-shadow:0 0 3cqmin #ffd36a,0 0 9cqmin rgba(255,180,60,.7);--lo:.8;--sc:1.18;animation:k54pulse 1.8s ease-in-out infinite}
+.bg-turmspitze .ts5Ring{left:50%;top:15.3cqh;width:6cqmin;aspect-ratio:1;translate:-50% -50%;border-radius:50%;border:.35cqmin solid rgba(255,214,110,.85);opacity:0;animation:k54ring 4.5s ease-out infinite}
+.bg-turmspitze .ts5Ring.r2{animation-delay:-1.5s}.bg-turmspitze .ts5Ring.r3{animation-delay:-3s}
+.bg-turmspitze .ts5Beam{left:50%;top:15.3cqh;width:0;height:0;transform:scaleY(.22)}
+.bg-turmspitze .ts5Beam>b{position:absolute;display:block;left:0;top:-7cqmin;width:150cqmax;height:14cqmin;transform-origin:0 50%;border-radius:0 50% 50% 0;-webkit-mask:linear-gradient(180deg,transparent,#000 50%,transparent);mask:linear-gradient(180deg,transparent,#000 50%,transparent);background:linear-gradient(90deg,rgba(255,244,200,.55),rgba(255,220,140,.18) 30%,transparent 60%);animation:k54spin 9s linear infinite}
+.bg-turmspitze .ts5Beam>b+b{animation-delay:-4.5s}
+.bg-turmspitze .ts5St{left:var(--x);top:var(--y);width:var(--s);aspect-ratio:1;clip-path:polygon(30% 0,80% 10%,100% 55%,70% 100%,20% 90%,0 40%);background:linear-gradient(160deg,#6a58a8,#2a1c50 60%,#140c2a);--b:1cqmin;animation:k54bob var(--d) ease-in-out var(--dl) infinite}
+.bg-turmspitze .ts5St::after{content:"";position:absolute;left:38%;top:36%;width:24%;height:24%;border-radius:50%;background:#ffd36a;box-shadow:0 0 1cqmin #ffd36a}
+.bg-turmspitze .ts5Fl{z-index:0}
+.bg-turmspitze .ts5Rune{left:50%;top:89%;width:78cqw;aspect-ratio:1;translate:-50% -50%;transform:scaleY(.22);opacity:.85}
+.bg-turmspitze .ts5Rune>svg{position:absolute;inset:0;width:100%;height:100%;animation:k54spin 40s linear infinite}
+.bg-turmspitze .ts5Col{bottom:0;height:92cqh;aspect-ratio:30/160}
+.bg-turmspitze .ts5Col.l{left:-2cqw}.bg-turmspitze .ts5Col.r{right:-2cqw}
+.bg-turmspitze .ts5Fire{top:18.5cqh;width:5cqh;height:8cqh;translate:-50% -100%;border-radius:50% 50% 35% 35%/65% 65% 35% 35%;background:radial-gradient(ellipse at 50% 80%,#fff6c0 0,#ffb030 35%,rgba(255,80,20,.85) 62%,transparent 75%);transform-origin:50% 100%;animation:ts5Fl 0.9s ease-in-out infinite alternate;box-shadow:0 0 4cqh rgba(255,150,40,.5)}
+.bg-turmspitze .ts5Fire.f1{left:calc(-2cqw + 8.6cqh)}.bg-turmspitze .ts5Fire.f2{left:calc(102cqw - 8.6cqh);animation-delay:-.45s}
+.bg-turmspitze .ts5Fire>b{position:absolute;display:block;left:30%;right:30%;bottom:8%;height:50%;border-radius:50% 50% 40% 40%/70% 70% 30% 30%;background:radial-gradient(ellipse at 50% 85%,#ffffff 0,#fff2b0 50%,transparent 80%)}
+@keyframes ts5Fl{0%{transform:scale(1,1) skewX(-3deg)}100%{transform:scale(.9,1.12) skewX(4deg)}}
+
+/* ---------- Abgrundtiefe ---------- */
+.bg-abgrund{background:#050005}
+.bg-abgrund .ab5Base{inset:0;background:radial-gradient(circle at 50% 34%,#ff4a74 0,#a00c3c 6%,#4a0620 16%,#16020c 38%,#050005 70%)}
+.bg-abgrund .ab5Core{left:50%;top:34%;width:46cqmin;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,rgba(255,120,150,.9) 0,rgba(255,40,90,.4) 30%,transparent 65%);--lo:.6;--sc:1.15;animation:k54pulse 2.6s ease-in-out infinite}
+.bg-abgrund .ab5Vx{left:50%;top:34%;width:170cqmax;aspect-ratio:1;translate:-50% -50%;background:repeating-conic-gradient(from 0deg,rgba(255,70,120,.16) 0 7deg,transparent 7deg 22deg);-webkit-mask:radial-gradient(circle,transparent 0,#000 6%,rgba(0,0,0,.5) 22%,transparent 40%);mask:radial-gradient(circle,transparent 0,#000 6%,rgba(0,0,0,.5) 22%,transparent 40%);animation:k54spin 26s linear infinite}
+.bg-abgrund .ab5T{inset:0;z-index:1}
+.bg-abgrund .ab5R{left:50%;top:34%;width:62cqmax;aspect-ratio:1;translate:-50% -50%;opacity:0;animation:ab5Ring 12s linear var(--dl) infinite}
+.bg-abgrund .ab5R>svg{position:absolute;inset:0;width:100%;height:100%}
+@keyframes ab5Ring{0%{transform:scale(.05);opacity:0;z-index:1}14%{opacity:1}25%{transform:scale(.13);z-index:2}50%{transform:scale(.34);z-index:3}75%{transform:scale(.9);z-index:5}100%{transform:scale(2.4);opacity:1;z-index:7}}
+.bg-abgrund .ab5Eye{left:50%;top:34%;width:24cqmin;aspect-ratio:2;translate:-50% -50%;z-index:9;filter:drop-shadow(0 0 1.8cqmin rgba(255,60,100,.9))}
+.bg-abgrund .ab5Eye>svg{width:100%;height:100%}
+.bg-abgrund .ab5Lid{transform-box:fill-box;transform-origin:center;animation:ab5Blink 6.5s ease-in-out infinite}
+@keyframes ab5Blink{0%,44%,52%,100%{transform:scaleY(1)}48%{transform:scaleY(.06)}}
+.bg-abgrund .ab5Pu{animation:ab5Look 9s ease-in-out infinite}
+@keyframes ab5Look{0%,20%,100%{transform:translateX(0)}30%,45%{transform:translateX(-5px)}60%,75%{transform:translateX(5px)}}
+.bg-abgrund .ab5Sh{left:50%;top:34%;width:var(--s);aspect-ratio:1;z-index:2;clip-path:polygon(20% 0,75% 8%,100% 45%,62% 100%,10% 82%,0 30%);background:linear-gradient(150deg,#ff6a8a 0,#4a0a22 25%,#14020a 70%);opacity:0;animation:ab5Fly var(--d) cubic-bezier(.55,0,1,.6) var(--dl) infinite}
+@keyframes ab5Fly{0%{transform:translate(-50%,-50%) scale(.15) rotate(0);opacity:0}25%{opacity:1}100%{transform:translate(calc(-50% + var(--tx)),calc(-50% + var(--ty))) scale(2.6) rotate(var(--r));opacity:.9}}
+.bg-abgrund .ab5Ch{top:-2cqh;z-index:2;transform-origin:50% 0;animation:ab5Sw 5s ease-in-out infinite alternate}
+.bg-abgrund .ab5Ch.l{left:7cqw;height:58cqh;aspect-ratio:12/120}.bg-abgrund .ab5Ch.r{right:10cqw;height:44cqh;aspect-ratio:12/120;animation-delay:-2.5s}
+@keyframes ab5Sw{0%{rotate:-3deg}100%{rotate:3deg}}
+.bg-abgrund .bgSvg{z-index:2}
+.bg-abgrund .cb-up{z-index:2}
+.bg-abgrund .ab5Fog{left:-20%;right:-20%;bottom:0;height:30%;z-index:2;background:radial-gradient(ellipse at 30% 100%,rgba(255,40,90,.35),transparent 60%),radial-gradient(ellipse at 75% 100%,rgba(160,40,255,.25),transparent 60%);animation:cbDrift 14s ease-in-out infinite alternate}
+
+/* ---------- Bernsteinglut ---------- */
+.bg-bernstein{background:#140602}
+.bg-bernstein .am5Bg{inset:0;background:radial-gradient(ellipse 70% 60% at 50% 34%,#ffb838 0,#d06a0a 20%,#6a2804 46%,#200a02 76%,#0e0401 100%)}
+.bg-bernstein .am5Hex{inset:0;opacity:.5;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='48.5' viewBox='0 0 28 48.5'%3E%3Cpath d='M14 0 L28 8.1 V24.2 L14 32.3 L0 24.2 V8.1Z M14 32.3 V48.5' fill='none' stroke='%23ffd27a' stroke-opacity='.35' stroke-width='.8'/%3E%3C/svg%3E");background-size:9cqmin auto;-webkit-mask:radial-gradient(ellipse 60% 50% at 50% 36%,#000,transparent 75%);mask:radial-gradient(ellipse 60% 50% at 50% 36%,#000,transparent 75%);--lo:.35;--sc:1.02;animation:k54pulse 6s ease-in-out infinite}
+.bg-bernstein .am5Dr{left:var(--x);top:var(--y);width:1.5cqmin;height:2.3cqmin;border-radius:50% 50% 50% 50%/65% 65% 35% 35%;background:radial-gradient(circle at 40% 60%,#fff2b0,#ffb030 50%,#a04a00);box-shadow:0 0 1cqmin rgba(255,180,60,.8);transform-origin:50% 0;opacity:0;animation:am5Drip var(--d) cubic-bezier(.6,0,1,.7) var(--dl) infinite}
+@keyframes am5Drip{0%{transform:translateY(0) scaleY(.3);opacity:0}12%{opacity:1;transform:translateY(0) scaleY(.9)}40%{transform:translateY(0) scaleY(1.45)}100%{transform:translateY(70cqh) scaleY(1.2);opacity:.95}}
+.bg-bernstein .am5Big{left:50%;top:7cqh;width:64cqmin;aspect-ratio:1;translate:-50% 0;filter:drop-shadow(0 0 2.4cqmin rgba(255,170,40,.75))}
+.bg-bernstein .am5Main{transform-box:fill-box;transform-origin:50% 100%;--b:.6cqmin}
+.bg-bernstein .am5In{transform-box:fill-box;transform-origin:center;--lo:.55;--sc:1.12;animation:k54pulse 3.4s ease-in-out infinite}
+.bg-bernstein .am5Fos{transform-box:fill-box;transform-origin:center;animation:am5Fos 7s ease-in-out infinite}
+@keyframes am5Fos{0%,100%{opacity:.72}50%{opacity:.55}}
+.bg-bernstein .am5Bub circle{animation:am5Bub 6s ease-in-out infinite;animation-delay:calc(var(--i) * -1s)}
+@keyframes am5Bub{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(-3px);opacity:.9}}
+.bg-bernstein .am5Ch{left:var(--x);top:var(--y);width:var(--s);aspect-ratio:.87;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);background:linear-gradient(150deg,#fff2b0 0,#ffb030 40%,#8a3a00 100%);opacity:.9;--b:1.4cqmin;animation:k54bob var(--d) ease-in-out var(--dl) infinite}
+.bg-bernstein .am5Rp{left:var(--x);top:79%;width:16cqmin;height:3.4cqmin;translate:-50% -50%;border-radius:50%;border:.35cqmin solid rgba(255,230,160,.8);opacity:0;animation:am5Rip var(--d) ease-out var(--dl) infinite}
+@keyframes am5Rip{0%{transform:scale(.15);opacity:.95}35%{transform:scale(1);opacity:0}100%{opacity:0}}
+
+/* ---------- Mythos ---------- */
+.bg-mythos{background:#0a0420}
+.bg-mythos .my5Sky{inset:0;background:linear-gradient(180deg,#060214 0,#1a0838 28%,#3a1260 48%,#7a2a8a 60%,#2a1048 76%,#0c0618 100%)}
+.bg-mythos .my5Neb{border-radius:50%;mix-blend-mode:screen;animation:cbDrift 18s ease-in-out infinite alternate}
+.bg-mythos .my5Neb.n1{left:-20%;top:4%;width:90%;height:46%;background:radial-gradient(ellipse,rgba(255,90,200,.35),transparent 65%)}
+.bg-mythos .my5Neb.n2{right:-25%;top:16%;width:90%;height:50%;background:radial-gradient(ellipse,rgba(80,200,255,.28),transparent 65%);animation-delay:-9s}
+.bg-mythos .my5Gate{left:50%;top:30%;width:70cqmin;aspect-ratio:1;translate:-50% -50%;opacity:.85}
+.bg-mythos .my5Gate>svg{width:100%;height:100%}
+.bg-mythos .my5Rn rect{animation:my5Rn 4s ease-in-out infinite;animation-delay:calc(var(--i) * -.5s)}
+@keyframes my5Rn{0%,100%{opacity:.35}50%{opacity:1}}
+.bg-mythos .my5Is{width:36cqmin;aspect-ratio:60/50;--b:1.4cqmin;animation:k54bob 6s ease-in-out infinite}
+.bg-mythos .my5Is.l{left:-6cqmin;top:40%}.bg-mythos .my5Is.r{right:-6cqmin;top:31%;animation-delay:-3s}
+.bg-mythos .my5Fall{top:0;width:1.8cqmin;height:44cqh;background:repeating-linear-gradient(180deg,rgba(220,200,255,.75) 0 1.4cqmin,rgba(140,220,255,.35) 1.4cqmin 3cqmin);-webkit-mask:linear-gradient(180deg,#000 30%,transparent);mask:linear-gradient(180deg,#000 30%,transparent);animation:my5Fall .9s linear infinite}
+.bg-mythos .my5Fall.l{left:calc(-6cqmin + 5cqmin);top:calc(40% + 9cqmin)}.bg-mythos .my5Fall.r{right:calc(-6cqmin + 5cqmin);top:calc(31% + 9cqmin)}
+@keyframes my5Fall{to{background-position:0 3cqmin}}
+.bg-mythos .my5Spec{left:50%;top:31%;width:80cqmin;height:52cqh;translate:-50% 0;clip-path:polygon(47% 0,53% 0,100% 100%,0 100%);background:linear-gradient(90deg,#ff4a6a,#ffa040 17%,#ffe04a 33%,#4aff8a 50%,#4ad8ff 66%,#6a6aff 83%,#d04aff);-webkit-mask:linear-gradient(180deg,#000,rgba(0,0,0,.4) 60%,transparent);mask:linear-gradient(180deg,#000,rgba(0,0,0,.4) 60%,transparent);mix-blend-mode:screen;--lo:.28;--sc:1;animation:k54pulse 4s ease-in-out infinite}
+.bg-mythos .my5RuneC{left:50%;top:27%;width:48cqmin;aspect-ratio:1;translate:-50% -50%;opacity:.7}
+.bg-mythos .my5RuneC>svg{position:absolute;inset:0;width:100%;height:100%;animation:k54spin 36s linear infinite reverse}
+.bg-mythos .my5Stage{left:50%;top:27%;width:0;height:0;z-index:2;--rx:18cqmin;--ry:5cqmin}
+.bg-mythos .my5Gem{position:absolute;left:-8cqmin;top:-11cqmin;width:16cqmin;z-index:2;filter:drop-shadow(0 0 2cqmin rgba(230,180,255,.9));--b:1.2cqmin;animation:k54bob 3.6s ease-in-out infinite}
+.bg-mythos .my5F1{transform-box:fill-box;transform-origin:center;animation:my5Sh 3s ease-in-out infinite}
+@keyframes my5Sh{0%,100%{transform:scaleX(1);opacity:1}50%{transform:scaleX(.55);opacity:.8}}
+.bg-mythos .my5O>b{width:1.8cqmin;aspect-ratio:1;margin:-.9cqmin 0 0 -.9cqmin;border-radius:50%;background:radial-gradient(circle,#fff 0,var(--c) 45%,transparent 72%);box-shadow:0 0 1.4cqmin var(--c)}
+.bg-mythos .my5Pool{left:15%;right:15%;bottom:2%;height:16%;border-radius:50%;background:radial-gradient(ellipse,rgba(230,180,255,.4),transparent 70%);--lo:.6;--sc:1.05;animation:k54pulse 4s ease-in-out infinite}
+
+/* Weniger Bewegung gewünscht: alles ruhig stellen */
+@media (prefers-reduced-motion:reduce){.tcBg [class^="rk5"],.tcBg [class^="ts5"],.tcBg [class^="ab5"],.tcBg [class^="am5"],.tcBg [class^="my5"],.tcBg [class^="rk5"] *,.tcBg [class^="ts5"] *,.tcBg [class^="ab5"] *,.tcBg [class^="am5"] *,.tcBg [class^="my5"] *{animation:none!important}}
+/* ---------- Nordlichtgipfel (Aufwertung) ---------- */
+.bg-nordgipfel .ng5A{left:-10%;top:4%;width:120%;height:56%;mix-blend-mode:screen;transform-origin:50% 0;animation:ng5Wave var(--d,12s) ease-in-out var(--dl,0s) infinite alternate}
+.bg-nordgipfel .ng5A.a1{--d:11s;opacity:.9}.bg-nordgipfel .ng5A.a2{--d:14s;--dl:-5s;top:8%;opacity:.7}.bg-nordgipfel .ng5A.a3{--d:17s;--dl:-9s;top:12%;opacity:.55}
+@keyframes ng5Wave{0%{transform:skewX(-8deg) scaleY(.9) translateX(-3%)}100%{transform:skewX(8deg) scaleY(1.08) translateX(3%)}}
+.bg-nordgipfel .ng5Refl{left:0;right:0;bottom:0;height:16%;mix-blend-mode:screen;background:repeating-linear-gradient(180deg,rgba(90,255,180,.22) 0 .5cqh,transparent .5cqh 1.3cqh);-webkit-mask:linear-gradient(180deg,#000,transparent);mask:linear-gradient(180deg,#000,transparent);--lo:.5;--sc:1;animation:k54pulse 5s ease-in-out infinite}
+.bg-nordgipfel .ng5Ice{bottom:0;height:34cqh;aspect-ratio:50/70;filter:drop-shadow(0 0 1.4cqmin rgba(160,230,255,.75))}
+.bg-nordgipfel .ng5Ice.l{left:-3cqw}.bg-nordgipfel .ng5Ice.r{right:-3cqw;scale:-1 1}
+/* ---------- Ruhmeshalle (Aufwertung) ---------- */
+.bg-halle .ha5Spot{top:-10%;width:22cqw;height:120%;transform-origin:50% 0;background:linear-gradient(180deg,rgba(255,250,220,.5),rgba(255,240,190,.12) 60%,transparent 85%);clip-path:polygon(40% 0,60% 0,100% 100%,0 100%);mix-blend-mode:screen;animation:ha5Sp 7s ease-in-out infinite alternate}
+.bg-halle .ha5Spot.s1{left:6%;--a0:-22deg;--a1:8deg}.bg-halle .ha5Spot.s2{right:6%;--a0:22deg;--a1:-8deg;animation-delay:-3.5s}
+@keyframes ha5Sp{0%{rotate:var(--a0)}100%{rotate:var(--a1)}}
+.bg-halle .ha5Fl{left:var(--x);top:var(--y);width:5cqmin;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,#fff 0,rgba(255,255,255,.7) 20%,transparent 60%);opacity:0;animation:ha5Flash var(--d) linear var(--dl) infinite}
+@keyframes ha5Flash{0%,90%,100%{opacity:0;transform:scale(.4)}92%{opacity:1;transform:scale(1.2)}95%{opacity:.2;transform:scale(.8)}}
+.bg-halle .ha5Cf{border-radius:.3cqmin}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -15381,6 +15527,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Neu: Aurora-Pokémon. Eine noch se
 if(typeof EN!=="undefined")Object.assign(EN,{"Die Aurora-Einführung erscheint jetzt zuverlässig, sobald im Hauptmenü kein anderes Fenster offen ist.": "The Aurora introduction now shows up reliably as soon as no other window is open in the main menu."});
 /* v1.53.0.6 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Aurora-Pokémon, die im Kampf Mega-entwickeln, stehen jetzt als Aurora-Mega im Pokédex und sind als Lieblingspokémon wählbar.": "Aurora Pokémon that Mega Evolve in battle are now recorded as Aurora Megas in the Pokédex and can be picked as favourite Pokémon."});
+/* v1.54.0 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Neue Top-Hintergründe": "New top-tier backgrounds", "Die Hintergründe der höchsten Stufen sind überarbeitet: Ruhmeskrone, Turmspitze, Abgrundtiefe, Bernsteinglut und Mythos sind komplett neu, Nordlichtgipfel und Ruhmeshalle haben mehr Effekte bekommen. Man sieht ihnen jetzt an, wie schwer sie zu bekommen sind.": "The top-tier backgrounds have been reworked: Fame Crown, Tower Summit, Abyssal Depths, Amber Blaze and Mythos are completely new, Aurora Peak and Hall of Fame got extra effects. You can now tell how hard they are to earn."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18029,7 +18177,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.53.0.7",DUEL_HP=30;
+const MP_VER="1.54.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18666,8 +18814,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.53.0.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.54.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.54.0",d:"17.11.2026",t:"Neue Top-Hintergründe",items:[
+  ["star", "Die Hintergründe der höchsten Stufen sind überarbeitet: Ruhmeskrone, Turmspitze, Abgrundtiefe, Bernsteinglut und Mythos sind komplett neu, Nordlichtgipfel und Ruhmeshalle haben mehr Effekte bekommen. Man sieht ihnen jetzt an, wie schwer sie zu bekommen sind."]]},
  {v:"1.53.0.6",d:"11.11.2026",t:"Aurora-Megas",items:[
   ["mega", "Aurora-Pokémon, die im Kampf Mega-entwickeln, stehen jetzt als Aurora-Mega im Pokédex und sind als Lieblingspokémon wählbar."]]},
  {v:"1.53.0.5",d:"11.11.2026",t:"Aurora: Einführung",items:[
@@ -20991,6 +21141,156 @@ function abHistModal(){const H=(abMeta().hist||[]);if(!H.length){toast("Noch kei
 const AB_MIDK=0;
 const abMidK=f=>{const k=window.__ABMK||AB_MIDK;return (k&&typeof S!=="undefined"&&S&&S.abyss&&f>=20)?Math.min(10,Math.floor((f-18)/k)):0;};
 
+
+/* ================= v1.54.0: ★5/★6-Hintergründe neu (Ruhmeskrone, Turmspitze, Abgrundtiefe, Bernsteinglut, Mythos) =================
+   Alle Ebenen in cqw/cqh/cqmin, damit Karte, VS-Bildschirm und Vorschau gleich aussehen. Farbverläufe heißen g_…, damit _bgU sie je Karte eindeutig macht. */
+const _rg54=(id,st,cx=.5,cy=.5,r=.5)=>`<radialGradient id="g_${id}" cx="${cx}" cy="${cy}" r="${r}">${st.map(s=>`<stop offset="${s[0]}" stop-color="${s[1]}"${s[2]!=null?` stop-opacity="${s[2]}"`:""}/>`).join("")}</radialGradient>`;
+/* Wolkenband, nahtlos über zwei Bildbreiten (viewBox 0 0 200 100), läuft per CSS um −50 % */
+const _cl54=(seed,y,amp,n,hf=.7)=>{const R=_rnd(seed),W=[];for(let i=0;i<n;i++)W.push(.7+R()*.6);const sw=W.reduce((a,b)=>a+b,0),Y=W.map((_,i)=>i===n-1?0:(R()-.5)*amp);
+  let d=`M0 100 L0 ${_f1(y)}`;for(let p=0;p<2;p++){let x=p*100;for(let i=0;i<n;i++){const w=W[i]/sw*100,rx=w/2,ry=rx*hf*(.75+((i*7+3)%5)/10);x+=w;d+=` A${_f1(rx)} ${_f1(ry)} 0 0 1 ${_f1(x)} ${_f1(y+Y[i])}`;}}return d+" L200 100Z";};
+const _clS54=(cls,seed,y,amp,n,st,hf)=>{const id=cls.replace(/\W/g,"")+seed;return `<svg class="${cls}" viewBox="0 0 200 100" preserveAspectRatio="none"><defs>${_lg(id,st)}</defs><path d="${_cl54(seed,y,amp,n,hf)}" fill="url(#g_${id})"/></svg>`;};
+/* Kreisbahn (Lissajous): außen hoch/runter + Tiefe + z-index, innen links/rechts */
+const _orb54=(cls,n,T,fn)=>_parts(cls,n,i=>`--dl:-${(i*T/n).toFixed(2)}s;--T:${T}s;${fn(i)}`).replace(/<\/i>/g,"<b></b></i>");
+
+/* Lorbeerzweig (Ruhmeskrone): Blätter paarweise entlang einer Kurve */
+const _laurel54=side=>{const P=t=>[(1-t)*(1-t)*30+2*(1-t)*t*2+t*t*24,(1-t)*(1-t)*158+2*(1-t)*t*92+t*t*6],D=t=>[2*(1-t)*(2-30)+2*t*(24-2),2*(1-t)*(92-158)+2*t*(6-92)];let lv="";
+  for(let k=0;k<13;k++){const t=.05+k*.072,[x,y]=P(t),[dx,dy]=D(t),a=Math.atan2(dy,dx)*180/Math.PI,sz=1-t*.35;
+    for(const sg of[-1,1]){const n=a+90*sg,ox=x+Math.cos(n*Math.PI/180)*3.4*sz,oy=y+Math.sin(n*Math.PI/180)*3.4*sz;lv+=`<ellipse cx="${_f1(ox)}" cy="${_f1(oy)}" rx="${_f1(2.3*sz)}" ry="${_f1(6.4*sz)}" transform="rotate(${_f1(a+90+sg*38)} ${_f1(ox)} ${_f1(oy)})"/>`;}}
+  return `<svg class="rk5La ${side}" viewBox="0 0 40 165"><defs>${_lg("rkl"+side,[[0,"#fff4c0"],[.45,"#f0b020"],[1,"#8a5006"]],1)}</defs><path d="M30 158 Q2 92 24 6" fill="none" stroke="#8a5006" stroke-width="1.4"/>
+   <g fill="url(#g_rkl${side})" stroke="#6a3a02" stroke-width=".35">${lv}</g><circle cx="24" cy="5" r="2.4" fill="#fff4c0" stroke="#8a5006" stroke-width=".4"/>
+   <path d="M30 158 L22 164 L26 156 Z M30 158 L37 165 L33 156Z" fill="#c8102e"/><circle cx="30" cy="157.5" r="2.2" fill="#e02040" stroke="#7a0010" stroke-width=".4"/></svg>`;};
+/* ---------- Ruhmeskrone (★6, Ruhmeslegende): Krönung über dem Wolkenmeer ---------- */
+const _rkCrown54=`<svg class="rk5Cr" viewBox="0 0 120 92"><defs>
+ ${_lg("rkg",[[0,"#fffbe0"],[.28,"#ffe07a"],[.6,"#f0a81e"],[1,"#8a4c06"]])}${_lg("rkgs",[[0,"#ffeaa0"],[1,"#a85e08"]],1)}
+ ${_lg("rkv",[[0,"#7a0a2a"],[1,"#2a0010"]])}${_rg54("rkp",[[0,"#ffffff"],[.55,"#f4ecff"],[1,"#b8a6c8"]],.35,.3,.7)}
+ ${_rg54("rkr",[[0,"#ffd0dc"],[.35,"#ff2a5a"],[1,"#6a0018"]],.35,.3,.75)}${_rg54("rks",[[0,"#d8ecff"],[.35,"#2a7aff"],[1,"#081a6a"]],.35,.3,.75)}
+ ${_rg54("rke",[[0,"#d8ffe8"],[.35,"#18c070"],[1,"#04402a"]],.35,.3,.75)}${_rg54("rka",[[0,"#f4dcff"],[.35,"#a040ff"],[1,"#30086a"]],.35,.3,.75)}</defs>
+ <path d="M14 62 Q20 30 60 24 Q100 30 106 62Z" fill="url(#g_rkv)"/>
+ <path d="M8 63 L4 24 L25 42 L37 13 L51 37 L60 5 L69 37 L83 13 L95 42 L116 24 L112 63Z" fill="url(#g_rkg)" stroke="#6a3a02" stroke-width=".9" stroke-linejoin="round"/>
+ <path d="M60 5 L69 37 L60 31 L51 37Z M37 13 L51 37 L42 35Z M83 13 L69 37 L78 35Z" fill="#fff6c8" opacity=".55"/>
+ <path d="M8 63 L4 24 L25 42 L22 58Z M112 63 L116 24 L95 42 L98 58Z" fill="#7a4200" opacity=".28"/>
+ <path d="M17 52 Q60 40 103 52" fill="none" stroke="#fff4c0" stroke-width=".8" opacity=".7"/>
+ <rect x="5" y="60" width="110" height="19" rx="3.5" fill="url(#g_rkgs)" stroke="#6a3a02" stroke-width=".9"/>
+ <path d="M8 63.2 H112 M8 75.8 H112" stroke="#fff3b0" stroke-width=".7" opacity=".75"/>
+ <g fill="#fff4c8" opacity=".9">${[14,25,95,106].map(x=>`<circle cx="${x}" cy="69.5" r="1.1"/>`).join("")}</g>
+ <ellipse cx="60" cy="69.5" rx="8" ry="6.6" fill="url(#g_rkr)" stroke="#5a2a00" stroke-width=".7"/>
+ <path d="M38 63.5 L44 69.5 L38 75.5 L32 69.5Z" fill="url(#g_rks)" stroke="#5a2a00" stroke-width=".6"/><path d="M82 63.5 L88 69.5 L82 75.5 L76 69.5Z" fill="url(#g_rks)" stroke="#5a2a00" stroke-width=".6"/>
+ <circle cx="19.5" cy="69.5" r="3.4" fill="url(#g_rke)" stroke="#5a2a00" stroke-width=".5"/><circle cx="100.5" cy="69.5" r="3.4" fill="url(#g_rke)" stroke="#5a2a00" stroke-width=".5"/>
+ <path d="M60 45 L64 51 L60 57 L56 51Z" fill="url(#g_rka)" stroke="#5a2a00" stroke-width=".5"/>
+ ${[[4,24,3.6],[37,13,3.4],[60,5,4.2],[83,13,3.4],[116,24,3.6]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="url(#g_rkp)" stroke="#8a6a3a" stroke-width=".4"/>`).join("")}
+ <g fill="#fff">${[[57.6,67.2,1.7],[36.6,66,1],[80.6,66,1],[18.4,67.6,.9],[99.4,67.6,.9],[58.6,2.8,1.4],[35.8,11,.9],[81.8,11,.9]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" opacity=".9"/>`).join("")}</g>
+ <g class="rk5Gl">${[[60,69.5],[38,69.5],[82,69.5],[60,5],[19.5,69.5]].map(([x,y],i)=>`<path style="--i:${i}" d="M${x} ${y-6} L${x+1} ${y-1} L${x+6} ${y} L${x+1} ${y+1} L${x} ${y+6} L${x-1} ${y+1} L${x-6} ${y} L${x-1} ${y-1}Z" fill="#fff"/>`).join("")}</g></svg>`;
+Object.assign(CARD_BG.ruhmkrone,{html:`<i class="rk5Sky"></i>${_stars(22,0,34,["#ffffff","#ffe6b0","#ffd0f0"],.2,.55)}<i class="rk5Sun"></i><i class="rk5Burst"></i>
+ ${_bl(50,27,95,"rgba(255,214,120,.55)")}${_shaft(22,9,-14,"rgba(255,226,150,.32)")}${_shaft(78,9,14,"rgba(255,226,150,.32)",3)}${_shaft(50,14,0,"rgba(255,240,200,.28)",5)}
+ <svg class="bgSvg" viewBox="0 0 100 100" preserveAspectRatio="none"><g fill="#3a1840" opacity=".55"><path d="M4 66 V56 Q4 50 8.5 49 Q13 50 13 56 V66Z M7.6 49 L8.5 44 L9.4 49Z"/><path d="M16 66 V59 H22 V66Z M15 59 L19 54 L23 59Z"/>
+  <path d="M84 66 V54 Q84 47 89 46 Q94 47 94 54 V66Z M88 46 L89 40 L90 46Z"/><path d="M78 66 V60 H83 V66Z M77 60 L80.5 55.5 L84 60Z"/></g>
+  <g fill="#ffe08a" opacity=".85"><circle cx="8.5" cy="44" r=".5"/><circle cx="89" cy="40" r=".5"/><circle cx="19" cy="54" r=".35"/><circle cx="80.5" cy="55.5" r=".35"/></g></svg>
+ ${_clS54("rk5C c1",3101,60,6,7,[[0,"#ffd0b0"],[.25,"#d888b0"],[.6,"#7a3a7a"],[1,"#4a1a50"]],.62)}
+ <i class="rk5Halo"></i><i class="rk5HaloB"></i>
+ <i class="rk5Stage">${_orb54("rk5O",7,7,i=>`--c:${["#d98a4a","#d6dde8","#ffd23f","#bfefff","#3a8aff","#ff2a5a","#ffffff"][i]};--c2:${["#6a3010","#7a8696","#a87a00","#5a9ab0","#0a2a8a","#6a0018","#ffb0f0"][i]}`)}${_rkCrown54}</i>
+ ${_clS54("rk5C c2",3111,70,7,6,[[0,"#ffe0c4"],[.18,"#f0a0bc"],[.45,"#a8508e"],[1,"#4a1a50"]],.7)}
+ ${_clS54("rk5C c3",3121,82,6,5,[[0,"#ffe8d0"],[.14,"#f0a8c0"],[.4,"#8a3a7a"],[1,"#2a0c34"]],.75)}
+ ${_laurel54("l")}${_laurel54("r")}
+ <i class="rk5Vg"></i>${_downs(14,"rk5Cf",["#ffd23f","#fff2b0","#ffb03a","#ffffff","#ff8ac8"],.6,1.2,6,10,";--ar:.55")}${_ups(8,["#fff2b0","#ffd23f"],.35,.8,5,8,10,90,";--g:5px")}`});
+
+/* ---------- Turmspitze (★6, Kampfturm Ebene 85): Gipfel-Arena über den Wolken ---------- */
+const _tsSpire54=`<svg class="ts5Sp" viewBox="0 0 60 170" preserveAspectRatio="xMidYMax meet"><defs>${_lg("tsS",[[0,"#2a1c54"],[.5,"#1a1036"],[1,"#0c0820"]],1)}${_lg("tsT",[[0,"#fff2b0"],[1,"#c07a10"]])}</defs>
+ <path d="M30 6 L33 30 L35 30 L37 44 L41 46 L42 62 L47 66 L48 92 L54 98 L55 170 L5 170 L6 98 L12 92 L13 66 L18 62 L19 46 L23 44 L25 30 L27 30Z" fill="url(#g_tsS)"/>
+ <path d="M30 6 L33 30 L35 30 L37 44 L41 46 L42 62 L47 66 L48 92 L54 98 L55 170 L42 170 L40 98 L37 92 L36 66 L34 62 L33 46 L31.5 44 L31 30Z" fill="#05030e" opacity=".45"/>
+ <path d="M22 44.5 H38 M17.5 62.5 H42.5 M11.5 92.5 H48.5 M24.5 30.5 H35.5" stroke="url(#g_tsT)" stroke-width="1.3"/><path d="M30 6 V44" stroke="#ffe08a" stroke-width=".5" opacity=".8"/>
+ <g class="ts5W">${[[28,36],[31,36],[25,52],[29,52],[33,52],[20,74],[25,74],[30,74],[35,74],[40,74],[14,108],[21,108],[28,108],[35,108],[42,108],[18,128],[30,128],[42,128],[24,148],[36,148]].map(([x,y],i)=>`<rect style="--i:${i%7}" x="${x}" y="${y}" width="2.2" height="3.4" rx=".6" fill="#ffcf5a"/>`).join("")}</g>
+ <path d="M13 92 Q30 84 47 92 M19 62 Q30 57 41 62" fill="none" stroke="#ffcf5a" stroke-width=".5" opacity=".5"/></svg>`;
+const _tsCol54=side=>`<svg class="ts5Col ${side}" viewBox="0 0 30 160" preserveAspectRatio="xMidYMax meet"><defs>${_lg("tsc"+side,[[0,"#3a2a5a"],[.55,"#1a1230"],[1,"#0a0614"]],1)}</defs>
+ <path d="M6 160 V30 H24 V160Z" fill="url(#g_tsc${side})"/><path d="M3 30 H27 L25 24 H5Z M2 22 H28 V19 H2Z" fill="#2a1c46"/><path d="M8 34 V160 M12 34 V160 M16 34 V160 M20 34 V160" stroke="#000" stroke-opacity=".25" stroke-width=".8"/>
+ <path d="M${side==="l"?24:6} 30 V160" stroke="#ffd36a" stroke-opacity=".35" stroke-width=".8"/><path d="M7 19 Q15 10 23 19Z" fill="#3a2a10"/>
+ <path d="M8 40 H22 V86 L15 80 L8 86Z" fill="#7a1a3a"/><path d="M8 40 H22 V43 H8Z" fill="#ffcf5a"/><path d="M11.5 58 L13 53 L15 56 L17 53 L18.5 58Z" fill="#ffcf5a"/></svg>`;
+Object.assign(CARD_BG.turmspitze,{html:`<i class="ts5Sky"></i>${_bl(30,20,60,"rgba(150,90,255,.35)")}${_bl(76,14,50,"rgba(90,140,255,.3)")}${_stars(34,0,56,["#ffffff","#ffe8c8","#c8e0ff","#ffd6f2"],.2,.6)}
+ <i class="ts5Moon"></i><i class="x-shoot"></i><i class="ts5Bolt"></i>
+ ${_clS54("ts5C c1",4101,56,5,8,[[0,"#8a7ac8"],[.4,"#3a2a6a"],[1,"#140c2a"]],.5)}
+ <i class="ts5Beam"><b></b><b></b></i>${_tsSpire54}<i class="ts5Orb"></i><i class="ts5Ring r1"></i><i class="ts5Ring r2"></i><i class="ts5Ring r3"></i>
+ ${_parts("ts5St",5,i=>`--x:${[34,64,40,58,50][i]}%;--y:${[30,26,46,40,18][i]}%;--s:${[2.6,2.2,1.8,2.4,1.6][i]}cqmin;--d:${[5,6,4.6,5.6,4.2][i]}s;--dl:-${i*1.3}s`)}
+ ${_clS54("ts5C c2",4111,70,6,6,[[0,"#c8b8f0"],[.3,"#6a58a8"],[1,"#20163e"]],.62)}
+ <svg class="bgSvg ts5Fl" viewBox="0 0 100 100" preserveAspectRatio="none"><defs>${_lg("tsf",[[0,"#2a1e48"],[1,"#0a0616"]])}</defs><path d="M-5 100 L-5 78 Q50 70 105 78 L105 100Z" fill="url(#g_tsf)"/>
+  <path d="M-5 78 Q50 70 105 78" fill="none" stroke="#ffcf5a" stroke-opacity=".55" stroke-width=".8" vector-effect="non-scaling-stroke"/>
+  <g stroke="#8a6ad8" stroke-opacity=".22" stroke-width=".6" vector-effect="non-scaling-stroke">${[-60,-35,-15,0,15,35,60].map(dx=>`<path d="M${50+dx*.18} 74.5 L${50+dx*1.6} 100"/>`).join("")}<path d="M0 86 Q50 81 100 86 M-5 94 Q50 88 105 94"/></g></svg>
+ <i class="ts5Rune"><svg viewBox="0 0 100 100"><g fill="none" stroke="#ffcf5a"><circle cx="50" cy="50" r="46" stroke-width="1.4" opacity=".8"/><circle cx="50" cy="50" r="38" stroke-width=".8" stroke-dasharray="6 3 1 3" opacity=".7"/><circle cx="50" cy="50" r="26" stroke-width="1" opacity=".6"/>
+  ${Array.from({length:12},(_,i)=>{const a=i*Math.PI/6,x=50+Math.cos(a)*42,y=50+Math.sin(a)*42;return `<path d="M${_f1(x-2)} ${_f1(y)} L${_f1(x)} ${_f1(y-2.4)} L${_f1(x+2)} ${_f1(y)} L${_f1(x)} ${_f1(y+2.4)}Z" stroke-width=".8"/>`;}).join("")}
+  <path d="M38 56 L41 44 L46 50 L50 40 L54 50 L59 44 L62 56Z" stroke-width="1.2"/></g></svg></i>
+ ${_tsCol54("l")}${_tsCol54("r")}<i class="ts5Fire f1"><b></b></i><i class="ts5Fire f2"><b></b></i>
+ ${_ups(10,["#ffd23f","#fff2b0","#ffb03a","#c8a0ff"],.35,.8,4,7,10,90,";--g:5px")}`});
+
+/* ---------- Abgrundtiefe (★6, Abgrund Ebene 50): endloser Sturz in den Schlund ---------- */
+const _abRing54=(s,i)=>{const R=_rnd(s),pts=[];for(let k=0;k<26;k++){const a=k/26*Math.PI*2,r=27+R()*7;pts.push(_f1(50+Math.cos(a)*r)+" "+_f1(50+Math.sin(a)*r*.92));}
+  return `<i class="ab5R" style="--dl:-${(i*2).toFixed(1)}s"><svg viewBox="0 0 100 100"><defs>${_rg54("abr"+i,[[0,"#ff5a84"],[.165,"#ff3a6a"],[.19,"#8a0c34"],[.23,"#2a0414"],[.34,"#12020a"],[.6,"#080106"],[1,"#040004"]],.5,.5,.72)}</defs>
+  <path d="M-60 -60 H160 V160 H-60Z M${pts.join(" L")}Z" fill="url(#g_abr${i})" fill-rule="evenodd"/><path d="M${pts.join(" L")}Z" fill="none" stroke="#ffb0c4" stroke-opacity=".7" stroke-width=".35"/></svg></i>`;};
+Object.assign(CARD_BG.abgrund,{html:`<i class="ab5Base"></i><i class="ab5Core"></i><i class="ab5Vx"></i>
+ <i class="ab5T">${[901,902,903,904,905,906].map(_abRing54).join("")}<i class="ab5Eye"><svg viewBox="0 0 100 50"><defs>${_rg54("abi",[[0,"#ffe0a0"],[.25,"#ff6a2a"],[.62,"#c0082e"],[1,"#3a0010"]],.5,.5,.55)}</defs><g class="ab5Lid"><path d="M2 25 Q50 -8 98 25 Q50 58 2 25Z" fill="#14020a" stroke="#ff4a7a" stroke-opacity=".8" stroke-width="1.2"/><circle cx="50" cy="25" r="16" fill="url(#g_abi)"/><g class="ab5Pu"><ellipse cx="50" cy="25" rx="3.6" ry="13" fill="#0a0004"/><circle cx="45" cy="19" r="2.4" fill="#fff" opacity=".8"/></g></g></svg></i></i>
+ ${_parts("ab5Sh",9,i=>`--tx:${[-46,40,-30,52,-56,30,-10,46,-40][i]}cqw;--ty:${[-30,-36,40,26,8,46,58,-8,-46][i]}cqh;--r:${[160,-220,300,-140,240,-300,120,-180,200][i]}deg;--d:${[6,7,5.4,6.6,7.4,5.8,6.2,7,5.2][i]}s;--dl:-${(i*0.8).toFixed(1)}s;--s:${[3.2,2.4,4,2.8,3.6,2.2,3,2.6,3.4][i]}cqmin`)}
+ <svg class="ab5Ch l" viewBox="0 0 12 120" preserveAspectRatio="xMidYMin meet"><g fill="none" stroke="#5a2a3a" stroke-width="1.6">${Array.from({length:14},(_,i)=>i%2?`<ellipse cx="6" cy="${4+i*8}" rx="1.4" ry="4.4"/>`:`<ellipse cx="6" cy="${4+i*8}" rx="3.2" ry="4.4"/>`).join("")}</g></svg>
+ <svg class="ab5Ch r" viewBox="0 0 12 120" preserveAspectRatio="xMidYMin meet"><g fill="none" stroke="#5a2a3a" stroke-width="1.6">${Array.from({length:11},(_,i)=>i%2?`<ellipse cx="6" cy="${4+i*8}" rx="1.4" ry="4.4"/>`:`<ellipse cx="6" cy="${4+i*8}" rx="3.2" ry="4.4"/>`).join("")}</g></svg>
+ ${_ups(16,["#ff3b6b","#ff8aa8","#ffb03a","#c27cff"],.3,.8,3.5,6.5,4,96,";--g:5px")}
+ <svg class="bgSvg" viewBox="0 0 100 100" preserveAspectRatio="none"><defs>${_lg("abl",[[0,"#2a0818"],[1,"#060004"]])}</defs><path d="M-5 100 L-5 84 L8 81 L16 83 L26 79 L38 81 L50 78.5 L62 81 L74 79 L84 82.5 L94 80 L105 83 L105 100Z" fill="url(#g_abl)"/>
+  <path d="M-5 84 L8 81 L16 83 L26 79 L38 81 L50 78.5 L62 81 L74 79 L84 82.5 L94 80 L105 83" fill="none" stroke="#ff3b6b" stroke-opacity=".7" stroke-width="1" vector-effect="non-scaling-stroke"/>
+  <path d="M20 100 L24 86 L30 100Z M66 100 L71 88 L76 100Z" fill="#000" opacity=".35"/></svg><i class="ab5Fog"></i>`});
+
+/* ---------- Bernsteinglut (★5, 2 Abzeichen auf Bernstein): Bernsteinhöhle mit eingeschlossenem Urzeit-Insekt ---------- */
+const _amCr54=(x,y,w,h,tilt,cls="")=>`<g class="${cls}" transform="translate(${x} ${y}) rotate(${tilt})"><path d="M0 0 L${w*.5} ${-h*.12} L${w} 0 L${w} ${-h*.82} L${w*.5} ${-h} L0 ${-h*.82}Z" fill="url(#g_amc)"/>
+ <path d="M${w*.5} ${-h*.12} L${w} 0 L${w} ${-h*.82} L${w*.5} ${-h}Z" fill="#5a2600" opacity=".35"/><path d="M0 ${-h*.82} L${w*.5} ${-h} L${w} ${-h*.82} L${w*.5} ${-h*.7}Z" fill="#fff0b0" opacity=".45"/>
+ <path d="M${w*.5} ${-h*.12} L${w*.5} ${-h}" stroke="#fff4c8" stroke-width=".5" opacity=".6"/></g>`;
+Object.assign(CARD_BG.bernstein,{html:`<i class="am5Bg"></i><i class="am5Hex"></i>${_shaft(30,10,-10,"rgba(255,190,90,.35)")}${_shaft(66,8,12,"rgba(255,200,110,.28)",2)}
+ <svg class="bgSvg" viewBox="0 0 100 100" preserveAspectRatio="none"><defs>${_lg("amw",[[0,"#2a1204"],[1,"#0e0602"]],1)}</defs>
+  <path d="M0 0 H100 V6 L95 12 L90 7 L85 16 L79 8 L72 13 L66 6 L58 11 L50 5 L42 12 L35 7 L28 15 L22 8 L15 13 L9 7 L4 14 L0 9Z" fill="#100602"/>
+  <path d="M0 0 L0 100 L14 100 L10 78 L16 60 L9 44 L13 28 L6 14Z" fill="url(#g_amw)"/><path d="M100 0 L100 100 L86 100 L90 76 L84 58 L92 40 L87 24 L95 12Z" fill="url(#g_amw)"/>
+  <path d="M14 100 L10 78 L16 60 L9 44 L13 28 L6 14 M86 100 L90 76 L84 58 L92 40 L87 24 L95 12" fill="none" stroke="#ffb040" stroke-opacity=".45" stroke-width="1" vector-effect="non-scaling-stroke"/></svg>
+ ${_parts("am5Dr",4,i=>`--x:${[22,51,67,84][i]}%;--y:${[9,6,8,11][i]}%;--d:${[3.4,4.2,3.8,4.6][i]}s;--dl:-${[0,1.4,2.6,.8][i]}s`)}
+ <svg class="am5Big" viewBox="0 0 100 100"><defs>${_lg("amc",[[0,"#ffe08a",.92],[.4,"#f09a1a",.85],[1,"#8a3a02",.95]],1)}${_rg54("amg",[[0,"#fff4c0",.95],[.4,"#ffb030",.6],[1,"#ff8000",0]])}</defs>
+  ${_amCr54(8,94,16,46,-18)}${_amCr54(76,94,16,40,16)}${_amCr54(66,96,12,26,28)}${_amCr54(24,96,11,22,-30)}
+  <g class="am5Main"><path d="M30 92 L50 98 L70 92 L70 22 L50 6 L30 22Z" fill="url(#g_amc)"/><circle cx="50" cy="52" r="26" fill="url(#g_amg)" class="am5In"/>
+   <g class="am5Fos" fill="#3a1600" opacity=".72"><ellipse cx="50" cy="52" rx="2.2" ry="10"/><circle cx="50" cy="40.5" r="2.4"/><path d="M48.6 38.6 L45 33 M51.4 38.6 L55 33" stroke="#3a1600" stroke-width=".6"/>
+    <path d="M49 46 Q36 38 33 42 Q35 47 49 49Z M51 46 Q64 38 67 42 Q65 47 51 49Z M49 51 Q38 52 35 57 Q39 59 49 54Z M51 51 Q62 52 65 57 Q61 59 51 54Z" opacity=".55"/>
+    <path d="M49 47 Q40 42 35 42.5 M51 47 Q60 42 65 42.5 M49 52.5 Q41 54 37 57 M51 52.5 Q59 54 63 57" stroke="#2a1000" stroke-width=".35" fill="none"/></g>
+   <g fill="#fff4c8" opacity=".55" class="am5Bub">${[[42,74,1.1],[58,68,.8],[46,30,.7],[56,82,1],[38,58,.6],[62,44,.7]].map(([x,y,r],i)=>`<circle style="--i:${i}" cx="${x}" cy="${y}" r="${r}"/>`).join("")}</g>
+   <path d="M50 98 L70 92 L70 22 L50 6Z" fill="#5a2000" opacity=".22"/><path d="M30 22 L50 6 L70 22 L50 30Z" fill="#fff4c0" opacity=".42"/><path d="M50 30 V98 M30 22 L50 30 L70 22" stroke="#fff4c8" stroke-width=".6" opacity=".55" fill="none"/>
+   <path d="M33 26 L36 24 L36 80 L33 84Z" fill="#fff" opacity=".22"/></g></svg>
+ ${_parts("am5Ch",7,i=>`--x:${[12,84,24,70,42,90,6][i]}%;--y:${[38,30,62,58,22,66,54][i]}%;--s:${[3,2.4,2,2.8,1.8,2.2,2.6][i]}cqmin;--d:${[6,7,5.4,6.6,7.6,5.8,6.2][i]}s;--dl:-${i*0.9}s`)}
+ <svg class="bgSvg" viewBox="0 0 100 100" preserveAspectRatio="none"><defs>${_lg("amp",[[0,"#ffb040",.55],[.3,"#a04a08",.6],[1,"#1a0802",.95]])}</defs><path d="M0 100 L0 80 Q50 75 100 80 L100 100Z" fill="url(#g_amp)"/>
+  <path d="M0 80 Q50 75 100 80" fill="none" stroke="#ffe0a0" stroke-opacity=".7" stroke-width="1" vector-effect="non-scaling-stroke"/></svg>
+ ${_parts("am5Rp",3,i=>`--x:${[51,22,67][i]}%;--dl:-${[1.4,0,2.6][i]}s;--d:${[4.2,3.4,3.8][i]}s`)}
+ ${_ups(12,["#ffd23f","#ffb03a","#fff2b0"],.3,.75,5,8,8,92,";--g:5px")}`});
+
+/* ---------- Mythos (★5, Ranked Mythisch / 5× Mythisch): schwebendes Heiligtum im Sternennebel ---------- */
+const _myIsl54=(side,flip)=>`<svg class="my5Is ${side}" viewBox="0 0 60 50"><defs>${_lg("myi"+side,[[0,"#6a4a9a"],[.5,"#2a1a4a"],[1,"#120a24"]])}</defs><g transform="${flip?"translate(60 0) scale(-1 1)":""}">
+ <path d="M2 16 Q30 10 58 16 L50 24 L44 34 L36 46 L30 50 L26 40 L18 32 L10 26Z" fill="url(#g_myi${side})"/><path d="M2 16 Q30 10 58 16 Q30 20 2 16Z" fill="#3a8a7a"/><path d="M2 16 Q30 10 58 16" fill="none" stroke="#c8fff0" stroke-opacity=".6" stroke-width=".6"/>
+ <path d="M26 40 L28 48 L30 50 L31 44Z M18 32 L19 38 L21 34Z M44 34 L45 41 L47 35Z" fill="#c8a8ff" opacity=".85"/>
+ <g fill="#e8dcff"><path d="M16 15 V8 H28 V15Z"/><path d="M14 8 L22 3 L30 8Z"/><path d="M18 15 V10 M21 15 V10 M24 15 V10 M27 15 V10" stroke="#8a6ac8" stroke-width=".6"/></g><circle cx="22" cy="2.4" r=".9" fill="#ffd6ff"/></g></svg>`;
+Object.assign(CARD_BG.mythos,{html:`<i class="my5Sky"></i><i class="my5Neb n1"></i><i class="my5Neb n2"></i>${_stars(34,0,70,["#ffffff","#e6c8ff","#ffc8f0","#c8f0ff"],.2,.6)}
+ <i class="my5Gate"><svg viewBox="0 0 100 100"><g fill="none"><circle cx="50" cy="50" r="46" stroke="#3a2a5a" stroke-width="7"/><circle cx="50" cy="50" r="46" stroke="#b89aff" stroke-width=".7" opacity=".7"/><circle cx="50" cy="50" r="42" stroke="#e6c8ff" stroke-width=".5" stroke-dasharray="1 3" opacity=".7"/></g>
+  <g class="my5Rn" fill="#e6c8ff">${Array.from({length:16},(_,i)=>{const a=i*Math.PI/8,x=50+Math.cos(a)*46,y=50+Math.sin(a)*46;return `<rect style="--i:${i%8}" x="${_f1(x-1)}" y="${_f1(y-1.8)}" width="2" height="3.6" rx=".4" transform="rotate(${i*22.5+90} ${_f1(x)} ${_f1(y)})"/>`;}).join("")}</g></svg></i>
+ ${_myIsl54("l",0)}${_myIsl54("r",1)}<i class="my5Fall l"></i><i class="my5Fall r"></i>
+ <i class="my5Spec"></i><i class="my5RuneC"><svg viewBox="0 0 100 100"><g fill="none" stroke="#ffd6ff"><circle cx="50" cy="50" r="44" stroke-width=".8" stroke-dasharray="10 4 2 4"/><circle cx="50" cy="50" r="36" stroke-width=".5" opacity=".7"/>
+  ${Array.from({length:6},(_,i)=>{const a=i*Math.PI/3;return `<circle cx="${_f1(50+Math.cos(a)*40)}" cy="${_f1(50+Math.sin(a)*40)}" r="2.2" stroke-width=".7"/>`;}).join("")}</g></svg></i>
+ <i class="my5Stage">${_orb54("my5O",5,5.5,i=>`--c:${["#ffffff","#ffc8f0","#c8f0ff","#e6c8ff","#fff4c8"][i]}`)}<svg class="my5Gem" viewBox="0 0 60 80"><defs>${_lg("myg1",[[0,"#ffffff"],[.5,"#f0e0ff"],[1,"#b088ff"]],1)}${_lg("myg2",[[0,"#e0c8ff"],[1,"#6a3ad0"]])}${_lg("myg3",[[0,"#ffd6ff"],[1,"#ff7ad8"]])}</defs>
+  <path d="M30 2 L56 30 L30 78 L4 30Z" fill="url(#g_myg2)"/><path d="M30 2 L44 30 L30 78 L16 30Z" fill="url(#g_myg1)" class="my5F1"/><path d="M4 30 L30 2 L16 30Z M56 30 L30 2 L44 30Z" fill="#fff" opacity=".55"/>
+  <path d="M4 30 L16 30 L30 78Z" fill="url(#g_myg3)" opacity=".75"/><path d="M56 30 L44 30 L30 78Z" fill="#5a2ab0" opacity=".7"/><path d="M4 30 H56" stroke="#fff" stroke-width=".7" opacity=".8"/>
+  <path d="M22 12 L26 8 L27 20Z" fill="#fff" opacity=".9"/></svg></i>
+ <svg class="bgSvg" viewBox="0 0 100 100" preserveAspectRatio="none"><defs>${_lg("myf",[[0,"#5a3a8a"],[.25,"#2a1a48"],[1,"#0c0618"]])}</defs><path d="M-5 100 L-5 80 Q50 74 105 80 L105 100Z" fill="url(#g_myf)"/>
+  <path d="M-5 80 Q50 74 105 80" fill="none" stroke="#e6c8ff" stroke-opacity=".65" stroke-width="1" vector-effect="non-scaling-stroke"/><g fill="#1a0e30"><path d="M4 80 V58 H11 V79Z M2 58 H13 V55 H2Z"/><path d="M89 80 V60 H96 V79Z M87 60 H98 V57 H87Z"/></g>
+  <path d="M11 58 V80 M96 60 V80" stroke="#c8a8ff" stroke-opacity=".5" stroke-width=".8" vector-effect="non-scaling-stroke"/></svg><i class="my5Pool"></i>
+ ${_ups(12,["#ffffff","#e6c8ff","#ffc8f0","#c8f0ff"],.3,.7,4.5,7.5,8,92,";--g:5px")}${_spk(6,10,60,["#ffffff","#ffd6ff"],1.4,2.6)}`});
+
+/* ---------- Nordlichtgipfel (★6) aufgewertet: kräftiges Polarlicht, Spiegelung, Eiskristalle am Rand ---------- */
+const _ngAur54=(cls,seed,c1,c2)=>{const R=_rnd(seed);let top="M0 40",bot="";const pts=[];for(let i=0;i<=10;i++)pts.push([i*10,30+(R()-.5)*26]);
+  top="M"+pts.map(p=>p[0]+" "+_f1(p[1])).join(" L");const back=pts.slice().reverse().map(p=>p[0]+" "+_f1(p[1]+34+R()*10)).join(" L");
+  return `<svg class="ng5A ${cls}" viewBox="0 0 100 100" preserveAspectRatio="none"><defs>${_lg("nga"+cls,[[0,c1,0],[.25,c1,.85],[.6,c2,.45],[1,c2,0]])}</defs><path d="${top} L${back}Z" fill="url(#g_nga${cls})"/></svg>`;};
+const _ngIce54=side=>`<svg class="ng5Ice ${side}" viewBox="0 0 50 70" preserveAspectRatio="xMidYMax meet"><defs>${_lg("ngi"+side,[[0,"#ffffff"],[.35,"#bfe8ff"],[1,"#3a7ab8"]],1)}</defs><g fill="url(#g_ngi${side})" stroke="#e8f8ff" stroke-width=".5" stroke-opacity=".8">
+ <path d="M8 70 L4 30 L10 18 L15 32 L14 70Z"/><path d="M14 70 L16 40 L22 26 L27 42 L24 70Z"/><path d="M0 70 L-2 46 L3 38 L6 50 L5 70Z"/><path d="M24 70 L28 54 L32 48 L35 58 L33 70Z"/></g>
+ <path d="M10 18 L12 70 M22 26 L21 70" stroke="#fff" stroke-opacity=".6" stroke-width=".5"/></svg>`;
+CARD_BG.nordgipfel.html=CARD_BG.nordgipfel.html.replace('<i class="x-shoot"></i>',`<i class="x-shoot"></i>${_ngAur54("a1",61,"#5affb0","#2ad0ff")}${_ngAur54("a2",62,"#7affd0","#a06aff")}${_ngAur54("a3",63,"#c08aff","#ff6ad8")}`)
+ +`<i class="ng5Refl"></i>${_ngIce54("l")}${_ngIce54("r")}${_spk(6,60,96,["#ffffff","#bfe8ff"],1.2,2.4)}`;
+
+/* ---------- Ruhmeshalle (★6) aufgewertet: Scheinwerfer, Konfetti, Blitzlichter ---------- */
+CARD_BG.halle.html+=`<i class="ha5Spot s1"></i><i class="ha5Spot s2"></i>${_parts("ha5Fl",6,i=>`--x:${[6,18,30,70,82,94][i]}%;--y:${[30,38,26,34,24,40][i]}%;--dl:-${(i*0.7+0.3).toFixed(1)}s;--d:${[3.2,4.1,3.7,4.4,3.4,3.9][i]}s`)}
+ ${_downs(16,"ha5Cf",["#ffd23f","#ffffff","#e0203a","#ffb03a","#fff2b0"],.6,1.2,6,10,";--ar:.55")}`;
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
