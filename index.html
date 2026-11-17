@@ -15563,6 +15563,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Neue Top-Hintergründe": "New top-
 if(typeof EN!=="undefined")Object.assign(EN,{"Abgleich-Fix": "Sync fix", "Spielen auf zwei Geräten: Ruhm und Abgrund-Rekorde werden beim Abgleich jetzt zusammengeführt und gehen nicht mehr verloren, wenn ein Gerät einen älteren Stand hat.": "Playing on two devices: Fame and Abyss records are now merged when syncing and no longer get lost when one device has an older save."});
 /* v1.54.0.6 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Feinschliff": "Polish", "Granforgita steht wieder auf seinem eigenen Feld statt halb auf dem Nachbarfeld.": "Tinkaton stands on its own tile again instead of half on the neighbouring one.", "Drachenhort ist neu: ein Drache kreist über dem Vulkan, unten glitzert der Schatz.": "Dragon's Lair is new: a dragon circles above the volcano, the treasure glitters below.", "Abgrundtiefe: ohne Auge, die Ketten bewegen sich jetzt und haben im VS-Bildschirm keinen farbigen Kasten mehr.": "Abyssal Depths: no more eye, the chains now move and no longer show a coloured box on the VS screen.", "Farbige Formations-Felder bleiben nach einem Lauf nicht mehr im Hauptmenü am Boden liegen.": "Coloured formation tiles no longer stay on the ground in the main menu after a run."});
+/* v1.54.0.7 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund-Fix": "Abyss fix", "Abgrund: Wer nach einem verlorenen Abstieg „Neuer Abstieg“ wählt und die Auswahl schließt, landet wieder im Hauptmenü statt in einem leeren Raster.": "Abyss: choosing “New descent” after a lost run and then closing the draft now returns you to the main menu instead of an empty grid."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18213,7 +18215,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.54.0.6",DUEL_HP=30;
+const MP_VER="1.54.0.7",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18850,8 +18852,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.54.0.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.54.0.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.54.0.7",d:"17.11.2026",t:"Abgrund-Fix",items:[
+  ["check", "Abgrund: Wer nach einem verlorenen Abstieg „Neuer Abstieg“ wählt und die Auswahl schließt, landet wieder im Hauptmenü statt in einem leeren Raster."]]},
  {v:"1.54.0.6",d:"17.11.2026",t:"Feinschliff",items:[
   ["check", "Granforgita steht wieder auf seinem eigenen Feld statt halb auf dem Nachbarfeld."],
   ["star", "Drachenhort ist neu: ein Drache kreist über dem Vulkan, unten glitzert der Schatz."],
@@ -20895,7 +20899,7 @@ function abDraftModal(){const P=ABP.d;if(!P)return;const sel=P.sel;
     let rows="";for(let t=1;t<=5;t++){const ks=D.filter(k=>abLine(k).tier===t);if(ks.length)rows+=`<h4 class="abDrH" style="color:${RAR[t].c}">${RAR[t].n}<span class="${cnt[t]?"ok":""}">${cnt[t]|0}</span></h4><div class="abDrG">${ks.map(card).join("")}</div>`;}
     openModal(`<div class="abDraft"><div class="abDrHd"><h2>${ic("skull")} DRAFT · ABGRUND</h2><span class="abDrN"><b>${sel.size}</b>/${AB_DRAFT.pick} gewählt</span></div>
       <div class="lead">Wähle 6 Pokémon-Linien. Nur sie gibt es im Laden, den ganzen Abstieg lang. Aus jeder Seltenheit mindestens eine, höchstens ${AB_DRAFT.maxLeg} Legendäre.</div>${rows}
-      <div class="abDrB"><button class="btn" id="abRr"${P.rr>0?"":" disabled"}>${ic("dice")} Neu würfeln (${P.rr}×)</button><span style="flex:1"></span><button class="pri hot" id="abDrGo"${abDraftValid(sel)?"":" disabled"}>${ic("arrow")} Weiter zur Partnerwahl</button></div></div>`,"abDraftM",true);
+      <div class="abDrB"><button class="btn" id="abRr"${P.rr>0?"":" disabled"}>${ic("dice")} Neu würfeln (${P.rr}×)</button><span style="flex:1"></span><button class="pri hot" id="abDrGo"${abDraftValid(sel)?"":" disabled"}>${ic("arrow")} Weiter zur Partnerwahl</button></div></div>`,"abDraftM",()=>{try{if((!S||S.phase==="over")&&!$("menu").classList.contains("show"))showMenu();}catch(e){}});
     $("mbox").querySelectorAll(".abDrM[data-sp]").forEach(e=>{try{e.appendChild(natFit(spriteEl(+e.dataset.sp),1));}catch(x){}});
     $("mbox").querySelectorAll(".abDr").forEach(b=>b.onclick=()=>{const k=b.dataset.k;if(sel.has(k))sel.delete(k);else if(!b.classList.contains("full"))sel.add(k);else{sfx("deny");return;}abPrepSave();sfx("click");const st=$("mbox").scrollTop;draw();$("mbox").scrollTop=st;});
     $("abRr").onclick=()=>{if(P.rr<=0)return;P.rr--;sel.clear();P.offer=P.next||abOffer(mkRng(strHash(Date.now()+"|rr|"+Math.random())));P.next=P.rr>0?abOffer(mkRng(strHash(Date.now()+"|rr2|"+Math.random()))):null;abPrepSave();sfx("click");draw();};
@@ -20969,7 +20973,7 @@ function abyssFinish(){clearZones();S.phase="over";enterBattleMode(false);const 
    <div class="abResCu"><small>Flüche dieses Laufs</small><span>${cu}</span></div>${(S.abyss.gifts||[]).length?`<div class="abResCu gi"><small>Gaben dieses Laufs</small><span>${abGiftIcons(S.abyss.gifts,"i")}</span></div>`:""}
    <div class="rbtns"><button class="pri" id="rAbN">${ic("skull")} NEUER ABSTIEG</button>${B?`<button class="btn" id="rRep">${ic("dex")} Kampfbericht</button>`:""}<button class="btn" id="rGo">${ic("menu")} Hauptmenü</button></div></div></div>`;
   $("result").classList.add("show");if($("rRep"))$("rRep").onclick=report;sfx(rec?"evoDone":"faint");
-  const out=()=>{$("result").classList.remove("show");$("result").innerHTML="";S=null;showMenu();};$("rGo").onclick=out;$("rAbN").onclick=()=>{$("result").classList.remove("show");$("result").innerHTML="";S=null;abyssStart();};}
+  const out=()=>{$("result").classList.remove("show");$("result").innerHTML="";S=null;showMenu();};$("rGo").onclick=out;$("rAbN").onclick=()=>{$("result").classList.remove("show");$("result").innerHTML="";S=null;showMenu();abyssStart();};}
 (()=>{const _tf=towerFinish;towerFinish=function(){if(S&&S.abyss)return abyssFinish();return _tf.apply(this,arguments);};
   const _th=towerHud;towerHud=function(){const r=_th.apply(this,arguments);try{if(abOn()&&S.tower){const h=$("twHud");if(h){const L=h.querySelector(".twL");if(L)L.innerHTML=`${ic("skull")} ABGRUND`;const lv=h.querySelector(".twLv");if(lv)lv.innerHTML=`<i class="twHt on">${ic("heart")}</i>`;
     const rc=h.querySelector(".twRec");if(rc)rc.innerHTML=`${ic("trophy")} Abgrund-Rekord: ${abBest()?"Ebene "+abBest():"noch keiner"}`;h.classList.add("abTw");}}abHud();}catch(e){}return r;};})();
