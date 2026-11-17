@@ -15529,6 +15529,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Die Aurora-Einführung erscheint j
 if(typeof EN!=="undefined")Object.assign(EN,{"Aurora-Pokémon, die im Kampf Mega-entwickeln, stehen jetzt als Aurora-Mega im Pokédex und sind als Lieblingspokémon wählbar.": "Aurora Pokémon that Mega Evolve in battle are now recorded as Aurora Megas in the Pokédex and can be picked as favourite Pokémon."});
 /* v1.54.0 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Neue Top-Hintergründe": "New top-tier backgrounds", "Die Hintergründe der höchsten Stufen sind überarbeitet: Ruhmeskrone, Turmspitze, Abgrundtiefe, Bernsteinglut und Mythos sind komplett neu, Nordlichtgipfel und Ruhmeshalle haben mehr Effekte bekommen. Man sieht ihnen jetzt an, wie schwer sie zu bekommen sind.": "The top-tier backgrounds have been reworked: Fame Crown, Tower Summit, Abyssal Depths, Amber Blaze and Mythos are completely new, Aurora Peak and Hall of Fame got extra effects. You can now tell how hard they are to earn."});
+/* v1.54.0.5 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Abgleich-Fix": "Sync fix", "Spielen auf zwei Geräten: Ruhm und Abgrund-Rekorde werden beim Abgleich jetzt zusammengeführt und gehen nicht mehr verloren, wenn ein Gerät einen älteren Stand hat.": "Playing on two devices: Fame and Abyss records are now merged when syncing and no longer get lost when one device has an older save."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -15577,7 +15579,7 @@ function clBoardRow(m){const sc=trainerScore(m),per={};for(const rk in sc.per){c
 /* v1.35.6: Sammel-Fortschritt zusammenführen statt überschreiben. Bisher galt beim Abgleich „neuerer Stand gewinnt“ für den ganzen Spielstand –
    ein zweites Gerät oder ein alter Stand konnte so Pokédex-Einträge (z. B. schillernde Pokémon), Freischaltungen oder Erfolge löschen.
    Zusammengeführt wird nur, was nie weniger werden kann (Zähler: Maximum, Listen: Vereinigung). Edelsteine und der laufende Lauf bleiben „neuerer Stand gewinnt“. */
-const MERGE_MAX=["dex","perks","champs","best","stats","reg","mp","tower"],MERGE_NUM=["gemsTotal","games","wins","losses"];
+const MERGE_MAX=["dex","perks","champs","best","stats","reg","mp","tower","abyss"],MERGE_NUM=["gemsTotal","games","wins","losses"];
 function mergeMax(a,b){if(!a||!b||typeof b!=="object")return a;for(const k in b){const v=b[k],x=a[k];
     if(typeof v==="number"){if(x==null||(typeof x==="number"&&v>x))a[k]=v;}
     else if(typeof v==="boolean"){if(x==null||x===false)a[k]=v;}
@@ -15587,6 +15589,8 @@ function mergeMax(a,b){if(!a||!b||typeof b!=="object")return a;for(const k in b)
 function metaMerge(m,o){if(!m||!o||typeof o!=="object"||m===o)return m;
   try{for(const k of MERGE_MAX){if(o[k]&&typeof o[k]==="object"&&!Array.isArray(o[k])){if(!m[k]||typeof m[k]!=="object")m[k]={};mergeMax(m[k],o[k]);}}
     for(const k of MERGE_NUM)if(typeof o[k]==="number"&&!(m[k]>=o[k]))m[k]=o[k];
+    /* v1.54.0.5: Ruhm wächst nur – der höhere Topf gewinnt (mit seiner Auswahl), nur Stände nach dem Ruhm-Reset (fkv ≥ 141) */
+    if(o.fame&&typeof o.fame==="object"&&(o.fkv|0)>=141&&(o.fame.g|0)>((m.fame&&m.fame.g)|0)){m.fame=JSON.parse(JSON.stringify(o.fame));if(!((m.fkv|0)>=141))m.fkv=o.fkv;}
     if(o.ach&&typeof o.ach==="object"){m.ach=m.ach||{};for(const k in o.ach)if(!m.ach[k])m.ach[k]=o.ach[k];}
     if(Array.isArray(o.unlocked)){if(!Array.isArray(m.unlocked))m.unlocked=[];for(const x of o.unlocked)if(!m.unlocked.includes(x))m.unlocked.push(x);}
     /* v1.38.0: Season – gleiche Season: je Region/Schwierigkeit das Maximum; neuere Season gewinnt */
@@ -18177,7 +18181,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.54.0",DUEL_HP=30;
+const MP_VER="1.54.0.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18814,8 +18818,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.54.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.54.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.54.0.5",d:"17.11.2026",t:"Abgleich-Fix",items:[
+  ["wifi", "Spielen auf zwei Geräten: Ruhm und Abgrund-Rekorde werden beim Abgleich jetzt zusammengeführt und gehen nicht mehr verloren, wenn ein Gerät einen älteren Stand hat."]]},
  {v:"1.54.0",d:"17.11.2026",t:"Neue Top-Hintergründe",items:[
   ["star", "Die Hintergründe der höchsten Stufen sind überarbeitet: Ruhmeskrone, Turmspitze, Abgrundtiefe, Bernsteinglut und Mythos sind komplett neu, Nordlichtgipfel und Ruhmeshalle haben mehr Effekte bekommen. Man sieht ihnen jetzt an, wie schwer sie zu bekommen sind."]]},
  {v:"1.53.0.6",d:"11.11.2026",t:"Aurora-Megas",items:[
