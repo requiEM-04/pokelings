@@ -18029,7 +18029,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.53.0.6",DUEL_HP=30;
+const MP_VER="1.53.0.7",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18666,7 +18666,7 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.53.0.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.53.0.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
  {v:"1.53.0.6",d:"11.11.2026",t:"Aurora-Megas",items:[
   ["mega", "Aurora-Pokémon, die im Kampf Mega-entwickeln, stehen jetzt als Aurora-Mega im Pokédex und sind als Lieblingspokémon wählbar."]]},
@@ -19320,8 +19320,7 @@ function patchNotes(){try{LS.set("pokelings_ver",GAME_VER);}catch(e){}const h=PA
   $("pnOk").onclick=()=>closeModal();}
 (function(){const bar=document.createElement("div");bar.id="tagBar";const t=document.createElement("button");t.id="verTag";t.title="Patchnotes anzeigen";t.textContent="v"+GAME_VER+" · Patchnotes";t.onclick=e=>{e.stopPropagation();patchNotes();};
   const f=document.createElement("button");f.id="fbTag";f.title="Feedback, Fehler oder Ideen senden";f.innerHTML=ic("chat")+"Feedback";f.onclick=e=>{e.stopPropagation();if(typeof feedbackModal==="function")feedbackModal();};
-  const v=document.createElement("button");v.id="visTag";v.title="Unser zweites Fan-Spiel";v.innerHTML=ic("star")+"Besuche auch";v.onclick=e=>{e.stopPropagation();visitPop();};
-  bar.appendChild(t);bar.appendChild(f);bar.appendChild(v);const add=()=>{document.body.appendChild(bar);try{hydrateIcons(bar);}catch(e){}};if(document.body)add();else addEventListener("DOMContentLoaded",add);})();
+  bar.appendChild(t);bar.appendChild(f);const add=()=>{document.body.appendChild(bar);try{hydrateIcons(bar);}catch(e){}};if(document.body)add();else addEventListener("DOMContentLoaded",add);})();
 /* v1.0.7: dezenter Hinweis auf Pokémon Obsidian (kleines Fenster über dem Knopf, Link öffnet einen neuen Tab) */
 const OBSIDIAN_URL="https://requiem-04.github.io/pokemon-obsidian/";
 function visitPop(){let p=$("visPop");if(p){p.remove();return;}p=document.createElement("div");p.id="visPop";
@@ -19329,7 +19328,7 @@ function visitPop(){let p=$("visPop");if(p){p.remove();return;}p=document.create
   document.body.appendChild(p);try{hydrateIcons(p);}catch(e){}p.addEventListener("click",e=>e.stopPropagation());p.querySelector("a").addEventListener("click",()=>setTimeout(()=>{const q=$("visPop");if(q)q.remove();},150));
   setTimeout(()=>document.addEventListener("click",function off(){const q=$("visPop");if(q)q.remove();document.removeEventListener("click",off);}),0);}
 /* neue Version: Patchnotes einmal automatisch im Menü zeigen */
-function patchAuto(){try{if(window.__noIntro||window.__autoPick)return;const sv=LS.get("pokelings_ver",null);if(sv===GAME_VER)return;if(sv===null&&!(META&&(META.games||META.gemsTotal))){LS.set("pokelings_ver",GAME_VER);return;}setTimeout(()=>{if($("menu")&&$("menu").classList.contains("show")&&!$("modal").classList.contains("show"))patchNotes();},900);}catch(e){}}
+function patchAuto(){try{if(window.__noIntro||window.__autoPick)return;const sv=LS.get("pokelings_ver",null);if(sv===GAME_VER)return;if(sv&&PATCH[0]&&sv===PATCH[0].v){LS.set("pokelings_ver",GAME_VER);return;}if(sv===null&&!(META&&(META.games||META.gemsTotal))){LS.set("pokelings_ver",GAME_VER);return;}setTimeout(()=>{if($("menu")&&$("menu").classList.contains("show")&&!$("modal").classList.contains("show"))patchNotes();},900);}catch(e){}}
 /* ===== v1.0.6: Einmaliger Hinweis für alle Spieler (2 Seiten, nicht wegklickbar, kein Überspringen, nur „Weiter“) ===== */
 function introNeed(){try{return !!META&&!META.intro&&!window.__noIntro&&!window.__autoPick&&!(typeof ADM!=="undefined"&&ADM.sess);}catch(e){return false;}}
 function introShow(){if(!introNeed()||!$("menu").classList.contains("show")||$("modal").classList.contains("show"))return false;let pg=0;
