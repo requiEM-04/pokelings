@@ -5259,6 +5259,18 @@ img.aur,.card .pic img.aur,.u img.aur{filter:url(#aurF) drop-shadow(0 0 2px rgba
 .bg-drache .dr5Hoard{z-index:1}
 .bg-drache .dr5Heat{inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(255,150,40,.35),transparent 55%);--lo:.6;--sc:1;animation:k54pulse 3s ease-in-out infinite}
 @media (prefers-reduced-motion:reduce){.tcBg [class^="dr5"],.tcBg [class^="dr5"] *{animation:none!important}}
+/* v1.54.0.6 tt */
+/* v1.54.0.6: Titel-Effekte in den Ruhm-Farben */
+.tt-topas,.tt-saphir,.tt-rubin,.tt-diamant,.tt-legende{-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent;text-shadow:none!important}
+.tt-topas{background-image:linear-gradient(110deg,transparent 42%,rgba(255,252,230,.95) 50%,transparent 58%),linear-gradient(180deg,#fff4c8 0%,#ffcf4a 38%,#d88a0a 60%,#ffe08a 82%,#c87a10 100%);background-size:260% 100%,100% 100%;animation:ttShine 2.7s linear infinite;filter:drop-shadow(0 1px 0 rgba(60,30,0,.8)) drop-shadow(0 0 3px rgba(255,190,60,.45))}
+.tt-saphir{background-image:linear-gradient(110deg,transparent 42%,rgba(240,248,255,.95) 50%,transparent 58%),linear-gradient(180deg,#e2ecff 0%,#6aa0ff 36%,#1e4ab8 62%,#9cc0ff 86%,#3a6ad8 100%);background-size:260% 100%,100% 100%;animation:ttShine 2.8s linear infinite;filter:drop-shadow(0 1px 0 rgba(0,10,50,.85)) drop-shadow(0 0 3px rgba(80,140,255,.55))}
+.tt-rubin{background-image:linear-gradient(110deg,transparent 42%,rgba(255,240,244,.95) 50%,transparent 58%),linear-gradient(180deg,#ffd6de 0%,#ff4d6d 36%,#b00c30 60%,#ff8aa2 84%,#c81840 100%);background-size:260% 100%,100% 100%;animation:ttShine 2.5s linear infinite,ttRuby 2.2s ease-in-out infinite;filter:drop-shadow(0 1px 0 rgba(50,0,10,.85)) drop-shadow(0 0 4px rgba(255,60,100,.6))}
+@keyframes ttRuby{0%,100%{filter:drop-shadow(0 1px 0 rgba(50,0,10,.85)) drop-shadow(0 0 3px rgba(255,60,100,.45))}50%{filter:drop-shadow(0 1px 0 rgba(50,0,10,.85)) drop-shadow(0 0 7px rgba(255,40,90,.85))}}
+.tt-diamant{background-image:linear-gradient(110deg,transparent 40%,#ffffff 50%,transparent 60%),linear-gradient(90deg,#ffffff,#d8f6ff 20%,#ffe6fa 40%,#e6fff2 60%,#d8f0ff 80%,#ffffff);background-size:220% 100%,200% 100%;animation:ttShine 2s linear infinite,ttRain 5s linear infinite;filter:drop-shadow(0 1px 0 rgba(10,40,60,.85)) drop-shadow(0 0 4px rgba(190,240,255,.7))}
+.tt-legende{background-image:linear-gradient(110deg,transparent 40%,rgba(255,255,240,1) 50%,transparent 60%),linear-gradient(90deg,#ffd84a,#fff2b0 18%,#c27cff 40%,#ff7ad8 58%,#ffd84a 78%,#fff2b0 90%,#ffd84a);background-size:220% 100%,300% 100%;animation:ttShine 1.8s linear infinite,ttRain 4s linear infinite;filter:drop-shadow(0 1px 0 rgba(40,10,60,.9)) drop-shadow(0 0 5px rgba(255,200,80,.75))}
+.lbNm .lbTT .tt-rubin{animation:ttShine 2.5s linear infinite;filter:drop-shadow(0 0 2px rgba(255,60,100,.8))}
+.lbNm .lbTT .tt-saphir{filter:drop-shadow(0 0 2px rgba(80,140,255,.8))}
+.lbNm .lbTT .tt-legende{filter:drop-shadow(0 0 2px rgba(255,200,80,.85))}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -8569,7 +8581,7 @@ function formDrag(u,t,e){if(!S||!u){formTip(null);return;}
   const lines=[...mine.map(formLine),...inc.map(l=>`<span style="color:${FORM[l.k].col}">erhält ${FORM[l.k].n}</span> von ${unitName(l.u)} <small>(${FORM[l.k].short(l.v,l.fx)})</small>`)];
   formTip(lines.length?`<b>${ic("grid")} FORMATION</b>${lines.map(x=>`<div>${x}</div>`).join("")}`:null,e.clientX,e.clientY);}
 /* v1.0.1: Formationen im Raster immer sichtbar (Shop-Phase); das ausgewählte Pokémon leuchtet kräftiger */
-function formIdle(){if(!GL||!S||drag&&drag.moved)return;if(typeof tab!=="undefined"&&tab!=="raster"){formHL([],null,false);return;}
+function formIdle(){if(!GL)return;if(!S){formHL([],null,false);return;}if(drag&&drag.moved)return;if(typeof tab!=="undefined"&&tab!=="raster"){formHL([],null,false);return;}
   if(S.phase!=="shop"){formHL([],null,false);return;}let u=null;for(const k in S.board)if(S.board[k]&&S.board[k].uid===selUid)u=S.board[k];
   const L=formLinks(S.board),cells=[];
   for(const l of L){const sel=!!u&&l.u===u;for(const c of l.cells)cells.push({x:c.x,y:c.y,on:c.on,col:FORM[l.k].col,o:sel?(c.on?.78:.42):(u?(c.on?.32:.15):(c.on?.56:.3))});}
@@ -8853,6 +8865,7 @@ function signOut(){if(S&&S.phase==="shop")save();LS.del("pokelings_session");try
 
 /* ================================ HAUPTMENÜ ================================ */
 function showMenu(){
+  try{if(typeof formHL==="function")formHL([],null,false);}catch(e){}
   if(S&&S.duel){mpLeave(true);S=null;B=null;}
   if(S&&S.phase==="shop")save();
   try{if(typeof fameReset141==="function")fameReset141();}catch(e){}
@@ -15549,7 +15562,7 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Neue Top-Hintergründe": "New top-
 /* v1.54.0.5 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Abgleich-Fix": "Sync fix", "Spielen auf zwei Geräten: Ruhm und Abgrund-Rekorde werden beim Abgleich jetzt zusammengeführt und gehen nicht mehr verloren, wenn ein Gerät einen älteren Stand hat.": "Playing on two devices: Fame and Abyss records are now merged when syncing and no longer get lost when one device has an older save."});
 /* v1.54.0.6 */
-if(typeof EN!=="undefined")Object.assign(EN,{"Feinschliff": "Polish", "Granforgita steht wieder auf seinem eigenen Feld statt halb auf dem Nachbarfeld.": "Tinkaton stands on its own tile again instead of half on the neighbouring one.", "Drachenhort ist neu: ein Drache kreist über dem Vulkan, unten glitzert der Schatz.": "Dragon's Lair is new: a dragon circles above the volcano, the treasure glitters below.", "Abgrundtiefe: ohne Auge, die Ketten bewegen sich jetzt und haben im VS-Bildschirm keinen farbigen Kasten mehr.": "Abyssal Depths: no more eye, the chains now move and no longer show a coloured box on the VS screen."});
+if(typeof EN!=="undefined")Object.assign(EN,{"Feinschliff": "Polish", "Granforgita steht wieder auf seinem eigenen Feld statt halb auf dem Nachbarfeld.": "Tinkaton stands on its own tile again instead of half on the neighbouring one.", "Drachenhort ist neu: ein Drache kreist über dem Vulkan, unten glitzert der Schatz.": "Dragon's Lair is new: a dragon circles above the volcano, the treasure glitters below.", "Abgrundtiefe: ohne Auge, die Ketten bewegen sich jetzt und haben im VS-Bildschirm keinen farbigen Kasten mehr.": "Abyssal Depths: no more eye, the chains now move and no longer show a coloured box on the VS screen.", "Farbige Formations-Felder bleiben nach einem Lauf nicht mehr im Hauptmenü am Boden liegen.": "Coloured formation tiles no longer stay on the ground in the main menu after a run."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18039,7 +18052,7 @@ function bgHTML(k){_bSym();const b=CARD_BG[k]||CARD_BG.std,lv=b.lv||0,kk=CARD_BG
 function bgWhy(k,ok){const b=CARD_BG[k]||CARD_BG.std;if(!b.ld)return "Standard-Hintergrund für alle Trainer.";if(b.gift)return b.ld+".";return (ok===false?"Noch gesperrt. Freischalten: ":"Freigeschaltet für: ")+b.ld;}
 const bgOk=k=>{const b=CARD_BG[k];if(!b||b.bot)return false;try{bgKeep4();}catch(e){}if(evHas("bg",k)||((META&&META.bggift)||{})[k])return true;if(b.gift)return false;if(!b.lock)return true;try{badgeKeep();}catch(e){}if(((META&&META.bgkeep)||[]).includes(k))return true;try{return !!b.lock();}catch(e){return false;}};
 /* Lieblingspokémon statt Trainerfigur (v9.5): frei wählbar aus allen Pokémon, die man je besessen hat */
-const TITLE_FX={chrom:"Chrom",gold:"Gold",regenbogen:"Regenbogen",feuer:"Feuer",eis:"Eis",neon:"Neon",galaxie:"Galaxie",smaragd:"Smaragd",geist:"Geist",bernstein:"Bernstein"};
+const TITLE_FX={chrom:"Chrom",gold:"Gold",regenbogen:"Regenbogen",feuer:"Feuer",eis:"Eis",neon:"Neon",galaxie:"Galaxie",smaragd:"Smaragd",geist:"Geist",bernstein:"Bernstein",topas:"Topas",saphir:"Saphir",rubin:"Rubin",amethyst:"Amethyst",diamant:"Diamant",legende:"Legende"};
 let MYTITLE=null; // vom Admin vergebener eigener Titel {text,style}, kommt aus der Cloud (lokal je Konto zwischengespeichert)
 const ttKey=n=>"pokelings_tt_"+userKey(n||"");
 function myTitleLocal(){try{const t=USER?LS.get(ttKey(USER),null):null;MYTITLE=t&&t.text?Object.assign({text:String(t.text).slice(0,24),style:TITLE_FX[t.style]?t.style:null},t.en?{en:String(t.en).slice(0,24)}:{}):null;if(MYTITLE&&MYTITLE.en&&typeof ttEnAdd==="function")ttEnAdd(MYTITLE.text,MYTITLE.en);}catch(e){MYTITLE=null;}}
@@ -18842,7 +18855,8 @@ const PATCH=[
  {v:"1.54.0.6",d:"17.11.2026",t:"Feinschliff",items:[
   ["check", "Granforgita steht wieder auf seinem eigenen Feld statt halb auf dem Nachbarfeld."],
   ["star", "Drachenhort ist neu: ein Drache kreist über dem Vulkan, unten glitzert der Schatz."],
-  ["star", "Abgrundtiefe: ohne Auge, die Ketten bewegen sich jetzt und haben im VS-Bildschirm keinen farbigen Kasten mehr."]]},
+  ["star", "Abgrundtiefe: ohne Auge, die Ketten bewegen sich jetzt und haben im VS-Bildschirm keinen farbigen Kasten mehr."],
+  ["check", "Farbige Formations-Felder bleiben nach einem Lauf nicht mehr im Hauptmenü am Boden liegen."]]},
  {v:"1.54.0.5",d:"17.11.2026",t:"Abgleich-Fix",items:[
   ["wifi", "Spielen auf zwei Geräten: Ruhm und Abgrund-Rekorde werden beim Abgleich jetzt zusammengeführt und gehen nicht mehr verloren, wenn ein Gerät einen älteren Stand hat."]]},
  {v:"1.54.0",d:"17.11.2026",t:"Neue Top-Hintergründe",items:[
