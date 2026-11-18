@@ -5271,6 +5271,45 @@ img.aur,.card .pic img.aur,.u img.aur{filter:url(#aurF) drop-shadow(0 0 2px rgba
 .lbNm .lbTT .tt-rubin{animation:ttShine 2.5s linear infinite;filter:drop-shadow(0 0 2px rgba(255,60,100,.8))}
 .lbNm .lbTT .tt-saphir{filter:drop-shadow(0 0 2px rgba(80,140,255,.8))}
 .lbNm .lbTT .tt-legende{filter:drop-shadow(0 0 2px rgba(255,200,80,.85))}
+/* v1.55.0 aur55 */
+/* ================= v1.55.0: Aurora-Wochenende, Aurora-Sammlung, Polarlichtsee, Bestenlisten-Rand ================= */
+#aurWk{position:relative;overflow:hidden;align-self:center;display:flex;align-items:center;gap:10px;margin:-6px auto 12px;padding:7px 16px;border-radius:10px;
+  background:linear-gradient(90deg,#2a0f5a,#5a1a6a 40%,#0f4a5a);border:2px solid transparent;background-clip:padding-box;color:#fff;font-size:13px;
+  box-shadow:0 0 0 2px rgba(255,255,255,.08),0 0 18px rgba(255,95,184,.45),0 4px 0 rgba(0,0,0,.35)}
+#aurWk::before{content:"";position:absolute;inset:-2px;z-index:-1;border-radius:12px;background:linear-gradient(90deg,#7a2bd0,#ff5fb8,#46e6d8,#7a2bd0);background-size:300% 100%;animation:ttRain 4s linear infinite}
+#aurWk .awSh{position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.35) 50%,transparent 65%);background-size:300% 100%;animation:ttShine 3s linear infinite;pointer-events:none}
+#aurWk>svg{width:18px;height:18px;color:#ffd6ff;filter:drop-shadow(0 0 4px #ff5fb8)}
+#aurWk b{font-family:var(--px);font-size:11px;letter-spacing:.5px;background:linear-gradient(90deg,#c8fff6,#ffd6ff,#ffffff);-webkit-background-clip:text;background-clip:text;color:transparent}
+#aurWk span{opacity:.9}#aurWk em{font-style:normal;font-weight:700;color:#c8fff6}
+@media (max-width:600px){#aurWk{flex-wrap:wrap;justify-content:center;gap:4px 8px;font-size:12px}}
+/* Aurora-Sammlung im Pokédex */
+#dxAurC{margin:0 0 10px}
+.acBox{border-radius:10px;padding:10px 12px;background:linear-gradient(135deg,rgba(122,43,208,.25),rgba(255,95,184,.14) 50%,rgba(70,230,216,.16));border:1px solid rgba(255,154,232,.45)}
+.acHd{display:flex;align-items:center;gap:8px}.acHd>svg{width:16px;height:16px;color:#ff9ae8}.acHd>b{font-family:var(--px);font-size:11px;color:#ffd6ff}.acHd span{margin-left:auto;font-size:13px;color:#e8dcff}.acHd span b{color:#fff;font-size:15px}
+.acBar{height:9px;margin:8px 0 4px;border-radius:5px;background:rgba(0,0,0,.35);overflow:hidden}.acBar i{display:block;height:100%;border-radius:5px;background:linear-gradient(90deg,#7a2bd0,#ff5fb8,#46e6d8);box-shadow:0 0 8px rgba(255,95,184,.6)}
+.acNx{display:block;font-size:12px;color:#d8ccf0}.acNx svg{width:12px;height:12px;vertical-align:-2px}
+.acSt{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.acSt span{display:flex;align-items:center;gap:5px;font-size:12px;padding:3px 8px;border-radius:6px;background:rgba(0,0,0,.28);color:#c8bce0}
+.acSt span em{font-style:normal;font-weight:700;color:#fff;font-family:var(--px);font-size:10px}.acSt span svg{width:12px;height:12px}
+.acSt span.ok{background:linear-gradient(90deg,rgba(122,43,208,.5),rgba(70,230,216,.35));color:#fff}
+/* Polarlichtsee */
+.tcBg [class^="ps5"]{position:absolute;display:block;pointer-events:none}
+.bg-polarsee{background:#0a0620}
+.bg-polarsee .ps5Sky{inset:0;background:linear-gradient(180deg,#05031a 0,#120a3a 24%,#2a1260 42%,#4a1a6a 52%,#1a1040 60%,#0a0620 100%)}
+.bg-polarsee .ps5Moon{left:80%;top:13%;width:8cqmin;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle at 38% 35%,#fff 0,#f2eaff 50%,#c8b8f0 100%);box-shadow:0 0 4cqmin rgba(220,200,255,.6)}
+.bg-polarsee .ps5A{left:-10%;top:-4%;width:120%;height:66%;mix-blend-mode:screen;transform-origin:50% 0;-webkit-mask:repeating-linear-gradient(90deg,#000 0 .9cqw,rgba(0,0,0,.45) .9cqw 1.7cqw);mask:repeating-linear-gradient(90deg,#000 0 .9cqw,rgba(0,0,0,.45) .9cqw 1.7cqw);animation:ps5Wave var(--d,12s) ease-in-out var(--dl,0s) infinite alternate}
+.bg-polarsee .ps5A.a1{--d:11s}.bg-polarsee .ps5A.a2{--d:14s;--dl:-5s;opacity:.9}.bg-polarsee .ps5A.a3{--d:17s;--dl:-9s;opacity:.8}
+.bg-polarsee .ps5Glow{left:-10%;right:-10%;top:6%;height:44%;border-radius:50%;background:radial-gradient(ellipse at 50% 55%,rgba(255,95,184,.32),rgba(122,43,208,.22) 45%,transparent 72%);--lo:.7;--sc:1.04;animation:k54pulse 6s ease-in-out infinite}
+@keyframes ps5Wave{0%{transform:skewX(-9deg) scaleY(.92) translateX(-3%)}100%{transform:skewX(9deg) scaleY(1.08) translateX(3%)}}
+.bg-polarsee .ps5Lake{left:0;right:0;top:58%;bottom:0;overflow:hidden;background:linear-gradient(180deg,#140c34,#0a0620)}
+.bg-polarsee .ps5Ref{position:absolute;left:0;right:0;top:0;height:58cqh;transform:scaleY(-1);transform-origin:50% 50%;opacity:.75;-webkit-mask:linear-gradient(0deg,#000 0,transparent 75%);mask:linear-gradient(0deg,#000 0,transparent 75%)}
+.bg-polarsee .ps5Ref .ps5A{top:22%;height:100%}
+.bg-polarsee .ps5Rip{position:absolute;inset:0;background:repeating-linear-gradient(180deg,transparent 0 1.1cqh,rgba(200,255,246,.12) 1.1cqh 1.4cqh);animation:ps5Rip 4s linear infinite}
+@keyframes ps5Rip{to{background-position:0 2.8cqh}}
+.bg-polarsee .ps5F{left:var(--x);top:var(--y);width:var(--w);aspect-ratio:40/12;filter:drop-shadow(0 0 1cqmin rgba(255,154,232,.55));animation:ps5Bob var(--d) ease-in-out infinite alternate}
+@keyframes ps5Bob{0%{transform:translate(-1cqw,0) rotate(-1deg)}100%{transform:translate(1cqw,-.6cqh) rotate(1deg)}}
+@media (prefers-reduced-motion:reduce){.tcBg [class^="ps5"],.tcBg [class^="ps5"] *{animation:none!important}}
+/* Bestenlisten-Rand: eigene Zeile im Ruhm */
+.fmPick .fmO.fmBO{opacity:.95}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -6775,7 +6814,7 @@ const RESEARCH=[
    {id:"phoenix",n:"Phönixfeder",ic:"feather",d:"Revanche-Gegner −3 % Verstärkung je Stufe.",max:3,cost:[12,18,27]},
    {id:"school",n:"Trainer-Schule",ic:"school",d:"+1 Erfahrung pro Sieg.",max:1,cost:[30]},
    {id:"fusion",n:"Fusionslabor",ic:"merge",d:"4 statt 3 Fusionsgaben zur Auswahl.",max:1,cost:[33]},
-   {id:"shinycharm",n:"Schillerpin",ic:"shiny",d:"Doppelte Chance auf schillernde Pokémon im Shop (rein optisch).",max:1,cost:[15]},
+   {id:"shinycharm",n:"Schillerpin",ic:"shiny",d:"Doppelte Chance auf schillernde und Aurora-Pokémon im Shop.",max:1,cost:[15]},
    {id:"relicstart",n:"Reliktjäger",ic:"relic",d:"Starte jeden Lauf mit einer Relikt-Wahl.",max:1,cost:[45]},
    {id:"carto",n:"Kartograf",ic:"route",d:"„Neue Wege“ kostet 1 Gold weniger.",max:1,cost:[35]},
    {id:"treasure",n:"Schatzsucher",ic:"chest",d:"Ereignisse bieten 4 statt 3 Belohnungen zur Wahl.",max:1,cost:[45]},
@@ -6902,7 +6941,7 @@ const sprIdx={};
 function spriteEl(id,cls,o){
   if(id&&typeof id==="object"){o={shiny:id.shiny,mega:id.megaK};id=id.sp;}o=o||{};const aur=o.shiny==="a";
   const sp=SPECIES[id]||{name:"?",types:["normal"]};const key=sprKey(id,o.shiny,o.mega);if(sprIdx[key]==="ph")return phEl(sp);
-  const img=document.createElement("img");img.className=(cls||"")+(aur?" aur":"");img.alt=sp.name;img.draggable=false;
+  const img=document.createElement("img");img.className=(cls||"")+(aur?" aur":"");img.alt=sp.name;img.dataset.sp=id;img.draggable=false;
   const urls=SPR(key);if(!urls.length)return phWait(id,cls,o,sp,key);let i=typeof sprIdx[key]==="number"?sprIdx[key]:0;
   img.onload=()=>{sprIdx[key]=i;};img.onerror=()=>{i++;if(i<urls.length)img.src=urls[i];else{if(urls.length)sprIdx[key]="ph";img.replaceWith(phEl(sp));}};
   img.src=urls[Math.min(i,urls.length-1)];return img;
@@ -9084,7 +9123,7 @@ function dexModal0(tabName){
   if(t!=="dex"){achModal(t);return;}
   openModal(`<h2>${ic("dex")} POKÉDEX</h2>${body}<button class="pri" id="dBack" style="margin-top:16px">ZURÜCK</button>`,t==="dex"?"wide dexM":"",true);
   if(t==="dex"){dexWire();return;}
-  $("mbox").querySelectorAll("[data-sp]").forEach(e=>{const im=spriteEl(+e.dataset.sp,"",{shiny:!!e.dataset.shy});if(e.classList.contains("ri")){im.style.width="34px";im.style.height="34px";im.style.imageRendering="pixelated";}e.appendChild(im);});
+  $("mbox").querySelectorAll("[data-sp]").forEach(e=>{const im=spriteEl(+e.dataset.sp,"",{shiny:e.dataset.shy==="a"?"a":!!e.dataset.shy});if(e.classList.contains("ri")){im.style.width="34px";im.style.height="34px";im.style.imageRendering="pixelated";}e.appendChild(im);});
   $("mbox").querySelectorAll(".dtabs button").forEach(b=>b.onclick=()=>dexModal(b.dataset.t));
   $("dBack").onclick=closeModal;
 }
@@ -9813,7 +9852,7 @@ function dexStats(E){const n=E.filter(e=>!e.mega),m=E.filter(e=>e.mega);
 function dexBody(){const E=dexEntries();window.__dexE=E;
   const st=dexStats(E).map(([n,i,a,b,c])=>`<div class="dxSt" style="--c:${c}">${ic(i)}<div><small>${n}</small><b>${a}<em>/${b}</em></b><span class="dxBar"><i style="width:${b?a/b*100:0}%"></i></span></div></div>`).join("");
   const regs=[["all","Alle"],...Object.keys(REGIONS).map(k=>[k,REGIONS[k].n]),["later","Neuere"]];
-  return `${typeof lexBar==="function"?lexBar("dex"):""}<div class="dxStats">${st}</div>
+  return `${typeof lexBar==="function"?lexBar("dex"):""}<div class="dxStats">${st}</div><div id="dxAurC" style="display:none"></div>
    <div class="dxTool"><div class="dxSeg" id="dxShy"><button data-v="0" class="${DEXV.shy?"":"on"}">Normal</button><button data-v="1" class="${DEXV.shy===true?"on shy":""}">${ic("shiny")} Schillernd</button><button data-v="2" class="aur${DEXV.shy===2?" on":""}">${ic("shiny")} Aurora</button></div>
    <div class="dxSeg" id="dxF">${[["all","Alle"],["own","Gefangen"],["miss","Fehlt"],["mega","Mega"]].map(([k,n])=>`<button data-v="${k}" class="${DEXV.f===k?"on":""}">${n}</button>`).join("")}</div>
    <select id="dxTy" class="dxSel"><option value="all">Alle Typen</option>${Object.keys(TYPES).map(t=>`<option value="${t}" ${DEXV.ty===t?"selected":""}>${TYPES[t][0]}</option>`).join("")}</select><select id="dxRo" class="dxSel"><option value="all">Alle Klassen</option>${Object.keys(ROLES).map(r=>`<option value="${r}" ${DEXV.ro===r?"selected":""}>${ROLES[r].n}</option>`).join("")}</select>
@@ -9857,7 +9896,7 @@ function dexDetail(key){const E=window.__dexE||dexEntries(),e=E.find(x=>x.key===
    ${megas?`<h4>${ic("mega")} Mega-Formen</h4><div class="dxChain">${megas}</div>`:""}
    <p class="dxHint">Schillernde zählen pro Form: Entwickelt sich ein schillerndes Pokémon oder wird es zur Mega-Form, wird auch diese Form als schillernd eingetragen.</p></div>`;
   $("mbox").appendChild(box);hydrateIcons(box);
-  box.querySelectorAll(".pic[data-dsp]").forEach(el=>el.appendChild(spriteEl(+el.dataset.dsp,"",{shiny:!!el.dataset.sh,mega:el.dataset.mk||undefined})));
+  box.querySelectorAll(".pic[data-dsp]").forEach(el=>el.appendChild(spriteEl(+el.dataset.dsp,"",{shiny:el.dataset.sh==="a"?"a":!!el.dataset.sh,mega:el.dataset.mk||undefined})));
   const close=()=>box.remove();box.querySelector(".dxX").onclick=close;box.onclick=ev=>{if(ev.target===box)close();};}
 function achModal(t){t=t||"ach";dexSync();let body="";
   if(t==="ach")body=achBody();
@@ -12939,13 +12978,13 @@ const PROF={kanto:"PROF. EICH",johto:"PROF. LIND",hoenn:"PROF. BIRK",sinnoh:"PRO
 const L2=(de,en)=>typeof LANG!=="undefined"&&LANG==="en"?en:de;
 function caseRoll(){const reg=S.region||"kanto",ls=LINES.filter(l=>(l.region||"kanto")===reg);let x=Math.random()*100,tier=1;for(const [t,w] of CASE_ODDS){if(x<w){tier=t;break;}x-=w;}
   let c=ls.filter(l=>l.tier===tier);while(!c.length&&tier>1){tier--;c=ls.filter(l=>l.tier===tier);}
-  return {L:pick(c),shiny:Math.random()<CASE_SHINY*AUR_RATE?"a":Math.random()<CASE_SHINY};}
+  return {L:pick(c),shiny:Math.random()<CASE_SHINY*aurRate()?"a":Math.random()<CASE_SHINY};}
 const STARTER_TRIO={kanto:["bisasam","glumanda","schiggy"],johto:["endivie","feurigel","karnimani"],hoenn:["geckarbor","flemmli","hydropi"],sinnoh:["chelast","panflam","plinfa"],unova:["serpifeu","floink","ottaro"],kalos:["igamaro","fynx","froxy"],alola:["bauz","flamiau","robball"],galar:["chimpep","hopplo","memmeon"],paldea:["felori","krokel","kwaks"],hisui:["hbauz","hfeurigel","hottaro"],kitakami:["kbisasam","kglumanda","kschiggy"]};
 /* v9.9: Partnerwahl nur aus dem eigenen Pool (Start-Linien + im Labor gekauft), genau wie der Shop. */
 function starterPool(){const reg=S.region||"kanto",mono=!!S.mono&&typeof monoOk==="function",base0=l=>(l.region||"kanto")===reg&&l.tier<=2&&!l.leg,base=l=>base0(l)&&(!mono||monoOk(l));
   const own=l=>(S.poolV2&&Array.isArray(S.poolSel))?S.poolSel.includes(l.k):l.start||(S.weekly&&S.mono)||(S.duel&&Array.isArray(S.duel.pool)?S.duel.pool.includes(l.k):(META.unlocked.includes(l.k)&&(!Array.isArray(S.poolSel)||S.poolSel.includes(l.k))));let ls=LINES.filter(l=>base(l)&&own(l));if(!ls.length)ls=LINES.filter(l=>base(l)&&l.start);
   if(!ls.length&&mono)ls=LINES.filter(l=>(l.region||"kanto")===reg&&!l.leg&&!l.ub&&monoOk(l)&&own(l));return ls.length?ls:LINES.filter(l=>base0(l)&&l.start);}
-function starterRoll(){const ls=starterPool();const t=Math.random()<.55?1:2;let c=ls.filter(l=>l.tier===t);if(!c.length)c=ls;return {L:pick(c),shiny:Math.random()<CASE_SHINY*AUR_RATE?"a":Math.random()<CASE_SHINY};}
+function starterRoll(){const ls=starterPool();const t=Math.random()<.55?1:2;let c=ls.filter(l=>l.tier===t);if(!c.length)c=ls;return {L:pick(c),shiny:Math.random()<CASE_SHINY*aurRate()?"a":Math.random()<CASE_SHINY};}
 function starterOpts0(n){const o=[],sp0=starterPool();n=Math.min(n,sp0.length||n);const trio=(STARTER_TRIO[S.region||"kanto"]||[]).map(k=>LINES.find(l=>l.k===k)).filter(l=>l&&sp0.includes(l));if(trio.length)o.push({L:pick(trio),shiny:Math.random()<CASE_SHINY,secret:Math.random()<CASE_SECRET?pick(Object.keys(SECRETS)):null});let g=0;while(o.length<n&&g++<120){const r=starterRoll();if(o.some(x=>x.L.k===r.L.k))continue;r.secret=Math.random()<CASE_SECRET?pick(Object.keys(SECRETS)):null;o.push(r);}return shuffle(o);}
 /* Unterklassen-Empfehlung: hat ein anderes Pokémon derselben Linie diese Klasse schon, passt die Wahl später zum Fusionieren */
 /* v9.9: 1. Fusion bietet 2 der 3 Unterklassen an (pro Lauf und Linie fest, wechselt von Lauf zu Lauf; im Täglichen Run für alle gleich).
@@ -13510,7 +13549,7 @@ function popAb(f,txt,col,small){if(!GL||tab!=="raster")return;const w=fw(f,small
 
 /* ================================ SHOP-LOGIK ================================ */
 function rollTier(){const o=oddsAt(level(),S.round);let r=Math.random()*100;for(let k=0;k<5;k++){if(r<o[k])return k+1;r-=o[k];}return 1;}
-function rollMon(){let t=rollTier();let cand=pool().filter(L=>L.tier===t);while(!cand.length&&t>1){t--;cand=pool().filter(L=>L.tier===t);}if(!cand.length)cand=pool();const id=pick(cand).stages[0][0];dexUp(id,d=>d.seen++);const au=Math.random()<shinyChance()*AUR_RATE,sh=au||Math.random()<shinyChance();if(sh)dexUp(id,d=>d.shinySeen=(d.shinySeen||0)+1);return sh?{id,frozen:false,shiny:au?"a":true}:{id,frozen:false};}
+function rollMon(){let t=rollTier();let cand=pool().filter(L=>L.tier===t);while(!cand.length&&t>1){t--;cand=pool().filter(L=>L.tier===t);}if(!cand.length)cand=pool();const id=pick(cand).stages[0][0];dexUp(id,d=>d.seen++);const au=Math.random()<shinyChance()*aurRate(),sh=au||Math.random()<shinyChance();if(sh)dexUp(id,d=>d.shinySeen=(d.shinySeen||0)+1);return sh?{id,frozen:false,shiny:au?"a":true}:{id,frozen:false};}
 const megaRegOk=rg=>LINES.some(L=>(L.region||"kanto")===rg&&megaLine(L));
 function pickItem(rs){const rg=(S&&S.region)||"kanto",ab=!!(S&&S.abyss);return pick(ITEMS.filter(s=>rs.includes(s.r)&&(!s.reg||(s.reg===rg&&!ab))&&!(s.id==="mega"&&((S&&S.megaFound)||!(ab||megaRegOk(rg))))&&!(s.id==="dynaband"&&S&&S.dynaGot)&&!(s.id==="teraorb"&&S&&S.teraGot)&&!(s.id==="alphakern"&&S&&S.alphaGot)&&!(S&&S.maskGot&&typeof MASK_IDS!=="undefined"&&MASK_IDS.includes(s.id)))).id;}
 function rollItemShop(){const r=Math.random()*100;if(S&&S.round>=12&&!S.duel&&Math.random()<.03)return{id:pickItem(["l"]),frozen:false};let id=pickItem([r<62?"c":r<95?"r":"e"]);if(id==="mega"&&(S.round<6||!allUnits().some(u=>megaLine(SPECIES[u.sp].line))))id="brille";else if(r>=95&&S.round>=6&&!S.megaFound&&allUnits().some(u=>megaLine(SPECIES[u.sp].line))&&Math.random()<.35)id="mega";return{id,frozen:false};}
@@ -13548,7 +13587,7 @@ const canFuse=(a,b)=>a&&b&&a!==b&&!a.crypto&&!b.crypto&&a.sp===b.sp&&a.stars===b
 function migrateItems(){if(!S)return;let refund=0;const fix=id=>{if(IT_BY[id])return id;const n=IT_OLD[id];if(n)return n;refund+=3;return null;};
   for(const u of allUnits()){u.items=(u.items||[]).map(fix).filter(Boolean);if(u.spec)u.spec=u.spec.filter(k=>SPECS[k]);}S.bag=(S.bag||[]).map(fix).filter(Boolean);
   if(S.shop&&S.shop.item&&!IT_BY[S.shop.item.id])S.shop.item=rollItemShop();if(refund)S.gold+=refund;}
-function fuseUnits(keep,gone){if(keep&&gone&&!keep.nick&&gone.nick)keep.nick=gone.nick;const shy0=[!!keep.shiny,!!gone.shiny];try{META.stats=META.stats||{};META.stats.fusions=(META.stats.fusions||0)+1;}catch(e){}if(typeof misBump==="function")misBump("fuse");
+function fuseUnits(keep,gone){if(keep&&gone&&!keep.nick&&gone.nick)keep.nick=gone.nick;const shy0=[keep.shiny||false,gone.shiny||false];try{META.stats=META.stats||{};META.stats.fusions=(META.stats.fusions||0)+1;}catch(e){}if(typeof misBump==="function")misBump("fuse");
   removeU(gone);if((gone.spec||[]).length>(keep.spec||[]).length)keep.spec=gone.spec.slice();if(!keep.secret&&gone.secret)keep.secret=gone.secret;if(keep.crypto||gone.crypto){const c=Math.min(keep.crypto||0,gone.crypto||0);if(c)keep.crypto=c;else{delete keep.crypto;toast(`${SPECIES[keep.sp].name}: Die Fusion hat das Crypto-Herz geöffnet!`,"heart");}}keep.gifts=(keep.gifts||[]).concat(gone.gifts||[]);{let seen=0;keep.gifts=keep.gifts.map(g=>g==="g_slot"?(seen++?"g_hp":g):g);}let tm=null;if(keep.shiny==="a"||gone.shiny==="a"){if(keep.shiny!=="a"||gone.shiny!=="a"){const ok=Math.random()<Math.min(1,AUR_KEEP+.05*(S.aurLose||0));S.aurLose=ok?0:(S.aurLose||0)+1;const other=keep.shiny==="a"?gone.shiny:keep.shiny;if(ok)keep.shiny="a";else if(other)keep.shiny=true;else delete keep.shiny;const nm=SPECIES[keep.sp]&&SPECIES[keep.sp].name;setTimeout(()=>toast(ok?`${nm} bleibt Aurora!`:`${nm} hat sein Aurora-Leuchten verloren`,ok?"shiny":"close"),900);}else keep.shiny="a";}
   else if(!!gone.shiny!==!!keep.shiny){const sh=Math.random()<Math.min(1,.5+.25*(S.shyLose||0));S.shyLose=sh?0:(S.shyLose||0)+1;if(sh)keep.shiny=true;else delete keep.shiny;tm=[sh?"shy1":"shy0"];}else if(gone.shiny)keep.shiny=true;
   const from=keep.sp,its=(keep.items||[]).concat(gone.items||[]);evolve(keep);keep.items=[];
@@ -13566,8 +13605,8 @@ function showFusion(){
   if(u.brPick&&typeof branchPick==="function"){branchPick(u,q,()=>showFusion());return;}
   const fuseNote=()=>{if(!q.tm)return;const sh=q.tm[0]==="shy1",nm=SPECIES[u.sp].name;q.tm=null;setTimeout(()=>toast(sh?`${nm} bleibt schillernd!`:`${nm} hat seinen Schimmer verloren`,sh?"shiny":"merge"),120);};
   if(!q.played&&!window.__autoPick&&typeof playEvolution==="function"&&!(typeof animSkip==="function"&&animSkip("evo"))){q.played=true;cineBusy=true;const sp0=SPECIES[q.from],sp1=SPECIES[u.sp],col=TYPES[sp1.types[0]][1];
-    const shy0=q.shy?!!(q.shy[0]&&q.shy[1]):!!u.shiny;
-    const pr=q.from!==u.sp?playEvolution({from:sprKey(q.from,shy0),to:sprKey(u.sp,u.shiny),name:sp0.name,toName:sp1.name,color:col,shiny:!!u.shiny}):playStarUp({sp:sprKey(u.sp,u.shiny),sp0:sprKey(u.sp,shy0),name:sp1.name,stars:u.stars,color:col,shiny:!!u.shiny});
+    const shy0=q.shy?(q.shy[0]==="a"&&q.shy[1]==="a"?"a":!!(q.shy[0]&&q.shy[1])):u.shiny,aK=v=>v==="a"?"a:":"";
+    const pr=q.from!==u.sp?playEvolution({from:aK(shy0)+sprKey(q.from,shy0),to:aK(u.shiny)+sprKey(u.sp,u.shiny),name:sp0.name,toName:sp1.name,color:col,shiny:!!u.shiny}):playStarUp({sp:aK(u.shiny)+sprKey(u.sp,u.shiny),sp0:aK(shy0)+sprKey(u.sp,shy0),name:sp1.name,stars:u.stars,color:col,shiny:!!u.shiny});
     sfx(q.from!==u.sp?"evoStart":"pop");const tEnd=q.from!==u.sp?4500:720;setTimeout(()=>{if(document.querySelector(".cine-ov"))sfx("evoDone");},tEnd);
     pr.catch(()=>{}).then(()=>{cineBusy=false;render();fuseNote();showFusion();});return;}
   fuseNote();
@@ -13576,10 +13615,10 @@ function showFusion(){
     const applyS=s=>{u.spec=(u.spec||[]).concat(s.id);S.fuseQ.shift();save();};
     if(window.__autoPick){applyS(so[0]);return showFusion();}
     openModal(`<h2>${ic(lvl?"crown":"school")} ${lvl?"AUFSTIEG":"UNTERKLASSE"} WÄHLEN</h2><div class="lead">${evo?`${SPECIES[q.from].name} entwickelt sich zu <b style="color:#fff">${sp.name}</b>.`:`${sp.name} steigt auf <b style="color:var(--amber)">${"★".repeat(u.stars)}</b> (+60 % Werte).`} ${lvl?`Als <b style="color:${R.col}">${specN(u.spec[0],u)}</b> wählst du jetzt einen Aufstieg:`:`Spezialisiere den <b style="color:${R.col}">${R.n}</b>, die Wahl ist dauerhaft:`}</div>
-     <div class="fuse"><div class="fp" data-sp="${q.from}" data-sh="${q.shy?(q.shy[0]?1:""):(u.shiny?1:"")}"></div><div class="fp" data-sp="${q.from}" data-sh="${q.shy?(q.shy[1]?1:""):(u.shiny?1:"")}"></div><span class="arr">${ic("arrow")}</span><div class="fp new" data-sp="${u.sp}"></div></div>
+     <div class="fuse"><div class="fp" data-sp="${q.from}" data-sh="${q.shy?(q.shy[0]==="a"?"a":q.shy[0]?1:""):(u.shiny==="a"?"a":u.shiny?1:"")}"></div><div class="fp" data-sp="${q.from}" data-sh="${q.shy?(q.shy[1]==="a"?"a":q.shy[1]?1:""):(u.shiny==="a"?"a":u.shiny?1:"")}"></div><span class="arr">${ic("arrow")}</span><div class="fp new" data-sp="${u.sp}"></div></div>
      <div class="choices specC">${so.map((s,i)=>{const nsp=(u.spec||[]).concat(s.id).join(),mate=allUnits().filter(o=>o!==u&&o.sp===u.sp&&o.stars===u.stars&&(o.spec||[]).join()===nsp).length,rec=specRec(u,lvl,s.id);return `<button class="choice spec${rec?" rec":""}" data-i="${i}" style="--dc:${R.col}">${rec?`<span class="srec">${ic("star")} EMPFOHLEN · wie dein ${esc(rec)}</span>`:""}<span class="stier">${lvl?"AUFSTIEG":"UNTERKLASSE"}</span>${s.sig?`<span class="fbadge sigB">${ic("star")} SIGNATUR</span>`:""}${typeof FORM!=="undefined"&&Object.keys(s.fx||{}).some(k=>FORM[k])?`<span class="fbadge">${ic("grid")} FORMATION</span>`:""}${mate?`<span class="smate">${ic("merge")} passt zu ${mate}× ${sp.name}</span>`:""}<div class="ci">${ic(s.ic)}</div><h4>${lvl?`<small>${specN(u.spec[0],u)} ›</small> `:""}${specN(s.id,u)}</h4><p>${specD(s.id,u)}</p></button>`;}).join("")}</div>
 `);
-    $("mbox").querySelectorAll(".fp[data-sp]").forEach(e=>e.appendChild(centerSpr(spriteEl(+e.dataset.sp,"",{shiny:e.dataset.sh!==undefined?!!e.dataset.sh:!!u.shiny}))));
+    $("mbox").querySelectorAll(".fp[data-sp]").forEach(e=>e.appendChild(centerSpr(spriteEl(+e.dataset.sp,"",{shiny:e.dataset.sh!==undefined?(e.dataset.sh==="a"?"a":!!e.dataset.sh):(u.shiny==="a"?"a":!!u.shiny)}))));
     $("mbox").querySelectorAll(".choice").forEach(b=>b.onclick=()=>{const s=so[+b.dataset.i];applyS(s);closeModal();toast(`${sp.name}: ${lvl?"Aufstieg":"Unterklasse"} ${specN(s.id,u)}`,s.ic);fxUnit(u,R.col);render();showFusion();});
     return;}
   const opts=shuffle(GIFTS.filter(g=>!(g.once&&(u.gifts||[]).includes(g.id)))).slice(0,3+perk("fusion"));
@@ -13587,9 +13626,9 @@ function showFusion(){
   if(window.__autoPick){apply(opts[0].id);return showFusion();}
   const sp=SPECIES[u.sp],evo=q.from!==u.sp;
   openModal(`<h2>${ic("spark")} FUSION!</h2><div class="lead">${evo?`${SPECIES[q.from].name} entwickelt sich zu <b style="color:#fff">${sp.name}</b>.`:`${sp.name} steigt auf <b style="color:var(--amber)">${"★".repeat(u.stars)}</b> (+60 % Werte).`} Wähle eine Fusionsgabe:</div>
-   <div class="fuse"><div class="fp" data-sp="${q.from}" data-sh="${q.shy?(q.shy[0]?1:""):(u.shiny?1:"")}"></div><div class="fp" data-sp="${q.from}" data-sh="${q.shy?(q.shy[1]?1:""):(u.shiny?1:"")}"></div><span class="arr">${ic("arrow")}</span><div class="fp new" data-sp="${u.sp}"></div></div>
+   <div class="fuse"><div class="fp" data-sp="${q.from}" data-sh="${q.shy?(q.shy[0]==="a"?"a":q.shy[0]?1:""):(u.shiny==="a"?"a":u.shiny?1:"")}"></div><div class="fp" data-sp="${q.from}" data-sh="${q.shy?(q.shy[1]==="a"?"a":q.shy[1]?1:""):(u.shiny==="a"?"a":u.shiny?1:"")}"></div><span class="arr">${ic("arrow")}</span><div class="fp new" data-sp="${u.sp}"></div></div>
    <div class="choices">${opts.map((g,i)=>`<button class="choice" data-i="${i}" style="--dc:${g.col}"><div class="ci">${ic(g.ic)}</div><h4>${g.n}</h4><p>${g.d}</p></button>`).join("")}</div>`);
-  $("mbox").querySelectorAll(".fp[data-sp]").forEach(e=>e.appendChild(centerSpr(spriteEl(+e.dataset.sp,"",{shiny:e.dataset.sh!==undefined?!!e.dataset.sh:!!u.shiny}))));
+  $("mbox").querySelectorAll(".fp[data-sp]").forEach(e=>e.appendChild(centerSpr(spriteEl(+e.dataset.sp,"",{shiny:e.dataset.sh!==undefined?(e.dataset.sh==="a"?"a":!!e.dataset.sh):(u.shiny==="a"?"a":!!u.shiny)}))));
   $("mbox").querySelectorAll(".choice").forEach(b=>b.onclick=()=>{apply(opts[+b.dataset.i].id);closeModal();toast(`${sp.name}: ${opts[+b.dataset.i].n}`,"spark");render();showFusion();});
 }
 function sell(u){
@@ -13748,7 +13787,7 @@ let hovEl=null;
 function megaPreview(u){const fin=megaSpOf(u),mf=megaForm(fin,roleOf(u),u.megaF);
   toast(MEGA[u.sp]?`${SPECIES[u.sp].name} wird zu Kampfbeginn zu ${mf.n} (${mf.tag})`:`Megastein angelegt: ${SPECIES[u.sp].name} wird ab ${SPECIES[fin].name} zu ${mf.n}`,"mega");sfx("sparkle");}
 /* v1.53.0: Aurora-Pokémon */
-const AUR_RATE=.5,AUR_KEEP=.9,AUR_MUL=1.5;
+const AUR_RATE=.25,AUR_KEEP=.9,AUR_MUL=1.5,SHY_MUL=1.25,AUR_WK=1.5;
 (function(){try{const svg=`<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="aurF" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values=".3 .59 .11 0 0 .3 .59 .11 0 0 .3 .59 .11 0 0 0 0 0 1 0"/><feComponentTransfer><feFuncR type="table" tableValues=".106 .478 1 .275 .949"/><feFuncG type="table" tableValues=".031 .169 .373 .902 1"/><feFuncB type="table" tableValues=".22 .816 .722 .847 .984"/></feComponentTransfer></filter></svg>`;
   const add=()=>{if(!document.getElementById("aurF"))document.body.insertAdjacentHTML("beforeend",svg);};if(document.body)add();else document.addEventListener("DOMContentLoaded",add);}catch(e){}})();
 
@@ -13937,7 +13976,7 @@ function syncVis(){
   for(const k of [...VIS.keys()])if(!seen.has(k))dropVis(k);
 }
 /* v1.54.0.6: Körpermitte breiter Sprites (z. B. Granforgita mit riesigem Hammer), damit das Pokémon auf seinem Feld steht */
-const SPR_AX={959:.81};
+const SPR_AX={957:.35,958:.3,959:.81};
 
 /* ================================ CINEMATICS: Entwicklung, Sterne-Aufstieg, Mega-Entwicklung ================================
    API (global):
@@ -14013,10 +14052,10 @@ let FRAME=0;
 function fallbackSpr(c){const s=64,t=cv(s,s),x=t.getContext("2d");x.fillStyle="#0b0d13";x.beginPath();x.arc(32,34,27,0,TAU);x.fill();x.fillStyle=rgba(c,1);x.beginPath();x.arc(32,34,24,0,TAU);x.fill();
   x.fillStyle="rgba(255,255,255,.35)";x.beginPath();x.arc(24,25,8,0,TAU);x.fill();return mkSpr(t,s,s);}
 function mkSpr(src,w,h){return {src,w,h,sil:cv(w,h),sf:-1,sc:"",gl:null,gf:-1,gk:""};}
-function loadSpr(key,holder,c){return new Promise(res=>{
+function loadSpr(key,holder,c){let aur=false;if(typeof key==="string"&&key.startsWith("a:")){aur=true;key=key.slice(2);}return new Promise(res=>{
   let uri=null;try{const D=typeof SPRITE_DATA!=="undefined"?SPRITE_DATA:{};key=String(key==null?"":key);uri=D[key]||(key[0]==="s"?D[key.slice(1)]:null)||null;}catch(e){uri=null;}
   if(!uri){res(fallbackSpr(c));return;}
-  const im=new Image();let fin=false;im.className="cine-src";im.alt="";
+  const im=new Image();let fin=false;im.className="cine-src";im.alt="";if(aur)im._aur=1;
   const ok=()=>{if(fin)return;fin=true;res(im.naturalWidth?mkSpr(im,im.naturalWidth,im.naturalHeight):fallbackSpr(c));};
   im.onload=ok;im.onerror=()=>{if(fin)return;fin=true;res(fallbackSpr(c));};
   holder.appendChild(im);im.src=uri;setTimeout(ok,1500);});}
@@ -14025,7 +14064,7 @@ function sil(s,col){if(s.sf===FRAME&&s.sc===col)return s.sil;const x=s.sil.getCo
 const GP=8;// Rand (native px) der Glow-Silhouette
 function glowSil(s,col){const k=col;if(s.gf===FRAME&&s.gk===k)return s.gl;if(!s.gl)s.gl=cv(s.w+GP*2,s.h+GP*2);const x=s.gl.getContext("2d");x.clearRect(0,0,s.gl.width,s.gl.height);
   const si=sil(s,col);x.filter="blur(3px)";x.drawImage(si,GP,GP);x.filter="blur(1.2px)";x.drawImage(si,GP,GP);x.filter="none";s.gf=FRAME;s.gk=k;return s.gl;}
-function dimg(ctx,img,w,h,x,y,sc,flip,a){if(a<=.003||sc<=0)return;ctx.save();ctx.globalAlpha=a>1?1:a;ctx.translate(x,y);if(flip)ctx.scale(-1,1);ctx.drawImage(img,-w*sc/2,-h*sc/2,w*sc,h*sc);ctx.restore();}
+function dimg(ctx,img,w,h,x,y,sc,flip,a){if(a<=.003||sc<=0)return;ctx.save();if(img&&img._aur)ctx.filter="url(#aurF)";ctx.globalAlpha=a>1?1:a;ctx.translate(x,y);if(flip)ctx.scale(-1,1);ctx.drawImage(img,-w*sc/2,-h*sc/2,w*sc,h*sc);ctx.restore();}
 const drawSpr=(ctx,s,x,y,sc,flip,a)=>{ctx.imageSmoothingEnabled=false;dimg(ctx,s.src,s.w,s.h,x,y,sc,flip,a);};
 const drawSil=(ctx,s,col,x,y,sc,flip,a)=>{ctx.imageSmoothingEnabled=false;dimg(ctx,sil(s,col),s.w,s.h,x,y,sc,flip,a);};
 const drawGlow=(ctx,s,col,x,y,sc,flip,a,grow=1)=>{ctx.imageSmoothingEnabled=true;const g=glowSil(s,col);dimg(ctx,g,g.width,g.height,x,y,sc*grow,flip,a);};
@@ -15565,6 +15604,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Abgleich-Fix": "Sync fix", "Spiele
 if(typeof EN!=="undefined")Object.assign(EN,{"Feinschliff": "Polish", "Granforgita steht wieder auf seinem eigenen Feld statt halb auf dem Nachbarfeld.": "Tinkaton stands on its own tile again instead of half on the neighbouring one.", "Drachenhort ist neu: ein Drache kreist über dem Vulkan, unten glitzert der Schatz.": "Dragon's Lair is new: a dragon circles above the volcano, the treasure glitters below.", "Abgrundtiefe: ohne Auge, die Ketten bewegen sich jetzt und haben im VS-Bildschirm keinen farbigen Kasten mehr.": "Abyssal Depths: no more eye, the chains now move and no longer show a coloured box on the VS screen.", "Farbige Formations-Felder bleiben nach einem Lauf nicht mehr im Hauptmenü am Boden liegen.": "Coloured formation tiles no longer stay on the ground in the main menu after a run."});
 /* v1.54.0.7 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund-Fix": "Abyss fix", "Abgrund: Wer nach einem verlorenen Abstieg „Neuer Abstieg“ wählt und die Auswahl schließt, landet wieder im Hauptmenü statt in einem leeren Raster.": "Abyss: choosing “New descent” after a lost run and then closing the draft now returns you to the main menu instead of an empty grid."});
+/* v1.55.0 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Aurora & Ruhm": "Aurora & Fame", "Aurora-Pokémon sind seltener geworden: Sie kommen jetzt viermal seltener als Schillernde (vorher halb so oft). Beim Fusionieren bleiben sie weiter zu 90 % erhalten.": "Aurora Pokémon are rarer now: they appear four times less often than shinies (previously half as often). They still stay Aurora with 90 % when fusing.", "Aurora-Wochenende: Von Freitag 18 Uhr bis Sonntag 23:59 gibt es Aurora 1,5-mal so oft. Ein Banner im Hauptmenü zeigt, wie lange es noch läuft.": "Aurora weekend: from Friday 6 pm until Sunday 11:59 pm Aurora shows up 1.5 times as often. A banner in the main menu shows how long it lasts.", "Aurora-Sammlung im Pokédex (Ansicht „Aurora“): Für 5, 15 und 30 verschiedene Aurora-Pokémon gibt es Edelsteine, für 50 den neuen Hintergrund „Polarlichtsee“.": "Aurora collection in the Pokédex (“Aurora” view): 5, 15 and 30 different Aurora Pokémon give gems, 50 unlock the new background “Aurora Lake”.", "Schillernde Pokémon sind jetzt auch stärker: KP, Angriff und Verteidigung ×1,25. Aurora bleibt bei ×1,5.": "Shiny Pokémon are now stronger too: HP, Attack and Defense ×1.25. Aurora stays at ×1.5.", "Aurora-Pokémon werden jetzt überall in Aurora-Farben gezeigt, auch im Fusions-Fenster, bei der Entwicklung, im VS-Bildschirm und im Pokédex.": "Aurora Pokémon now show their Aurora colours everywhere, including the fusion window, evolutions, the VS screen and the Pokédex.", "Ruhm: Neue Auswahl „Bestenliste-Rand“. Du kannst festlegen, welcher verzierte Rand in der Bestenliste erscheint, unabhängig vom Kartenrand.": "Fame: new option “Leaderboard frame”. Choose which ornate frame appears on the leaderboard, independent of your card frame.", "Forgita, Tafforgita und Granforgita stehen jetzt mittig auf ihrem Feld und auf der Trainerkarte, statt vom großen Hammer verschoben zu werden.": "Tinkatink, Tinkatuff and Tinkaton now stand centred on their tile and on the trainer card instead of being pushed aside by their huge hammer.", "Polarlichtsee": "Aurora Lake", "Aurora-Sammlung: 50 verschiedene Aurora-Pokémon": "Aurora collection: 50 different Aurora Pokémon", "AURORA-SAMMLUNG": "AURORA COLLECTION", "verschiedene Arten": "different species", "Alles gesammelt!": "All collected!", "AURORA-WOCHENENDE": "AURORA WEEKEND", "Aurora 1,5-mal so oft": "Aurora 1.5× as often", "BESTENLISTE-RAND": "LEADERBOARD FRAME", "Wie Kartenrand": "Same as card frame", "4× seltener": "4× rarer", "Doppelte Chance auf schillernde und Aurora-Pokémon im Shop.": "Double chance for shiny and Aurora Pokémon in the shop."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -15613,7 +15654,7 @@ function clBoardRow(m){const sc=trainerScore(m),per={};for(const rk in sc.per){c
 /* v1.35.6: Sammel-Fortschritt zusammenführen statt überschreiben. Bisher galt beim Abgleich „neuerer Stand gewinnt“ für den ganzen Spielstand –
    ein zweites Gerät oder ein alter Stand konnte so Pokédex-Einträge (z. B. schillernde Pokémon), Freischaltungen oder Erfolge löschen.
    Zusammengeführt wird nur, was nie weniger werden kann (Zähler: Maximum, Listen: Vereinigung). Edelsteine und der laufende Lauf bleiben „neuerer Stand gewinnt“. */
-const MERGE_MAX=["dex","perks","champs","best","stats","reg","mp","tower","abyss"],MERGE_NUM=["gemsTotal","games","wins","losses"];
+const MERGE_MAX=["dex","perks","champs","best","stats","reg","mp","tower","abyss"],MERGE_NUM=["gemsTotal","games","wins","losses","aurCol"];
 function mergeMax(a,b){if(!a||!b||typeof b!=="object")return a;for(const k in b){const v=b[k],x=a[k];
     if(typeof v==="number"){if(x==null||(typeof x==="number"&&v>x))a[k]=v;}
     else if(typeof v==="boolean"){if(x==null||x===false)a[k]=v;}
@@ -16054,8 +16095,6 @@ end $$;
 ${admSQL3()}
 ${admSQL4()}
 ${admSQL5()}
-${admSQL8()}
-${admSQL9()}
 ${admSQL10()}
 ${admSQL11()}
 ${admSQL12()}
@@ -16750,8 +16789,7 @@ revoke all on function public.admin_title(uuid,text,text,text) from public, anon
 grant execute on function public.admin_title(uuid,text,text,text) to authenticated;
 notify pgrst, 'reload schema';`;}
 /* v1.0.9: Ein Abruf für alles Soziale, jetzt auch Gambit-Herausforderungen (gb) und die laufende Gambit-Partie (gbl) */
-function admSQLSocPoll(){return `-- Ein Abruf für alles Soziale (Einladungen, Antworten, Anfragen, ungelesene Nachrichten, Gambit-Herausforderungen)
-create or replace function public.social_poll() returns json language plpgsql security definer set search_path=public as $$
+function admSQLSocPoll(){return `create or replace function public.social_poll() returns json language plpgsql security definer set search_path=public as $$
 declare me uuid:=auth.uid();
 begin
   if me is null then return null; end if;
@@ -16759,9 +16797,7 @@ begin
     'inv',(select coalesce(json_agg(json_build_object('id',i.id,'from',i.from_uid,'name',public.pkl_uname(i.from_uid),'kind',i.kind,'region',i.region,'room',i.room,'age',extract(epoch from now()-i.at)) order by i.id),'[]'::json) from public.invites i where i.to_uid=me and i.status='open' and i.at>now()-interval '12 seconds'),
     'sent',(select coalesce(json_agg(json_build_object('id',i.id,'to',i.to_uid,'name',public.pkl_uname(i.to_uid),'status',i.status,'kind',i.kind)),'[]'::json) from public.invites i where i.from_uid=me and i.at>now()-interval '2 minutes' and i.status in ('accepted','declined')),
     'reqs',(select coalesce(json_agg(json_build_object('uid',f.req_by,'name',public.pkl_uname(f.req_by))),'[]'::json) from public.friends f where (f.a=me or f.b=me) and f.status='pending' and f.req_by<>me),
-    'chat',(select coalesce(json_object_agg(c.from_uid,c.n),'{}'::json) from (select x.from_uid,count(*) n from public.chat x where x.to_uid=me and not x.seen group by x.from_uid) c),
-    'gb',(select coalesce(json_agg(json_build_object('id',g.id,'name',public.pkl_uname(g.host),'age',round(extract(epoch from now()-g.created_at))) order by g.id),'[]'::json) from public.gambit_games g where g.invite=me and g.status='wait' and g.created_at>now()-interval '15 minutes' and coalesce(g.host_seen,g.created_at)>now()-interval '90 seconds'),
-    'gbl',(select g.id from public.gambit_games g where g.status='live' and (g.w=me or g.b=me) order by g.id desc limit 1));
+    'chat',(select coalesce(json_object_agg(c.from_uid,c.n),'{}'::json) from (select x.from_uid,count(*) n from public.chat x where x.to_uid=me and not x.seen group by x.from_uid) c));
 end $$;`;}
 /* v1.0.9: Pokémon Gambit online (mit Aufstellungen). Der Server prüft Zugreihenfolge, Uhr, Abbruch und Wertung; die Schachregeln prüfen beide Spiele-Clients. */
 function admSQL9(){return `-- v1.2.0: Pokémon Gambit im Admin-Panel: offene Partien sehen und beenden, Elo zurücksetzen (kann gefahrlos mehrfach laufen)
@@ -18074,7 +18110,7 @@ function sprAlign(img,flip){if(img&&img.dataset&&img.dataset.spw){img.dataset.al
   const go=()=>{try{const w=img.naturalWidth,h=img.naturalHeight;if(!w||!h)return;const key=img.src.length+":"+img.src.slice(-48);let o=SPR_AL[key];
     if(!o){const c=document.createElement("canvas");c.width=w;c.height=h;const x=c.getContext("2d");x.drawImage(img,0,0);const D=x.getImageData(0,0,w,h).data;let l=w,r=-1,b=-1,sx=0,sn=0;
       for(let yy=0;yy<h;yy++)for(let xx=0;xx<w;xx++){const a=D[(yy*w+xx)*4+3];if(a>24){if(xx<l)l=xx;if(xx>r)r=xx;if(yy>b)b=yy;sx+=xx*a;sn+=a;}}
-      if(r<0)return;const cx=((l+r+1)/2+(sx/sn+.5))/2;o=SPR_AL[key]={x:(w/2-cx)/w*100,y:(h-1-b)/h*100};}
+      if(r<0)return;const ax=typeof SPR_AX!=="undefined"&&SPR_AX[+img.dataset.sp],cx=ax?ax*w:((l+r+1)/2+(sx/sn+.5))/2;o=SPR_AL[key]={x:(w/2-cx)/w*100,y:(h-1-b)/h*100};}
     img.style.translate=`${(flip?-o.x:o.x).toFixed(2)}% ${o.y.toFixed(2)}%`;}catch(e){}};
   if(img.complete&&img.naturalWidth)go();else img.addEventListener("load",go,{once:true});return img;}
 function favDefault(){const d=(META&&META.dex)||{};let best=0,bw=-1;for(const id of favList()){const w=d[id].wins||0;if(w>bw){bw=w;best=id;}}return best||25;}
@@ -18084,10 +18120,10 @@ const noTitle=t=>!t||/^Trainer(in)?$/.test(String(t).trim());
 function cardTitles(C){const bs=badgeAll().map(b=>[b,badgeState(b).t]);return [...new Set([...(MYTITLE&&MYTITLE.text?[MYTITLE.text]:[]),...(((META&&META.ev&&META.ev.tt)||[]).map(t=>t.t)),...bs.filter(x=>x[1]>=5).map(x=>badgeT5n(x[0])),...bs.filter(x=>x[1]>=4).map(([b])=>b.n.replace(/^Partner: /,"")+(b.cat==="Partner"?"-Meister":""))])];}
 function cardMine(){const C=cardMeta();if(C.title&&!cardTitles(C).includes(C.title))C.title=null;const b=C.badges.map(id=>{const d=badgeDef(id);return[id,d?badgeShowT(d):0];}).filter(x=>x[1]>0);
   const title=noTitle(C.title)?"":C.title,ts=title?titleFxOf(title):null;
-  return{name:USER||mpName&&mpName()||"Gast",fav:C.fav,favSh:C.favSh===2?2:C.favSh?1:0,favM:C.favM||null,bg:C.bg,title,ts,badges:b,ch:Object.values(META.champs||{}).reduce((a,c)=>a+c,0),dw:(META.mp||{}).duelWins||0,dex:_dex().filter(d=>d.owned>0).length,tw:typeof twBest==="function"?twBest():0,...((()=>{try{if(typeof fameMeta!=="function"||!META.fame)return{};const F=fameMeta(),L=fameLevel(F.g).L;return L?{fl:L,fn:F.n||null,ff:F.f||null,fe:F.e||null}:{};}catch(e){return{};}})())};}
+  return{name:USER||mpName&&mpName()||"Gast",fav:C.fav,favSh:C.favSh===2?2:C.favSh?1:0,favM:C.favM||null,bg:C.bg,title,ts,badges:b,ch:Object.values(META.champs||{}).reduce((a,c)=>a+c,0),dw:(META.mp||{}).duelWins||0,dex:_dex().filter(d=>d.owned>0).length,tw:typeof twBest==="function"?twBest():0,...((()=>{try{if(typeof fameMeta!=="function"||!META.fame)return{};const F=fameMeta(),L=fameLevel(F.g).L;return L?Object.assign({fl:L,fn:F.n||null,ff:F.f||null,fe:F.e||null},F.b!==undefined&&F.b!==null?{fb:F.b||""}:{}):{};}catch(e){return{};}})())};}
 function cardClean(c){if(!c||typeof c!=="object")return null;const n=v=>Math.max(0,Math.min(1e7,v|0)),fav=+c.fav;
   return{name:String(c.name||"?").slice(0,20),fav:SPECIES[fav]&&!(isExcl(fav)&&String(c.name||"").trim().toLowerCase()!=="requiem")?fav:25,favSh:c.favSh===2?2:c.favSh?1:0,favM:(typeof c.favM==="string"&&typeof MEGA!=="undefined"&&MEGA[fav]&&Object.values(MEGA[fav]).some(m=>m&&m.k===c.favM))?c.favM:null,bg:CARD_BG[c.bg]?c.bg:"std",title:noTitle(c.title)?"":String(c.title).replace(/[<>]/g,"").slice(0,24),ts:TITLE_FX[c.ts]?c.ts:null,
-    badges:(Array.isArray(c.badges)?c.badges:[]).slice(0,3).filter(x=>Array.isArray(x)&&badgeDef(String(x[0]))).map(x=>[String(x[0]).slice(0,40),Math.max(1,Math.min(TIER_MAX,x[1]|0))]),ch:n(c.ch),dw:n(c.dw),dex:n(c.dex),tw:n(c.tw),...((()=>{try{if(typeof fameNames!=="function")return{};const L=Math.max(0,Math.min(FAME_MAX,c.fl|0));if(!L)return{};const fr=fameFrames(L),fx=typeof fameFxs==="function"?fameFxs(L):[];return{fl:L,fn:fameNames(L).includes(c.fn)?c.fn:null,ff:fr.includes(c.ff)?c.ff:fr.includes(c.ff+"+")?c.ff+"+":null,fe:c.fe===undefined?(L>=FAME_MAX?"legende":null):(fx.includes(c.fe)?c.fe:null)};}catch(e){return{};}})())};}
+    badges:(Array.isArray(c.badges)?c.badges:[]).slice(0,3).filter(x=>Array.isArray(x)&&badgeDef(String(x[0]))).map(x=>[String(x[0]).slice(0,40),Math.max(1,Math.min(TIER_MAX,x[1]|0))]),ch:n(c.ch),dw:n(c.dw),dex:n(c.dex),tw:n(c.tw),...((()=>{try{if(typeof fameNames!=="function")return{};const L=Math.max(0,Math.min(FAME_MAX,c.fl|0));if(!L)return{};const fr=fameFrames(L),fx=typeof fameFxs==="function"?fameFxs(L):[];return{fl:L,fn:fameNames(L).includes(c.fn)?c.fn:null,ff:fr.includes(c.ff)?c.ff:fr.includes(c.ff+"+")?c.ff+"+":null,...(typeof c.fb==="string"?{fb:c.fb&&fr.includes(c.fb)&&(c.fb.endsWith("+")||c.fb==="legende")?c.fb:""}:{}),fe:c.fe===undefined?(L>=FAME_MAX?"legende":null):(fx.includes(c.fe)?c.fe:null)};}catch(e){return{};}})())};}
 const ttCls=ts=>ts&&TITLE_FX[ts]?` class="tt tt-${ts}"`:"";
 /* v1.49.0.6: Hinweis am Rang-Symbol der Karte */
 function fameTipA(c){try{const L=Math.max(0,c.fl|0);if(!L||typeof fameName_!=="function")return "";const p=["Ruhm-Rang"];
@@ -18197,7 +18233,7 @@ function aurIntro(force){try{if(!force&&localStorage.getItem("pokelings_aur2"))r
   const bar=n=>`<span class="aurBar">${Array.from({length:10},(_,i)=>`<i class="${i>=10-n?"on":""}"></i>`).join("")}</span>`;
   openModal(`<div class="aurI"><h2>${ic("shiny")} NEU: AURORA-POKÉMON</h2><div class="aurTop"><p class="lead">Eine neue, noch seltenere Art von Schillernden, mit eigenen Polarlicht-Farben. Aurora-Pokémon sind im Kampf deutlich stärker.</p>
     <div class="aurTrio"><div><i data-ai="0"></i><b>Normal</b></div><span class="arr">${ic("arrow")}</span><div class="sh"><i data-ai="1"></i><b>Schillernd</b><small>1 von ${Math.round(1/SHINY_BASE)}</small></div><span class="arr">${ic("arrow")}</span><div class="au"><i data-ai="2"></i><b>Aurora</b><small>1 von ${Math.round(1/(SHINY_BASE*AUR_RATE))}</small></div></div></div>
-    <div class="aurH">WIE SELTEN?</div><div class="aurOdds"><span>Schillernd</span>${bar(0)}<em>1 von ${Math.round(1/SHINY_BASE)}</em><span>Aurora</span>${bar(5)}<em>halb so oft</em></div>
+    <div class="aurH">WIE SELTEN?</div><div class="aurOdds"><span>Schillernd</span>${bar(0)}<em>1 von ${Math.round(1/SHINY_BASE)}</em><span>Aurora</span>${bar(8)}<em>4× seltener</em></div>
     <div class="aurH">WAS SIE KÖNNEN</div><div class="aurBoxes">
      <div class="aurBox">${ic("atk")}<b>×1,5 STÄRKER</b><small>KP, Angriff und Verteidigung ×1,5, überall, auch im Duell und in Ranked.</small></div>
      <div class="aurBox">${ic("merge")}<b>FUSION</b><small>Beim Fusionieren bleibt Aurora zu 90 % erhalten. Zwei Aurora bleiben immer Aurora.</small></div>
@@ -18215,7 +18251,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.54.0.7",DUEL_HP=30;
+const MP_VER="1.55.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18852,8 +18888,16 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.54.0.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.55.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.55.0",d:"18.11.2026",t:"Aurora & Ruhm",items:[
+  ["shiny", "Aurora-Pokémon sind seltener geworden: Sie kommen jetzt viermal seltener als Schillernde (vorher halb so oft). Beim Fusionieren bleiben sie weiter zu 90 % erhalten."],
+  ["shiny", "Aurora-Wochenende: Von Freitag 18 Uhr bis Sonntag 23:59 gibt es Aurora 1,5-mal so oft. Ein Banner im Hauptmenü zeigt, wie lange es noch läuft."],
+  ["dex", "Aurora-Sammlung im Pokédex (Ansicht „Aurora“): Für 5, 15 und 30 verschiedene Aurora-Pokémon gibt es Edelsteine, für 50 den neuen Hintergrund „Polarlichtsee“."],
+  ["atk", "Schillernde Pokémon sind jetzt auch stärker: KP, Angriff und Verteidigung ×1,25. Aurora bleibt bei ×1,5."],
+  ["merge", "Aurora-Pokémon werden jetzt überall in Aurora-Farben gezeigt, auch im Fusions-Fenster, bei der Entwicklung, im VS-Bildschirm und im Pokédex."],
+  ["crown", "Ruhm: Neue Auswahl „Bestenliste-Rand“. Du kannst festlegen, welcher verzierte Rand in der Bestenliste erscheint, unabhängig vom Kartenrand."],
+  ["check", "Forgita, Tafforgita und Granforgita stehen jetzt mittig auf ihrem Feld und auf der Trainerkarte, statt vom großen Hammer verschoben zu werden."]]},
  {v:"1.54.0.7",d:"17.11.2026",t:"Abgrund-Fix",items:[
   ["check", "Abgrund: Wer nach einem verlorenen Abstieg „Neuer Abstieg“ wählt und die Auswahl schließt, landet wieder im Hauptmenü statt in einem leeren Raster."]]},
  {v:"1.54.0.6",d:"17.11.2026",t:"Feinschliff",items:[
@@ -19751,7 +19795,7 @@ function ultraChoice(cb){const e=((S.enc&&S.enc.enemies)||S.enemies||[]).find(x=
   openModal(`<div class="ubCatch"><h2>${ic("ub")} ULTRA-BESTIE FANGEN</h2><div class="lead">Die Ultra-Bestie ist geschwächt. Wirf einen Ultraball, dann kämpft <b>${esc(sp.name)}</b> ab sofort in deinem Team.${free<0?`<br><b style="color:var(--red)">Deine Bank ist voll.</b> Verkaufe unten ein Pokémon von deiner Bank oder nimm Gold.`:""}</div>${bsHtml()}
    <div class="ubPic"><i class="ubRing"></i><span class="ubMon"></span></div><div class="ubInfo">${roleTag(sp.line.role)} ${pills(sp.types)} <span class="ubAb">${ic("star")} Bestien-Boost</span></div>
    <div class="rbtns" style="margin-top:12px"><button class="pri hot" id="ubTake" ${free<0?"disabled":""}>${ic("ub")} ULTRABALL WERFEN</button><button class="btn" id="ubSkip">${ic("coin")} Verzichten: +${UB.gold} Gold</button></div></div>`,"narrow");
-  $("mbox").querySelector(".ubMon").appendChild(centerSpr(spriteEl(e.sp,"",{shiny:!!e.shiny})));
+  $("mbox").querySelector(".ubMon").appendChild(centerSpr(spriteEl(e.sp,"",{shiny:e.shiny==="a"?"a":!!e.shiny})));
   $("ubTake").onclick=()=>{if(take()){closeModal();cb&&cb();}};$("ubSkip").onclick=()=>{S.gold+=UB.gold;closeModal();render();save();cb&&cb();};hydrateIcons($("mbox"));bsBind(draw);};draw();}
 /* Ereignis „Ultrapforte“: eine zufällige Ultra-Bestie schließt sich an */
 function ultraEvent(free){const L=pick(ubLines()),sp=L.stages[0][0];if(free>=0){S.bench[free]=mkUnit(sp);dexUp(sp,d=>{d.seen++;d.owned++;});toast(`Aus der Ultrapforte: ${L.stages[0][1]} schließt sich an!`,"ub");}else{S.gold+=COST[L.tier];toast("Bank voll: stattdessen Gold","coin");}}
@@ -19773,7 +19817,7 @@ function branchPick(u,q,done){const L=SPECIES[u.sp].line,base=(typeof brBase==="
   const card=id=>{const s=SPECIES[id],role=s.role||L.role,R=ROLES[role],mv=movesFor(id,0),ab=abilOf(id);
     return `<button class="brOpt" data-id="${id}" style="--rc:${R.col}"><span class="brPic"></span><b>${esc(s.name)}</b><span class="brTy">${pills(s.types)}</span>${roleTag(role)}<small>${ic("star")} ${esc(mv.ab.n)}</small>${ab&&ABIL[ab]?`<small class="brAb">${esc(ABIL[ab].n)}</small>`:""}</button>`;};
   openModal(`<div class="brPick"><h2>${ic("merge")} ${esc(base.name.toUpperCase())} ENTWICKELT SICH!</h2><div class="lead">Wähle, wozu sich <b>${esc(base.name)}</b> entwickeln soll. Die Wahl ist dauerhaft.</div><div class="brRow n${opts.length}">${opts.map(card).join("")}</div></div>`,"brM n"+opts.length);
-  $("mbox").querySelectorAll(".brOpt").forEach(b=>{b.querySelector(".brPic").appendChild(centerSpr(spriteEl(+b.dataset.id,"",{shiny:!!u.shiny})));
+  $("mbox").querySelectorAll(".brOpt").forEach(b=>{b.querySelector(".brPic").appendChild(centerSpr(spriteEl(+b.dataset.id,"",{shiny:u.shiny==="a"?"a":!!u.shiny})));
     b.onclick=()=>{const id=+b.dataset.id;u.sp=id;delete u.brPick;dexUp(id,d=>{d.seen++;d.owned++;if(u.shiny)d.shiny=(d.shiny||0)+1;});
       try{const st=META.stats||(META.stats={});st.evoBr=st.evoBr||{};st.evoBr[id]=(st.evoBr[id]||0)+1;saveMeta();}catch(e){}
       sfx("pop");closeModal();save();render();if(done)done();};});}
@@ -20284,7 +20328,7 @@ function fameOpen(){try{const bst=Object.keys(REGIONS).every(rk=>!bstMissing(rk)
 function fameMeta(){META.fame=META.fame||{g:0,n:null,f:null};const F=META.fame;F.g=Math.max(0,F.g|0);const L=fameLevel(F.g).L;if(F.n&&!fameNames(L).includes(F.n))F.n=null;{const fr=fameFrames(L);if(F.f&&!fr.includes(F.f))F.f=fr.includes(F.f+"+")?F.f+"+":null;}const fx=fameFxs(L);if(F.e===undefined)F.e=fx.length?fx[fx.length-1]:null;if(F.e&&!fx.includes(F.e))F.e=null;return F;}
 /* Name mit Ruhm-Farbe; c = bereinigte Kampfkarte (oder null) */
 function fameNameHtml(name,c){const k=c&&c.fn&&FAME_C[c.fn]?c.fn:null;return k?`<span class="fmN fn-${k}">${esc(name)}</span>`:esc(name);}
-function fameRowK(card){try{const c=card&&typeof cardClean==="function"?cardClean(card):null,k=c&&c.ff;if(!k||!(k.endsWith("+")||k==="legende"))return null;const t=k==="legende"?FAME_LEG:FAME_T.find(x=>x.k===k.slice(0,-1));return t?{k,t}:null;}catch(e){return null;}}
+function fameRowK(card){try{const c=card&&typeof cardClean==="function"?cardClean(card):null,k=c&&(typeof c.fb==="string"?c.fb:c.ff);if(!k||!(k.endsWith("+")||k==="legende"))return null;const t=k==="legende"?FAME_LEG:FAME_T.find(x=>x.k===k.slice(0,-1));return t?{k,t}:null;}catch(e){return null;}}
 function fameRowA(card){const r=fameRowK(card);return r?` data-fr="${r.k==="legende"?"leg":"p"}" style="--fc:${r.t.c};--fd:${r.t.d}"`:"";}
 function fameRowI(card){const r=fameRowK(card);return r?`<i class="tcFr lbFr ${r.k==="legende"?"leg":"plus"}"><s></s><s></s><s></s><s></s></i>`:"";}
 /* v1.41.0: Neue Perks → Ruhm einmalig zurückgesetzt, eingezahlte Edelsteine voll zurück (ohne neuen Zeitstempel, damit der Cloud-Abgleich nicht kippt) */
@@ -20330,6 +20374,7 @@ function fameTabHtml(){const O=fameOpen();
      ${lv.next?`<div class="fmInv"><span>Einzahlen:</span>${[50,100,500].map(v=>`<button class="gemBtn" data-fmi="${v}" ${META.gems<1?"disabled":""}>${ic("gem")}${v}</button>`).join("")}<button class="gemBtn" data-fmi="next" ${META.gems<1?"disabled":""}>${ic("gem")}bis ${esc(fameName_(L+1))}</button></div>`:""}</div></div>
    <div class="fmPick"><div><h5>NAMENSFARBE</h5><div class="fmOpts"><button class="fmO${!F.n?" on":""}" data-fmn="">Normal</button>${nm.map(k=>`<button class="fmO${F.n===k?" on":""}" data-fmn="${k}"><span class="fmN fn-${k}">${esc(me)}</span></button>`).join("")||`<small class="fmNo">ab Topas I</small>`}</div></div>
      <div><h5>KARTENRAND</h5><div class="fmOpts"><button class="fmO${!F.f?" on":""}" data-fmf="">Keiner</button>${fr.map(k=>{const b=k.replace("+",""),t=FAME_C[b];return `<button class="fmO fmFrO${F.f===k?" on":""}" data-fmf="${k}" style="--fc:${t.c};--fd:${t.d}"><i class="fmSw${k.endsWith("+")?" plus":""}${b==="legende"?" leg":""}"></i>${t.n}${k.endsWith("+")?" ✦":""}</button>`;}).join("")||`<small class="fmNo">ab Topas III</small>`}</div>
+       <h5 class="fmH2">BESTENLISTE-RAND</h5><div class="fmOpts"><button class="fmO fmBO${F.b==null?" on":""}" data-fmb="=">Wie Kartenrand</button><button class="fmO fmBO${F.b===""?" on":""}" data-fmb="">Keiner</button>${fr.filter(k=>k.endsWith("+")||k==="legende").map(k=>{const b0=k.replace("+",""),t=FAME_C[b0];return `<button class="fmO fmFrO fmBO${F.b===k?" on":""}" data-fmb="${k}" style="--fc:${t.c};--fd:${t.d}"><i class="fmSw plus${b0==="legende"?" leg":""}"></i>${t.n} ✦</button>`;}).join("")}</div>
        <h5 class="fmH2">RANG-EFFEKT</h5><div class="fmOpts"><button class="fmO${!F.e?" on":""}" data-fme="">Keiner</button>${fx.map(k=>`<button class="fmO fmFxO${F.e===k?" on":""}" data-fme="${k}" style="--fc:${fameFxC(k)}"><i class="fmFxI${k==="legende"?" leg":""}"></i>${esc(FAME_FXN[k]||k)}</button>`).join("")||`<small class="fmNo">ab Topas II</small>`}</div></div>
      <div class="fmCardP">${typeof cardHTML==="function"?cardHTML(cardMine()):""}</div></div>
    <h4 class="cdCat" style="margin-top:14px">Ruhm-Straße</h4><div class="fmRoad">${groups}</div>`;}
@@ -20339,6 +20384,7 @@ function fameBind(){const mb=$("mbox");if(!mb)return;if(typeof cardHydrate==="fu
     saveMeta();refreshGems();labScreen("fame");});
   mb.querySelectorAll("[data-fmn]").forEach(b=>b.onclick=()=>{const F=fameMeta();F.n=b.dataset.fmn||null;saveMeta();sfx("click");labScreen("fame");});
   mb.querySelectorAll("[data-fmf]").forEach(b=>b.onclick=()=>{const F=fameMeta();F.f=b.dataset.fmf||null;saveMeta();sfx("click");labScreen("fame");});
+  mb.querySelectorAll("[data-fmb]").forEach(b=>b.onclick=()=>{const F=fameMeta(),v=b.dataset.fmb;if(v==="=")delete F.b;else F.b=v;saveMeta();sfx("click");try{if(typeof clDirty==="function")clDirty();}catch(e){}labScreen("fame");});
   mb.querySelectorAll("[data-fme]").forEach(b=>b.onclick=()=>{const F=fameMeta();F.e=b.dataset.fme||null;saveMeta();sfx("click");labScreen("fame");});}
 /* v1.51.0.8: Lichtsäulen und VS-Auftritt auch auf der Karte (wie die Aura) */
 function famePilC(c){if(!fameFxOn(c,"saphir"))return "";const leg=fameFxK(c)==="legende",col=fameFxC("saphir");
@@ -21362,6 +21408,54 @@ Object.assign(CARD_BG.drache,{html:`<i class="dr5Sky"></i><i class="dr5Sun"></i>
   <path d="M62 84 L66 79 L70 84 L66 88Z" fill="#3a8aff" stroke="#0a2a6a" stroke-width=".3"/><path d="M14 88 L17 84 L20 88 L17 91Z" fill="#ff2a5a" stroke="#6a0018" stroke-width=".3"/><path d="M86 88 L89 85 L92 88 L89 91Z" fill="#18c070" stroke="#04402a" stroke-width=".3"/></svg>
  ${_spk(9,78,96,["#ffffff","#fff2b0","#ffd23f"],1.4,2.6)}${_ups(14,["#ffb03a","#ff7a1a","#ffd36a"],.3,.8,4,7,4,96,";--g:5px")}<i class="dr5Heat"></i>`});
 
+/* ================= v1.55.0: Aurora-Wochenende, Aurora-Sammlung, Hintergrund „Polarlichtsee“ ================= */
+/* Aurora-Wochenende: Freitag 18:00 bis Sonntag 23:59 (deutsche Zeit) gibt es Aurora 1,5-mal so oft */
+function aurBerlin(){try{const p=new Intl.DateTimeFormat("de-DE",{timeZone:"Europe/Berlin",weekday:"short",hour:"numeric",minute:"numeric",hour12:false}).formatToParts(new Date()),g=t=>(p.find(x=>x.type===t)||{}).value||"";
+  return {wd:g("weekday").slice(0,2),h:(+g("hour"))%24,m:+g("minute")};}catch(e){return null;}}
+function aurWeekend(){const b=aurBerlin();if(!b)return false;return b.wd==="Sa"||b.wd==="So"||(b.wd==="Fr"&&b.h>=18);}
+function aurRate(){return AUR_RATE*(aurWeekend()?AUR_WK:1);}
+/* Minuten bis Sonntag 24:00 */
+function aurWkLeft(){const b=aurBerlin();if(!b||!aurWeekend())return 0;const d={Fr:2,Sa:1,So:0}[b.wd]||0;return d*1440+(24-b.h)*60-b.m;}
+function aurWkFmt(min){const d=Math.floor(min/1440),h=Math.floor(min%1440/60),m=min%60;return d?`${d} T ${h} Std`:h?`${h} Std ${m} Min`:`${m} Min`;}
+function aurWkBanner(){try{const w=document.querySelector("#menu .mwrap"),who=$("menuWho");if(!w||!who)return;let el=$("aurWk");
+  if(!aurWeekend()){if(el)el.remove();return;}
+  if(!el){el=document.createElement("div");el.id="aurWk";who.insertAdjacentElement("afterend",el);}
+  el.innerHTML=`<i class="awSh"></i>${ic("shiny")}<b>AURORA-WOCHENENDE</b><span>Aurora 1,5-mal so oft</span><em>noch ${aurWkFmt(aurWkLeft())}</em>`;try{hydrateIcons(el);}catch(e){}}catch(e){}}
+setInterval(()=>{try{if($("menu")&&$("menu").classList.contains("show"))aurWkBanner();}catch(e){}},30000);
+
+/* Aurora-Sammlung: verschiedene Arten als Aurora gefangen → Belohnungen (werden automatisch gutgeschrieben) */
+const AUR_COL=[{n:5,gems:100},{n:15,gems:400},{n:30,gems:800},{n:50,bg:"polarsee"}];
+function aurArten(){try{const D=(META&&META.dex)||{};let n=0;for(const k in D){const d=D[k];if(d&&(d.aur|0)>0&&SPECIES[k])n++;}return n;}catch(e){return 0;}}
+function aurColCheck(){try{if(!META||typeof USER==="undefined"||!USER)return;const n=aurArten();let c=META.aurCol|0,got=0;
+  while(c<AUR_COL.length&&n>=AUR_COL[c].n){const R=AUR_COL[c];c++;META.aurCol=c;
+    if(R.gems){META.gems=(META.gems|0)+R.gems;got+=R.gems;}
+    if(R.bg){setTimeout(()=>{try{toast(`Aurora-Sammlung: Hintergrund „${CARD_BG[R.bg].n}“ freigeschaltet!`,"shiny");}catch(e){}},1600);}}
+  if(c!==(META.aurCol|0)||got){saveMeta();try{refreshGems();}catch(e){}}
+  if(got)setTimeout(()=>{try{toast(`Aurora-Sammlung: +${got.toLocaleString("de-DE")} Edelsteine`,"gem");sfx("coin");}catch(e){}},900);}catch(e){}}
+function aurColHTML(){const n=aurArten(),c=AUR_COL.findIndex(R=>n<R.n),nx=c<0?null:AUR_COL[c],pv=c<=0?0:AUR_COL[c-1].n;
+  const pct=nx?Math.max(0,Math.min(100,(n-pv)/(nx.n-pv)*100)):100,rw=R=>R.gems?`${R.gems.toLocaleString("de-DE")} ${ic("gem")}`:`Hintergrund „${esc(CARD_BG[R.bg].n)}“`;
+  return `<div class="acBox"><div class="acHd">${ic("shiny")}<b>AURORA-SAMMLUNG</b><span><b>${n}</b> verschiedene Arten</span></div>
+   <div class="acBar"><i style="width:${pct.toFixed(1)}%"></i></div><small class="acNx">${nx?`Noch ${nx.n-n} bis: ${rw(nx)}`:"Alles gesammelt!"}</small>
+   <div class="acSt">${AUR_COL.map(R=>`<span class="${n>=R.n?"ok":""}"><em>${R.n}</em>${rw(R)}${n>=R.n?ic("check"):""}</span>`).join("")}</div></div>`;}
+function aurColPanel(){try{const el=$("dxAurC");if(!el)return;if(typeof DEXV==="undefined"||DEXV.shy!==2){el.innerHTML="";el.style.display="none";return;}el.style.display="";el.innerHTML=aurColHTML();try{hydrateIcons(el);}catch(e){}}catch(e){}}
+try{const _dr=dexRender;dexRender=function(){const r=_dr.apply(this,arguments);aurColPanel();return r;};}catch(e){}
+try{const _sm=showMenu;showMenu=function(){const r=_sm.apply(this,arguments);try{aurColCheck();aurWkBanner();}catch(e){}return r;};}catch(e){}
+
+/* ---------- Hintergrund „Polarlichtsee“ (★5, 50 verschiedene Aurora-Pokémon): Aurora-Farben, Spiegelsee, Eisschollen ---------- */
+const _psA55=(cls,seed,c1,c2,y0)=>{const R=_rnd(seed),pts=[];for(let i=0;i<=10;i++)pts.push([i*10,y0+(R()-.5)*22]);
+  const top="M"+pts.map(p=>p[0]+" "+_f1(p[1])).join(" L"),back=pts.slice().reverse().map(p=>p[0]+" "+_f1(p[1]+30+R()*12)).join(" L");
+  return `<svg class="ps5A ${cls}" viewBox="0 0 100 100" preserveAspectRatio="none"><defs>${_lg("psa"+cls,[[0,c1,0],[.12,c1,1],[.5,c2,.8],[1,c2,0]])}</defs><path d="${top} L${back}Z" fill="url(#g_psa${cls})"/></svg>`;};
+const _psFloe55=(x,y,w,s)=>`<svg class="ps5F" viewBox="0 0 40 12" style="--x:${x}%;--y:${y}%;--w:${w}cqw;--d:${s}s"><path d="M2 6 L8 2 L22 1 L34 3 L39 7 L30 10 L12 11 L4 9Z" fill="#dff4ff"/><path d="M2 6 L8 2 L22 1 L34 3 L39 7" fill="none" stroke="#ff9ae8" stroke-width=".8" opacity=".8"/><path d="M4 9 L12 11 L30 10 L39 7 L39 9 L30 12 L12 12.5 L4 11Z" fill="#7ab8e0" opacity=".7"/></svg>`;
+CARD_BG.polarsee={n:"Polarlichtsee",lv:5,ld:"Aurora-Sammlung: 50 verschiedene Aurora-Pokémon",lock:()=>aurArten()>=50,
+ html:`<i class="ps5Sky"></i><i class="ps5Glow"></i>${_stars(34,0,48,["#ffffff","#ffd6ff","#c8fff6"],.2,.6)}<i class="ps5Moon"></i>
+ ${_psA55("a1",71,"#5af0e0","#8a3ae0",22)}${_psA55("a2",72,"#ff6ac8","#8a3ae0",30)}${_psA55("a3",73,"#c89aff","#46e6d8",38)}
+ <svg class="bgSvg" viewBox="0 0 100 100" preserveAspectRatio="none">${_mtn("ps1",1701,56,7,6,20,[[0,"#6a5aa8"],[.35,"#2a1e58"],[1,"#120a2a"]],"#ffb8f0",.55,.3,1.2,2.4)}</svg>
+ <i class="ps5Lake"><i class="ps5Ref">${_psA55("r1",71,"#5af0e0","#8a3ae0",22)}${_psA55("r2",72,"#ff6ac8","#8a3ae0",30)}</i><i class="ps5Rip"></i></i>
+ <svg class="bgSvg" viewBox="0 0 100 100" preserveAspectRatio="none"><g fill="#0a0618">${'<path d="'+_pines(1711,9,-4,22,58,62,8,17)+'"/><path d="'+_pines(1712,9,78,104,57,62,8,18)+'"/>'}</g>
+  <path d="M-5 100 L-5 86 Q20 82 50 84 Q80 82 105 86 L105 100Z" fill="#0c0820"/><path d="M-5 86 Q20 82 50 84 Q80 82 105 86" fill="none" stroke="#c8fff6" stroke-opacity=".5" stroke-width="1" vector-effect="non-scaling-stroke"/></svg>
+ ${_psFloe55(18,70,16,7)}${_psFloe55(70,74,20,9)}${_psFloe55(44,66,10,8)}
+ ${_spk(8,8,60,["#ffffff","#ffd6ff","#c8fff6"],1.2,2.4)}${_ups(10,["#ff9ae8","#7af0e0","#d6b8ff"],.3,.7,5,8,6,94,";--g:5px")}`};
+
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
 /* ================================ KAMPF: 2 ATTACKEN + EIGENE KI ================================ */
@@ -21389,7 +21483,7 @@ function fighter(u,side,x,y,cnt){
     if(hasRelic("claw"))f.as*=1.15;if(hasRelic("leftovers"))f.regen+=.015;if(hasRelic("expert"))f.expert+=.6;if(hasRelic("scope")){f.manaMax=Math.round(f.manaMax*.7);f.mana+=Math.round(f.manaMax*.25);}if(hasRelic("stardust")&&f.L.tier>=4){f.maxhp*=1.3;f.atk*=1.3;}else if(hasRelic("stardust")&&f.L.tier===3){f.maxhp*=1.12;f.atk*=1.12;}if(hasRelic("banner")){f.atk*=1.08;f.def*=1.08;}if(hasRelic("critlens"))f.crit=(f.crit||0)+.1;if(hasRelic("vampir"))f.ls=(f.ls||0)+.08;
     if(f.role==="support"&&perk("s_support"))f.heal+=.35;if(f.role==="assassin"&&perk("s_assassin"))f.ambush=true;if(f.role==="mage"&&perk("g_mage"))f.manaMax=Math.max(1,Math.round(f.manaMax*.9));
   }
-  if(u&&u.shiny==="a"){f.maxhp*=AUR_MUL;f.atk*=AUR_MUL;f.def*=AUR_MUL;f.aur=1;}
+  if(u&&u.shiny==="a"){f.maxhp*=AUR_MUL;f.atk*=AUR_MUL;f.def*=AUR_MUL;f.aur=1;}else if(u&&u.shiny){f.maxhp*=SHY_MUL;f.atk*=SHY_MUL;f.def*=SHY_MUL;}
   if(typeof twFx==="function")twFx(f);if(f.role==="mage")f.mana+=15;if(f.role==="stoerer")f.mana+=10;f.mana=Math.min(f.manaMax*2,f.mana);f.maxhp=Math.round(f.maxhp);f.hp=f.maxhp;f.shield=f.maxhp*f.shieldStart*f.shMul;return f;
 }
 function startBattle(){
@@ -21704,7 +21798,7 @@ function startMegas(){
   const q=[megaCand("mine"),megaCand("enemy")].filter(Boolean);if(!q.length)return false;B.pause=true;
   const next=()=>{const f=q.shift();if(!f||!B){if(B){B.pause=false;B.holdT=.4;}return;}const mf=megaForm(f.u.sp,f.role,f.u.megaF),boss=BOSSES[S.round];
     const cine=typeof playMega==="function"&&!window.__fast&&tab==="raster"&&!(typeof animSkip==="function"&&animSkip("mega"));if(cine){setTimeout(()=>{if(document.querySelector(".cine-mega"))sfx("megaCharge");},1150);setTimeout(()=>{if(document.querySelector(".cine-mega"))sfx("megaBurst");},3250);}
-    const run=cine?playMega({base:sprKey(f.u.sp,f.u.shiny),mega:sprKey(f.u.sp,f.u.shiny,mf.k),name:f.sp.name,megaName:mf.n,side:f.side,wild:f.side==="enemy"&&f.L.leg,color:TYPES[mf.types[0]][1],trainer:f.side==="mine"?(USER||"Du"):(boss?boss.name:S.enc&&S.enc.name)},$("arena")):Promise.resolve();
+    const run=cine?playMega({base:(f.u.shiny==="a"?"a:":"")+sprKey(f.u.sp,f.u.shiny),mega:(f.u.shiny==="a"?"a:":"")+sprKey(f.u.sp,f.u.shiny,mf.k),name:f.sp.name,megaName:mf.n,side:f.side,wild:f.side==="enemy"&&f.L.leg,color:TYPES[mf.types[0]][1],trainer:f.side==="mine"?(USER||"Du"):(boss?boss.name:S.enc&&S.enc.name)},$("arena")):Promise.resolve();
     run.catch(()=>{}).then(()=>{if(!B)return;applyMega(f,mf);setTimeout(next,window.__fast?0:250);});};
   next();return true;}
 function applyMega(f,mf){if(!mf)return;
@@ -21986,7 +22080,7 @@ function vsSplash(cb){
   if(ghost&&!gc&&typeof geistCardOf==="function"){const t0=Date.now(),iv=setInterval(()=>{if(!vs.classList.contains("show")||Date.now()-t0>vsSec*1000){clearInterval(iv);return;}const c=geistCardOf(enc.ghost);if(!c)return;clearInterval(iv);
     const bgE=vs.querySelector(".v4RBg"),bE=vs.querySelector("#v4GhB"),sm=vs.querySelector(".v4P.R small");if(bgE)bgE.innerHTML=bgHTML(c.bg);if(bE)bE.innerHTML=bdg(c);if(sm&&c.title)sm.textContent=c.title;
     try{if(typeof cardHydrate==="function"){if(bgE)cardHydrate(bgE);if(bE)cardHydrate(bE);}}catch(e){}},150);}
-  const putFav=(sel,id,sh,fl,mk)=>{const b=vs.querySelector(sel);if(b)try{const im=natFit(spriteEl(SPECIES[id]?id:25,"",{shiny:!!sh,mega:SPECIES[id]&&mk?mk:undefined}),1);b.appendChild(typeof sprAlign==="function"?sprAlign(im,fl):im);}catch(e){}};
+  const putFav=(sel,id,sh,fl,mk)=>{const b=vs.querySelector(sel);if(b)try{const im=natFit(spriteEl(SPECIES[id]?id:25,"",{shiny:sh===2||sh==="a"?"a":!!sh,mega:SPECIES[id]&&mk?mk:undefined}),1);b.appendChild(typeof sprAlign==="function"?sprAlign(im,fl):im);}catch(e){}};
   putFav(".v4Fav.L .bob",me.fav,me.favSh,true,me.favM);if(S.duel)putFav(".v4Fav.R .bob",op.fav,op.favSh,false,op.favM);
   vs.querySelectorAll(".v4m .sp[data-k]").forEach(e=>{const u=show[+e.dataset.k];if(u)try{e.appendChild(natFit(spriteEl(u),1));}catch(x){}});
   $("bMine").textContent=(USER||"DU").toUpperCase();$("bMineS").textContent=`${boardUnits().length} Pokémon`;$("bEnemy").textContent=(S.duel?op.name:boss?boss.name:enc.name).toUpperCase();$("bEnemyS").textContent=S.duel?"Live-Duell":(ec&&ec.team&&ec.team[2]?ec.team[0]:D.n)+(S.revanche?" · Revanche":"");
@@ -22000,7 +22094,7 @@ function megaWarm(){try{const us=[...boardUnits(),...(S.enemies||[])].filter(u=>
 function cryptoCount(){S.purQ=S.purQ||[];for(const u of allUnits())if(u&&u.crypto>0){u.crypto--;if(u.crypto<=0){delete u.crypto;try{autoSpec(u);}catch(e){}
   const gl=GIFTS.filter(x=>x.id!=="g_slot"&&!(u.gifts||[]).includes(x.id)),g=gl.length?pick(gl):null;if(g)u.gifts=(u.gifts||[]).concat(g.id);
   let sec=null,g2=null;if(!u.secret){sec=pick(Object.keys(SECRETS));u.secret=sec;}else{const gl2=GIFTS.filter(x=>x.id!=="g_slot"&&!(u.gifts||[]).includes(x.id));g2=gl2.length?pick(gl2):null;if(g2)u.gifts.push(g2.id);}
-  META.stats=META.stats||{};META.stats.purified=(META.stats.purified||0)+1;u.pure=1;S.purQ.push({uid:u.uid,sp:u.sp,shiny:!!u.shiny,g:g&&g.id,g2:g2&&g2.id,sec});}}}
+  META.stats=META.stats||{};META.stats.purified=(META.stats.purified||0)+1;u.pure=1;S.purQ.push({uid:u.uid,sp:u.sp,shiny:u.shiny==="a"?"a":!!u.shiny,g:g&&g.id,g2:g2&&g2.id,sec});}}}
 function purifyShow(cb){const q=S&&S.purQ;if(!q||!q.length||window.__autoPick){if(S)S.purQ=[];cb&&cb();return;}const e=q.shift();save();const sp=SPECIES[e.sp],G=id=>GIFTS.find(x=>x.id===id);
   const rows=[e.g&&G(e.g)?`<div class="purR">${ic("gift")}<b>Fusionsgabe:</b> ${G(e.g).n}<small>${G(e.g).d||""}</small></div>`:"",e.g2&&G(e.g2)?`<div class="purR">${ic("gift")}<b>Fusionsgabe:</b> ${G(e.g2).n}<small>${G(e.g2).d||""}</small></div>`:"",e.sec?`<div class="purR sec">${ic(SECRETS[e.sec].ic)}<b>Geheime Fähigkeit:</b> ${SECRETS[e.sec].n}<small>${SECRETS[e.sec].d}</small></div>`:""].join("");
   openModal(`<div class="purScene"><div class="purPic"><i class="purDark"></i><i class="purLight"></i><span class="purMon"></span></div><h2>${ic("heart")} ERLÖSUNG!</h2><div class="lead">Das Herz von <b>${sp.name}</b> hat sich geöffnet! Die dunkle Energie ist verschwunden und ${sp.name} kämpft jetzt aus eigener Kraft.</div><div class="purRows">${rows}</div><button class="pri" id="purGo" style="margin-top:14px">${ic("check")} WEITER</button></div>`,"narrow purM");
