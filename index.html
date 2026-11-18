@@ -5310,6 +5310,25 @@ img.aur,.card .pic img.aur,.u img.aur{filter:url(#aurF) drop-shadow(0 0 2px rgba
 @media (prefers-reduced-motion:reduce){.tcBg [class^="ps5"],.tcBg [class^="ps5"] *{animation:none!important}}
 /* Bestenlisten-Rand: eigene Zeile im Ruhm */
 .fmPick .fmO.fmBO{opacity:.95}
+/* v1.56.0 w56 */
+/* ================= v1.56.0: Abgrund-Wochenturnier ================= */
+.chCard.ab .abwRow{margin-top:9px;padding-top:9px;border-top:1px dashed rgba(255,59,107,.35);display:flex;flex-direction:column;gap:7px}
+.chCard.ab .abwRow>span{display:flex;flex-direction:column;gap:1px}.chCard.ab .abwRow small{font-size:9px;letter-spacing:.5px;color:#ff8aa8;font-family:var(--px)}.chCard.ab .abwRow b{color:#fff;font-size:13px}
+.chCard.ab .abwRow .chB .pri{background:linear-gradient(180deg,#8a1a4a,#5a0c30);border-color:#ff3b6b;color:#fff}
+#mbox.abwM{width:min(560px,calc(94*var(--vw,1vw)))}
+.abwMe{margin:10px 0;padding:8px 10px;border-radius:8px;background:rgba(255,59,107,.12);border:1px solid rgba(255,59,107,.35);font-size:13px;display:flex;align-items:center;gap:6px}.abwMe svg{width:14px;height:14px}
+.abwL{display:flex;flex-direction:column;gap:5px;max-height:min(calc(52*var(--vh,1vh)),460px);overflow:auto}
+.abwR{display:grid;grid-template-columns:28px 1fr auto auto;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;background:rgba(255,255,255,.04)}
+.abwR b{font-family:var(--px);font-size:11px;color:#c8bcd8;text-align:center}.abwR span{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.abwR em{font-style:normal;color:#ffb3c4;font-size:13px}
+.abwR small{font-size:11px;color:var(--gem);display:flex;align-items:center;gap:3px}.abwR small svg{width:11px;height:11px}
+.abwR.t1{background:linear-gradient(90deg,rgba(255,210,63,.22),rgba(255,255,255,.03))}.abwR.t1 b{color:#ffd23f}.abwR.t2{background:linear-gradient(90deg,rgba(214,221,232,.18),rgba(255,255,255,.03))}.abwR.t3{background:linear-gradient(90deg,rgba(217,138,74,.2),rgba(255,255,255,.03))}
+.abwR.me{outline:2px solid #ff3b6b}
+.abwRw{display:block;margin-top:10px;color:#b9a3b0;font-size:12px}
+/* Schillernd-Sammlung im Pokédex */
+.acBox.shy{background:linear-gradient(135deg,rgba(255,210,63,.18),rgba(255,160,40,.1) 50%,rgba(255,255,255,.04));border-color:rgba(255,210,63,.5)}
+.acBox.shy .acHd>svg{color:#ffd23f}.acBox.shy .acHd>b{color:#ffe68a}
+.acBox.shy .acBar i{background:linear-gradient(90deg,#c8901a,#ffd23f,#fff2b0);box-shadow:0 0 8px rgba(255,210,63,.6)}
+.acBox.shy .acSt span.ok{background:linear-gradient(90deg,rgba(200,144,26,.55),rgba(255,210,63,.3))}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -8784,7 +8803,7 @@ let USER=null,META=null;
 const accounts=()=>LS.get("pokelings_accounts",{});
 const userKey=n=>n.trim().toLowerCase();
 const metaKey=u=>"pokelings_v5_meta_"+(u?userKey(u):"_gast");
-const saveKey=k=>"pokelings_v7_save_"+(USER?userKey(USER):"_gast")+(((k||window.__svK||(typeof S!=="undefined"&&S&&S.abyss?"ab":"sp"))==="ab")?"_abgrund":"");
+const saveKey=k=>"pokelings_v7_save_"+(USER?userKey(USER):"_gast")+((kk=>kk==="ab"?"_abgrund":kk==="abw"?"_abgrundw":"")(k||window.__svK||(typeof S!=="undefined"&&S&&S.abyss?(S.abyss.week?"abw":"ab"):"sp")));
 function newMeta(){return{gems:0,gemsTotal:0,perks:{},unlocked:LINES.filter(L=>L.start).map(L=>L.k),dex:{},runs:[],best:{},champs:{},games:0,wins:0,losses:0,v:6};}
 function loadMeta(u){
   const m=LS.get(metaKey(u),null)||newMeta();const d=newMeta();for(const k in d)if(m[k]===undefined)m[k]=d[k];
@@ -15606,6 +15625,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Feinschliff": "Polish", "Granforgi
 if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund-Fix": "Abyss fix", "Abgrund: Wer nach einem verlorenen Abstieg „Neuer Abstieg“ wählt und die Auswahl schließt, landet wieder im Hauptmenü statt in einem leeren Raster.": "Abyss: choosing “New descent” after a lost run and then closing the draft now returns you to the main menu instead of an empty grid."});
 /* v1.55.0 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Aurora & Ruhm": "Aurora & Fame", "Aurora-Pokémon sind seltener geworden: Sie kommen jetzt viermal seltener als Schillernde (vorher halb so oft). Beim Fusionieren bleiben sie weiter zu 90 % erhalten.": "Aurora Pokémon are rarer now: they appear four times less often than shinies (previously half as often). They still stay Aurora with 90 % when fusing.", "Aurora-Wochenende: Von Freitag 18 Uhr bis Sonntag 23:59 gibt es Aurora 1,5-mal so oft. Ein Banner im Hauptmenü zeigt, wie lange es noch läuft.": "Aurora weekend: from Friday 6 pm until Sunday 11:59 pm Aurora shows up 1.5 times as often. A banner in the main menu shows how long it lasts.", "Aurora-Sammlung im Pokédex (Ansicht „Aurora“): Für 5, 15 und 30 verschiedene Aurora-Pokémon gibt es Edelsteine, für 50 den neuen Hintergrund „Polarlichtsee“.": "Aurora collection in the Pokédex (“Aurora” view): 5, 15 and 30 different Aurora Pokémon give gems, 50 unlock the new background “Aurora Lake”.", "Schillernde Pokémon sind jetzt auch stärker: KP, Angriff und Verteidigung ×1,25. Aurora bleibt bei ×1,5.": "Shiny Pokémon are now stronger too: HP, Attack and Defense ×1.25. Aurora stays at ×1.5.", "Aurora-Pokémon werden jetzt überall in Aurora-Farben gezeigt, auch im Fusions-Fenster, bei der Entwicklung, im VS-Bildschirm und im Pokédex.": "Aurora Pokémon now show their Aurora colours everywhere, including the fusion window, evolutions, the VS screen and the Pokédex.", "Ruhm: Neue Auswahl „Bestenliste-Rand“. Du kannst festlegen, welcher verzierte Rand in der Bestenliste erscheint, unabhängig vom Kartenrand.": "Fame: new option “Leaderboard frame”. Choose which ornate frame appears on the leaderboard, independent of your card frame.", "Forgita, Tafforgita und Granforgita stehen jetzt mittig auf ihrem Feld und auf der Trainerkarte, statt vom großen Hammer verschoben zu werden.": "Tinkatink, Tinkatuff and Tinkaton now stand centred on their tile and on the trainer card instead of being pushed aside by their huge hammer.", "Polarlichtsee": "Aurora Lake", "Aurora-Sammlung: 50 verschiedene Aurora-Pokémon": "Aurora collection: 50 different Aurora Pokémon", "AURORA-SAMMLUNG": "AURORA COLLECTION", "verschiedene Arten": "different species", "Alles gesammelt!": "All collected!", "AURORA-WOCHENENDE": "AURORA WEEKEND", "Aurora 1,5-mal so oft": "Aurora 1.5× as often", "BESTENLISTE-RAND": "LEADERBOARD FRAME", "Wie Kartenrand": "Same as card frame", "4× seltener": "4× rarer", "Doppelte Chance auf schillernde und Aurora-Pokémon im Shop.": "Double chance for shiny and Aurora Pokémon in the shop."});
+/* v1.56.0 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Wochen-Abstieg & Abgleich": "Weekly descent & sync", "Neu: Wochen-Abstieg. Jede Woche ein Abgrund für alle gleich, mit demselben Draft-Angebot, denselben Flüchen und demselben Laden. 3 Versuche pro Woche, der beste zählt. Eigene Bestenliste, nach Wochenende gibt es Edelsteine für die Top 10 (250 / 150 / 100, Platz 4–10 je 30).": "New: Weekly descent. Every week one Abyss run that is the same for everyone, with the same draft offer, curses and shop. 3 attempts per week, your best counts. Own leaderboard, and after the week ends the top 10 get gems (250 / 150 / 100, places 4–10 30 each).", "Spielen auf mehreren Geräten: Edelsteine, Abzeichen, Herausforderungen, Missionen, Tages- und Wochenrekorde und der Laufverlauf werden jetzt automatisch zusammengeführt. Nichts geht mehr verloren, auch wenn ein Gerät länger aus war.": "Playing on several devices: gems, badges, challenges, missions, daily and weekly records and your run history are now merged automatically. Nothing gets lost anymore, even if a device was off for a while.", "Schillernd-Sammlung im Pokédex (Ansicht „Schillernd“): Für 25, 75, 150 und 300 verschiedene schillernde Pokémon gibt es Edelsteine. Bereits gesammelte zählen sofort.": "Shiny collection in the Pokédex (“Shiny” view): 25, 75, 150 and 300 different shiny Pokémon give gems. Shinies you already have count right away.", "SCHILLERND-SAMMLUNG": "SHINY COLLECTION", "WOCHEN-ABSTIEG": "WEEKLY DESCENT", "Wochen-Abstieg": "Weekly descent", "DRAFT · WOCHEN-ABSTIEG": "DRAFT · WEEKLY DESCENT", "NÄCHSTER VERSUCH": "NEXT ATTEMPT", "BESTENLISTE": "LEADERBOARD", "Alle Versuche genutzt": "All attempts used", "Bestenliste der Woche": "Weekly leaderboard", "Dein bestes Ergebnis:": "Your best result:", "noch keins": "none yet", "Diese Woche hat noch niemand den Wochen-Abstieg gespielt.": "Nobody has played the weekly descent this week yet.", "Bestenliste gerade nicht erreichbar.": "Leaderboard not reachable right now.", "Kein laufender Wochen-Abstieg": "No weekly descent in progress"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18251,7 +18272,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.55.0",DUEL_HP=30;
+const MP_VER="1.56.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18264,7 +18285,7 @@ const mpName=()=>USER||(window.__gName||(window.__gName="Gast-"+(100+Math.floor(
 
 /* ---------- gleicher Zufall ---------- */
 /* jede Würfel-Aktion bekommt ihren eigenen Zufall aus Tag + Runde + Zähler → für alle Spieler gleich, egal was vorher passiert ist */
-function dseed(fn,tag){if(!S||!S.daily||RNG)return fn();S.dsc=S.dsc||{};const k=(tag||"x")+"|"+S.round,n=S.dsc[k]=(S.dsc[k]||0)+1;RNG=mkRng(strHash(S.daily.seed+"|"+k+"|"+n));try{return fn();}finally{RNG=null;}}
+function dseed(fn,tag){const sd=S&&(S.daily?S.daily.seed:(S.abyss&&S.abyss.week?S.seed:null));if(!S||sd==null||RNG)return fn();S.dsc=S.dsc||{};const k=(tag||"x")+"|"+S.round,n=S.dsc[k]=(S.dsc[k]||0)+1;RNG=mkRng(strHash(sd+"|"+k+"|"+n));try{return fn();}finally{RNG=null;}}
 function rollShop(){return dseed(rollShop0,"shop");}
 function rollPaths(){const r=dseed(rollPaths0,"path");geistInject(true);return r;}
 function starterOpts(n){return dseed(()=>starterOpts0(n),"start");}
@@ -18888,8 +18909,12 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.55.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.56.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.56.0",d:"18.11.2026",t:"Wochen-Abstieg & Abgleich",items:[
+  ["skull", "Neu: Wochen-Abstieg. Jede Woche ein Abgrund für alle gleich, mit demselben Draft-Angebot, denselben Flüchen und demselben Laden. 3 Versuche pro Woche, der beste zählt. Eigene Bestenliste, nach Wochenende gibt es Edelsteine für die Top 10 (250 / 150 / 100, Platz 4–10 je 30)."],
+  ["dex", "Schillernd-Sammlung im Pokédex (Ansicht „Schillernd“): Für 25, 75, 150 und 300 verschiedene schillernde Pokémon gibt es Edelsteine. Bereits gesammelte zählen sofort."],
+  ["wifi", "Spielen auf mehreren Geräten: Edelsteine, Abzeichen, Herausforderungen, Missionen, Tages- und Wochenrekorde und der Laufverlauf werden jetzt automatisch zusammengeführt. Nichts geht mehr verloren, auch wenn ein Gerät länger aus war."]]},
  {v:"1.55.0",d:"18.11.2026",t:"Aurora & Ruhm",items:[
   ["shiny", "Aurora-Pokémon sind seltener geworden: Sie kommen jetzt viermal seltener als Schillernde (vorher halb so oft). Beim Fusionieren bleiben sie weiter zu 90 % erhalten."],
   ["shiny", "Aurora-Wochenende: Von Freitag 18 Uhr bis Sonntag 23:59 gibt es Aurora 1,5-mal so oft. Ein Banner im Hauptmenü zeigt, wie lange es noch läuft."],
@@ -20927,14 +20952,14 @@ function abLoadRegs(ks){try{return Promise.all(abRegsOf(ks).map(r=>typeof __sprL
 /* Vorbereitung vor dem Lauf (über dem Hauptmenü): Draft → Startpartner → Flüche → „Abstieg starten“. Erst dann wird der Lauf angelegt. */
 const ABP={d:null};
 /* v1.50.0: Draft-Angebot, Neu-Würfeln und Flüche werden einmal festgelegt und gespeichert (Fenster zu oder F5 = dasselbe Angebot); das Angebot fürs Neu-Würfeln liegt schon bereit */
-function abPrepSave(){try{const P=ABP.d,A=abMeta();if(!P)return;A.pre={offer:P.offer,next:P.next||null,rr:P.rr,curses:P.curses,sel:[...P.sel]};saveMeta();}catch(e){}}
+function abPrepSave(){try{const P=ABP.d,A=abMeta();if(!P||P.week)return;A.pre={offer:P.offer,next:P.next||null,rr:P.rr,curses:P.curses,sel:[...P.sel]};saveMeta();}catch(e){}}
 function abPrep(){const A=abMeta(),q=A.pre;
   if(q&&Array.isArray(q.offer)&&q.offer.length&&q.offer.every(k=>abLine(k))){ABP.d={offer:q.offer,next:Array.isArray(q.next)&&q.next.every(k=>abLine(k))?q.next:null,rr:q.rr|0,curses:Array.isArray(q.curses)?q.curses.slice(0,AB.start):[],sel:new Set((q.sel||[]).filter(k=>q.offer.includes(k))),starter:null};return ABP.d;}
   const R=mkRng(strHash(Date.now()+"|"+Math.random()));const curses=[];for(let i=0;i<AB.start;i++){const c=abRollCurse(R,curses);if(c)curses.push(c);}
   ABP.d={offer:abOffer(R),next:AB_DRAFT.rerolls>0?abOffer(mkRng(strHash(Date.now()+"|rr|"+Math.random()))):null,rr:AB_DRAFT.rerolls,curses,sel:new Set(),starter:null};abPrepSave();return ABP.d;}
 /* in newRun0, bevor Shop und erste Runde ausgewürfelt werden: übernimmt Draft, Startpartner und Flüche aus der Vorbereitung */
 function abyssInit(o){const P=o.abyss||{};S.noRev=1;S.poolV2=1;S.poolSel=(P.pool||[]).slice();
-  S.abyss={v:4,curses:(P.curses||[]).slice(),best0:abBest(),ms:[],out:null,pool:(P.pool||[]).slice(),starter:P.starter||null,done:0,gifts:[],pend:[]};
+  S.abyss={v:4,curses:(P.curses||[]).slice(),best0:abBest(),ms:[],out:null,pool:(P.pool||[]).slice(),starter:P.starter||null,done:0,gifts:[],pend:[]};if(P.week){S.abyss.week=P.week;S.seed=P.seed;}
   S.tower={lives:0,kory:0,lost:0,cl:0,k0:Math.floor(Math.random()*KORY.length),t0:Date.now(),runT:0,best0:0,ab:1};}
 function abDraftValid(sel){const a=[...sel].map(abLine);return a.length===AB_DRAFT.pick&&[1,2,3,4,5].every(t=>a.some(L=>L.tier===t))&&a.filter(L=>L.leg).length<=AB_DRAFT.maxLeg;}
 function abDraftModal(){const P=ABP.d;if(!P)return;const sel=P.sel;
@@ -20943,7 +20968,7 @@ function abDraftModal(){const P=ABP.d;if(!P)return;const sel=P.sel;
     const card=k=>{const L=abLine(k),sp=L.stages[0][0],on=sel.has(k),blocked=!on&&(sel.size>=AB_DRAFT.pick||(L.leg&&nLeg>=AB_DRAFT.maxLeg)||(cnt[L.tier]&&free<=missing)),Rr=RAR[L.tier]||RAR[1],sd=SPECIES[sp];
       return `<button class="abDr${on?" on":""}${blocked?" full":""}" data-k="${k}" style="--rc:${Rr.c}"><i class="abDrM" data-sp="${sp}"></i><b>${esc(sd.name)}</b><small>${(sd.types||[]).map(t=>`<em style="background:${TYPES[t][1]}">${TYPES[t][0]}</em>`).join("")}</small><span class="abDrR">${esc((ROLES[L.role]||{}).n||"")} · ${esc((REGIONS[L.region||"kanto"]||{}).n||"")}</span>${on?`<i class="abDrC">${ic("check")}</i>`:""}</button>`;};
     let rows="";for(let t=1;t<=5;t++){const ks=D.filter(k=>abLine(k).tier===t);if(ks.length)rows+=`<h4 class="abDrH" style="color:${RAR[t].c}">${RAR[t].n}<span class="${cnt[t]?"ok":""}">${cnt[t]|0}</span></h4><div class="abDrG">${ks.map(card).join("")}</div>`;}
-    openModal(`<div class="abDraft"><div class="abDrHd"><h2>${ic("skull")} DRAFT · ABGRUND</h2><span class="abDrN"><b>${sel.size}</b>/${AB_DRAFT.pick} gewählt</span></div>
+    openModal(`<div class="abDraft"><div class="abDrHd"><h2>${ic(P.week?"cal":"skull")} ${P.week?"DRAFT · WOCHEN-ABSTIEG":"DRAFT · ABGRUND"}</h2><span class="abDrN"><b>${sel.size}</b>/${AB_DRAFT.pick} gewählt</span></div>
       <div class="lead">Wähle 6 Pokémon-Linien. Nur sie gibt es im Laden, den ganzen Abstieg lang. Aus jeder Seltenheit mindestens eine, höchstens ${AB_DRAFT.maxLeg} Legendäre.</div>${rows}
       <div class="abDrB"><button class="btn" id="abRr"${P.rr>0?"":" disabled"}>${ic("dice")} Neu würfeln (${P.rr}×)</button><span style="flex:1"></span><button class="pri hot" id="abDrGo"${abDraftValid(sel)?"":" disabled"}>${ic("arrow")} Weiter zur Partnerwahl</button></div></div>`,"abDraftM",()=>{try{if((!S||S.phase==="over")&&!$("menu").classList.contains("show"))showMenu();}catch(e){}});
     $("mbox").querySelectorAll(".abDrM[data-sp]").forEach(e=>{try{e.appendChild(natFit(spriteEl(+e.dataset.sp),1));}catch(x){}});
@@ -20954,9 +20979,9 @@ function abDraftModal(){const P=ABP.d;if(!P)return;const sel=P.sel;
     const off=P.offer;if(P.ldOff!==off)abLoadRegs(off).then(()=>{P.ldOff=off;if(P.next)setTimeout(()=>{try{abLoadRegs(P.next);}catch(e){}},300);if(ABP.d!==P||P.offer!==off||!$("abDrGo"))return;const st=$("mbox").scrollTop;draw();$("mbox").scrollTop=st;});};
   draw();}
 /* Nach dem Draft: Lauf anlegen, dann Partnerwahl wie im normalen Lauf (Start-Pokémon aller Regionen), dann Flüche mit „Abstieg starten“ */
-function abBegin(){const P=ABP.d;if(!P)return;const pool=[...P.sel];ABP.d=null;try{delete abMeta().pre;saveMeta();}catch(e){}closeModal();if(S&&!S.abyss&&S.phase==="shop")save();
-  const regs=Object.keys(REGIONS),rk=regs[Math.floor(Math.random()*regs.length)];
-  abLoadRegs(pool).then(()=>newRun("normal",rk,{abyss:{pool,curses:P.curses}}));}
+function abBegin(){const P=ABP.d;if(!P)return;const pool=[...P.sel];ABP.d=null;try{if(P.week){const A=abwMeta();A.used=(A.used|0)+1;}else delete abMeta().pre;saveMeta();}catch(e){}closeModal();if(S&&!S.abyss&&S.phase==="shop")save();
+  const regs=Object.keys(REGIONS),rk=P.week?regs[P.seed%regs.length]:regs[Math.floor(Math.random()*regs.length)];
+  abLoadRegs(pool).then(()=>newRun("normal",rk,{abyss:Object.assign({pool,curses:P.curses},P.week?{week:P.week,seed:P.seed}:{})}));}
 /* Startablauf im Lauf: normale Partnerwahl, danach die Flüche mit „Abstieg starten“ */
 function abyssSetup(cb){if(!S||!S.abyss){cb&&cb();return;}const A=abMeta();A.runs++;saveMeta();
   starterChoice(()=>{save();render();abHud();abCurseModal(S.abyss.curses,true,cb);});}
@@ -21009,7 +21034,8 @@ function abyssFinish(){clearZones();S.phase="over";enterBattleMode(false);const 
   for(const m of AB.ms)if(A.best>=m&&!A.ms[m]){A.ms[m]=1;S.abyss.ms.push(m);}
   const msg=(S.abyss.ms||[]).reduce((a,m)=>a+(AB.msGem[m]||0),0),gems=Math.max(2,base+msg);
   try{abHistAdd(cl);}catch(e){console.warn("abyss hist",e);}
-  META.gems+=gems;META.gemsTotal+=gems;const rec=cl>(S.abyss.best0|0);saveMeta();_achT=0;try{achCheck();}catch(e){}LS.del(saveKey("ab"));setTab("raster");const hud=$("abHud");if(hud)hud.remove();
+  const wkR=S.abyss.week&&S.abyss.week===abwWk();if(wkR){const W=abwMeta();W.best=Math.max(W.best|0,cl);try{abwSubmit(cl);}catch(e){}}
+  META.gems+=gems;META.gemsTotal+=gems;const rec=cl>(S.abyss.best0|0);saveMeta();_achT=0;try{achCheck();}catch(e){}LS.del(saveKey(S.abyss.week?"abw":"ab"));setTab("raster");const hud=$("abHud");if(hud)hud.remove();
   if(tA>tB){try{GIFT.q.push({type:"ev",kind:"badge",val:"abyss",tier:tA});}catch(e){}}
   const cu=(S.abyss.curses||[]).map(c=>{const D=AB_CURSE[c.k];return D?`<i class="g-${D.g}" title="${esc(D.n+": "+abCurseTxt(c))}">${ic(D.ic)}</i>`:"";}).join("");
   $("result").innerHTML=`<div class="rWrap"><div class="rHead ${rec?"win":"lose"}">${rec?"NEUER REKORD!":"DER ABGRUND HAT DICH"}</div><div class="rPanel glass abRes"><h4>${cl?`Im Abgrund geschafft: ${cl} ${cl===1?"Ebene":"Ebenen"}`:"Der Abstieg endet schon auf der ersten Ebene."}</h4>
@@ -21017,9 +21043,10 @@ function abyssFinish(){clearZones();S.phase="over";enterBattleMode(false);const 
    ${(S.abyss.ms||[]).map(m=>`<div class="incRow" style="color:var(--amber)"><span>${ic("trophy","","width:14px;height:14px")} Meilenstein Ebene ${m}</span><span>+${AB.msGem[m]}</span></div>`).join("")}
    ${gemB>1?`<div class="incRow" style="color:var(--gem)"><span>${ic("gem","","width:14px;height:14px")} Tagesbonus</span><span>+${Math.round((gemB-1)*100)} %</span></div>`:""}<div class="incRow sum"><span>Edelsteine</span><span style="color:var(--gem)">+${gems}</span></div></div>
    <div class="abResCu"><small>Flüche dieses Laufs</small><span>${cu}</span></div>${(S.abyss.gifts||[]).length?`<div class="abResCu gi"><small>Gaben dieses Laufs</small><span>${abGiftIcons(S.abyss.gifts,"i")}</span></div>`:""}
-   <div class="rbtns"><button class="pri" id="rAbN">${ic("skull")} NEUER ABSTIEG</button>${B?`<button class="btn" id="rRep">${ic("dex")} Kampfbericht</button>`:""}<button class="btn" id="rGo">${ic("menu")} Hauptmenü</button></div></div></div>`;
+   ${S.abyss.week?`<div class="incRow" style="color:#ff8aa8"><span>${ic("cal","","width:14px;height:14px")} Wochen-Abstieg · Versuch ${abwMeta().used|0}/${ABW.tries}</span><span>Bestes: Ebene ${abwMeta().best|0}</span></div>`:""}
+   <div class="rbtns">${S.abyss.week?(ABW.tries-(abwMeta().used|0)>0?`<button class="pri" id="rAbN">${ic("cal")} NÄCHSTER VERSUCH</button>`:`<button class="pri" id="rAbN">${ic("trophy")} BESTENLISTE</button>`):`<button class="pri" id="rAbN">${ic("skull")} NEUER ABSTIEG</button>`}${B?`<button class="btn" id="rRep">${ic("dex")} Kampfbericht</button>`:""}<button class="btn" id="rGo">${ic("menu")} Hauptmenü</button></div></div></div>`;
   $("result").classList.add("show");if($("rRep"))$("rRep").onclick=report;sfx(rec?"evoDone":"faint");
-  const out=()=>{$("result").classList.remove("show");$("result").innerHTML="";S=null;showMenu();};$("rGo").onclick=out;$("rAbN").onclick=()=>{$("result").classList.remove("show");$("result").innerHTML="";S=null;showMenu();abyssStart();};}
+  const out=()=>{$("result").classList.remove("show");$("result").innerHTML="";S=null;showMenu();};$("rGo").onclick=out;const wkRun=!!S.abyss.week;$("rAbN").onclick=()=>{$("result").classList.remove("show");$("result").innerHTML="";S=null;showMenu();if(!wkRun)abyssStart();else if(ABW.tries-(abwMeta().used|0)>0)abwStart();else abwBoard();};}
 (()=>{const _tf=towerFinish;towerFinish=function(){if(S&&S.abyss)return abyssFinish();return _tf.apply(this,arguments);};
   const _th=towerHud;towerHud=function(){const r=_th.apply(this,arguments);try{if(abOn()&&S.tower){const h=$("twHud");if(h){const L=h.querySelector(".twL");if(L)L.innerHTML=`${ic("skull")} ABGRUND`;const lv=h.querySelector(".twLv");if(lv)lv.innerHTML=`<i class="twHt on">${ic("heart")}</i>`;
     const rc=h.querySelector(".twRec");if(rc)rc.innerHTML=`${ic("trophy")} Abgrund-Rekord: ${abBest()?"Ebene "+abBest():"noch keiner"}`;h.classList.add("abTw");}}abHud();}catch(e){}return r;};})();
@@ -21455,6 +21482,92 @@ CARD_BG.polarsee={n:"Polarlichtsee",lv:5,ld:"Aurora-Sammlung: 50 verschiedene Au
   <path d="M-5 100 L-5 86 Q20 82 50 84 Q80 82 105 86 L105 100Z" fill="#0c0820"/><path d="M-5 86 Q20 82 50 84 Q80 82 105 86" fill="none" stroke="#c8fff6" stroke-opacity=".5" stroke-width="1" vector-effect="non-scaling-stroke"/></svg>
  ${_psFloe55(18,70,16,7)}${_psFloe55(70,74,20,9)}${_psFloe55(44,66,10,8)}
  ${_spk(8,8,60,["#ffffff","#ffd6ff","#c8fff6"],1.2,2.4)}${_ups(10,["#ff9ae8","#7af0e0","#d6b8ff"],.3,.7,5,8,6,94,";--g:5px")}`};
+
+/* ================= v1.56.0: Automatischer Abgleich zwischen Geräten + Abgrund-Wochenturnier ================= */
+
+/* ---------- 1) Edelsteine: Konto je Gerät (verdient / ausgegeben), Kontostand = Basis + Summe aller Geräte ----------
+   Jedes Gerät zählt nur seine eigenen Zahlen hoch. Beim Abgleich gilt je Gerät der höhere Stand (die Zahlen wachsen nur).
+   So geht nichts verloren und nichts wird doppelt gezählt, auch wenn ein Gerät tagelang aus war. */
+function devId(){try{let d=localStorage.getItem("pokelings_dev");if(!d){d=Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);localStorage.setItem("pokelings_dev",d);}return d;}catch(e){return "x";}}
+function gemCalc(L){if(!L)return 0;let v=+L.b||0;for(const k in L.d||{}){const r=L.d[k];if(Array.isArray(r))v+=(+r[0]||0)-(+r[1]||0);}return v;}
+function gemRec(M){try{M=M||(typeof META!=="undefined"?META:null);if(!M||typeof M!=="object")return;if(!M.gL||typeof M.gL!=="object")M.gL={b:M.gems|0,bt:Date.now(),d:{}};const L=M.gL;L.d=L.d||{};
+  const dl=(M.gems|0)-gemCalc(L);if(dl){const dv=devId(),r=L.d[dv]||(L.d[dv]=[0,0]);if(dl>0)r[0]+=dl;else r[1]+=-dl;}}catch(e){}}
+function gemMerge(m,o){if(!o||!o.gL||typeof o.gL!=="object")return;if(!m.gL||typeof m.gL!=="object"){m.gL=JSON.parse(JSON.stringify(o.gL));m.gems=Math.max(0,gemCalc(m.gL));return;}
+  const A=m.gL,B=o.gL;A.d=A.d||{};if(A.b!==B.b&&(+B.bt||9e15)<(+A.bt||9e15)){A.b=B.b;A.bt=B.bt;}
+  for(const k in B.d||{}){const b=B.d[k],a=A.d[k]||(A.d[k]=[0,0]);if(Array.isArray(b)){a[0]=Math.max(+a[0]||0,+b[0]||0);a[1]=Math.max(+a[1]||0,+b[1]||0);}}
+  m.gems=Math.max(0,gemCalc(A));}
+
+/* ---------- 2) Fortschritt zusammenführen statt „neuerer Stand gewinnt“ ---------- */
+try{MERGE_MAX.push("bkeep","chal","mono","bgift");}catch(e){}
+const _byT=a=>Array.isArray(a)?a:[];
+function metaMerge56(m,o){try{
+  gemMerge(m,o);
+  if(Array.isArray(o.bgkeep)){m.bgkeep=Array.isArray(m.bgkeep)?m.bgkeep:[];for(const x of o.bgkeep)if(!m.bgkeep.includes(x))m.bgkeep.push(x);}
+  if(Array.isArray(o.runs)){const s=new Set(_byT(m.runs).map(r=>r&&r.t));m.runs=_byT(m.runs).concat(o.runs.filter(r=>r&&!s.has(r.t))).sort((a,b)=>(a.t||0)-(b.t||0)).slice(-30);}
+  if(o.weekly&&o.weekly.w&&typeof o.weekly.w==="object"){m.weekly=m.weekly||{};m.weekly.w=m.weekly.w||{};mergeMax(m.weekly.w,o.weekly.w);}
+  if(o.daily&&o.daily.day){const a=m.daily;if(!a||!a.day||a.day<o.daily.day)m.daily=JSON.parse(JSON.stringify(o.daily));
+    else if(a.day===o.daily.day){for(const k of ["used","round","score"])if(typeof o.daily[k]==="number"&&!(a[k]>=o.daily[k]))a[k]=o.daily[k];if(o.daily.champ)a.champ=true;}}
+  if(o.mis&&typeof o.mis==="object"){const a=m.mis||(m.mis={});for(const [lst,per] of [["d","day"],["w","week"]]){const ob=o.mis[per],ab=a[per];
+      if(ob&&(!ab||ab<ob)){a[per]=ob;a[lst]=JSON.parse(JSON.stringify(o.mis[lst]||[]));}
+      else if(ob&&ab===ob&&Array.isArray(o.mis[lst])&&Array.isArray(a[lst])){for(const x of o.mis[lst]){const y=a[lst].find(z=>z&&x&&z.id===x.id);if(y){for(const k of ["prog","done","max"])if(typeof x[k]==="number"&&!(y[k]>=x[k]))y[k]=x[k];}}}}}
+  if(o.abw&&o.abw.wk){const a=m.abw;if(!a||!a.wk||a.wk<o.abw.wk)m.abw=JSON.parse(JSON.stringify(o.abw));else if(a.wk===o.abw.wk){a.used=Math.max(a.used|0,o.abw.used|0);a.best=Math.max(a.best|0,o.abw.best|0);}}
+ }catch(e){console.warn("merge56",e);}return m;}
+try{const _mm=metaMerge;metaMerge=function(m,o){if(!m||!o||typeof o!=="object"||m===o)return m;const r=_mm.apply(this,arguments);metaMerge56(m,o);return r;};}catch(e){}
+/* Vor jedem Speichern und vor jedem Hochladen die Edelstein-Änderung dieses Geräts verbuchen */
+try{const _sm=saveMeta;saveMeta=function(){gemRec();return _sm.apply(this,arguments);};}catch(e){}
+try{const _cp=clPush;clPush=function(){try{if(typeof META!=="undefined"&&META&&typeof USER!=="undefined"&&USER&&CL.sess&&userKey(USER)===userKey(CL.sess.name)){gemRec();LS.set(metaKey(USER),META);}}catch(e){}return _cp.apply(this,arguments);};}catch(e){}
+
+/* ---------- 3) Abgrund-Wochenturnier: jede Woche (Mo–So) für alle gleich, 3 Versuche, eigene Bestenliste ---------- */
+const ABW={tries:3,rw:[250,150,100,30]};
+function abwWk(){return weekKey();}
+function abwSeed(wk){return strHash("pkl-abw|"+(wk||abwWk()));}
+function abwMeta(){const A=META.abw&&typeof META.abw==="object"?META.abw:(META.abw={});const wk=abwWk();if(A.wk!==wk){A.wk=wk;A.used=0;A.best=0;}return A;}
+const abwSave=()=>{try{const d=LS.get(saveKey("abw"),null);return d&&d.S&&d.S.abyss&&d.S.abyss.week&&d.S.phase!=="over"?d:null;}catch(e){return null;}};
+function abwLeft(){const b=typeof aurBerlin==="function"?aurBerlin():null;if(!b)return "";const d={Mo:6,Di:5,Mi:4,Do:3,Fr:2,Sa:1,So:0}[b.wd]||0,min=d*1440+(24-b.h)*60-b.m;return typeof aurWkFmt==="function"?aurWkFmt(min):"";}
+function abwStart(){if(!abUnlocked()){toast(`Abgrund: erst Champion auf Normal in jeder Region (${abUnlockN()}/${Object.keys(REGIONS).length})`,"lock");sfx("deny");return;}
+  const A=abwMeta(),sv=abwSave();if(sv){closeModal();return abwContinue();}
+  if((A.used|0)>=ABW.tries){toast(`Diese Woche hast du schon alle ${ABW.tries} Versuche genutzt`,"info");sfx("deny");return;}
+  const wk=A.wk,sd=abwSeed(wk),R=mkRng(sd),curses=[];for(let i=0;i<AB.start;i++){const c=abRollCurse(R,curses);if(c)curses.push(c);}
+  ABP.d={offer:abOffer(R),next:AB_DRAFT.rerolls>0?abOffer(mkRng(sd+7)):null,rr:AB_DRAFT.rerolls,curses,sel:new Set(),starter:null,week:wk,seed:sd};abDraftModal();}
+function abwContinue(){const d=abwSave();if(!d){toast("Kein laufender Wochen-Abstieg","info");return;}if(S&&!S.abyss&&S.phase==="shop")save();
+  needReg(d.S.region||"kanto",()=>{hideScreens();window.__svK="abw";try{loadGame();}finally{window.__svK=null;}setTab("shop");render();abHud();});}
+/* Bestenliste der Woche (Server), Ergebnis melden */
+const ABWB={wk:null,at:0,rows:null};
+async function abwFetch(force){const wk=abwWk();if(!force&&ABWB.wk===wk&&ABWB.rows&&Date.now()-ABWB.at<60000)return ABWB.rows;
+  try{const r=await clFetch("/rest/v1/rpc/abw_board",{method:"POST",auth:false,body:{wk},timeout:8000});if(r&&r.ok&&Array.isArray(r.j)){ABWB.wk=wk;ABWB.at=Date.now();ABWB.rows=r.j;return r.j;}}catch(e){}return null;}
+async function abwSubmit(fl){try{if(!CL.sess)return;const team=[...Object.values((S&&S.board)||{})].filter(u=>u&&u.sp).map(u=>u.sp).slice(0,8);
+  await clFetch("/rest/v1/rpc/abw_submit",{method:"POST",body:{wk:abwWk(),fl,info:{v:GAME_VER,team}},timeout:8000});ABWB.at=0;}catch(e){}}
+function abwRank(rows){try{const i=(rows||[]).findIndex(x=>x&&userKey(x.name)===userKey(USER));return i<0?0:i+1;}catch(e){return 0;}}
+async function abwBoard(){openModal(`<h2>${ic("skull")} WOCHEN-ABSTIEG</h2><div class="lead">Lade Bestenliste …</div>`,"narrow abwM",true);const rows=await abwFetch(true);if(!$("mbox")||!$("mbox").classList.contains("abwM"))return;
+  const A=abwMeta(),wn=+A.wk.split("-W")[1],me=userKey(USER||""),rw=i=>i<3?ABW.rw[i]:ABW.rw[3];
+  const list=rows&&rows.length?rows.slice(0,20).map((x,i)=>`<div class="abwR${i<3?" t"+(i+1):""}${userKey(x.name)===me?" me":""}"><b>${i+1}</b><span>${esc(x.name)}</span><em>Ebene ${x.fl|0}</em>${i<10?`<small>+${rw(i)} ${ic("gem")}</small>`:""}</div>`).join("")
+    :`<p class="empty">${rows?"Diese Woche hat noch niemand den Wochen-Abstieg gespielt.":"Bestenliste gerade nicht erreichbar."}</p>`;
+  openModal(`<h2>${ic("skull")} WOCHEN-ABSTIEG · WOCHE ${wn}</h2><div class="lead">Für alle gleich: dasselbe Draft-Angebot, dieselben Flüche, derselbe Laden. ${ABW.tries} Versuche pro Woche, der beste zählt. Endet in <b>${abwLeft()}</b>.</div>
+   <div class="abwMe">${ic("user")} Dein bestes Ergebnis: <b>${A.best?"Ebene "+A.best:"noch keins"}</b> · Versuche <b>${A.used|0}/${ABW.tries}</b></div>
+   <div class="abwL">${list}</div><small class="abwRw">Belohnung nach Wochenende: Platz 1 <b>250</b>, Platz 2 <b>150</b>, Platz 3 <b>100</b>, Platz 4–10 je <b>30</b> Edelsteine</small>`,"narrow abwM",true);try{hydrateIcons($("mbox"));}catch(e){}}
+/* Karte im Herausforderungen-Panel: Zeile für den Wochen-Abstieg */
+function abwRow(){try{if(!abUnlocked())return "";const A=abwMeta(),sv=abwSave(),r=abwRank(ABWB.wk===A.wk?ABWB.rows:null),left=ABW.tries-(A.used|0);
+  const btn=sv?`<button class="pri" data-ch="abwc">${ic("play")} Woche · Ebene ${sv.S.round}</button>`:left>0?`<button class="pri" data-ch="abw">${ic("cal")} Wochen-Abstieg</button>`:`<button class="btn" disabled>${ic("check")} Alle Versuche genutzt</button>`;
+  return `<div class="abwRow"><span><small>WOCHE · ${A.used|0}/${ABW.tries} VERSUCHE</small><b>${A.best?"Ebene "+A.best:"–"}${r?` · Platz ${r}`:""}</b></span><div class="chB">${btn}<button class="btn" data-ch="abwb" title="Bestenliste der Woche">${ic("trophy")}</button></div></div>`;}catch(e){return "";}}
+try{const _ac=chAbyssCard;chAbyssCard=function(){const h=_ac.apply(this,arguments);try{if(!abUnlocked())return h;const i=h.lastIndexOf("</div>");return h.slice(0,i)+abwRow()+h.slice(i);}catch(e){return h;}};}catch(e){}
+try{const _cw=chWire;chWire=function(root){_cw.apply(this,arguments);try{root.querySelectorAll('[data-ch="abw"],[data-ch="abwc"],[data-ch="abwb"]').forEach(b=>b.onclick=()=>{const k=b.dataset.ch;sfx("click");
+  if(k==="abw"){closeModal();abwStart();}else if(k==="abwc"){closeModal();abwContinue();}else abwBoard();});}catch(e){}
+  const wk=abwWk();if(abUnlocked()&&ABWB.tw!==wk){ABWB.tw=wk;abwFetch().then(rows=>{try{if(rows&&typeof chMount==="function"&&$("menu").classList.contains("show"))chMount();}catch(e){}});}};}catch(e){}
+
+/* ---------- 4) Schillernd-Sammlung (wie die Aurora-Sammlung, aber weniger lohnend, weil Schillernde viel häufiger sind) ---------- */
+const SHY_COL=[{n:25,gems:50},{n:75,gems:150},{n:150,gems:300},{n:300,gems:500}];
+function shyArten(){try{const D=(META&&META.dex)||{};let n=0;for(const k in D){const d=D[k];if(d&&(d.shiny|0)>0&&SPECIES[k])n++;}return n;}catch(e){return 0;}}
+function shyColCheck(){try{if(!META||typeof USER==="undefined"||!USER)return;const n=shyArten();let c=META.shyCol|0,got=0;
+  while(c<SHY_COL.length&&n>=SHY_COL[c].n){got+=SHY_COL[c].gems;c++;}
+  if(c!==(META.shyCol|0)){META.shyCol=c;META.gems=(META.gems|0)+got;saveMeta();try{refreshGems();}catch(e){}
+    setTimeout(()=>{try{toast(`Schillernd-Sammlung: +${got.toLocaleString("de-DE")} Edelsteine`,"gem");sfx("coin");}catch(e){}},1300);}}catch(e){}}
+function shyColHTML(){const n=shyArten(),c=SHY_COL.findIndex(R=>n<R.n),nx=c<0?null:SHY_COL[c],pv=c<=0?0:SHY_COL[c-1].n,pct=nx?Math.max(0,Math.min(100,(n-pv)/(nx.n-pv)*100)):100,rw=R=>`${R.gems.toLocaleString("de-DE")} ${ic("gem")}`;
+  return `<div class="acBox shy"><div class="acHd">${ic("shiny")}<b>SCHILLERND-SAMMLUNG</b><span><b>${n}</b> verschiedene Arten</span></div>
+   <div class="acBar"><i style="width:${pct.toFixed(1)}%"></i></div><small class="acNx">${nx?`Noch ${nx.n-n} bis: ${rw(nx)}`:"Alles gesammelt!"}</small>
+   <div class="acSt">${SHY_COL.map(R=>`<span class="${n>=R.n?"ok":""}"><em>${R.n}</em>${rw(R)}${n>=R.n?ic("check"):""}</span>`).join("")}</div></div>`;}
+try{const _ap=aurColPanel;aurColPanel=function(){try{const el=$("dxAurC");if(el&&typeof DEXV!=="undefined"&&DEXV.shy===true){el.style.display="";el.innerHTML=shyColHTML();try{hydrateIcons(el);}catch(e){}return;}}catch(e){}return _ap.apply(this,arguments);};}catch(e){}
+try{const _ac2=aurColCheck;aurColCheck=function(){const r=_ac2.apply(this,arguments);shyColCheck();return r;};}catch(e){}
+try{MERGE_NUM.push("shyCol");}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
