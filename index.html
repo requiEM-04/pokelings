@@ -15658,6 +15658,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Aurora & Ruhm": "Aurora & Fame", "
 if(typeof EN!=="undefined")Object.assign(EN,{"Wochen-Abstieg & Abgleich": "Weekly descent & sync", "Neu: Wochen-Abstieg. Jede Woche ein Abgrund für alle gleich, mit demselben Draft-Angebot, denselben Flüchen und demselben Laden. 3 Versuche pro Woche, der beste zählt. Eigene Bestenliste, nach Wochenende gibt es Edelsteine für die Top 10 (250 / 150 / 100, Platz 4–10 je 30).": "New: Weekly descent. Every week one Abyss run that is the same for everyone, with the same draft offer, curses and shop. 3 attempts per week, your best counts. Own leaderboard, and after the week ends the top 10 get gems (250 / 150 / 100, places 4–10 30 each).", "Spielen auf mehreren Geräten: Edelsteine, Abzeichen, Herausforderungen, Missionen, Tages- und Wochenrekorde und der Laufverlauf werden jetzt automatisch zusammengeführt. Nichts geht mehr verloren, auch wenn ein Gerät länger aus war.": "Playing on several devices: gems, badges, challenges, missions, daily and weekly records and your run history are now merged automatically. Nothing gets lost anymore, even if a device was off for a while.", "Schillernd-Sammlung im Pokédex (Ansicht „Schillernd“): Für 25, 75, 150 und 300 verschiedene schillernde Pokémon gibt es Edelsteine. Bereits gesammelte zählen sofort.": "Shiny collection in the Pokédex (“Shiny” view): 25, 75, 150 and 300 different shiny Pokémon give gems. Shinies you already have count right away.", "SCHILLERND-SAMMLUNG": "SHINY COLLECTION", "WOCHEN-ABSTIEG": "WEEKLY DESCENT", "Wochen-Abstieg": "Weekly descent", "DRAFT · WOCHEN-ABSTIEG": "DRAFT · WEEKLY DESCENT", "NÄCHSTER VERSUCH": "NEXT ATTEMPT", "BESTENLISTE": "LEADERBOARD", "Alle Versuche genutzt": "All attempts used", "Bestenliste der Woche": "Weekly leaderboard", "Dein bestes Ergebnis:": "Your best result:", "noch keins": "none yet", "Diese Woche hat noch niemand den Wochen-Abstieg gespielt.": "Nobody has played the weekly descent this week yet.", "Bestenliste gerade nicht erreichbar.": "Leaderboard not reachable right now.", "Kein laufender Wochen-Abstieg": "No weekly descent in progress"});
 /* v1.57.0 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Aurora-Pokédex & Ruhm-Embleme": "Aurora Pokédex & Fame emblems", "Aurora-Sammlung zählt jetzt richtig: Aurora-Pokémon aus dem Laden und nach einer Entwicklung werden im Pokédex erfasst. Frühere Aurora-Fänge werden einmalig nachgetragen, soweit sie noch auffindbar sind (aktueller Lauf und deine Geister-Teams).": "Aurora collection now counts correctly: Aurora Pokémon bought in the shop and after evolving are recorded in the Pokédex. Earlier Aurora catches are added once, as far as they can still be found (current run and your ghost teams).", "Pokédex, Ansicht „Aurora“ und „Schillernd“: Nur was du so gefangen hast, ist farbig. Gesehene Pokémon sind blass, der Rest ist ausgegraut.": "Pokédex, “Aurora” and “Shiny” views: only what you caught that way is in colour. Seen Pokémon are faded, the rest is greyed out.", "Neue Ruhm-Embleme: Jeder Rang ist jetzt ein eigener geschliffener Edelstein. Stufe II bekommt eine Fassung, Stufe III Flügel und Krone, die Punkte darunter zeigen die Stufe. Die Auswahl im Ruhm ist übersichtlicher angeordnet.": "New Fame emblems: every rank is now its own cut gem. Tier II gets a setting, tier III wings and a crown, and the dots below show the tier. The Fame selection is laid out more clearly.", "Aurora-Sammlung:": "Aurora collection:", "nachgetragen": "added", "Aurora-Art": "Aurora species", "Aurora-Arten": "Aurora species", " · Aurora-Ansicht: farbig = als Aurora gefangen, blass = gesehen": " · Aurora view: colour = caught as Aurora, faded = seen", " · Schillernd-Ansicht: farbig = schillernd gefangen, blass = gesehen": " · Shiny view: colour = caught shiny, faded = seen"});
+/* v1.57.0.5 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Aurora-Nachtrag": "Aurora catch-up", "Aurora-Nachtrag verbessert: Hattest du eine Entwicklung oder eine Mega-Entwicklung als Aurora, zählen jetzt auch die Vorstufen und die Grundform (sie waren vorher ebenfalls Aurora). Aurora-Pokémon aus der Ultrapforte bleiben Aurora.": "Aurora catch-up improved: if you had an evolution or a Mega Evolution as Aurora, its earlier stages and base form now count too (they were Aurora as well). Aurora Pokémon from the Ultra Gate stay Aurora."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18303,7 +18305,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.57.0",DUEL_HP=30;
+const MP_VER="1.57.0.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18940,8 +18942,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.57.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.57.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.57.0.5",d:"18.11.2026",t:"Aurora-Nachtrag",items:[
+  ["shiny", "Aurora-Nachtrag verbessert: Hattest du eine Entwicklung oder eine Mega-Entwicklung als Aurora, zählen jetzt auch die Vorstufen und die Grundform (sie waren vorher ebenfalls Aurora). Aurora-Pokémon aus der Ultrapforte bleiben Aurora."]]},
  {v:"1.57.0",d:"18.11.2026",t:"Aurora-Pokédex & Ruhm-Embleme",items:[
   ["shiny", "Aurora-Sammlung zählt jetzt richtig: Aurora-Pokémon aus dem Laden und nach einer Entwicklung werden im Pokédex erfasst. Frühere Aurora-Fänge werden einmalig nachgetragen, soweit sie noch auffindbar sind (aktueller Lauf und deine Geister-Teams)."],
   ["dex", "Pokédex, Ansicht „Aurora“ und „Schillernd“: Nur was du so gefangen hast, ist farbig. Gesehene Pokémon sind blass, der Rest ist ausgegraut."],
@@ -19849,7 +19853,7 @@ function ultraEnemies(r,lk){const ls=ubLines().filter(l=>l.stages.length===1),L=
 /* Nach dem Sieg: Ultra-Bestie fangen */
 function ultraChoice(cb){const e=((S.enc&&S.enc.enemies)||S.enemies||[]).find(x=>x.ub)||null;META.stats=META.stats||{};META.stats.ultraW=(META.stats.ultraW||0)+1;saveMeta();
   if(!e){cb&&cb();return;}const free=S.bench.indexOf(null),sp=SPECIES[e.sp];
-  const take=()=>{const f=S.bench.indexOf(null);if(f<0)return false;const u=mkUnit(e.sp,0);if(e.shiny)u.shiny=true;S.bench[f]=u;dexUp(u.sp,d=>{d.owned++;if(u.shiny)d.shiny=(d.shiny||0)+1;});toast(`${sp.name} wurde gefangen!`,"ub");sfx("coin");render();save();return true;};
+  const take=()=>{const f=S.bench.indexOf(null);if(f<0)return false;const u=mkUnit(e.sp,0);if(e.shiny)u.shiny=e.shiny==="a"?"a":true;S.bench[f]=u;dexUp(u.sp,d=>{d.owned++;if(u.shiny)d.shiny=(d.shiny||0)+1;if(u.shiny==="a")d.aur=(d.aur||0)+1;});toast(`${sp.name} wurde gefangen!`,"ub");sfx("coin");render();save();return true;};
   if(window.__autoPick){if(free>=0)take();else S.gold+=UB.gold;cb&&cb();return;}
   const draw=()=>{const free=S.bench.indexOf(null);
   openModal(`<div class="ubCatch"><h2>${ic("ub")} ULTRA-BESTIE FANGEN</h2><div class="lead">Die Ultra-Bestie ist geschwächt. Wirf einen Ultraball, dann kämpft <b>${esc(sp.name)}</b> ab sofort in deinem Team.${free<0?`<br><b style="color:var(--red)">Deine Bank ist voll.</b> Verkaufe unten ein Pokémon von deiner Bank oder nimm Gold.`:""}</div>${bsHtml()}
@@ -21606,7 +21610,7 @@ try{MERGE_NUM.push("shyCol");}catch(e){}
 
 /* ================= v1.57.0: Aurora im Pokédex richtig zählen, neue Ruhm-Embleme ================= */
 /* Aurora-Fänge nachtragen: aktueller Lauf, gespeicherte Läufe und die eigenen Geister-Teams auf dem Server (einmal pro Konto) */
-async function aurBackfill(){if(window.__aurBF)return;try{if(!META||typeof USER==="undefined"||!USER||(META.aurFix|0)>=1)return;window.__aurBF=1;
+async function aurBackfill(){if(window.__aurBF)return;try{if(!META||typeof USER==="undefined"||!USER||(META.aurFix|0)>=2)return;window.__aurBF=1;
   const F=new Set(),add=(sp,sh)=>{sp=+sp;if(sh==="a"&&SPECIES[sp])F.add(sp);};
   const scanS=s=>{if(!s)return;const b=s.board||{};for(const k in b)if(b[k])add(b[k].sp,b[k].shiny);(s.bench||[]).forEach(u=>u&&add(u.sp,u.shiny));};
   try{scanS(typeof S!=="undefined"?S:null);}catch(e){}
@@ -21614,11 +21618,15 @@ async function aurBackfill(){if(window.__aurBF)return;try{if(!META||typeof USER=
   let net=false;
   try{if(typeof CL!=="undefined"&&CL.sess&&CL.sess.uid&&await clReady()){const r=await clFetch(`/rest/v1/ghosts?select=team&user_id=eq.${CL.sess.uid}&order=created_at.desc&limit=1000`,{timeout:12000});
     if(r.ok&&Array.isArray(r.j)){net=true;r.j.forEach(g=>(Array.isArray(g.team)?g.team:[]).forEach(t=>t&&add(t.sp,t.sh)));}}}catch(e){}
+  try{for(const k in META.dex){const d=META.dex[k];if(d&&SPECIES[k]&&((d.aur|0)>0||(d.mak&&Object.keys(d.mak).length)))F.add(+k);}}catch(e){}
+  [...F].forEach(sp=>aurPre(sp).forEach(p=>{if(SPECIES[p])F.add(p);}));
   let nw=0;F.forEach(sp=>dexUp(sp,d=>{if(!((d.aur|0)>0))nw++;d.seen=Math.max(d.seen|0,1);d.owned=Math.max(d.owned|0,1);d.shiny=Math.max(d.shiny|0,1);d.aur=Math.max(d.aur|0,1);}));
-  if(net)META.aurFix=1;
+  if(net)META.aurFix=2;
   if(net||nw){saveMeta();try{aurColCheck();}catch(e){}try{if($("dxGrid"))dexRender();}catch(e){}}
   if(nw)setTimeout(()=>{try{toast(`Aurora-Sammlung: ${nw} Aurora-${nw===1?"Art":"Arten"} nachgetragen`,"shiny");}catch(e){}},2200);
  }catch(e){}finally{window.__aurBF=0;}}
+/* Vorentwicklungen einer Art (auch bei Verzweigungen) */
+function aurPre(sp){const o=[];try{const L=SPECIES[sp]&&SPECIES[sp].line;if(!L||!L.stages)return o;for(let k=0;k<L.stages.length;k++){const id=L.stages[k][0],br=k>0&&SPECIES[L.stages[k-1][0]]&&SPECIES[L.stages[k-1][0]].branch;if(id===sp||(br&&br.includes(sp))){for(let j=0;j<k;j++)o.push(L.stages[j][0]);break;}}}catch(e){}return o;}
 try{const _sm57=showMenu;showMenu=function(){const r=_sm57.apply(this,arguments);try{setTimeout(aurBackfill,1500);}catch(e){}return r;};}catch(e){}
 
 /* ---------- Ruhm-Embleme: geschliffener Edelstein je Rang, Stufe II mit Fassung, Stufe III mit Flügeln und Krone, Punkte = Stufe ---------- */
