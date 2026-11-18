@@ -5329,6 +5329,35 @@ img.aur,.card .pic img.aur,.u img.aur{filter:url(#aurF) drop-shadow(0 0 2px rgba
 .acBox.shy .acHd>svg{color:#ffd23f}.acBox.shy .acHd>b{color:#ffe68a}
 .acBox.shy .acBar i{background:linear-gradient(90deg,#c8901a,#ffd23f,#fff2b0);box-shadow:0 0 8px rgba(255,210,63,.6)}
 .acBox.shy .acSt span.ok{background:linear-gradient(90deg,rgba(200,144,26,.55),rgba(255,210,63,.3))}
+/* v1.57.0 x57 */
+/* ================= v1.57.0: Pokédex Aurora/Schillernd-Ansicht, neue Ruhm-Embleme, Ruhm-Auswahl neu angeordnet ================= */
+/* Pokédex: fehlt = ausgegraut, gesehen = blass, gefangen = farbig (auch bei Aurora, deren Filter sonst alles einfärbt) */
+.dxC.miss .pic img,.dxC.miss .pic img.aur{filter:brightness(0) opacity(.45)!important}
+.dxC.miss.seenF .pic img,.dxC.miss.seenF .pic img.aur{filter:grayscale(1) brightness(.9) opacity(.32)!important}
+.dxC.miss.seenF b{color:#8a93b0}
+.dxC.isAur{background:radial-gradient(circle at 50% 38%,#3a1a5a,#14203a 72%);box-shadow:inset 0 0 0 1px #5ff0e0,0 0 8px rgba(255,95,184,.25)}
+.dxC.isAur::after{content:"";position:absolute;inset:0;border-radius:7px;pointer-events:none;background:linear-gradient(115deg,transparent 35%,rgba(200,255,246,.18) 45%,rgba(255,154,232,.18) 55%,transparent 65%);background-size:250% 100%;animation:dxShine 3.2s linear infinite}
+/* Ruhm-Embleme als geschliffene Edelsteine */
+.fmEm.sv{clip-path:none;background:none;width:24px;height:24px;filter:drop-shadow(0 0 2px color-mix(in srgb,var(--fc) 70%,transparent)) drop-shadow(0 1px 0 rgba(0,0,0,.5))}
+.fmEm.sv::after{display:none}.fmEm.sv span{display:none}
+.fmEm.sv svg{width:100%;height:100%;overflow:visible;display:block}
+.fmEm.sv.big{width:76px;height:76px;filter:drop-shadow(0 0 8px color-mix(in srgb,var(--fc) 65%,transparent)) drop-shadow(0 2px 0 rgba(0,0,0,.5))}
+.fmEm.sv .femSp{transform-box:fill-box;transform-origin:center;animation:femSp 2.6s ease-in-out infinite}
+@keyframes femSp{0%,60%,100%{opacity:0;transform:scale(.3)}75%{opacity:1;transform:scale(1)}}
+.fmEm.sv.leg{background:none;animation:none}
+.fmEm.sv.leg svg{animation:femHue 5s linear infinite}
+@keyframes femHue{to{filter:hue-rotate(360deg)}}
+.fmStep .fmEm.sv{width:30px;height:30px}
+.fmPrev .fmEm.sv{width:38px;height:38px}
+.tcTop .tcFmB .fmEm.sv{width:30px;height:30px}
+.mbtn.mFame b .mFameR .fmEm.sv{width:24px;height:24px;transform:none}
+@media (prefers-reduced-motion:reduce){.fmEm.sv .femSp,.fmEm.sv.leg svg{animation:none}}
+/* Ruhm-Auswahl: vier Felder untereinander neben der Karte */
+.fmPick.v57{grid-template-columns:1fr auto;align-items:stretch}
+.fmOptG{display:grid;grid-template-columns:1fr;gap:8px;align-content:space-between}
+.fmSec{padding:10px 11px;border-radius:10px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.06)}
+.fmPick .fmSec h5{margin:0 0 7px}
+@media (max-width:720px){.fmPick.v57{grid-template-columns:1fr}}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -9879,7 +9908,7 @@ function dexBody(){const E=dexEntries();window.__dexE=E;
    <div class="dxRegs" id="dxR">${regs.map(([k,n])=>`<button data-v="${k}" class="${DEXV.r===k?"on":""}">${n}</button>`).join("")}</div>
    <div class="dxInfo" id="dxInfo"></div><div class="dex dxGrid" id="dxGrid"></div>`;}
 function dexCard(e){const shyV=DEXV.shy,has=shyV===2?e.aur:shyV?e.shy:e.seen,num="#"+String(dexNo(e.id)).padStart(3,"0");
-  return `<button class="dxC${e.mega?" mega":""}${has?"":" miss"}${shyV&&e.shy?" isShy":""}" data-k="${e.key}">
+  return `<button class="dxC${e.mega?" mega":""}${has?"":" miss"}${!has&&shyV&&e.seen?" seenF":""}${shyV===2?(e.aur?" isAur":""):(shyV&&e.shy?" isShy":"")}" data-k="${e.key}">
    <span class="dxN">${e.mega?"MEGA":num}</span>${e.aur?`<span class="dxS aur" title="Aurora gefangen">${ic("shiny")}</span>`:e.shy?`<span class="dxS" title="Schillernd gefangen">${ic("shiny")}</span>`:""}${e.lock?`<span class="dxL" title="Noch nicht im Shop-Pool">${ic("lock")}</span>`:""}
    <div class="pic" data-dsp="${e.id}" data-mk="${e.mega?e.mega.k:""}" data-sh="${shyV===2?"a":shyV?1:""}"></div>
    <b>${e.seen||e.shy?e.name:"???"}</b><span class="dxT">${(e.types||[]).map(t=>`<i style="background:${TYPES[t][1]}" title="${TYPES[t][0]}"></i>`).join("")}</span></button>`;}
@@ -9888,7 +9917,7 @@ function dexRender(){const E=window.__dexE||dexEntries(),q=DEXV.q.trim().toLower
     &&(!q||((e.seen||e.shy)&&e.name.toLowerCase().includes(q))||[String(e.id),String(dexNo(e.id))].includes(q.replace("#","").replace(/^0+/,""))));
   const g=$("dxGrid");let lastR=null;const RG=Object.assign({},REGIONS,{later:{n:"Weitere"}}),GN={kanto:1,johto:2,hoenn:3,sinnoh:4,unova:5,kalos:6,alola:7,galar:8,paldea:9};
   g.innerHTML=L.length?L.map(e=>{let h="";if(e.reg!==lastR){lastR=e.reg;const all=E.filter(x=>x.reg===e.reg),own=all.filter(x=>(DEXV.shy===2?x.aur:DEXV.shy?x.shy:x.own)).length;h=`<div class="dxSep" style="--rc:${(REG_ART[e.reg]&&REG_ART[e.reg].grad.split(",")[0])||"#5a6280"}"><b>${esc(((RG[e.reg]||{}).n||e.reg).toUpperCase())}</b>${GN[e.reg]?`<small>${GN[e.reg]}. GENERATION</small>`:e.reg==="hisui"?"<small>LEGENDEN: ARCEUS</small>":e.reg==="kitakami"?"<small>9. GENERATION · DLC</small>":""}<span>${own}/${all.length}</span></div>`;}return h+dexCard(e);}).join(""):`<div class="empty">Nichts gefunden.</div>`;
-  $("dxInfo").textContent=`${L.length} Einträge`+(DEXV.shy?" · Schillernd-Ansicht: farbig = schillernd gefangen":"")+" · Schloss = noch nicht im Shop-Pool";
+  $("dxInfo").textContent=`${L.length} Einträge`+(DEXV.shy===2?" · Aurora-Ansicht: farbig = als Aurora gefangen, blass = gesehen":DEXV.shy?" · Schillernd-Ansicht: farbig = schillernd gefangen, blass = gesehen":"")+" · Schloss = noch nicht im Shop-Pool";
   g.querySelectorAll(".pic[data-dsp]").forEach(el=>el.appendChild(spriteEl(+el.dataset.dsp,"",{shiny:el.dataset.sh==="a"?"a":!!el.dataset.sh,mega:el.dataset.mk||undefined})));
   g.querySelectorAll(".dxC").forEach(b=>b.onclick=()=>dexDetail(b.dataset.k));}
 function dexWire(){const mb=$("mbox");
@@ -13585,7 +13614,7 @@ function buy(i){
   if(S.gold<cost){{toast("Nicht genug Gold","coin");sfx("deny");}return;}
   const free=S.bench.indexOf(null);
   const nu=mkUnit(id,0,it.shiny==="a"?"a":!!it.shiny);if(free<0){const pt=fusePartners(nu)[0];if(pt){S.gold-=cost;S.shop.mons[i]=null;sfx("coin");dexUp(id,d=>d.owned++);if(typeof misBump==="function")misBump("buy");if(nu.shiny)dexUp(id,d=>{d.shiny=(d.shiny||0)+1;if(nu.shiny==="a")d.aur=(d.aur||0)+1;});fuseUnits(pt,nu);render();return;}toast("Bank ist voll: verkaufe, stelle auf oder fusioniere","bench");sfx("deny");return;}S.bench[free]=nu;
-  if(nu.shiny){dexUp(id,d=>d.shiny=(d.shiny||0)+1);toast(`Ein schillerndes ${SPECIES[id].name}!`,"shiny");}
+  if(nu.shiny){dexUp(id,d=>{d.shiny=(d.shiny||0)+1;if(nu.shiny==="a")d.aur=(d.aur||0)+1;});toast(`Ein schillerndes ${SPECIES[id].name}!`,"shiny");}
   if(nu.secret)setTimeout(()=>{toast(`Geheime Fähigkeit entdeckt: ${SPECIES[id].name} hat ${SECRETS[nu.secret].n}!`,"spark");sfx("sparkle");},300);
   S.gold-=cost;S.shop.mons[i]=null;sfx("coin");dexUp(id,d=>d.owned++);if(typeof misBump==="function")misBump("buy");
   if(fusePartners(nu).length&&!S.fuseHint){S.fuseHint=1;toast(`Zieh die beiden ${SPECIES[id].name} aufeinander, um sie zu fusionieren!`,"merge");}
@@ -13594,7 +13623,7 @@ function buy(i){
 function buyItem(){const sc=S.shop.item;if(!sc||S.phase!=="shop")return;const s=IT_BY[sc.id],c=itCost(s.r);if(S.bag.length>=BAG_MAX){toast("Tasche voll: erst ein Item anlegen","scroll");return;}if(S.gold<c){{toast("Nicht genug Gold","coin");sfx("deny");}return;}S.gold-=c;toBag(sc.id);S.shop.item=null;render();}
 function locate(u){for(const k in S.board)if(S.board[k]===u)return{w:"board",k};const i=S.bench.indexOf(u);return i>=0?{w:"bench",i}:null;}
 function removeU(u){const l=locate(u);if(!l)return;if(l.w==="board")delete S.board[l.k];else S.bench[l.i]=null;}
-function evolve(u){const sp=SPECIES[u.sp];if(sp.next){try{META.stats=META.stats||{};META.stats.evos=(META.stats.evos||0)+1;}catch(e){}if(typeof misBump==="function")misBump("evo");u.sp=sp.next;u.stars=0;if(sp.branch){if(window.__autoPick)u.sp=pick(sp.branch);else{u.brPick=1;return;}}dexUp(u.sp,d=>{d.seen++;d.owned++;if(u.shiny)d.shiny=(d.shiny||0)+1;});}else{u.stars++;if(u.stars===2&&typeof misBump==="function")misBump("star2");if(u.stars===3)toast(`${SPECIES[u.sp].name} erreicht ★★★!`,"star");}}
+function evolve(u){const sp=SPECIES[u.sp];if(sp.next){try{META.stats=META.stats||{};META.stats.evos=(META.stats.evos||0)+1;}catch(e){}if(typeof misBump==="function")misBump("evo");u.sp=sp.next;u.stars=0;if(sp.branch){if(window.__autoPick)u.sp=pick(sp.branch);else{u.brPick=1;return;}}dexUp(u.sp,d=>{d.seen++;d.owned++;if(u.shiny)d.shiny=(d.shiny||0)+1;if(u.shiny==="a")d.aur=(d.aur||0)+1;});}else{u.stars++;if(u.stars===2&&typeof misBump==="function")misBump("star2");if(u.stars===3)toast(`${SPECIES[u.sp].name} erreicht ★★★!`,"star");}}
 const starMax=u=>{const L=SPECIES[u.sp]&&SPECIES[u.sp].line;return L&&L.stages.length<3?3:2;};
 const canMerge=u=>!!SPECIES[u.sp].next||u.stars<starMax(u);
 // Fusion nur noch per Ziehen: zwei gleiche Pokémon (gleiche Stufe & Sterne) aufeinanderziehen
@@ -15627,6 +15656,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Abgrund-Fix": "Abyss fix", "Abgrun
 if(typeof EN!=="undefined")Object.assign(EN,{"Aurora & Ruhm": "Aurora & Fame", "Aurora-Pokémon sind seltener geworden: Sie kommen jetzt viermal seltener als Schillernde (vorher halb so oft). Beim Fusionieren bleiben sie weiter zu 90 % erhalten.": "Aurora Pokémon are rarer now: they appear four times less often than shinies (previously half as often). They still stay Aurora with 90 % when fusing.", "Aurora-Wochenende: Von Freitag 18 Uhr bis Sonntag 23:59 gibt es Aurora 1,5-mal so oft. Ein Banner im Hauptmenü zeigt, wie lange es noch läuft.": "Aurora weekend: from Friday 6 pm until Sunday 11:59 pm Aurora shows up 1.5 times as often. A banner in the main menu shows how long it lasts.", "Aurora-Sammlung im Pokédex (Ansicht „Aurora“): Für 5, 15 und 30 verschiedene Aurora-Pokémon gibt es Edelsteine, für 50 den neuen Hintergrund „Polarlichtsee“.": "Aurora collection in the Pokédex (“Aurora” view): 5, 15 and 30 different Aurora Pokémon give gems, 50 unlock the new background “Aurora Lake”.", "Schillernde Pokémon sind jetzt auch stärker: KP, Angriff und Verteidigung ×1,25. Aurora bleibt bei ×1,5.": "Shiny Pokémon are now stronger too: HP, Attack and Defense ×1.25. Aurora stays at ×1.5.", "Aurora-Pokémon werden jetzt überall in Aurora-Farben gezeigt, auch im Fusions-Fenster, bei der Entwicklung, im VS-Bildschirm und im Pokédex.": "Aurora Pokémon now show their Aurora colours everywhere, including the fusion window, evolutions, the VS screen and the Pokédex.", "Ruhm: Neue Auswahl „Bestenliste-Rand“. Du kannst festlegen, welcher verzierte Rand in der Bestenliste erscheint, unabhängig vom Kartenrand.": "Fame: new option “Leaderboard frame”. Choose which ornate frame appears on the leaderboard, independent of your card frame.", "Forgita, Tafforgita und Granforgita stehen jetzt mittig auf ihrem Feld und auf der Trainerkarte, statt vom großen Hammer verschoben zu werden.": "Tinkatink, Tinkatuff and Tinkaton now stand centred on their tile and on the trainer card instead of being pushed aside by their huge hammer.", "Polarlichtsee": "Aurora Lake", "Aurora-Sammlung: 50 verschiedene Aurora-Pokémon": "Aurora collection: 50 different Aurora Pokémon", "AURORA-SAMMLUNG": "AURORA COLLECTION", "verschiedene Arten": "different species", "Alles gesammelt!": "All collected!", "AURORA-WOCHENENDE": "AURORA WEEKEND", "Aurora 1,5-mal so oft": "Aurora 1.5× as often", "BESTENLISTE-RAND": "LEADERBOARD FRAME", "Wie Kartenrand": "Same as card frame", "4× seltener": "4× rarer", "Doppelte Chance auf schillernde und Aurora-Pokémon im Shop.": "Double chance for shiny and Aurora Pokémon in the shop."});
 /* v1.56.0 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Wochen-Abstieg & Abgleich": "Weekly descent & sync", "Neu: Wochen-Abstieg. Jede Woche ein Abgrund für alle gleich, mit demselben Draft-Angebot, denselben Flüchen und demselben Laden. 3 Versuche pro Woche, der beste zählt. Eigene Bestenliste, nach Wochenende gibt es Edelsteine für die Top 10 (250 / 150 / 100, Platz 4–10 je 30).": "New: Weekly descent. Every week one Abyss run that is the same for everyone, with the same draft offer, curses and shop. 3 attempts per week, your best counts. Own leaderboard, and after the week ends the top 10 get gems (250 / 150 / 100, places 4–10 30 each).", "Spielen auf mehreren Geräten: Edelsteine, Abzeichen, Herausforderungen, Missionen, Tages- und Wochenrekorde und der Laufverlauf werden jetzt automatisch zusammengeführt. Nichts geht mehr verloren, auch wenn ein Gerät länger aus war.": "Playing on several devices: gems, badges, challenges, missions, daily and weekly records and your run history are now merged automatically. Nothing gets lost anymore, even if a device was off for a while.", "Schillernd-Sammlung im Pokédex (Ansicht „Schillernd“): Für 25, 75, 150 und 300 verschiedene schillernde Pokémon gibt es Edelsteine. Bereits gesammelte zählen sofort.": "Shiny collection in the Pokédex (“Shiny” view): 25, 75, 150 and 300 different shiny Pokémon give gems. Shinies you already have count right away.", "SCHILLERND-SAMMLUNG": "SHINY COLLECTION", "WOCHEN-ABSTIEG": "WEEKLY DESCENT", "Wochen-Abstieg": "Weekly descent", "DRAFT · WOCHEN-ABSTIEG": "DRAFT · WEEKLY DESCENT", "NÄCHSTER VERSUCH": "NEXT ATTEMPT", "BESTENLISTE": "LEADERBOARD", "Alle Versuche genutzt": "All attempts used", "Bestenliste der Woche": "Weekly leaderboard", "Dein bestes Ergebnis:": "Your best result:", "noch keins": "none yet", "Diese Woche hat noch niemand den Wochen-Abstieg gespielt.": "Nobody has played the weekly descent this week yet.", "Bestenliste gerade nicht erreichbar.": "Leaderboard not reachable right now.", "Kein laufender Wochen-Abstieg": "No weekly descent in progress"});
+/* v1.57.0 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Aurora-Pokédex & Ruhm-Embleme": "Aurora Pokédex & Fame emblems", "Aurora-Sammlung zählt jetzt richtig: Aurora-Pokémon aus dem Laden und nach einer Entwicklung werden im Pokédex erfasst. Frühere Aurora-Fänge werden einmalig nachgetragen, soweit sie noch auffindbar sind (aktueller Lauf und deine Geister-Teams).": "Aurora collection now counts correctly: Aurora Pokémon bought in the shop and after evolving are recorded in the Pokédex. Earlier Aurora catches are added once, as far as they can still be found (current run and your ghost teams).", "Pokédex, Ansicht „Aurora“ und „Schillernd“: Nur was du so gefangen hast, ist farbig. Gesehene Pokémon sind blass, der Rest ist ausgegraut.": "Pokédex, “Aurora” and “Shiny” views: only what you caught that way is in colour. Seen Pokémon are faded, the rest is greyed out.", "Neue Ruhm-Embleme: Jeder Rang ist jetzt ein eigener geschliffener Edelstein. Stufe II bekommt eine Fassung, Stufe III Flügel und Krone, die Punkte darunter zeigen die Stufe. Die Auswahl im Ruhm ist übersichtlicher angeordnet.": "New Fame emblems: every rank is now its own cut gem. Tier II gets a setting, tier III wings and a crown, and the dots below show the tier. The Fame selection is laid out more clearly.", "Aurora-Sammlung:": "Aurora collection:", "nachgetragen": "added", "Aurora-Art": "Aurora species", "Aurora-Arten": "Aurora species", " · Aurora-Ansicht: farbig = als Aurora gefangen, blass = gesehen": " · Aurora view: colour = caught as Aurora, faded = seen", " · Schillernd-Ansicht: farbig = schillernd gefangen, blass = gesehen": " · Shiny view: colour = caught shiny, faded = seen"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18272,7 +18303,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.56.0",DUEL_HP=30;
+const MP_VER="1.57.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18909,8 +18940,12 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.56.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.57.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.57.0",d:"18.11.2026",t:"Aurora-Pokédex & Ruhm-Embleme",items:[
+  ["shiny", "Aurora-Sammlung zählt jetzt richtig: Aurora-Pokémon aus dem Laden und nach einer Entwicklung werden im Pokédex erfasst. Frühere Aurora-Fänge werden einmalig nachgetragen, soweit sie noch auffindbar sind (aktueller Lauf und deine Geister-Teams)."],
+  ["dex", "Pokédex, Ansicht „Aurora“ und „Schillernd“: Nur was du so gefangen hast, ist farbig. Gesehene Pokémon sind blass, der Rest ist ausgegraut."],
+  ["crown", "Neue Ruhm-Embleme: Jeder Rang ist jetzt ein eigener geschliffener Edelstein. Stufe II bekommt eine Fassung, Stufe III Flügel und Krone, die Punkte darunter zeigen die Stufe. Die Auswahl im Ruhm ist übersichtlicher angeordnet."]]},
  {v:"1.56.0",d:"18.11.2026",t:"Wochen-Abstieg & Abgleich",items:[
   ["skull", "Neu: Wochen-Abstieg. Jede Woche ein Abgrund für alle gleich, mit demselben Draft-Angebot, denselben Flüchen und demselben Laden. 3 Versuche pro Woche, der beste zählt. Eigene Bestenliste, nach Wochenende gibt es Edelsteine für die Top 10 (250 / 150 / 100, Platz 4–10 je 30)."],
   ["dex", "Schillernd-Sammlung im Pokédex (Ansicht „Schillernd“): Für 25, 75, 150 und 300 verschiedene schillernde Pokémon gibt es Edelsteine. Bereits gesammelte zählen sofort."],
@@ -19843,7 +19878,7 @@ function branchPick(u,q,done){const L=SPECIES[u.sp].line,base=(typeof brBase==="
     return `<button class="brOpt" data-id="${id}" style="--rc:${R.col}"><span class="brPic"></span><b>${esc(s.name)}</b><span class="brTy">${pills(s.types)}</span>${roleTag(role)}<small>${ic("star")} ${esc(mv.ab.n)}</small>${ab&&ABIL[ab]?`<small class="brAb">${esc(ABIL[ab].n)}</small>`:""}</button>`;};
   openModal(`<div class="brPick"><h2>${ic("merge")} ${esc(base.name.toUpperCase())} ENTWICKELT SICH!</h2><div class="lead">Wähle, wozu sich <b>${esc(base.name)}</b> entwickeln soll. Die Wahl ist dauerhaft.</div><div class="brRow n${opts.length}">${opts.map(card).join("")}</div></div>`,"brM n"+opts.length);
   $("mbox").querySelectorAll(".brOpt").forEach(b=>{b.querySelector(".brPic").appendChild(centerSpr(spriteEl(+b.dataset.id,"",{shiny:u.shiny==="a"?"a":!!u.shiny})));
-    b.onclick=()=>{const id=+b.dataset.id;u.sp=id;delete u.brPick;dexUp(id,d=>{d.seen++;d.owned++;if(u.shiny)d.shiny=(d.shiny||0)+1;});
+    b.onclick=()=>{const id=+b.dataset.id;u.sp=id;delete u.brPick;dexUp(id,d=>{d.seen++;d.owned++;if(u.shiny)d.shiny=(d.shiny||0)+1;if(u.shiny==="a")d.aur=(d.aur||0)+1;});
       try{const st=META.stats||(META.stats={});st.evoBr=st.evoBr||{};st.evoBr[id]=(st.evoBr[id]||0)+1;saveMeta();}catch(e){}
       sfx("pop");closeModal();save();render();if(done)done();};});}
 /* Zahltag: +1 Gold je Mauzi/Snobilikat im Raster nach einem Sieg (zusammen höchstens +2) */
@@ -20145,7 +20180,7 @@ const EVO_OLD=new Set([215, 125, 126, 356, 57, 203, 206, 625, 31625]);
 function evoMigrate(){if(!S)return 0;let n=0;
   for(const u of [...(S.bench||[]),...Object.values(S.board||{})]){if(!u||!EVO_OLD.has(u.sp))continue;
     while(u.stars>0&&SPECIES[u.sp]&&SPECIES[u.sp].next&&!SPECIES[u.sp].branch){u.sp=SPECIES[u.sp].next;u.stars--;n++;
-      try{dexUp(u.sp,d=>{d.seen++;d.owned++;if(u.shiny)d.shiny=(d.shiny||0)+1;});}catch(e){}}}
+      try{dexUp(u.sp,d=>{d.seen++;d.owned++;if(u.shiny)d.shiny=(d.shiny||0)+1;if(u.shiny==="a")d.aur=(d.aur||0)+1;});}catch(e){}}}
   return n;}
 
 /* ================================ MONOTYP-HERAUSFORDERUNG (v1.27.0) ================================
@@ -20382,7 +20417,7 @@ function fameLegCrown(c){return fameL_(c)>=FAME_MAX?fameCrownI("onName"):"";}
 function fameLegLine(c){return fameL_(c)>=FAME_MAX?`<div class="fmLegT">★ RUHMESLEGENDE ★</div>`:"";}
 
 function fameNameRow(name,card){try{return fameNameHtml(name,card&&typeof cardClean==="function"?cardClean(card):null);}catch(e){return esc(name);}}
-const fameEm=(L,big)=>{const i=fameStepInfo(L);if(!i)return "";return `<i class="fmEm${big?" big":""}${i.leg?" leg":""}" style="--fc:${i.c};--fd:${i.d}" title="Ruhm: ${esc(fameName_(L))}"><span>${i.leg?"★":ROM3[i.sub]}</span></i>`;};
+const fameEm=(L,big)=>{const i=fameStepInfo(L);if(!i)return "";return `<i class="fmEm${typeof fameEmSvg==="function"?" sv":""}${big?" big":""}${i.leg?" leg":""}" style="--fc:${i.c};--fd:${i.d}" title="Ruhm: ${esc(fameName_(L))}">${typeof fameEmSvg==="function"?fameEmSvg(i):`<span>${i.leg?"★":ROM3[i.sub]}</span>`}</i>`;};
 function fameTabHtml(){const O=fameOpen();
   if(!O.ok){const nb=Object.keys(REGIONS).filter(rk=>!bstMissing(rk).length).length,nr=Object.keys(REGIONS).length;let tl=0,tm=0;RESEARCH.forEach(c=>c.nodes.forEach(n=>{tm+=n.max;tl+=Math.min(n.max,perkLv(n.id));}));
     return `<div class="fmLock"><div class="fmLockIc">${ic("crown")}</div><h3>RUHM</h3><p>Wenn du alles gesammelt und erforscht hast, steckst du deine Edelsteine in <b>Ruhm</b>. Dafür gibt es Edelstein-Ränge von Topas bis Diamant und die Ruhmeslegende, mit farbigen Spielernamen und Kartenrändern.</p>
@@ -20397,10 +20432,10 @@ function fameTabHtml(){const O=fameOpen();
      <small>${ic("gem")} ${F.g.toLocaleString("de-DE")} Edelsteine im Ruhm</small>
      ${lv.next?`<div class="rkProg fmBar" style="--rc:${nx.c}"><i style="width:${Math.round(p*100)}%"></i><span>${lv.into} / ${lv.next} bis ${esc(fameName_(L+1))}</span></div>`:`<div class="rkProg myth fmBar"><i style="width:100%"></i><span>Höchster Ruhm erreicht</span></div>`}
      ${lv.next?`<div class="fmInv"><span>Einzahlen:</span>${[50,100,500].map(v=>`<button class="gemBtn" data-fmi="${v}" ${META.gems<1?"disabled":""}>${ic("gem")}${v}</button>`).join("")}<button class="gemBtn" data-fmi="next" ${META.gems<1?"disabled":""}>${ic("gem")}bis ${esc(fameName_(L+1))}</button></div>`:""}</div></div>
-   <div class="fmPick"><div><h5>NAMENSFARBE</h5><div class="fmOpts"><button class="fmO${!F.n?" on":""}" data-fmn="">Normal</button>${nm.map(k=>`<button class="fmO${F.n===k?" on":""}" data-fmn="${k}"><span class="fmN fn-${k}">${esc(me)}</span></button>`).join("")||`<small class="fmNo">ab Topas I</small>`}</div></div>
-     <div><h5>KARTENRAND</h5><div class="fmOpts"><button class="fmO${!F.f?" on":""}" data-fmf="">Keiner</button>${fr.map(k=>{const b=k.replace("+",""),t=FAME_C[b];return `<button class="fmO fmFrO${F.f===k?" on":""}" data-fmf="${k}" style="--fc:${t.c};--fd:${t.d}"><i class="fmSw${k.endsWith("+")?" plus":""}${b==="legende"?" leg":""}"></i>${t.n}${k.endsWith("+")?" ✦":""}</button>`;}).join("")||`<small class="fmNo">ab Topas III</small>`}</div>
-       <h5 class="fmH2">BESTENLISTE-RAND</h5><div class="fmOpts"><button class="fmO fmBO${F.b==null?" on":""}" data-fmb="=">Wie Kartenrand</button><button class="fmO fmBO${F.b===""?" on":""}" data-fmb="">Keiner</button>${fr.filter(k=>k.endsWith("+")||k==="legende").map(k=>{const b0=k.replace("+",""),t=FAME_C[b0];return `<button class="fmO fmFrO fmBO${F.b===k?" on":""}" data-fmb="${k}" style="--fc:${t.c};--fd:${t.d}"><i class="fmSw plus${b0==="legende"?" leg":""}"></i>${t.n} ✦</button>`;}).join("")}</div>
-       <h5 class="fmH2">RANG-EFFEKT</h5><div class="fmOpts"><button class="fmO${!F.e?" on":""}" data-fme="">Keiner</button>${fx.map(k=>`<button class="fmO fmFxO${F.e===k?" on":""}" data-fme="${k}" style="--fc:${fameFxC(k)}"><i class="fmFxI${k==="legende"?" leg":""}"></i>${esc(FAME_FXN[k]||k)}</button>`).join("")||`<small class="fmNo">ab Topas II</small>`}</div></div>
+   <div class="fmPick v57"><div class="fmOptG"><div class="fmSec"><h5>NAMENSFARBE</h5><div class="fmOpts"><button class="fmO${!F.n?" on":""}" data-fmn="">Normal</button>${nm.map(k=>`<button class="fmO${F.n===k?" on":""}" data-fmn="${k}"><span class="fmN fn-${k}">${esc(me)}</span></button>`).join("")||`<small class="fmNo">ab Topas I</small>`}</div></div>
+     <div class="fmSec"><h5>RANG-EFFEKT</h5><div class="fmOpts"><button class="fmO${!F.e?" on":""}" data-fme="">Keiner</button>${fx.map(k=>`<button class="fmO fmFxO${F.e===k?" on":""}" data-fme="${k}" style="--fc:${fameFxC(k)}"><i class="fmFxI${k==="legende"?" leg":""}"></i>${esc(FAME_FXN[k]||k)}</button>`).join("")||`<small class="fmNo">ab Topas II</small>`}</div></div>
+     <div class="fmSec"><h5>KARTENRAND</h5><div class="fmOpts"><button class="fmO${!F.f?" on":""}" data-fmf="">Keiner</button>${fr.map(k=>{const b=k.replace("+",""),t=FAME_C[b];return `<button class="fmO fmFrO${F.f===k?" on":""}" data-fmf="${k}" style="--fc:${t.c};--fd:${t.d}"><i class="fmSw${k.endsWith("+")?" plus":""}${b==="legende"?" leg":""}"></i>${t.n}${k.endsWith("+")?" ✦":""}</button>`;}).join("")||`<small class="fmNo">ab Topas III</small>`}</div></div>
+       <div class="fmSec"><h5>BESTENLISTE-RAND</h5><div class="fmOpts"><button class="fmO fmBO${F.b==null?" on":""}" data-fmb="=">Wie Kartenrand</button><button class="fmO fmBO${F.b===""?" on":""}" data-fmb="">Keiner</button>${fr.filter(k=>k.endsWith("+")||k==="legende").map(k=>{const b0=k.replace("+",""),t=FAME_C[b0];return `<button class="fmO fmFrO fmBO${F.b===k?" on":""}" data-fmb="${k}" style="--fc:${t.c};--fd:${t.d}"><i class="fmSw plus${b0==="legende"?" leg":""}"></i>${t.n} ✦</button>`;}).join("")}</div></div></div>
      <div class="fmCardP">${typeof cardHTML==="function"?cardHTML(cardMine()):""}</div></div>
    <h4 class="cdCat" style="margin-top:14px">Ruhm-Straße</h4><div class="fmRoad">${groups}</div>`;}
 function fameBind(){const mb=$("mbox");if(!mb)return;if(typeof cardHydrate==="function")try{cardHydrate(mb.querySelector(".fmCardP")||mb);}catch(e){}
@@ -21568,6 +21603,54 @@ function shyColHTML(){const n=shyArten(),c=SHY_COL.findIndex(R=>n<R.n),nx=c<0?nu
 try{const _ap=aurColPanel;aurColPanel=function(){try{const el=$("dxAurC");if(el&&typeof DEXV!=="undefined"&&DEXV.shy===true){el.style.display="";el.innerHTML=shyColHTML();try{hydrateIcons(el);}catch(e){}return;}}catch(e){}return _ap.apply(this,arguments);};}catch(e){}
 try{const _ac2=aurColCheck;aurColCheck=function(){const r=_ac2.apply(this,arguments);shyColCheck();return r;};}catch(e){}
 try{MERGE_NUM.push("shyCol");}catch(e){}
+
+/* ================= v1.57.0: Aurora im Pokédex richtig zählen, neue Ruhm-Embleme ================= */
+/* Aurora-Fänge nachtragen: aktueller Lauf, gespeicherte Läufe und die eigenen Geister-Teams auf dem Server (einmal pro Konto) */
+async function aurBackfill(){if(window.__aurBF)return;try{if(!META||typeof USER==="undefined"||!USER||(META.aurFix|0)>=1)return;window.__aurBF=1;
+  const F=new Set(),add=(sp,sh)=>{sp=+sp;if(sh==="a"&&SPECIES[sp])F.add(sp);};
+  const scanS=s=>{if(!s)return;const b=s.board||{};for(const k in b)if(b[k])add(b[k].sp,b[k].shiny);(s.bench||[]).forEach(u=>u&&add(u.sp,u.shiny));};
+  try{scanS(typeof S!=="undefined"?S:null);}catch(e){}
+  ["sp","ab","abw"].forEach(k=>{try{const o=LS.get(saveKey(k),null);scanS(o&&o.S);}catch(e){}});
+  let net=false;
+  try{if(typeof CL!=="undefined"&&CL.sess&&CL.sess.uid&&await clReady()){const r=await clFetch(`/rest/v1/ghosts?select=team&user_id=eq.${CL.sess.uid}&order=created_at.desc&limit=1000`,{timeout:12000});
+    if(r.ok&&Array.isArray(r.j)){net=true;r.j.forEach(g=>(Array.isArray(g.team)?g.team:[]).forEach(t=>t&&add(t.sp,t.sh)));}}}catch(e){}
+  let nw=0;F.forEach(sp=>dexUp(sp,d=>{if(!((d.aur|0)>0))nw++;d.seen=Math.max(d.seen|0,1);d.owned=Math.max(d.owned|0,1);d.shiny=Math.max(d.shiny|0,1);d.aur=Math.max(d.aur|0,1);}));
+  if(net)META.aurFix=1;
+  if(net||nw){saveMeta();try{aurColCheck();}catch(e){}try{if($("dxGrid"))dexRender();}catch(e){}}
+  if(nw)setTimeout(()=>{try{toast(`Aurora-Sammlung: ${nw} Aurora-${nw===1?"Art":"Arten"} nachgetragen`,"shiny");}catch(e){}},2200);
+ }catch(e){}finally{window.__aurBF=0;}}
+try{const _sm57=showMenu;showMenu=function(){const r=_sm57.apply(this,arguments);try{setTimeout(aurBackfill,1500);}catch(e){}return r;};}catch(e){}
+
+/* ---------- Ruhm-Embleme: geschliffener Edelstein je Rang, Stufe II mit Fassung, Stufe III mit Flügeln und Krone, Punkte = Stufe ---------- */
+const _femP=(k)=>{const reg=(n,r,rot,sx,sy)=>Array.from({length:n},(_,i)=>{const a=rot+i*2*Math.PI/n;return [Math.cos(a)*r*(sx||1),Math.sin(a)*r*(sy||1)];});
+  switch(k){
+    case"topas":return reg(8,13.6,Math.PI/8,1.04,.94);
+    case"smaragd":{const w=10.5,h=13.5,c=4.2;return [[-w+c,-h],[w-c,-h],[w,-h+c],[w,h-c],[w-c,h],[-w+c,h],[-w,h-c],[-w,-h+c]];}
+    case"saphir":return reg(12,13.6,0);
+    case"rubin":return reg(6,14.4,-Math.PI/2);
+    case"amethyst":return [[0,-15],[9,-6.5],[10.5,2.5],[0,15],[-10.5,2.5],[-9,-6.5]];
+    case"diamant":return [[-8,-11.5],[8,-11.5],[15,-4],[0,14.5],[-15,-4]];
+    default:{const o=[];for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,r=i%2?7.2:15.5;o.push([Math.cos(a)*r,Math.sin(a)*r]);}return o;}}};
+const _femC={};
+function fameEmSvg(i){const key=(i.leg?"legende":i.k)+"|"+(i.leg?3:i.sub);if(_femC[key])return _femC[key];
+  const sub=i.leg?3:i.sub,P0=_femP(i.leg?"legende":i.k),sc=sub===3?.84:sub===2?.9:1,cx=20,cy=sub===3?19:18;
+  const P=P0.map(p=>[cx+p[0]*sc,cy+p[1]*sc]),T=P0.map(p=>[cx+p[0]*sc*.5,cy+p[1]*sc*.5-.6]),f=n=>Math.round(n*10)/10,pt=a=>a.map(p=>f(p[0])+","+f(p[1])).join(" ");
+  const L=[-.6,-.8];let fac="";
+  for(let j=0;j<P.length;j++){const a=P[j],b=P[(j+1)%P.length],c=T[(j+1)%P.length],d=T[j],mx=(a[0]+b[0])/2-cx,my=(a[1]+b[1])/2-cy,ln=Math.hypot(mx,my)||1,s=(mx*L[0]+my*L[1])/ln;
+    fac+=`<polygon points="${pt([a,b,c,d])}" fill="${s>0?"#fff":"#000"}" fill-opacity="${f(Math.abs(s)*(s>0?.42:.5))}"/>`;}
+  let back="";
+  if(sub===3){back+=`<g class="femW" stroke="#0b0d13" stroke-width="1.2" stroke-linejoin="round">`+[-1,1].map(m=>{const x=v=>f(cx+m*v);
+      return `<path d="M${x(9)} ${cy+2} C${x(15)} ${cy-4} ${x(19.5)} ${cy-6} ${x(19.5)} ${cy-12} C${x(17)} ${cy-6} ${x(14)} ${cy-5} ${x(9)} ${cy-4}Z" style="fill:var(--fc)"/><path d="M${x(9)} ${cy+6} C${x(15)} ${cy+3} ${x(18.5)} ${cy+1} ${x(19.5)} ${cy-4} C${x(17)} ${cy+1} ${x(13)} ${cy+1} ${x(9)} ${cy+1}Z" style="fill:var(--fd)"/>`;}).join("")+`</g>`;
+    back+=`<path d="M${cx-6} ${cy-12.5} L${cx-7} ${cy-18} L${cx-3} ${cy-15} L${cx} ${cy-19.5} L${cx+3} ${cy-15} L${cx+7} ${cy-18} L${cx+6} ${cy-12.5}Z" fill="#ffe27a" stroke="#0b0d13" stroke-width="1.1" stroke-linejoin="round"/><circle cx="${cx}" cy="${cy-19.5}" r="1.2" fill="#fff"/>`;}
+  if(sub>=2){const B=P0.map(p=>[cx+p[0]*sc*1.2,cy+p[1]*sc*1.2]);back+=`<polygon points="${pt(B)}" style="fill:var(--fd)" stroke="#0b0d13" stroke-width="1.3" stroke-linejoin="round"/><polygon points="${pt(B)}" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width=".7" transform="translate(-.4 -.5)"/>`;}
+  const pips=i.leg?"":Array.from({length:sub},(_,j)=>{const x=f(cx+(j-(sub-1)/2)*5.2),y=37.4;return `<path d="M${x} ${y-2.3} L${f(+x+2.3)} ${y} L${x} ${y+2.3} L${f(x-2.3)} ${y}Z" fill="#fff" stroke="#0b0d13" stroke-width="1"/>`;}).join("");
+  const hl=T.slice(0,Math.ceil(T.length/2));
+  const svg=`<svg viewBox="0 0 40 40" aria-hidden="true">${back}<polygon points="${pt(P)}" style="fill:var(--fc)"/>${fac}<polygon points="${pt(T)}" style="fill:var(--fc)"/><polygon points="${pt(T)}" fill="#fff" fill-opacity=".28"/>`+
+    `<g fill="none" style="stroke:var(--fd)" stroke-opacity=".7" stroke-width=".5">${P.map((p,j)=>`<line x1="${f(p[0])}" y1="${f(p[1])}" x2="${f(T[j][0])}" y2="${f(T[j][1])}"/>`).join("")}</g>`+
+    `<polygon points="${pt(P)}" fill="none" stroke="#0b0d13" stroke-width="1.5" stroke-linejoin="round"/><polygon points="${pt(T)}" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width=".6"/>`+
+    `<path d="M${f(cx-4.5*sc)} ${f(cy-3.5*sc)} L${f(cx-1.5*sc)} ${f(cy-5.5*sc)} L${f(cx-.6*sc)} ${f(cy-4*sc)} L${f(cx-3.6*sc)} ${f(cy-1.6*sc)}Z" fill="#fff" fill-opacity=".85"/>`+
+    `<path class="femSp" d="M${f(cx+7*sc)} ${f(cy-9*sc)} l.9 2.1 2.1 .9 -2.1 .9 -.9 2.1 -.9 -2.1 -2.1 -.9 2.1 -.9Z" fill="#fff"/>${pips}</svg>`;
+  return _femC[key]=svg;}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
