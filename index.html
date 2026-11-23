@@ -5363,6 +5363,9 @@ img.aur,.card .pic img.aur,.u img.aur{filter:url(#aurF) drop-shadow(0 0 2px rgba
 .kbList h5{margin:12px 0 5px;font:9px var(--px);color:#ffd84a}.kbList h5:first-child{margin-top:4px}
 .kbList p{margin:3px 0;font-size:13px;color:#d8dcef;line-height:1.7}
 .kbList kbd{display:inline-block;min-width:18px;padding:1px 6px;margin:0 1px;border-radius:5px;background:#232a40;border:1px solid #3a4462;border-bottom-width:3px;font:11px/1.4 var(--px);color:#fff;text-align:center}
+/* v1.58.0.5 */
+.newGame .dfList+.monoBox{margin-top:14px}
+#aiPanel{position:fixed;left:6px;bottom:28px;z-index:9999;max-width:min(560px,calc(60*var(--vw,1vw)));max-height:calc(46*var(--vh,1vh));overflow:hidden;margin:0;padding:6px 8px;border-radius:6px;background:rgba(8,10,16,.82);border:1px solid #3a4462;color:#c8f0ff;font:10px/1.35 ui-monospace,Consolas,monospace;white-space:pre-wrap;pointer-events:none}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -6827,7 +6830,7 @@ const RELICS=[
  {id:"curse",r:3,n:"Fluchauge",ic:"eye",col:"#c27cff",d:"Alle Gegner starten mit 15 % weniger KP."},
  {id:"stardust",r:3,n:"Sternenstaub",ic:"star",col:"#ffb020",d:"Epische & legendäre Pokémon +30 % KP und Angriff, seltene +12 %."},
  {id:"leftovers",r:2,n:"Überreste",ic:"leaf",col:"#4dffa6",d:"Dein Team regeneriert 1,5 % KP pro Sekunde."},
- {id:"claw",r:2,n:"Flinkklaue",ic:"bolt",col:"#ffe14d",d:"Dein Team +15 % Angriffstempo."},
+ {id:"claw",r:2,n:"Flinkfeder",ic:"bolt",col:"#ffe14d",d:"Dein Team +15 % Angriffstempo."},
  {id:"expert",r:3,n:"Expertengurt",ic:"crit",col:"#ff6b5c",d:"Sehr effektive Treffer verursachen +60 % Schaden."},
  {id:"scope",r:3,n:"Scope-Linse",ic:"lens",col:"#5cf2ff",d:"Spezialattacken brauchen 30 % weniger Energie, +25 % Startenergie."},
  {id:"lucky",r:1,n:"Glücksklee",ic:"clover",col:"#6ee06a",d:"Die ersten zwei Shop-Neuwürfe jeder Runde sind gratis."},
@@ -8426,7 +8429,8 @@ const LSPEC={};
 /* Beschreibung aus den Effekten */
 const _pc=v=>Math.round(Math.abs(v)*100)+" %",_pc1=v=>(Math.round(Math.abs(v)*1000)/10).toString().replace(".",",")+" %",_dc=v=>String(Math.round(v*10)/10).replace(".",","),_sg=v=>v<0?"−":"+";
 function tfxText(t){return t&&TFX[t]?TFX[t].d:"löst den Typ-Effekt aus";}
-function specDesc(s,u){if(typeof LANG!=="undefined"&&LANG==="en")return specDescEN(s,u);const m=s.m||{},f=s.fx||{},par=s.from&&SPECS[s.from],t=f.tfxType||(par&&par.fx&&par.fx.tfxType)||uType(u),out=[];
+function specDesc(s,u){const r=specDesc0(s,u),p=s&&s.from&&SPECS[s.from];if(!p||!r)return r;const en=typeof LANG!=="undefined"&&LANG==="en",pn=en&&typeof EN!=="undefined"&&EN[p.n]?EN[p.n]:p.n;return (en?`On top of “${pn}”: `:`Zusätzlich zu „${pn}“: `)+r;}
+function specDesc0(s,u){if(typeof LANG!=="undefined"&&LANG==="en")return specDescEN(s,u);const m=s.m||{},f=s.fx||{},par=s.from&&SPECS[s.from],t=f.tfxType||(par&&par.fx&&par.fx.tfxType)||uType(u),out=[];
   const P={hp:v=>`${_sg(v)}${_pc(v)} KP`,atk:v=>`${_sg(v)}${_pc(v)} Angriff`,as:v=>`${_sg(v)}${_pc(v)} Angriffstempo`,def:v=>`+${v} Verteidigung`,crit:v=>`+${_pc(v)} Krit-Chance`,dodge:v=>`+${_pc(v)} Ausweichen`,
     regen:v=>`regeneriert ${_pc1(v)} KP/s`,ls:v=>`${_pc(v)} Lebensraub`,thorns:v=>`wirft ${_pc(v)} des Nahkampfschadens zurück`,range:v=>`+${_dc(v)} Reichweite`,mana:v=>`startet mit +${v} Energie`,ab:v=>`Spezialattacke +${_pc(v)}`,
     heal:v=>`Heilungen +${_pc(v)}`,burn:()=>`Treffer von Attacke 1 verbrennen (2 % KP/s)`,frost:v=>`${_pc(v)} der Treffer von Attacke 1 verlangsamen 1,5 s`,poison:v=>`Treffer vergiften (${_pc1(v)} KP/s)`,shield:v=>`Kampfbeginn: Schild über ${_pc(v)} der KP`};
@@ -8992,7 +8996,7 @@ function settingsModal(){
   openModal(`<h2>${ic("gear")} EINSTELLUNGEN</h2>
    <div class="stGrp"><h4>${ic("bolt")} Audio</h4>
     ${line("bolt","Soundeffekte","Kampf, Klicks, Münzen",seg("stSfx",[[0,"Aus"],[.3,"Leise"],[.5,"Mittel"],[.85,"Laut"]],sv))}
-    ${line("play","Musik","Ruhige Hintergrundmusik",seg("stMus",[[0,"Aus"],[1,"Leise"],[2,"Mittel"]],BGM.lvl))}</div>
+    ${line("play","Musik","Ruhige Hintergrundmusik",seg("stMus",[[0,"Aus"],[1,"Leise"],[2,"Mittel"],[3,"Laut"]],BGM.lvl))}</div>
    <div class="stGrp"><h4>${ic("eye")} Anzeige</h4>
     ${line("eye","Grafik","Auto passt sich deinem Gerät an",seg("stGfx",[["hoch","Hoch"],["mittel","Mittel"],["niedrig","Niedrig"],["auto","Auto"]],typeof GFX!=="undefined"?GFX.mode:"auto"))}
     ${line("dex","Sprache","Language",seg("stLang",[["de","Deutsch"],["en","English"]],LANG))}${line("grid","Große Bildschirme","Über 1920×1080 alles mitwachsen lassen",seg("stUiz",[["on","An"],["off","Aus"]],(()=>{try{return localStorage.getItem("pokelings_uiz")==="off"?"off":"on";}catch(e){return "on";}})()))}</div>
@@ -9079,7 +9083,7 @@ function chooseDiff(){
         <div class="nbStats"><span>${ic("crown")} ${st.champ}× Champion</span><span>${ic("flag")} ${st.best>20?"Champion":st.best?"Runde "+st.best:"noch nicht gespielt"}</span><span>${ic("dex")} ${st.seen}/${st.total}</span>${typeof twBest==="function"&&twBest(k)?`<span>${ic("tower")} Turm: Ebene ${twBest(k)}</span>`:""}</div></div>
       <div class="nbMons"><span class="rcM" data-sp="${A.mascot}"></span>${A.mascot2?`<span class="rcM m2" data-sp="${A.mascot2}"></span>`:""}</div>
       <button class="btn nbBack" id="ngBack">${ic("back")} Region wechseln</button></div>
-    ${typeof monoPickerHtml==="function"?monoPickerHtml(k):""}${typeof psBarHtml==="function"?psBarHtml(k):""}<div class="dfList">${cards}</div>`,"wide newGame",true);if(typeof monoPickerBind==="function")monoPickerBind();if(typeof psBind==="function")psBind(k,()=>chooseDiff());
+    ${typeof psBarHtml==="function"?psBarHtml(k):""}<div class="dfList">${cards}</div>${typeof monoPickerHtml==="function"?monoPickerHtml(k):""}`,"wide newGame",true);if(typeof monoPickerBind==="function")monoPickerBind();if(typeof psBind==="function")psBind(k,()=>chooseDiff());
   $("mbox").querySelectorAll(".rcM[data-sp],.dfMon[data-sp]").forEach(e=>e.appendChild(spriteEl(+e.dataset.sp)));
   $("ngBack").onclick=()=>{sfx("click");chooseMode();};
   $("mbox").querySelectorAll(".dfCard").forEach(b=>b.onclick=()=>{if(b.disabled){sfx("deny");return;}closeModal();hideScreens();newRun(b.dataset.m,modeRegion,typeof monoOpt==="function"?monoOpt():undefined);});
@@ -13489,7 +13493,7 @@ const winChanceH=(en,ty)=>{if(!en||!en.length||!boardUnits().length)return .5;le
 /* v1.48.0: Siegchance aus den Probekämpfen – erst anzeigen, wenn alle fertig sind */
 function chanceSim(en,ty,big){try{if(S&&!S.duel&&en&&en.length&&boardUnits().length&&typeof simChance==="function"){const p=simChance(en,ty,1);
   if(!simReady(en))return `<div class="chance${big?" big":""} wait"><span class="cl">${ic("trophy")}Siegchance</span><span class="cbar"><i></i></span><b>…</b><em>rechnet</em></div>`;return chanceTag(p,big,1);}}catch(e){}return chanceTag(winChance(en,ty),big);}
-function chanceTag(p,big,exact){const [t,c]=p>=.9?["Sicher","var(--green)"]:p>=.65?["Gut","var(--cyan)"]:p>=.35?["Riskant","var(--amber)"]:["Gefährlich","var(--red)"];const v=Math.round(p*100);return `<div class="chance${big?" big":""}" style="--cc:${c}" title="${exact?"Siegchance aus 24 Probekämpfen":"Geschätzte Siegchance (grobe Schätzung aus Stärke und Typen)"}"><span class="cl">${ic("trophy")}Siegchance</span><span class="cbar"><i style="width:${v}%"></i></span><b>${exact?"":"~"}${v}%</b><em>${t}</em></div>`;}
+function chanceTag(p,big,exact){const [t,c]=p>=.9?["Sehr gut","var(--green)"]:p>=.65?["Gut","var(--cyan)"]:p>=.35?["Riskant","var(--amber)"]:["Gefährlich","var(--red)"];const v=exact&&typeof simPct==="function"?simPct(p):Math.round(p*100);return `<div class="chance${big?" big":""}" style="--cc:${c}" title="${exact?"Siegchance aus "+SIM_N+" Probekämpfen, keine Garantie":"Geschätzte Siegchance (grobe Schätzung aus Stärke und Typen)"}"><span class="cl">${ic("trophy")}Siegchance</span><span class="cbar"><i style="width:${v}%"></i></span><b>${exact?"":"~"}${v}%</b><em>${t}</em></div>`;}
 const enemyScale=()=>(S&&S.daily&&S.daily.rules.includes("hard")?1.12:1)*(S&&S.scout?.85:1)*(S&&S.flare?1.2:1)*1.0*(1+Math.max(0,S.round-8)*BAL.ramp1+Math.max(0,S.round-14)*BAL.ramp2)*MODES[S.mode].enemy*(typeof twScale==="function"?twScale():1)*(S.revanche&&!S.tower?1+S.revives*Math.max(.03,MODES[S.mode].revive-.03*perk("phoenix")):1);
 // Sprite nach sichtbarem Inhalt zentrieren (GIF-Leinwand ist oft einseitig leer, z.B. Schweif)
 function centerSpr(img){if(!img||img.tagName!=="IMG")return img;
@@ -13526,7 +13530,7 @@ function renderEnc(){
    <div id="encTeam"></div>
    ${chanceSim(S.enemies,S.enc&&S.enc.type,1)}${S.revives&&S.revanche&&!S.tower?`<div style="font-size:11px;color:var(--pink);margin-top:3px">Revanche-Malus aktiv: Gegner +${reviveMalus(S.revives)} %</div>`:""}
    <div class="vsLine"><span style="color:var(--cyan)">Du: ${me.n} Pokémon</span><span style="color:var(--pink)">Gegner: ${en.n} Pokémon</span></div>
-   <div id="encFoot"><div style="font-size:12px;color:var(--muted);line-height:1.5">Prämie <b style="color:var(--amber);font-family:var(--px)">+${D.reward}</b> Gold${prizeTxt(D)}<br>+50 % ohne eigenen K.O. · +${2+perk("school")} EP</div>
+   <div id="encFoot"><div style="font-size:12px;color:var(--muted);line-height:1.5">Prämie <b style="color:var(--amber);font-family:var(--px)">+${S.revanche?Math.ceil(D.reward/2):D.reward}</b> Gold${S.revanche?" (Revanche, halbiert)":""}${prizeTxt(D)}<br>+50 % ohne eigenen K.O. · +${2+perk("school")} EP</div>
    <span style="flex:1"></span>${boss||S.revanche?"":`<button class="btn" id="encBack">${ic("back")} Anderer Weg</button>`}
    <button class="pri hot" id="encFight" ${boardUnits().length?"":"disabled"}>${ic("swords")} ${S.revanche?"REVANCHE":"KAMPF"}</button></div>
    ${boardUnits().length?"":`<p style="color:var(--red);font-weight:700;margin:8px 0 0;text-align:center">Stelle zuerst Pokémon im RASTER auf.</p>`}`;
@@ -14663,7 +14667,7 @@ const sfx=(n,g)=>SIM?undefined:SFX.play(n,g);
    Rhodes-artige Akkorde, weicher Bass, gedämpfte Drums, ab und zu eine Glocken-Melodie mit Echo.
    Eigene Lautstärke (Einstellungen), im Kampf etwas leiser, pausiert während des Intros und wenn der Tab versteckt ist. */
 const BGM=(()=>{
-  const LV=[0,.35,.7],LN=["Aus","Leise","Mittel"];let lvl=LS.get("pokelings_music",1);if(!(lvl in LV))lvl=1;
+  const LV=[0,.35,.7,1],LN=["Aus","Leise","Mittel","Laut"];let lvl=LS.get("pokelings_music",1);if(!(lvl in LV))lvl=1;
   let A=null,out=null,lp=null,dly=null,alive=false,next=0,i=0,tm=0,duckV=1,crack=null,seed=7;
   let BPM=74,B=60/BPM;const mtof=m=>440*Math.pow(2,(m-69)/12);
   const PROG=[[[53,57,60,64],[52,55,59,62],[50,53,57,60],[48,52,55,59]],
@@ -15667,6 +15671,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Aurora-Pokédex & Ruhm-Embleme": "
 if(typeof EN!=="undefined")Object.assign(EN,{"Aurora-Nachtrag": "Aurora catch-up", "Aurora-Nachtrag verbessert: Hattest du eine Entwicklung oder eine Mega-Entwicklung als Aurora, zählen jetzt auch die Vorstufen und die Grundform (sie waren vorher ebenfalls Aurora). Aurora-Pokémon aus der Ultrapforte bleiben Aurora.": "Aurora catch-up improved: if you had an evolution or a Mega Evolution as Aurora, its earlier stages and base form now count too (they were Aurora as well). Aurora Pokémon from the Ultra Gate stay Aurora."});
 /* v1.58.0 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Tastenkürzel": "Keyboard shortcuts", "Neue Tastenkürzel: Leertaste oder Enter drückt den Hauptknopf (z. B. „Weiter zum Shop“ nach dem Kampf), 1–9 wählt in Fenstern und nach dem Kampf, Q/W/A/S/Y kauft die Pokémon im Laden. Die Zurück-Taste von Maus und Browser schließt Fenster bzw. pausiert den Lauf. H zeigt alle Tastenkürzel.": "New keyboard shortcuts: Space or Enter presses the main button (e.g. “Continue to shop” after a battle), 1–9 picks in windows and after a battle, Q/W/A/S/Y buys the Pokémon in the shop. The Back button of mouse and browser closes windows or pauses the run. H shows all shortcuts.", "TASTENKÜRZEL": "KEYBOARD SHORTCUTS", "Überall": "Everywhere", "Hauptmenü": "Main menu", "Laden": "Shop", "Kampf": "Battle", "Leertaste": "Space", "Hauptknopf (Weiter, OK, Nächster Kampf)": "Main button (Continue, OK, Next battle)", "Auswahl in Fenstern (Belohnung, Draft …)": "Pick in windows (reward, draft …)", "oder Zurück-Taste (Maus/Browser) Fenster schließen, im Lauf Pause": "or Back button (mouse/browser) close window, pause in a run", "diese Übersicht": "this overview", "wählen,": "select,", "öffnen": "open", "Kampf starten · ": "Start battle · ", "neu würfeln · ": "reroll · ", "Wege · ": "paths · ", "Ausgewähltes verkaufen": "Sell selected", "Pokémon 1–5 im Laden kaufen": "Buy shop Pokémon 1–5", "Laden · ": "Shop · ", "Raster · ": "Grid · ", "Begegnungen · ": "Encounters · ", "Zoom": "Zoom", "Tempo · ": "Speed · ", "Pause": "Pause", "oder": "or"});
+/* v1.58.0.5 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Schnellfix aus dem Testbericht": "Quick fixes from the test report", "Siegchance ehrlicher: Aus 24 Probekämpfen zeigt sie höchstens 96 % und heißt dann „Sehr gut“ statt „Sicher“. Garantiert ist ein Sieg nie.": "Fairer win chance: from 24 test battles it shows at most 96 % and is then called “Very good” instead of “Safe”. A win is never guaranteed.", "Revanche: Die Vorschau zeigt jetzt die halbierte Prämie, die wirklich ausgezahlt wird.": "Rematch: the preview now shows the halved reward that is actually paid.", "Tutorial korrigiert: Zwei gleiche Pokémon verschmelzen (nicht drei), und der Hinweis zu den Wegen passt jetzt auch, wenn es nur zwei gibt.": "Tutorial fixed: two identical Pokémon merge (not three), and the hint about the paths also fits when there are only two.", "Das Relikt „Flinkklaue“ heißt jetzt „Flinkfeder“, damit es nicht mehr mit dem gleichnamigen Item verwechselt wird. Die Wirkung bleibt gleich.": "The relic “Quick Claw” is now called “Swift Wing” so it is no longer confused with the item of the same name. Its effect stays the same.", "Flinkfeder": "Swift Wing", "Musik hat jetzt auch die Stufe „Laut“.": "Music now also has the “Loud” level.", "Neues Spiel aufgeräumt: Oben steht nur noch „Pokémon im Lauf“, die Herausforderungen sind unter die Schwierigkeiten gerückt.": "New game tidied up: only “Pokémon in the run” stays at the top, the challenges moved below the difficulties.", "Aufstiege: Die Beschreibung sagt jetzt, dass der Aufstieg zusätzlich zur Unterklasse wirkt (z. B. Flammenmeer +18 % auf die +30 % von Lohekanonier).": "Ascensions: the description now says the ascension works on top of the subclass (e.g. Sea of Flames +18 % on top of the +30 % of Blaze Cannon).", "Sehr gut": "Very good", "Tipp einen der Wege an.": "Tap one of the paths.", "Zwei gleiche Pokémon": "Two identical Pokémon", "Musik: Laut": "Music: Loud", "(Revanche, halbiert)": "(rematch, halved)"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18312,7 +18318,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.58.0",DUEL_HP=30;
+const MP_VER="1.58.0.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18553,9 +18559,9 @@ const TUT=[
  {sel:"#shopRow",tab:"shop",t:"Willkommen! Das ist der <b>Poké-Markt</b>. Kauf dir ein Pokémon, indem du auf eine Karte tippst.",done:()=>allUnits().length>=2},
  {sel:'.tab[data-tab="raster"]',t:"Super! Wechsle ins <b>RASTER</b> und zieh dein neues Pokémon von der Bank aufs Feld. Rechts ist vorne: Tanks nach vorne, Schützen nach hinten.",done:()=>boardUnits().length>=2},
  {sel:'.tab[data-tab="enc"]',t:"Unter <b>BEGEGNUNG</b> wählst du deinen Weg. Jeder Weg zeigt Gegner, Prämie und deine Siegchance.",done:()=>tab==="enc"||!!S.enc},
- {sel:".paths",t:"Tipp einen der drei Wege an.",done:()=>!!(S.enc&&S.enc.type!=="event")},
+ {sel:".paths",t:"Tipp einen der Wege an.",done:()=>!!(S.enc&&S.enc.type!=="event")},
  {sel:"#encFight",t:"Alles bereit. Starte den <b>KAMPF</b>! Deine Pokémon kämpfen ganz von allein.",done:()=>S.phase!=="shop"},
- {wait:()=>$("result").classList.contains("show"),t:"Gewinne Kämpfe für Gold. <b>Drei gleiche Pokémon</b> verschmelzen zu einem stärkeren, und mit dem Trainer-Level bekommst du mehr Plätze im Raster. Die ganze Anleitung steht in den Einstellungen. Viel Spaß!",final:1}];
+ {wait:()=>$("result").classList.contains("show"),t:"Gewinne Kämpfe für Gold. <b>Zwei gleiche Pokémon</b> verschmelzen zu einem stärkeren, und mit dem Trainer-Level bekommst du mehr Plätze im Raster. Die ganze Anleitung steht in den Einstellungen. Viel Spaß!",final:1}];
 function tutorial(){if(!S)return;let i=0;const old=$("tut");if(old)old.remove();
   const o=document.createElement("div");o.id="tut";o.innerHTML=`<i class="tRing"></i><div class="tBox glass"><span class="tN"></span><p></p><div class="tB"><button class="btn" id="tSkip">Überspringen</button><button class="pri" id="tOk" style="display:none">${ic("check")} Los geht's</button></div></div>`;document.body.appendChild(o);
   const ring=o.querySelector(".tRing"),box=o.querySelector(".tBox"),txt=box.querySelector("p"),num=box.querySelector(".tN");
@@ -18888,6 +18894,7 @@ function menuLbModal(){openModal(`<div id="mLbM" class="mLbM">${menuLbFrame()}</
    Die Siegchance = Anteil gewonnener Durchläufe. Läuft in kleinen Häppchen im Hintergrund, damit nichts ruckelt.
    Ändert sich das Team (Aufstellung, Items, Kauf), wird neu gerechnet – so sieht man direkt, ob eine Umstellung hilft. */
 const SIM_N=24,SIM_DT=1/20;
+const simPct=p=>Math.round((p*SIM_N+1)/(SIM_N+2)*100);
 const SIMC={cache:new Map(),queue:[],tm:0,last:0,dirty:false};
 /* v1.48.0: Rechenzeit je Häppchen: in „Begegnung“ (und beim Würfeln) zügig, sonst gedrosselt im Hintergrund, damit Laden und Raster flüssig bleiben */
 const simOnEnc=()=>typeof tab!=="undefined"&&tab==="enc";
@@ -18932,7 +18939,7 @@ function simPrefetch(){clearTimeout(SIMC.pre);SIMC.pre=setTimeout(()=>{try{if(!S
 function simChip(){const a=$("arena");if(!a)return;let c=$("simChip");const en=S&&S.phase==="shop"&&S.enc&&S.enc.type!=="event"&&S.enemies&&S.enemies.length?S.enemies:null;
   if(!en||typeof tab==="undefined"||tab!=="raster"||S.duel||!boardUnits().length){if(c)c.style.display="none";return;}
   if(!c){c=document.createElement("div");c.id="simChip";c.className="ov rasterOnly";a.appendChild(c);}
-  const p0=simChance(en,S.enc.type,1),p=simReady(en)?p0:null,v=p==null?null:Math.round(p*100),col=v==null?"#9aa3b5":v>=65?"#38b048":v>=35?"#e0a020":"#e0402e";
+  const p0=simChance(en,S.enc.type,1),p=simReady(en)?p0:null,v=p==null?null:simPct(p),col=v==null?"#9aa3b5":v>=65?"#38b048":v>=35?"#e0a020":"#e0402e";
   const cc=SIMC.cache.get(simBoardSig()+"@"+simEnSig(en)),nn=cc?Math.min(cc.n,SIM_N):0,part=v!=null&&nn<SIM_N;
   c.style.display="";c.innerHTML=`${ic("swords")}<span>Siegchance gegen ${esc(BOSSES[S.round]?BOSSES[S.round].name:S.enc.name||"Gegner")}</span><b style="background:${col}">${v==null?"…":v+" %"}</b><small>${v==null?"rechnet …":"aus "+SIM_N+" Probekämpfen"}</small>`;}
 /* echte Simulation, solange sie läuft die alte Schätzung */
@@ -18949,8 +18956,16 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.58.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.58.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.58.0.5",d:"23.11.2026",t:"Schnellfix aus dem Testbericht",items:[
+  ["bug", "Siegchance ehrlicher: Aus 24 Probekämpfen zeigt sie höchstens 96 % und heißt dann „Sehr gut“ statt „Sicher“. Garantiert ist ein Sieg nie."],
+  ["bug", "Revanche: Die Vorschau zeigt jetzt die halbierte Prämie, die wirklich ausgezahlt wird."],
+  ["bug", "Tutorial korrigiert: Zwei gleiche Pokémon verschmelzen (nicht drei), und der Hinweis zu den Wegen passt jetzt auch, wenn es nur zwei gibt."],
+  ["relic", "Das Relikt „Flinkklaue“ heißt jetzt „Flinkfeder“, damit es nicht mehr mit dem gleichnamigen Item verwechselt wird. Die Wirkung bleibt gleich."],
+  ["play", "Musik hat jetzt auch die Stufe „Laut“."],
+  ["flag", "Neues Spiel aufgeräumt: Oben steht nur noch „Pokémon im Lauf“, die Herausforderungen sind unter die Schwierigkeiten gerückt."],
+  ["info", "Aufstiege: Die Beschreibung sagt jetzt, dass der Aufstieg zusätzlich zur Unterklasse wirkt (z. B. Flammenmeer +18 % auf die +30 % von Lohekanonier)."]]},
  {v:"1.58.0",d:"23.11.2026",t:"Tastenkürzel",items:[
   ["info", "Neue Tastenkürzel: Leertaste oder Enter drückt den Hauptknopf (z. B. „Weiter zum Shop“ nach dem Kampf), 1–9 wählt in Fenstern und nach dem Kampf, Q/W/A/S/Y kauft die Pokémon im Laden. Die Zurück-Taste von Maus und Browser schließt Fenster bzw. pausiert den Lauf. H zeigt alle Tastenkürzel."]]},
  {v:"1.57.0.5",d:"18.11.2026",t:"Aurora-Nachtrag",items:[
@@ -21703,6 +21718,56 @@ function kbCanBack(){try{if($("auth")&&$("auth").classList.contains("show"))retu
 function kbArm(){try{if(!(history.state&&history.state.pkB))history.pushState({pkB:1},"");}catch(e){}}
 window.addEventListener("popstate",()=>{try{if(!kbCanBack())return;document.body.dispatchEvent(new KeyboardEvent("keydown",{key:"Escape",bubbles:true}));kbArm();}catch(e){}});
 ["pointerdown","keydown"].forEach(t=>window.addEventListener(t,()=>{if(kbCanBack())kbArm();},true));
+
+/* ================= v1.58.0.5: KI-Testmodus (nur Konto „requiEM-Claude“) ================= */
+/* An: keine Zwischen-Animationen (window.__fast), Kampf 8×, Musik aus, Spielzustand als Text: PKT.state() und Feld #aiPanel; Aktionen per PKT.act("…"). */
+const AI_ACC="requiem-claude";
+function aiAcc(){try{return typeof USER!=="undefined"&&!!USER&&String(USER).toLowerCase()===AI_ACC;}catch(e){return false;}}
+function aiOn(){try{return aiAcc()&&localStorage.getItem("pokelings_ai")==="1";}catch(e){return false;}}
+const _aiT=el=>(el&&(el.innerText||el.textContent)||"").replace(/\s+/g," ").trim();
+const _aiCut=(t,n)=>t.length>n?t.slice(0,n-1)+"…":t;
+function _aiBtns(root,sel){return [...root.querySelectorAll(sel)].filter(b=>typeof _kVis!=="function"||_kVis(b));}
+function pkState(){const L=[];try{
+  L.push(`Pokélings v${typeof GAME_VER!=="undefined"?GAME_VER:"?"} · Konto ${typeof USER!=="undefined"&&USER?USER:"Gast"} · Edelsteine ${META&&META.gems|0}`);
+  const sh=id=>$(id)&&$(id).classList.contains("show");
+  if(sh("auth")){L.push("BILDSCHIRM: Anmeldung");return L.join("\n");}
+  if(sh("modal")){const mb=$("mbox");L.push("FENSTER: "+_aiCut(_aiT(mb.querySelector("h2"))||"(ohne Titel)",80));const lead=mb.querySelector(".lead,p");if(lead)L.push("  "+_aiCut(_aiT(lead),220));
+    const ch=_aiBtns(mb,".choice,.brOpt,.abDr,[data-pick]");ch.forEach((b,i)=>L.push(`  [${i+1}] ${_aiCut(_aiT(b),140)}`));
+    const mn=typeof kbMainBtn==="function"?kbMainBtn(mb,true):null;if(mn)L.push(`  [Leertaste] ${_aiCut(_aiT(mn),60)}`);
+    const other=_aiBtns(mb,".rbtns button,button.pri,button.btn").filter(b=>b!==mn&&!ch.includes(b)).slice(0,8);other.forEach(b=>L.push(`  (Knopf${b.id?" #"+b.id:""}) ${_aiCut(_aiT(b),50)}`));}
+  if(sh("result")){const R=$("result");L.push("ERGEBNIS: "+_aiCut(_aiT(R.querySelector("h1,h2,h3,.rTitle"))||_aiT(R),80));R.querySelectorAll(".incRow").forEach(r=>L.push("  "+_aiCut(_aiT(r),90)));
+    const bs=_aiBtns(R,".rbtns button");bs.forEach((b,i)=>L.push(`  [${i+1}] ${_aiCut(_aiT(b),60)}${b.id?" #"+b.id:""}`));const mn=typeof kbMainBtn==="function"?kbMainBtn(R,false):null;if(mn)L.push(`  [Leertaste] ${_aiCut(_aiT(mn),60)}`);}
+  if(sh("menu")&&!sh("modal")){L.push("BILDSCHIRM: Hauptmenü");[...document.querySelectorAll("#menuBtns .mbtn")].forEach((b,i)=>L.push(`  ${i+1}. ${_aiCut(_aiT(b.querySelector("b")||b),50)}${b.id?" #"+b.id:""}`));}
+  if(typeof S!=="undefined"&&S&&!sh("menu")){const sp=id=>SPECIES[id]?SPECIES[id].name:"?";
+    L.push(`LAUF: ${S.mode||""} · ${S.region||""} · Runde ${S.round} · Phase ${S.phase} · Gold ${S.gold} · Level ${typeof level==="function"?level():"?"} (EP ${S.xp|0})${S.streak?" · Serie "+S.streak:""}${S.revanche?" · REVANCHE":""}`);
+    const un=u=>`${sp(u.sp)}${u.stars?"★".repeat(u.stars):""}${u.shiny==="a"?" (Aurora)":u.shiny?" (schillernd)":""}`;
+    const bd=Object.entries(S.board||{}).filter(([k,u])=>u);L.push(`  Raster (${bd.length}): `+(bd.map(([k,u])=>un(u)+"@"+k).join(", ")||"leer"));
+    L.push("  Bank: "+((S.bench||[]).map((u,i)=>u?`${i+1}:${un(u)}`:null).filter(Boolean).join(", ")||"leer"));
+    if(S.phase==="shop"&&S.shop&&S.shop.mons){const ks=["Q","W","A","S","Y"];L.push("  Laden: "+S.shop.mons.map((m,i)=>m?`[${ks[i]||i}] ${sp(m.id)} ${COST[SPECIES[m.id].line.tier]}G${m.shiny==="a"?" Aurora":m.shiny?" schillernd":""}`:`[${ks[i]||i}] —`).join(" · "));}
+    if(S.phase==="shop"&&S.paths&&S.paths.length){L.push("  Wege:");S.paths.forEach((p,i)=>{let c="";try{if(p.type!=="event"&&p.enemies&&typeof simChance==="function"){const v=simChance(p.enemies,p.type);c=v==null?" · Siegchance rechnet":" · Siegchance "+(typeof simPct==="function"?simPct(v):Math.round(v*100))+" %";}}catch(e){}
+      L.push(`   ${S.encIdx===i&&S.enc?"→":" "} Weg ${i+1}: ${_aiCut(p.name||p.type||"?",40)} (${p.type})${p.reward?" · Prämie "+p.reward:""}${c}`);});}
+    if(S.phase==="shop"&&!S.paths&&!S.enc)L.push("  Wege: noch nicht gewürfelt → PKT.act(\"paths\") oder Taste 3");
+    if(S.enc)L.push(`  Gewählt: ${_aiCut(S.enc.name||S.enc.type||"",40)} (${S.enc.type})`);
+    if(typeof B!=="undefined"&&B&&!B.done){const m=B.F.filter(f=>f.side==="mine"&&f.alive).length,e=B.F.filter(f=>f.side!=="mine"&&f.alive).length;L.push(`KAMPF läuft: eigene ${m} · Gegner ${e} · Zeit ${Math.round(B.t||0)} s · Tempo ${typeof speed!=="undefined"?speed:"?"}×`);}}
+  const tt=[...document.querySelectorAll(".toast")].slice(-3).map(t=>_aiCut(_aiT(t),80)).filter(Boolean);if(tt.length)L.push("MELDUNGEN: "+tt.join(" | "));
+ }catch(e){L.push("FEHLER beim Auslesen: "+e.message);}return L.join("\n");}
+/* Aktionen (geben danach den Zustand zurück): "key space|enter|esc|1|q|f|…", "buy 0", "paths" (Wege würfeln), "path 1", "fight", "reroll", "click #id", "pick 2" (Fenster-Auswahl) */
+async function pkAct(cmd){const wt=ms=>new Promise(r=>setTimeout(r,ms));try{const [a,...r]=String(cmd||"").trim().split(/\s+/),x=r.join(" ");
+  const key=k=>{const m={space:" ",enter:"Enter",esc:"Escape",escape:"Escape"};document.body.dispatchEvent(new KeyboardEvent("keydown",{key:m[k.toLowerCase()]||k,bubbles:true}));};
+  if(a==="key")key(x);else if(a==="buy")buy(+x);else if(a==="paths"||a==="path"){if(S&&S.phase==="shop"&&!S.paths&&!S.enc){setTab("enc");render();for(let i=0;i<40&&(!S.paths||(typeof rolling!=="undefined"&&rolling));i++)await wt(100);}if(a==="path")choosePath(+x-1);}else if(a==="fight")fight();else if(a==="reroll")doReroll();
+  else if(a==="pick")key(String(+x));else if(a==="click"){const el=document.querySelector(x);if(!el)return "nicht gefunden: "+x;el.click();}else return "unbekannt: "+cmd;
+ }catch(e){return "Fehler: "+e.message;}await wt(350);return pkState();}
+window.PKT={state:pkState,act:pkAct,on:aiOn};
+let _aiFast=false;
+setInterval(()=>{try{const on=aiOn();let p=$("aiPanel");
+  if(!on){if(_aiFast){window.__fast=false;_aiFast=false;}if(p)p.remove();return;}
+  if(!window.__fast){window.__fast=true;_aiFast=true;}
+  try{if(typeof BGM!=="undefined"&&BGM.on)BGM.stop(.1);}catch(e){}
+  try{if(typeof B!=="undefined"&&B&&!B.done&&!(typeof S!=="undefined"&&S&&S.duel)&&typeof speed!=="undefined"&&speed<8)setSpeed(8);}catch(e){}
+  if(!p){p=document.createElement("pre");p.id="aiPanel";document.body.appendChild(p);}p.textContent=pkState();}catch(e){}},400);
+try{const _sm585=settingsModal;settingsModal=function(){const r=_sm585.apply(this,arguments);try{if(!aiAcc())return r;const mb=$("mbox"),g=mb.querySelectorAll(".stGrp")[2];if(!g)return r;const on=aiOn();
+  g.insertAdjacentHTML("afterend",`<div class="stGrp aiGrp"><h4>${ic("bolt")} KI-Testmodus</h4><div class="stLine"><span class="stI">${ic("bolt")}</span><div class="stTx"><b>Schnell-Modus für Claude</b><small>Keine Zwischen-Animationen, Kampf 8×, Musik aus, Spielzustand als Text (PKT.state())</small></div><div class="stSeg" id="stAi"><button data-v="1" class="${on?"on":""}">An</button><button data-v="0" class="${on?"":"on"}">Aus</button></div></div></div>`);
+  mb.querySelectorAll("#stAi button").forEach(b=>b.onclick=()=>{mb.querySelectorAll("#stAi button").forEach(x=>x.classList.toggle("on",x===b));try{localStorage.setItem("pokelings_ai",b.dataset.v);}catch(e){}toast(b.dataset.v==="1"?"KI-Testmodus an":"KI-Testmodus aus","bolt");});}catch(e){}return r;};}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
