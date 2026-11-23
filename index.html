@@ -13493,7 +13493,7 @@ const winChanceH=(en,ty)=>{if(!en||!en.length||!boardUnits().length)return .5;le
 /* v1.48.0: Siegchance aus den Probekämpfen – erst anzeigen, wenn alle fertig sind */
 function chanceSim(en,ty,big){try{if(S&&!S.duel&&en&&en.length&&boardUnits().length&&typeof simChance==="function"){const p=simChance(en,ty,1);
   if(!simReady(en))return `<div class="chance${big?" big":""} wait"><span class="cl">${ic("trophy")}Siegchance</span><span class="cbar"><i></i></span><b>…</b><em>rechnet</em></div>`;return chanceTag(p,big,1);}}catch(e){}return chanceTag(winChance(en,ty),big);}
-function chanceTag(p,big,exact){const [t,c]=p>=.9?["Sehr gut","var(--green)"]:p>=.65?["Gut","var(--cyan)"]:p>=.35?["Riskant","var(--amber)"]:["Gefährlich","var(--red)"];const v=exact&&typeof simPct==="function"?simPct(p):Math.round(p*100);return `<div class="chance${big?" big":""}" style="--cc:${c}" title="${exact?"Siegchance aus "+SIM_N+" Probekämpfen, keine Garantie":"Geschätzte Siegchance (grobe Schätzung aus Stärke und Typen)"}"><span class="cl">${ic("trophy")}Siegchance</span><span class="cbar"><i style="width:${v}%"></i></span><b>${exact?"":"~"}${v}%</b><em>${t}</em></div>`;}
+function chanceTag(p,big,exact){const [t,c]=p>=.9?["Sicher","var(--green)"]:p>=.65?["Gut","var(--cyan)"]:p>=.35?["Riskant","var(--amber)"]:["Gefährlich","var(--red)"];const v=Math.round(p*100);return `<div class="chance${big?" big":""}" style="--cc:${c}" title="${exact?"Siegchance aus "+SIM_N+" Probekämpfen":"Geschätzte Siegchance (grobe Schätzung aus Stärke und Typen)"}"><span class="cl">${ic("trophy")}Siegchance</span><span class="cbar"><i style="width:${v}%"></i></span><b>${exact?"":"~"}${v}%</b><em>${t}</em></div>`;}
 const enemyScale=()=>(S&&S.daily&&S.daily.rules.includes("hard")?1.12:1)*(S&&S.scout?.85:1)*(S&&S.flare?1.2:1)*1.0*(1+Math.max(0,S.round-8)*BAL.ramp1+Math.max(0,S.round-14)*BAL.ramp2)*MODES[S.mode].enemy*(typeof twScale==="function"?twScale():1)*(S.revanche&&!S.tower?1+S.revives*Math.max(.03,MODES[S.mode].revive-.03*perk("phoenix")):1);
 // Sprite nach sichtbarem Inhalt zentrieren (GIF-Leinwand ist oft einseitig leer, z.B. Schweif)
 function centerSpr(img){if(!img||img.tagName!=="IMG")return img;
@@ -15672,7 +15672,7 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Aurora-Nachtrag": "Aurora catch-up
 /* v1.58.0 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Tastenkürzel": "Keyboard shortcuts", "Neue Tastenkürzel: Leertaste oder Enter drückt den Hauptknopf (z. B. „Weiter zum Shop“ nach dem Kampf), 1–9 wählt in Fenstern und nach dem Kampf, Q/W/A/S/Y kauft die Pokémon im Laden. Die Zurück-Taste von Maus und Browser schließt Fenster bzw. pausiert den Lauf. H zeigt alle Tastenkürzel.": "New keyboard shortcuts: Space or Enter presses the main button (e.g. “Continue to shop” after a battle), 1–9 picks in windows and after a battle, Q/W/A/S/Y buys the Pokémon in the shop. The Back button of mouse and browser closes windows or pauses the run. H shows all shortcuts.", "TASTENKÜRZEL": "KEYBOARD SHORTCUTS", "Überall": "Everywhere", "Hauptmenü": "Main menu", "Laden": "Shop", "Kampf": "Battle", "Leertaste": "Space", "Hauptknopf (Weiter, OK, Nächster Kampf)": "Main button (Continue, OK, Next battle)", "Auswahl in Fenstern (Belohnung, Draft …)": "Pick in windows (reward, draft …)", "oder Zurück-Taste (Maus/Browser) Fenster schließen, im Lauf Pause": "or Back button (mouse/browser) close window, pause in a run", "diese Übersicht": "this overview", "wählen,": "select,", "öffnen": "open", "Kampf starten · ": "Start battle · ", "neu würfeln · ": "reroll · ", "Wege · ": "paths · ", "Ausgewähltes verkaufen": "Sell selected", "Pokémon 1–5 im Laden kaufen": "Buy shop Pokémon 1–5", "Laden · ": "Shop · ", "Raster · ": "Grid · ", "Begegnungen · ": "Encounters · ", "Zoom": "Zoom", "Tempo · ": "Speed · ", "Pause": "Pause", "oder": "or"});
 /* v1.58.0.5 */
-if(typeof EN!=="undefined")Object.assign(EN,{"Schnellfix aus dem Testbericht": "Quick fixes from the test report", "Siegchance ehrlicher: Aus 24 Probekämpfen zeigt sie höchstens 96 % und heißt dann „Sehr gut“ statt „Sicher“. Garantiert ist ein Sieg nie.": "Fairer win chance: from 24 test battles it shows at most 96 % and is then called “Very good” instead of “Safe”. A win is never guaranteed.", "Revanche: Die Vorschau zeigt jetzt die halbierte Prämie, die wirklich ausgezahlt wird.": "Rematch: the preview now shows the halved reward that is actually paid.", "Tutorial korrigiert: Zwei gleiche Pokémon verschmelzen (nicht drei), und der Hinweis zu den Wegen passt jetzt auch, wenn es nur zwei gibt.": "Tutorial fixed: two identical Pokémon merge (not three), and the hint about the paths also fits when there are only two.", "Das Relikt „Flinkklaue“ heißt jetzt „Flinkfeder“, damit es nicht mehr mit dem gleichnamigen Item verwechselt wird. Die Wirkung bleibt gleich.": "The relic “Quick Claw” is now called “Swift Wing” so it is no longer confused with the item of the same name. Its effect stays the same.", "Flinkfeder": "Swift Wing", "Musik hat jetzt auch die Stufe „Laut“.": "Music now also has the “Loud” level.", "Neues Spiel aufgeräumt: Oben steht nur noch „Pokémon im Lauf“, die Herausforderungen sind unter die Schwierigkeiten gerückt.": "New game tidied up: only “Pokémon in the run” stays at the top, the challenges moved below the difficulties.", "Aufstiege: Die Beschreibung sagt jetzt, dass der Aufstieg zusätzlich zur Unterklasse wirkt (z. B. Flammenmeer +18 % auf die +30 % von Lohekanonier).": "Ascensions: the description now says the ascension works on top of the subclass (e.g. Sea of Flames +18 % on top of the +30 % of Blaze Cannon).", "Sehr gut": "Very good", "Tipp einen der Wege an.": "Tap one of the paths.", "Zwei gleiche Pokémon": "Two identical Pokémon", "Musik: Laut": "Music: Loud", "(Revanche, halbiert)": "(rematch, halved)"});
+if(typeof EN!=="undefined")Object.assign(EN,{"Schnellfix aus dem Testbericht": "Quick fixes from the test report", "Siegchance genauer: Sie rechnet jetzt 50 Probekämpfe statt 24. Angezeigt wird sie so schnell wie vorher, der Rest wird im Hintergrund nachgerechnet.": "More accurate win chance: it now runs 50 test battles instead of 24. It shows up as fast as before, the rest is calculated in the background.", "Revanche: Die Vorschau zeigt jetzt die halbierte Prämie, die wirklich ausgezahlt wird.": "Rematch: the preview now shows the halved reward that is actually paid.", "Tutorial korrigiert: Zwei gleiche Pokémon verschmelzen (nicht drei), und der Hinweis zu den Wegen passt jetzt auch, wenn es nur zwei gibt.": "Tutorial fixed: two identical Pokémon merge (not three), and the hint about the paths also fits when there are only two.", "Das Relikt „Flinkklaue“ heißt jetzt „Flinkfeder“, damit es nicht mehr mit dem gleichnamigen Item verwechselt wird. Die Wirkung bleibt gleich.": "The relic “Quick Claw” is now called “Swift Wing” so it is no longer confused with the item of the same name. Its effect stays the same.", "Flinkfeder": "Swift Wing", "Musik hat jetzt auch die Stufe „Laut“.": "Music now also has the “Loud” level.", "Neues Spiel aufgeräumt: Oben steht nur noch „Pokémon im Lauf“, die Herausforderungen sind unter die Schwierigkeiten gerückt.": "New game tidied up: only “Pokémon in the run” stays at the top, the challenges moved below the difficulties.", "Aufstiege: Die Beschreibung sagt jetzt, dass der Aufstieg zusätzlich zur Unterklasse wirkt (z. B. Flammenmeer +18 % auf die +30 % von Lohekanonier).": "Ascensions: the description now says the ascension works on top of the subclass (e.g. Sea of Flames +18 % on top of the +30 % of Blaze Cannon).", "Tipp einen der Wege an.": "Tap one of the paths.", "Zwei gleiche Pokémon": "Two identical Pokémon", "Musik: Laut": "Music: Loud", "(Revanche, halbiert)": "(rematch, halved)"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18893,12 +18893,11 @@ function menuLbModal(){openModal(`<div id="mLbM" class="mLbM">${menuLbFrame()}</
    Statt einer Schätzformel wird jeder mögliche Kampf mehrfach unsichtbar mit der echten Kampflogik durchgerechnet.
    Die Siegchance = Anteil gewonnener Durchläufe. Läuft in kleinen Häppchen im Hintergrund, damit nichts ruckelt.
    Ändert sich das Team (Aufstellung, Items, Kauf), wird neu gerechnet – so sieht man direkt, ob eine Umstellung hilft. */
-const SIM_N=24,SIM_DT=1/20;
-const simPct=p=>Math.round((p*SIM_N+1)/(SIM_N+2)*100);
+const SIM_N=50,SIM_SHOW=24,SIM_DT=1/20;
 const SIMC={cache:new Map(),queue:[],tm:0,last:0,dirty:false};
 /* v1.48.0: Rechenzeit je Häppchen: in „Begegnung“ (und beim Würfeln) zügig, sonst gedrosselt im Hintergrund, damit Laden und Raster flüssig bleiben */
 const simOnEnc=()=>typeof tab!=="undefined"&&tab==="enc";
-const simBudget=()=>document.hidden?40:simOnEnc()?((typeof rolling!=="undefined"&&rolling)?45:24):14;
+const simBudget=()=>document.hidden?40:simOnEnc()?((typeof rolling!=="undefined"&&rolling)?50:30):14;
 const simGap=()=>simOnEnc()?4:24;
 function simBoardSig(){if(!S)return"";const p=[];for(const k in S.board){const u=S.board[k];if(!u)continue;p.push(k+":"+u.sp+"/"+(u.stars||0)+"/"+(u.items||[]).join(".")+"/"+(u.gifts||[]).join(".")+"/"+(u.spec||[]).join(".")+"/"+(u.secret||"")+"/"+(u.megaF||"")+"/"+(u.crypto||0));}
   p.sort();return p.join("|")+"#"+(S.relics||[]).join(".")+"#"+S.round+"#"+(S.revives||0)+(S.revanche?"r":"")+(S.scout?"s":"")+(S.flare?"f":"")+(S.mode||"");}
@@ -18916,14 +18915,14 @@ function simOnce(en){if(!S||!boardUnits().length)return null;const sB=B,sGL=GL,s
 /* Siegchance aus dem Cache (null = wird noch berechnet) */
 function simChance(en,ty,prio){if(!S||!en||!en.length||!boardUnits().length||S.duel)return null;const k=simBoardSig()+"@"+simEnSig(en),c=SIMC.cache.get(k);
   if(c&&c.n>=SIM_N)return c.w/c.n;const qi=SIMC.queue.findIndex(q=>q.k===k);if(qi<0)SIMC.queue[prio?"unshift":"push"]({k,en});else if(prio&&qi>0)SIMC.queue.unshift(SIMC.queue.splice(qi,1)[0]);simPump();return c&&c.n>=8?c.w/c.n:null;}
-function simReady(en){if(!S||!en||!en.length)return true;const c=SIMC.cache.get(simBoardSig()+"@"+simEnSig(en));return !!(c&&c.n>=SIM_N);}
+function simReady(en){if(!S||!en||!en.length)return true;const c=SIMC.cache.get(simBoardSig()+"@"+simEnSig(en));return !!(c&&c.n>=SIM_SHOW);}
 function simPump(){if(SIMC.tm)return;SIMC.tm=setTimeout(simWork,30);}
 function simWork(){SIMC.tm=0;if(!S||B&&!B.done&&!B.sim){SIMC.queue.length=0;return;}const bs=simBoardSig();
   SIMC.queue=SIMC.queue.filter(q=>q.k.startsWith(bs+"@"));if(!SIMC.queue.length)return;
   const t0=performance.now();let changed=false;
   let full=false;while(SIMC.queue.length&&performance.now()-t0<simBudget()){const q=SIMC.queue[0];const c=SIMC.cache.get(q.k)||{w:0,n:0,fail:0};
     const r=simOnce(q.en);if(r===null)c.fail++;else{c.n++;if(r)c.w++;}SIMC.cache.set(q.k,c);
-    if(c.n>=12&&(c.w===0||c.w===c.n)&&c.n<SIM_N){c.w=c.w?SIM_N:0;c.n=SIM_N;}
+    if(c.n>=20&&(c.w===0||c.w===c.n)&&c.n<SIM_N){c.w=c.w?SIM_N:0;c.n=SIM_N;}
     if(c.n>=SIM_N||c.fail>4){SIMC.queue.shift();changed=true;full=true;if(c.fail>4&&c.n<SIM_N){c.n=Math.max(c.n,SIM_N);}}
     else if(c.n>=8&&c.n%4===0)changed=true;}
   if(SIMC.cache.size>400){const ks=[...SIMC.cache.keys()].slice(0,200);for(const k of ks)SIMC.cache.delete(k);}
@@ -18939,7 +18938,7 @@ function simPrefetch(){clearTimeout(SIMC.pre);SIMC.pre=setTimeout(()=>{try{if(!S
 function simChip(){const a=$("arena");if(!a)return;let c=$("simChip");const en=S&&S.phase==="shop"&&S.enc&&S.enc.type!=="event"&&S.enemies&&S.enemies.length?S.enemies:null;
   if(!en||typeof tab==="undefined"||tab!=="raster"||S.duel||!boardUnits().length){if(c)c.style.display="none";return;}
   if(!c){c=document.createElement("div");c.id="simChip";c.className="ov rasterOnly";a.appendChild(c);}
-  const p0=simChance(en,S.enc.type,1),p=simReady(en)?p0:null,v=p==null?null:simPct(p),col=v==null?"#9aa3b5":v>=65?"#38b048":v>=35?"#e0a020":"#e0402e";
+  const p0=simChance(en,S.enc.type,1),p=simReady(en)?p0:null,v=p==null?null:Math.round(p*100),col=v==null?"#9aa3b5":v>=65?"#38b048":v>=35?"#e0a020":"#e0402e";
   const cc=SIMC.cache.get(simBoardSig()+"@"+simEnSig(en)),nn=cc?Math.min(cc.n,SIM_N):0,part=v!=null&&nn<SIM_N;
   c.style.display="";c.innerHTML=`${ic("swords")}<span>Siegchance gegen ${esc(BOSSES[S.round]?BOSSES[S.round].name:S.enc.name||"Gegner")}</span><b style="background:${col}">${v==null?"…":v+" %"}</b><small>${v==null?"rechnet …":"aus "+SIM_N+" Probekämpfen"}</small>`;}
 /* echte Simulation, solange sie läuft die alte Schätzung */
@@ -18959,7 +18958,7 @@ document.addEventListener("visibilitychange",()=>{if(document.visibilityState===
 const GAME_VER="1.58.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
  {v:"1.58.0.5",d:"23.11.2026",t:"Schnellfix aus dem Testbericht",items:[
-  ["bug", "Siegchance ehrlicher: Aus 24 Probekämpfen zeigt sie höchstens 96 % und heißt dann „Sehr gut“ statt „Sicher“. Garantiert ist ein Sieg nie."],
+  ["bug", "Siegchance genauer: Sie rechnet jetzt 50 Probekämpfe statt 24. Angezeigt wird sie so schnell wie vorher, der Rest wird im Hintergrund nachgerechnet."],
   ["bug", "Revanche: Die Vorschau zeigt jetzt die halbierte Prämie, die wirklich ausgezahlt wird."],
   ["bug", "Tutorial korrigiert: Zwei gleiche Pokémon verschmelzen (nicht drei), und der Hinweis zu den Wegen passt jetzt auch, wenn es nur zwei gibt."],
   ["relic", "Das Relikt „Flinkklaue“ heißt jetzt „Flinkfeder“, damit es nicht mehr mit dem gleichnamigen Item verwechselt wird. Die Wirkung bleibt gleich."],
@@ -21744,7 +21743,7 @@ function pkState(){const L=[];try{
     const bd=Object.entries(S.board||{}).filter(([k,u])=>u);L.push(`  Raster (${bd.length}): `+(bd.map(([k,u])=>un(u)+"@"+k).join(", ")||"leer"));
     L.push("  Bank: "+((S.bench||[]).map((u,i)=>u?`${i+1}:${un(u)}`:null).filter(Boolean).join(", ")||"leer"));
     if(S.phase==="shop"&&S.shop&&S.shop.mons){const ks=["Q","W","A","S","Y"];L.push("  Laden: "+S.shop.mons.map((m,i)=>m?`[${ks[i]||i}] ${sp(m.id)} ${COST[SPECIES[m.id].line.tier]}G${m.shiny==="a"?" Aurora":m.shiny?" schillernd":""}`:`[${ks[i]||i}] —`).join(" · "));}
-    if(S.phase==="shop"&&S.paths&&S.paths.length){L.push("  Wege:");S.paths.forEach((p,i)=>{let c="";try{if(p.type!=="event"&&p.enemies&&typeof simChance==="function"){const v=simChance(p.enemies,p.type);c=v==null?" · Siegchance rechnet":" · Siegchance "+(typeof simPct==="function"?simPct(v):Math.round(v*100))+" %";}}catch(e){}
+    if(S.phase==="shop"&&S.paths&&S.paths.length){L.push("  Wege:");S.paths.forEach((p,i)=>{let c="";try{if(p.type!=="event"&&p.enemies&&typeof simChance==="function"){const v=simChance(p.enemies,p.type);c=v==null?" · Siegchance rechnet":" · Siegchance "+Math.round(v*100)+" %";}}catch(e){}
       L.push(`   ${S.encIdx===i&&S.enc?"→":" "} Weg ${i+1}: ${_aiCut(p.name||p.type||"?",40)} (${p.type})${p.reward?" · Prämie "+p.reward:""}${c}`);});}
     if(S.phase==="shop"&&!S.paths&&!S.enc)L.push("  Wege: noch nicht gewürfelt → PKT.act(\"paths\") oder Taste 3");
     if(S.enc)L.push(`  Gewählt: ${_aiCut(S.enc.name||S.enc.type||"",40)} (${S.enc.type})`);
