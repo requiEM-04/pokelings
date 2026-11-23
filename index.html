@@ -5358,6 +5358,11 @@ img.aur,.card .pic img.aur,.u img.aur{filter:url(#aurF) drop-shadow(0 0 2px rgba
 .fmSec{padding:10px 11px;border-radius:10px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.06)}
 .fmPick .fmSec h5{margin:0 0 7px}
 @media (max-width:720px){.fmPick.v57{grid-template-columns:1fr}}
+/* v1.58.0 k58 */
+/* ================= v1.58.0: Tastenkürzel-Übersicht ================= */
+.kbList h5{margin:12px 0 5px;font:9px var(--px);color:#ffd84a}.kbList h5:first-child{margin-top:4px}
+.kbList p{margin:3px 0;font-size:13px;color:#d8dcef;line-height:1.7}
+.kbList kbd{display:inline-block;min-width:18px;padding:1px 6px;margin:0 1px;border-radius:5px;background:#232a40;border:1px solid #3a4462;border-bottom-width:3px;font:11px/1.4 var(--px);color:#fff;text-align:center}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -15660,6 +15665,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Wochen-Abstieg & Abgleich": "Weekl
 if(typeof EN!=="undefined")Object.assign(EN,{"Aurora-Pokédex & Ruhm-Embleme": "Aurora Pokédex & Fame emblems", "Aurora-Sammlung zählt jetzt richtig: Aurora-Pokémon aus dem Laden und nach einer Entwicklung werden im Pokédex erfasst. Frühere Aurora-Fänge werden einmalig nachgetragen, soweit sie noch auffindbar sind (aktueller Lauf und deine Geister-Teams).": "Aurora collection now counts correctly: Aurora Pokémon bought in the shop and after evolving are recorded in the Pokédex. Earlier Aurora catches are added once, as far as they can still be found (current run and your ghost teams).", "Pokédex, Ansicht „Aurora“ und „Schillernd“: Nur was du so gefangen hast, ist farbig. Gesehene Pokémon sind blass, der Rest ist ausgegraut.": "Pokédex, “Aurora” and “Shiny” views: only what you caught that way is in colour. Seen Pokémon are faded, the rest is greyed out.", "Neue Ruhm-Embleme: Jeder Rang ist jetzt ein eigener geschliffener Edelstein. Stufe II bekommt eine Fassung, Stufe III Flügel und Krone, die Punkte darunter zeigen die Stufe. Die Auswahl im Ruhm ist übersichtlicher angeordnet.": "New Fame emblems: every rank is now its own cut gem. Tier II gets a setting, tier III wings and a crown, and the dots below show the tier. The Fame selection is laid out more clearly.", "Aurora-Sammlung:": "Aurora collection:", "nachgetragen": "added", "Aurora-Art": "Aurora species", "Aurora-Arten": "Aurora species", " · Aurora-Ansicht: farbig = als Aurora gefangen, blass = gesehen": " · Aurora view: colour = caught as Aurora, faded = seen", " · Schillernd-Ansicht: farbig = schillernd gefangen, blass = gesehen": " · Shiny view: colour = caught shiny, faded = seen"});
 /* v1.57.0.5 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Aurora-Nachtrag": "Aurora catch-up", "Aurora-Nachtrag verbessert: Hattest du eine Entwicklung oder eine Mega-Entwicklung als Aurora, zählen jetzt auch die Vorstufen und die Grundform (sie waren vorher ebenfalls Aurora). Aurora-Pokémon aus der Ultrapforte bleiben Aurora.": "Aurora catch-up improved: if you had an evolution or a Mega Evolution as Aurora, its earlier stages and base form now count too (they were Aurora as well). Aurora Pokémon from the Ultra Gate stay Aurora."});
+/* v1.58.0 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Tastenkürzel": "Keyboard shortcuts", "Neue Tastenkürzel: Leertaste oder Enter drückt den Hauptknopf (z. B. „Weiter zum Shop“ nach dem Kampf), 1–9 wählt in Fenstern und nach dem Kampf, Q/W/A/S/Y kauft die Pokémon im Laden. Die Zurück-Taste von Maus und Browser schließt Fenster bzw. pausiert den Lauf. H zeigt alle Tastenkürzel.": "New keyboard shortcuts: Space or Enter presses the main button (e.g. “Continue to shop” after a battle), 1–9 picks in windows and after a battle, Q/W/A/S/Y buys the Pokémon in the shop. The Back button of mouse and browser closes windows or pauses the run. H shows all shortcuts.", "TASTENKÜRZEL": "KEYBOARD SHORTCUTS", "Überall": "Everywhere", "Hauptmenü": "Main menu", "Laden": "Shop", "Kampf": "Battle", "Leertaste": "Space", "Hauptknopf (Weiter, OK, Nächster Kampf)": "Main button (Continue, OK, Next battle)", "Auswahl in Fenstern (Belohnung, Draft …)": "Pick in windows (reward, draft …)", "oder Zurück-Taste (Maus/Browser) Fenster schließen, im Lauf Pause": "or Back button (mouse/browser) close window, pause in a run", "diese Übersicht": "this overview", "wählen,": "select,", "öffnen": "open", "Kampf starten · ": "Start battle · ", "neu würfeln · ": "reroll · ", "Wege · ": "paths · ", "Ausgewähltes verkaufen": "Sell selected", "Pokémon 1–5 im Laden kaufen": "Buy shop Pokémon 1–5", "Laden · ": "Shop · ", "Raster · ": "Grid · ", "Begegnungen · ": "Encounters · ", "Zoom": "Zoom", "Tempo · ": "Speed · ", "Pause": "Pause", "oder": "or"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18305,7 +18312,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.57.0.5",DUEL_HP=30;
+const MP_VER="1.58.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18942,8 +18949,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.57.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.58.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.58.0",d:"23.11.2026",t:"Tastenkürzel",items:[
+  ["info", "Neue Tastenkürzel: Leertaste oder Enter drückt den Hauptknopf (z. B. „Weiter zum Shop“ nach dem Kampf), 1–9 wählt in Fenstern und nach dem Kampf, Q/W/A/S/Y kauft die Pokémon im Laden. Die Zurück-Taste von Maus und Browser schließt Fenster bzw. pausiert den Lauf. H zeigt alle Tastenkürzel."]]},
  {v:"1.57.0.5",d:"18.11.2026",t:"Aurora-Nachtrag",items:[
   ["shiny", "Aurora-Nachtrag verbessert: Hattest du eine Entwicklung oder eine Mega-Entwicklung als Aurora, zählen jetzt auch die Vorstufen und die Grundform (sie waren vorher ebenfalls Aurora). Aurora-Pokémon aus der Ultrapforte bleiben Aurora."]]},
  {v:"1.57.0",d:"18.11.2026",t:"Aurora-Pokédex & Ruhm-Embleme",items:[
@@ -21659,6 +21668,41 @@ function fameEmSvg(i){const key=(i.leg?"legende":i.k)+"|"+(i.leg?3:i.sub);if(_fe
     `<path d="M${f(cx-4.5*sc)} ${f(cy-3.5*sc)} L${f(cx-1.5*sc)} ${f(cy-5.5*sc)} L${f(cx-.6*sc)} ${f(cy-4*sc)} L${f(cx-3.6*sc)} ${f(cy-1.6*sc)}Z" fill="#fff" fill-opacity=".85"/>`+
     `<path class="femSp" d="M${f(cx+7*sc)} ${f(cy-9*sc)} l.9 2.1 2.1 .9 -2.1 .9 -.9 2.1 -.9 -2.1 -2.1 -.9 2.1 -.9Z" fill="#fff"/>${pips}</svg>`;
   return _femC[key]=svg;}
+
+/* ================= v1.58.0: Tastenkürzel zum schnellen Spielen ================= */
+/* Leertaste/Enter = Hauptknopf (Weiter, OK …), 1–9 = Auswahl, Esc = zurück/schließen, H = Übersicht. Läuft vor den alten Tasten, damit Leertaste nach dem Kampf nicht das Tempo umschaltet. */
+const _kVis=b=>!!(b&&!b.disabled&&!b.classList.contains("off")&&b.style.display!=="none"&&!b.closest("[hidden]")&&(b.offsetParent!==null||b.closest("#result")));
+function kbMainBtn(root,modal){if(!root)return null;const pri=[...root.querySelectorAll("button.pri")].filter(_kVis).filter(b=>!modal||!(b.classList.contains("hot")||b.dataset.fmi!==undefined));
+  if(pri.length===1)return pri[0];if(pri.length)return null;const rb=[...root.querySelectorAll(".rbtns button")].filter(_kVis);return rb.length===1?rb[0]:null;}
+function kbHelp(){openModal(`<h2>${ic("info")} TASTENKÜRZEL</h2><div class="kbList">
+  <h5>Überall</h5><p><kbd>Leertaste</kbd>/<kbd>Enter</kbd> Hauptknopf (Weiter, OK, Nächster Kampf)</p><p><kbd>1</kbd>–<kbd>9</kbd> Auswahl in Fenstern (Belohnung, Draft …)</p><p><kbd>Esc</kbd> oder Zurück-Taste (Maus/Browser) Fenster schließen, im Lauf Pause</p><p><kbd>H</kbd> diese Übersicht</p>
+  <h5>Hauptmenü</h5><p><kbd>↑</kbd>/<kbd>↓</kbd> oder <kbd>W</kbd>/<kbd>S</kbd> wählen, <kbd>Enter</kbd> öffnen</p>
+  <h5>Laden</h5><p><kbd>F</kbd> Kampf starten · <kbd>D</kbd> neu würfeln · <kbd>R</kbd> Wege · <kbd>E</kbd> Ausgewähltes verkaufen</p><p><kbd>Q</kbd>/<kbd>W</kbd>/<kbd>A</kbd>/<kbd>S</kbd>/<kbd>Y</kbd> Pokémon 1–5 im Laden kaufen</p><p><kbd>1</kbd> Laden · <kbd>2</kbd> Raster · <kbd>3</kbd> Begegnungen · <kbd>+</kbd>/<kbd>−</kbd> Zoom</p>
+  <h5>Kampf</h5><p><kbd>Leertaste</kbd> Tempo · <kbd>P</kbd>/<kbd>Esc</kbd> Pause</p></div><div class="rbtns"><button class="pri" id="kbOk">${ic("check")} OK</button></div>`,"narrow",true);$("kbOk").onclick=closeModal;}
+window.addEventListener("keydown",e=>{try{
+  if(e.ctrlKey||e.altKey||e.metaKey||e.repeat)return;if(e.target&&e.target.matches&&e.target.matches("input,textarea,select,[contenteditable]"))return;if(document.querySelector(".cine-ov"))return;
+  const k=e.key,lk=(k||"").toLowerCase(),mOn=$("modal")&&$("modal").classList.contains("show"),aOn=$("auth")&&$("auth").classList.contains("show"),rOn=$("result")&&$("result").classList.contains("show");
+  if(aOn)return;
+  const hit=b=>{if(!b)return false;e.preventDefault();e.stopImmediatePropagation();try{sfx("click");}catch(x){}b.click();return true;};
+  if(mOn){const mb=$("mbox");
+    if(k===" "||k==="Enter"){if(document.activeElement&&document.activeElement.tagName==="BUTTON"&&mb.contains(document.activeElement)&&k==="Enter")return;hit(kbMainBtn(mb,true));return;}
+    if(/^[1-9]$/.test(k)){const ch=[...mb.querySelectorAll(".choice,.brOpt,.abDr,[data-pick]")].filter(_kVis);if(ch.length)hit(ch[+k-1]);return;}
+    return;}
+  if(rOn){const R=$("result");
+    if(k===" "||k==="Enter"){hit(kbMainBtn(R,false));return;}
+    if(/^[1-9]$/.test(k)){const bs=[...R.querySelectorAll(".rbtns button")].filter(_kVis);hit(bs[+k-1]);return;}
+    return;}
+  if(lk==="h"&&!(typeof B!=="undefined"&&B&&!B.done)){e.preventDefault();e.stopImmediatePropagation();kbHelp();return;}
+  if(typeof S!=="undefined"&&S&&S.phase==="shop"&&!($("menu")&&$("menu").classList.contains("show"))){const qi={q:0,w:1,a:2,s:3,y:4,z:4}[lk];
+    if(qi!==undefined&&S.shop&&S.shop.mons&&S.shop.mons[qi]){e.preventDefault();e.stopImmediatePropagation();try{buy(qi);}catch(x){}return;}}
+ }catch(x){}},true);
+
+/* Zurück-Knopf (Browser und Maus): wirkt wie Esc, solange es im Spiel etwas zum Zurückgehen gibt. Im Hauptmenü ohne Fenster bleibt der normale Browser-Zurück. */
+function kbCanBack(){try{if($("auth")&&$("auth").classList.contains("show"))return false;if($("modal")&&$("modal").classList.contains("show"))return true;if($("result")&&$("result").classList.contains("show"))return false;
+  return typeof S!=="undefined"&&!!S&&!($("menu")&&$("menu").classList.contains("show"));}catch(e){return false;}}
+function kbArm(){try{if(!(history.state&&history.state.pkB))history.pushState({pkB:1},"");}catch(e){}}
+window.addEventListener("popstate",()=>{try{if(!kbCanBack())return;document.body.dispatchEvent(new KeyboardEvent("keydown",{key:"Escape",bubbles:true}));kbArm();}catch(e){}});
+["pointerdown","keydown"].forEach(t=>window.addEventListener(t,()=>{if(kbCanBack())kbArm();},true));
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
