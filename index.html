@@ -5406,6 +5406,69 @@ body.aiLite .tcBg,body.aiLite .tcBg *,body.aiLite #menu .mLb *,body.aiLite .lbRo
 body.aiLite .tcBg .x-band,body.aiLite .tcBg .x-shaft,body.aiLite .tcBg .x-cloud{filter:none!important}
 /* v1.62.0.8 Sparmodus KI: schlichter grauer Hintergrund */
 body.aiLite{background:#2e3138!important}body.aiLite #arena,body.aiLite #wwrap{background:#34373e!important}body.aiLite #arena>*:not(#result){display:none!important}body.aiLite #cworld,body.aiLite #wlabels,body.aiLite #wToken,body.aiLite #wTitle{display:none!important}body.aiLite .pop,body.aiLite .abPop,body.aiLite .cine-ov,body.aiLite .fatigue{display:none!important}
+/* ================= v1.62.5: Regions-Hintergründe und überarbeitete Hintergründe ================= */
+.tcBg .r62{position:absolute;left:50%;transform:translateX(-50%);height:40cqh;width:auto;overflow:visible;pointer-events:none}
+.tcBg .w62{animation:w62 var(--d,3.4s) ease-in-out var(--dl,0s) infinite}
+@keyframes w62{0%,100%{opacity:.55}50%{opacity:1}}
+.tcBg .lt62{transform-box:fill-box;transform-origin:50% 0;animation:lt62 2.8s ease-in-out var(--dl,0s) infinite alternate}
+.tcBg .lt62 ellipse{filter:drop-shadow(0 0 1.2px rgba(255,170,80,.95))}
+@keyframes lt62{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
+.tcBg .cb-down.x-leaf{--ar:1.5;border-radius:0 70% 0 70%}
+.tcBg .cb-down.x-snow{border-radius:50%}
+.tcBg .c62s{left:0;width:200%;height:100%;animation:c62s var(--d,40s) linear infinite}
+@keyframes c62s{to{transform:translateX(-50%)}}
+/* Regionen */
+.bg-rg_kanto{background:linear-gradient(180deg,#6fb8f4 0,#a8d8ff 38%,#e0f4ff 58%,#cfeec0 100%)}
+.bg-rg_johto{background:linear-gradient(180deg,#3a1a4a 0,#a0406a 32%,#ff8a5a 58%,#ffc87a 76%,#6a2a3a 100%)}
+.bg-rg_hoenn{background:linear-gradient(180deg,#38b6ff 0,#8ad8ff 40%,#d8f6ff 56%,#1fa6c8 57%)}
+.bg-rg_sinnoh{background:linear-gradient(180deg,#0a0e2e 0,#24205a 40%,#5a4a8a 66%,#2a3460 100%)}
+.bg-rg_unova{background:linear-gradient(180deg,#060a1c 0,#121a40 45%,#2a2a5a 64%,#081022 70%)}
+.bg-rg_kalos{background:linear-gradient(180deg,#2a1a5a 0,#8a4aa0 38%,#ff9ab8 62%,#ffd0a0 76%,#2a1840 100%)}
+.bg-rg_alola{background:linear-gradient(180deg,#5a2a8a 0,#e05a8a 34%,#ff9a5a 52%,#ffd27a 56%,#3a2a6a 57%)}
+.bg-rg_galar{background:linear-gradient(180deg,#05060f 0,#121a36 50%,#24123a 64%,#0a0e1e 66%)}
+.bg-rg_paldea{background:linear-gradient(180deg,#f4fbff 0,#c8ecf4 30%,#9ac8c8 46%,#2a4448 60%)}
+.bg-rg_hisui{background:linear-gradient(180deg,#0e0a24 0,#2a1a4a 40%,#5a3a7a 62%,#1c2438 76%)}
+.bg-rg_kitakami{background:linear-gradient(180deg,#0a0c1e 0,#1a1a3a 40%,#4a2a4a 62%,#141828 76%)}
+.bg-rg_hisui .hi62r{left:50%;top:22%;width:46cqmin;aspect-ratio:1;margin:-23cqmin 0 0 -23cqmin;border-radius:50%;background:conic-gradient(from 0deg,rgba(255,120,220,.0),rgba(255,120,220,.85),rgba(120,140,255,.9),rgba(160,90,255,.0),rgba(255,180,240,.8),rgba(255,120,220,0));-webkit-mask:radial-gradient(circle,transparent 52%,#000 56%,#000 66%,transparent 72%);mask:radial-gradient(circle,transparent 52%,#000 56%,#000 66%,transparent 72%);filter:blur(.3cqw) drop-shadow(0 0 2cqw rgba(190,120,255,.8));animation:cbSpin 14s linear infinite}
+/* Gewittersturm */
+.bg-sturm{background:linear-gradient(180deg,#07080f 0,#161a28 40%,#2a3042 74%,#101420 100%)}
+.bg-sturm .st62c{left:0;width:200%;height:42%;top:-2%;z-index:1;animation:c62s 60s linear infinite}.bg-sturm .st62c.c2{top:-6%;height:30%;animation-duration:42s}
+.bg-sturm .st62b{left:58%;top:12%;height:58cqh;z-index:1;opacity:0;filter:drop-shadow(0 0 1.4cqw #e8f0ff) drop-shadow(0 0 4cqw #8aa8ff);animation:boltA 4.6s infinite}.bg-sturm .st62b.b2{left:24%;top:16%;height:40cqh;animation:boltA 7.3s 1.8s infinite}
+.bg-sturm .st62f{inset:0;z-index:2;background:radial-gradient(ellipse at 58% 30%,rgba(220,230,255,.55),transparent 60%);opacity:0;animation:flashA 4.6s infinite}
+.bg-sturm .rain{inset:0;z-index:3;background:repeating-linear-gradient(105deg,transparent 0 9px,rgba(180,200,230,.32) 9px 10px);animation:rain .45s linear infinite}.bg-sturm .rain.r2{opacity:.5;background-size:140% 140%;animation-duration:.7s}
+.bg-sturm .lit{left:0;right:0;bottom:0;height:34%;z-index:2;background:linear-gradient(180deg,rgba(210,220,255,.35),transparent);opacity:0;animation:flashA 4.6s infinite}
+/* Himmelsturm */
+.bg-himmelsturm{background:linear-gradient(180deg,#24165a 0,#6e4496 34%,#e8906a 64%,#ffd49a 100%)}
+.bg-himmelsturm .hs62s{left:50%;top:6%;width:30cqmin;aspect-ratio:1;margin-left:-15cqmin;border-radius:50%;background:radial-gradient(circle,#fffbe8 0,#ffe08a 40%,rgba(255,200,120,0) 70%);--lo:.8;animation:cbPulse 5s ease-in-out infinite}
+.bg-himmelsturm .hs62c{left:0;width:200%;height:46%;z-index:2;animation:c62s 70s linear infinite}
+.bg-himmelsturm .hs62c.c1{top:28%;opacity:.7;animation-duration:110s}.bg-himmelsturm .hs62c.c2{top:46%;z-index:4;animation-duration:60s}.bg-himmelsturm .hs62c.c3{top:62%;z-index:5;animation-duration:38s}
+.bg-himmelsturm .hs62t{z-index:3}
+/* Lichterglanz */
+.bg-lichterglanz{background:linear-gradient(180deg,#0a0c22 0,#1c1e4a 50%,#3a3060 76%,#e8f0ff 77%)}
+/* Edelsteinmine */
+.bg-edelmine{background:#1a1420}
+.bg-edelmine .bgSvg path[stroke="#7af0ff"]{animation:w62 4s ease-in-out infinite}
+/* Polarlicht: Vorhang aus senkrechten Strahlen */
+.bg-aurora{background:linear-gradient(180deg,#020814 0,#071a34 46%,#0c2a4a 70%,#0c2240 71%)}
+.bg-aurora .au62c{left:-10%;width:120%;top:4%;height:50%;background:repeating-linear-gradient(90deg,rgba(120,255,190,0) 0 .8cqw,rgba(120,255,190,.55) 1.2cqw,rgba(120,255,190,.1) 2.2cqw,rgba(120,255,190,0) 3cqw);-webkit-mask:linear-gradient(180deg,transparent 0,#000 30%,#000 60%,transparent 100%);mask:linear-gradient(180deg,transparent 0,#000 30%,#000 60%,transparent 100%);filter:blur(.3cqw);transform-origin:50% 0;mix-blend-mode:screen;animation:au62 9s ease-in-out infinite alternate}
+.bg-aurora .au62c.c2{top:10%;height:40%;background:repeating-linear-gradient(90deg,rgba(160,120,255,0) 0 1.4cqw,rgba(160,120,255,.45) 2cqw,rgba(160,120,255,0) 3.4cqw);animation-duration:12s;animation-direction:alternate-reverse}
+.bg-aurora .au62c.c3{top:0;height:34%;opacity:.7;background:repeating-linear-gradient(90deg,rgba(90,255,220,0) 0 .6cqw,rgba(90,255,220,.5) .9cqw,rgba(90,255,220,0) 1.8cqw);animation-duration:7s}
+@keyframes au62{0%{transform:skewX(-8deg) scaleY(.9) translateX(-4cqw)}50%{transform:skewX(6deg) scaleY(1.05)}100%{transform:skewX(-3deg) scaleY(.95) translateX(5cqw)}}
+/* Vulkanherz */
+.bg-vulkan{background:linear-gradient(180deg,#140404 0,#3a0c08 40%,#8a2a10 66%,#2c0d0b 80%)}
+.bg-vulkan .vu62g{left:50%;top:22%;width:60cqw;height:40cqh;margin-left:-30cqw;border-radius:50%;background:radial-gradient(ellipse,rgba(255,120,40,.55),transparent 65%);--lo:.6;animation:cbPulse 2.4s ease-in-out infinite}
+.bg-vulkan .vu62r{fill:#ff6a1a;filter:drop-shadow(0 0 3px #ff8a2a);animation:vu62 2s ease-in-out infinite alternate}
+@keyframes vu62{from{fill:#ff5a10}to{fill:#ffb03a}}
+/* Morgenroute */
+.bg-sunrise{background:linear-gradient(180deg,#ff8a58 0,#ffc078 30%,#ffe2b0 50%,#a8dcff 62%,#80cbf2 100%)}
+.bg-sunrise .sun{left:50%;top:30%;width:26cqw;aspect-ratio:1;margin-left:-13cqw}
+/* Sandsturm: Sandschleier und Böen */
+.bg-sand{background:linear-gradient(180deg,#e8a860 0,#f6c47a 40%,#ffdca0 60%)}
+.bg-sand .sd62v{left:-50%;width:200%;height:30%;z-index:2;background:linear-gradient(180deg,transparent,rgba(240,190,120,.55),transparent);filter:blur(1.2cqw);animation:sd62 6s linear infinite}
+.bg-sand .sd62v.v1{top:36%}.bg-sand .sd62v.v2{top:56%;opacity:.8;animation-duration:4.2s}.bg-sand .sd62v.v3{top:72%;opacity:.9;animation-duration:3.4s}
+@keyframes sd62{from{transform:translateX(0)}to{transform:translateX(25%)}}
+.bg-sand .sd62s{left:-40%;top:var(--y);width:var(--w);height:.45cqh;z-index:3;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(255,240,210,.9),transparent);animation:cbStreak var(--d,1.4s) linear var(--dl,0s) infinite}
+.bg-sand .sd62g{left:-5%;top:var(--y);width:var(--s);aspect-ratio:1;z-index:3;border-radius:50%;background:#c88a4a;animation:cbStreak var(--d,1.6s) linear var(--dl,0s) infinite}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -15736,6 +15799,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Genauere Siegchance": "More accura
 if(typeof EN!=="undefined")Object.assign(EN,{"Trainerkarte & Erfolge": "Trainer card & achievements", "Trainerkarte: Unter Stil siehst du jetzt auch die gesperrten Hintergründe, mit Bedingung und Fortschritt, z. B. 154 / 700. Das Fenster springt beim Wechsel der Reiter nicht mehr, und der mythische Titel ist besser lesbar.": "Trainer card: under Style you now also see locked backgrounds, with condition and progress, e.g. 154 / 700. The window no longer jumps when switching tabs, and the mythic title is easier to read.", "Abzeichen: Misst die nächste Stufe etwas anderes, steht dort jetzt „Nächste Stufe misst: …“.": "Badges: if the next tier measures something else, it now says “Next tier measures: …”.", "Erfolge: Krösus, Elite-Jäger, Ultra-Team, Ohne Kratzer, Sternenhimmel, Erzrivale, Typen-Meister und Tera-Sammler zeigen jetzt einen Fortschritt (bester Wert aus allen Läufen). Die zwei „Urzeit-Duo“ heißen jetzt Urzeit-Duo Kalos und Urzeit-Duo Hoenn. „Forschungsleiter“ (vorher „Forschung abgeschlossen“) gibt es schon für drei Viertel des Skillbaums, „Nobelpreis“ bleibt für den kompletten.": "Achievements: Croesus, Elite Hunter, Ultra Team, Without a Scratch, Starry Sky, Archrival, Type Master and Tera Collector now show progress (best value across all runs). The two “Prehistoric Duo” are now Prehistoric Duo Kalos and Prehistoric Duo Hoenn. “Research Lead” (formerly “Research complete”) now needs three quarters of the skill tree, “Nobel Prize” stays for the full tree.", "Noch gesperrt": "Still locked", "Nächste Stufe misst:": "Next tier measures:", "Urzeit-Duo Kalos": "Prehistoric Duo Kalos", "Urzeit-Duo Hoenn": "Prehistoric Duo Hoenn", "Forschungsleiter": "Research Lead", "Erforsche drei Viertel aller Stufen im Skillbaum.": "Research three quarters of all levels in the skill tree.", "„im Team“ zählt Raster und Bank, „im Raster“ nur die Pokémon auf dem Raster. Bei Zielen über mehrere Runden zählt dein bester Wert aus allen Läufen.": "“In the team” counts grid and bench, “on the grid” only the Pokémon on the grid. For goals over several rounds your best value from all runs counts."});
 /* v1.62.0 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Erfolge & Titel": "Achievements & titles", "Erfolge geben jetzt dreimal so viele Edelsteine (Bronze 6, Silber 15, Gold 30, Platin 60, Mythisch 120). Für deine schon freigeschalteten Erfolge wird der Unterschied einmal nachgezahlt.": "Achievements now give three times as many gems (Bronze 6, Silver 15, Gold 30, Platinum 60, Mythic 120). For achievements you already unlocked, the difference is paid out once.", "Titel: Jedes Abzeichen hat auf Platin jetzt einen eigenen Titel, z. B. Einschlag → „Meteor“, Glitzerjäger → „Glitzerauge“. Erfolge auf Platin und Mythisch geben ihren Namen als Titel. Ein schon gewählter Abzeichen-Titel wird automatisch umgestellt.": "Titles: every badge now has its own title on Platinum, e.g. Impact → “Meteor”, Shiny Hunter → “Glitter Eye”. Achievements on Platinum and Mythic give their name as a title. A badge title you already chose is switched automatically.", "Titel-Effekte: Im Reiter Titel wählst du einen Effekt für deinen Titel. Chrom, Gold, Eis, Feuer, Neon, Galaxie und Regenbogen gibt es für 20 bis 160 Erfolge, die Edelstein-Effekte über die Ruhm-Stufen. Gesperrte Effekte stehen mit Bedingung da.": "Title effects: in the Titles tab you choose an effect for your title. Chrome, Gold, Ice, Fire, Neon, Galaxy and Rainbow come with 20 to 160 achievements, the gem effects with the fame tiers. Locked effects show their condition.", "9 neue Erfolge fürs Endgame: Abgrund (10, 25 und 50 Ebenen), Schwer-Champion in 5 und in allen Regionen, alle Booster-Pokémon einer Region und aller Regionen, erste Ruhm-Stufe und Ruhmeslegende.": "9 new endgame achievements: Abyss (10, 25 and 50 floors), Hard Champion in 5 and in all regions, all booster Pokémon of one region and of all regions, first fame tier and Fame Legend.", "Effekt für deinen Titel": "Effect for your title", "Gilt für Titel aus Abzeichen und Erfolgen. Verliehene und Event-Titel behalten ihren eigenen Effekt.": "Applies to titles from badges and achievements. Awarded and event titles keep their own effect.", "Standard": "Default", "Abgrund-Taucher": "Abyss Diver", "Schaffe 10 Ebenen im Abgrund.": "Clear 10 floors in the Abyss.", "Tiefseher": "Deep Seer", "Schaffe 25 Ebenen im Abgrund.": "Clear 25 floors in the Abyss.", "Herr des Abgrunds": "Lord of the Abyss", "Schaffe 50 Ebenen im Abgrund.": "Clear 50 floors in the Abyss.", "Harter Brocken": "Tough Nut", "Werde auf Schwer in 5 Regionen Champion.": "Become Champion on Hard in 5 regions.", "Unbeugsam": "Unyielding", "Werde auf Schwer in allen Regionen Champion.": "Become Champion on Hard in all regions.", "Volles Album": "Full Album", "Schalte alle Booster-Pokémon einer Region frei.": "Unlock all booster Pokémon of one region.", "Weltsammlung": "World Collection", "Schalte die Booster-Pokémon aller Regionen frei.": "Unlock the booster Pokémon of all regions.", "Ruhmreich": "Renowned", "Erreiche die erste Ruhm-Stufe (Topas).": "Reach the first fame tier (Topaz).", "Erreiche die höchste Ruhm-Stufe.": "Reach the highest fame tier.", "Titelträger": "Titleholder", "Weltreisender": "Globetrotter", "Albtraumbrecher": "Nightmare Breaker", "Eisenherz": "Iron Heart", "Duellant": "Duelist", "Siegesläufer": "Win Runner", "Schwachstellenjäger": "Weak Spot Hunter", "Scharfauge": "Keen Eye", "Mega-Magier": "Mega Mage", "Ohne Fehl": "Flawless One", "Riesentöter": "Giant Slayer", "Gipfelstürmer": "Summit Stormer", "Gegnerschreck": "Foe Terror", "Meteor": "Meteor", "Forscher": "Researcher", "Nordlichtjäger": "Northern Light Hunter", "Glitzerauge": "Glitter Eye", "Verschmelzer": "Fuser", "Schatzsucher": "Treasure Hunter", "Allrounder": "All-Rounder", "Frühaufsteher": "Early Bird", "Urgestein": "Old Hand", "Sammlerseele": "Collector Soul", "Erfolge geben jetzt dreimal so viele Edelsteine:": "Achievements now give three times as many gems:", "nachgezahlt": "paid out", "Ruhmeslegende": "Fame Legend"});
+/* v1.62.5 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Regions-Hintergründe": "Region backgrounds", "11 neue Regions-Hintergründe: Wer in einer Region Champion wird (Normal oder schwerer), bekommt ihren Hintergrund: Kanto-Morgen, Glockenturm, Tropenküste, Speersäule, Stratos bei Nacht, Prismaturm, Inselsonne, Stadionnacht, Areal Null, Raumzeitriss und Laternenfest.": "11 new region backgrounds: becoming Champion in a region (Normal or harder) unlocks its background: Kanto Morning, Bell Tower, Tropical Coast, Spear Pillar, Castelia by Night, Prism Tower, Island Sun, Stadium Night, Area Zero, Space-Time Rift and Lantern Festival.", "Überarbeitet: Gewittersturm (Blitze mit Ästen, Wolkenwand), Himmelsturm (Wolkenmeer in drei Ebenen, Treppen, Licht von oben), Lichterglanz (Stadt, Lichterketten, Schnee), Edelsteinmine (Stollen, Schienen, Lore, Laternen), Polarlicht (Vorhang aus Lichtstrahlen über Eisscholle und Iglu), Vulkanherz (Lavafluss, Rauch, Funkenflug), Morgenroute (Weg mit Wegweiser) und Sandsturm (Sandschleier und Böen).": "Reworked: Thunderstorm (branching lightning, cloud wall), Sky Tower (three-layer cloud sea, stairs, light from above), Glow of Lights (city, light strings, snow), Gem Mine (tunnel, rails, mine cart, lanterns), Aurora (curtain of light rays over an ice floe and igloo), Volcano Heart (lava river, smoke, sparks), Morning Route (path with signpost) and Sandstorm (sand veils and gusts).", "Kanto-Morgen": "Kanto Morning", "Glockenturm": "Bell Tower", "Tropenküste": "Tropical Coast", "Speersäule": "Spear Pillar", "Stratos bei Nacht": "Castelia by Night", "Prismaturm": "Prism Tower", "Inselsonne": "Island Sun", "Stadionnacht": "Stadium Night", "Areal Null": "Area Zero", "Raumzeitriss": "Space-Time Rift", "Laternenfest": "Lantern Festival", "Champion in": "Champion in"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18381,7 +18446,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.62.0.8",DUEL_HP=30;
+const MP_VER="1.62.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -19019,8 +19084,11 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.62.0.8"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.62.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.62.5",d:"24.11.2026",t:"Regions-Hintergründe",items:[
+  ["route", "11 neue Regions-Hintergründe: Wer in einer Region Champion wird (Normal oder schwerer), bekommt ihren Hintergrund: Kanto-Morgen, Glockenturm, Tropenküste, Speersäule, Stratos bei Nacht, Prismaturm, Inselsonne, Stadionnacht, Areal Null, Raumzeitriss und Laternenfest."],
+  ["spark", "Überarbeitet: Gewittersturm (Blitze mit Ästen, Wolkenwand), Himmelsturm (Wolkenmeer in drei Ebenen, Treppen, Licht von oben), Lichterglanz (Stadt, Lichterketten, Schnee), Edelsteinmine (Stollen, Schienen, Lore, Laternen), Polarlicht (Vorhang aus Lichtstrahlen über Eisscholle und Iglu), Vulkanherz (Lavafluss, Rauch, Funkenflug), Morgenroute (Weg mit Wegweiser) und Sandsturm (Sandschleier und Böen)."]]},
  {v:"1.62.0",d:"24.11.2026",t:"Erfolge & Titel",items:[
   ["gem", "Erfolge geben jetzt dreimal so viele Edelsteine (Bronze 6, Silber 15, Gold 30, Platin 60, Mythisch 120). Für deine schon freigeschalteten Erfolge wird der Unterschied einmal nachgezahlt."],
   ["crown", "Titel: Jedes Abzeichen hat auf Platin jetzt einen eigenen Titel, z. B. Einschlag → „Meteor“, Glitzerjäger → „Glitzerauge“. Erfolge auf Platin und Mythisch geben ihren Namen als Titel. Ein schon gewählter Abzeichen-Titel wird automatisch umgestellt."],
@@ -22359,6 +22427,116 @@ try{const _ac6208=PKT.act;PKT.act=async function(cmd){const a=Array.isArray(cmd)
 try{const _tr6208=PKT.trial;PKT.trial=function(){window.__aiSimReq=(window.__aiSimReq|0)+1;try{return _tr6208.apply(this,arguments);}finally{window.__aiSimReq=Math.max(0,(window.__aiSimReq|0)-1);}};}catch(e){}
 /* keine Töne im Sparmodus */
 try{if(typeof SFX!=="undefined"&&SFX&&typeof SFX.play==="function"){const _pl6208=SFX.play.bind(SFX);SFX.play=function(){if(window.__aiLite)return;return _pl6208.apply(null,arguments);};}}catch(e){}
+
+/* ================= v1.62.5: 11 Regions-Hintergründe (Champion je Region) und 8 überarbeitete Hintergründe =================
+   Landschaft im gestreckten Vollbild-SVG (_sv), Wahrzeichen in eigenen SVGs mit Seitenverhältnis (Klasse r62, Höhe in cqh).
+   Farbverläufe heißen g_…, damit _bgU sie je Karte eindeutig macht. */
+const _L62=(cls,vb,st,body)=>`<svg class="r62 ${cls}" viewBox="${vb}" preserveAspectRatio="xMidYMax meet" style="${st}">${body}</svg>`;
+const _rg62=(id,st,cx=.5,cy=.5,r=.5)=>`<radialGradient id="g_${id}" cx="${cx}" cy="${cy}" r="${r}">${st.map(s=>`<stop offset="${s[0]}" stop-color="${s[1]}"${s[2]!=null?` stop-opacity="${s[2]}"`:""}/>`).join("")}</radialGradient>`;
+const _regChamp62=rk=>{try{const R=((META||{}).reg||{})[rk];if(!R&&rk==="kanto")return Object.values((META&&META.champs)||{}).some(v=>(v|0)>0);const C=(R||{}).champs||{};return ["normal","hard","nuzlocke","night"].some(m=>(C[m]|0)>0);}catch(e){return false;}};
+/* Haus mit Satteldach (Breite w, Höhe h), Fenster leuchten optional */
+const _house62=(x,yb,w,h,roof,wall,win,lit)=>{const rh=h*.55;return `<path d="M${_f1(x)} ${_f1(yb)}V${_f1(yb-h)}H${_f1(x+w)}V${_f1(yb)}Z" fill="${wall}"/><path d="M${_f1(x-w*.12)} ${_f1(yb-h)}L${_f1(x+w/2)} ${_f1(yb-h-rh)}L${_f1(x+w*1.12)} ${_f1(yb-h)}Z" fill="${roof}"/><rect x="${_f1(x+w*.18)}" y="${_f1(yb-h*.72)}" width="${_f1(w*.22)}" height="${_f1(h*.28)}" fill="${win}"${lit?` class="w62"`:""}/><rect x="${_f1(x+w*.6)}" y="${_f1(yb-h*.5)}" width="${_f1(w*.22)}" height="${_f1(h*.5)}" fill="${_mix(wall,"#000000",.35)}"/>`;};
+/* Palme: geschwungener Stamm + Wedel */
+const _palm62=(x,yb,h,lean,col)=>{const tx=x+lean,ty=yb-h;let f="";for(const a of[-160,-125,-95,-60,-25,10]){const r=a*Math.PI/180,ex=tx+Math.cos(r)*h*.42,ey=ty+Math.sin(r)*h*.2+h*.12,mx=tx+Math.cos(r)*h*.22,my=ty+Math.sin(r)*h*.2-h*.04;f+=`<path d="M${_f1(tx)} ${_f1(ty)}Q${_f1(mx)} ${_f1(my)} ${_f1(ex)} ${_f1(ey)}Q${_f1(mx)} ${_f1(my+h*.06)} ${_f1(tx)} ${_f1(ty+h*.03)}Z" fill="${col}"/>`;}
+  return `<path d="M${_f1(x-h*.03)} ${_f1(yb)}Q${_f1(x+lean*.2)} ${_f1(yb-h*.5)} ${_f1(tx-h*.012)} ${_f1(ty)}H${_f1(tx+h*.02)}Q${_f1(x+lean*.25+h*.03)} ${_f1(yb-h*.5)} ${_f1(x+h*.03)} ${_f1(yb)}Z" fill="${col}"/>${f}`;};
+/* Laubbaum (runde Krone) */
+const _tree62=(x,yb,h,c1,c2)=>`<path d="M${_f1(x-h*.04)} ${_f1(yb)}V${_f1(yb-h*.45)}H${_f1(x+h*.04)}V${_f1(yb)}Z" fill="${c2}"/><circle cx="${_f1(x)}" cy="${_f1(yb-h*.62)}" r="${_f1(h*.3)}" fill="${c1}"/><circle cx="${_f1(x-h*.18)}" cy="${_f1(yb-h*.5)}" r="${_f1(h*.2)}" fill="${c1}"/><circle cx="${_f1(x+h*.19)}" cy="${_f1(yb-h*.52)}" r="${_f1(h*.21)}" fill="${c1}"/>`;
+/* Skyline aus Rechtecken mit Fenstern (Seed fest) */
+const _city62=(seed,y,n,h0,h1,col,win,wo=.85)=>{const R=_rnd(seed);let b="",w="",x=-2;for(let i=0;i<n;i++){const bw=4+R()*7,bh=h0+R()*(h1-h0);b+=`M${_f1(x)} ${y}V${_f1(y-bh)}H${_f1(x+bw)}V${y}Z`;for(let yy=y-bh+2;yy<y-1.5;yy+=2.6)for(let xx=x+1;xx<x+bw-1;xx+=1.8)if(R()<.42)w+=`M${_f1(xx)} ${_f1(yy)}h.9v1.1h-.9Z`;x+=bw+R()*1.2;if(x>102)break;}
+  return `<path d="${b}" fill="${col}"/><path d="${w}" fill="${win}" opacity="${wo}" class="w62"/>`;};
+/* Laternenkette (Kitakami) */
+const _lant62=(x0,y0,x1,y1,sag,n,cols)=>{let o=`<path d="M${x0} ${y0}Q${(x0+x1)/2} ${y0+sag} ${x1} ${y1}" fill="none" stroke="#2a1a10" stroke-width=".4"/>`;for(let i=1;i<n;i++){const t=i/n,x=(1-t)*(1-t)*x0+2*(1-t)*t*(x0+x1)/2+t*t*x1,y=(1-t)*(1-t)*y0+2*(1-t)*t*(y0+sag)+t*t*y1;o+=`<g class="lt62" style="--dl:-${(i*.37).toFixed(2)}s"><path d="M${_f1(x)} ${_f1(y)}v1.2" stroke="#2a1a10" stroke-width=".3"/><ellipse cx="${_f1(x)}" cy="${_f1(y+3)}" rx="1.6" ry="2.1" fill="${cols[i%cols.length]}"/><path d="M${_f1(x-1.6)} ${_f1(y+3)}h3.2" stroke="#7a2a10" stroke-width=".25" opacity=".6"/></g>`;}return o;};
+/* Blitz mit Ästen */
+const _bolt62=(seed,x,y0,y1)=>{const R=_rnd(seed);let d=`M${x} ${y0}`,cx=x,cy=y0,br="";while(cy<y1){cy+=3+R()*4;cx+=(R()-.5)*7;d+=` L${_f1(cx)} ${_f1(cy)}`;if(R()<.3){let bx=cx,by=cy;let b=`M${_f1(bx)} ${_f1(by)}`;for(let k=0;k<3;k++){by+=2+R()*3;bx+=(R()<.5?-1:1)*(1+R()*3);b+=` L${_f1(bx)} ${_f1(by)}`;}br+=b;}}return `<path d="${d}" fill="none" stroke="#fffbe0" stroke-width="1.1" stroke-linejoin="round"/><path d="${br}" fill="none" stroke="#e8f0ff" stroke-width=".5" opacity=".8"/>`;};
+
+const BG62={
+/* ---------- Regionen ---------- */
+ rg_kanto:{n:"Kanto-Morgen",lv:3,rk:"kanto",html:`${_bl(78,14,34,"rgba(255,240,180,.85)",";--d:6s")}${_cloud(10,10,34,7,"rgba(255,255,255,.9)",26)}${_cloud(56,20,26,6,"rgba(255,255,255,.75)",32,8)}${_birds(3,"#3a4a6a",8,24)}
+  ${_sv(`${_mtn("k1",4101,52,6,8,20,[[0,"#9cb4d8"],[1,"#c2d4ea"]],"#ffffff",.35,.15)}${_ridge("k2",4103,60,8,.5,[[0,"#7fc07a"],[1,"#5aa85a"]],"#e8ffd0",.4)}${_ridge("k3",4105,72,6,.45,[[0,"#56a84e"],[1,"#3e8a3c"]])}
+   <path d="M44 100 Q48 86 52 78 Q55 72 60 70 L62 70.6 Q58 73 56 79 Q53 88 56 100Z" fill="#d8b878"/><path d="${_blades(4107,70,100,4,9)}" fill="#2f7a32"/>`)}
+  ${_L62("k62h","0 0 60 26","left:58%;bottom:28%;height:13cqh",_house62(4,24,12,8,"#c8302a","#f4ead8","#ffe9a0")+_house62(22,24,14,9,"#3a62c8","#f0e4d0","#ffe9a0")+_house62(42,24,12,8,"#c8302a","#efe0cc","#ffe9a0")+`<rect x="37" y="15" width="2" height="9" fill="#6a4a2a"/><path d="M30 13 h12 v3 h-12z" fill="#8a6038"/>`)}
+  ${_L62("k62s","0 0 12 20","left:36%;bottom:9%;height:10cqh",`<rect x="5" y="6" width="2" height="14" fill="#6a4426"/><path d="M1 2 H11 V8 H1Z" fill="#a8743e" stroke="#5a3a1e" stroke-width=".6"/><path d="M3 4.4 H9 M3 6 H7" stroke="#5a3a1e" stroke-width=".6"/>`)}`},
+ rg_johto:{n:"Glockenturm",lv:3,rk:"johto",html:`${_bl(30,58,60,"rgba(255,170,80,.6)",";--d:7s")}${_shaft(22,14,-14,"rgba(255,200,120,.25)")}${_shaft(40,9,-8,"rgba(255,200,120,.18)",2)}
+  ${_sv(`${_ridge("j1",4201,66,8,.5,[[0,"#7a3a5a"],[1,"#4a2040"]],"#ffb08a",.35)}${_ridge("j2",4203,80,6,.45,[[0,"#3a1428"],[1,"#20081a"]])}`)}
+  ${_L62("j62t","0 0 40 100","left:64%;bottom:12%;height:62cqh",`<defs>${_lg("jt",[[0,"#2a0e1e"],[1,"#140610"]])}</defs><path d="M19.6 2 L20.4 2 L20.6 8 L19.4 8Z" fill="#ffcf6a"/>`+[0,1,2,3,4,5,6,7,8].map(i=>{const y=10+i*9.4,w=6+i*2.1;return `<path d="M${_f1(20-w)} ${_f1(y+3)} Q20 ${_f1(y-1.6)} ${_f1(20+w)} ${_f1(y+3)} L${_f1(20+w-1.6)} ${_f1(y+4.2)} H${_f1(20-w+1.6)}Z" fill="url(#g_jt)"/><rect x="${_f1(20-w*.62)}" y="${_f1(y+4.2)}" width="${_f1(w*1.24)}" height="5.2" fill="#1e0a16"/><rect x="${_f1(20-1.1)}" y="${_f1(y+5.4)}" width="2.2" height="2.6" fill="#ffc860" class="w62" style="--dl:-${i*.4}s"/>`;}).join("")+`<rect x="4" y="94" width="32" height="6" fill="#140610"/>`)}
+  ${_L62("j62m","0 0 50 40","left:18%;bottom:6%;height:24cqh",_tree62(14,40,34,"#c0322a","#3a1210")+_tree62(34,40,26,"#e0582a","#3a1210"))}
+  ${_downs(14,"x-leaf",["#ff6a3a","#e0402a","#ffa040"],1.6,2.6,6,11)}`},
+ rg_hoenn:{n:"Tropenküste",lv:3,rk:"hoenn",html:`${_bl(20,12,30,"rgba(255,250,210,.9)",";--d:6s")}${_cloud(50,12,30,6,"rgba(255,255,255,.85)",28)}
+  ${_ups(9,["rgba(90,80,90,.55)","rgba(120,110,120,.45)"],5,9,6,10,62,74,";--o:.7")}
+  ${_sv(`<path d="M52 56 L62 34 L66 33 L70 35 L84 56Z" fill="#6a5a6a"/><path d="M62 34 L66 33 L70 35 L68 38 L64 38Z" fill="#ff7a3a" opacity=".8"/><path d="M0 56 H100 V100 H0Z" fill="#1fa6c8"/><path d="M0 56 H100 V60 H0Z" fill="#7ad8ee" opacity=".7"/>
+   <path d="M0 80 Q30 74 60 78 T100 76 V100 H0Z" fill="#f2dca0"/><path d="M0 80 Q30 74 60 78 T100 76" fill="none" stroke="#ffffff" stroke-width="1" vector-effect="non-scaling-stroke" opacity=".9"/>`)}
+  ${_band(64,3,"rgba(255,255,255,.55)",9)}${_band(70,3,"rgba(255,255,255,.4)",12,3)}${_spk(8,58,74,["#ffffff","#d8fbff"],1.2,2.4)}
+  ${_L62("h62p","0 0 40 60","left:14%;bottom:12%;height:44cqh",_palm62(16,60,52,8,"#1e4a2a")+_palm62(30,60,38,-4,"#24563a"))}`},
+ rg_sinnoh:{n:"Speersäule",lv:3,rk:"sinnoh",html:`${_stars(34,0,46,["#ffffff","#d8e4ff","#ffd8f4"])}${_bl(34,18,44,"rgba(90,140,255,.55)",";--d:5s")}${_bl(68,14,40,"rgba(255,110,200,.45)",";--d:6.5s")}
+  ${_sv(`${_mtn("s1",4401,70,4,22,40,[[0,"#eaf2ff"],[.5,"#9fb4e0"],[1,"#4a5a90"]],"#ffffff",.6,.3,1.2,2)}${_ridge("s2",4403,84,5,.45,[[0,"#2a3460"],[1,"#141a3a"]],"#c8d8ff",.3)}`)}
+  ${_L62("s62r","0 0 60 24","left:50%;bottom:58%;height:12cqh",`<path d="M2 24 H58 V21 H2Z" fill="#c8d4f0"/>${[6,14,22,38,46,54].map((x,i)=>`<rect x="${x-1.6}" y="${i%3===2?11:4}" width="3.2" height="${i%3===2?10:17}" fill="#dfe8ff"/><rect x="${x-2.2}" y="${i%3===2?10:3}" width="4.4" height="1.4" fill="#f4f8ff"/>`).join("")}<path d="M28 21 L30 6 L32 21Z" fill="#ffffff" opacity=".9"/>`)}
+  ${_downs(20,"x-snow",["#ffffff","#dfe8ff"],.6,1.2,7,12,";--o:.8")}`},
+ rg_unova:{n:"Stratos bei Nacht",lv:3,rk:"unova",html:`${_stars(18,0,30,["#ffffff","#cfe0ff"])}${_bl(50,46,80,"rgba(80,120,255,.3)",";--d:8s")}
+  ${_sv(`${_city62(4501,64,16,10,30,"#141c3a","#9ac8ff",.55)}${_city62(4503,70,14,8,22,"#0c1228","#ffd27a",.9)}<path d="M0 70 H100 V100 H0Z" fill="#081022"/>`)}
+  ${_band(74,4,"rgba(255,210,122,.25)",10)}${_band(82,3,"rgba(154,200,255,.18)",14,4)}
+  ${_L62("u62b","0 0 100 30","left:50%;bottom:18%;height:20cqh",`<path d="M0 22 H100 V24 H0Z" fill="#1a2448"/><path d="M28 24 V4 M72 24 V4" stroke="#24305a" stroke-width="2.4"/><path d="M0 18 Q14 22 28 4 Q50 21 72 4 Q86 22 100 18" fill="none" stroke="#3a4a80" stroke-width=".7"/>${Array.from({length:18},(_,i)=>`<circle cx="${3+i*5.6}" cy="22.6" r=".7" fill="#ffd27a" class="w62" style="--dl:-${(i*.23).toFixed(2)}s"/>`).join("")}`)}`},
+ rg_kalos:{n:"Prismaturm",lv:3,rk:"kalos",html:`${_bl(50,22,40,"rgba(200,170,255,.55)",";--d:4s")}${_spk(10,4,40,["#ffffff","#e8d4ff","#ffd8f0"],1.4,2.8)}
+  ${_sv(`<path d="${(()=>{const R=_rnd(4601);let d="",x=-2;while(x<102){const w=6+R()*8,h=10+R()*8;d+=`M${_f1(x)} 100V${_f1(80-h)}L${_f1(x+w*.2)} ${_f1(76-h)}H${_f1(x+w*.8)}L${_f1(x+w)} ${_f1(80-h)}V100Z`;x+=w;}return d;})()}" fill="#2a1840"/>${_city62(4603,100,14,8,16,"#1c0e30","#ffd88a",.8)}`)}
+  ${_L62("ka62t","0 0 30 100","left:50%;bottom:14%;height:66cqh",`<defs>${_lg("kat",[[0,"#5a3a7a"],[1,"#24103a"]])}</defs><path d="M2 100 Q10 60 13.6 22 H16.4 Q20 60 28 100 H22 Q17 70 15 52 Q13 70 8 100Z" fill="url(#g_kat)"/><path d="M6 74 H24 M9 56 H21 M12 38 H18" stroke="#3a2458" stroke-width="1.4"/><path d="M13.6 22 L15 4 L16.4 22Z" fill="#e8d8ff"/><circle cx="15" cy="12" r="2.2" fill="#ffffff" class="w62"/>`)}`},
+ rg_alola:{n:"Inselsonne",lv:3,rk:"alola",html:`${_bl(50,52,70,"rgba(255,170,90,.8)",";--d:5s")}
+  ${_sv(`${_rg62("as",[[0,"#fff6c0"],[.5,"#ffb04a"],[1,"#ff7a3a",0]],.5,.5,.5)}<circle cx="50" cy="56" r="18" fill="url(#g_as)"/><path d="M8 56 L18 46 L24 48 L34 56Z M66 56 L74 42 L78 43 L84 50 L94 56Z" fill="#5a2a4a"/><path d="M0 56 H100 V100 H0Z" fill="#3a2a6a"/><path d="M42 56 H58 L64 100 H36Z" fill="#ffb86a" opacity=".45"/>`)}
+  ${_band(62,3,"rgba(255,200,140,.5)",8)}${_band(72,4,"rgba(255,160,120,.35)",11,2)}${_spk(7,57,80,["#ffe0a0","#ffffff"],1,2)}
+  ${_L62("al62p","0 0 40 60","left:84%;bottom:0%;height:58cqh",_palm62(20,60,56,-7,"#1a0a24"))}
+  ${_L62("al62f","0 0 20 20","left:14%;bottom:3%;height:12cqh",[0,72,144,216,288].map(a=>`<ellipse cx="10" cy="5.4" rx="3.2" ry="4.8" fill="#ff4a7a" transform="rotate(${a} 10 10)"/>`).join("")+`<circle cx="10" cy="10" r="1.6" fill="#ffe060"/>`)}`},
+ rg_galar:{n:"Stadionnacht",lv:3,rk:"galar",html:`${_stars(16,0,26)}${_shaft(30,7,24,"rgba(220,235,255,.35)")}${_shaft(70,7,-24,"rgba(220,235,255,.35)",2)}${_shaft(50,9,0,"rgba(255,90,110,.28)",4)}${_bl(50,38,56,"rgba(255,40,80,.45)",";--d:3s")}
+  ${_sv(`<path d="M0 64 V52 h4 v-6 h3 v6 h4 V44 h3 v-4 h2 v4 h3 v20Z M80 64 V48 h3 v-6 h3 v6 h4 V40 h3 v-5 h2 v5 h3 v29Z" fill="#141a30"/><path d="M0 64 H100 V100 H0Z" fill="#0a0e1e"/>`)}
+  ${_L62("ga62s","0 0 100 40","left:50%;bottom:14%;height:30cqh",`<defs>${_lg("gs",[[0,"#3a4460"],[1,"#141a2e"]])}</defs><path d="M4 40 L10 14 Q50 4 90 14 L96 40Z" fill="url(#g_gs)"/><path d="M10 14 Q50 4 90 14" fill="none" stroke="#c8d8ff" stroke-width=".8"/><path d="M14 22 Q50 13 86 22" fill="none" stroke="#ff4a6a" stroke-width=".6" opacity=".8"/>${Array.from({length:14},(_,i)=>`<rect x="${13+i*5.4}" y="${26+(i%2)}" width="2.4" height="1.6" fill="#ffe8b0" class="w62" style="--dl:-${(i*.31).toFixed(2)}s"/>`).join("")}<path d="M8 6 V-6 M92 6 V-6" stroke="#c8d8ff" stroke-width="1.2"/><rect x="5" y="-8" width="6" height="3" fill="#ffffff"/><rect x="89" y="-8" width="6" height="3" fill="#ffffff"/>`)}
+  ${_spk(9,58,74,["#ffffff","#ffd0d8"],1,1.8)}`},
+ rg_paldea:{n:"Areal Null",lv:3,rk:"paldea",html:`${_bl(50,4,60,"rgba(255,255,230,.7)",";--d:6s")}${_shaft(46,16,6,"rgba(255,255,230,.3)")}
+  ${_sv(`${_ridge("p1",4901,38,10,.55,[[0,"#7a9a8a"],[1,"#5a7a72"]],"#e0fff0",.4)}<path d="M0 38 Q50 70 100 38 V100 H0Z" fill="#2a4448"/><path d="M8 52 Q50 86 92 52" fill="none" stroke="#88c8c0" stroke-width="1" vector-effect="non-scaling-stroke" opacity=".5"/>
+   ${_cluster(4903,26,92,16,"#8ae8ff","#3a7ad8")}${_cluster(4905,70,96,20,"#ff9ae0","#8a3ad8")}${_cluster(4907,48,86,10,"#fff08a","#e09a2a")}`)}
+  ${_band(56,8,"rgba(220,255,250,.35)",16)}${_ups(10,["#a8f4ff","#ffc8f0","#fff4a0"],.8,1.6,5,9,10,90,";--g:6px")}${_spk(8,60,90,["#ffffff","#c8f8ff","#ffd8f4"],1.2,2.2)}`},
+ rg_hisui:{n:"Raumzeitriss",lv:3,rk:"hisui",html:`${_stars(20,0,40,["#ffffff","#e0d0ff"])}<i class="hi62r"></i>${_bl(50,22,46,"rgba(170,110,255,.5)",";--d:4s")}
+  ${_sv(`${_mtn("h1",5001,60,5,20,34,[[0,"#5a4a7a"],[1,"#2a2448"]],"#d0b8ff",.45,.25)}${_ridge("h2",5003,74,6,.5,[[0,"#1c2438"],[1,"#101626"]])}<path d="${_pines(5005,26,-2,102,82,98,10,18)}" fill="#0a1020"/>`)}
+  ${_band(78,6,"rgba(160,180,220,.3)",18)}${_ups(10,["#d8b8ff","#a8c8ff"],.6,1.2,6,10,5,95,";--g:5px;--o:.8")}`},
+ rg_kitakami:{n:"Laternenfest",lv:3,rk:"kitakami",html:`${_stars(14,0,24)}${_bl(50,30,60,"rgba(255,150,80,.35)",";--d:6s")}
+  ${_sv(`<path d="M0 62 L18 44 L26 30 L30 38 L36 26 L42 40 L58 50 L76 44 L100 58 V100 H0Z" fill="#2a2440"/><path d="M26 30 L30 38 L36 26 L33 33Z" fill="#4a3a66"/><path d="M0 74 Q30 66 60 72 T100 70 V100 H0Z" fill="#141828"/>
+   ${[8,22,78,92].map((x,i)=>_tree62(x,86+(i%2)*3,18,"#1e3424","#120c0a")).join("")}${[8,22,78,92].map((x,i)=>`<circle cx="${x-2}" cy="${72+(i%2)*3}" r=".9" fill="#ff3a3a"/><circle cx="${x+3}" cy="${74+(i%2)*3}" r=".9" fill="#ff3a3a"/>`).join("")}<path d="M0 92 H100 V100 H0Z" fill="#0c0e18"/>`)}
+  ${_L62("kt62l","0 0 100 40","left:50%;bottom:46%;height:26cqh",_lant62(0,6,100,8,16,9,["#ff9a3a","#ff5a4a","#ffd06a"])+_lant62(0,20,100,18,12,7,["#ffd06a","#ff9a3a"]))}
+  ${_ups(12,["#d8ff7a","#fff08a"],.5,1,7,12,4,96,";--g:6px;--o:.85")}`},
+/* ---------- überarbeitet ---------- */
+ sturm:{html:`<i class="st62f"></i>${_clS54("st62c c1",5101,30,10,6,[[0,"#1a1e2c"],[.7,"#3a4460"],[1,"#6a7898"]],.5)}${_clS54("st62c c2",5103,22,8,5,[[0,"#10121a"],[.8,"#2a3046"],[1,"#4a5470"]],.6)}${_bl(58,30,50,"rgba(160,180,255,.18)",";--d:4.6s")}
+  <svg class="r62 st62b" viewBox="0 0 40 70" preserveAspectRatio="xMidYMin meet">${_bolt62(5105,22,0,62)}</svg><svg class="r62 st62b b2" viewBox="0 0 40 70" preserveAspectRatio="xMidYMin meet">${_bolt62(5107,18,0,46)}</svg>
+  ${_sv(`${_ridge("st1",5109,74,8,.5,[[0,"#1a2030"],[1,"#0c1018"]],"#8a9ac8",.25)}<path d="M72 78 V56 M72 62 L66 52 M72 66 L79 55 M66 52 L63 49 M79 55 L82 51" stroke="#0a0d14" stroke-width="2.2" vector-effect="non-scaling-stroke" stroke-linecap="round"/><path d="M0 90 H100 V100 H0Z" fill="#080a10"/>`)}
+  <i class="rain"></i><i class="rain r2"></i><i class="lit"></i>`},
+ himmelsturm:{html:`<i class="hs62s"></i>${_shaft(50,14,0,"rgba(255,240,190,.35)")}${_spk(8,4,40,["#ffffff","#ffe8b0","#e0d0ff"])}${_birds(2,"#5a2a6a",16,30)}
+  ${_clS54("hs62c c1",5201,40,8,6,[[0,"#f4e8ff"],[1,"#c8b0e8"]],.55)}
+  ${_L62("hs62t","0 0 40 100","left:50%;bottom:18%;height:76cqh",`<defs>${_lg("hst",[[0,"#4a2a6a"],[1,"#24123a"]])}</defs><path d="M15 100 V24 L18 18 V10 L20 1 L22 10 V18 L25 24 V100Z" fill="url(#g_hst)"/>${[30,46,62,78].map((y,i)=>`<path d="M${i%2?25:15} ${y} Q20 ${y+4} ${i%2?15:25} ${y+8}" fill="none" stroke="#ffd88a" stroke-width=".7" opacity=".85"/><rect x="18.8" y="${y-6}" width="2.4" height="4" fill="#ffd27a" class="w62" style="--dl:-${i*.6}s"/>`).join("")}<path d="M25 54 H38 V56 H25Z M2 70 H15 V72 H2Z" fill="#3a2058"/><circle cx="20" cy="6" r="2.6" fill="#fff4c0" class="w62"/>`)}
+  ${_clS54("hs62c c2",5203,60,10,5,[[0,"#ffffff"],[1,"#dcc8f4"]],.6)}${_clS54("hs62c c3",5205,78,8,6,[[0,"#efe0ff"],[1,"#b89ad8"]],.5)}`},
+ lichterglanz:{html:`${_stars(10,0,20)}${_sv(`${_city62(5301,78,18,14,34,"#141a30","#ffd88a",.9)}<path d="M0 78 H100 V100 H0Z" fill="#e8f0ff"/><path d="M0 78 H100 V80 H0Z" fill="#ffffff"/>`)}
+  ${_L62("lg62k","0 0 100 30","left:50%;bottom:52%;height:16cqh",_lant62(0,2,100,4,14,13,["#ff4a5a","#ffd04a","#4ad08a","#5aa8ff"])+_lant62(0,14,100,10,12,11,["#ffd04a","#ff4a5a","#5aa8ff"]))}
+  ${_downs(26,"x-snow",["#ffffff","#e8f0ff"],.6,1.3,7,12,";--o:.85")}${_bl(14,82,22,"rgba(255,90,110,.5)",";--d:3s")}${_bl(86,86,26,"rgba(90,170,255,.45)",";--d:4s")}${_bl(60,92,18,"rgba(255,220,120,.5)",";--d:3.4s")}`},
+ edelmine:{html:`${_bl(50,46,54,"rgba(255,190,110,.35)",";--d:5s")}
+  ${_sv(`<path d="M0 0 H100 V100 H0Z" fill="#1a1420"/><path d="M14 100 V40 Q50 8 86 40 V100Z" fill="#0a080e"/><path d="M14 100 V40 Q50 8 86 40 V100" fill="none" stroke="#5a3a22" stroke-width="5" vector-effect="non-scaling-stroke"/><path d="M8 100 V36 M92 100 V36 M4 34 H96" stroke="#6a4626" stroke-width="5" vector-effect="non-scaling-stroke"/>
+   <path d="M44 100 L48.6 44 M56 100 L51.4 44" stroke="#8a8a98" stroke-width="1.2" vector-effect="non-scaling-stroke"/>${[52,62,74,88].map(y=>`<path d="M${_f1(50-(y-40)*.16)} ${y} H${_f1(50+(y-40)*.16)}" stroke="#4a3420" stroke-width="2" vector-effect="non-scaling-stroke"/>`).join("")}
+   ${_cluster(5401,10,76,10,"#7af0ff","#2a7ad8")}${_cluster(5403,90,70,9,"#ff8ae0","#8a2ad8")}${_cluster(5405,30,99,7,"#9affb0","#1a9a5a")}<path d="M70 10 L78 20 L74 28 M24 16 L18 26 L22 32" fill="none" stroke="#7af0ff" stroke-width=".8" opacity=".6" vector-effect="non-scaling-stroke"/>`)}
+  ${_L62("em62w","0 0 40 26","left:50%;bottom:6%;height:20cqh",`<path d="M4 6 H36 L32 20 H8Z" fill="#5a4a5a"/><path d="M4 6 H36 V8 H4Z" fill="#8a7a8a"/><path d="M8 7 L12 1 L16 5 L20 0 L24 4 L28 1 L32 7Z" fill="#7af0ff"/><path d="M14 3 L18 7 L22 2 Z" fill="#ff8ae0"/><circle cx="12" cy="22" r="3" fill="#2a2228" stroke="#8a8a98" stroke-width=".8"/><circle cx="28" cy="22" r="3" fill="#2a2228" stroke="#8a8a98" stroke-width=".8"/>`)}
+  ${_L62("em62l","0 0 10 16","left:20%;bottom:42%;height:9cqh",`<path d="M5 0 V3" stroke="#3a2a1a"/><path d="M2 3 H8 L7 13 H3Z" fill="#3a2a1a"/><rect x="3.4" y="5" width="3.2" height="6" fill="#ffc860" class="w62"/>`)}${_L62("em62l","0 0 10 16","left:80%;bottom:42%;height:9cqh",`<path d="M5 0 V3" stroke="#3a2a1a"/><path d="M2 3 H8 L7 13 H3Z" fill="#3a2a1a"/><rect x="3.4" y="5" width="3.2" height="6" fill="#ffc860" class="w62" style="--dl:-1s"/>`)}
+  ${_spk(10,20,90,["#7af0ff","#ff8ae0","#9affb0"],1,2)}`},
+ aurora:{html:`${_stars(30,0,50,["#ffffff","#dff4ff"])}<i class="au62c c1"></i><i class="au62c c2"></i><i class="au62c c3"></i>
+  ${_sv(`<path d="M0 70 H100 V100 H0Z" fill="#0c2240"/><path d="M0 70 H100 V72 H0Z" fill="#3a7aa8" opacity=".6"/><path d="M-4 86 L10 78 L46 76 L66 80 L72 88 L40 92 L6 92Z" fill="#dff0ff"/><path d="M-4 86 L10 78 L46 76 L66 80 L72 88" fill="none" stroke="#ffffff" stroke-width="1" vector-effect="non-scaling-stroke"/><path d="M72 88 L40 92 L6 92 L-4 86 L-4 90 L8 96 L44 96 L74 90Z" fill="#8ab8dc" opacity=".7"/>`)}
+  ${_band(74,3,"rgba(120,255,200,.25)",10)}
+  ${_L62("au62i","0 0 30 16","left:30%;bottom:15%;height:11cqh",`<path d="M2 16 A13 13 0 0 1 28 16Z" fill="#f4faff"/><path d="M2 16 A13 13 0 0 1 28 16" fill="none" stroke="#b8d4ee" stroke-width=".6"/><path d="M6 12 H24 M4 15 H26 M8 8 H22 M15 3 V8 M10 8 V12 M20 8 V12 M8 12 V15 M15 12 V15 M22 12 V15" stroke="#b8d4ee" stroke-width=".5"/><path d="M11 16 V11 A4 4 0 0 1 19 11 V16Z" fill="#1a2a44"/><path d="M12.5 16 V11.6 A2.5 2.5 0 0 1 17.5 11.6 V16Z" fill="#ffc860" opacity=".75" class="w62"/>`)}`},
+ vulkan:{html:`<i class="vu62g"></i>${_ups(10,["rgba(70,60,70,.6)","rgba(110,90,90,.5)"],6,12,6,11,40,60,";--o:.7")}
+  ${_sv(`<path d="M0 100 L0 70 L24 58 L40 36 L46 39 L54 39 L60 36 L76 58 L100 68 L100 100Z" fill="#2c0d0b"/><path d="M40 36 L46 39 L54 39 L60 36 L56 42 L44 42Z" fill="#ff8a2a"/><path class="lava" d="M47 40 Q44 52 38 60 Q33 68 30 80"/><path class="lava l2" d="M53 40 Q57 54 63 62 Q70 72 74 84"/>
+   <path d="M0 84 Q20 78 44 84 T100 82 V100 H0Z" fill="#1a0604"/><path class="vu62r" d="M-2 92 Q22 84 46 90 Q70 96 102 86 L102 96 Q70 104 46 98 Q22 92 -2 100Z"/>`)}
+  ${_ups(22,["#ffb03a","#ff7a2a","#ffd36a"],.5,1.2,2.6,4.6,10,90,";--g:8px")}${_bl(50,92,60,"rgba(255,110,40,.45)",";--d:2.6s")}`},
+ sunrise:{html:`<i class="sun"><i class="rays"></i></i>${_cloud(8,16,26,6,"rgba(255,255,255,.85)",24)}${_cloud(60,26,20,5,"rgba(255,240,230,.7)",30,6)}${_birds(2,"#5a3a4a",14,28)}
+  ${_sv(`${_ridge("sr1",5501,58,6,.5,[[0,"#c8a0b8"],[1,"#a88aa8"]],"#ffe0c8",.4)}${_ridge("sr2",5503,66,6,.45,[[0,"#8ab07a"],[1,"#6a9a5a"]])}
+   <path d="M32 100 Q40 86 46 78 Q50 70 50 64 L51 64 Q53 70 58 78 Q64 88 74 100Z" fill="#e8c898"/><path d="M46 100 Q48 84 50 70 M58 100 Q55 84 50.6 70" stroke="#c8a070" stroke-width=".5" vector-effect="non-scaling-stroke" opacity=".6"/>
+   <path d="M0 76 Q20 72 40 78 L36 100 H0Z M100 76 Q82 72 64 80 L72 100 H100Z" fill="#5a8a46"/><path d="${_blades(5505,60,100,3,8)}" fill="#3a6e32"/>`)}
+  ${_L62("sr62s","0 0 24 30","left:30%;bottom:10%;height:20cqh",`<rect x="10.6" y="4" width="2.8" height="26" fill="#6a4426"/><path d="M1 6 H17 L21 9 L17 12 H1Z" fill="#b07e44" stroke="#5a3a1e" stroke-width=".7"/><path d="M23 14 H7 L3 17 L7 20 H23Z" fill="#a8743e" stroke="#5a3a1e" stroke-width=".7"/><path d="M4 9 H13 M10 17 H19" stroke="#5a3a1e" stroke-width=".8"/>`)}`},
+ sand:{html:`<i class="sun"></i>${_sv(`${_ridge("sd1",5601,58,6,.5,[[0,"#e8b070"],[1,"#d89a58"]],"#fff0d0",.5)}${_ridge("sd2",5603,70,8,.45,[[0,"#d8964e"],[1,"#c07a38"]],"#ffe0b0",.5)}${_ridge("sd3",5605,84,6,.4,[[0,"#b86a30"],[1,"#9a5424"]])}`)}
+  <i class="sd62v v1"></i><i class="sd62v v2"></i><i class="sd62v v3"></i>${_parts("sd62s",16,()=>`--y:${rr(20,92)}%;--w:${rr(16,40)}cqw;--d:${rr(.9,1.8)}s;--dl:-${rr(0,1.8)}s`)}${_parts("sd62g",18,()=>`--y:${rr(30,95)}%;--s:${rr(.4,.9,2)}cqw;--d:${rr(1,2.2)}s;--dl:-${rr(0,2.2)}s`)}`}
+};
+/* Regionen eintragen, überarbeitete Hintergründe ersetzen (Name/Bedingung bleiben) */
+try{for(const k in BG62){const D=BG62[k];if(D.rk){CARD_BG[k]={n:D.n,lv:D.lv,html:D.html,lock:()=>_regChamp62(D.rk),ld:`Champion in ${(REGIONS[D.rk]||{n:D.rk}).n}`};}
+  else if(CARD_BG[k]){CARD_BG[k].html=D.html;try{delete BG_PRE[k];delete BG_POST[k];}catch(e){}}}}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
