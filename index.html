@@ -13477,6 +13477,7 @@ function rollPaths0(){
   while(types.length<3){const ok=Object.keys(o).filter(k=>o[k]>0&&k!=="event"&&k!=="elite"&&k!=="rocket"&&k!=="ultra");types.push(pick(ok));}
   if(!types.some(t=>t!=="event"))types[0]="easy";
   if(typeof rivalRound==="function"&&rivalRound(r)&&!types.includes("rival")){let j=types.indexOf("mid");if(j<0)j=types.findIndex(t=>t!=="event"&&t!=="easy");if(j<0)j=types.length-1;types[j]="rival";}if(!types.some(t=>t==="easy"||t==="mid"||t==="hard")){const j2=types.findIndex(t=>t==="elite"||t==="rocket"||t==="ultra");if(j2>=0)types[j2]="mid";}
+  if(MODES[S.mode]&&MODES[S.mode].noRev&&!S.tower&&!types.some(t=>t==="easy"||t==="mid")){let j=types.indexOf("hard");if(j<0)j=types.findIndex(t=>t==="elite"||t==="rocket"||t==="ultra");if(j<0)j=types.findIndex(t=>t!=="rival"&&t!=="event");if(j>=0)types[j]="mid";}
   const ord=["easy","mid","hard","elite","rival","rocket","ultra","event"];types.sort((a,b)=>ord.indexOf(a)-ord.indexOf(b));
   const locs=S.tower&&typeof TW_LOCS!=="undefined"?shuffle(((S.abyss&&typeof AB_LOCS!=="undefined")?AB_LOCS:TW_LOCS).slice()):pickLocs(3);S.paths=types.map((t,i)=>{const p={type:t,name:t==="rocket"?pick(ROCKET_N[S.region||"kanto"]||ROCKET_N.kanto):t==="ultra"?"Ultrapforte":t==="rival"&&typeof rivalOf==="function"?"Rivale "+rivalOf().n:(typeof trPick==="function"?trPick():pick(TRAINERS)),loc:locs[i]||pick(LOC_POOL)};if(t==="event")p.options=eventOptions();else{p.enemies=genEnemies(p);if(typeof rollWeather==="function"){const w=rollWeather(p.loc);if(w)p.weather=w;}}return p;});
   S.enc=null;S.encIdx=null;S.enemies=[];
@@ -15710,6 +15711,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Schwer-Einstieg": "Hard start", "E
 if(typeof EN!=="undefined")Object.assign(EN,{"Sieg bleibt gespeichert": "Victory stays saved", "Wer nach einem Sieg über Pause ins Hauptmenü geht und später weiterspielt, behält den Sieg jetzt. Vorher zählte der Kampf als abgebrochen.": "If you go to the main menu via pause after a victory and continue later, you now keep the victory. Before, the battle counted as aborted.", "Kampfturm: Die Ebene direkt nach einer Koryphäe ist etwas leichter. Ab Ebene 11 bekommen die Gegner ihr zweites Item nach und nach, erst ab Ebene 16 alle.": "Battle Tower: the floor right after a Frontier Brain is a little easier. From floor 11, enemies get their second item gradually, only from floor 16 all of them.", "Schwer in Johto: Trainer Rot ist im Finale etwas schwächer.": "Hard in Johto: Trainer Red is a little weaker in the final."});
 /* v1.60.0.8 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Turm-Bonus": "Tower bonus", "Kampfturm: Die Edelsteine bekommen jetzt den Bonus der Schwierigkeit, mit der du Champion geworden bist (Schwer ×1,6, Nuzlocke ×2,5, Albtraum ×3). Die Gegner im Turm bleiben gleich stark.": "Battle Tower: gems now get the bonus of the difficulty you became Champion on (Hard ×1.6, Nuzlocke ×2.5, Nightmare ×3). Enemies in the tower stay just as strong.", "Der Edelstein-Bonus deiner Schwierigkeit gilt auch hier.": "Your difficulty's gem bonus applies here too.", "Siegchance: Bei Bossen und Koryphäen rechnen die Probekämpfe jetzt den Bossjäger aus dem Forschungslabor mit. Die Anzeige lag dort bisher etwas zu niedrig.": "Win chance: against bosses and Frontier Brains, the practice battles now include Boss Hunter from the research lab. The display was a little too low there before.", "Schwer und Nuzlocke: In Runde 17 bis 19 bekommt nur jeder zweite Gegner ein zweites Item, ab Runde 20 alle.": "Hard and Nuzlocke: in rounds 17 to 19 only every second enemy gets a second item, from round 20 all of them.", "Booster: Die 3. Karte zeigt seltener Pokémon aus einer Stufe, die du schon komplett hast, und bevorzugt Pokémon, die dir noch fehlen. Im selben Booster kommt dasselbe Pokémon nicht mehr doppelt.": "Boosters: the 3rd card shows Pokémon from a tier you already completed less often and prefers Pokémon you are still missing. The same Pokémon no longer appears twice in one booster.", "Eigene Pokémon-Auswahl: Kommt ein neues Pokémon automatisch dazu, siehst du einen Hinweis. Unter „Pokémon im Lauf anpassen“ lässt sich das mit „Neue automatisch: An/Aus“ abschalten.": "Custom Pokémon selection: when a new Pokémon is added automatically, you now see a notice. Under “Adjust Pokémon in the run” you can turn this off with “New ones automatically: On/Off”.", "Neue automatisch: An": "New ones automatically: On", "Neue automatisch: Aus": "New ones automatically: Off", "Neue Pokémon aus Boostern und Erfolgen automatisch in deine Auswahl aufnehmen": "Automatically add new Pokémon from boosters and achievements to your selection", "ist jetzt in deiner Pokémon-Auswahl für": "is now in your Pokémon selection for", "Abschalten: Neues Spiel → Pokémon im Lauf anpassen.": "Turn off: New game → Adjust Pokémon in the run."});
+/* v1.60.0.9 */
+if(typeof EN!=="undefined")Object.assign(EN,{"KI-Reiter": "AI tab", "Bestenliste: Neuer Reiter „KI“ für Test-KIs, mit laufender Season, vergangenen Seasons und Allzeit. KI-Konten stehen dafür nicht mehr in Punkte, Pokémon und Turm.": "Leaderboard: new “AI” tab for test AIs, with the current season, past seasons and all-time. AI accounts no longer appear under Points, Pokémon and Tower.", "KI": "AI", "KI-Testkonten": "AI test accounts", "KI-Testkonten spielen ohne Maus. Sie stehen nur hier und bekommen keine Season-Belohnungen.": "AI test accounts play without a mouse. They only appear here and get no season rewards.", "Noch keine KI-Konten.": "No AI accounts yet.", "Die KI-Season-Liste wird gerade eingerichtet.": "The AI season list is being set up.", "KI-Season-Liste nicht erreichbar.": "AI season list unreachable.", "In dieser Season hat noch kein KI-Konto Punkte.": "No AI account has points this season yet.", "Nuzlocke: Jede normale Runde hat jetzt mindestens einen leichten oder mittleren Weg. Ein Geisterkampf ersetzt dort lieber einen schweren Weg.": "Nuzlocke: every normal round now has at least one easy or medium path. A ghost battle there prefers to replace a hard path.", "Booster: Alle drei Karten eines Boosters sind verschieden.": "Boosters: all three cards in a booster are different.", "Kampfturm: Dein Turm-Rekord zählt bei der Schwierigkeit, mit der du Champion geworden bist.": "Battle Tower: your tower record counts for the difficulty you became Champion on.", "Nuzlocke und Eisenmann: Nach einer Niederlage lässt sich keine Revanche mehr auslösen, auch nicht über Tasten.": "Nuzlocke and Ironman: after a defeat, a rematch can no longer be triggered, not even with keys.", "KI-Konto · nur im Reiter „KI“": "AI account · only in the “AI” tab", "Dein Konto erscheint": "Your account appears", "in den Season-, Wochen- und Ranked-Bestenlisten, nur noch im eigenen Reiter „KI“ der Bestenliste.": "in the season, weekly and ranked leaderboards, only in the leaderboard's own “AI” tab."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18355,7 +18358,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.60.0.8",DUEL_HP=30;
+const MP_VER="1.60.0.9",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18442,7 +18445,7 @@ function geistFetch(reg,r){const k=reg+"|"+r;if((GH.cache[k]&&Date.now()-(GH.ct[
 function geistPrep(){if(!S||S.duel||!geistOn())return;const reg=S.region||"kanto";for(let r=S.round;r<=Math.min(19,S.round+3);r++)if(isGeistRound(r))geistFetch(reg,r);}
 function geistInject(inner){if(!S||S.duel||!geistOn()||S.phase!=="shop"||!S.paths||S.enc||!isGeistRound(S.round)||S.paths.some(p=>p.type==="ghost"||p.type==="rival"))return;
   const list=GH.cache[(S.region||"kanto")+"|"+S.round];if(!list||!list.length)return;const g=list[Math.floor(VRND()*list.length)];
-  let i=S.paths.findIndex(p=>p.type==="mid");if(i<0)i=S.paths.findIndex(p=>p.type!=="event"&&p.type!=="elite"&&p.type!=="rival"&&p.type!=="ultra");if(i<0)i=1;const old=S.paths[i];
+  let i=S.paths.findIndex(p=>p.type==="mid");if(MODES[S.mode]&&MODES[S.mode].noRev){const em=S.paths.filter(p=>p.type==="easy"||p.type==="mid").length;i=S.paths.findIndex(p=>p.type==="hard");if(i<0&&em>1)i=S.paths.findIndex(p=>p.type==="mid");if(i<0)return;}if(i<0)i=S.paths.findIndex(p=>p.type!=="event"&&p.type!=="elite"&&p.type!=="rival"&&p.type!=="ultra");if(i<0)i=1;const old=S.paths[i];
   const en=teamUnits(g.team,0,true);for(const e of en){e.uid=uidC++;dexUp(e.sp,d=>d.seen++);}
   S.paths[i]={type:"ghost",name:"Geist von "+g.name,ghost:g.name,loc:old.loc,enemies:en};geistCardLoad(g.name);
   if(!inner){save();if(tab==="enc")renderEnc();if(typeof refreshWorld==="function")refreshWorld();}}
@@ -18992,8 +18995,14 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.60.0.8"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.60.0.9"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.60.0.9",d:"24.11.2026",t:"KI-Reiter",items:[
+  ["trophy", "Bestenliste: Neuer Reiter „KI“ für Test-KIs, mit laufender Season, vergangenen Seasons und Allzeit. KI-Konten stehen dafür nicht mehr in Punkte, Pokémon und Turm."],
+  ["heart", "Nuzlocke: Jede normale Runde hat jetzt mindestens einen leichten oder mittleren Weg. Ein Geisterkampf ersetzt dort lieber einen schweren Weg."],
+  ["gem", "Booster: Alle drei Karten eines Boosters sind verschieden."],
+  ["tower", "Kampfturm: Dein Turm-Rekord zählt bei der Schwierigkeit, mit der du Champion geworden bist."],
+  ["check", "Nuzlocke und Eisenmann: Nach einer Niederlage lässt sich keine Revanche mehr auslösen, auch nicht über Tasten."]]},
  {v:"1.60.0.8",d:"24.11.2026",t:"Turm-Bonus",items:[
   ["tower", "Kampfturm: Die Edelsteine bekommen jetzt den Bonus der Schwierigkeit, mit der du Champion geworden bist (Schwer ×1,6, Nuzlocke ×2,5, Albtraum ×3). Die Gegner im Turm bleiben gleich stark."],
   ["swords", "Siegchance: Bei Bossen und Koryphäen rechnen die Probekämpfe jetzt den Bossjäger aus dem Forschungslabor mit. Die Anzeige lag dort bisher etwas zu niedrig."],
@@ -19878,7 +19887,7 @@ function twIntro(first,cb){let went=false;const go=()=>{if(went)return;went=true
    <button class="pri hot" id="twGo">${ic("arrow")} AUFSTIEG BEGINNEN</button></div>`,"narrow twIntroM",go);
   $("twGo").onclick=()=>{closeModal();go();};sfx("evoDone");}
 /* Rekord sofort mitschreiben, falls der Browser zugeht */
-function twRecord(cl){if(!S||!S.tower||cl<=0)return;const T=twMeta(),rk=S.region||"kanto",b=T.best[rk]||(T.best[rk]={});if(cl>(b[S.mode]|0))b[S.mode]=cl;if(cl>T.top)T.top=cl;S.tower.cl=Math.max(S.tower.cl|0,cl);}
+function twRecord(cl){if(!S||!S.tower||cl<=0)return;const T=twMeta(),rk=S.region||"kanto",b=T.best[rk]||(T.best[rk]={});const m0=S.tower.m0||S.mode;if(cl>(b[m0]|0))b[m0]=cl;if(cl>T.top)T.top=cl;S.tower.cl=Math.max(S.tower.cl|0,cl);}
 /* Sieg auf einer Turm-Ebene: Rekord, Koryphäen-Symbol, Turm-Leben zurück */
 function twOnWin(){if(!twOn())return null;if(S.abyss&&typeof abyssOnWin==="function")return abyssOnWin();const f=twFloor(),T=twMeta(),out={f,rows:[]};T.floors++;
   if(S.enc&&S.enc.type==="boss"){const K=twKor(f),tier=twTierOf(f),old=T.sym[K.id]|0;S.tower.kory++;T.kory++;
@@ -19896,7 +19905,7 @@ function towerFinish(){clearZones();S.phase="over";enterBattleMode(false);const 
   const rec=cl>(S.tower.best0|0),best=twBest(S.region||"kanto");saveMeta();_achT=0;try{achCheck();}catch(e){}LS.del(saveKey());setTab("raster");
   const syms=KORY.map(K=>{const t=T.sym[K.id]|0;return `<i class="twSy s${t}" style="--kc:${K.col}" title="${esc(K.sym)}${t?" ("+twSymTN(t)+")":""}">${ic(K.ic)}</i>`;}).join("");
   $("result").innerHTML=`<div class="rWrap"><div class="rHead ${rec?"win":"lose"}">${rec?"NEUER REKORD!":"TURM VERLASSEN"}</div><div class="rPanel glass"><h4>${cl?`Im Kampfturm geschafft: ${cl} ${cl===1?"Ebene":"Ebenen"}`:"Der Aufstieg endet schon auf der ersten Ebene."}</h4>
-   <div class="rewards"><div class="incRow"><span>Geschaffte Ebenen</span><span>${cl}</span></div><div class="incRow"><span>Koryphäen besiegt</span><span>${S.tower.kory|0}</span></div><div class="incRow"><span>Turm-Rekord (${REGIONS[S.region||"kanto"].n} · ${mm.n})</span><span>Ebene ${best}</span></div>${MODES[S.tower.m0]&&MODES[S.tower.m0].gem!==1?`<div class="incRow"><span>Bonus ${MODES[S.tower.m0].n}</span><span>×${String(MODES[S.tower.m0].gem).replace(".",",")}</span></div>`:""}${gemB>1?`<div class="incRow" style="color:var(--gem)"><span>${ic("gem","","width:14px;height:14px")} Tagesbonus</span><span>+${Math.round((gemB-1)*100)} %</span></div>`:""}<div class="incRow sum"><span>Edelsteine</span><span style="color:var(--gem)">+${gems}</span></div></div>
+   <div class="rewards"><div class="incRow"><span>Geschaffte Ebenen</span><span>${cl}</span></div><div class="incRow"><span>Koryphäen besiegt</span><span>${S.tower.kory|0}</span></div><div class="incRow"><span>Turm-Rekord (${REGIONS[S.region||"kanto"].n} · ${(MODES[S.tower.m0]||mm).n})</span><span>Ebene ${best}</span></div>${MODES[S.tower.m0]&&MODES[S.tower.m0].gem!==1?`<div class="incRow"><span>Bonus ${MODES[S.tower.m0].n}</span><span>×${String(MODES[S.tower.m0].gem).replace(".",",")}</span></div>`:""}${gemB>1?`<div class="incRow" style="color:var(--gem)"><span>${ic("gem","","width:14px;height:14px")} Tagesbonus</span><span>+${Math.round((gemB-1)*100)} %</span></div>`:""}<div class="incRow sum"><span>Edelsteine</span><span style="color:var(--gem)">+${gems}</span></div></div>
    <div class="twSyms">${syms}</div>
    <div class="rbtns"><button class="pri" id="rLab">${ic((()=>{try{return typeof fameOpen==="function"&&fameOpen().ok;}catch(e){return false;}})()?"crown":"lab")} ${(()=>{try{return typeof fameOpen==="function"&&fameOpen().ok;}catch(e){return false;}})()?"ZUM RUHM":"ZUM FORSCHUNGSLABOR"}</button>${B?`<button class="btn" id="rRep">${ic("dex")} Kampfbericht</button>`:""}<button class="btn" id="rGo">${ic("menu")} Hauptmenü</button></div></div></div>`;
   $("result").classList.add("show");if($("rRep"))$("rRep").onclick=report;sfx(rec?"evoDone":"coin");
@@ -20436,6 +20445,7 @@ function bstDraw(rg){const all=bstLines(rg),tiers=new Set(all.map(L=>L.tier)),St
   cards.push(St.dry+1>=BOOST.pity&&legMiss.length?pick(legMiss):(bstRare(all,tiers,has,cards)||draw(BOOST.rare)));
   const miss=all.filter(L=>!has(L));
   if(miss.length&&!cards.some(L=>!has(L))){const t=bstTier(BOOST.odds,new Set(miss.map(L=>L.tier)));const mt=miss.filter(L=>L.tier===t),mf=mt.filter(L=>!cards.includes(L)),nw=pick(mf.length?mf:mt);cards[cards[0].tier<=cards[1].tier?0:1]=nw;}
+  for(let i=1;i<cards.length;i++){if(!cards.slice(0,i).includes(cards[i]))continue;const tt=cards[i].tier;let alt=all.filter(L=>L.tier===tt&&!cards.includes(L));if(!alt.length)alt=all.filter(L=>L.tier<tt&&!cards.includes(L));if(alt.length){const am=alt.filter(L=>!has(L));cards[i]=pick(am.length?am:alt);}}
   return cards;}
 function bstOpen(rg){if(!META||META.gems<BOOST.cost||!regUnlocked(rg)||!bstMissing(rg).length)return null;
   META.gems-=BOOST.cost;const St=bstState(rg),cards=bstDraw(rg),res=[];let refund=0,leg=false;St.n++;
@@ -21913,7 +21923,7 @@ PKT.state=pkState;PKT.report=pkReport;
 function _aiLogGet(){try{return JSON.parse(localStorage.getItem("pokelings_ailog")||"[]");}catch(e){return [];}}
 function _aiLogSet(a){try{localStorage.setItem("pokelings_ailog",JSON.stringify(a.slice(-400)));}catch(e){}}
 try{const _eb59=endBattle;endBattle=function(win,timeout){try{if(!SIM&&typeof S!=="undefined"&&S&&!S.duel&&aiAcc()&&B&&!B.logged){B.logged=1;const c=_aiSimC(S.enemies||[]);
-  const a=_aiLogGet();a.push({t:Date.now(),v:GAME_VER,r:S.round,m:S.mode,rg:S.region,w:S.enc?(S.enc.name||S.enc.type)+" ("+S.enc.type+")":"?",rev:S.revanche?S.revives|0:0,tw:S.tower?1:0,m0:S.tower&&S.tower.m0||undefined,
+  const a=_aiLogGet();a.push({t:Date.now(),v:GAME_VER,r:S.round,m:S.mode,rg:S.region,w:S.enc?(S.enc.name||S.enc.type)+" ("+S.enc.type+")":"?",rev:S.revanche?(S.tower?(S.tower.rev|0):S.revives|0):0,tw:S.tower?1:0,m0:S.tower&&S.tower.m0||undefined,
     ch:c&&c.n?Math.round(c.w/c.n*100):null,n:c?Math.min(c.n,SIM_N):0,win:!!win,s:+Math.max(0,(B.t||0)-INTRO).toFixed(1),
     team:boardUnits().map(u=>{const k=Object.keys(S.board).find(k=>S.board[k]===u);return _aiUnit(u)+"@"+k;}).join(", "),en:_aiEnemies(S.enemies)});_aiLogSet(a);}}catch(e){}
   return _eb59.apply(this,arguments);};}catch(e){}
@@ -21996,7 +22006,7 @@ try{const _cs60=signOut;signOut=function(){KI.chk=false;return _cs60.apply(this,
 try{const _cf60=clFetch;clFetch=function(path,o){try{if(typeof aiAcc==="function"&&aiAcc()&&o&&o.method==="POST"&&/^\/rest\/v1\/(ghosts|daily_runs)\b/.test(path))return Promise.resolve({ok:true,status:204,j:null});}catch(e){}return _cf60.apply(this,arguments);};}catch(e){}
 /* Bestenliste: KI-Konten bekommen ein Kennzeichen (Season, Woche und Ranked filtert der Server) */
 try{const _ml60=menuLbLoad;menuLbLoad=async function(el){const r=await _ml60.apply(this,arguments);try{const N=await kiNames();if(N.size)el.querySelectorAll(".mLbList .lbRow[data-n]").forEach(b=>{if(N.has(userKey(b.dataset.n))&&!b.querySelector(".kiTag")){const nm=b.querySelector(".lbNm");if(nm)nm.insertAdjacentHTML("beforeend",`<em class="kiTag" title="KI-Testkonto">KI</em>`);}});
-  if(typeof aiAcc==="function"&&aiAcc()&&!(MLB.tab==="pts"&&MLB.sea==="all")){const p=el.querySelector(".lbPinNew small");if(p)p.textContent="KI-Konto · nur in der Allzeit-Liste";}}catch(e){}return r;};}catch(e){}
+  if(typeof aiAcc==="function"&&aiAcc()&&MLB.tab!=="ki"){const p=el.querySelector(".lbPinNew small");if(p)p.textContent="KI-Konto · nur im Reiter „KI“";}}catch(e){}return r;};}catch(e){}
 /* Einstellungen → Erweiterte Einstellungen */
 try{const _st60=settingsModal;settingsModal=function(){const r=_st60.apply(this,arguments);try{const mb=$("mbox"),last=mb.querySelector(".stSave");if(!last||typeof USER==="undefined"||!USER)return r;const on=META&&META.ai===1;
   last.insertAdjacentHTML("beforebegin",`<details class="stGrp stAdv"${on?" open":""}><summary><h4>${ic("gear")} Erweiterte Einstellungen</h4></summary><div class="stAdvIn">
@@ -22004,7 +22014,7 @@ try{const _st60=settingsModal;settingsModal=function(){const r=_st60.apply(this,
   const g=mb.querySelector(".aiGrp"),inn=mb.querySelector(".stAdvIn");if(g&&inn){inn.appendChild(g);g.classList.add("inAdv");}
   if($("stKi"))$("stKi").onclick=()=>{
     openModal(`<h2>${ic("bolt")} IN DEN KI-MODUS WECHSELN?</h2><div class="lead">Der KI-Modus ist für Test-KIs gedacht (z. B. Claude), die das Spiel ohne Maus spielen.</div>
-     <ul class="kiList"><li>Dein Konto erscheint <b>nicht mehr</b> in den Season-, Wochen- und Ranked-Bestenlisten, nur noch in der Allzeit-Liste mit „KI“-Kennzeichen.</li><li>Keine Season- und Wochen-Belohnungen mehr, keine Geisterteams und keine Tageslauf-Einträge.</li><li>Dafür: Spielzustand als Text, Befehle und ein Schnell-Modus ohne Animationen.</li><li><b>Nur der Admin kann das rückgängig machen.</b></li></ul>
+     <ul class="kiList"><li>Dein Konto erscheint <b>nicht mehr</b> in den Season-, Wochen- und Ranked-Bestenlisten, nur noch im eigenen Reiter „KI“ der Bestenliste.</li><li>Keine Season- und Wochen-Belohnungen mehr, keine Geisterteams und keine Tageslauf-Einträge.</li><li>Dafür: Spielzustand als Text, Befehle und ein Schnell-Modus ohne Animationen.</li><li><b>Nur der Admin kann das rückgängig machen.</b></li></ul>
      <div class="rbtns" style="margin-top:14px"><button class="pri hot" id="kiA">${ic("bolt")} Weiter</button><button class="btn" id="kiN">${ic("back")} Abbrechen</button></div>`,"narrow",true);
     $("kiN").onclick=()=>{closeModal();settingsModal();};
     $("kiA").onclick=()=>{openModal(`<h2>${ic("info")} WIRKLICH ENDGÜLTIG?</h2><div class="lead">Konto <b>${esc(USER)}</b> wird dauerhaft zum KI-Konto. Du kannst das selbst nicht zurücknehmen.</div>
@@ -22103,6 +22113,33 @@ try{const _pl607=PKT.log;PKT.log=function(o,...fl){if(o!=="stats"||!fl.length)re
 try{const _js608=PKT.json;PKT.json=function(){const o=_js608.apply(this,arguments);try{const mb=$("mbox");if(o&&o.window&&mb&&!(o.window.options||[]).length){const dis=[...mb.querySelectorAll(".choice")].filter(b=>b.disabled);
   if(dis.length){o.window.options=dis.map((b,i)=>({n:i+1,text:_aiCut(_aiT(b),160),disabled:true}));
     o.window.hint=S&&S.bench&&S.bench.indexOf(null)<0?"Bank voll: Die Karten sind gesperrt. Erst ein Pokémon über die Bank-Knöpfe [data-bs] verkaufen (zweimal klicken: antippen, dann bestätigen), dann pick N. Oder Verzichten über den Knopf ohne data-Attribut (#cSkip)":"Die Karten sind gerade gesperrt.";}}}catch(e){}return o;};}catch(e){}
+
+/* v1.60.0.9: Eigener Reiter „KI“ in der Bestenliste (Allzeit und Season, nur KI-Testkonten). In Punkte/Pokémon/Turm stehen KI-Konten nicht mehr. */
+const KI9={q:null,drop:false,disp:null,t:0};
+async function kiDisp(){if(KI9.disp&&Date.now()-KI9.t<300000)return KI9.disp;try{const r=await clFetch("/rest/v1/rpc/ai_names",{method:"POST",auth:false,body:{},timeout:8000});if(r.ok&&Array.isArray(r.j)){KI9.disp=r.j.map(x=>String(x.name||"")).filter(Boolean);KI9.t=Date.now();}}catch(e){}return KI9.disp||[];}
+/* Board-Abfrage: im KI-Reiter gezielt nur die KI-Konten holen (auch wenn sie nicht unter den ersten 50 sind) */
+try{const _cf9=clFetch;clFetch=function(path,o){try{if(KI9.q&&typeof path==="string"&&path.startsWith("/rest/v1/board?"))path=path.replace("&order=score.desc","&"+KI9.q+"&order=score.desc");}catch(e){}return _cf9.call(this,path,o);};}catch(e){}
+try{const _cb9=clBoard;clBoard=async function(){const r=await _cb9.apply(this,arguments);try{if(KI9.drop&&Array.isArray(r)){const N=await kiNames();if(N.size)return r.filter(x=>!N.has(userKey(x.n)));}}catch(e){}return r;};}catch(e){}
+async function kiBoard(){const N=await kiDisp();if(!N.length)return [];KI9.q="or=("+N.map(n=>"name.ilike."+encodeURIComponent(n.replace(/[,()"*]/g,""))).join(",")+")";const d=KI9.drop;KI9.drop=false;
+  try{return (await clBoard())||[];}finally{KI9.q=null;KI9.drop=d;}}
+/* Reiter-Knopf, Season-Auswahl auch im KI-Reiter */
+try{const _fr9=menuLbFrame;menuLbFrame=function(){let s=_fr9.apply(this,arguments);s=s.replace('<button data-mt="rk"',`<button data-mt="ki" class="${MLB.tab==="ki"?"on":""}" title="KI-Testkonten">KI</button><button data-mt="rk"`);
+  if(MLB.tab==="ki")s=s.replace('<div class="mLbSea" style="display:none">','<div class="mLbSea">');return s;};}catch(e){}
+try{const _wi9=menuLbWire;menuLbWire=function(el){const r=_wi9.apply(this,arguments);try{el.querySelectorAll("[data-mt]").forEach(b=>b.addEventListener("click",()=>{const sb=el.querySelector(".mLbSea");if(sb)sb.style.display=MLB.tab==="pts"||MLB.tab==="ki"?"":"none";}));}catch(e){}return r;};}catch(e){}
+try{const _cd9=mlbCd;mlbCd=function(el){if(MLB.tab==="ki"){MLB.tab="pts";try{return _cd9.apply(this,arguments);}finally{MLB.tab="ki";}}return _cd9.apply(this,arguments);};}catch(e){}
+try{const _ml9=menuLbLoad;menuLbLoad=async function(el,quiet){
+  if(MLB.tab!=="ki"){KI9.drop=true;try{return await _ml9.apply(this,arguments);}finally{KI9.drop=false;}}
+  if(!el||MLB.busy)return;MLB.busy=true;const L=el.querySelector(".mLbList"),R=el.querySelector(".mLbR");if(R)R.classList.add("spin");
+  try{const hint=`<p class="mLbHint">${ic("bolt")} KI-Testkonten spielen ohne Maus. Sie stehen nur hier und bekommen keine Season-Belohnungen.</p>`;
+    const rows=await kiBoard();if(!L.isConnected)return;MLB.rows=rows;try{mlbCd(el);}catch(e){}
+    if(MLB.sea==="all"){L.innerHTML=hint+(rows.length?lbRowsHtml(rows,300):`<p class="empty">Noch keine KI-Konten.</p>`);
+      L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>{const x=rows.find(y=>userKey(y.n)===userKey(b.dataset.n));if(x)lbDetail(x);});}
+    else{const sid=MLB.sea==="cur"?seasonId():MLB.sea,r=await clFetch("/rest/v1/rpc/ai_season_board",{method:"POST",auth:false,body:{sid},timeout:8000});if(!L.isConnected)return;
+      if(!r.ok||!Array.isArray(r.j))L.innerHTML=hint+`<p class="empty">${socMissing(r)?"Die KI-Season-Liste wird gerade eingerichtet.":"KI-Season-Liste nicht erreichbar."}</p>`;
+      else{L.innerHTML=hint+(r.j.length?mlbSeaRows(r.j,sid):`<p class="empty">In dieser Season hat noch kein KI-Konto Punkte.</p>`);
+        L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>{const x=r.j.find(y=>userKey(y.name)===userKey(b.dataset.n));if(x)seasonDetail(x,sid,rows.find(y=>userKey(y.n)===userKey(x.name)));});}}
+    if(typeof aiAcc==="function"&&aiAcc()&&typeof lbPinMe==="function")lbPinMe(el);
+    hydrateIcons(L);lbAnimSync(L);MLB.t=Date.now();menuLbAge();}finally{MLB.busy=false;if(R)R.classList.remove("spin");}};}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
@@ -22800,10 +22837,10 @@ function showResult(){
      <div class="rewards"><div class="incRow"><span>Wiederbeleben = Revanche</span><span style="color:var(--pink)">gleiche Gegner</span></div><div class="incRow"><span>Vorher zurück in den Shop</span><span style="color:var(--cyan)">Team anpassen</span></div><div class="incRow"><span>Gegner bei der Revanche</span><span style="color:var(--red)">+${next} % stärker</span></div><div class="incRow"><span>Prämie bei Sieg</span><span style="color:var(--red)">halbiert</span></div><div class="incRow"><span>Jede weitere Wiederbelebung</span><span style="color:var(--red)">noch härter</span></div></div>
      <div class="rbtns"><button class="pri hot" id="rRev">${ic("heart")} WIEDERBELEBEN · REVANCHE</button><button class="btn" id="rRep">${ic("dex")} Kampfbericht</button><button class="btn" id="rQuit">${ic("flag")} Aufgeben</button></div></div></div>`;
     R.classList.add("show");if(r.abandoned)$("rRep").remove();else $("rRep").onclick=report;
-    $("rRev").onclick=()=>{R.classList.remove("show");R.innerHTML="";S.revives++;S.revanche=true;delete S.pendingKO;try{if(S.shop)rollShop();}catch(e){}delete S.purCounted;setTimeout(()=>purifyShow(),400);S.phase="shop";clearZones();B=null;$("texts").innerHTML="";clearVis();clearFx();enterBattleMode(false);setView("raster",true);save();setTab("shop");render();toast("Revanche! Der Laden ist frisch gewürfelt. Passe dein Team an, dann starte den Kampf erneut.","heart");};
+    $("rRev").onclick=()=>{if((S.iron||S.noRev)&&!S.daily)return;R.classList.remove("show");R.innerHTML="";S.revives++;S.revanche=true;delete S.pendingKO;try{if(S.shop)rollShop();}catch(e){}delete S.purCounted;setTimeout(()=>purifyShow(),400);S.phase="shop";clearZones();B=null;$("texts").innerHTML="";clearVis();clearFx();enterBattleMode(false);setView("raster",true);save();setTab("shop");render();toast("Revanche! Der Laden ist frisch gewürfelt. Passe dein Team an, dann starte den Kampf erneut.","heart");};
     $("rQuit").onclick=()=>{R.classList.remove("show");R.innerHTML="";finish(false);};
-    if(S.iron&&!S.daily){const rb=$("rRev");if(rb)rb.style.display="none";const rw=R.querySelector(".rewards");if(rw)rw.innerHTML='<div class="incRow"><span>Eisenmann</span><span style="color:var(--red)">keine Wiederbelebung</span></div>';const h=R.querySelector("h4");if(h)h.textContent="Eisenmann: Dieser Lauf endet hier.";}
-    else if(S.noRev&&!S.daily){const rb=$("rRev");if(rb)rb.style.display="none";const mn=MODES[S.mode].n,rw=R.querySelector(".rewards");if(rw)rw.innerHTML=`<div class="incRow"><span>${mn}</span><span style="color:var(--red)">1 Leben · keine Revanche</span></div>`;const h=R.querySelector("h4");if(h)h.textContent=mn+": Dieser Lauf endet hier.";const q=$("rQuit");if(q){q.className="pri";q.innerHTML=ic("flag")+" Lauf beenden";}}
+    if(S.iron&&!S.daily){const rb=$("rRev");if(rb)rb.remove();const rw=R.querySelector(".rewards");if(rw)rw.innerHTML='<div class="incRow"><span>Eisenmann</span><span style="color:var(--red)">keine Wiederbelebung</span></div>';const h=R.querySelector("h4");if(h)h.textContent="Eisenmann: Dieser Lauf endet hier.";}
+    else if(S.noRev&&!S.daily){const rb=$("rRev");if(rb)rb.remove();const mn=MODES[S.mode].n,rw=R.querySelector(".rewards");if(rw)rw.innerHTML=`<div class="incRow"><span>${mn}</span><span style="color:var(--red)">1 Leben · keine Revanche</span></div>`;const h=R.querySelector("h4");if(h)h.textContent=mn+": Dieser Lauf endet hier.";const q=$("rQuit");if(q){q.className="pri";q.innerHTML=ic("flag")+" Lauf beenden";}}
   }
 }
 function report(){
