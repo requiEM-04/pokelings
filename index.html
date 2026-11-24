@@ -5399,6 +5399,8 @@ img.aur,.card .pic img.aur,.u img.aur{filter:url(#aurF) drop-shadow(0 0 2px rgba
 .cdBgsLock .cdBg{opacity:.62;cursor:default}.cdBgsLock .cdBg .bgThumb{filter:grayscale(.75) brightness(.7)}.cdBgsLock .cdBar{display:block;height:4px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden}.cdBgsLock .cdBar i{display:block;height:100%;background:#8fa3d8}
 /* v1.62.0 */
 .cdFx .cdT.lock{opacity:.5;cursor:default;flex-direction:column;align-items:flex-start}.cdFx .cdT.lock .tt{filter:grayscale(.6)}.cdFxReq{display:block;font-style:normal;font-size:9px;color:var(--muted);margin-top:2px}.cdFxReq .ic{width:9px;height:9px}
+/* v1.62.0.5 */
+#aiUpd{position:fixed;left:50%;top:4px;transform:translateX(-50%);z-index:9999;padding:3px 10px;border-radius:6px;background:rgba(120,60,0,.85);color:#ffe0a0;font:11px/1.3 ui-monospace,Consolas,monospace;pointer-events:none}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -18374,7 +18376,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.62.0",DUEL_HP=30;
+const MP_VER="1.62.0.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -19012,7 +19014,7 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.62.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.62.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
  {v:"1.62.0",d:"24.11.2026",t:"Erfolge & Titel",items:[
   ["gem", "Erfolge geben jetzt dreimal so viele Edelsteine (Bronze 6, Silber 15, Gold 30, Platin 60, Mythisch 120). Für deine schon freigeschalteten Erfolge wird der Unterschied einmal nachgezahlt."],
@@ -22312,6 +22314,11 @@ try{const _cm62=cardModal;cardModal=function(t){const r=_cm62.apply(this,argumen
   bd.insertAdjacentHTML("beforeend",`<h4 class="cdCat">Effekt für deinen Titel <small>${op.length} / ${all.length}</small></h4><p class="cdHint">Gilt für Titel aus Abzeichen und Erfolgen. Verliehene und Event-Titel behalten ihren eigenen Effekt.</p><div class="cdTitles cdFx"><button class="cdT none${cur?"":" on"}" data-fx=""><span>Standard</span></button>${all.map(k=>{const ok=op.includes(k);return `<button class="cdT${cur===k?" on":""}${ok?"":" lock"}" data-fx="${k}"${ok?"":" disabled"} title="${esc(ok?TITLE_FX[k]:tfxReq(k))}"><span class="tt tt-${k}">${esc(TITLE_FX[k]||k)}</span>${ok?"":`<em class="cdFxReq">${ic("lock")} ${esc(tfxReq(k))}</em>`}</button>`;}).join("")}</div>`);
   hydrateIcons(bd);bd.querySelectorAll("[data-fx]").forEach(b=>b.onclick=()=>{if(b.disabled)return;META.card=META.card||{};META.card.tfx=b.dataset.fx||null;saveMeta();try{if(typeof clDirty==="function")clDirty();}catch(e){}const st=bd.scrollTop;cardModal("titles");const nb=$("mbox").querySelector(".cdBody");if(nb)nb.scrollTop=st;});}catch(e){}return r;};}catch(e){}
 try{const _ac62=achCheck;achCheck=function(){achX3Pay();titleMig62();return _ac62.apply(this,arguments);};}catch(e){}
+
+/* v1.62.0.5: KI-Konten – Update-Hinweis blockiert nicht, sondern steht in PKT.state()/json(); die Schleife läuft weiter */
+try{const _vb6205=verBlock;verBlock=function(){try{if(typeof aiAcc==="function"&&aiAcc()){window.__aiUpd=CFG.minver;let b=$("aiUpd");if(!b){b=document.createElement("div");b.id="aiUpd";document.body.appendChild(b);}b.textContent=`Update v${CFG.minver} verfügbar · bei Gelegenheit Hauptmenü → Strg+F5`;return;}}catch(e){}return _vb6205.apply(this,arguments);};}catch(e){}
+try{const _st6205=PKT.state;PKT.state=function(){const s=_st6205.apply(this,arguments);return window.__aiUpd&&typeof s==="string"?`UPDATE VERFÜGBAR: v${window.__aiUpd} (du spielst v${GAME_VER}). Bei Gelegenheit ins Hauptmenü, dann Strg+F5.\n`+s:s;};}catch(e){}
+try{const _js6205=PKT.json;PKT.json=function(){const o=_js6205.apply(this,arguments);try{o.update=window.__aiUpd?{have:GAME_VER,need:window.__aiUpd}:null;}catch(e){}return o;};}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
