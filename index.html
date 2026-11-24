@@ -19084,7 +19084,7 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.62.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.62.5.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
  {v:"1.62.5",d:"24.11.2026",t:"Regions-Hintergründe",items:[
   ["route", "11 neue Regions-Hintergründe: Wer in einer Region Champion wird (Normal oder schwerer), bekommt ihren Hintergrund: Kanto-Morgen, Glockenturm, Tropenküste, Speersäule, Stratos bei Nacht, Prismaturm, Inselsonne, Stadionnacht, Areal Null, Raumzeitriss und Laternenfest."],
@@ -22538,6 +22538,49 @@ const BG62={
 try{for(const k in BG62){const D=BG62[k];if(D.rk){CARD_BG[k]={n:D.n,lv:D.lv,html:D.html,lock:()=>_regChamp62(D.rk),ld:`Champion in ${(REGIONS[D.rk]||{n:D.rk}).n}`};}
   else if(CARD_BG[k]){CARD_BG[k].html=D.html;try{delete BG_PRE[k];delete BG_POST[k];}catch(e){}}}}catch(e){}
 
+/* v1.62.5.5: KI-Testmodus – buy/lock im Turbo-Tempo, neue Versionen über version.txt erkennen (auch ohne Mindestversion), PKT.act("reload") lädt mit frischer Adresse,
+   ?v=… nach dem Laden aus der Adresse entfernen (Strg+F5 nimmt dann die normale Adresse), Sparmodus-Text, Revanche-Malus in state/json, Überschrift „RUHM“ im Ruhm-Reiter */
+/* ?v=<Zeit> von „Jetzt neu laden“ wieder aus der Adresse nehmen: sonst liefert Strg+F5 auf genau dieser Adresse bis zu 10 Min. die zwischengespeicherte alte Fassung */
+try{const u=new URL(location.href);if(u.searchParams.has("v")){u.searchParams.delete("v");history.replaceState(history.state,"",u.pathname+(u.searchParams.toString()?"?"+u.searchParams.toString():"")+u.hash);}}catch(e){}
+/* Update-Erkennung für KI-Konten: version.txt (wird bei jedem Upload mitgeschrieben) mit frischer Adresse abfragen */
+const AIV={busy:false,last:0};
+function aiUpdTxt(v){return `Update v${v} verfügbar · im Hauptmenü PKT.act("reload")`;}
+function aiUpdSet(v){try{if(!v||verNum(v)<=verNum(GAME_VER))return;if(window.__aiUpd&&verNum(window.__aiUpd)>=verNum(v))return;window.__aiUpd=v;let b=$("aiUpd");if(!b){b=document.createElement("div");b.id="aiUpd";document.body.appendChild(b);}b.textContent=aiUpdTxt(v);}catch(e){}}
+async function aiVerPoll(){if(AIV.busy||location.protocol==="file:")return;try{if(typeof aiAcc!=="function"||!aiAcc())return;}catch(e){return;}AIV.busy=true;AIV.last=Date.now();
+  const ac=typeof AbortController!=="undefined"?new AbortController():null,to=setTimeout(()=>{try{ac&&ac.abort();}catch(e){}},6000);
+  try{const r=await fetch("version.txt?t="+Date.now(),{cache:"no-store",signal:ac?ac.signal:undefined});if(r.ok){const v=String(await r.text()).trim();if(/^\d+(\.\d+){1,4}$/.test(v))aiUpdSet(v);}}catch(e){}finally{clearTimeout(to);AIV.busy=false;}}
+setTimeout(aiVerPoll,8000);setInterval(aiVerPoll,120000);
+try{const _vb6255=verBlock;verBlock=function(){const r=_vb6255.apply(this,arguments);try{if(typeof aiAcc==="function"&&aiAcc()&&window.__aiUpd&&$("aiUpd"))$("aiUpd").textContent=aiUpdTxt(window.__aiUpd);}catch(e){}return r;};}catch(e){}
+/* Neu laden wie „Jetzt neu laden“: Stand speichern, neue Adresse (?v=Zeit) → kommt sicher an der Zwischenablage vorbei */
+function pkReload(){try{if(typeof B!=="undefined"&&B&&!B.done&&!B.sim)return "Kampf läuft. Nach dem Kampf ins Hauptmenü, dann reload.";
+  if(!$("menu").classList.contains("show"))return "Erst ins Hauptmenü (damit der Lauf gespeichert wird), dann reload.";try{saveMeta();}catch(e){}
+  setTimeout(()=>{try{location.replace(location.pathname+"?v="+Date.now());}catch(e){location.reload();}},400);
+  return `Lade neu (frische Adresse) … Gleich ist die neueste Version da${window.__aiUpd?" (v"+window.__aiUpd+")":""}. Nach ~5 s PKT.state() aufrufen.`;}catch(e){return "reload fehlgeschlagen: "+e.message;}}
+PKT.reload=pkReload;
+/* Revanche-Malus: Anzeige rechnet jetzt wie der Kampf (Phönixfeder −1,5 % je Stufe, seit 1.60.0) */
+function pkRevMalus(){try{if(!S||S.tower||S.noRev||S.iron)return null;const per=Math.round(Math.max(.015,MODES[S.mode].revive-.015*perk("phoenix"))*1000)/10;
+  return {revives:S.revives|0,per,now:S.revanche?Math.round((S.revives|0)*per*10)/10:0,next:Math.round(((S.revives|0)+1)*per*10)/10};}catch(e){return null;}}
+try{const _st6255=PKT.state;PKT.state=function(){let s=_st6255.apply(this,arguments);try{if(typeof s==="string"){s=s.replace("Bei Gelegenheit ins Hauptmenü, dann Strg+F5.",'Bei Gelegenheit ins Hauptmenü, dann PKT.act("reload").');
+  const m=pkRevMalus();if(m&&m.revives&&S.phase==="shop"&&!$("menu").classList.contains("show"))s+=`\n  Revanche-Malus: ${m.now?"diese Revanche Gegner +"+String(m.now).replace(".",",")+" %":"gerade keine Revanche"} · ${m.revives}× wiederbelebt · nächste Revanche +${String(m.next).replace(".",",")} % (je Revanche +${String(m.per).replace(".",",")} %, gilt nur im Revanche-Kampf; im Turm gibt es keinen Malus)`;}}catch(e){}return s;};}catch(e){}
+try{const _js6255=PKT.json;PKT.json=function(){const o=_js6255.apply(this,arguments);try{if(o.update)o.update.how='PKT.act("reload") im Hauptmenü';if(o.run){const m=pkRevMalus();if(m)o.run.revMalus=m;}}catch(e){}return o;};}catch(e){}
+/* Sparmodus-Text passend zu 1.62.0.8 */
+try{const _li6255=PKT.lite;PKT.lite=function(){const r=_li6255.apply(this,arguments);return window.__aiLite?"Sparmodus an: 3D aus (grauer Hintergrund), keine Weltkarte, keine Effekte, Schadenszahlen und Töne; Probekämpfe nur bei paths/path/fight/trial":r;};}catch(e){}
+/* buy und lock: sofort fertig, Wartezeit wie die anderen Befehle (Turbo ~40 ms) */
+const PK_HELP3=`
+ Neu laden:  PKT.act("reload") – nur im Hauptmenü: speichert und lädt die neueste Version mit frischer Adresse (Strg+F5 kann bis zu 10 Min. die alte liefern)
+ Revanche:   PKT.json().run.revMalus – Malus jetzt/nächste Revanche (nur im Revanche-Kampf, nicht im Turm)`;
+try{const _ac6255=PKT.act;PKT.act=async function(cmd){if(Array.isArray(cmd))return _ac6255.apply(this,arguments);
+  const s=String(cmd||"").trim(),[a,...r]=s.split(/\s+/),w=ms=>new Promise(q=>setTimeout(q,_pkW(ms)));
+  if(a==="reload"||a==="neuladen")return pkReload();
+  if(a==="buy"&&typeof S!=="undefined"&&S&&S.shop&&S.phase==="shop"){const k=(r[0]||"").toUpperCase(),i={Q:1,W:2,A:3,S:4,Y:5,Z:5}[k]||+k;if(!i||i<1)return "Format: buy 1 (Laden-Platz ab 1) oder buy Q";
+    const m=S.shop.mons[i-1];if(!m)return `Laden-Platz ${i} ist leer.`;const g0=S.gold;buy(i-1);await w(250);return (S.gold===g0?"Nicht gekauft (Gold oder Bank voll?).\n":"")+PKT.state();}
+  if(a==="lock"&&typeof S!=="undefined"&&S&&S.shop){if(r[0]==="item"){if(!S.shop.item)return "Kein Item";S.shop.item.frozen=!S.shop.item.frozen;}else{const m=S.shop.mons[+r[0]-1];if(!m)return "Leer: "+r[0];m.frozen=!m.frozen;}
+    try{renderShop();}catch(e){render();}await w(150);return PKT.state();}
+  const out=await _ac6255.apply(this,arguments);if((a==="help"||a==="hilfe"||a==="?")&&typeof out==="string")return out+PK_HELP3;return out;};}catch(e){}
+/* Ruhm-Reiter: Überschrift „RUHM“ statt „FORSCHUNGSLABOR“ (Fenster-ID bleibt "lab") */
+try{const _ls6255=labScreen;labScreen=function(){const r=_ls6255.apply(this,arguments);try{const mb=$("mbox"),on=mb.querySelector(".dtabs button.on"),h=mb.querySelector(".labHd h2");if(on&&h&&on.dataset.t==="fame")h.innerHTML=`${ic("crown")} RUHM`;}catch(e){}return r;};}catch(e){}
+try{const _wi6255=pkWinId;pkWinId=function(mb){const r=_wi6255.apply(this,arguments);if(r)return r;try{if(/^\s*(RUHM|FAME)\s*$/.test((mb.querySelector("h2")||{}).textContent||""))return "lab";}catch(e){}return r;};}catch(e){}
+
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
 /* ================================ KAMPF: 2 ATTACKEN + EIGENE KI ================================ */
@@ -23211,7 +23254,7 @@ function endBattle(win,timeout){if(SIM){B.done=true;B.winSide=win?"mine":"enemy"
   render();
   setTimeout(()=>{if(!S||(S.phase!=="result"&&S.phase!=="ko"))return;if(win&&S.round>=20&&!S.tower)return finish(true);showResult();},window.__fast?0:800);
 }
-function reviveMalus(n){return Math.round(n*Math.max(.03,MODES[S.mode].revive-.03*perk("phoenix"))*100);}
+function reviveMalus(n){return Math.round(n*Math.max(.015,MODES[S.mode].revive-.015*perk("phoenix"))*100);}
 function showResult(){
   const r=B.res,R=$("result");
   if(r.win){
