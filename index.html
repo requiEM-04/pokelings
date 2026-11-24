@@ -18376,7 +18376,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.62.0.5",DUEL_HP=30;
+const MP_VER="1.62.0.6",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -19014,7 +19014,7 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.62.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.62.0.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
  {v:"1.62.0",d:"24.11.2026",t:"Erfolge & Titel",items:[
   ["gem", "Erfolge geben jetzt dreimal so viele Edelsteine (Bronze 6, Silber 15, Gold 30, Platin 60, Mythisch 120). Für deine schon freigeschalteten Erfolge wird der Unterschied einmal nachgezahlt."],
@@ -22319,6 +22319,23 @@ try{const _ac62=achCheck;achCheck=function(){achX3Pay();titleMig62();return _ac6
 try{const _vb6205=verBlock;verBlock=function(){try{if(typeof aiAcc==="function"&&aiAcc()){window.__aiUpd=CFG.minver;let b=$("aiUpd");if(!b){b=document.createElement("div");b.id="aiUpd";document.body.appendChild(b);}b.textContent=`Update v${CFG.minver} verfügbar · bei Gelegenheit Hauptmenü → Strg+F5`;return;}}catch(e){}return _vb6205.apply(this,arguments);};}catch(e){}
 try{const _st6205=PKT.state;PKT.state=function(){const s=_st6205.apply(this,arguments);return window.__aiUpd&&typeof s==="string"?`UPDATE VERFÜGBAR: v${window.__aiUpd} (du spielst v${GAME_VER}). Bei Gelegenheit ins Hauptmenü, dann Strg+F5.\n`+s:s;};}catch(e){}
 try{const _js6205=PKT.json;PKT.json=function(){const o=_js6205.apply(this,arguments);try{o.update=window.__aiUpd?{have:GAME_VER,need:window.__aiUpd}:null;}catch(e){}return o;};}catch(e){}
+
+/* v1.62.0.6: KI-Testmodus – Bündel kennt alle Befehle, help vollständig, idle ohne Sim-Warten, Fenster-ID für alle Fenster; Erfolgs-Nachzahlung zusätzlich je Gerät gesperrt */
+try{const _ix=achX3Pay;achX3Pay=function(){try{if(META&&!META.achX3&&typeof USER!=="undefined"&&USER&&localStorage.getItem("pokelings_achx3_"+userKey(USER))==="1"){META.achX3=1;return;}}catch(e){}
+  const was=META&&META.achX3;const r=_ix.apply(this,arguments);try{if(META&&META.achX3&&!was&&USER)localStorage.setItem("pokelings_achx3_"+userKey(USER),"1");}catch(e){}return r;};}catch(e){}
+const PK_HELP2=`
+ Tempo:      PKT.speed("turbo") / PKT.act("turbo aus") · await PKT.idle() (wartet auf Kampf, Probekämpfe, Einblendungen) · await PKT.idle(30000,{sims:false}) (ohne Probekämpfe)
+ Bündel:     PKT.act(["buy 1","fuse all","place 1 2,3"]) – alle Befehle, auch sub/turbo/help
+ Wege:       paths (bis 24 Proben) · paths full (bis 50) · paths now (sofort)
+ Vorgaben:   sub <Linie|alle> <Nr|rec> [<Nr|rec>] · sub list · sub clear [Linie]
+ Fenster:    PKT.json().window.id und .recommended · PKT.json().update (neue Version)`;
+try{const _ac6206=PKT.act;PKT.act=async function(cmd){
+  if(Array.isArray(cmd)){const msgs=[];let last="";for(let i=0;i<cmd.length;i++){const c=cmd[i];const r=await PKT.act(c);last=typeof r==="string"?r:String(r);if(i<cmd.length-1){const first=last.split("\n")[0];if(!/^(Pokélings v|UPDATE VERFÜGBAR)/.test(first))msgs.push(`${c}: ${first}`);}}return (msgs.length?msgs.join("\n")+"\n":"")+last;}
+  const s=String(cmd||"").trim(),a=s.split(/\s+/)[0];const r=await _ac6206.apply(this,arguments);
+  if((a==="help"||a==="hilfe"||a==="?")&&typeof r==="string")return r+PK_HELP2;return r;};}catch(e){}
+try{const _id6206=PKT.idle;PKT.idle=async function(maxMs,o){if(!(o&&o.sims===false))return _id6206.apply(this,arguments);const t0=performance.now(),mx=+maxMs||30000;for(;;){const busy=(typeof B!=="undefined"&&B&&!B.done&&!B.sim)||!!document.querySelector(".cine-ov")||($("vs")&&$("vs").classList.contains("show"))||(typeof rolling!=="undefined"&&rolling)||(typeof cineBusy!=="undefined"&&cineBusy);
+  if(!busy)return {ok:true,ms:Math.round(performance.now()-t0)};if(performance.now()-t0>mx)return {ok:false,ms:Math.round(performance.now()-t0)};await new Promise(r=>setTimeout(r,40));}};}catch(e){}
+try{const _js6206=PKT.json;PKT.json=function(){const o=_js6206.apply(this,arguments);try{if(o.window&&!o.window.id){const t=(($("mbox").querySelector("h2")||{}).textContent||"").trim();o.window.id=/PATCH|NEU IN|NEUIGKEITEN/i.test(t)?"notes":t.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,30)||null;}}catch(e){}return o;};}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
