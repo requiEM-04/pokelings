@@ -5404,6 +5404,8 @@ img.aur,.card .pic img.aur,.u img.aur{filter:url(#aurF) drop-shadow(0 0 2px rgba
 /* v1.62.0.7 Sparmodus KI */
 body.aiLite .tcBg,body.aiLite .tcBg *,body.aiLite #menu .mLb *,body.aiLite .lbRow,body.aiLite .lbRow *{animation:none!important;transition:none!important}
 body.aiLite .tcBg .x-band,body.aiLite .tcBg .x-shaft,body.aiLite .tcBg .x-cloud{filter:none!important}
+/* v1.62.0.8 Sparmodus KI: schlichter grauer Hintergrund */
+body.aiLite{background:#2e3138!important}body.aiLite #arena,body.aiLite #wwrap{background:#34373e!important}body.aiLite #arena>*:not(#result){display:none!important}body.aiLite #cworld,body.aiLite #wlabels,body.aiLite #wToken,body.aiLite #wTitle{display:none!important}body.aiLite .pop,body.aiLite .abPop,body.aiLite .cine-ov,body.aiLite .fatigue{display:none!important}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -18379,7 +18381,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.62.0.7",DUEL_HP=30;
+const MP_VER="1.62.0.8",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -19017,7 +19019,7 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.62.0.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.62.0.8"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
  {v:"1.62.0",d:"24.11.2026",t:"Erfolge & Titel",items:[
   ["gem", "Erfolge geben jetzt dreimal so viele Edelsteine (Bronze 6, Silber 15, Gold 30, Platin 60, Mythisch 120). Für deine schon freigeschalteten Erfolge wird der Unterschied einmal nachgezahlt."],
@@ -22345,6 +22347,18 @@ function aiLiteOn(){try{return typeof aiOn==="function"&&aiOn()&&localStorage.ge
 setInterval(()=>{try{const on=aiLiteOn();window.__aiLite=on;document.body.classList.toggle("aiLite",on);}catch(e){}},500);
 try{PKT.lite=v=>{try{localStorage.setItem("pokelings_ailite",v===false||v==="aus"?"0":"1");}catch(e){}window.__aiLite=aiLiteOn();document.body.classList.toggle("aiLite",window.__aiLite);return window.__aiLite?"Sparmodus an: 3D selten gezeichnet, keine Hintergrund-Animationen":"Sparmodus aus: volle Grafik";};}catch(e){}
 try{const _js6207=PKT.json;PKT.json=function(){const o=_js6207.apply(this,arguments);try{o.lite=!!window.__aiLite;}catch(e){}return o;};}catch(e){}
+
+/* v1.62.0.8: Sparmodus KI – 3D ganz aus (schlichter grauer Hintergrund, keine Angriffs-Effekte, keine Schadenszahlen, keine Weltkarte); Probekämpfe nur auf Anforderung */
+function aiGfx(on){try{if(on){if(GL&&!window.__GL0){window.__GL0=GL;try{clearVis();clearFx();}catch(e){}try{GL.r.domElement.style.visibility="hidden";}catch(e){}GL=null;}
+    if(WL&&!window.__WL0){window.__WL0=WL;try{WL.r.domElement.style.visibility="hidden";}catch(e){}WL=null;}}
+  else{if(window.__GL0){GL=window.__GL0;window.__GL0=null;try{GL.r.domElement.style.visibility="";}catch(e){}}if(window.__WL0){WL=window.__WL0;window.__WL0=null;try{WL.r.domElement.style.visibility="";}catch(e){}}try{if(S)render();}catch(e){}}}catch(e){}}
+setInterval(()=>{try{const on=!!window.__aiLite,off=!!window.__GL0||!!window.__WL0;if(on===off)return;if(typeof B!=="undefined"&&B&&!B.done&&!B.sim)return;aiGfx(on);}catch(e){}},600);
+/* Probekämpfe nur bei paths/path/fight/trial, nicht nach jeder Änderung im Hintergrund */
+try{const _sc6208=simChance;simChance=function(en){if(window.__aiLite&&!window.__aiSimReq){try{const c=SIMC.cache.get(simBoardSig()+"@"+simEnSig(en));return c&&c.n>=8?c.w/c.n:null;}catch(e){return null;}}return _sc6208.apply(this,arguments);};}catch(e){}
+try{const _ac6208=PKT.act;PKT.act=async function(cmd){const a=Array.isArray(cmd)?"":String(cmd||"").trim().split(/\s+/)[0];const need=/^(paths|path|fight)$/.test(a);if(need)window.__aiSimReq=(window.__aiSimReq|0)+1;try{return await _ac6208.apply(this,arguments);}finally{if(need)window.__aiSimReq=Math.max(0,(window.__aiSimReq|0)-1);}};}catch(e){}
+try{const _tr6208=PKT.trial;PKT.trial=function(){window.__aiSimReq=(window.__aiSimReq|0)+1;try{return _tr6208.apply(this,arguments);}finally{window.__aiSimReq=Math.max(0,(window.__aiSimReq|0)-1);}};}catch(e){}
+/* keine Töne im Sparmodus */
+try{if(typeof SFX!=="undefined"&&SFX&&typeof SFX.play==="function"){const _pl6208=SFX.play.bind(SFX);SFX.play=function(){if(window.__aiLite)return;return _pl6208.apply(null,arguments);};}}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
