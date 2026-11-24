@@ -5391,6 +5391,8 @@ img.aur,.card .pic img.aur,.u img.aur{filter:url(#aurF) drop-shadow(0 0 2px rgba
 .stAdv .aiGrp.inAdv{margin:8px 0 0;padding:0;border:0;background:none}.stAdv .aiGrp.inAdv h4{display:none}
 .kiList{margin:10px 0 0 18px;padding:0;font-size:14px;line-height:1.5;color:#d8dcef}.kiList li{margin:4px 0}
 .evCards .path[disabled]{opacity:.45;filter:grayscale(.6);cursor:not-allowed}
+/* v1.60.0.10 */
+.ltDet .ltCost{font-size:11px;opacity:.75;margin:-2px 0 8px}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -9129,7 +9131,7 @@ function labPick(){const all=[];RESEARCH.forEach(c=>c.nodes.forEach(n=>all.push(
 function labTot(){let a=0,m=0;RESEARCH.forEach(c=>c.nodes.forEach(n=>{a+=Math.min(n.max,perkLv(n.id));m+=n.max;}));return[a,m];}
 function labDetHtml(n){if(!n)return "";const c=RESEARCH.find(x=>x.k===n.colK)||{n:"",col:"#9fb4ff",nodes:[n]},i=n.idx||0,l=perkLv(n.id),mx=l>=n.max,ok=rsReq(n),cst=mx?0:n.cost[l],T=labTot();
   return `<div class="ltDet" style="--rc:${c.col}"><div class="ltDetTop"><div class="ltDetIc">${ic(n.ic)}</div><div><small>${esc(c.n.toUpperCase())} · ${i+1}. FORSCHUNG VON ${c.nodes.length}</small><b>${n.n}</b>${n.nw&&!l?`<em class="ltNew">NEU</em>`:""}</div></div>
-   <p>${n.d}</p><div class="ltPips">${Array.from({length:n.max},(_,k)=>`<i class="${k<l?"on":""}"></i>`).join("")}<span>${l}/${n.max}</span></div>
+   <p>${n.d}</p><div class="ltPips">${Array.from({length:n.max},(_,k)=>`<i class="${k<l?"on":""}"></i>`).join("")}<span>${l}/${n.max}</span></div><div class="ltCost">Kosten je Stufe: ${n.cost.slice(0,n.max).join(" → ")} · Gesamtkosten ${n.cost.slice(0,n.max).reduce((a,b)=>a+b,0)}${l&&!mx?` · verbleibend ${n.cost.slice(l,n.max).reduce((a,b)=>a+b,0)}`:""}</div>
    ${mx?`<div class="ltMax">VOLL ERFORSCHT</div>`:`<button class="ltBuy" data-r="${n.id}"${!ok||META.gems<cst?" disabled":""}>${ic("gem")} ${cst} · ERFORSCHEN</button>`}
    ${!ok&&i>0?`<div class="ltReq">${ic("lock")} Erst „${c.nodes[i-1].n}“ erforschen</div>`:!mx&&META.gems<cst?`<div class="ltReq">${ic("gem")} Dir fehlen ${cst-META.gems} Edelsteine</div>`:""}
    <div class="ltSum"><div><span>Gesamt erforscht</span><b>${T[0]}/${T[1]}</b></div><div class="ltBar"><i style="width:${(100*T[0]/Math.max(1,T[1])).toFixed(1)}%"></i></div></div></div>`;}
@@ -15713,6 +15715,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Sieg bleibt gespeichert": "Victory
 if(typeof EN!=="undefined")Object.assign(EN,{"Turm-Bonus": "Tower bonus", "Kampfturm: Die Edelsteine bekommen jetzt den Bonus der Schwierigkeit, mit der du Champion geworden bist (Schwer ×1,6, Nuzlocke ×2,5, Albtraum ×3). Die Gegner im Turm bleiben gleich stark.": "Battle Tower: gems now get the bonus of the difficulty you became Champion on (Hard ×1.6, Nuzlocke ×2.5, Nightmare ×3). Enemies in the tower stay just as strong.", "Der Edelstein-Bonus deiner Schwierigkeit gilt auch hier.": "Your difficulty's gem bonus applies here too.", "Siegchance: Bei Bossen und Koryphäen rechnen die Probekämpfe jetzt den Bossjäger aus dem Forschungslabor mit. Die Anzeige lag dort bisher etwas zu niedrig.": "Win chance: against bosses and Frontier Brains, the practice battles now include Boss Hunter from the research lab. The display was a little too low there before.", "Schwer und Nuzlocke: In Runde 17 bis 19 bekommt nur jeder zweite Gegner ein zweites Item, ab Runde 20 alle.": "Hard and Nuzlocke: in rounds 17 to 19 only every second enemy gets a second item, from round 20 all of them.", "Booster: Die 3. Karte zeigt seltener Pokémon aus einer Stufe, die du schon komplett hast, und bevorzugt Pokémon, die dir noch fehlen. Im selben Booster kommt dasselbe Pokémon nicht mehr doppelt.": "Boosters: the 3rd card shows Pokémon from a tier you already completed less often and prefers Pokémon you are still missing. The same Pokémon no longer appears twice in one booster.", "Eigene Pokémon-Auswahl: Kommt ein neues Pokémon automatisch dazu, siehst du einen Hinweis. Unter „Pokémon im Lauf anpassen“ lässt sich das mit „Neue automatisch: An/Aus“ abschalten.": "Custom Pokémon selection: when a new Pokémon is added automatically, you now see a notice. Under “Adjust Pokémon in the run” you can turn this off with “New ones automatically: On/Off”.", "Neue automatisch: An": "New ones automatically: On", "Neue automatisch: Aus": "New ones automatically: Off", "Neue Pokémon aus Boostern und Erfolgen automatisch in deine Auswahl aufnehmen": "Automatically add new Pokémon from boosters and achievements to your selection", "ist jetzt in deiner Pokémon-Auswahl für": "is now in your Pokémon selection for", "Abschalten: Neues Spiel → Pokémon im Lauf anpassen.": "Turn off: New game → Adjust Pokémon in the run."});
 /* v1.60.0.9 */
 if(typeof EN!=="undefined")Object.assign(EN,{"KI-Reiter": "AI tab", "Bestenliste: Neuer Reiter „KI“ für Test-KIs, mit laufender Season, vergangenen Seasons und Allzeit. KI-Konten stehen dafür nicht mehr in Punkte, Pokémon und Turm.": "Leaderboard: new “AI” tab for test AIs, with the current season, past seasons and all-time. AI accounts no longer appear under Points, Pokémon and Tower.", "KI": "AI", "KI-Testkonten": "AI test accounts", "KI-Testkonten spielen ohne Maus. Sie stehen nur hier und bekommen keine Season-Belohnungen.": "AI test accounts play without a mouse. They only appear here and get no season rewards.", "Noch keine KI-Konten.": "No AI accounts yet.", "Die KI-Season-Liste wird gerade eingerichtet.": "The AI season list is being set up.", "KI-Season-Liste nicht erreichbar.": "AI season list unreachable.", "In dieser Season hat noch kein KI-Konto Punkte.": "No AI account has points this season yet.", "Nuzlocke: Jede normale Runde hat jetzt mindestens einen leichten oder mittleren Weg. Ein Geisterkampf ersetzt dort lieber einen schweren Weg.": "Nuzlocke: every normal round now has at least one easy or medium path. A ghost battle there prefers to replace a hard path.", "Booster: Alle drei Karten eines Boosters sind verschieden.": "Boosters: all three cards in a booster are different.", "Kampfturm: Dein Turm-Rekord zählt bei der Schwierigkeit, mit der du Champion geworden bist.": "Battle Tower: your tower record counts for the difficulty you became Champion on.", "Nuzlocke und Eisenmann: Nach einer Niederlage lässt sich keine Revanche mehr auslösen, auch nicht über Tasten.": "Nuzlocke and Ironman: after a defeat, a rematch can no longer be triggered, not even with keys.", "KI-Konto · nur im Reiter „KI“": "AI account · only in the “AI” tab", "Dein Konto erscheint": "Your account appears", "in den Season-, Wochen- und Ranked-Bestenlisten, nur noch im eigenen Reiter „KI“ der Bestenliste.": "in the season, weekly and ranked leaderboards, only in the leaderboard's own “AI” tab."});
+/* v1.60.0.10 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Turm bleibt": "Tower stays", "Champion-Bildschirm: Wer ins Hauptmenü geht, verliert den Kampfturm nicht mehr. Über „Weiterspielen“ geht es in den Turm oder du beendest den Lauf.": "Champion screen: going to the main menu no longer loses the Battle Tower. Use “Continue” to enter the tower or end the run.", "Siegchance: Die Anzeige rechnet jetzt immer alle 50 Probekämpfe durch. Vorher stand nach 20 gewonnenen Probekämpfen schon 100 % fest.": "Win chance: the display now always runs all 50 practice battles. Before, 100 % was fixed after 20 won practice battles.", "Forschungslabor: Bei jeder Forschung stehen die Kosten aller Stufen und die Gesamtsumme.": "Research lab: each research shows the cost of all levels and the total.", "Nach einer Niederlage startet kein neuer Kampf mehr, bevor du Revanche oder Aufgeben gewählt hast.": "After a defeat, no new battle starts before you choose rematch or give up.", "Dieser Lauf ist geschafft, die Edelsteine dafür hast du schon bekommen. Dein Champion-Team kann noch in den Kampfturm.": "This run is done and you already got its gems. Your Champion team can still enter the Battle Tower.", "IN DEN KAMPFTURM": "INTO THE BATTLE TOWER", "Lauf beenden": "End run", "Champion · der Kampfturm wartet": "Champion · the Battle Tower awaits", "Kosten je Stufe:": "Cost per level:", "Gesamtkosten": "total cost", "verbleibend": "remaining"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18358,7 +18362,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.60.0.9",DUEL_HP=30;
+const MP_VER="1.60.0.10",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18962,7 +18966,7 @@ function simWork(){SIMC.tm=0;if(!S||B&&!B.done&&!B.sim){SIMC.queue.length=0;retu
   const t0=performance.now();let changed=false;
   let full=false;while(SIMC.queue.length&&performance.now()-t0<simBudget()){const q=SIMC.queue[0];const c=SIMC.cache.get(q.k)||{w:0,n:0,fail:0};
     const r=simOnce(q.en);if(r===null)c.fail++;else{c.n++;if(r)c.w++;}SIMC.cache.set(q.k,c);
-    if(c.n>=20&&(c.w===0||c.w===c.n)&&c.n<SIM_N){c.w=c.w?SIM_N:0;c.n=SIM_N;}
+    
     if(c.n>=SIM_N||c.fail>4){SIMC.queue.shift();changed=true;full=true;if(c.fail>4&&c.n<SIM_N){c.n=Math.max(c.n,SIM_N);}}
     else if(c.n>=8&&c.n%4===0)changed=true;}
   if(SIMC.cache.size>400){const ks=[...SIMC.cache.keys()].slice(0,200);for(const k of ks)SIMC.cache.delete(k);}
@@ -18995,8 +18999,13 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.60.0.9"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.60.0.10"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.60.0.10",d:"24.11.2026",t:"Turm bleibt",items:[
+  ["tower", "Champion-Bildschirm: Wer ins Hauptmenü geht, verliert den Kampfturm nicht mehr. Über „Weiterspielen“ geht es in den Turm oder du beendest den Lauf."],
+  ["swords", "Siegchance: Die Anzeige rechnet jetzt immer alle 50 Probekämpfe durch. Vorher stand nach 20 gewonnenen Probekämpfen schon 100 % fest."],
+  ["lab", "Forschungslabor: Bei jeder Forschung stehen die Kosten aller Stufen und die Gesamtsumme."],
+  ["check", "Nach einer Niederlage startet kein neuer Kampf mehr, bevor du Revanche oder Aufgeben gewählt hast."]]},
  {v:"1.60.0.9",d:"24.11.2026",t:"KI-Reiter",items:[
   ["trophy", "Bestenliste: Neuer Reiter „KI“ für Test-KIs, mit laufender Season, vergangenen Seasons und Allzeit. KI-Konten stehen dafür nicht mehr in Punkte, Pokémon und Turm."],
   ["heart", "Nuzlocke: Jede normale Runde hat jetzt mindestens einen leichten oder mittleren Weg. Ein Geisterkampf ersetzt dort lieber einen schweren Weg."],
@@ -21856,7 +21865,7 @@ setInterval(()=>{try{const on=aiOn();let p=$("aiPanel");
   if(!window.__fast){window.__fast=true;_aiFast=true;}
   try{if(typeof BGM!=="undefined"&&BGM.on)BGM.stop(.1);}catch(e){}
   try{if(typeof B!=="undefined"&&B&&!B.done&&!(typeof S!=="undefined"&&S&&S.duel)&&typeof speed!=="undefined"&&speed<40)setSpeed(40);}catch(e){}
-  if(!p){p=document.createElement("pre");p.id="aiPanel";document.body.appendChild(p);}p.style.display=$("modal").classList.contains("show")||$("result").classList.contains("show")?"none":"";if(p.style.display!=="none")p.textContent=pkState();}catch(e){}},400);
+  if(!p){p=document.createElement("pre");p.id="aiPanel";document.body.appendChild(p);}p.style.display=$("modal").classList.contains("show")||$("result").classList.contains("show")||$("menu").classList.contains("show")?"none":"";if(p.style.display!=="none")p.textContent=pkState();}catch(e){}},400);
 try{const _sm585=settingsModal;settingsModal=function(){const r=_sm585.apply(this,arguments);try{if(!aiAcc())return r;const mb=$("mbox"),g=mb.querySelectorAll(".stGrp")[2];if(!g)return r;const on=aiOn();
   g.insertAdjacentHTML("afterend",`<div class="stGrp aiGrp"><h4>${ic("bolt")} KI-Testmodus</h4><div class="stLine"><span class="stI">${ic("bolt")}</span><div class="stTx"><b>Schnell-Modus für Claude</b><small>Keine Zwischen-Animationen, Kampf 40×, Musik aus, Spielzustand als Text (PKT.state())</small></div><div class="stSeg" id="stAi"><button data-v="1" class="${on?"on":""}">An</button><button data-v="0" class="${on?"":"on"}">Aus</button></div></div></div>`);
   mb.querySelectorAll("#stAi button").forEach(b=>b.onclick=()=>{mb.querySelectorAll("#stAi button").forEach(x=>x.classList.toggle("on",x===b));try{localStorage.setItem("pokelings_ai",b.dataset.v);}catch(e){}toast(b.dataset.v==="1"?"KI-Testmodus an":"KI-Testmodus aus","bolt");});}catch(e){}return r;};}catch(e){}
@@ -22140,6 +22149,47 @@ try{const _ml9=menuLbLoad;menuLbLoad=async function(el,quiet){
         L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>{const x=r.j.find(y=>userKey(y.name)===userKey(b.dataset.n));if(x)seasonDetail(x,sid,rows.find(y=>userKey(y.n)===userKey(x.name)));});}}
     if(typeof aiAcc==="function"&&aiAcc()&&typeof lbPinMe==="function")lbPinMe(el);
     hydrateIcons(L);lbAnimSync(L);MLB.t=Date.now();menuLbAge();}finally{MLB.busy=false;if(R)R.classList.remove("spin");}};}catch(e){}
+
+/* v1.60.0.10: Champion → Hauptmenü behält den Kampfturm; KI-Testmodus: help, Meldungen, fertige Vergleiche */
+/* Champion-Bildschirm verlassen: Lauf bleibt gespeichert, „Weiterspielen“ bietet den Kampfturm an */
+function champTowerAsk(){if(!S||!S.champDone||S.tower)return;
+  openModal(`<h2>${ic("crown")} CHAMPION!</h2><div class="lead">Dieser Lauf ist geschafft, die Edelsteine dafür hast du schon bekommen. Dein Champion-Team kann noch in den Kampfturm.</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="ctGo">${ic("tower")} IN DEN KAMPFTURM</button><button class="btn" id="ctEnd">${ic("flag")} Lauf beenden</button></div>`,"narrow",()=>{showMenu();});
+  $("ctGo").onclick=()=>{closeModal();delete S.champDone;towerEnter();};
+  $("ctEnd").onclick=()=>{closeModal();try{LS.del(saveKey());}catch(e){}S=null;B=null;showMenu();};}
+try{const _te10=towerEnter;towerEnter=function(){if(S)delete S.champDone;return _te10.apply(this,arguments);};}catch(e){}
+try{const _lg10=loadGame;loadGame=function(){const d=LS.get(saveKey(),null);if(d&&d.S&&d.S.champDone&&!d.S.tower){delete d.S.winRes;delete d.S.pending;delete d.S.pendingKO;LS.set(saveKey(),d);const ok=_lg10.apply(this,arguments);try{if(S){S.phase="over";setTimeout(champTowerAsk,150);}}catch(e){}return ok;}return _lg10.apply(this,arguments);};}catch(e){}
+try{const _sm10=showMenu;showMenu=function(){const r=_sm10.apply(this,arguments);try{const d=LS.get(saveKey(),null),b=$("mCont");if(b&&d&&d.S&&d.S.champDone&&!d.S.tower){const s=b.querySelector("small");if(s)s.textContent="Champion · der Kampfturm wartet";}}catch(e){}return r;};}catch(e){}
+/* Nach einem K.O. kein neuer Kampf ohne Revanche (auch nicht kurz nach dem Laden) */
+try{const _fi10=fight;fight=function(){if(S&&!S.duel&&S.pendingKO)return;return _fi10.apply(this,arguments);};}catch(e){}
+/* ---------- KI-Testmodus ---------- */
+const PK_HELP=`PKT-BEFEHLE (PKT.act("…")):
+ Start:      new <region> <leicht|normal|schwer|nuzlocke|albtraum> · partner <N>
+ Laden:      buy <1-5> · reroll · xp · buyitem · lock (Laden einfrieren) · lock item
+ Einheiten:  place <Bank-Nr> <x,y> · move <von> <nach> (Feld x,y oder Bank b1) · sell <Feld|b1> · sellitem <Nr>
+ Fusion:     merge <von> <nach> · fuse <von> <nach> · fuse all
+ Items:      equip <Taschen-Nr> <Feld|b1> (auch: item <Nr> <Feld>)
+ Wege/Kampf: paths · path <N> · fight · event <N>
+ Fenster:    pick <N> · click <#id oder [data-…]> · key <Taste> (enter, esc, 1-9, q/w/a/s/y)
+ Labor:      lab · research <ID>
+ Infos:      PKT.state() · PKT.json() · PKT.trial(50) · PKT.log() · PKT.log("stats"[, Filter]) · PKT.shiny() · PKT.report() · PKT.panel("aus")
+ Ergebnis-Bildschirm: Knöpfe stehen in PKT.json().result.buttons (z. B. #rRev Revanche, #rQuit Aufgeben), Fenster in PKT.json().window.`;
+try{if(typeof toast==="function"){const _to10=toast;toast=function(t){try{window.__aiToast=String(t||"").replace(/<[^>]+>/g,"");}catch(e){}return _to10.apply(this,arguments);};}}catch(e){}
+try{const _ac10=PKT.act;PKT.act=async function(cmd){const s=String(cmd||"").trim(),[a,...r]=s.split(/\s+/);
+  if(a==="help"||a==="hilfe"||a==="?")return PK_HELP;
+  if(a==="item"&&r.length<2)return "Format: item <Taschen-Nr> <Feld> legt ein Item an (wie equip). Laden-Item kaufen: buyitem.";
+  if(a==="place"&&r.length<2)return "Format: place <Bank-Nr> <x,y>, z. B. place 1 2,3";
+  if((a==="equip"||a==="item")&&r.length>=2){try{const u=/^b\d+$/i.test(r[1])?S.bench[+r[1].slice(1)-1]:S.board[r[1]];if(u&&u.items.length>=itemSlots(u))return `Alle ${itemSlots(u)} Item-Plätze von ${SPECIES[u.sp].name} sind belegt.`;}catch(e){}}
+  if(a==="fight"&&S&&S.pendingKO)return "Nach dem K.O. erst Revanche (#rRev) oder Aufgeben/Turm verlassen (#rQuit). Siehe PKT.json().result.buttons.";
+  window.__aiToast=null;const res=await _ac10.apply(this,arguments);const t=window.__aiToast;window.__aiToast=null;
+  return t&&typeof res==="string"&&res.indexOf(t)<0?"Meldung: "+t+"\n"+res:res;};}catch(e){}
+/* Fusion: gleiches Pokémon, aber andere Spezialisierung */
+function pkFuseBlocked(){const out=[];try{const all=allUnits(),pos=u=>{const l=locate(u);return l?(l.w==="board"?l.k:"b"+(l.i+1)):"?";},seen=new Set();
+  for(const a of all)for(const b of all){if(a===b||seen.has(b.uid+"-"+a.uid))continue;seen.add(a.uid+"-"+b.uid);if(a.sp===b.sp&&a.stars===b.stars&&!a.crypto&&!b.crypto&&canMerge(a)&&!sameSpec(a,b))out.push(`${SPECIES[a.sp].name} ${pos(a)} + ${pos(b)}`);}}catch(e){}return out;}
+function pkShopFuse(){const out=[];try{const all=allUnits(),pos=u=>{const l=locate(u);return l?(l.w==="board"?l.k:"b"+(l.i+1)):"?";};if(S&&S.shop&&S.shop.mons)S.shop.mons.forEach((m,i)=>{if(!m)return;const same=all.filter(u=>u.sp===m.id&&!u.stars);if(same.length)out.push({buy:i+1,name:SPECIES[m.id].name,with:same.map(pos)});});}catch(e){}return out;}
+try{const _st10=PKT.state;PKT.state=function(){let s=_st10.apply(this,arguments);try{const fb=pkFuseBlocked();if(fb.length&&typeof s==="string")s=s.replace(/(  Fusion möglich: [^\n]*)/,`$1\n  Keine Fusion (gleiche Spezialisierung nötig): ${fb.join(" · ")}`);}catch(e){}return s;};}catch(e){}
+try{const _js10=PKT.json;PKT.json=function(){const o=_js10.apply(this,arguments);try{o.busy={fight:!!(typeof B!=="undefined"&&B&&!B.done&&!B.sim),sims:typeof SIMC!=="undefined"?SIMC.queue.length:0};o.shopFuse=pkShopFuse();o.fuseBlocked=pkFuseBlocked();}catch(e){}return o;};}catch(e){}
+/* trial: erst die Anzeige fertig rechnen (50 Probekämpfe), dann vergleichen */
+try{const _tr10=PKT.trial;PKT.trial=function(n){try{if(S&&S.enemies&&S.enemies.length&&boardUnits().length&&!S.duel){const k=simBoardSig()+"@"+simEnSig(S.enemies),c=SIMC.cache.get(k)||{w:0,n:0,fail:0};let g=0;while(c.n<SIM_N&&c.fail<=4&&g++<120){const r=simOnce(S.enemies);if(r===null)c.fail++;else{c.n++;if(r)c.w++;}}SIMC.cache.set(k,c);}}catch(e){}return _tr10.apply(this,arguments);};}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
@@ -22881,7 +22931,7 @@ function finish(win){
   META.gems+=gems;META.gemsTotal+=gems;META.games++;if(!S.daily){META.best[S.mode]=Math.max(META.best[S.mode]||0,reached);if(win)META.champs[S.mode]=(META.champs[S.mode]||0)+1;}if(!S.daily){const rg=S.region||"kanto";META.reg=META.reg||{};if(rg==="kanto"&&!META.reg.kanto){const J=META.reg.johto||{champs:{},best:{},games:0},ch={};for(const m in (META.champs||{}))ch[m]=Math.max(0,(META.champs[m]||0)-((J.champs||{})[m]||0)-(win&&m===S.mode?1:0));META.reg.kanto={champs:ch,best:Object.assign({},META.best||{}),games:Math.max(0,(META.games||1)-1-(J.games||0))};}const R=META.reg[rg]||(META.reg[rg]={champs:{},best:{},games:0});R.games++;R.best[S.mode]=Math.max(R.best[S.mode]||0,reached);if(win)R.champs[S.mode]=(R.champs[S.mode]||0)+1;if(typeof seasonRec==="function")seasonRec(rg,S.mode,reached,win);}
   META.runs.push({t:Date.now(),mode:S.mode,region:S.region||"kanto",daily:S.daily?1:0,mono:S.mono||undefined,iron:S.iron||undefined,poor:S.poor||undefined,small:S.small||undefined,allin:S.allin||undefined,weekly:S.weekly||undefined,round:Math.min(20,S.round),champ:win,wins:S.wins,gems,team:boardUnits().map(u=>u.sp).slice(0,8)});if(META.runs.length>30)META.runs.shift();
   const dRow=S.daily&&typeof dailyFinish==="function"?dailyFinish(win,reached):"";const mRow=((S.mono||S.iron||S.poor||S.small||S.allin)&&!S.daily&&typeof monoFinish==="function"?monoFinish(win):"")+(S.weekly&&typeof weeklyFinish==="function"?weeklyFinish(win,reached):"");
-  saveMeta();try{achFinish(win);}catch(e){}LS.del(saveKey());
+  saveMeta();try{achFinish(win);}catch(e){}if(win&&!S.daily&&!S.abyss&&!S.tower&&typeof towerEnter==="function"){delete S.winRes;delete S.pending;delete S.pendingKO;S.champDone=1;save();}else LS.del(saveKey());
   setTab("raster");
   $("result").innerHTML=`<div class="rWrap"><div class="rHead ${win?"win":"lose"}">${win?"CHAMPION!":"LAUF BEENDET"}</div><div class="rPanel glass"><h4>${win?(S.region==="johto"?"Trainer Rot ist besiegt!":S.region==="hoenn"?"Champion Troy ist besiegt!":S.region==="sinnoh"?"Champion Cynthia ist besiegt!":S.region==="unova"?"Champion Lilia ist besiegt!":S.region==="kalos"?"Champion Diantha ist besiegt!":S.region==="alola"?"Prof. Kukui ist besiegt! Du bist der erste Champion von Alola!":S.region==="galar"?"Champion Delion ist besiegt! Du bist der neue Champion von Galar!":S.region==="paldea"?"Champion Nemila ist besiegt! Du bist der neue Champion von Paldea!":S.region==="hisui"?"Arceus erkennt deine Stärke an! Du bist der Meister von Hisui!":S.region==="kitakami"?"Champion Jo ist besiegt! Du bist der neue Champion der Blaubeer-Liga!":"Mewtu ist besiegt!"):"Deine Reise endet hier."}</h4>
    <div class="rewards"><div class="incRow"><span>Erreicht</span><span>Runde ${Math.min(20,S.round)}</span></div><div class="incRow"><span>Siege / Bosse / Elite</span><span>${S.wins} / ${S.bosses} / ${S.elites}</span></div><div class="incRow"><span>Modus</span><span>${mm.n} (×${mm.gem})</span></div>${gemB>1?`<div class="incRow" style="color:var(--gem)"><span>${ic("gem","","width:14px;height:14px")} Tagesbonus</span><span>+${Math.round((gemB-1)*100)} %</span></div>`:""}<div class="incRow sum"><span>Edelsteine</span><span style="color:var(--gem)">+${gems}</span></div>${dRow}${mRow}</div>
