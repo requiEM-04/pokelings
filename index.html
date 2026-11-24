@@ -5366,6 +5366,31 @@ img.aur,.card .pic img.aur,.u img.aur{filter:url(#aurF) drop-shadow(0 0 2px rgba
 /* v1.58.0.5 */
 .newGame .dfList+.monoBox{margin-top:14px}
 #aiPanel{position:fixed;left:6px;bottom:28px;z-index:9999;max-width:min(560px,calc(60*var(--vw,1vw)));max-height:calc(46*var(--vh,1vh));overflow:hidden;margin:0;padding:6px 8px;border-radius:6px;background:rgba(8,10,16,.82);border:1px solid #3a4462;color:#c8f0ff;font:10px/1.35 ui-monospace,Consolas,monospace;white-space:pre-wrap;pointer-events:none}
+/* v1.59.0 x59 */
+/* ================= v1.59.0 ================= */
+/* Bestenliste: eigene Zeile */
+.mLbList .lbRow.lbMeRow{box-shadow:inset 0 0 0 2px #5cf2ff,0 0 10px rgba(92,242,255,.25);background-color:rgba(92,242,255,.08)}
+.mLbList .lbRow.lbPin{position:sticky;bottom:0;z-index:3;margin-top:8px;background:linear-gradient(180deg,#1c2a44,#142036);box-shadow:inset 0 0 0 2px #5cf2ff,0 -6px 14px rgba(0,0,0,.55)}
+.mLbList .lbRow.lbPin::before{content:"DU";position:absolute;left:-2px;top:-9px;padding:1px 6px;border-radius:4px;background:#5cf2ff;color:#0b0d13;font:8px var(--px)}
+.mLbList .lbRow.lbPinNew{cursor:default}
+/* Laden-Chancen: gut lesbare Zahlen statt Pixelschrift (6 sah aus wie 8) */
+#odds{font-family:system-ui,"Segoe UI",sans-serif;letter-spacing:0}
+/* Umbrüche */
+.rcStats div{flex-wrap:nowrap;min-width:0}.rcStats span{white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis}.rcStats b{white-space:nowrap}
+.stSave button>div{min-width:0}.stSave b,.stSave small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Glücksspiel ohne genug Gold */
+.evCards .path[disabled]{opacity:.45;filter:grayscale(.6);cursor:not-allowed}
+/* KI-Statusbox rechts oben */
+#aiPanel{left:auto!important;right:6px;bottom:auto!important;top:6px}
+/* v1.60.0 x60 */
+/* ================= v1.60.0 ================= */
+.kiTag{display:inline-block;margin-left:6px;padding:0 5px;border-radius:4px;background:#2a3a5c;border:1px solid #5cf2ff;color:#5cf2ff;font:8px/14px var(--px);font-style:normal;vertical-align:middle}
+.kiTag.big{font-size:10px;line-height:18px;padding:0 8px}
+.stAdv summary{list-style:none;cursor:pointer}.stAdv summary::-webkit-details-marker{display:none}
+.stAdv summary h4::after{content:" ▸";opacity:.6}.stAdv[open] summary h4::after{content:" ▾"}
+.stAdv .aiGrp.inAdv{margin:8px 0 0;padding:0;border:0;background:none}.stAdv .aiGrp.inAdv h4{display:none}
+.kiList{margin:10px 0 0 18px;padding:0;font-size:14px;line-height:1.5;color:#d8dcef}.kiList li{margin:4px 0}
+.evCards .path[disabled]{opacity:.45;filter:grayscale(.6);cursor:not-allowed}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -6444,7 +6469,7 @@ const ITEM_UNIQ={beere:1,fokus:1,kraut:1,mega:1,metro:1,floete:1,regen:1,kugel:1
 const itStack=id=>!!IT_BY[id]&&!ITEM_UNIQ[id]&&IT_BY[id].kind!=="mega";
 /* Unterklassen & Aufstiege: 1. Fusion → Unterklasse, 2. Fusion → Aufstieg */
 const SPECS={
- waechter:{role:"tank",n:"Wächter",ic:"def",d:"Spottet alle 4 s nahe Gegner an. Verbündete direkt neben ihm erleiden 15 % weniger Schaden. +15 % KP.",m:{hp:.15},fx:{guard:.15,taunt:1}},
+ waechter:{role:"tank",n:"Wächter",ic:"def",d:"Lenkt alle 4 s nahe Gegner auf sich (Spott). Verbündete direkt neben ihm erleiden 15 % weniger Schaden. +15 % KP.",m:{hp:.15},fx:{guard:.15,taunt:1}},
  paladin:{from:"waechter",n:"Paladin",ic:"heart",d:"Schutz für Nachbarn steigt auf 25 %, regeneriert 1,2 % KP/s.",m:{regen:.012},fx:{guard:.1}},
  bollwerk:{from:"waechter",n:"Bollwerk",ic:"bubble",d:"Kampfbeginn: Das ganze Team erhält einen Schild über 12 % seiner KP. +15 Verteidigung.",m:{def:15},fx:{teamShield:.12}},
  koloss:{role:"tank",n:"Koloss",ic:"hp",d:"+35 % KP, -10 % Angriffstempo. Wirft 20 % des Nahkampfschadens zurück.",m:{hp:.35,as:-.1,thorns:.2}},
@@ -6859,7 +6884,7 @@ const GF_BY={};GIFTS.forEach(g=>GF_BY[g.id]=g);
 const DRILL=(role)=>({id:"d_"+role,n:"Drill",ic:"dumbbell",d:`${ROLES[role].n} +6 % KP & Angriff je Stufe.`,max:3,cost:[9,15,23]});
 const RESEARCH=[
  {k:"eco",n:"Wirtschaft",ic:"coin",col:"#ffc94a",nodes:[
-   {id:"gold",n:"Startkapital",ic:"coin",d:"+2 Gold zu Beginn jedes Laufs.",max:3,cost:[9,15,24]},
+   {id:"gold",n:"Startkapital",ic:"coin",d:"+2 Gold je Stufe zu Beginn jedes Laufs (3/3 = +6).",max:3,cost:[9,15,24]},
    {id:"interest",n:"Zinsmeister",ic:"magnet",d:"Zinsobergrenze +1.",max:2,cost:[18,30]},
    {id:"bench",n:"Lagerhalle",ic:"bench",d:"+1 Bankplatz.",max:2,cost:[15,24]},
    {id:"merchant",n:"Händlerkontakte",ic:"store",d:"+1 Pokémon-Karte im Shop.",max:1,cost:[36]},
@@ -6867,7 +6892,7 @@ const RESEARCH=[
    {id:"itemdeal",n:"Itemhändler",ic:"scroll",d:"Items im Shop kosten 1 Gold weniger.",max:1,cost:[50]}]},
  {k:"adv",n:"Abenteuer",ic:"route",col:"#5cf2ff",nodes:[
    {id:"partner",n:"Partnerwahl",ic:"ball",d:"+1 Pokéball bei der Partnerwahl.",max:2,cost:[9,18]},
-   {id:"phoenix",n:"Phönixfeder",ic:"feather",d:"Revanche-Gegner −3 % Verstärkung je Stufe.",max:3,cost:[12,18,27]},
+   {id:"phoenix",n:"Phönixfeder",ic:"feather",d:"Revanche-Gegner −1,5 % Verstärkung je Stufe.",max:3,cost:[12,18,27]},
    {id:"school",n:"Trainer-Schule",ic:"school",d:"+1 Erfahrung pro Sieg.",max:1,cost:[30]},
    {id:"fusion",n:"Fusionslabor",ic:"merge",d:"4 statt 3 Fusionsgaben zur Auswahl.",max:1,cost:[33]},
    {id:"shinycharm",n:"Schillerpin",ic:"shiny",d:"Doppelte Chance auf schillernde und Aurora-Pokémon im Shop.",max:1,cost:[15]},
@@ -6946,7 +6971,7 @@ const BOSSES_BY={kanto:BOSSES,johto:{
 const CRYPTO={atk:1.2,hp:1.15,vs:1.15,vsC:.85,rage:.5,rageAs:1.25,rageAtk:1.12,drain:.008,purify:3};
 const ROCKET_N={kitakami:["Besessener Dorfbewohner","Besessene Dorfbewohnerin","Besessener Wanderer","Besessene Wanderin","Besessene Hana","Besessener Jo"],hisui:["Wilderer","Wildererin","Anführer der Wilderer","Anführerin der Wilderer","Gefolgsmann Volos","Volo"],paldea:["Team-Star-Mitglied","Team-Star-Mitglied","Segin von Team Star","Schedir von Team Star","Tsih von Team Star","Cassiopeia"],galar:["Team-Yell-Fan","Team-Yell-Fanin","Macro-Cosmos-Angestellte","Macro-Cosmos-Angestellter","Sekretärin Olivia","Präsident Rose"],alola:["Skull-Rüpel","Skull-Rüpelin","Skull-Admin Fran","Skull-Boss Bromley","Æther-Präsidentin Samantha"],kalos:["Flare-Rüpel","Flare-Rüpelin","Flare-Wissenschaftlerin","Flare-Admin Malva","Flare-Boss Flordelis"],unova:["Plasma-Rüpel","Plasma-Rüpelin","Schattentriade","Weiser Zinzolin","N","Plasma-Boss G-Cis"],sinnoh:["Galaktik-Rüpel","Galaktik-Rüpelin","Galaktik-Commander Mars","Galaktik-Commander Jupiter","Galaktik-Commander Saturn","Galaktik-Boss Zyrus"],hoenn:["Magma-Rüpel","Aqua-Rüpelin","Magma-Rüpelin","Aqua-Rüpel","Magma-Anführer Marc","Aqua-Anführer Adrian"],kanto:["Rocket-Rüpel","Rocket-Rüpelin","Rocket-Wissenschaftler","Rocket-Vorstand Atlas"],johto:["Rocket-Rüpel","Rocket-Rüpelin","Rocket-Vorstand Lambda","Rocket-Vorstand Atlas","Rocket-Vorstand Athena"]};
 const RAID_MIN={kanto:[92,93],johto:[198,228],hoenn:[353,302],sinnoh:[434,425],unova:[590,592],kalos:[691,709],alola:[745,770],galar:[832,844],paldea:[943,966],hisui:[10235,30217],kitakami:[31608,31625]};
-const REGIONS={kanto:{n:"Kanto",d:"Teil 1 · Alabastia bis Mewtu",ic:"ball"},johto:{n:"Johto",d:"Teil 2 · Neuborkia bis zum Silberberg",ic:"crown",unlock:"Werde Champion auf Normal (Kanto)"},hoenn:{n:"Hoenn",d:"Teil 3 · Wurzelheim bis Prachtpolis",ic:"star",unlock:"Werde Champion in Johto"},sinnoh:{n:"Sinnoh",d:"Teil 4 · Zweiblattdorf bis zur Pokémon-Liga",ic:"bolt",unlock:"Werde Champion in Hoenn"},unova:{n:"Einall",d:"Teil 5 · Avenitia bis zur Pokémon-Liga",ic:"swords",unlock:"Werde Champion in Sinnoh"},kalos:{n:"Kalos",s:"Kl",d:"Teil 6 · Escissia bis zur Pokémon-Liga",ic:"gem",unlock:"Werde Champion in Einall"},alola:{n:"Alola",s:"Al",d:"Teil 7 · Lili'i bis zur Pokémon-Liga",ic:"leaf",unlock:"Werde Champion in Kalos"},galar:{n:"Galar",s:"Ga",d:"Teil 8 · Furlongham bis zum Champ-Cup",ic:"swords",unlock:"Werde Champion in Alola"},paldea:{n:"Paldea",s:"Pa",d:"Teil 9 · Cucharico bis zur Pokémon-Liga",ic:"tera",unlock:"Werde Champion in Galar"},hisui:{n:"Hisui",s:"Hi",d:"Teil 10 · Jubeldorf bis zum Sinnoh-Tempel",ic:"alpha",unlock:"Werde Champion in Paldea"},kitakami:{n:"Kitakami",s:"Ki",d:"Teil 11 · Midoriya bis zur Blaubeer-Liga",ic:"mask",unlock:"Werde Champion in Hisui"}};
+const REGIONS={kanto:{n:"Kanto",d:"Teil 1 · Alabastia bis Mewtu",ic:"ball"},johto:{n:"Johto",d:"Teil 2 · Neuborkia bis zum Silberberg",ic:"crown",unlock:"Werde Champion in Kanto"},hoenn:{n:"Hoenn",d:"Teil 3 · Wurzelheim bis Prachtpolis",ic:"star",unlock:"Werde Champion in Johto"},sinnoh:{n:"Sinnoh",d:"Teil 4 · Zweiblattdorf bis zur Pokémon-Liga",ic:"bolt",unlock:"Werde Champion in Hoenn"},unova:{n:"Einall",d:"Teil 5 · Avenitia bis zur Pokémon-Liga",ic:"swords",unlock:"Werde Champion in Sinnoh"},kalos:{n:"Kalos",s:"Kl",d:"Teil 6 · Escissia bis zur Pokémon-Liga",ic:"gem",unlock:"Werde Champion in Einall"},alola:{n:"Alola",s:"Al",d:"Teil 7 · Lili'i bis zur Pokémon-Liga",ic:"leaf",unlock:"Werde Champion in Kalos"},galar:{n:"Galar",s:"Ga",d:"Teil 8 · Furlongham bis zum Champ-Cup",ic:"swords",unlock:"Werde Champion in Alola"},paldea:{n:"Paldea",s:"Pa",d:"Teil 9 · Cucharico bis zur Pokémon-Liga",ic:"tera",unlock:"Werde Champion in Galar"},hisui:{n:"Hisui",s:"Hi",d:"Teil 10 · Jubeldorf bis zum Sinnoh-Tempel",ic:"alpha",unlock:"Werde Champion in Paldea"},kitakami:{n:"Kitakami",s:"Ki",d:"Teil 11 · Midoriya bis zur Blaubeer-Liga",ic:"mask",unlock:"Werde Champion in Hisui"}};
 function setRegion(r){r=REGIONS[r]?r:"kanto";BOSSES=BOSSES_BY[r];if(typeof setRegionLocs==="function")setRegionLocs(r);return r;}
 
 const DIFF={
@@ -6977,7 +7002,7 @@ const LV_XP=[0,4,9,15,23,33,45,60];
 const ODDS_LV={1:[70,30,0,0,0],2:[56,38,6,0,0],3:[46,40,14,0,0],4:[42,40,18,0,0],5:[28,36,26,8,2],6:[18,30,32,16,4],7:[12,24,34,23,7],8:[8,18,32,30,12]};
 /* Seltene Pokémon erst später im Lauf: Episch ab Runde 6, Legendär ab Runde 11 (nach dem ersten großen Boss) */
 const TIER_FROM={4:6,5:11};
-function oddsAt(lv,r){const o=ODDS_LV[Math.max(1,Math.min(8,lv))].slice();for(const t of [5,4])if((r||1)<TIER_FROM[t]&&o[t-1]){o[t-2]+=o[t-1];o[t-1]=0;}return o;}
+function oddsAt(lv,r){const o=ODDS_LV[Math.max(1,Math.min(ODDS_LV[9]?9:8,lv))].slice();for(const t of [5,4])if((r||1)<TIER_FROM[t]&&o[t-1]){o[t-2]+=o[t-1];o[t-1]=0;}return o;}
 const TRAINERS=["Käfersammler Kai","Schwimmerin Lena","Wanderer Jonas","Schulkind Mia","Angler Tom","Ass-Trainerin Sara","Rocker Ben","Karateka Ryo","Hexe Greta","Vogelfänger Paul","Forscherin Ida","Biker Leon","Gentleman Henri","Picknickerin Ella","Rüpel Tarek","Medium Nora","Pokéfan Lukas","Teamleiterin Ava","Neon-Kurt","Geisterjägerin Vera","Hackerin Zoe","Pilot Max"];
 const FIGHT_TIME=45,DMG=1.9;
 const FXC={fire:[0xff7a1a,0xffd23f],water:[0x3aa0ff,0xbfe6ff],electric:[0xffe23a,0xffffff],grass:[0x5fd35a,0xd9ff8a],ice:[0x8ff3ff,0xffffff],fighting:[0xff4b3a,0xffd0a0],poison:[0xc050e0,0xf0a0ff],ground:[0xd8a24a,0x8a6236],flying:[0xd8e6ff,0xffffff],psychic:[0xff5aa8,0xffc0e0],rock:[0xb8a070,0x6a5a40],ghost:[0x9a62f0,0x3a1868],dragon:[0x7a4bff,0x5ad0ff],fairy:[0xff9ad8,0xffffff],normal:[0xffffff,0xffe9b0],steel:[0xd8e2f4,0xffffff],dark:[0x8a5a4a,0x221111],bug:[0xb6d020,0xeaff80]};
@@ -8429,12 +8454,12 @@ const LSPEC={};
 /* Beschreibung aus den Effekten */
 const _pc=v=>Math.round(Math.abs(v)*100)+" %",_pc1=v=>(Math.round(Math.abs(v)*1000)/10).toString().replace(".",",")+" %",_dc=v=>String(Math.round(v*10)/10).replace(".",","),_sg=v=>v<0?"−":"+";
 function tfxText(t){return t&&TFX[t]?TFX[t].d:"löst den Typ-Effekt aus";}
-function specDesc(s,u){const r=specDesc0(s,u),p=s&&s.from&&SPECS[s.from];if(!p||!r)return r;const en=typeof LANG!=="undefined"&&LANG==="en",pn=en&&typeof EN!=="undefined"&&EN[p.n]?EN[p.n]:p.n;return (en?`On top of “${pn}”: `:`Zusätzlich zu „${pn}“: `)+r;}
+function specDesc(s,u){const r=specDesc0(s,u),p=s&&s.from&&SPECS[s.from];if(!p||!r)return r;const en=typeof LANG!=="undefined"&&LANG==="en",pn=en&&typeof EN!=="undefined"&&EN[p.n]?EN[p.n]:p.n;let tot="";try{const sm=(a,b)=>{const o=Object.assign({},a||{});for(const k in b||{}){if(typeof b[k]==="number"&&typeof o[k]==="number")o[k]=+(o[k]+b[k]).toFixed(4);else if(!(k in o))o[k]=b[k];}return o;};const ov=Object.keys(s.m||{}).some(k=>typeof (p.m||{})[k]==="number")||Object.keys(s.fx||{}).some(k=>typeof (p.fx||{})[k]==="number");if(ov)tot=specDesc0(Object.assign({},s,{from:p.from,m:sm(p.m,s.m),fx:sm(p.fx,s.fx)}),u);}catch(e){tot="";}return (en?`On top of “${pn}”: `:`Zusätzlich zu „${pn}“: `)+r+(tot?(en?` Together: ${tot}`:` Zusammen: ${tot}`):"");}
 function specDesc0(s,u){if(typeof LANG!=="undefined"&&LANG==="en")return specDescEN(s,u);const m=s.m||{},f=s.fx||{},par=s.from&&SPECS[s.from],t=f.tfxType||(par&&par.fx&&par.fx.tfxType)||uType(u),out=[];
   const P={hp:v=>`${_sg(v)}${_pc(v)} KP`,atk:v=>`${_sg(v)}${_pc(v)} Angriff`,as:v=>`${_sg(v)}${_pc(v)} Angriffstempo`,def:v=>`+${v} Verteidigung`,crit:v=>`+${_pc(v)} Krit-Chance`,dodge:v=>`+${_pc(v)} Ausweichen`,
     regen:v=>`regeneriert ${_pc1(v)} KP/s`,ls:v=>`${_pc(v)} Lebensraub`,thorns:v=>`wirft ${_pc(v)} des Nahkampfschadens zurück`,range:v=>`+${_dc(v)} Reichweite`,mana:v=>`startet mit +${v} Energie`,ab:v=>`Spezialattacke +${_pc(v)}`,
     heal:v=>`Heilungen +${_pc(v)}`,burn:()=>`Treffer von Attacke 1 verbrennen (2 % KP/s)`,frost:v=>`${_pc(v)} der Treffer von Attacke 1 verlangsamen 1,5 s`,poison:v=>`Treffer vergiften (${_pc1(v)} KP/s)`,shield:v=>`Kampfbeginn: Schild über ${_pc(v)} der KP`};
-  const F={guard:v=>`Verbündete direkt neben ihm erleiden ${_pc(v)} weniger Schaden`,taunt:()=>`spottet alle 4 s nahe Gegner an`,teamShield:v=>`Kampfbeginn: Schild über ${_pc(v)} der KP für das ganze Team`,ccImm:()=>`immun gegen Betäubung und Verlangsamung`,
+  const F={guard:v=>`Verbündete direkt neben ihm erleiden ${_pc(v)} weniger Schaden`,taunt:()=>`lenkt alle 4 s nahe Gegner auf sich (Spott)`,teamShield:v=>`Kampfbeginn: Schild über ${_pc(v)} der KP für das ganze Team`,ccImm:()=>`immun gegen Betäubung und Verlangsamung`,
     rage:v=>`unter 50 % KP +${_pc(v)} Schaden`,killHeal:v=>`jeder K.O. heilt ${_pc(v)} KP`,killAs:v=>`jeder K.O. gibt dauerhaft +${_pc(v)} Angriffstempo`,rageScale:v=>`je weniger KP, desto stärker (bis +${_pc(v)} Schaden)`,
     critMul:v=>`kritische Treffer ×${_dc(1.8+v)} statt ×1,8`,cleave:v=>`Treffer von Attacke 1 treffen auch Gegner um das Ziel (${_pc(v)})`,firstCrit:v=>`der erste Treffer im Kampf richtet ×${_dc(v)} Schaden an`,
     killPhase:v=>`nach jedem K.O. ${_dc(v)} s unantastbar, der nächste Treffer ist kritisch`,hitFx:v=>par&&par.fx&&par.fx.hitFx?`Typ-Effekt von Attacke 1 doppelt so stark`:`Typ-Effekt bei 35 % der Treffer von Attacke 1: ${tfxText(t)}${v>1?" (doppelt stark)":""}`,execute:v=>`+${_pc(v)} Schaden gegen Ziele unter 40 % KP`,
@@ -8499,7 +8524,7 @@ const FPAT={ring8:(dx,dy)=>Math.max(Math.abs(dx),Math.abs(dy))===1,orth4:(dx,dy)
 const _fp=v=>Math.round(Math.abs(v)*100)+" %",_fp1=v=>(Math.round(Math.abs(v)*1000)/10).toString().replace(".",",")+" %",_fd=v=>String(Math.round(v*10)/10).replace(".",",");
 /* Formations-Effekte: pat = Felder, give = Wirkung auf Verbündete dort, self = zählt Nachbarn für sich selbst */
 const FORM={
- guard:{pat:"ring8",col:"#5aa7ff",n:"Schutzwall",en:"Guard",short:v=>`−${_fp(v)} Schaden`},
+ guard:{pat:"ring8",col:"#5aa7ff",n:"Schildstellung",en:"Guard",short:v=>`−${_fp(v)} Schaden`},
  aura:{pat:"ring8",col:"#ffd23f",n:"Anführer",en:"Leader",short:(v,fx)=>`+${_fp(v)} Angriff`+(fx&&fx.auraAs?` · +${_fp(fx.auraAs)} Tempo`:"")},
  fShelter:{pat:"behind2",col:"#7cc8ff",n:"Deckung",en:"Cover",give:(a,v)=>{a.fDR=Math.max(a.fDR||0,v);},short:v=>`−${_fp(v)} Schaden`},
  fFlank:{pat:"flank",col:"#9fb4ff",n:"Flankenschutz",en:"Flank Guard",give:(a,v)=>{a.def+=v;},short:v=>`+${v} Verteidigung`},
@@ -8839,7 +8864,7 @@ function sha256(str){
 function pwHash(pw,salt){let h=sha256(salt+":"+pw);for(let i=0;i<2000;i++)h=sha256(h+salt);return h;}
 let USER=null,META=null;
 const accounts=()=>LS.get("pokelings_accounts",{});
-const userKey=n=>n.trim().toLowerCase();
+const userKey=n=>String(n||"").trim().toLowerCase();
 const metaKey=u=>"pokelings_v5_meta_"+(u?userKey(u):"_gast");
 const saveKey=k=>"pokelings_v7_save_"+(USER?userKey(USER):"_gast")+((kk=>kk==="ab"?"_abgrund":kk==="abw"?"_abgrundw":"")(k||window.__svK||(typeof S!=="undefined"&&S&&S.abyss?(S.abyss.week?"abw":"ab"):"sp")));
 function newMeta(){return{gems:0,gemsTotal:0,perks:{},unlocked:LINES.filter(L=>L.start).map(L=>L.k),dex:{},runs:[],best:{},champs:{},games:0,wins:0,losses:0,v:6};}
@@ -9074,7 +9099,7 @@ function chooseDiff(){
     return `<button class="dfCard${ok?"":" locked"}" data-m="${m}" ${ok?"":"disabled"} style="--dc:${D.col}"><span class="dfShine"></span>
       <div class="dfPic"><span class="dfMon" data-sp="${D.sp}"></span></div>
       <div class="dfBody"><small>${D.tag}</small><h4>${ic(M.ic)} ${M.n}</h4><p>${M.d}</p>
-        <div class="dfChips"><span>${ic("swords")} Gegner ×${String(M.enemy).replace(".",",")}</span><span>${ic("gem")} ×${String(M.gem).replace(".",",")}</span><span>${ic("heart")} ${M.noRev?"1 Leben · keine Revanche":`Revanche +${Math.round(M.revive*100)} %`}</span></div>
+        <div class="dfChips"><span>${ic("swords")} Gegner ×${String(Math.round(M.enemy*100)/100).replace(".",",")}</span><span>${ic("gem")} ×${String(M.gem).replace(".",",")}</span><span>${ic("heart")} ${M.noRev?"1 Leben · keine Revanche":`Revanche +${Math.round(M.revive*100)} %`}</span></div>
         ${ch?`<em class="dfCh">${ic("crown")} ${ch}× Champion</em>`:""}</div>
       ${ok?`<span class="dfGo">START ${ic("arrow")}</span>`:`<div class="dfLock">${ic("lock")}<span>${M.unlock}</span></div>`}</button>`;}).join("");
   openModal(`<div class="ngHead"><h2>${ic("flag")} NEUES SPIEL</h2><div class="ngSteps"><span class="done"><b>${ic("check")}</b>${r.n}</span><i></i><span class="on"><b>2</b>Schwierigkeit</span></div></div>
@@ -9088,7 +9113,7 @@ function chooseDiff(){
   $("ngBack").onclick=()=>{sfx("click");chooseMode();};
   $("mbox").querySelectorAll(".dfCard").forEach(b=>b.onclick=()=>{if(b.disabled){sfx("deny");return;}closeModal();hideScreens();newRun(b.dataset.m,modeRegion,typeof monoOpt==="function"?monoOpt():undefined);});
 }
-function refreshGems(){if($("sGems"))$("sGems").textContent=META?META.gems:0;}
+function refreshGems(){if($("sGems"))$("sGems").textContent=META?META.gems:0;try{const w=document.querySelector('#menuWho span[style*="var(--gem)"]');if(w&&META&&w.firstChild){const t=[...w.childNodes].find(n=>n.nodeType===3&&/\d/.test(n.textContent));if(t)t.textContent=" "+META.gems;}}catch(e){}}
 
 /* ---------- Forschungslabor (Skillbaum) ---------- */
 function rsReq(n){if(n.idx===0)return true;const col=RESEARCH.find(c=>c.k===n.colK);return perkLv(col.nodes[n.idx-1].id)>=1;}
@@ -9103,7 +9128,7 @@ function labPick(){const all=[];RESEARCH.forEach(c=>c.nodes.forEach(n=>all.push(
   return all.find(n=>perkLv(n.id)<n.max&&rsReq(n))||all.find(n=>perkLv(n.id)<n.max)||all[0];}
 function labTot(){let a=0,m=0;RESEARCH.forEach(c=>c.nodes.forEach(n=>{a+=Math.min(n.max,perkLv(n.id));m+=n.max;}));return[a,m];}
 function labDetHtml(n){if(!n)return "";const c=RESEARCH.find(x=>x.k===n.colK)||{n:"",col:"#9fb4ff",nodes:[n]},i=n.idx||0,l=perkLv(n.id),mx=l>=n.max,ok=rsReq(n),cst=mx?0:n.cost[l],T=labTot();
-  return `<div class="ltDet" style="--rc:${c.col}"><div class="ltDetTop"><div class="ltDetIc">${ic(n.ic)}</div><div><small>${esc(c.n.toUpperCase())} · STUFE ${i+1}/${c.nodes.length}</small><b>${n.n}</b>${n.nw&&!l?`<em class="ltNew">NEU</em>`:""}</div></div>
+  return `<div class="ltDet" style="--rc:${c.col}"><div class="ltDetTop"><div class="ltDetIc">${ic(n.ic)}</div><div><small>${esc(c.n.toUpperCase())} · ${i+1}. FORSCHUNG VON ${c.nodes.length}</small><b>${n.n}</b>${n.nw&&!l?`<em class="ltNew">NEU</em>`:""}</div></div>
    <p>${n.d}</p><div class="ltPips">${Array.from({length:n.max},(_,k)=>`<i class="${k<l?"on":""}"></i>`).join("")}<span>${l}/${n.max}</span></div>
    ${mx?`<div class="ltMax">VOLL ERFORSCHT</div>`:`<button class="ltBuy" data-r="${n.id}"${!ok||META.gems<cst?" disabled":""}>${ic("gem")} ${cst} · ERFORSCHEN</button>`}
    ${!ok&&i>0?`<div class="ltReq">${ic("lock")} Erst „${c.nodes[i-1].n}“ erforschen</div>`:!mx&&META.gems<cst?`<div class="ltReq">${ic("gem")} Dir fehlen ${cst-META.gems} Edelsteine</div>`:""}
@@ -9189,7 +9214,7 @@ function help(tab){
    start:["Schnellstart","play",`<div class="qsteps">
     <div class="qs"><span class="qn">1</span><div><b>SHOP</b><p>Kaufe Pokémon und Items. Zwei gleiche Pokémon <b>aufeinanderziehen</b> = Fusion, sie entwickeln sich.</p></div></div>
     <div class="qs"><span class="qn">2</span><div><b>RASTER</b><p>Zieh dein Team aufs 3×5-Feld. <b>Rechts = vorne</b> (Tanks, Krieger), links = hinten (Schützen, Magier).</p></div></div>
-    <div class="qs"><span class="qn">3</span><div><b>BEGEGNUNG</b><p>Wähle einen von 3 Wegen. Die <b>Siegchance</b> zeigt dir, wie riskant er ist. Dann kämpft dein Team automatisch.</p></div></div></div>
+    <div class="qs"><span class="qn">3</span><div><b>BEGEGNUNG</b><p>Wähle einen von meist 3 Wegen (bei Bossen nur einer). Die <b>Siegchance</b> zeigt dir, wie riskant er ist. Dann kämpft dein Team automatisch.</p></div></div></div>
     <ul><li><b>Nur 1 Leben:</b> Verlierst du, kannst du per <b>Revanche</b> wiederbeleben, die Gegner werden aber stärker. Ein abgebrochener Kampf zählt als Niederlage.</li>
     <li><b>Bosse</b> warten in Runde 5, 10, 15 und 20. Ziel: Runde 20 überstehen und Champion werden.</li>
     <li><b>Edelsteine</b> am Laufende investierst du im <b>Forschungslabor</b> in dauerhafte Verbesserungen.</li></ul>`],
@@ -13171,7 +13196,7 @@ function render(){if(typeof achCheck==="function")setTimeout(achCheck,0);documen
   const lo=LV_XP[lv-1],hi=LV_XP[lv]||LV_XP[lv-1];$("xpBar").firstChild.style.width=(hi>lo?(S.xp-lo)/(hi-lo)*100:100)+"%";const enX=typeof LANG!=="undefined"&&LANG==="en";$("lvChip").title=hi>lo?(enX?`${S.xp-lo}/${hi-lo} XP · ${hi-S.xp} XP to level ${lv+1}`:`${S.xp-lo}/${hi-lo} EP · noch ${hi-S.xp} EP bis Level ${lv+1}`):"Max-Level";$("sXp").textContent=hi>lo?(enX?`${hi-S.xp} XP to go`:`noch ${hi-S.xp} EP`):"MAX";
   {let eg=$("eggChip");const E=S.eggs||[];if(E.length){if(!eg){eg=document.createElement("div");eg.id="eggChip";eg.className="hs";const rc=$("sRound").closest(".hs");if(rc)rc.after(eg);}const n=Math.max(0,Math.min(...E.map(e=>e.r))-S.round);
     eg.innerHTML=`<i class="eggI"></i><div class="hrow"><b>${E.length>1?E.length+"×":"Ei"}</b><small>${n<=1?"nach nächstem Kampf":"in "+n+" Runden"}</small></div>`;eg.title=`Pokémon-Ei: schlüpft ${n<=1?"nach dem nächsten Kampf":"in "+n+" Runden"}`;}else if(eg)eg.remove();}
-  $("incPop").innerHTML=`<div class="ttl"><h3>EINKOMMEN NÄCHSTE RUNDE</h3></div>${incomeParts().map(p=>`<div class="incRow"><span>${p[0]}</span><span>+${p[1]}</span></div>`).join("")}<div class="incRow sum"><span>Summe</span><span>+${income()}</span></div><div style="font-size:12px;color:var(--muted);margin-top:8px;line-height:1.4">Dazu die Prämie bei Sieg (Leicht 2 · Mittel 4 · Schwer 6 · Elite 7 · Boss 10), +50 % ohne eigenen K.O.</div>`;
+  $("incPop").innerHTML=`<div class="ttl"><h3>EINKOMMEN NÄCHSTE RUNDE</h3></div>${incomeParts().map(p=>`<div class="incRow"><span>${p[0]}</span><span>${p[1]<0?"−"+(-p[1]):"+"+p[1]}</span></div>`).join("")}<div class="incRow sum"><span>Summe</span><span>+${income()}</span></div><div style="font-size:12px;color:var(--muted);margin-top:8px;line-height:1.4">Dazu die Prämie bei Sieg (Leicht 2 · Mittel 4 · Schwer 6 · Elite 7 · Boss 10), +50 % ohne eigenen K.O.</div>`;
   {const p=$("pips");if(S.tower){const b0=Math.floor((Math.max(1,S.round-twOff())-1)/5)*5;if(p.dataset.tw!==String(b0)){p.dataset.tw=b0;p.innerHTML="";for(let i=1;i<=5;i++){const e=document.createElement("i");if(i===5)e.classList.add("boss");p.appendChild(e);}}
     [...p.children].forEach((e,i)=>{const r=20+b0+i+1;e.classList.toggle("now",r===S.round);["w","l","e"].forEach(c=>e.classList.toggle(c,S.results[r-1]===c));});}
   else{if(p.dataset.tw!=null){delete p.dataset.tw;p.innerHTML="";for(let i=1;i<=20;i++){const e=document.createElement("i");if(BOSSES[i])e.classList.add("boss");p.appendChild(e);}}
@@ -13295,7 +13320,7 @@ function showInfo(u,ctx){
   const slots=itemSlots(u),its=u.items||[],gifts=u.gifts||[];
   const gc={};gifts.forEach(g=>gc[g]=(gc[g]||0)+1);
   const IT=INFO_TAB;
-  $("info").innerHTML=`<div class="ihead"><div class="pic" style="--tc:${TYPES[tys[0]][1]}"></div><div><h4>${ownUnit(u)&&!mgI?nickField(u,sp):(mgI?mgI.n:esc(unitName(u)))} <span class="st">${"★".repeat(u.stars)}</span>${u.nick&&ownUnit(u)?`<small class="nickSp">${sp.name}</small>`:""}${u.shiny?`<span class="shyI" title="Schillernd (rein optisch)">${ic("shiny")}</span>`:""}${u.secret?`<span class="secI" title="Geheime Fähigkeit: ${SECRETS[u.secret].n}">${ic("spark")}</span>`:""}</h4>${pills(sp.types)}<br><span class="rar" style="--rc:${RAR[L.tier].c}">${RAR[L.tier].n.toUpperCase()} · ${COST[L.tier]} GOLD${ctx==="enemy"?" · GEGNER":""}</span>${u.crypto?`<br><span class="ctag inl" title="Crypto-Pokémon: +20 % Angriff, +15 % KP, +15 % Schaden gegen normale Pokémon. Unter 50 % KP: Crypto-Rausch.">${ctx==="enemy"?(u.raid?"RAID · CRYPTO":"CRYPTO"):`CRYPTO · noch ${u.crypto} Runden bis zur Erlösung`}</span>`:""}</div></div>
+  $("info").innerHTML=`<div class="ihead"><div class="pic" style="--tc:${TYPES[tys[0]][1]}"></div><div><h4>${ownUnit(u)&&!mgI?nickField(u,sp):(mgI?mgI.n:esc(unitName(u)))} <span class="st">${"★".repeat(u.stars)}</span>${u.nick&&ownUnit(u)?`<small class="nickSp">${sp.name}</small>`:""}${u.shiny?`<span class="shyI" title="Schillernd (rein optisch)">${ic("shiny")}</span>`:""}${u.secret?`<span class="secI" title="Geheime Fähigkeit: ${SECRETS[u.secret].n}">${ic("spark")}</span>`:""}</h4>${pills(sp.types)}<br><span class="rar" style="--rc:${RAR[L.tier].c}">${RAR[L.tier].n.toUpperCase()} · ${ownUnit(u)?"WERT "+unitCost(u):COST[L.tier]} GOLD${ctx==="enemy"?" · GEGNER":""}</span>${u.crypto?`<br><span class="ctag inl" title="Crypto-Pokémon: +20 % Angriff, +15 % KP, +15 % Schaden gegen normale Pokémon. Unter 50 % KP: Crypto-Rausch.">${ctx==="enemy"?(u.raid?"RAID · CRYPTO":"CRYPTO"):`CRYPTO · noch ${u.crypto} Runden bis zur Erlösung`}</span>`:""}</div></div>
   <div class="itabs"><button data-it="ov" class="${IT==="ov"?"on":""}">${ic("hp")}Übersicht</button><button data-it="mv" class="${IT==="mv"?"on":""}">${ic("swords")}Attacken</button><button data-it="ty" class="${IT==="ty"?"on":""}">${ic("aim")}Typen</button></div>
   <div class="ipane${IT==="ov"?" on":""}" data-p="ov"><div class="rbox">${roleHex(st.role)}<div><b style="color:${R.col}">${R.n}</b>${rngTag(st.rangeK)}<p>${R.d}</p></div></div>
   ${specBox(u)}
@@ -13349,7 +13374,7 @@ function genEnemies(p){
     const D=DIFF[p.type],lvE=expLevel(r);
     const bu=boardUnits(),pv=playerVal();
     const hard=p.type==="hard"||p.type==="elite",n=clamp(Math.max(expCap(r)-(S.abyss?1:0),bu.length)+D.dn,2,10);
-    let budget=Math.max(expCap(r)*unitVal(r)*BAL.fl,pv*BAL.bud)*D.bm*(M.bud||1)*((M.tk||{})[p.type]||1)*budR(r)*(hard&&r>=16?BAL.hl:hard&&r>=14?(1+BAL.hl)/2:1);
+    let budget=Math.max(expCap(r)*unitVal(r)*BAL.fl,pv*BAL.bud)*D.bm*(typeof modeRamp==="function"?modeRamp(M.bud||1,r):(M.bud||1))*((M.tk||{})[p.type]||1)*budR(r)*(hard&&r>=16?BAL.hl:hard&&r>=14?(1+BAL.hl)/2:1);
     const rr=r+(hard?1:0),myMax=bu.reduce((a,u)=>Math.max(a,SPECIES[u.sp].stage),0),myStars=bu.reduce((a,u)=>Math.max(a,u.stars),0);
     const maxSt=Math.max(rr>=8?2:rr>=3?1:0,Math.min(2,myMax-(hard?0:1))),maxStars=Math.max(rr>=18?2:rr>=13?1:0,myStars-(hard?0:1));
     const giftN=(r>=16?2:r>=9?1:0)+(p.type==="elite"?1:0)+modeStep(M.eGift,r),itN=Math.max(modeStep(M.eIt,r),typeof twItems==="function"?twItems():0);
@@ -13453,7 +13478,7 @@ function rollPaths0(){
   if(!types.some(t=>t!=="event"))types[0]="easy";
   if(typeof rivalRound==="function"&&rivalRound(r)&&!types.includes("rival")){let j=types.indexOf("mid");if(j<0)j=types.findIndex(t=>t!=="event"&&t!=="easy");if(j<0)j=types.length-1;types[j]="rival";}
   const ord=["easy","mid","hard","elite","rival","rocket","ultra","event"];types.sort((a,b)=>ord.indexOf(a)-ord.indexOf(b));
-  const locs=S.tower&&typeof TW_LOCS!=="undefined"?shuffle(((S.abyss&&typeof AB_LOCS!=="undefined")?AB_LOCS:TW_LOCS).slice()):pickLocs(3);S.paths=types.map((t,i)=>{const p={type:t,name:t==="rocket"?pick(ROCKET_N[S.region||"kanto"]||ROCKET_N.kanto):t==="ultra"?"Ultrapforte":t==="rival"&&typeof rivalOf==="function"?"Rivale "+rivalOf().n:pick(TRAINERS),loc:locs[i]||pick(LOC_POOL)};if(t==="event")p.options=eventOptions();else{p.enemies=genEnemies(p);if(typeof rollWeather==="function"){const w=rollWeather(p.loc);if(w)p.weather=w;}}return p;});
+  const locs=S.tower&&typeof TW_LOCS!=="undefined"?shuffle(((S.abyss&&typeof AB_LOCS!=="undefined")?AB_LOCS:TW_LOCS).slice()):pickLocs(3);S.paths=types.map((t,i)=>{const p={type:t,name:t==="rocket"?pick(ROCKET_N[S.region||"kanto"]||ROCKET_N.kanto):t==="ultra"?"Ultrapforte":t==="rival"&&typeof rivalOf==="function"?"Rivale "+rivalOf().n:(typeof trPick==="function"?trPick():pick(TRAINERS)),loc:locs[i]||pick(LOC_POOL)};if(t==="event")p.options=eventOptions();else{p.enemies=genEnemies(p);if(typeof rollWeather==="function"){const w=rollWeather(p.loc);if(w)p.weather=w;}}return p;});
   S.enc=null;S.encIdx=null;S.enemies=[];
 }
 let rolling=false;
@@ -13464,7 +13489,7 @@ function autoRoll(){if(rolling||(S&&S.duel))return;rolling=true;if(S&&!S.paths&&
   const done=()=>{rolling=false;render();refreshWorld();};if(window.__fast)return done();
   const wait=()=>{if(!rolling)return;const dt=Date.now()-t0;let left=0;try{left=pend().length;}catch(e){}if((!left&&dt>=850)||dt>=2600)done();else setTimeout(wait,90);};setTimeout(wait,150);}
 function rerollPaths(){if(!S||S.phase!=="shop"||BOSSES[S.round]||rolling||S.revanche)return;const c=encRollCost();if(S.gold<c){{toast("Nicht genug Gold","coin");sfx("deny");}return;}S.gold-=c;S.encRolls++;S.paths=null;S.enc=null;S.encIdx=null;autoRoll();render();}
-function choosePath(i){if(!S||!S.paths||!S.paths[i]||S.phase!=="shop")return;S.enc=S.paths[i];S.encIdx=i;S.enemies=S.enc.enemies||[];save();render();refreshWorld();if(typeof wxShow==="function")wxShow(S.enc.weather);
+function choosePath(i){if(!S||!S.paths||!S.paths[i]||S.phase!=="shop"||(S.revanche&&S.enc))return;S.enc=S.paths[i];S.encIdx=i;S.enemies=S.enc.enemies||[];save();render();refreshWorld();if(typeof wxShow==="function")wxShow(S.enc.weather);
   // Kampfort schon jetzt bauen (nicht erst beim Kampfstart → kein Ruckler beim Start)
   if(S.enc.type!=="event")setTimeout(()=>{if(S&&S.enc&&S.phase==="shop")syncArena();},60);}
 function backToPaths(){if(!S||BOSSES[S.round]||S.revanche)return;if(typeof wxShow==="function")wxShow(null);S.enc=null;S.encIdx=null;S.enemies=[];render();refreshWorld();}
@@ -13494,7 +13519,7 @@ const winChanceH=(en,ty)=>{if(!en||!en.length||!boardUnits().length)return .5;le
 function chanceSim(en,ty,big){try{if(S&&!S.duel&&en&&en.length&&boardUnits().length&&typeof simChance==="function"){const p=simChance(en,ty,1);
   if(!simReady(en))return `<div class="chance${big?" big":""} wait"><span class="cl">${ic("trophy")}Siegchance</span><span class="cbar"><i></i></span><b>…</b><em>rechnet</em></div>`;return chanceTag(p,big,1);}}catch(e){}return chanceTag(winChance(en,ty),big);}
 function chanceTag(p,big,exact){const [t,c]=p>=.9?["Sicher","var(--green)"]:p>=.65?["Gut","var(--cyan)"]:p>=.35?["Riskant","var(--amber)"]:["Gefährlich","var(--red)"];const v=Math.round(p*100);return `<div class="chance${big?" big":""}" style="--cc:${c}" title="${exact?"Siegchance aus "+SIM_N+" Probekämpfen":"Geschätzte Siegchance (grobe Schätzung aus Stärke und Typen)"}"><span class="cl">${ic("trophy")}Siegchance</span><span class="cbar"><i style="width:${v}%"></i></span><b>${exact?"":"~"}${v}%</b><em>${t}</em></div>`;}
-const enemyScale=()=>(S&&S.daily&&S.daily.rules.includes("hard")?1.12:1)*(S&&S.scout?.85:1)*(S&&S.flare?1.2:1)*1.0*(1+Math.max(0,S.round-8)*BAL.ramp1+Math.max(0,S.round-14)*BAL.ramp2)*MODES[S.mode].enemy*(typeof twScale==="function"?twScale():1)*(S.revanche&&!S.tower?1+S.revives*Math.max(.03,MODES[S.mode].revive-.03*perk("phoenix")):1);
+const enemyScale=()=>(S&&S.daily&&S.daily.rules.includes("hard")?1.12:1)*(S&&S.scout?.85:1)*(S&&S.flare?1.2:1)*1.0*(1+Math.max(0,S.round-8)*BAL.ramp1+Math.max(0,S.round-14)*BAL.ramp2)*(typeof modeRamp==="function"?modeRamp(MODES[S.mode].enemy,S.round):MODES[S.mode].enemy)*(typeof twScale==="function"?twScale():1)*(S.revanche&&!S.tower?1+S.revives*Math.max(.015,MODES[S.mode].revive-.015*perk("phoenix")):1);
 // Sprite nach sichtbarem Inhalt zentrieren (GIF-Leinwand ist oft einseitig leer, z.B. Schweif)
 function centerSpr(img){if(!img||img.tagName!=="IMG")return img;
   const go=()=>{try{const w=img.naturalWidth,h=img.naturalHeight;if(!w||!h)return;const c=document.createElement("canvas");c.width=w;c.height=h;const x=c.getContext("2d");x.drawImage(img,0,0);const d=x.getImageData(0,0,w,h).data;
@@ -13520,7 +13545,7 @@ function renderEnc(){
   }
   const D=DIFF[enc.type];
   if(enc.type==="event"){
-    m.innerHTML=`<div id="encHead"><h2>EREIGNIS</h2><span class="diff" style="--dc:${D.col}">${ic(D.ic)} Kein Kampf</span></div>${S.tower?twRuleHtml():""}<p class="empty" style="margin-top:0">Am Wegesrand wartet etwas. Wähle eine Belohnung:</p><div class="evCards paths">${enc.options.map((e,i)=>`<button class="path" data-i="${i}" style="--dc:var(--cyan);animation-delay:${i*.06}s"><span class="pi">${ic(e.ic)}</span><div><h4>${e.n}</h4><p>${e.d}</p></div></button>`).join("")}</div>
+    m.innerHTML=`<div id="encHead"><h2>EREIGNIS</h2><span class="diff" style="--dc:${D.col}">${ic(D.ic)} Kein Kampf</span></div>${S.tower?twRuleHtml():""}<p class="empty" style="margin-top:0">Am Wegesrand wartet etwas. Wähle eine Belohnung:</p><div class="evCards paths">${enc.options.map((e,i)=>`<button class="path" data-i="${i}" style="--dc:var(--cyan);animation-delay:${i*.06}s"${typeof evCost==="function"&&evCost(e)&&S.gold<evCost(e)?" disabled title=\"Zu wenig Gold\"":""}><span class="pi">${ic(e.ic)}</span><div><h4>${e.n}</h4><p>${e.d}</p></div></button>`).join("")}</div>
      <div id="encFoot"><button class="btn" id="encBack">${ic("back")} Anderer Weg</button></div>`;
     m.querySelectorAll(".path").forEach(b=>b.onclick=()=>chooseEvent(+b.dataset.i));$("encBack").onclick=backToPaths;return;
   }
@@ -13542,7 +13567,7 @@ function renderEnc(){
   $("encFight").onclick=fight;
 }
 function chooseEvent(i){
-  const e=S.enc.options[i];const free=S.bench.indexOf(null);
+  const e=S.enc.options[i];const free=S.bench.indexOf(null);{const ct=typeof evCost==="function"?evCost(e):0;if(ct&&S.gold<ct){toast(`Zu wenig Gold: Das kostet ${ct} Gold.`,"coin");sfx("deny");return;}}
   if(e.id==="wild"){const t=rollTier();const L=pick(pool().filter(l=>l.tier<=t))||pick(pool());if(free>=0){S.bench[free]=mkUnit(L.stages[0][0]);dexUp(L.stages[0][0],d=>{d.seen++;d.owned++;});toast(`${L.stages[0][1]} schließt sich an!`,"grass");}else{S.gold+=COST[L.tier];toast("Bank voll: stattdessen Gold","coin");}}
   else if(e.id==="chest")S.gold+=e.g;
   else if(e.id==="fossil"){const sp=Math.random()<.5?696:698;if(free>=0){S.bench[free]=mkUnit(sp);dexUp(sp,d=>{d.seen++;d.owned++;});toast(`${SPECIES[sp].name} ist wiederbelebt!`,"relic");}else{S.gold+=COST[3];toast("Bank voll: stattdessen Gold","coin");}}
@@ -13646,7 +13671,7 @@ function migrateItems(){if(!S)return;let refund=0;const fix=id=>{if(IT_BY[id])re
   if(S.shop&&S.shop.item&&!IT_BY[S.shop.item.id])S.shop.item=rollItemShop();if(refund)S.gold+=refund;}
 function fuseUnits(keep,gone){if(keep&&gone&&!keep.nick&&gone.nick)keep.nick=gone.nick;const shy0=[keep.shiny||false,gone.shiny||false];try{META.stats=META.stats||{};META.stats.fusions=(META.stats.fusions||0)+1;}catch(e){}if(typeof misBump==="function")misBump("fuse");
   removeU(gone);if((gone.spec||[]).length>(keep.spec||[]).length)keep.spec=gone.spec.slice();if(!keep.secret&&gone.secret)keep.secret=gone.secret;if(keep.crypto||gone.crypto){const c=Math.min(keep.crypto||0,gone.crypto||0);if(c)keep.crypto=c;else{delete keep.crypto;toast(`${SPECIES[keep.sp].name}: Die Fusion hat das Crypto-Herz geöffnet!`,"heart");}}keep.gifts=(keep.gifts||[]).concat(gone.gifts||[]);{let seen=0;keep.gifts=keep.gifts.map(g=>g==="g_slot"?(seen++?"g_hp":g):g);}let tm=null;if(keep.shiny==="a"||gone.shiny==="a"){if(keep.shiny!=="a"||gone.shiny!=="a"){const ok=Math.random()<Math.min(1,AUR_KEEP+.05*(S.aurLose||0));S.aurLose=ok?0:(S.aurLose||0)+1;const other=keep.shiny==="a"?gone.shiny:keep.shiny;if(ok)keep.shiny="a";else if(other)keep.shiny=true;else delete keep.shiny;const nm=SPECIES[keep.sp]&&SPECIES[keep.sp].name;setTimeout(()=>toast(ok?`${nm} bleibt Aurora!`:`${nm} hat sein Aurora-Leuchten verloren`,ok?"shiny":"close"),900);}else keep.shiny="a";}
-  else if(!!gone.shiny!==!!keep.shiny){const sh=Math.random()<Math.min(1,.5+.25*(S.shyLose||0));S.shyLose=sh?0:(S.shyLose||0)+1;if(sh)keep.shiny=true;else delete keep.shiny;tm=[sh?"shy1":"shy0"];}else if(gone.shiny)keep.shiny=true;
+  else if(!!gone.shiny!==!!keep.shiny){const sh=Math.random()<Math.min(1,.5+.25*(S.shyLose||0));S.shyLose=sh?0:(S.shyLose||0)+1;if(sh)keep.shiny=true;else delete keep.shiny;tm=[sh?"shy1":"shy0"];{const nm=SPECIES[keep.sp]&&SPECIES[keep.sp].name;setTimeout(()=>toast(sh?`${nm} bleibt schillernd!`:`${nm} hat sein Schillern verloren`,sh?"shiny":"close"),900);}}else if(gone.shiny)keep.shiny=true;
   const from=keep.sp,its=(keep.items||[]).concat(gone.items||[]);evolve(keep);keep.items=[];
   for(const id of its){if(keep.items.length<itemSlots(keep))keep.items.push(id);else toBag(id);}
   S.fuseQ.push({uid:keep.uid,from,shy:shy0,tm});if(GL){const l=locate(keep);if(l&&l.w==="board"){const[x,y]=l.k.split(",").map(Number);equipFx(x,y,0xffc94a);}}
@@ -15673,6 +15698,10 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Aurora-Nachtrag": "Aurora catch-up
 if(typeof EN!=="undefined")Object.assign(EN,{"Tastenkürzel": "Keyboard shortcuts", "Neue Tastenkürzel: Leertaste oder Enter drückt den Hauptknopf (z. B. „Weiter zum Shop“ nach dem Kampf), 1–9 wählt in Fenstern und nach dem Kampf, Q/W/A/S/Y kauft die Pokémon im Laden. Die Zurück-Taste von Maus und Browser schließt Fenster bzw. pausiert den Lauf. H zeigt alle Tastenkürzel.": "New keyboard shortcuts: Space or Enter presses the main button (e.g. “Continue to shop” after a battle), 1–9 picks in windows and after a battle, Q/W/A/S/Y buys the Pokémon in the shop. The Back button of mouse and browser closes windows or pauses the run. H shows all shortcuts.", "TASTENKÜRZEL": "KEYBOARD SHORTCUTS", "Überall": "Everywhere", "Hauptmenü": "Main menu", "Laden": "Shop", "Kampf": "Battle", "Leertaste": "Space", "Hauptknopf (Weiter, OK, Nächster Kampf)": "Main button (Continue, OK, Next battle)", "Auswahl in Fenstern (Belohnung, Draft …)": "Pick in windows (reward, draft …)", "oder Zurück-Taste (Maus/Browser) Fenster schließen, im Lauf Pause": "or Back button (mouse/browser) close window, pause in a run", "diese Übersicht": "this overview", "wählen,": "select,", "öffnen": "open", "Kampf starten · ": "Start battle · ", "neu würfeln · ": "reroll · ", "Wege · ": "paths · ", "Ausgewähltes verkaufen": "Sell selected", "Pokémon 1–5 im Laden kaufen": "Buy shop Pokémon 1–5", "Laden · ": "Shop · ", "Raster · ": "Grid · ", "Begegnungen · ": "Encounters · ", "Zoom": "Zoom", "Tempo · ": "Speed · ", "Pause": "Pause", "oder": "or"});
 /* v1.58.0.5 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Schnellfix aus dem Testbericht": "Quick fixes from the test report", "Siegchance genauer: Sie rechnet jetzt 50 Probekämpfe statt 24. Angezeigt wird sie so schnell wie vorher, der Rest wird im Hintergrund nachgerechnet.": "More accurate win chance: it now runs 50 test battles instead of 24. It shows up as fast as before, the rest is calculated in the background.", "Revanche: Die Vorschau zeigt jetzt die halbierte Prämie, die wirklich ausgezahlt wird.": "Rematch: the preview now shows the halved reward that is actually paid.", "Tutorial korrigiert: Zwei gleiche Pokémon verschmelzen (nicht drei), und der Hinweis zu den Wegen passt jetzt auch, wenn es nur zwei gibt.": "Tutorial fixed: two identical Pokémon merge (not three), and the hint about the paths also fits when there are only two.", "Das Relikt „Flinkklaue“ heißt jetzt „Flinkfeder“, damit es nicht mehr mit dem gleichnamigen Item verwechselt wird. Die Wirkung bleibt gleich.": "The relic “Quick Claw” is now called “Swift Wing” so it is no longer confused with the item of the same name. Its effect stays the same.", "Flinkfeder": "Swift Wing", "Musik hat jetzt auch die Stufe „Laut“.": "Music now also has the “Loud” level.", "Neues Spiel aufgeräumt: Oben steht nur noch „Pokémon im Lauf“, die Herausforderungen sind unter die Schwierigkeiten gerückt.": "New game tidied up: only “Pokémon in the run” stays at the top, the challenges moved below the difficulties.", "Aufstiege: Die Beschreibung sagt jetzt, dass der Aufstieg zusätzlich zur Unterklasse wirkt (z. B. Flammenmeer +18 % auf die +30 % von Lohekanonier).": "Ascensions: the description now says the ascension works on top of the subclass (e.g. Sea of Flames +18 % on top of the +30 % of Blaze Cannon).", "Tipp einen der Wege an.": "Tap one of the paths.", "Zwei gleiche Pokémon": "Two identical Pokémon", "Musik: Laut": "Music: Loud", "(Revanche, halbiert)": "(rematch, halved)"});
+/* v1.59.0 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Bestenliste & Testbericht": "Leaderboard & test report", "Bestenliste: Du siehst dich jetzt immer selbst. Bist du in den Top 10, ist deine Zeile hervorgehoben, sonst hängt sie mit deinem Platz unten an der Liste, auch wenn du noch gar nicht drinstehst.": "Leaderboard: you now always see yourself. In the top 10 your row is highlighted, otherwise it sticks to the bottom of the list with your place, even if you are not listed yet.", "Nach dem Kampf löst die Leertaste keine Revanche mehr aus (Revanche nur mit Enter oder 1), und in den ersten Sekunden reagiert das Ergebnis nicht auf Tasten. „Aufgeben“ und „Turm verlassen“ fragen jetzt nach.": "After a battle Space no longer starts a rematch (rematch only with Enter or 1), and the result ignores keys for the first seconds. “Give up” and “Leave tower” now ask first.", "Infofeld bleibt aktuell: nach Fusion und Aufstieg mit neuem Namen und Werten, keine alten Gegner oder Laden-Pokémon mehr. Bei deinen Pokémon steht jetzt der Wert statt des Grundpreises.": "Info panel stays up to date: new name and stats after merging and ascending, no old enemies or shop Pokémon any more. Your own Pokémon show their value instead of the base price.", "Glücksspiel-Halle ist ohne genug Gold für den Einsatz gesperrt. Im selben Lauf kommen dieselben Trainer nicht mehr ständig wieder. In der Revanche lässt sich der Weg nicht mehr wechseln.": "The gambling hall is locked without enough gold for the stake. The same trainers no longer keep coming back within one run. The path can no longer be changed during a rematch.", "Neues Spiel per Tastatur: Region und Schwierigkeit mit 1–9 wählen. Laden-Chancen in gut lesbarer Schrift, Gegner-Werte mit zwei Nachkommastellen, Siegchance aus 50 Probekämpfen.": "New game by keyboard: pick region and difficulty with 1–9. Shop odds in a readable font, enemy values with two decimals, win chance from 50 test battles.", "Texte: Aufstiege zeigen jetzt auch den Gesamtwert zusammen mit der Unterklasse. Die Formation „Schutzwall“ heißt „Schildstellung“, damit sie nicht wie die Unterklasse heißt. Spott-Text klarer, Johto-Schloss ohne Schwierigkeit, Anleitung „meist 3 Wege“.": "Texts: ascensions now also show the total together with the subclass. The formation “Schutzwall” is now called “Shield Stance” so it no longer shares the subclass name. Clearer taunt text, Johto lock without difficulty, guide says “usually 3 paths”.", "Schildstellung": "Shield Stance", "Werde Champion in Kanto": "Become champion in Kanto", "Punkte": "Points", "Noch nicht in der Liste · spiel weiter!": "Not listed yet · keep playing!", "neue Regeln jede Woche": "new rules every week", "Wähle einen von meist 3 Wegen (bei Bossen nur einer). Die": "Pick one of usually 3 paths (only one for bosses). The", "Wähl einen von meist 3 Wegen (bei Bossen nur einer). Die": "Pick one of usually 3 paths (only one for bosses). The", "Der Lauf endet sofort und lässt sich nicht fortsetzen.": "The run ends immediately and cannot be continued.", "Zurück": "Back", "Zu wenig Gold": "Not enough gold", "lenkt alle 4 s nahe Gegner auf sich (Spott)": "draws nearby enemies to itself every 4 s (taunt)", "Lenkt alle 4 s nahe Gegner auf sich (Spott). Verbündete direkt neben ihm erleiden 15 % weniger Schaden. +15 % KP.": "Draws nearby enemies to itself every 4 s (taunt). Allies right next to it take 15 % less damage. +15 % HP.", "Hauptknopf (Weiter, OK, Nächster Kampf); Revanche nur mit": "Main button (Continue, OK, Next battle); rematch only with", "Auswahl in Fenstern (Region, Schwierigkeit, Belohnung, Draft …)": "Pick in windows (region, difficulty, reward, draft …)"});
+/* v1.60.0 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Revanche, Level 9 & Balance": "Rematch, level 9 & balance", "Revanche fairer: Die Gegner werden pro Wiederbelebung nur noch halb so viel stärker (Normal +5 % statt +10 %), und der Laden wird beim Start der Revanche frisch gewürfelt.": "Fairer rematch: enemies only get half as much stronger per revive (Normal +5 % instead of +10 %), and the shop is rerolled when the rematch starts.", "Neues Trainer-Level 9 (ein Platz mehr im Raster, bessere Laden-Chancen). Übriges Gold hat damit wieder ein Ziel.": "New trainer level 9 (one more grid slot, better shop odds). Spare gold has a purpose again.", "Schwer, Nuzlocke und Albtraum: Der Gegner-Bonus steigt in den ersten Runden langsam an und ist ab Runde 6 voll da. Runde 3 ist keine Wand mehr. Normal: Der Boss in Kanto Runde 15 ist etwas schwächer.": "Hard, Nuzlocke and Nightmare: the enemy bonus ramps up over the first rounds and is full from round 6. Round 3 is no longer a wall. Normal: the Kanto boss in round 15 is a bit weaker.", "17 Unterklassen, die genauso hießen wie eine Fähigkeit, haben eigene Namen, z. B. „Falkenblick“ statt „Adlerauge“ (Tauboga) und „Felsenhaut“ statt „Robustheit“.": "17 subclasses that had the same name as an ability now have their own names, e.g. “Falcon Gaze” instead of “Keen Eye” (Pidgeotto) and “Rock Skin” instead of “Sturdy”.", "Forschungslabor: Startkapital sagt jetzt „+2 Gold je Stufe“, oben steht „1. Forschung von 6“ statt „Stufe 1/6“, und die Edelsteine im Hauptmenü stimmen auch, während das Labor offen ist.": "Research lab: Starting capital now says “+2 gold per level”, the header says “Research 1 of 6” instead of “Level 1/6”, and the gems in the main menu are correct while the lab is open.", "Ereignisse, die Gold kosten (z. B. Rocket-Hehler), sind ohne genug Gold gesperrt. Geht beim Fusionieren das Schillern verloren, gibt es jetzt einen Hinweis. Sparfuchs zieht nur noch 25 % vom Kampfgold ab, wie beschrieben, und die Abrechnung zeigt kein „+-“ mehr. Täglicher Run und Wochen-Herausforderung fragen nach, bevor sie einen laufenden Lauf ersetzen.": "Events that cost gold (e.g. the Rocket fence) are locked without enough gold. If a merge loses the shine you now get a notice. Thrifty only takes 25 % of battle gold, as described, and the payout no longer shows “+-”. Daily run and weekly challenge ask before replacing a run in progress.", "Runde 3 entschärft: In der Rivalen-Runde gibt es keinen zusätzlichen Geisterkampf mehr, und der Rivale ist beim ersten Treffen etwas schwächer.": "Round 3 eased: the rival round no longer adds an extra ghost battle, and the rival is a bit weaker at the first meeting.", "Neu: Erweiterte Einstellungen. Dort lässt sich ein Konto in den KI-Modus schalten, für Test-KIs, die das Spiel ohne Maus spielen. KI-Konten tauchen nur noch in der Allzeit-Bestenliste auf (mit „KI“-Kennzeichen), nicht in Season, Woche und Ranked. Das ist endgültig und kann nur vom Admin aufgehoben werden.": "New: Advanced settings. There an account can be switched to AI mode, for test AIs that play without a mouse. AI accounts only appear on the all-time leaderboard (with an “AI” tag), not in season, weekly and ranked. This is final and can only be undone by the admin.", "Schnellerer Start: Im Hintergrund werden nur noch die Pokémon-Bilder der Regionen geladen, die du freigeschaltet hast. Andere kommen erst, wenn sie gebraucht werden.": "Faster start: in the background only the Pokémon images of regions you have unlocked are loaded. Others come when they are needed.", "+2 Gold je Stufe zu Beginn jedes Laufs (3/3 = +6).": "+2 gold per level at the start of every run (3/3 = +6).", "Revanche-Gegner −1,5 % Verstärkung je Stufe.": "Rematch enemies −1.5 % strengthening per level.", "FORSCHUNG VON": "RESEARCH OF", "Erweiterte Einstellungen": "Advanced settings", "KI-Konto": "AI account", "In KI-Modus wechseln": "Switch to AI mode", "IN DEN KI-MODUS WECHSELN?": "SWITCH TO AI MODE?", "WIRKLICH ENDGÜLTIG?": "REALLY FINAL?", "Ja, KI-Konto": "Yes, AI account", "Weiter": "Continue", "Abbrechen": "Cancel", "Nein": "No", "Trotzdem starten": "Start anyway", "WOCHEN-HERAUSFORDERUNG": "WEEKLY CHALLENGE", "Sparfuchs (−25 % Kampfgold)": "Thrifty (−25 % battle gold)", "KI-Konto · nur in der Allzeit-Liste": "AI account · all-time list only", "Revanche! Der Laden ist frisch gewürfelt. Passe dein Team an, dann starte den Kampf erneut.": "Rematch! The shop has been rerolled. Adjust your team, then start the battle again."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18318,7 +18347,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.58.0.5",DUEL_HP=30;
+const MP_VER="1.60.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18354,7 +18383,7 @@ function dailyInfo(day){day=day||dayKey();const h=strHash("pkl-daily|"+day),R=mk
 function ruleTxt(k,D){const R=DAILY_RULES[k];return (typeof tr==="function"?tr(R.d):R.d).replace("{T}",(TYPES[D.ty]||["?"])[0]);}
 function dailyState(){const D=dailyInfo(),M=META.daily||{};return{D,played:M.day===D.day,score:M.day===D.day?M.score:null};}
 function startDaily(){const {D,played}=dailyState();const go=()=>{if(!played){META.daily={day:D.day,used:1};META.dailyN=(META.dailyN||0)+1;saveMeta();}newRun("normal",D.region,{daily:Object.assign({},D,{scored:!played})});};
-  const sv=LS.get(saveKey("sp"),null);if(sv&&sv.S&&sv.S.round>1){openModal(`<h2>${ic("cal")} TÄGLICHER RUN</h2><div class="lead">Dein laufendes Spiel (Runde ${sv.S.round}) wird dabei beendet.</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="dGo">${ic("play")} Trotzdem starten</button><button class="btn" id="dNo">Abbrechen</button></div>`,"narrow",true);$("dGo").onclick=()=>{closeModal();go();};$("dNo").onclick=()=>chooseMode();}else go();}
+  const sv=LS.get(saveKey("sp"),null);if(sv&&sv.S&&sv.S.phase!=="over"&&!sv.S.daily){openModal(`<h2>${ic("cal")} TÄGLICHER RUN</h2><div class="lead">Dein laufendes Spiel (Runde ${sv.S.round}) wird dabei beendet.</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="dGo">${ic("play")} Trotzdem starten</button><button class="btn" id="dNo">Abbrechen</button></div>`,"narrow",true);$("dGo").onclick=()=>{closeModal();go();};$("dNo").onclick=()=>chooseMode();}else go();}
 function dailyIntro(){const D=S.daily;toast(`Täglicher Run ${D.day.split("-").reverse().join(".")}${D.scored?"":" · Übungslauf"} · ${D.rules.filter(k=>DAILY_RULES[k]).map(k=>DAILY_RULES[k].n).join(" · ")}`,"cal");}
 function dailyScore(win,reached){return Math.max(0,(reached-1)*100+S.wins*10+S.bosses*25+(win?300:0)-S.revives*40);}
 function dailyFinish(win,reached){const D=S.daily,sc=dailyScore(win,reached);
@@ -18403,7 +18432,7 @@ function geistFetch(reg,r){const k=reg+"|"+r;if((GH.cache[k]&&Date.now()-(GH.ct[
     if(!res||!res.ok||!Array.isArray(res.j))return;const me=(typeof CL!=="undefined"&&CL.sess&&CL.sess.uid)||null;
     GH.cache[k]=res.j.filter(x=>x&&x.name!==USER&&!(me&&x.user_id===me)).map(x=>({name:String((x.user_id&&nm[x.user_id])||x.name||"?").slice(0,20),team:teamClean(x.team)})).filter(x=>x.team.length);GH.ct[k]=Date.now();geistInject(false);}).catch(()=>{delete GH.busy[k];});}
 function geistPrep(){if(!S||S.duel||!geistOn())return;const reg=S.region||"kanto";for(let r=S.round;r<=Math.min(19,S.round+3);r++)if(isGeistRound(r))geistFetch(reg,r);}
-function geistInject(inner){if(!S||S.duel||!geistOn()||S.phase!=="shop"||!S.paths||S.enc||!isGeistRound(S.round)||S.paths.some(p=>p.type==="ghost"))return;
+function geistInject(inner){if(!S||S.duel||!geistOn()||S.phase!=="shop"||!S.paths||S.enc||!isGeistRound(S.round)||S.paths.some(p=>p.type==="ghost"||p.type==="rival"))return;
   const list=GH.cache[(S.region||"kanto")+"|"+S.round];if(!list||!list.length)return;const g=list[Math.floor(VRND()*list.length)];
   let i=S.paths.findIndex(p=>p.type==="mid");if(i<0)i=S.paths.findIndex(p=>p.type!=="event"&&p.type!=="elite"&&p.type!=="rival"&&p.type!=="ultra");if(i<0)i=1;const old=S.paths[i];
   const en=teamUnits(g.team,0,true);for(const e of en){e.uid=uidC++;dexUp(e.sp,d=>d.seen++);}
@@ -18551,7 +18580,7 @@ function dexModal(t){needAll(()=>dexModal0(t));}
 function sprRegionLoaded(r){for(const k in sprIdx)if(sprIdx[k]==="ph")delete sprIdx[k];try{sprSwapWaiting();}catch(e){}try{if(S&&(S.region===r||S.abyss)&&S.phase==="shop")render();}catch(e){}}
 /* Nach dem Start leise im Hintergrund weiterladen: zuerst die zuletzt gespielte Region, bei Datensparmodus nur diese */
 setTimeout(function bgL(){if(!window.__SPRM)return;if(document.getElementById("bootLd"))return setTimeout(bgL,800);const save=!!(navigator.connection&&navigator.connection.saveData),last=LS.get("pokelings_lastreg","kanto");
-  const order=[...new Set([last,...Object.keys(__SPRM)])].filter(k=>__SPRM[k]);let ch=Promise.resolve();
+  const order=[...new Set([last,...Object.keys(__SPRM)])].filter(k=>__SPRM[k]&&(k===last||typeof regUnlocked!=="function"||regUnlocked(k)));let ch=Promise.resolve();
   for(const r of save?order.slice(0,1):order)ch=ch.then(()=>new Promise(ok=>setTimeout(ok,150))).then(()=>__sprLoad(r));},6000);
 
 /* ================================ TUTORIAL (erster Lauf) ================================ */
@@ -18810,7 +18839,7 @@ function rankedMeInto(el){if(!el)return;if(typeof CL==="undefined"||!CL.sess){el
 /* ---------- Bestenliste im Menü: rechts am Rand (große Bildschirme) bzw. als Menüpunkt; aktualisiert sich jede Minute + Knopf ---------- */
 const MLB={tab:"pts",sea:"cur",t:0,iv:0,busy:false,rows:null};
 function menuLbFrame(){return `<div class="ttl"><h3>${ic("trophy")} BESTENLISTE</h3><button class="btn sm mLbR" title="Jetzt aktualisieren">${ic("dice")}</button></div>
-  <div class="mLbTabs"><button data-mt="pts" class="${MLB.tab==="pts"?"on":""}">Trainerpunkte</button><button data-mt="pk" class="${MLB.tab==="pk"?"on":""}">Pokémon</button><button data-mt="tw" class="${MLB.tab==="tw"?"on":""}">Turm</button><button data-mt="rk" class="${MLB.tab==="rk"?"on":""}">Ranked</button></div>
+  <div class="mLbTabs"><button data-mt="pts" class="${MLB.tab==="pts"?"on":""}">Punkte</button><button data-mt="pk" class="${MLB.tab==="pk"?"on":""}">Pokémon</button><button data-mt="tw" class="${MLB.tab==="tw"?"on":""}">Turm</button><button data-mt="rk" class="${MLB.tab==="rk"?"on":""}">Ranked</button></div>
   <div class="mLbSea"${MLB.tab==="pts"?"":' style="display:none"'}><select class="mLbSel">${mlbSeaOpts()}</select><small class="mLbCd"></small></div>
   <div class="mLbList"><p class="empty">Lade …</p></div><small class="mLbAge"></small>`;}
 /* v1.38.0: Season-Auswahl (laufende Season, vergangene Seasons, Allzeit) */
@@ -18818,7 +18847,7 @@ function mlbSeaOpts(){const cur=seasonId();return seasonList().map(id=>`<option 
 function mlbCd(el){const c=el.querySelector(".mLbCd");if(!c)return;if(MLB.tab!=="pts"||MLB.sea!=="cur"){c.innerHTML=MLB.sea==="all"?"alle Läufe":"beendet";return;}const L=seasonLeft();
   c.innerHTML=`${ic("flag")} endet am ${L.end} · ${L.left>0?`noch ${L.left} ${L.left===1?"Tag":"Tage"}`:"heute 24 Uhr"}`;hydrateIcons(c);}
 function mlbSeaRows(list,sid){const br=MLB.rows||[],find=n=>br.find(r=>userKey(r.n)===userKey(n));
-  return list.slice(0,10).map((x,i)=>{const b=find(x.name),c=(x.info&&x.info.c)|0;return `<button class="lbRow r${i+1}"${b?fameRowA(b.card):""} data-n="${esc(x.name)}">${b?fameRowI(b.card):""}<span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${b?fameNameRow(x.name,b.card):esc(x.name)}</b>${b?lbTTHtml(b):""}</div>
+  return list.slice(0,300).map((x,i)=>{const b=find(x.name),c=(x.info&&x.info.c)|0;return `<button class="lbRow r${i+1}"${b?fameRowA(b.card):""} data-n="${esc(x.name)}">${b?fameRowI(b.card):""}<span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${b?fameNameRow(x.name,b.card):esc(x.name)}</b>${b?lbTTHtml(b):""}</div>
     <small title="${c} Champion-Titel · ${(x.info&&x.info.k)|0} Pokémon besiegt · ${(x.info&&x.info.b)|0} Bosse">${ic("crown")} ${c} Titel · ${ic("skull")} ${(x.info&&x.info.k)|0} · ${ic("trophy")} ${(x.info&&x.info.b)|0} Bosse</small></div><span class="lbPts">${(x.pts|0).toLocaleString("de-DE")}<em>Punkte</em></span></button>`;}).join("");}
 /* Season-Details: Punkte, Champion-Titel je Region in dieser Season, Kampfkarte */
 function seasonDetail(x,sid,b){const i=x.info||{},LL={e:"easy",n:"normal",h:"hard",a:"night",z:"nuzlocke"},R={};
@@ -18834,7 +18863,7 @@ function seasonDetail(x,sid,b){const i=x.info||{},LL={e:"easy",n:"normal",h:"har
 
 /* v1.43.0: Turm-Bestenliste */
 const twOf=r=>Math.max(+(r&&r.tw)||0,+((r&&r.per||{})._tw)||0,+((r&&r.card||{}).tw)||0);
-function mlbTwRows(rows){return rows.slice(0,10).map((a,i)=>`<button class="lbRow r${i+1}"${fameRowA(a.card)} data-n="${esc(a.n)}">${fameRowI(a.card)}<span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${fameNameRow(a.n,a.card)}</b>${lbTTHtml(a)}</div>
+function mlbTwRows(rows){return rows.slice(0,300).map((a,i)=>`<button class="lbRow r${i+1}"${fameRowA(a.card)} data-n="${esc(a.n)}">${fameRowI(a.card)}<span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${fameNameRow(a.n,a.card)}</b>${lbTTHtml(a)}</div>
     <small>${ic("crown")} ${a.titles|0} Titel · ${ic("trophy")} ${a.ach|0} Erfolge</small></div><span class="lbPts">${a.tw}<em>Ebene</em></span></button>`).join("");}
 /* v1.43.0: Season-Abschluss – beim ersten Start nach dem Season-Ende: Platz, Punkte, Belohnung */
 let SEA_RC=false;
@@ -18857,7 +18886,7 @@ function seaRecapShow(sid,pl,row,list){const [y,m]=sid.split("-"),lbl=m+"/"+y.sl
     <button class="pri" id="srOk">${ic("check")} WEITER</button></div>`,"",null);
   try{hydrateIcons($("mbox"));}catch(e){}const b=$("srOk");if(b)b.onclick=()=>closeModal();try{sfx(top?"evoDone":"coin");}catch(e){}}
 
-function mlbPkRows(rows){return rows.slice(0,10).map((a,i)=>`<button class="lbRow r${i+1}"${fameRowA(a.card)} data-n="${esc(a.n)}">${fameRowI(a.card)}<span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${fameNameRow(a.n,a.card)}</b>${lbTTHtml(a)}</div>
+function mlbPkRows(rows){return rows.slice(0,300).map((a,i)=>`<button class="lbRow r${i+1}"${fameRowA(a.card)} data-n="${esc(a.n)}">${fameRowI(a.card)}<span class="lbRank">${i===0?`<i class="lbCr">${ic("crown")}</i>`:""}${i+1}</span><div class="lbMain"><div class="lbNm"><b>${fameNameRow(a.n,a.card)}</b>${lbTTHtml(a)}</div>
     <small title="${a.own} Pokémon · ${a.shy} schillernd · ${a.ach} Erfolge">${ic("dex")} ${a.own} · ${ic("shiny")} ${a.shy} · ${ic("trophy")} ${a.ach}</small></div><span class="lbPts">${(a.pk|0).toLocaleString("de-DE")}<em>Punkte</em></span></button>`).join("");}
 function lbAnimSync(el){try{if(!el||!el.getAnimations)return;el.getAnimations({subtree:true}).forEach(a=>{try{const t=a.effect&&a.effect.getComputedTiming?a.effect.getComputedTiming():null;if(t&&t.iterations===Infinity&&a.timeline===document.timeline)a.startTime=0;}catch(e){}});}catch(e){}}
 function menuLbWire(el){el.querySelector(".mLbR").onclick=()=>menuLbLoad(el);
@@ -18867,13 +18896,13 @@ async function menuLbLoad(el,quiet){if(!el||MLB.busy)return;MLB.busy=true;const 
   try{if(MLB.tab==="rk"){const r=await clFetch("/rest/v1/rpc/ranked_board",{method:"POST",auth:false,body:{},timeout:8000});if(!L.isConnected)return;
       if(!r.ok||!Array.isArray(r.j)){if(!quiet)L.innerHTML=`<p class="empty">Ranked-Bestenliste nicht erreichbar.</p>`;return;}
       let br=MLB.rows;if(!br){try{br=await clBoard();}catch(e){}MLB.rows=br||null;}if(!L.isConnected)return;
-      L.innerHTML=r.j.length?rkRowsHtml(r.j,br,10):`<p class="empty">Noch keine Ranked-Kämpfe. Unter Mehrspieler → Ranked geht's los!</p>`;rkBind(L,r.j,br);}
+      L.innerHTML=r.j.length?rkRowsHtml(r.j,br,300):`<p class="empty">Noch keine Ranked-Kämpfe. Unter Mehrspieler → Ranked geht's los!</p>`;rkBind(L,r.j,br);}
     else{let rows=null,src="local";try{rows=await clBoard();if(rows&&rows.length)src="cloud";}catch(e){}if(!rows||!rows.length)rows=lbRows();if(!L.isConnected)return;MLB.rows=rows;
       const det=b=>{const r=rows.find(x=>userKey(x.n)===userKey(b.dataset.n));if(r)lbDetail(r);};mlbCd(el);
       if(MLB.tab==="pk"){const R=rows.slice().map(r=>Object.assign({},r,{pk:r.pk!=null?r.pk:lbPkEst(r)})).sort((a,b)=>b.pk-a.pk||b.shy-a.shy);
         L.innerHTML=R.length?`<p class="mLbHint">${ic("dex")} Pokémon 2,5 · ${ic("shiny")} Schillernd 10 · ${ic("trophy")} Erfolge 10–150 Punkte</p>`+mlbPkRows(R):`<p class="empty">Noch keine Trainer.</p>`;L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>det(b));}
       else if(MLB.tab==="tw"){if(typeof abDuoHtml==="function"){L.innerHTML=abDuoHtml(rows);}else{const R=rows.map(r=>Object.assign({},r,{tw:twOf(r)})).filter(r=>r.tw>0).sort((a,b)=>b.tw-a.tw||b.pts-a.pts);L.innerHTML=R.length?mlbTwRows(R):`<p class="empty">Noch niemand im Kampfturm.</p>`;}L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>det(b));}
-      else if(MLB.sea==="all"){L.innerHTML=rows.length?lbRowsHtml(rows,10):`<p class="empty">Noch keine Trainer.</p>`;L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>det(b));}
+      else if(MLB.sea==="all"){L.innerHTML=rows.length?lbRowsHtml(rows,300):`<p class="empty">Noch keine Trainer.</p>`;L.querySelectorAll(".lbRow").forEach(b=>b.onclick=()=>det(b));}
       else{const sid=MLB.sea==="cur"?seasonId():MLB.sea,r=await clFetch("/rest/v1/rpc/season_board",{method:"POST",auth:false,body:{sid},timeout:8000});if(!L.isConnected)return;
         const me=sid===seasonId()&&typeof USER!=="undefined"&&USER?seasonMine():null;
         const hint=sid===seasonId()&&typeof seaParse==="function"?`<div class="seaPv">${[1,2,3].map(p=>`<span>${badgeHTML("s|"+sid+"|"+p,seaTier(p),"sm")}<small>Platz ${p}</small></span>`).join("")}</div>`:"";
@@ -18955,8 +18984,25 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.58.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.60.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.60.0",d:"24.11.2026",t:"Revanche, Level 9 & Balance",items:[
+  ["heart", "Revanche fairer: Die Gegner werden pro Wiederbelebung nur noch halb so viel stärker (Normal +5 % statt +10 %), und der Laden wird beim Start der Revanche frisch gewürfelt."],
+  ["up", "Neues Trainer-Level 9 (ein Platz mehr im Raster, bessere Laden-Chancen). Übriges Gold hat damit wieder ein Ziel."],
+  ["skull", "Schwer, Nuzlocke und Albtraum: Der Gegner-Bonus steigt in den ersten Runden langsam an und ist ab Runde 6 voll da. Runde 3 ist keine Wand mehr. Normal: Der Boss in Kanto Runde 15 ist etwas schwächer."],
+  ["merge", "17 Unterklassen, die genauso hießen wie eine Fähigkeit, haben eigene Namen, z. B. „Falkenblick“ statt „Adlerauge“ (Tauboga) und „Felsenhaut“ statt „Robustheit“."],
+  ["lab", "Forschungslabor: Startkapital sagt jetzt „+2 Gold je Stufe“, oben steht „1. Forschung von 6“ statt „Stufe 1/6“, und die Edelsteine im Hauptmenü stimmen auch, während das Labor offen ist."],
+  ["bug", "Ereignisse, die Gold kosten (z. B. Rocket-Hehler), sind ohne genug Gold gesperrt. Geht beim Fusionieren das Schillern verloren, gibt es jetzt einen Hinweis. Sparfuchs zieht nur noch 25 % vom Kampfgold ab, wie beschrieben, und die Abrechnung zeigt kein „+-“ mehr. Täglicher Run und Wochen-Herausforderung fragen nach, bevor sie einen laufenden Lauf ersetzen."],
+  ["skull", "Runde 3 entschärft: In der Rivalen-Runde gibt es keinen zusätzlichen Geisterkampf mehr, und der Rivale ist beim ersten Treffen etwas schwächer."],
+  ["gear", "Neu: Erweiterte Einstellungen. Dort lässt sich ein Konto in den KI-Modus schalten, für Test-KIs, die das Spiel ohne Maus spielen. KI-Konten tauchen nur noch in der Allzeit-Bestenliste auf (mit „KI“-Kennzeichen), nicht in Season, Woche und Ranked. Das ist endgültig und kann nur vom Admin aufgehoben werden."],
+  ["fast", "Schnellerer Start: Im Hintergrund werden nur noch die Pokémon-Bilder der Regionen geladen, die du freigeschaltet hast. Andere kommen erst, wenn sie gebraucht werden."]]},
+ {v:"1.59.0",d:"23.11.2026",t:"Bestenliste & Testbericht",items:[
+  ["trophy", "Bestenliste: Du siehst dich jetzt immer selbst. Bist du in den Top 10, ist deine Zeile hervorgehoben, sonst hängt sie mit deinem Platz unten an der Liste, auch wenn du noch gar nicht drinstehst."],
+  ["bug", "Nach dem Kampf löst die Leertaste keine Revanche mehr aus (Revanche nur mit Enter oder 1), und in den ersten Sekunden reagiert das Ergebnis nicht auf Tasten. „Aufgeben“ und „Turm verlassen“ fragen jetzt nach."],
+  ["bug", "Infofeld bleibt aktuell: nach Fusion und Aufstieg mit neuem Namen und Werten, keine alten Gegner oder Laden-Pokémon mehr. Bei deinen Pokémon steht jetzt der Wert statt des Grundpreises."],
+  ["bug", "Glücksspiel-Halle ist ohne genug Gold für den Einsatz gesperrt. Im selben Lauf kommen dieselben Trainer nicht mehr ständig wieder. In der Revanche lässt sich der Weg nicht mehr wechseln."],
+  ["info", "Neues Spiel per Tastatur: Region und Schwierigkeit mit 1–9 wählen. Laden-Chancen in gut lesbarer Schrift, Gegner-Werte mit zwei Nachkommastellen, Siegchance aus 50 Probekämpfen."],
+  ["info", "Texte: Aufstiege zeigen jetzt auch den Gesamtwert zusammen mit der Unterklasse. Die Formation „Schutzwall“ heißt „Schildstellung“, damit sie nicht wie die Unterklasse heißt. Spott-Text klarer, Johto-Schloss ohne Schwierigkeit, Anleitung „meist 3 Wege“."]]},
  {v:"1.58.0.5",d:"23.11.2026",t:"Schnellfix aus dem Testbericht",items:[
   ["bug", "Siegchance genauer: Sie rechnet jetzt 50 Probekämpfe statt 24. Angezeigt wird sie so schnell wie vorher, der Rest wird im Hintergrund nachgerechnet."],
   ["bug", "Revanche: Die Vorschau zeigt jetzt die halbierte Prämie, die wirklich ausgezahlt wird."],
@@ -19664,7 +19710,7 @@ function introShow(){if(!introNeed()||!$("menu").classList.contains("show")||$("
   const P=[()=>`<div class="ioHead"><small class="ioK">${ic("ball")} KURZ ERKLÄRT</small><h2>Willkommen bei Pokélings</h2><p class="ioSub">Stell dir ein Team zusammen, lass es automatisch kämpfen und werde in Runde 20 Champion deiner Region.</p></div>
      <div class="ioSteps">${st("shop","Laden","Kauf Pokémon und Items. Zieh <b>2 gleiche Pokémon</b> aufeinander: Sie fusionieren und entwickeln sich.")}
       ${st("grid","Aufstellung","Stell dein Team aufs Feld. <b>Rechts ist vorne</b> (Tanks, Krieger), links hinten (Schützen, Magier).")}
-      ${st("route","Weg wählen","Wähl einen von 3 Wegen. Die <b>Siegchance</b> zeigt das Risiko, dann kämpft dein Team von allein.")}
+      ${st("route","Weg wählen","Wähl einen von meist 3 Wegen (bei Bossen nur einer). Die <b>Siegchance</b> zeigt das Risiko, dann kämpft dein Team von allein.")}
       ${st("crown","Ziel","<b>Bosse</b> warten in Runde 5, 10, 15 und 20. Du hast nur ein Leben, eine Revanche macht die Gegner stärker.")}
       ${st("lab","Fortschritt","Mit den <b>Edelsteinen</b> aus jedem Lauf verbesserst du im Forschungslabor dauerhaft dein Team.")}</div>
      <p class="ioFoot">${ic("help")}<span>Alles Weitere steht jederzeit unter <b>Einstellungen → Anleitung</b>.</span></p>`,
@@ -20048,7 +20094,7 @@ function rivalEnemies(p){const R=rivalOf(),r=S.round,list=genEnemies({type:"elit
     const ace=Object.assign(mkUnit(L.stages[st][0],stars),{x:ECOL0,y:2,mult:RIVAL.aceM,gifts:[],items:k>=1?enemyItems(r,k>=3?2:1):[],rivalAce:1});
     const i=list.findIndex(e=>e.x===ace.x&&e.y===ace.y);if(i>=0)list.splice(i,1);else if(list.length>=Math.max(2,expCap(r)+1)){let lo=0;list.forEach((e,j)=>{if(unitCost(e)<unitCost(list[lo]))lo=j;});list.splice(lo,1);}
     list.unshift(ace);}
-  if(RIVAL.bm!==1)for(const e of list)e.mult=+((e.mult||1)*RIVAL.bm).toFixed(3);
+  {const bm=RIVAL.bm*(r<=3?.85:1);if(bm!==1)for(const e of list)e.mult=+((e.mult||1)*bm).toFixed(3);}
   return list;}
 /* Auftritt vor dem Kampf (wie bei den Koryphäen) */
 function rivalIntro(done){const R=rivalOf(),C=RIVALS[S.region||"kanto"]||RIVALS.kanto,k=rivalIdx(S.round),ace=(S.enemies||[]).find(e=>e.rivalAce),el=document.createElement("div");
@@ -21165,7 +21211,7 @@ function chDailyCard(){if(typeof dailyState!=="function")return"";const {D,playe
    ${played&&score!=null?`<small class="chNote">Heute: <b>${score}</b> Punkte</small>`:""}
    <div class="chB"><button class="pri" data-ch="dy">${ic("play")} ${played?"Übungslauf":"Starten"}</button><button class="btn" data-ch="dyb" title="Bestenliste">${ic("trophy")}</button></div></div>`;}
 function chWeeklyCard(){if(typeof weeklyState!=="function")return"";const {W,M}=weeklyState(),T=TYPES[W.ty],wn=W.wk.split("-W")[1],rl=({iron:["heart","Eisenmann"],poor:["coin","Sparfuchs"],small:["users","Kleines Team"],allin:["atk","Alles oder nichts"]})[W.rule]||["coin","Sparfuchs"];
-  return `<div class="chCard wk"><div class="chH"><i class="chI">${ic("cal")}</i><div><b>Wochen-Herausforderung</b><small>Woche ${+wn} · gleiche Regeln für alle</small></div><span class="chReg">${REGIONS[W.region].n}</span></div>
+  return `<div class="chCard wk"><div class="chH"><i class="chI">${ic("cal")}</i><div><b>Wochen-Herausforderung</b><small>Woche ${+wn} · neue Regeln jede Woche</small></div><span class="chReg">${REGIONS[W.region].n}</span></div>
    <div class="chRules"><span style="--tc:${T[1]}">${ic("flag")} Monotyp: ${T[0]}</span><span>${ic(rl[0])} ${rl[1]}</span></div>
    <small class="chNote">Bestes Ergebnis: <b>${M?(M.champ?"Champion":"Runde "+M.best):"noch kein Lauf"}</b> · erster Champion-Titel <b style="color:var(--gem)">+30</b></small>
    <div class="chB"><button class="pri" data-ch="wk">${ic("play")} ${M?"Nochmal":"Starten"}</button></div></div>`;}
@@ -21689,7 +21735,7 @@ const _kVis=b=>!!(b&&!b.disabled&&!b.classList.contains("off")&&b.style.display!
 function kbMainBtn(root,modal){if(!root)return null;const pri=[...root.querySelectorAll("button.pri")].filter(_kVis).filter(b=>!modal||!(b.classList.contains("hot")||b.dataset.fmi!==undefined));
   if(pri.length===1)return pri[0];if(pri.length)return null;const rb=[...root.querySelectorAll(".rbtns button")].filter(_kVis);return rb.length===1?rb[0]:null;}
 function kbHelp(){openModal(`<h2>${ic("info")} TASTENKÜRZEL</h2><div class="kbList">
-  <h5>Überall</h5><p><kbd>Leertaste</kbd>/<kbd>Enter</kbd> Hauptknopf (Weiter, OK, Nächster Kampf)</p><p><kbd>1</kbd>–<kbd>9</kbd> Auswahl in Fenstern (Belohnung, Draft …)</p><p><kbd>Esc</kbd> oder Zurück-Taste (Maus/Browser) Fenster schließen, im Lauf Pause</p><p><kbd>H</kbd> diese Übersicht</p>
+  <h5>Überall</h5><p><kbd>Leertaste</kbd>/<kbd>Enter</kbd> Hauptknopf (Weiter, OK, Nächster Kampf); Revanche nur mit <kbd>Enter</kbd> oder <kbd>1</kbd></p><p><kbd>1</kbd>–<kbd>9</kbd> Auswahl in Fenstern (Region, Schwierigkeit, Belohnung, Draft …)</p><p><kbd>Esc</kbd> oder Zurück-Taste (Maus/Browser) Fenster schließen, im Lauf Pause</p><p><kbd>H</kbd> diese Übersicht</p>
   <h5>Hauptmenü</h5><p><kbd>↑</kbd>/<kbd>↓</kbd> oder <kbd>W</kbd>/<kbd>S</kbd> wählen, <kbd>Enter</kbd> öffnen</p>
   <h5>Laden</h5><p><kbd>F</kbd> Kampf starten · <kbd>D</kbd> neu würfeln · <kbd>R</kbd> Wege · <kbd>E</kbd> Ausgewähltes verkaufen</p><p><kbd>Q</kbd>/<kbd>W</kbd>/<kbd>A</kbd>/<kbd>S</kbd>/<kbd>Y</kbd> Pokémon 1–5 im Laden kaufen</p><p><kbd>1</kbd> Laden · <kbd>2</kbd> Raster · <kbd>3</kbd> Begegnungen · <kbd>+</kbd>/<kbd>−</kbd> Zoom</p>
   <h5>Kampf</h5><p><kbd>Leertaste</kbd> Tempo · <kbd>P</kbd>/<kbd>Esc</kbd> Pause</p></div><div class="rbtns"><button class="pri" id="kbOk">${ic("check")} OK</button></div>`,"narrow",true);$("kbOk").onclick=closeModal;}
@@ -21700,11 +21746,11 @@ window.addEventListener("keydown",e=>{try{
   const hit=b=>{if(!b)return false;e.preventDefault();e.stopImmediatePropagation();try{sfx("click");}catch(x){}b.click();return true;};
   if(mOn){const mb=$("mbox");
     if(k===" "||k==="Enter"){if(document.activeElement&&document.activeElement.tagName==="BUTTON"&&mb.contains(document.activeElement)&&k==="Enter")return;hit(kbMainBtn(mb,true));return;}
-    if(/^[1-9]$/.test(k)){const ch=[...mb.querySelectorAll(".choice,.brOpt,.abDr,[data-pick]")].filter(_kVis);if(ch.length)hit(ch[+k-1]);return;}
+    if(/^[1-9]$/.test(k)){const ch=[...mb.querySelectorAll(".choice,.brOpt,.abDr,[data-pick],.regCard,.dfCard")].filter(_kVis);if(ch.length)hit(ch[+k-1]);return;}
     return;}
   if(rOn){const R=$("result");
-    if(k===" "||k==="Enter"){hit(kbMainBtn(R,false));return;}
-    if(/^[1-9]$/.test(k)){const bs=[...R.querySelectorAll(".rbtns button")].filter(_kVis);hit(bs[+k-1]);return;}
+    const lock=Date.now()-(window.__rShowT||0)<1500;if(k===" "||k==="Enter"){const mb=kbMainBtn(R,false);if(lock||(k===" "&&mb&&(mb.classList.contains("hot")||mb.id==="rRev"))){e.preventDefault();e.stopImmediatePropagation();return;}hit(mb);return;}
+    if(/^[1-9]$/.test(k)){if(lock){e.preventDefault();e.stopImmediatePropagation();return;}const bs=[...R.querySelectorAll(".rbtns button")].filter(_kVis);hit(bs[+k-1]);return;}
     return;}
   if(lk==="h"&&!(typeof B!=="undefined"&&B&&!B.done)){e.preventDefault();e.stopImmediatePropagation();kbHelp();return;}
   if(typeof S!=="undefined"&&S&&S.phase==="shop"&&!($("menu")&&$("menu").classList.contains("show"))){const qi={q:0,w:1,a:2,s:3,y:4,z:4}[lk];
@@ -21721,40 +21767,50 @@ window.addEventListener("popstate",()=>{try{if(!kbCanBack())return;document.body
 /* ================= v1.58.0.5: KI-Testmodus (nur Konto „requiEM-Claude“) ================= */
 /* An: keine Zwischen-Animationen (window.__fast), Kampf 8×, Musik aus, Spielzustand als Text: PKT.state() und Feld #aiPanel; Aktionen per PKT.act("…"). */
 const AI_ACC="requiem-claude";
-function aiAcc(){try{return typeof USER!=="undefined"&&!!USER&&String(USER).toLowerCase()===AI_ACC;}catch(e){return false;}}
+function aiAcc(){try{return typeof USER!=="undefined"&&!!USER&&typeof META!=="undefined"&&!!META&&META.ai===1;}catch(e){return false;}}
 function aiOn(){try{return aiAcc()&&localStorage.getItem("pokelings_ai")==="1";}catch(e){return false;}}
 const _aiT=el=>(el&&(el.innerText||el.textContent)||"").replace(/\s+/g," ").trim();
 const _aiCut=(t,n)=>t.length>n?t.slice(0,n-1)+"…":t;
 function _aiBtns(root,sel){return [...root.querySelectorAll(sel)].filter(b=>typeof _kVis!=="function"||_kVis(b));}
 function pkState(){const L=[];try{
-  L.push(`Pokélings v${typeof GAME_VER!=="undefined"?GAME_VER:"?"} · Konto ${typeof USER!=="undefined"&&USER?USER:"Gast"} · Edelsteine ${META&&META.gems|0}`);
+  L.push(`Pokélings v${typeof GAME_VER!=="undefined"?GAME_VER:"?"} · Konto ${typeof USER!=="undefined"&&USER?USER:"Gast"} · Edelsteine ${typeof META!=="undefined"&&META?META.gems|0:"–"}`);
   const sh=id=>$(id)&&$(id).classList.contains("show");
   if(sh("auth")){L.push("BILDSCHIRM: Anmeldung");return L.join("\n");}
-  if(sh("modal")){const mb=$("mbox");L.push("FENSTER: "+_aiCut(_aiT(mb.querySelector("h2"))||"(ohne Titel)",80));const lead=mb.querySelector(".lead,p");if(lead)L.push("  "+_aiCut(_aiT(lead),220));
-    const ch=_aiBtns(mb,".choice,.brOpt,.abDr,[data-pick]");ch.forEach((b,i)=>L.push(`  [${i+1}] ${_aiCut(_aiT(b),140)}`));
+  if(sh("modal")){const mb=$("mbox");L.push("FENSTER: "+_aiCut(_aiT(mb.querySelector("h2"))||"(ohne Titel)",80));const lead=mb.querySelector(".lead,p");if(lead)L.push("  "+_aiCut(_aiT(lead),220));if(mb.querySelector(".rpTab,.repTab,table"))L.push("  Inhalt: "+_aiCut(_aiT(mb.querySelector(".rpTab,.repTab,table")),700));
+    const ch=_aiBtns(mb,".choice,.brOpt,.abDr,[data-pick],.regCard,.dfCard");ch.forEach((b,i)=>L.push(`  [${i+1}] ${_aiCut(_aiT(b),140)}`));
     const mn=typeof kbMainBtn==="function"?kbMainBtn(mb,true):null;if(mn)L.push(`  [Leertaste] ${_aiCut(_aiT(mn),60)}`);
     const other=_aiBtns(mb,".rbtns button,button.pri,button.btn").filter(b=>b!==mn&&!ch.includes(b)).slice(0,8);other.forEach(b=>L.push(`  (Knopf${b.id?" #"+b.id:""}) ${_aiCut(_aiT(b),50)}`));}
   if(sh("result")){const R=$("result");L.push("ERGEBNIS: "+_aiCut(_aiT(R.querySelector("h1,h2,h3,.rTitle"))||_aiT(R),80));R.querySelectorAll(".incRow").forEach(r=>L.push("  "+_aiCut(_aiT(r),90)));
-    const bs=_aiBtns(R,".rbtns button");bs.forEach((b,i)=>L.push(`  [${i+1}] ${_aiCut(_aiT(b),60)}${b.id?" #"+b.id:""}`));const mn=typeof kbMainBtn==="function"?kbMainBtn(R,false):null;if(mn)L.push(`  [Leertaste] ${_aiCut(_aiT(mn),60)}`);}
+    const bs=_aiBtns(R,".rbtns button");bs.forEach((b,i)=>L.push(`  [${i+1}] ${_aiCut(_aiT(b),60)}${b.id?" #"+b.id:""}`));const mn=typeof kbMainBtn==="function"?kbMainBtn(R,false):null;if(mn)L.push(`  [${mn.classList.contains("hot")||mn.id==="rRev"?"Enter":"Leertaste/Enter"}] ${_aiCut(_aiT(mn),60)}`);}
   if(sh("menu")&&!sh("modal")){L.push("BILDSCHIRM: Hauptmenü");[...document.querySelectorAll("#menuBtns .mbtn")].forEach((b,i)=>L.push(`  ${i+1}. ${_aiCut(_aiT(b.querySelector("b")||b),50)}${b.id?" #"+b.id:""}`));}
   if(typeof S!=="undefined"&&S&&!sh("menu")){const sp=id=>SPECIES[id]?SPECIES[id].name:"?";
-    L.push(`LAUF: ${S.mode||""} · ${S.region||""} · Runde ${S.round} · Phase ${S.phase} · Gold ${S.gold} · Level ${typeof level==="function"?level():"?"} (EP ${S.xp|0})${S.streak?" · Serie "+S.streak:""}${S.revanche?" · REVANCHE":""}`);
-    const un=u=>`${sp(u.sp)}${u.stars?"★".repeat(u.stars):""}${u.shiny==="a"?" (Aurora)":u.shiny?" (schillernd)":""}`;
-    const bd=Object.entries(S.board||{}).filter(([k,u])=>u);L.push(`  Raster (${bd.length}): `+(bd.map(([k,u])=>un(u)+"@"+k).join(", ")||"leer"));
+    L.push(`LAUF: ${S.mode||""} · ${S.region||""} · Runde ${S.round} · Phase ${S.phase} · Gold ${S.gold} · Level ${typeof level==="function"?level():"?"} (EP ${S.xp|0})${S.streak?" · Serie "+S.streak:""}${S.revanche?" · REVANCHE":""}${S.daily?" · TÄGLICHER RUN":""}${S.weekly?" · WOCHEN-HERAUSFORDERUNG":""}${S.abyss?" · ABGRUND"+(S.abyss.week?" (Woche)":""):""}${S.tower?" · TURM":""}`);
+    const un=u=>`${sp(u.sp)}${u.stars?"★".repeat(u.stars):""}${u.shiny==="a"?" (Aurora)":u.shiny?" (schillernd)":""}${u.crypto?" (Crypto)":""}`;
+    const bd=Object.entries(S.board||{}).filter(([k,u])=>u);L.push(`  Raster (${bd.length}/${typeof capFor==="function"?capFor():"?"} Plätze): `+(bd.map(([k,u])=>un(u)+"@"+k).join(", ")||"leer"));
     L.push("  Bank: "+((S.bench||[]).map((u,i)=>u?`${i+1}:${un(u)}`:null).filter(Boolean).join(", ")||"leer"));
     if(S.phase==="shop"&&S.shop&&S.shop.mons){const ks=["Q","W","A","S","Y"];L.push("  Laden: "+S.shop.mons.map((m,i)=>m?`[${ks[i]||i}] ${sp(m.id)} ${COST[SPECIES[m.id].line.tier]}G${m.shiny==="a"?" Aurora":m.shiny?" schillernd":""}`:`[${ks[i]||i}] —`).join(" · "));}
+    if(S.phase==="shop"&&S.shop&&S.shop.item&&typeof IT_BY!=="undefined"&&IT_BY[S.shop.item.id]){const it=IT_BY[S.shop.item.id];L.push(`  Laden-Item [item]: ${it.n} ${typeof itCost==="function"?itCost(it.r)+"G":""} · ${_aiCut(it.d||"",90)}`);}
+    if((S.bag||[]).length)L.push("  Tasche: "+S.bag.map((id,i)=>`${i+1}:${(typeof IT_BY!=="undefined"&&IT_BY[id]&&IT_BY[id].n)||id}`).join(", "));
+    if((S.relics||[]).length)L.push("  Relikte: "+S.relics.map(id=>(typeof RL_BY!=="undefined"&&RL_BY[id]&&RL_BY[id].n)||id).join(", "));
     if(S.phase==="shop"&&S.paths&&S.paths.length){L.push("  Wege:");S.paths.forEach((p,i)=>{let c="";try{if(p.type!=="event"&&p.enemies&&typeof simChance==="function"){const v=simChance(p.enemies,p.type);c=v==null?" · Siegchance rechnet":" · Siegchance "+Math.round(v*100)+" %";}}catch(e){}
       L.push(`   ${S.encIdx===i&&S.enc?"→":" "} Weg ${i+1}: ${_aiCut(p.name||p.type||"?",40)} (${p.type})${p.reward?" · Prämie "+p.reward:""}${c}`);});}
     if(S.phase==="shop"&&!S.paths&&!S.enc)L.push("  Wege: noch nicht gewürfelt → PKT.act(\"paths\") oder Taste 3");
     if(S.enc)L.push(`  Gewählt: ${_aiCut(S.enc.name||S.enc.type||"",40)} (${S.enc.type})`);
     if(typeof B!=="undefined"&&B&&!B.done){const m=B.F.filter(f=>f.side==="mine"&&f.alive).length,e=B.F.filter(f=>f.side!=="mine"&&f.alive).length;L.push(`KAMPF läuft: eigene ${m} · Gegner ${e} · Zeit ${Math.round(B.t||0)} s · Tempo ${typeof speed!=="undefined"?speed:"?"}×`);}}
   const tt=[...document.querySelectorAll(".toast")].slice(-3).map(t=>_aiCut(_aiT(t),80)).filter(Boolean);if(tt.length)L.push("MELDUNGEN: "+tt.join(" | "));
- }catch(e){L.push("FEHLER beim Auslesen: "+e.message);}return L.join("\n");}
-/* Aktionen (geben danach den Zustand zurück): "key space|enter|esc|1|q|f|…", "buy 0", "paths" (Wege würfeln), "path 1", "fight", "reroll", "click #id", "pick 2" (Fenster-Auswahl) */
+ }catch(e){L.push("FEHLER beim Auslesen: "+e.message);}return L.join("\n").replace(/&/g,"und");}
+/* Aktionen (geben danach den Zustand zurück): "key space|enter|esc|1|q|f|…", "buy 0", "item" (Laden-Item kaufen), "xp", "paths" (Wege würfeln), "path 1", "fight", "reroll", "click #id", "pick 2" (Fenster-Auswahl),
+   "move b1 2,3" (Bank-Platz 1 aufs Feld x=2,y=3; auf gleiches Pokémon = Fusion), "move 2,3 b2", "move 0,1 2,3", "sell b1|x,y", "equip 1 2,3" (Taschen-Item 1 an Pokémon) */
+function pkMove(fr,to){const at=v=>/^b\d+$/i.test(v)?{w:"bench",i:+v.slice(1)-1}:/^\d+,\d+$/.test(v)?{w:"board",k:v}:null,F=at(fr),T=at(to);if(!F||!T)return "Format: move b1 2,3";
+  const u=F.w==="board"?S.board[F.k]:S.bench[F.i];if(!u)return "Quelle leer";if(T.w==="board"){const[x,y]=T.k.split(",").map(Number);if(x<0||x>=PCOLS||y<0||y>=FH)return "Feld außerhalb (x 0–"+(PCOLS-1)+", y 0–"+(FH-1)+")";}
+  const occ=T.w==="board"?S.board[T.k]:S.bench[T.i];if(occ===u)return "";if(occ&&canFuse(occ,u)){fuseUnits(occ,u);render();return "";}
+  if(T.w==="board"&&!occ&&F.w==="bench"&&boardUnits().length>=capFor())return "Raster voll ("+capFor()+" Plätze)";
+  removeU(u);if(occ)removeU(occ);if(T.w==="board")S.board[T.k]=u;else S.bench[T.i]=u;if(occ){if(F.w==="board")S.board[F.k]=occ;else S.bench[F.i]=occ;}merges();render();save();return "";}
+function pkUnitAt(v){return /^b\d+$/i.test(v)?S.bench[+v.slice(1)-1]:S.board[v];}
 async function pkAct(cmd){const wt=ms=>new Promise(r=>setTimeout(r,ms));try{const [a,...r]=String(cmd||"").trim().split(/\s+/),x=r.join(" ");
   const key=k=>{const m={space:" ",enter:"Enter",esc:"Escape",escape:"Escape"};document.body.dispatchEvent(new KeyboardEvent("keydown",{key:m[k.toLowerCase()]||k,bubbles:true}));};
   if(a==="key")key(x);else if(a==="buy")buy(+x);else if(a==="paths"||a==="path"){if(S&&S.phase==="shop"&&!S.paths&&!S.enc){setTab("enc");render();for(let i=0;i<40&&(!S.paths||(typeof rolling!=="undefined"&&rolling));i++)await wt(100);}if(a==="path")choosePath(+x-1);}else if(a==="fight")fight();else if(a==="reroll")doReroll();
-  else if(a==="pick")key(String(+x));else if(a==="click"){const el=document.querySelector(x);if(!el)return "nicht gefunden: "+x;el.click();}else return "unbekannt: "+cmd;
+  else if(a==="pick")key(String(+x));else if(a==="item")buyItem();else if(a==="xp")buyXP();else if(a==="move"){const m=pkMove(r[0],r[1]);if(m)return m;}else if(a==="sell"){const u=pkUnitAt(x);if(!u)return "leer: "+x;sell(u);}else if(a==="equip"){const u=pkUnitAt(r[1]);if(!u)return "kein Pokémon: "+r[1];equip(u,+r[0]-1);}else if(a==="click"){const el=document.querySelector(x);if(!el)return "nicht gefunden: "+x;el.click();}else return "unbekannt: "+cmd;
  }catch(e){return "Fehler: "+e.message;}await wt(350);return pkState();}
 window.PKT={state:pkState,act:pkAct,on:aiOn};
 let _aiFast=false;
@@ -21763,10 +21819,168 @@ setInterval(()=>{try{const on=aiOn();let p=$("aiPanel");
   if(!window.__fast){window.__fast=true;_aiFast=true;}
   try{if(typeof BGM!=="undefined"&&BGM.on)BGM.stop(.1);}catch(e){}
   try{if(typeof B!=="undefined"&&B&&!B.done&&!(typeof S!=="undefined"&&S&&S.duel)&&typeof speed!=="undefined"&&speed<8)setSpeed(8);}catch(e){}
-  if(!p){p=document.createElement("pre");p.id="aiPanel";document.body.appendChild(p);}p.textContent=pkState();}catch(e){}},400);
+  if(!p){p=document.createElement("pre");p.id="aiPanel";document.body.appendChild(p);}p.style.display=$("modal").classList.contains("show")||$("result").classList.contains("show")?"none":"";if(p.style.display!=="none")p.textContent=pkState();}catch(e){}},400);
 try{const _sm585=settingsModal;settingsModal=function(){const r=_sm585.apply(this,arguments);try{if(!aiAcc())return r;const mb=$("mbox"),g=mb.querySelectorAll(".stGrp")[2];if(!g)return r;const on=aiOn();
   g.insertAdjacentHTML("afterend",`<div class="stGrp aiGrp"><h4>${ic("bolt")} KI-Testmodus</h4><div class="stLine"><span class="stI">${ic("bolt")}</span><div class="stTx"><b>Schnell-Modus für Claude</b><small>Keine Zwischen-Animationen, Kampf 8×, Musik aus, Spielzustand als Text (PKT.state())</small></div><div class="stSeg" id="stAi"><button data-v="1" class="${on?"on":""}">An</button><button data-v="0" class="${on?"":"on"}">Aus</button></div></div></div>`);
   mb.querySelectorAll("#stAi button").forEach(b=>b.onclick=()=>{mb.querySelectorAll("#stAi button").forEach(x=>x.classList.toggle("on",x===b));try{localStorage.setItem("pokelings_ai",b.dataset.v);}catch(e){}toast(b.dataset.v==="1"?"KI-Testmodus an":"KI-Testmodus aus","bolt");});}catch(e){}return r;};}catch(e){}
+
+/* ================= v1.59.0: Testbericht-Fixes, Bestenliste mit eigener Zeile ================= */
+/* Ergebnis-Bildschirm: Zeitpunkt merken, damit Tasten in den ersten 1,5 s nichts auslösen (Tempo-Leertaste am Kampfende) */
+try{const _rEl=$("result");if(_rEl)new MutationObserver(()=>{const on=_rEl.classList.contains("show");if(on&&!_rEl.__on)window.__rShowT=Date.now();_rEl.__on=on;}).observe(_rEl,{attributes:true,attributeFilter:["class"]});}catch(e){}
+/* „Aufgeben“ / „Turm verlassen“ fragt nach (Maus, Tasten und KI) */
+document.addEventListener("click",e=>{const b=e.target&&e.target.closest&&e.target.closest("#rQuit");if(!b||b.__ok)return;e.preventDefault();e.stopImmediatePropagation();
+  const t=_aiTx(b);openModal(`<h2>${ic("flag")} WIRKLICH ${esc(t.toUpperCase())}?</h2><div class="lead">Der Lauf endet sofort und lässt sich nicht fortsetzen.</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="qYes">${ic("flag")} ${esc(t)}</button><button class="btn" id="qNo">${ic("back")} Zurück</button></div>`,"narrow",true);
+  $("qNo").onclick=closeModal;$("qYes").onclick=()=>{closeModal();b.__ok=1;try{b.click();}finally{b.__ok=0;}};},true);
+function _aiTx(el){return (el&&(el.innerText||el.textContent)||"").replace(/\s+/g," ").trim();}
+/* Trainer: im selben Lauf möglichst keine Wiederholung */
+function trPick(){S.trUsed=S.trUsed||[];let c=TRAINERS.filter(n=>!S.trUsed.includes(n));if(!c.length){S.trUsed=[];c=TRAINERS.slice();}const n=pick(c);S.trUsed.push(n);if(S.trUsed.length>60)S.trUsed.shift();return n;}
+/* Infofeld: bleibt aktuell (Fusion, Aufstieg, Kauf) und zeigt keine alten Gegner oder Laden-Pokémon mehr */
+let INFO_CUR=null;const _infoSig=u=>u?[u.sp,u.stars,(u.spec||[]).join("."),(u.items||[]).join("."),(u.gifts||[]).join("."),u.megaF||"",u.shiny||""].join("|"):"";
+try{const _si59=showInfo;showInfo=function(u,ctx){INFO_CUR=u?{uid:u.uid,ctx,sig:_infoSig(u),ph:S&&S.phase,tab:typeof tab!=="undefined"?tab:""}:null;return _si59.apply(this,arguments);};}catch(e){}
+try{const _se59=showInfoEmpty;showInfoEmpty=function(){INFO_CUR=null;return _se59.apply(this,arguments);};}catch(e){}
+function infoRefresh(){try{const C=INFO_CUR;if(!C||!S||!$("info"))return;const ae=document.activeElement;if(ae&&ae.closest&&ae.closest("#info input"))return;
+  if(C.ctx==="enemy"){if(S.phase==="shop"&&C.ph!=="shop")showInfoEmpty();return;}
+  if(C.ctx==="shop"){if(S.phase!=="shop"||(typeof tab!=="undefined"&&tab!==C.tab&&tab!=="shop"))showInfoEmpty();return;}
+  if(C.uid==null)return;const u=(typeof allUnits==="function"?allUnits():[]).find(x=>x.uid===C.uid);
+  if(!u){showInfoEmpty();return;}if(_infoSig(u)!==C.sig)showInfo(u,C.ctx||"own");}catch(e){}}
+try{const _r59=render;render=function(){const x=_r59.apply(this,arguments);try{infoRefresh();}catch(e){}return x;};}catch(e){}
+/* Bestenliste im Menü: eigene Zeile immer sehen (wie bei Brawl Stars) – in den Top 10 hervorgehoben, sonst unten angeheftet */
+function lbPinMe(el){try{const L=el&&el.querySelector(".mLbList");if(!L||typeof USER==="undefined"||!USER)return;L.querySelectorAll(".lbPinNew").forEach(x=>x.remove());
+  const rows=[...L.querySelectorAll(":scope > .lbRow")];if(!rows.length)return;const me=userKey(USER);let mine=null,idx=-1;
+  rows.forEach((r,i)=>{if(userKey(r.dataset.n||"")===me&&!mine){mine=r;idx=i;}});
+  rows.forEach((r,i)=>{if(i>=10&&r!==mine)r.remove();});
+  if(mine){mine.classList.add("lbMeRow");if(idx>=10)mine.classList.add("lbPin");}
+  else{let pts="–",unit="";try{if(MLB.tab==="pts"){if(MLB.sea==="all"){pts=(trainerScore(META).pts|0).toLocaleString("de-DE");unit="Punkte";}else if(MLB.sea==="cur"&&typeof seasonMine==="function"){const m=seasonMine();pts=((m&&m.pts)|0).toLocaleString("de-DE");unit="Punkte";}}}catch(e){}
+    const card=typeof cardMine==="function"?cardMine():null;
+    L.insertAdjacentHTML("beforeend",`<div class="lbRow lbMeRow lbPin lbPinNew"><span class="lbRank">–</span><div class="lbMain"><div class="lbNm"><b>${typeof fameNameRow==="function"?fameNameRow(USER,card):esc(USER)}</b></div><small>Noch nicht in der Liste · spiel weiter!</small></div><span class="lbPts">${pts}${unit?`<em>${unit}</em>`:""}</span></div>`);}
+  const old=L.querySelector(".mLbMe");if(old&&L.querySelector(".lbPin"))old.remove();}catch(e){}}
+try{const _ml59=menuLbLoad;menuLbLoad=async function(el){const r=await _ml59.apply(this,arguments);lbPinMe(el);return r;};}catch(e){}
+
+/* ================= v1.59.0: KI-Testmodus ausgebaut (Wünsche des Tester-Chats) ================= */
+const _aiW=ms=>new Promise(r=>setTimeout(r,ms));
+const AI_MODES={leicht:"easy",easy:"easy",normal:"normal",schwer:"hard",hard:"hard",nuzlocke:"nuzlocke",albtraum:"night",night:"night"};
+function _aiSimC(en){try{return SIMC.cache.get(simBoardSig()+"@"+simEnSig(en))||null;}catch(e){return null;}}
+function _aiUnit(u){const sp=SPECIES[u.sp];return `${sp?sp.name:"?"}${u.stars?"★".repeat(u.stars):""}${u.shiny==="a"?" (Aurora)":u.shiny?" (schillernd)":""}`;}
+function _aiEnemies(en){return (en||[]).map(e=>`${_aiUnit(e)}@${e.x},${e.y}${e.mult&&e.mult!==1?" ×"+(+e.mult).toFixed(2):""}${(e.items||[]).length?" {"+e.items.map(i=>(typeof IT_BY!=="undefined"&&IT_BY[i]&&IT_BY[i].n)||i).join(", ")+"}":""}${e.crypto?" (Crypto)":""}`).join(", ");}
+function pkReport(){try{if(typeof B==="undefined"||!B||!B.F)return "";const row=f=>`${_aiUnit(f.u)}: Schaden ${Math.round(f.dmg||0)} · erlitten ${Math.round(f.taken||0)} · Heilung ${Math.round(f.healed||0)}${f.alive?"":" · K.O."}`;
+  return "KAMPFBERICHT ("+Math.max(0,(B.t||0)-INTRO).toFixed(1)+" s):\n  Eigene:\n"+B.F.filter(f=>f.side==="mine").sort((a,b)=>b.dmg-a.dmg).map(f=>"   "+row(f)).join("\n")+"\n  Gegner:\n"+B.F.filter(f=>f.side!=="mine").sort((a,b)=>b.dmg-a.dmg).map(f=>"   "+row(f)).join("\n");}catch(e){return "";}}
+const _st585=pkState;
+pkState=function(){let s=_st585();const L=[];try{
+  const ps=$("stScene");if(ps){L.push("BILDSCHIRM: Partnerwahl → PKT.act(\"partner N\")");[...ps.querySelectorAll(".psPick")].forEach((b,i)=>L.push(`  [${i+1}] ${_aiT(b.querySelector("small"))}${b.classList.contains("shy")?" (schillernd)":""}`));}
+  if($("modal").classList.contains("show")){const mb=$("mbox");mb.querySelectorAll(".stSeg").forEach(g=>{const ln=g.closest(".stLine"),t=ln?_aiT(ln.querySelector("b")):g.id;L.push(`  Einstellung ${t} (#${g.id}): `+[...g.querySelectorAll("button")].map(b=>(b.classList.contains("on")?"["+_aiT(b)+"]":_aiT(b))).join(" / "));});
+    if(mb.querySelector(".dfCard,.regCard"))L.push("  Start ohne Maus: PKT.act(\"new kanto normal\") · Schwierigkeiten: leicht, normal, schwer, nuzlocke, albtraum");}
+  if(typeof S!=="undefined"&&S&&S.phase==="shop"){if(S.paths)S.paths.forEach((p,i)=>{if(p.type==="event"||!p.enemies)return;const c=_aiSimC(p.enemies);L.push(`  Weg ${i+1} Probekämpfe: ${c?Math.min(c.n,SIM_N):0}/${SIM_N}${c&&c.n>=SIM_N?" (fertig)":" (rechnet noch)"}`);});
+    if(S.enc&&S.enemies&&S.enemies.length)L.push("  Gegnerteam: "+_aiEnemies(S.enemies));
+    try{const pos=u=>{const l=locate(u);return l?(l.w==="board"?l.k:"b"+(l.i+1)):"?";},all=allUnits(),fz=[],seen=new Set();
+      for(const t of all)for(const o of all){if(t===o||seen.has(o.uid+"-"+t.uid)||!canFuse(t,o))continue;seen.add(t.uid+"-"+o.uid);const tb=locate(t).w==="board"?t:o,ob=tb===t?o:t;fz.push(`${_aiUnit(ob)} ${pos(ob)} → ${pos(tb)} (fuse ${pos(ob).replace("b","")} ${pos(tb)})`);}
+      L.push("  Fusion möglich: "+(fz.length?fz.join(" · ")+" · alles: fuse all":"keine"));
+      if(S.shop&&S.shop.mons){const ks=["Q","W","A","S","Y"],hint=[];S.shop.mons.forEach((m,i)=>{if(!m)return;const same=all.filter(u=>u.sp===m.id&&!u.stars);if(same.length)hint.push(`[${ks[i]}] ${SPECIES[m.id].name} passt zu ${same.map(pos).join(", ")}`);});if(hint.length)L.push("  Kauf ergibt Fusion: "+hint.join(" · "));}
+      const evo=all.filter(u=>SPECIES[u.sp].next||SPECIES[u.sp].branch).map(u=>`${_aiUnit(u)} ${pos(u)} → ${SPECIES[u.sp].branch?SPECIES[u.sp].branch.map(i=>SPECIES[i].name).join("/"):SPECIES[SPECIES[u.sp].next].name}`);if(evo.length)L.push("  Nächste Entwicklung (2 gleiche): "+evo.join(" · "));}catch(e){}}
+  if(typeof META!=="undefined"&&META&&META.dex){try{const D=Object.values(META.dex),tot=Object.keys(SPECIES).length;L.push(`SAMMLUNG: gesehen ${D.filter(d=>d.seen>0).length} · gefangen ${D.filter(d=>d.owned>0).length}/${tot} · schillernd ${D.filter(d=>(d.shiny|0)>0).length} · Aurora ${D.filter(d=>(d.aur|0)>0).length} · Edelsteine ${META.gems|0}`);}catch(e){}}
+  if(typeof S!=="undefined"&&S&&S.phase==="shop"&&S.enc&&S.enc.type==="event"&&S.enc.options){L.push("  Ereignis → PKT.act(event N):");S.enc.options.forEach((e,i)=>{const c=typeof evCost==="function"?evCost(e):0;L.push(`   [${i+1}] ${e.n}: ${_aiCut(e.d||"",120)}${c?` (kostet ${c} Gold${S.gold<c?", zu wenig Gold":""})`:""}`);});}
+  if($("modal").classList.contains("show")){const mb=$("mbox"),bs=[...mb.querySelectorAll("button")].filter(b=>(typeof _kVis!=="function"||_kVis(b))&&!b.closest(".stSeg")),xs=[];for(const b of bs){const at=[...b.attributes].find(x=>x.name.startsWith("data-")&&x.name!=="data-i");const sel=b.id?"#"+b.id:at?`[${at.name}="${at.value}"]`:null;if(sel)xs.push(`${sel} ${_aiCut(_aiT(b),40)}`);if(xs.length>=30)break;}if(xs.length)L.push("  Knöpfe (PKT.act(click …)): "+xs.join(" · "));}
+  if($("result").classList.contains("show")){const r=pkReport();if(r)L.push(r);}
+ }catch(e){}return (s+(L.length?"\n"+L.join("\n"):"")).replace(/&/g,"und");};
+PKT.state=pkState;PKT.report=pkReport;
+/* Kampfprotokoll (übersteht Neuladen): PKT.log(), PKT.log("stats"), PKT.log("clear") */
+function _aiLogGet(){try{return JSON.parse(localStorage.getItem("pokelings_ailog")||"[]");}catch(e){return [];}}
+function _aiLogSet(a){try{localStorage.setItem("pokelings_ailog",JSON.stringify(a.slice(-400)));}catch(e){}}
+try{const _eb59=endBattle;endBattle=function(win,timeout){try{if(!SIM&&typeof S!=="undefined"&&S&&!S.duel&&aiAcc()&&B&&!B.logged){B.logged=1;const c=_aiSimC(S.enemies||[]);
+  const a=_aiLogGet();a.push({t:Date.now(),v:GAME_VER,r:S.round,m:S.mode,rg:S.region,w:S.enc?(S.enc.name||S.enc.type)+" ("+S.enc.type+")":"?",rev:S.revanche?S.revives|0:0,
+    ch:c&&c.n?Math.round(c.w/c.n*100):null,n:c?Math.min(c.n,SIM_N):0,win:!!win,s:+Math.max(0,(B.t||0)-INTRO).toFixed(1),
+    team:boardUnits().map(u=>{const k=Object.keys(S.board).find(k=>S.board[k]===u);return _aiUnit(u)+"@"+k;}).join(", "),en:_aiEnemies(S.enemies)});_aiLogSet(a);}}catch(e){}
+  return _eb59.apply(this,arguments);};}catch(e){}
+function pkLog(o){const a=_aiLogGet();if(o==="clear"){_aiLogSet([]);return "Protokoll geleert.";}
+  if(o==="stats"){const B5=[[0,20],[20,40],[40,60],[60,80],[80,95],[95,101]];return "Angezeigte Chance → echte Siegquote:\n"+B5.map(([lo,hi])=>{const x=a.filter(e=>e.ch!=null&&e.ch>=lo&&e.ch<hi);return `  ${lo}–${Math.min(hi,100)} %: ${x.length?Math.round(x.filter(e=>e.win).length/x.length*100)+" % aus "+x.length+" Kämpfen":"keine Kämpfe"}`;}).join("\n")+`\n  Revanchen: ${a.filter(e=>e.rev).length} (gewonnen ${a.filter(e=>e.rev&&e.win).length})`;}
+  return a.slice(-(+o||40)).map(e=>`${new Date(e.t).toLocaleTimeString("de-DE")} v${e.v} R${e.r} ${e.m}/${e.rg} · ${e.w}${e.rev?" · Revanche "+e.rev:""} · Chance ${e.ch==null?"?":e.ch+" %"} (${e.n}) → ${e.win?"SIEG":"K.O."} in ${e.s} s\n   Team: ${e.team}\n   Gegner: ${e.en}`).join("\n").replace(/&/g,"und")||"Noch keine Kämpfe protokolliert.";}
+PKT.log=pkLog;
+/* Probe: den gewählten Kampf n-mal mit Kampfstart-Einstellungen wie im echten Kampf (Boss, Wetter des Wegs) durchrechnen, ohne Folgen */
+function pkTrial(n){n=Math.max(1,Math.min(400,+n||50));if(typeof S==="undefined"||!S||!S.enemies||!S.enemies.length||!boardUnits().length)return "Kein Gegner gewählt.";
+  let w=0,d=0;const t0=performance.now();for(let i=0;i<n;i++){const sB=B,sGL=GL,sR=RNG;SIM=true;GL=null;RNG=null;try{const cnt=SYN_ON?synCounts(boardUnits()):null,F=[];
+    for(const k in S.board){const[x,y]=k.split(",").map(Number);F.push(fighter(S.board[k],"mine",x,y,cnt));}for(const e of S.enemies)F.push(fighter(e,"enemy",e.x,e.y,null));
+    B={F,proj:[],timers:[],danger:[],zones:[],t:INTRO,done:false,slowT:0,hitStop:0,pause:false,winSide:null,megaChecked:false,raidIntro:true,lastPunch:-9,sim:1,bossFight:!!(typeof BOSSES!=="undefined"&&BOSSES[S.round]),
+      hp0:{mine:F.filter(f=>f.side==="mine").reduce((a,f)=>a+f.maxhp,0),enemy:F.filter(f=>f.side==="enemy").reduce((a,f)=>a+f.maxhp,0)}};if(!S.tower&&S.enc&&S.enc.weather)B.weather=S.enc.weather;
+    battlePrep(F);let k=0;while(!B.done&&k<2600){step(SIM_DT);k++;}if(B.done){d++;if(B.winSide==="mine")w++;}}catch(e){}finally{B=sB;GL=sGL;RNG=sR;SIM=false;}}
+  const c=_aiSimC(S.enemies);return `Probe: ${w}/${n} Siege (${Math.round(w/n*100)} %) in ${Math.round(performance.now()-t0)} ms · angezeigt: ${c&&c.n?Math.round(c.w/c.n*100)+" % aus "+Math.min(c.n,SIM_N):"–"} · ${n-d} ohne Ende`;}
+PKT.trial=pkTrial;
+PKT.panel=v=>{try{localStorage.setItem("pokelings_aipanel",v===false||v==="aus"?"0":"1");}catch(e){}return v===false||v==="aus"?"Statusbox aus":"Statusbox an";};
+setInterval(()=>{try{const p=$("aiPanel");if(p&&localStorage.getItem("pokelings_aipanel")==="0")p.style.display="none";}catch(e){}},300);
+/* Neue Befehle; alles andere geht an die bisherigen */
+const _act585=pkAct;
+async function pkAct59(cmd){const [a,...r]=String(cmd||"").trim().split(/\s+/);
+  try{
+  const at=v=>/^\d+$/.test(v||"")?S.bench[+v-1]:/^b\d+$/i.test(v||"")?S.bench[+v.slice(1)-1]:S.board[v];
+  if(a==="event"){if(!S||!S.enc||S.enc.type!=="event")return "Kein Ereignis offen";chooseEvent(+r[0]-1);await _aiW(500);return pkState();}
+  if(a==="merge"){const u=at(r[0]),t=at(r[1]);if(!u||!t)return "Pokémon fehlt";if(!canFuse(t,u))return "nicht fusionierbar";fuseUnits(t,u);render();await _aiW(400);return pkState();}
+  if(a==="place")cmd=`move b${r[0]} ${r[1]}`;
+  else if(a==="fuse"&&r[0]!=="all"){const u=at(r[0]),t=at(r[1]);if(!u||!t)return "Pokémon fehlt";if(!canFuse(t,u))return "nicht fusionierbar";fuseUnits(t,u);render();await _aiW(400);return pkState();}
+  else if(a==="fuse"&&r[0]==="all"){let n=0;for(let g=0;g<20;g++){if($("modal").classList.contains("show"))break;const all=allUnits();let pr=null;for(const t of all){const o=all.find(x=>x!==t&&canFuse(t,x));if(o){pr=[locate(t)&&locate(t).w==="board"?t:o,locate(t)&&locate(t).w==="board"?o:t];break;}}if(!pr)break;fuseUnits(pr[0],pr[1]);render();n++;await _aiW(300);}return `${n} Fusion(en)`+"\n"+pkState();}
+  else if(a==="item"&&r.length>=2){cmd=`equip ${r[0]} ${r[1]}`;}
+  else if(a==="buyitem")cmd="item";
+  else if(a==="sell"&&/^\d+$/.test(r[0]||""))cmd=`sell b${r[0]}`;
+  else if(a==="partner"){const ps=$("stScene");if(!ps)return "Keine Partnerwahl offen";const b=ps.querySelectorAll(".psPick")[+r[0]-1];if(!b)return "Gibt es nicht: "+r[0];b.click();await _aiW(250);b.click();await _aiW(1200);return pkState();}
+  else if(a==="new"){const rg=(r[0]||"kanto").toLowerCase(),md=AI_MODES[(r[1]||"normal").toLowerCase()];if(!REGIONS[rg])return "Region? "+Object.keys(REGIONS).join(", ");if(!md)return "Schwierigkeit? leicht, normal, schwer, nuzlocke, albtraum";
+    if(!regUnlocked(rg))return "Region gesperrt: "+rg;try{closeModal();}catch(e){}modeRegion=rg;chooseDiff();await _aiW(300);const c=$("mbox").querySelector(`.dfCard[data-m="${md}"]`);if(!c||c.disabled)return "Schwierigkeit gesperrt: "+md;c.click();await _aiW(1500);return pkState();}
+  else if(a==="paths"||a==="path"){const res=await _act585(cmd);for(let i=0;i<250;i++){const ps=(S&&S.paths||[]).filter(p=>p.type!=="event"&&p.enemies&&p.enemies.length);if(!ps.length||ps.every(p=>{const c=_aiSimC(p.enemies);return c&&(c.n>=SIM_N||c.fail>4);}))break;try{for(const p of ps)simChance(p.enemies,p.type,1);}catch(e){}await _aiW(100);}await _aiW(200);return pkState();}
+  else if(a==="fight"){const r0=await _act585(cmd);for(let i=0;i<1800;i++){if($("result").classList.contains("show")||(S&&S.phase==="shop"&&i>20)||!S)break;if($("modal").classList.contains("show")&&i>5)break;await _aiW(100);}await _aiW(300);return pkState();}
+  }catch(e){return "Fehler: "+e.message;}
+  return _act585(cmd);}
+PKT.act=pkAct59;
+
+/* ================= v1.60.0: Balance (Revanche, Level 9, Boss, Schwer-Einstieg), Unterklassen-Namen, schnelleres Laden ================= */
+/* Level 9: mehr Platz im Raster und ein Ziel für übriges Gold */
+try{if(LV_XP.length===8)LV_XP.push(80);ODDS_LV[9]=[5,14,30,33,18];}catch(e){}
+/* Revanche: Gegner pro Wiederbelebung nur noch halb so viel stärker */
+try{for(const k in MODES){const M=MODES[k];if(M&&M.revive>0)M.revive=+(M.revive/2).toFixed(3);}}catch(e){}
+/* Normal: Boss in Kanto Runde 15 etwas schwächer */
+try{const N=MODES.normal;N.bossRK=N.bossRK||{};N.bossRK.kanto=Object.assign({},N.bossRK.kanto||{},{15:.9});}catch(e){}
+/* Schwere Modi: Gegner-Bonus steigt in den ersten Runden langsam an (voll ab Runde 6) */
+function modeRamp(base,r){return base>1&&!(typeof S!=="undefined"&&S&&(S.tower||S.daily))?1+(base-1)*Math.min(1,Math.max(0,(r||1)-1)/5):base;}
+/* Unterklassen, die wie eine Fähigkeit hießen, bekommen eigene Namen */
+const SPEC_REN={"Adlerauge":["Falkenblick","Falcon Gaze"],"Robustheit":["Felsenhaut","Rock Skin"],"Sandsturm":["Sandwirbel","Sand Whirl"],"Magieschild":["Psi-Barriere","Psi Barrier"],"Speckschicht":["Fettpolster","Blubber Coat"],
+ "Multischuppe":["Drachenpanzer","Dragon Plating"],"Notdünger":["Wildwuchs","Rampant Growth"],"Bedroher":["Drohgebärde","Menacing Stance"],"Großbrand":["Flächenbrand","Wildfire"],"Sturzbach":["Springflut","Flash Flood"],
+ "Feuerfänger":["Glutkern","Ember Core"],"Temposchub":["Blitzsprint","Lightning Dash"],"Expidermis":["Saugschuppen","Soaking Scales"],"Flammkörper":["Glutleib","Ember Hide"],"Schwebe":["Schwebeflug","Hover Flight"],
+ "Mumie":["Seelenhülle","Soul Shell"],"Seelenherz":["Seelenkern","Soul Core"]};
+try{const an=new Set(Object.values(ABIL).map(a=>a.n));for(const k in SPECS){const s=SPECS[k];if(s&&SPEC_REN[s.n]&&an.has(s.n))s.n=SPEC_REN[s.n][0];}
+  const en={};for(const k in SPEC_REN)en[SPEC_REN[k][0]]=SPEC_REN[k][1];if(typeof LSPEC_EN!=="undefined")Object.assign(LSPEC_EN,en);if(typeof EN!=="undefined")Object.assign(EN,en);}catch(e){}
+
+/* ---------- Ereignisse: alles, was Gold kostet, ist ohne genug Gold gesperrt ---------- */
+function evCost(e){return !e?0:e.id==="gamble"?(e.st|0):e.risk==="Kosten"?(e.tr|0):0;}
+/* ---------- Wochen-Herausforderung überschreibt den laufenden Lauf nur nach Rückfrage ---------- */
+try{const _sw60=startWeekly;startWeekly=function(){const a=arguments,sv=LS.get(saveKey("sp"),null);if(!(sv&&sv.S&&sv.S.phase!=="over"&&!sv.S.weekly))return _sw60.apply(this,a);
+  openModal(`<h2>${ic("cal")} WOCHEN-HERAUSFORDERUNG</h2><div class="lead">Dein laufendes Spiel (Runde ${sv.S.round}) wird dabei beendet.</div><div class="rbtns" style="margin-top:14px"><button class="pri hot" id="wGo">${ic("play")} Trotzdem starten</button><button class="btn" id="wNo">Abbrechen</button></div>`,"narrow",true);
+  $("wGo").onclick=()=>{closeModal();_sw60.apply(this,a);};$("wNo").onclick=closeModal;};}catch(e){}
+
+/* ---------- KI-Konto: dauerhaft (nur der Admin kann es aufheben), nicht in Season-, Wochen- und Ranked-Bestenlisten ---------- */
+const KI={names:null,t:0,chk:false};
+function kiRpc(fn,body){return clFetch("/rest/v1/rpc/"+fn,{method:"POST",body:body||{},timeout:8000});}
+async function kiEnable(){if(typeof CL==="undefined"||!CL.sess){toast("Das geht nur mit einem Online-Konto.","user");return false;}
+  try{if(!(await clReady()))return false;const r=await kiRpc("ai_enable");if(!r.ok||r.j!==true){toast("KI-Modus konnte nicht aktiviert werden.","close");return false;}}catch(e){return false;}
+  META.ai=1;try{localStorage.setItem("pokelings_ai","1");}catch(e){}saveMeta();try{if(typeof clDirty==="function")clDirty();}catch(e){}KI.names=null;toast("KI-Konto aktiv. KI-Testmodus ist an.","bolt");return true;}
+async function kiSync(){if(KI.chk||typeof USER==="undefined"||!USER||typeof CL==="undefined"||!CL.sess||!META)return;KI.chk=true;
+  try{if(!(await clReady()))return;if(userKey(USER)==="requiem-claude"&&META.ai!==1){await kiEnable();return;}
+    const r=await kiRpc("ai_me");if(r.ok&&typeof r.j==="boolean"){const on=r.j?1:0;if((META.ai|0)!==on){META.ai=on;if(!on){try{localStorage.setItem("pokelings_ai","0");}catch(e){}window.__fast=false;}saveMeta();}}}catch(e){}}
+async function kiNames(){if(KI.names&&Date.now()-KI.t<300000)return KI.names;try{const r=await clFetch("/rest/v1/rpc/ai_names",{method:"POST",auth:false,body:{},timeout:8000});if(r.ok&&Array.isArray(r.j)){KI.names=new Set(r.j.map(x=>userKey(x.name||"")));KI.t=Date.now();}}catch(e){}return KI.names||new Set();}
+try{const _sm60=showMenu;showMenu=function(){const r=_sm60.apply(this,arguments);setTimeout(()=>{try{kiSync();}catch(e){}},2500);return r;};}catch(e){}
+try{const _cs60=signOut;signOut=function(){KI.chk=false;return _cs60.apply(this,arguments);};}catch(e){}
+/* KI-Konten laden keine Geister- und Tageslauf-Einträge hoch */
+try{const _cf60=clFetch;clFetch=function(path,o){try{if(typeof aiAcc==="function"&&aiAcc()&&o&&o.method==="POST"&&/^\/rest\/v1\/(ghosts|daily_runs)\b/.test(path))return Promise.resolve({ok:true,status:204,j:null});}catch(e){}return _cf60.apply(this,arguments);};}catch(e){}
+/* Bestenliste: KI-Konten bekommen ein Kennzeichen (Season, Woche und Ranked filtert der Server) */
+try{const _ml60=menuLbLoad;menuLbLoad=async function(el){const r=await _ml60.apply(this,arguments);try{const N=await kiNames();if(N.size)el.querySelectorAll(".mLbList .lbRow[data-n]").forEach(b=>{if(N.has(userKey(b.dataset.n))&&!b.querySelector(".kiTag")){const nm=b.querySelector(".lbNm");if(nm)nm.insertAdjacentHTML("beforeend",`<em class="kiTag" title="KI-Testkonto">KI</em>`);}});
+  if(typeof aiAcc==="function"&&aiAcc()&&!(MLB.tab==="pts"&&MLB.sea==="all")){const p=el.querySelector(".lbPinNew small");if(p)p.textContent="KI-Konto · nur in der Allzeit-Liste";}}catch(e){}return r;};}catch(e){}
+/* Einstellungen → Erweiterte Einstellungen */
+try{const _st60=settingsModal;settingsModal=function(){const r=_st60.apply(this,arguments);try{const mb=$("mbox"),last=mb.querySelector(".stSave");if(!last||typeof USER==="undefined"||!USER)return r;const on=META&&META.ai===1;
+  last.insertAdjacentHTML("beforebegin",`<details class="stGrp stAdv"${on?" open":""}><summary><h4>${ic("gear")} Erweiterte Einstellungen</h4></summary><div class="stAdvIn">
+    <div class="stLine"><span class="stI">${ic("bolt")}</span><div class="stTx"><b>KI-Konto</b><small>${on?"Aktiv. Nur der Admin kann das aufheben. Nicht in Season-, Wochen- und Ranked-Bestenlisten.":"Für Test-KIs wie Claude: Spielzustand als Text, Befehle, Schnell-Modus. Endgültig."}</small></div>${on?`<span class="kiTag big">KI</span>`:`<button class="btn sm" id="stKi">${ic("bolt")} In KI-Modus wechseln</button>`}</div></div></details>`);
+  const g=mb.querySelector(".aiGrp"),inn=mb.querySelector(".stAdvIn");if(g&&inn){inn.appendChild(g);g.classList.add("inAdv");}
+  if($("stKi"))$("stKi").onclick=()=>{
+    openModal(`<h2>${ic("bolt")} IN DEN KI-MODUS WECHSELN?</h2><div class="lead">Der KI-Modus ist für Test-KIs gedacht (z. B. Claude), die das Spiel ohne Maus spielen.</div>
+     <ul class="kiList"><li>Dein Konto erscheint <b>nicht mehr</b> in den Season-, Wochen- und Ranked-Bestenlisten, nur noch in der Allzeit-Liste mit „KI“-Kennzeichen.</li><li>Keine Season- und Wochen-Belohnungen mehr, keine Geisterteams und keine Tageslauf-Einträge.</li><li>Dafür: Spielzustand als Text, Befehle und ein Schnell-Modus ohne Animationen.</li><li><b>Nur der Admin kann das rückgängig machen.</b></li></ul>
+     <div class="rbtns" style="margin-top:14px"><button class="pri hot" id="kiA">${ic("bolt")} Weiter</button><button class="btn" id="kiN">${ic("back")} Abbrechen</button></div>`,"narrow",true);
+    $("kiN").onclick=()=>{closeModal();settingsModal();};
+    $("kiA").onclick=()=>{openModal(`<h2>${ic("info")} WIRKLICH ENDGÜLTIG?</h2><div class="lead">Konto <b>${esc(USER)}</b> wird dauerhaft zum KI-Konto. Du kannst das selbst nicht zurücknehmen.</div>
+       <div class="rbtns" style="margin-top:14px"><button class="pri hot" id="kiY">${ic("check")} Ja, KI-Konto</button><button class="btn" id="kiN2">${ic("back")} Nein</button></div>`,"narrow",true);
+      $("kiN2").onclick=()=>{closeModal();settingsModal();};$("kiY").onclick=async()=>{$("kiY").disabled=true;const ok=await kiEnable();closeModal();if(ok)settingsModal();};};};}catch(e){}return r;};}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
@@ -22432,7 +22646,7 @@ function endBattle(win,timeout){if(SIM){B.done=true;B.winSide=win?"mine":"enemy"
     if(S.revanche){const tot=parts.reduce((a,p)=>a+p[1],0);parts.length=0;parts.push([`Prämie (Revanche, halbiert)`,Math.ceil(tot/2)]);}
     if(S.daily&&S.daily.rules.includes("hard"))parts.push(["Tagesregel: Harte Gegner",2]);
     {const zt=typeof paydayGold==="function"?paydayGold():0;if(zt)parts.push(["Zahltag",zt]);}
-    parts.push(...incomeParts());if(S.poor&&!S.daily&&!S.duel){const t0=parts.reduce((a,p)=>a+p[1],0),cut=Math.floor(t0*.25);if(cut>0)parts.push(["Sparfuchs",-cut]);}const g=parts.reduce((a,p)=>a+p[1],0);S.gold+=g;META.stats=META.stats||{};META.stats.gold=(META.stats.gold||0)+g;if(typeof misWin==="function")misWin(g);
+    if(S.poor&&!S.daily&&!S.duel){const t0=parts.reduce((a,p)=>a+p[1],0),cut=Math.floor(t0*.25);if(cut>0)parts.push(["Sparfuchs (−25 % Kampfgold)",-cut]);}parts.push(...incomeParts());const g=parts.reduce((a,p)=>a+p[1],0);S.gold+=g;META.stats=META.stats||{};META.stats.gold=(META.stats.gold||0)+g;if(typeof misWin==="function")misWin(g);
     const xp=2+perk("school")+(hasRelic("xpamu")?1:0)+(S.daily&&S.daily.rules.includes("xp")?1:0);gainXP(xp);
     for(const u of boardUnits())dexUp(u.sp,d=>d.wins++);try{dexSync();}catch(e){}
     if(S.enc.type==="boss")S.bosses++;if(S.enc.type==="elite")S.elites++;
@@ -22446,7 +22660,7 @@ function showResult(){
   const r=B.res,R=$("result");
   if(r.win){
     R.innerHTML=`<div class="rWrap"><div class="rHead win">SIEG!</div><div class="rPanel glass"><h4>Kampfbelohnungen</h4>
-     <div class="rewards">${r.parts.map(p=>`<div class="incRow"><span>${p[0]}</span><span>+${p[1]}</span></div>`).join("")}${r.tw&&typeof twWinRows==="function"?twWinRows(r.tw):""}<div class="incRow"><span>Erfahrung</span><span style="color:var(--cyan)">+${r.xp} EP</span></div>${r.prize?`<div class="incRow"><span>${({relic:"Relikt",item:"Item",twitem:"Episches Item",ultra:"Ultra-Bestie",rival:"Item & Edelsteine",crypto:"Crypto-Pokémon"})[r.prize]||"Item"}</span><span style="color:var(--cyan)">Auswahl folgt</span></div>`:""}<div class="incRow sum"><span>Gesamt</span><span>+${r.g} Gold</span></div></div>
+     <div class="rewards">${r.parts.map(p=>`<div class="incRow"><span>${p[0]}</span><span>${p[1]<0?"−"+(-p[1]):"+"+p[1]}</span></div>`).join("")}${r.tw&&typeof twWinRows==="function"?twWinRows(r.tw):""}<div class="incRow"><span>Erfahrung</span><span style="color:var(--cyan)">+${r.xp} EP</span></div>${r.prize?`<div class="incRow"><span>${({relic:"Relikt",item:"Item",twitem:"Episches Item",ultra:"Ultra-Bestie",rival:"Item & Edelsteine",crypto:"Crypto-Pokémon"})[r.prize]||"Item"}</span><span style="color:var(--cyan)">Auswahl folgt</span></div>`:""}<div class="incRow sum"><span>Gesamt</span><span>+${r.g} Gold</span></div></div>
      <div class="rbtns"><button class="pri" id="rGo">WEITER ZUM SHOP ${ic("arrow")}</button><button class="btn" id="rRep">${ic("dex")} Kampfbericht</button></div></div></div>`;
     R.classList.add("show");$("rRep").onclick=report;$("rGo").onclick=()=>{R.classList.remove("show");R.innerHTML="";nextRound(r.prize);};
   }else if(S.tower){
@@ -22456,7 +22670,7 @@ function showResult(){
      <div class="rewards">${L>0?`<div class="incRow"><span>Revanche</span><span style="color:var(--pink)">kostet 1 Turm-Leben</span></div><div class="incRow"><span>Gegner bei der Revanche</span><span style="color:var(--cyan)">gleich stark</span></div><div class="incRow"><span>Prämie bei Sieg</span><span style="color:var(--red)">halbiert</span></div>`:`<div class="incRow"><span>Der Aufstieg endet hier</span><span style="color:var(--cyan)">Edelsteine folgen</span></div>`}<div class="incRow"><span>Geschafft</span><span>${Math.max(0,f-1)} ${f-1===1?"Ebene":"Ebenen"}</span></div></div>
      <div class="rbtns">${L>0?`<button class="pri hot" id="rRev">${ic("heart")} REVANCHE · −1 LEBEN</button>`:""}<button class="btn" id="rRep">${ic("dex")} Kampfbericht</button><button class="${L>0?"btn":"pri"}" id="rQuit">${ic("flag")} Turm verlassen</button></div></div></div>`;
     R.classList.add("show");if(r.abandoned)$("rRep").remove();else $("rRep").onclick=report;
-    if($("rRev"))$("rRev").onclick=()=>{R.classList.remove("show");R.innerHTML="";T.lives--;T.rev=(T.rev|0)+1;S.revanche=true;delete S.pendingKO;delete S.purCounted;setTimeout(()=>purifyShow(),400);S.phase="shop";clearZones();B=null;$("texts").innerHTML="";clearVis();clearFx();enterBattleMode(false);setView("raster",true);save();setTab("shop");render();toast("Revanche! Passe dein Team an, dann starte den Kampf erneut.","heart");};
+    if($("rRev"))$("rRev").onclick=()=>{R.classList.remove("show");R.innerHTML="";T.lives--;T.rev=(T.rev|0)+1;S.revanche=true;delete S.pendingKO;try{if(S.shop)rollShop();}catch(e){}delete S.purCounted;setTimeout(()=>purifyShow(),400);S.phase="shop";clearZones();B=null;$("texts").innerHTML="";clearVis();clearFx();enterBattleMode(false);setView("raster",true);save();setTab("shop");render();toast("Revanche! Passe dein Team an, dann starte den Kampf erneut.","heart");};
     $("rQuit").onclick=()=>{R.classList.remove("show");R.innerHTML="";finish(false);};
   }else{
     const next=reviveMalus(S.revives+1);
@@ -22464,7 +22678,7 @@ function showResult(){
      <div class="rewards"><div class="incRow"><span>Wiederbeleben = Revanche</span><span style="color:var(--pink)">gleiche Gegner</span></div><div class="incRow"><span>Vorher zurück in den Shop</span><span style="color:var(--cyan)">Team anpassen</span></div><div class="incRow"><span>Gegner bei der Revanche</span><span style="color:var(--red)">+${next} % stärker</span></div><div class="incRow"><span>Prämie bei Sieg</span><span style="color:var(--red)">halbiert</span></div><div class="incRow"><span>Jede weitere Wiederbelebung</span><span style="color:var(--red)">noch härter</span></div></div>
      <div class="rbtns"><button class="pri hot" id="rRev">${ic("heart")} WIEDERBELEBEN · REVANCHE</button><button class="btn" id="rRep">${ic("dex")} Kampfbericht</button><button class="btn" id="rQuit">${ic("flag")} Aufgeben</button></div></div></div>`;
     R.classList.add("show");if(r.abandoned)$("rRep").remove();else $("rRep").onclick=report;
-    $("rRev").onclick=()=>{R.classList.remove("show");R.innerHTML="";S.revives++;S.revanche=true;delete S.pendingKO;delete S.purCounted;setTimeout(()=>purifyShow(),400);S.phase="shop";clearZones();B=null;$("texts").innerHTML="";clearVis();clearFx();enterBattleMode(false);setView("raster",true);save();setTab("shop");render();toast("Revanche! Passe dein Team im Shop und Raster an, dann starte den Kampf erneut.","heart");};
+    $("rRev").onclick=()=>{R.classList.remove("show");R.innerHTML="";S.revives++;S.revanche=true;delete S.pendingKO;try{if(S.shop)rollShop();}catch(e){}delete S.purCounted;setTimeout(()=>purifyShow(),400);S.phase="shop";clearZones();B=null;$("texts").innerHTML="";clearVis();clearFx();enterBattleMode(false);setView("raster",true);save();setTab("shop");render();toast("Revanche! Der Laden ist frisch gewürfelt. Passe dein Team an, dann starte den Kampf erneut.","heart");};
     $("rQuit").onclick=()=>{R.classList.remove("show");R.innerHTML="";finish(false);};
     if(S.iron&&!S.daily){const rb=$("rRev");if(rb)rb.style.display="none";const rw=R.querySelector(".rewards");if(rw)rw.innerHTML='<div class="incRow"><span>Eisenmann</span><span style="color:var(--red)">keine Wiederbelebung</span></div>';const h=R.querySelector("h4");if(h)h.textContent="Eisenmann: Dieser Lauf endet hier.";}
     else if(S.noRev&&!S.daily){const rb=$("rRev");if(rb)rb.style.display="none";const mn=MODES[S.mode].n,rw=R.querySelector(".rewards");if(rw)rw.innerHTML=`<div class="incRow"><span>${mn}</span><span style="color:var(--red)">1 Leben · keine Revanche</span></div>`;const h=R.querySelector("h4");if(h)h.textContent=mn+": Dieser Lauf endet hier.";const q=$("rQuit");if(q){q.className="pri";q.innerHTML=ic("flag")+" Lauf beenden";}}
