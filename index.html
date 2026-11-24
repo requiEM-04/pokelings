@@ -18349,7 +18349,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.60.0.5",DUEL_HP=30;
+const MP_VER="1.60.0.6",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18986,7 +18986,7 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.60.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.60.0.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
  {v:"1.60.0.5",d:"24.11.2026",t:"Wiederbeleben & Runden",items:[
   ["heart", "Nach einer Niederlage steht jetzt richtig da, dass jede Wiederbelebung die Gegner stärker macht (statt „Du hast nur ein Leben“)."],
@@ -22025,6 +22025,21 @@ PKT.act=async function(cmd){const [a,...r]=String(cmd||"").trim().split(/\s+/),w
     const ch=_pkChance(S.enemies),res=await _act59(cmd);return `Chance vor dem Kampf: ${ch.chance==null?"?":ch.chance+" %"} (${ch.probes} Probekämpfe)\n`+res;}
   }catch(e){return "Fehler: "+e.message;}
   return _act59(cmd);};
+
+/* ================= v1.60.0.6: KI-Testmodus – Schwierigkeiten mit Multiplikatoren in state() und json() ================= */
+const AI_MODE_DE={easy:"leicht",normal:"normal",hard:"schwer",nuzlocke:"nuzlocke",night:"albtraum"};
+function pkModes(rg){rg=rg||(typeof modeRegion!=="undefined"?modeRegion:"kanto");return Object.entries(MODES).filter(([m,M])=>!M.hidden).map(([m,M])=>({id:m,cmd:AI_MODE_DE[m]||m,name:M.n,enemy:+(+M.enemy).toFixed(3),gems:M.gem,revive:M.noRev?null:+(M.revive*100).toFixed(1),oneLife:!!M.noRev,
+  unlocked:typeof modeUnlocked==="function"?!!modeUnlocked(m,rg):null,champ:(()=>{try{return ((regProg(rg).champs||{})[m])|0;}catch(e){return 0;}})()}));}
+function pkModesTxt(rg){return pkModes(rg).map(m=>`${m.cmd}: Gegner ×${String(m.enemy).replace(".",",")} · Edelsteine ×${String(m.gems).replace(".",",")} · ${m.oneLife?"1 Leben":"Revanche +"+String(m.revive).replace(".",",")+" %"}${m.unlocked===false?" · GESPERRT":""}${m.champ?" · "+m.champ+"× Champion":""}`).join("\n   ");}
+const _st606=pkState;
+pkState=function(){let s=_st606();try{
+  if($("modal").classList.contains("show")&&$("mbox").querySelector(".dfCard,.regCard"))s+=`\n  Schwierigkeiten (${typeof modeRegion!=="undefined"?modeRegion:"?"}), mehr Edelsteine auf höheren Stufen:\n   `+pkModesTxt();
+  if(typeof S!=="undefined"&&S&&MODES[S.mode])s=s.replace(/(LAUF: [^\n]*)/,`$1 · Edelsteine ×${String(MODES[S.mode].gem).replace(".",",")}`);
+  if($("menu").classList.contains("show")&&!$("modal").classList.contains("show"))s+="\n  Schwierigkeiten (Edelstein-Multiplikator): "+pkModes().map(m=>`${m.cmd} ×${String(m.gems).replace(".",",")}${m.unlocked===false?" (gesperrt)":""}`).join(" · ");
+ }catch(e){}return s;};
+PKT.state=pkState;
+const _js606=PKT.json;
+PKT.json=function(){const o=_js606();try{o.modes=pkModes(o.run&&o.run.region);if(o.run&&MODES[o.run.mode])o.run.gemMul=MODES[o.run.mode].gem;}catch(e){}return o;};
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
