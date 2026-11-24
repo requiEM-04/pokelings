@@ -5469,6 +5469,39 @@ body.aiLite{background:#2e3138!important}body.aiLite #arena,body.aiLite #wwrap{b
 @keyframes sd62{from{transform:translateX(0)}to{transform:translateX(25%)}}
 .bg-sand .sd62s{left:-40%;top:var(--y);width:var(--w);height:.45cqh;z-index:3;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(255,240,210,.9),transparent);animation:cbStreak var(--d,1.4s) linear var(--dl,0s) infinite}
 .bg-sand .sd62g{left:-5%;top:var(--y);width:var(--s);aspect-ratio:1;z-index:3;border-radius:50%;background:#c88a4a;animation:cbStreak var(--d,1.6s) linear var(--dl,0s) infinite}
+/* ================= v1.62.5.6: Hintergründe nachgebessert (Motive aus dem verdeckten unteren Drittel, helle Blitze, Dünen mit Licht und Schatten) ================= */
+/* Gewittersturm: heller Blitz mit Leuchten, länger sichtbar, Himmel blitzt mit */
+.bg-sturm .st62b{left:76%;top:9%;height:52cqh;filter:drop-shadow(0 0 .6cqw #ffffff) drop-shadow(0 0 3cqw #7ac8ff);animation:bolt56 4.6s infinite}
+.bg-sturm .st62b.b2{left:22%;top:11%;height:38cqh;animation:bolt56 7.3s 1.8s infinite}
+@keyframes bolt56{0%,56%,100%{opacity:0}57%{opacity:1}59%{opacity:.2}61%{opacity:1}68%{opacity:.85}74%{opacity:0}}
+.bg-sturm .st62f{background:radial-gradient(ellipse at 76% 22%,rgba(225,238,255,.75),rgba(160,190,255,.25) 40%,transparent 70%);animation:fl56 4.6s infinite}
+.bg-sturm .lit{animation:fl56 4.6s infinite}
+@keyframes fl56{0%,56%,100%{opacity:0}57%{opacity:.85}59%{opacity:.2}61%{opacity:.7}70%{opacity:0}}
+/* Sandsturm: staubiger Himmel, Sonne rechts oben, Schleier über den Dünen */
+.bg-sand{background:linear-gradient(180deg,#c87a3e 0,#e0a060 28%,#f2c486 46%,#e8b070 58%)}
+.bg-sand .sun{left:72%;top:15%;width:18cqw;margin-left:-9cqw;opacity:.8}
+.bg-sand .sd62v.v1{top:38%}.bg-sand .sd62v.v2{top:52%}.bg-sand .sd62v.v3{top:64%}
+/* Morgenroute: Horizont höher, Sonne rechts oben */
+.bg-sunrise{background:linear-gradient(180deg,#ff8a58 0,#ffc078 22%,#ffe2b0 36%,#ffd8c0 44%,#80cbf2 100%)}
+.bg-sunrise .sun{left:68%;top:15%;width:20cqw;margin-left:-10cqw}
+/* Polarlicht: Horizont höher, Strahlen unregelmäßig und weicher, Grundleuchten */
+.bg-aurora{background:linear-gradient(180deg,#020814 0,#071a34 40%,#0c2a4a 54%,#0c2240 56%)}
+.bg-aurora .au56g{left:-10%;width:120%;top:2%;height:52%;background:radial-gradient(ellipse 55% 45% at 50% 55%,rgba(90,255,170,.3),rgba(90,200,255,.1) 55%,transparent 75%);filter:blur(1cqw);transform-origin:50% 0;animation:au62 11s ease-in-out infinite alternate}
+.bg-aurora .au62c.c1{filter:blur(.6cqw);background:repeating-linear-gradient(90deg,rgba(120,255,190,0) 0 .8cqw,rgba(120,255,190,.42) 1.3cqw,rgba(120,255,190,0) 2.4cqw),repeating-linear-gradient(90deg,rgba(170,255,220,0) 0 2.3cqw,rgba(170,255,220,.28) 3.1cqw,rgba(170,255,220,0) 5.2cqw),repeating-linear-gradient(90deg,rgba(80,220,170,0) 0 3.7cqw,rgba(80,220,170,.22) 4.6cqw,rgba(80,220,170,0) 7.9cqw)}
+.bg-aurora .au62c.c2{filter:blur(.7cqw);background:repeating-linear-gradient(90deg,rgba(160,120,255,0) 0 1.4cqw,rgba(160,120,255,.38) 2cqw,rgba(160,120,255,0) 3.4cqw),repeating-linear-gradient(90deg,rgba(200,140,255,0) 0 3.1cqw,rgba(200,140,255,.22) 4.2cqw,rgba(200,140,255,0) 6.6cqw)}
+.bg-aurora .au62c.c3{filter:blur(.5cqw);background:repeating-linear-gradient(90deg,rgba(90,255,220,0) 0 .6cqw,rgba(90,255,220,.4) .9cqw,rgba(90,255,220,0) 1.8cqw),repeating-linear-gradient(90deg,rgba(90,255,220,0) 0 1.9cqw,rgba(90,255,220,.25) 2.7cqw,rgba(90,255,220,0) 4.3cqw)}
+/* Lichterglanz: verschneites Dorf mit Tanne statt Hochhäusern */
+.bg-lichterglanz{background:linear-gradient(180deg,#0a0c22 0,#1c1e4a 46%,#2e3466 60%,#e8f0ff 66%)}
+/* Indigo-Plateau (Kanto): Morgendämmerung über dem Plateau */
+.bg-rg_kanto{background:linear-gradient(180deg,#3a4a8a 0,#8a6aa8 20%,#ff9a7a 40%,#ffd09a 54%,#c8b0c8 62%)}
+/* Areal Null: Kraterwände mit Wasserfällen, schwebende Kristalle */
+.bg-rg_paldea{background:linear-gradient(180deg,#d8f0f4 0,#a8d8e0 26%,#8ab8b8 40%,#2a4448 60%)}
+.bg-rg_paldea .pd56w{width:2.6%;margin-left:-1.3%;z-index:1;border-radius:2px;background:repeating-linear-gradient(180deg,rgba(255,255,255,.9) 0 18%,rgba(200,240,255,.4) 18% 30%,rgba(255,255,255,.75) 30% 50%);background-size:100% 9cqh;opacity:.85;filter:blur(.12cqw);-webkit-mask:linear-gradient(180deg,transparent,#000 6%,#000 88%,transparent);mask:linear-gradient(180deg,transparent,#000 6%,#000 88%,transparent);animation:pd56w .8s linear infinite}
+.bg-rg_paldea .pd56w.w2{width:2%;animation-duration:1s}
+@keyframes pd56w{to{background-position:0 9cqh}}
+.bg-rg_paldea .pd56c{width:var(--s);aspect-ratio:.62;margin-left:calc(var(--s) / -2);z-index:2;filter:drop-shadow(0 0 1cqw var(--c));animation:pd56c 5s ease-in-out var(--dl,0s) infinite alternate}
+.bg-rg_paldea .pd56c::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,#ffffff,var(--c) 55%,rgba(40,60,80,.5));clip-path:polygon(50% 0,100% 45%,50% 100%,0 45%)}
+@keyframes pd56c{from{transform:translateY(-1.2cqh) rotate(-8deg)}to{transform:translateY(1.2cqh) rotate(8deg)}}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -15801,6 +15834,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Trainerkarte & Erfolge": "Trainer 
 if(typeof EN!=="undefined")Object.assign(EN,{"Erfolge & Titel": "Achievements & titles", "Erfolge geben jetzt dreimal so viele Edelsteine (Bronze 6, Silber 15, Gold 30, Platin 60, Mythisch 120). Für deine schon freigeschalteten Erfolge wird der Unterschied einmal nachgezahlt.": "Achievements now give three times as many gems (Bronze 6, Silver 15, Gold 30, Platinum 60, Mythic 120). For achievements you already unlocked, the difference is paid out once.", "Titel: Jedes Abzeichen hat auf Platin jetzt einen eigenen Titel, z. B. Einschlag → „Meteor“, Glitzerjäger → „Glitzerauge“. Erfolge auf Platin und Mythisch geben ihren Namen als Titel. Ein schon gewählter Abzeichen-Titel wird automatisch umgestellt.": "Titles: every badge now has its own title on Platinum, e.g. Impact → “Meteor”, Shiny Hunter → “Glitter Eye”. Achievements on Platinum and Mythic give their name as a title. A badge title you already chose is switched automatically.", "Titel-Effekte: Im Reiter Titel wählst du einen Effekt für deinen Titel. Chrom, Gold, Eis, Feuer, Neon, Galaxie und Regenbogen gibt es für 20 bis 160 Erfolge, die Edelstein-Effekte über die Ruhm-Stufen. Gesperrte Effekte stehen mit Bedingung da.": "Title effects: in the Titles tab you choose an effect for your title. Chrome, Gold, Ice, Fire, Neon, Galaxy and Rainbow come with 20 to 160 achievements, the gem effects with the fame tiers. Locked effects show their condition.", "9 neue Erfolge fürs Endgame: Abgrund (10, 25 und 50 Ebenen), Schwer-Champion in 5 und in allen Regionen, alle Booster-Pokémon einer Region und aller Regionen, erste Ruhm-Stufe und Ruhmeslegende.": "9 new endgame achievements: Abyss (10, 25 and 50 floors), Hard Champion in 5 and in all regions, all booster Pokémon of one region and of all regions, first fame tier and Fame Legend.", "Effekt für deinen Titel": "Effect for your title", "Gilt für Titel aus Abzeichen und Erfolgen. Verliehene und Event-Titel behalten ihren eigenen Effekt.": "Applies to titles from badges and achievements. Awarded and event titles keep their own effect.", "Standard": "Default", "Abgrund-Taucher": "Abyss Diver", "Schaffe 10 Ebenen im Abgrund.": "Clear 10 floors in the Abyss.", "Tiefseher": "Deep Seer", "Schaffe 25 Ebenen im Abgrund.": "Clear 25 floors in the Abyss.", "Herr des Abgrunds": "Lord of the Abyss", "Schaffe 50 Ebenen im Abgrund.": "Clear 50 floors in the Abyss.", "Harter Brocken": "Tough Nut", "Werde auf Schwer in 5 Regionen Champion.": "Become Champion on Hard in 5 regions.", "Unbeugsam": "Unyielding", "Werde auf Schwer in allen Regionen Champion.": "Become Champion on Hard in all regions.", "Volles Album": "Full Album", "Schalte alle Booster-Pokémon einer Region frei.": "Unlock all booster Pokémon of one region.", "Weltsammlung": "World Collection", "Schalte die Booster-Pokémon aller Regionen frei.": "Unlock the booster Pokémon of all regions.", "Ruhmreich": "Renowned", "Erreiche die erste Ruhm-Stufe (Topas).": "Reach the first fame tier (Topaz).", "Erreiche die höchste Ruhm-Stufe.": "Reach the highest fame tier.", "Titelträger": "Titleholder", "Weltreisender": "Globetrotter", "Albtraumbrecher": "Nightmare Breaker", "Eisenherz": "Iron Heart", "Duellant": "Duelist", "Siegesläufer": "Win Runner", "Schwachstellenjäger": "Weak Spot Hunter", "Scharfauge": "Keen Eye", "Mega-Magier": "Mega Mage", "Ohne Fehl": "Flawless One", "Riesentöter": "Giant Slayer", "Gipfelstürmer": "Summit Stormer", "Gegnerschreck": "Foe Terror", "Meteor": "Meteor", "Forscher": "Researcher", "Nordlichtjäger": "Northern Light Hunter", "Glitzerauge": "Glitter Eye", "Verschmelzer": "Fuser", "Schatzsucher": "Treasure Hunter", "Allrounder": "All-Rounder", "Frühaufsteher": "Early Bird", "Urgestein": "Old Hand", "Sammlerseele": "Collector Soul", "Erfolge geben jetzt dreimal so viele Edelsteine:": "Achievements now give three times as many gems:", "nachgezahlt": "paid out", "Ruhmeslegende": "Fame Legend"});
 /* v1.62.5 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Regions-Hintergründe": "Region backgrounds", "11 neue Regions-Hintergründe: Wer in einer Region Champion wird (Normal oder schwerer), bekommt ihren Hintergrund: Kanto-Morgen, Glockenturm, Tropenküste, Speersäule, Stratos bei Nacht, Prismaturm, Inselsonne, Stadionnacht, Areal Null, Raumzeitriss und Laternenfest.": "11 new region backgrounds: becoming Champion in a region (Normal or harder) unlocks its background: Kanto Morning, Bell Tower, Tropical Coast, Spear Pillar, Castelia by Night, Prism Tower, Island Sun, Stadium Night, Area Zero, Space-Time Rift and Lantern Festival.", "Überarbeitet: Gewittersturm (Blitze mit Ästen, Wolkenwand), Himmelsturm (Wolkenmeer in drei Ebenen, Treppen, Licht von oben), Lichterglanz (Stadt, Lichterketten, Schnee), Edelsteinmine (Stollen, Schienen, Lore, Laternen), Polarlicht (Vorhang aus Lichtstrahlen über Eisscholle und Iglu), Vulkanherz (Lavafluss, Rauch, Funkenflug), Morgenroute (Weg mit Wegweiser) und Sandsturm (Sandschleier und Böen).": "Reworked: Thunderstorm (branching lightning, cloud wall), Sky Tower (three-layer cloud sea, stairs, light from above), Glow of Lights (city, light strings, snow), Gem Mine (tunnel, rails, mine cart, lanterns), Aurora (curtain of light rays over an ice floe and igloo), Volcano Heart (lava river, smoke, sparks), Morning Route (path with signpost) and Sandstorm (sand veils and gusts).", "Kanto-Morgen": "Kanto Morning", "Glockenturm": "Bell Tower", "Tropenküste": "Tropical Coast", "Speersäule": "Spear Pillar", "Stratos bei Nacht": "Castelia by Night", "Prismaturm": "Prism Tower", "Inselsonne": "Island Sun", "Stadionnacht": "Stadium Night", "Areal Null": "Area Zero", "Raumzeitriss": "Space-Time Rift", "Laternenfest": "Lantern Festival", "Champion in": "Champion in"});
+/* v1.62.5.6 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Hintergründe nachgebessert": "Backgrounds polished", "Gewittersturm: Die Blitze leuchten jetzt hell und sind länger zu sehen, der Himmel blitzt mit.": "Thunderstorm: the lightning now glows brightly and stays visible longer, and the sky flashes with it.", "Hintergründe nachgebessert: Morgenroute, Polarlicht, Vulkanherz und Edelsteinmine zeigen ihre Motive (Wegweiser, Iglu, Lavastrom, Lore) jetzt weiter oben, wo Abzeichen und Werte sie nicht verdecken. Sandsturm hat Dünen mit Licht und Schatten und alte Ruinen, Areal Null Kraterwände mit Wasserfällen und schwebenden Kristallen.": "Backgrounds polished: Morning Route, Aurora, Volcano Heart and Gem Mine now show their motifs (signpost, igloo, lava stream, mine cart) higher up, where badges and stats don't cover them. Sandstorm has dunes with light and shadow plus old ruins, Area Zero has crater walls with waterfalls and floating crystals.", "Kanto hat einen eigenen Champion-Hintergrund: „Indigo-Plateau“ (die Liga auf dem Berg im Morgenrot) statt der dritten Wiese.": "Kanto has its own Champion background: “Indigo Plateau” (the League on the mountain at dawn) instead of a third meadow.", "Indigo-Plateau": "Indigo Plateau"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18446,7 +18481,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.62.5",DUEL_HP=30;
+const MP_VER="1.62.5.6",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -19084,8 +19119,12 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.62.5.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.62.5.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.62.5.6",d:"24.11.2026",t:"Hintergründe nachgebessert",items:[
+  ["bolt", "Gewittersturm: Die Blitze leuchten jetzt hell und sind länger zu sehen, der Himmel blitzt mit."],
+  ["route", "Hintergründe nachgebessert: Morgenroute, Polarlicht, Vulkanherz und Edelsteinmine zeigen ihre Motive (Wegweiser, Iglu, Lavastrom, Lore) jetzt weiter oben, wo Abzeichen und Werte sie nicht verdecken. Sandsturm hat Dünen mit Licht und Schatten und alte Ruinen, Areal Null Kraterwände mit Wasserfällen und schwebenden Kristallen."],
+  ["crown", "Kanto hat einen eigenen Champion-Hintergrund: „Indigo-Plateau“ (die Liga auf dem Berg im Morgenrot) statt der dritten Wiese."]]},
  {v:"1.62.5",d:"24.11.2026",t:"Regions-Hintergründe",items:[
   ["route", "11 neue Regions-Hintergründe: Wer in einer Region Champion wird (Normal oder schwerer), bekommt ihren Hintergrund: Kanto-Morgen, Glockenturm, Tropenküste, Speersäule, Stratos bei Nacht, Prismaturm, Inselsonne, Stadionnacht, Areal Null, Raumzeitriss und Laternenfest."],
   ["spark", "Überarbeitet: Gewittersturm (Blitze mit Ästen, Wolkenwand), Himmelsturm (Wolkenmeer in drei Ebenen, Treppen, Licht von oben), Lichterglanz (Stadt, Lichterketten, Schnee), Edelsteinmine (Stollen, Schienen, Lore, Laternen), Polarlicht (Vorhang aus Lichtstrahlen über Eisscholle und Iglu), Vulkanherz (Lavafluss, Rauch, Funkenflug), Morgenroute (Weg mit Wegweiser) und Sandsturm (Sandschleier und Böen)."]]},
@@ -22580,6 +22619,99 @@ try{const _ac6255=PKT.act;PKT.act=async function(cmd){if(Array.isArray(cmd))retu
 /* Ruhm-Reiter: Überschrift „RUHM“ statt „FORSCHUNGSLABOR“ (Fenster-ID bleibt "lab") */
 try{const _ls6255=labScreen;labScreen=function(){const r=_ls6255.apply(this,arguments);try{const mb=$("mbox"),on=mb.querySelector(".dtabs button.on"),h=mb.querySelector(".labHd h2");if(on&&h&&on.dataset.t==="fame")h.innerHTML=`${ic("crown")} RUHM`;}catch(e){}return r;};}catch(e){}
 try{const _wi6255=pkWinId;pkWinId=function(mb){const r=_wi6255.apply(this,arguments);if(r)return r;try{if(/^\s*(RUHM|FAME)\s*$/.test((mb.querySelector("h2")||{}).textContent||""))return "lab";}catch(e){}return r;};}catch(e){}
+
+/* ================= v1.62.5.6: Hintergründe nachgebessert (Testbericht 1.62.5) =================
+   Auf der Trainerkarte verdecken Abzeichen + Werteleiste das untere Viertel und der Trainer die Mitte (ca. 24–74 % Höhe).
+   Hauptmotive deshalb oben oder seitlich im Bereich 25–72 % Höhe. */
+/* Blitz mit hellem Kern und Leuchten (statt dünner Linie) */
+const _bolt6256=(seed,x,y0,y1)=>{const R=_rnd(seed);let d=`M${x} ${y0}`,cx=x,cy=y0,br="";while(cy<y1){cy+=3+R()*4;cx+=(R()-.5)*7;d+=` L${_f1(cx)} ${_f1(cy)}`;if(R()<.35){let bx=cx,by=cy;let b=`M${_f1(bx)} ${_f1(by)}`;for(let k=0;k<3;k++){by+=2+R()*3;bx+=(R()<.5?-1:1)*(1+R()*3);b+=` L${_f1(bx)} ${_f1(by)}`;}br+=b;}}
+  const p=(dd,c,w,o)=>`<path d="${dd}" fill="none" stroke="${c}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"${o!=null?` opacity="${o}"`:""}/>`;
+  return p(d,"#7ac8ff",6,.22)+p(br,"#9ad8ff",2.6,.3)+p(d,"#c8f0ff",3,.6)+p(br,"#eaf8ff",.9,.9)+p(d,"#ffffff",1.5);};
+/* Düne mit Licht- und Schattenseite (Sonne rechts oben) */
+const _dune6256=(x0,yb,xp,yp,x1,lit,shd,rim)=>{const top=`M${x0} ${yb} C${_f1(x0+(xp-x0)*.5)} ${_f1(yb-(yb-yp)*.25)} ${_f1(xp-(xp-x0)*.28)} ${yp} ${xp} ${yp} C${_f1(xp+(x1-xp)*.3)} ${yp} ${_f1(x1-(x1-xp)*.4)} ${yb} ${x1} ${yb+4}`;
+  return `<path d="M${x0} 100 V${yb} ${top.slice(top.indexOf("C"))} V100Z" fill="${lit}"/>`
+  +`<path d="M${x0} 100 V${yb} C${_f1(x0+(xp-x0)*.5)} ${_f1(yb-(yb-yp)*.25)} ${_f1(xp-(xp-x0)*.28)} ${yp} ${xp} ${yp} C${_f1(xp+(x1-xp)*.08)} ${_f1(yp+(100-yp)*.3)} ${_f1(xp-(xp-x0)*.12)} ${_f1(yp+(100-yp)*.7)} ${_f1(xp-(xp-x0)*.42)} 100Z" fill="${shd}"/>`
+  +`<path d="${top}" fill="none" stroke="${rim}" stroke-width="1.2" vector-effect="non-scaling-stroke" opacity=".85"/>`;};
+/* Rippel auf einer Dünenseite */
+const _rip6256=(seed,n,x0,x1,y0,y1,col)=>{const R=_rnd(seed);let d="";for(let i=0;i<n;i++){const y=y0+(y1-y0)*(i+R()*.5)/n,x=x0+R()*(x1-x0)*.4,w=(x1-x0)*(.3+R()*.4);d+=`M${_f1(x)} ${_f1(y)} q${_f1(w/2)} ${_f1(-1.2-R())} ${_f1(w)} 0 `;}return `<path d="${d}" fill="none" stroke="${col}" stroke-width=".8" vector-effect="non-scaling-stroke" opacity=".55"/>`;};
+/* Tanne mit Schnee, Kugeln und Stern */
+const _fir6256=()=>{let s=`<rect x="18" y="64" width="4" height="8" fill="#3a2414"/>`;const L=[[8,40,64],[11,32,50],[14,24,37],[16.6,16,24]];for(const [h,w,yb] of L)s+=`<path d="M${20-w/2} ${yb} L20 ${yb-h-8} L${20+w/2} ${yb}Z" fill="#1c5a3a"/><path d="M${20-w/2} ${yb} Q20 ${yb-2.6} ${20+w/2} ${yb}" fill="none" stroke="#f4faff" stroke-width="1.4"/>`;
+  const B=[[12,60,"#ff4a5a"],[27,58,"#ffd04a"],[16,47,"#5aa8ff"],[24,45,"#ff4a5a"],[19,53,"#4ad08a"],[14,36,"#ffd04a"],[25,34,"#5aa8ff"],[20,27,"#ff4a5a"],[17,20,"#4ad08a"]];
+  s+=B.map((b,i)=>`<circle cx="${b[0]}" cy="${b[1]}" r="1.5" fill="${b[2]}" class="w62" style="--d:${(2+i%3*.7).toFixed(1)}s;--dl:-${(i*.37).toFixed(2)}s"/>`).join("");
+  return s+`<path d="M20 1 L21.4 5.2 L25.8 5.2 L22.2 7.8 L23.6 12 L20 9.4 L16.4 12 L17.8 7.8 L14.2 5.2 L18.6 5.2Z" fill="#ffe36a" class="w62" style="--d:2.4s"/>`;};
+/* Haus mit Schneedach (Lichterglanz) */
+const _sh6256=(x,yb,w,h,wall)=>_house62(x,yb,w,h,"#5a3a4a",wall,"#ffd88a",1)+`<path d="M${_f1(x-w*.14)} ${_f1(yb-h)} L${_f1(x+w/2)} ${_f1(yb-h-h*.58)} L${_f1(x+w*1.14)} ${_f1(yb-h)}" fill="none" stroke="#f4faff" stroke-width="1.6" stroke-linejoin="round"/>`;
+const BG6256={
+ sturm:{html:`<i class="st62f"></i>${_clS54("st62c c1",5101,30,10,6,[[0,"#1a1e2c"],[.7,"#3a4460"],[1,"#6a7898"]],.5)}${_clS54("st62c c2",5103,22,8,5,[[0,"#10121a"],[.8,"#2a3046"],[1,"#4a5470"]],.6)}${_bl(76,24,46,"rgba(160,200,255,.22)",";--d:4.6s")}
+  <svg class="r62 st62b" viewBox="0 0 40 70" preserveAspectRatio="xMidYMin meet">${_bolt6256(5105,22,0,64)}</svg><svg class="r62 st62b b2" viewBox="0 0 40 70" preserveAspectRatio="xMidYMin meet">${_bolt6256(5107,18,0,50)}</svg>
+  ${_sv(`${_ridge("st0",5111,58,7,.55,[[0,"#262c40"],[1,"#181c2a"]],"#9aaad8",.3)}${_ridge("st1",5109,68,8,.5,[[0,"#1a2030"],[1,"#0c1018"]],"#8a9ac8",.25)}<path d="M0 90 H100 V100 H0Z" fill="#080a10"/>`)}
+  <i class="rain"></i><i class="rain r2"></i><i class="lit"></i>`},
+ sand:{html:`<i class="sun"></i>${_band(30,10,"rgba(255,220,160,.35)",14)}
+  ${_sv(`${_ridge("sd0",5607,50,4,.4,[[0,"#d89a62"],[1,"#c88a52"]],"#ffe8c0",.45)}<path d="M74 50 L77 41 H90 L92 50Z" fill="#b8784a"/><path d="M77 41 H90 L89.4 43 H77.6Z" fill="#e8b07a"/>
+   ${_dune6256(-6,66,30,48,70,"#f2b46a","#b8642e","#ffe6b0")}${_rip6256(5611,5,32,64,54,72,"#c27236")}
+   ${_dune6256(36,82,78,56,108,"#eaa45a","#a8582a","#ffdca0")}${_rip6256(5613,5,78,104,62,80,"#b8682e")}
+   <path d="M-2 86 Q30 78 58 86 T102 84 V100 H-2Z" fill="#9a5424"/><path d="M-2 86 Q30 78 58 86 T102 84" fill="none" stroke="#ffcf8a" stroke-width="1" vector-effect="non-scaling-stroke" opacity=".7"/>`)}
+  ${_L62("sd56r","0 0 30 40","left:16%;bottom:34%;height:20cqh",`<path d="M3 40 V12 H10 V40Z M16 40 V22 H23 V40Z" fill="#8a4e26"/><path d="M2 12 H11 V9 H2Z M15 22 H24 V19 H15Z" fill="#a86434"/><path d="M8 40 V14 H10 V40Z M21 40 V24 H23 V40Z" fill="#6a3a1c"/><path d="M0 40 Q14 33 30 40Z" fill="#e8a45a"/><path d="M5 18 H8 M5 26 H8 M18 30 H21" stroke="#6a3a1c" stroke-width=".6"/>`)}
+  <i class="sd62v v1"></i><i class="sd62v v2"></i><i class="sd62v v3"></i>${_parts("sd62s",16,()=>`--y:${rr(20,80)}%;--w:${rr(16,40)}cqw;--d:${rr(.9,1.8)}s;--dl:-${rr(0,1.8)}s`)}${_parts("sd62g",14,()=>`--y:${rr(30,78)}%;--s:${rr(.4,.9,2)}cqw;--d:${rr(1,2.2)}s;--dl:-${rr(0,2.2)}s`)}`},
+ sunrise:{html:`<i class="sun"><i class="rays"></i></i>${_cloud(6,14,26,6,"rgba(255,255,255,.85)",24)}${_cloud(40,26,20,5,"rgba(255,240,230,.7)",30,6)}${_birds(2,"#5a3a4a",14,28)}
+  ${_sv(`${_ridge("sr1",5501,44,6,.5,[[0,"#c8a0b8"],[1,"#a88aa8"]],"#ffe0c8",.4)}${_ridge("sr2",5503,52,6,.45,[[0,"#8ab07a"],[1,"#6a9a5a"]])}
+   <path d="M28 100 Q38 80 45 66 Q49 57 50 52 L51 52 Q53 58 57 66 Q64 82 76 100Z" fill="#e8c898"/><path d="M45 100 Q47 80 50 58 M59 100 Q55 80 50.6 58" stroke="#c8a070" stroke-width=".5" vector-effect="non-scaling-stroke" opacity=".6"/>
+   <path d="M0 60 Q20 56 40 62 L32 100 H0Z M100 60 Q82 56 62 64 L70 100 H100Z" fill="#5a8a46"/><path d="${_blades(5505,60,100,3,8)}" fill="#3a6e32"/>`)}
+  ${_L62("sr62s","0 0 24 30","left:16%;bottom:36%;height:17cqh",`<rect x="10.6" y="4" width="2.8" height="26" fill="#6a4426"/><path d="M1 6 H17 L21 9 L17 12 H1Z" fill="#b07e44" stroke="#5a3a1e" stroke-width=".7"/><path d="M23 14 H7 L3 17 L7 20 H23Z" fill="#a8743e" stroke="#5a3a1e" stroke-width=".7"/><path d="M4 9 H13 M10 17 H19" stroke="#5a3a1e" stroke-width=".8"/>`)}
+  ${_L62("sr56t","0 0 50 40","left:86%;bottom:36%;height:24cqh",_tree62(30,40,36,"#4a8a3a","#3a2414")+_tree62(12,40,24,"#5a9a46","#3a2414"))}`},
+ aurora:{html:`${_stars(30,0,50,["#ffffff","#dff4ff"])}<i class="au56g"></i><i class="au62c c1"></i><i class="au62c c2"></i><i class="au62c c3"></i>
+  ${_sv(`<path d="M0 56 H100 V100 H0Z" fill="#0c2240"/><path d="M0 56 H100 V57.4 H0Z" fill="#3a7aa8" opacity=".6"/><path d="M66 56.2 L72 50 L76 51 L80 46 L86 51 L92 50 L98 56.2Z" fill="#b8d0ea"/><path d="M80 46 L86 51 L83 56.2 L79 56.2Z" fill="#8ab0d0"/>
+   <path d="M-4 68 L10 61 L46 59 L66 62 L72 68 L40 72 L6 72Z" fill="#dff0ff"/><path d="M-4 68 L10 61 L46 59 L66 62 L72 68" fill="none" stroke="#ffffff" stroke-width="1" vector-effect="non-scaling-stroke"/><path d="M72 68 L40 72 L6 72 L-4 68 L-4 71 L8 76 L44 76 L74 70Z" fill="#8ab8dc" opacity=".7"/>`)}
+  ${_band(58,3,"rgba(120,255,200,.25)",10)}
+  ${_L62("au62i","0 0 30 16","left:17%;bottom:30.5%;height:10cqh",`<path d="M2 16 A13 13 0 0 1 28 16Z" fill="#f4faff"/><path d="M2 16 A13 13 0 0 1 28 16" fill="none" stroke="#b8d4ee" stroke-width=".6"/><path d="M6 12 H24 M4 15 H26 M8 8 H22 M15 3 V8 M10 8 V12 M20 8 V12 M8 12 V15 M15 12 V15 M22 12 V15" stroke="#b8d4ee" stroke-width=".5"/><path d="M11 16 V11 A4 4 0 0 1 19 11 V16Z" fill="#1a2a44"/><path d="M12.5 16 V11.6 A2.5 2.5 0 0 1 17.5 11.6 V16Z" fill="#ffc860" opacity=".75" class="w62"/>`)}`},
+ vulkan:{html:`<i class="vu62g"></i>${_ups(10,["rgba(70,60,70,.6)","rgba(110,90,90,.5)"],6,12,6,11,40,60,";--o:.7")}
+  ${_sv(`<path d="M0 100 L0 68 L22 56 L40 30 L46 33 L54 33 L60 30 L78 56 L100 66 L100 100Z" fill="#2c0d0b"/><path d="M40 30 L46 33 L54 33 L60 30 L56 36 L44 36Z" fill="#ff8a2a"/><path class="lava" d="M47 34 Q44 44 38 52 Q32 58 24 63"/><path class="lava l2" d="M53 34 Q57 46 63 53 Q70 59 78 62"/>
+   <path d="M0 64 Q20 60 44 64 T100 62 V100 H0Z" fill="#1a0604"/><path class="vu62r" d="M-2 68 Q22 61 46 66 Q70 71 102 62 L102 67 Q70 77 46 72 Q22 67 -2 74Z"/>`)}
+  ${_L62("vu56r","0 0 40 24","left:14%;bottom:36%;height:12cqh",`<path d="M0 24 L6 10 L12 13 L18 4 L26 12 L32 9 L40 24Z" fill="#140404"/><path d="M18 4 L26 12 L22 12Z M6 10 L12 13 L9 14Z" fill="#ff6a1a" opacity=".55"/>`)}${_L62("vu56r","0 0 40 24","left:88%;bottom:37%;height:10cqh",`<path d="M0 24 L8 8 L14 12 L22 2 L30 14 L40 24Z" fill="#140404"/><path d="M22 2 L30 14 L26 14Z" fill="#ff6a1a" opacity=".5"/>`)}
+  ${_ups(22,["#ffb03a","#ff7a2a","#ffd36a"],.5,1.2,2.6,4.6,10,90,";--g:8px")}${_bl(50,68,60,"rgba(255,110,40,.45)",";--d:2.6s")}`},
+ edelmine:{html:`${_bl(50,40,54,"rgba(255,190,110,.35)",";--d:5s")}
+  ${_sv(`<path d="M0 0 H100 V100 H0Z" fill="#1a1420"/><path d="M14 100 V40 Q50 8 86 40 V100Z" fill="#0a080e"/><path d="M14 100 V40 Q50 8 86 40 V100" fill="none" stroke="#5a3a22" stroke-width="5" vector-effect="non-scaling-stroke"/><path d="M8 100 V36 M92 100 V36 M4 34 H96" stroke="#6a4626" stroke-width="5" vector-effect="non-scaling-stroke"/>
+   <path d="M44 100 L48.6 44 M56 100 L51.4 44" stroke="#8a8a98" stroke-width="1.2" vector-effect="non-scaling-stroke"/>${[52,62,74,88].map(y=>`<path d="M${_f1(50-(y-40)*.16)} ${y} H${_f1(50+(y-40)*.16)}" stroke="#4a3420" stroke-width="2" vector-effect="non-scaling-stroke"/>`).join("")}
+   ${_cluster(5401,88,64,10,"#7af0ff","#2a7ad8")}${_cluster(5403,90,44,7,"#ff8ae0","#8a2ad8")}${_cluster(5405,11,48,7,"#9affb0","#1a9a5a")}<path d="M70 10 L78 20 L74 28 M24 16 L18 26 L22 32" fill="none" stroke="#7af0ff" stroke-width=".8" opacity=".6" vector-effect="non-scaling-stroke"/>`)}
+  ${_L62("em62w","0 0 44 28","left:22%;bottom:29%;height:13cqh",`<path d="M0 26.6 H44" stroke="#8a8a98" stroke-width="1"/><path d="M3 27.4 H7 M15 27.4 H19 M27 27.4 H31 M39 27.4 H43" stroke="#4a3420" stroke-width="1.4"/><path d="M6 6 H38 L34 20 H10Z" fill="#5a4a5a"/><path d="M6 6 H38 V8 H6Z" fill="#8a7a8a"/><path d="M10 7 L14 1 L18 5 L22 0 L26 4 L30 1 L34 7Z" fill="#7af0ff"/><path d="M16 3 L20 7 L24 2 Z" fill="#ff8ae0"/><circle cx="14" cy="22.4" r="3" fill="#2a2228" stroke="#8a8a98" stroke-width=".8"/><circle cx="30" cy="22.4" r="3" fill="#2a2228" stroke="#8a8a98" stroke-width=".8"/>`)}
+  ${_L62("em62l","0 0 10 16","left:13%;bottom:52%;height:9cqh",`<path d="M5 0 V3" stroke="#3a2a1a"/><path d="M2 3 H8 L7 13 H3Z" fill="#3a2a1a"/><rect x="3.4" y="5" width="3.2" height="6" fill="#ffc860" class="w62"/>`)}${_L62("em62l","0 0 10 16","left:80%;bottom:44%;height:9cqh",`<path d="M5 0 V3" stroke="#3a2a1a"/><path d="M2 3 H8 L7 13 H3Z" fill="#3a2a1a"/><rect x="3.4" y="5" width="3.2" height="6" fill="#ffc860" class="w62" style="--dl:-1s"/>`)}
+  ${_spk(10,20,72,["#7af0ff","#ff8ae0","#9affb0"],1,2)}`},
+ lichterglanz:{html:`${_stars(14,0,30)}${_bl(50,20,60,"rgba(120,140,255,.25)",";--d:7s")}
+  ${_sv(`${_ridge("lg0",5307,56,5,.5,[[0,"#1c2448"],[1,"#141a36"]],"#8a9ad8",.3)}<path d="M0 66 Q30 61 60 65 T100 63 V100 H0Z" fill="#e8f0ff"/><path d="M0 66 Q30 61 60 65 T100 63" fill="none" stroke="#ffffff" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+   ${[[8,56.6],[14,56],[30,57],[62,56.4],[70,56.2],[90,57]].map(([x,y])=>`<rect x="${x}" y="${y-1.6}" width="1.2" height="1.2" fill="#ffd88a" class="w62"/>`).join("")}`)}
+  ${_L62("lg62k","0 0 100 30","left:50%;bottom:60%;height:14cqh",_lant62(0,2,100,4,14,13,["#ff4a5a","#ffd04a","#4ad08a","#5aa8ff"])+_lant62(0,14,100,10,10,11,["#ffd04a","#ff4a5a","#5aa8ff"]))}
+  ${_L62("lg56t","0 0 40 72","left:17%;bottom:33%;height:34cqh",_fir6256())}
+  ${_L62("lg56h","0 0 60 30","left:80%;bottom:33%;height:13cqh",_sh6256(6,30,20,12,"#e8d8c8")+_sh6256(34,30,18,15,"#d8c0a8"))}
+  ${_downs(26,"x-snow",["#ffffff","#e8f0ff"],.6,1.3,7,12,";--o:.85")}${_bl(17,58,22,"rgba(255,220,120,.4)",";--d:3.4s")}${_bl(84,60,22,"rgba(255,200,120,.35)",";--d:4s")}`},
+ rg_kanto:{n:"Indigo-Plateau",html:`${_bl(22,46,40,"rgba(255,220,150,.85)",";--d:6s")}${_cloud(4,12,30,6,"rgba(255,230,220,.8)",28)}${_cloud(50,20,24,5,"rgba(255,210,200,.6)",34,8)}${_birds(3,"#3a3060",8,22)}
+  ${_sv(`${_mtn("k1",4101,58,6,8,18,[[0,"#8a7ab8"],[1,"#6a5a98"]],"#ffd0b8",.4,.2)}
+   <path d="M50 100 L58 62 L64 46 L68 33 L71 31 H97 L100 34 L104 52 V100Z" fill="#3a3a6a"/><path d="M50 100 L58 62 L64 46 L68 33 L71 31 L68 46 L62 64 L56 100Z" fill="#5a4a88"/><path d="M58 62 L64 46 L68 33 L71 31" fill="none" stroke="#ffb08a" stroke-width="1" vector-effect="non-scaling-stroke" opacity=".8"/>
+   <path d="M60 74 L72 66 L64 58 L74 50 L68 42 L76 35" fill="none" stroke="#e8c898" stroke-width="1.4" vector-effect="non-scaling-stroke" stroke-dasharray="3 2" opacity=".8"/>
+   ${_ridge("k3",4105,64,6,.45,[[0,"#4e8a5a"],[1,"#3a6e46"]],"#c8f0b0",.35)}`)}
+  ${_band(50,6,"rgba(255,230,240,.45)",16)}
+  ${_L62("k56p","0 0 60 26","left:84%;bottom:68.6%;height:9cqh",`<path d="M2 26 H58 V23 H2Z" fill="#d8d0e8"/><path d="M8 23 V12 H52 V23Z" fill="#efe8f4"/>${[12,18,24,36,42,48].map(x=>`<rect x="${x-1}" y="13" width="2" height="10" fill="#c8bcd8"/>`).join("")}<path d="M26 23 V14 H34 V23Z" fill="#3a2a58"/><path d="M5 12 L30 3 L55 12Z" fill="#c8302a"/><path d="M22 6.5 Q30 -1 38 6.5Z" fill="#e8402a"/><circle cx="30" cy="8" r="2" fill="#ffe36a" class="w62"/>
+   <path d="M4 12 V0 M56 12 V0" stroke="#5a4a6a" stroke-width=".8"/><path d="M4 0 L10 2 L4 4Z" fill="#4a6ad8"/><path d="M56 0 L62 2 L56 4Z" fill="#4a6ad8"/>`)}`},
+ rg_paldea:{html:`${_bl(50,4,60,"rgba(255,255,230,.7)",";--d:6s")}${_shaft(46,16,6,"rgba(255,255,230,.3)")}${_cloud(30,16,30,5,"rgba(255,255,255,.7)",30)}
+  ${_sv(`${_ridge("p1",4901,38,10,.55,[[0,"#7a9a8a"],[1,"#5a7a72"]],"#e0fff0",.4)}<path d="M0 38 Q50 70 100 38 V100 H0Z" fill="#2a4448"/><path d="M8 52 Q50 86 92 52" fill="none" stroke="#88c8c0" stroke-width="1" vector-effect="non-scaling-stroke" opacity=".6"/>
+   <defs>${_lg("pw",[[0,"#4a6a66"],[1,"#22383a"]])}</defs><path d="M0 0 H20 Q15 12 18 24 Q13 38 19 52 Q14 62 16 72 L0 76Z" fill="url(#g_pw)"/><path d="M100 0 H80 Q85 10 82 22 Q88 36 81 48 Q86 60 82 70 L100 74Z" fill="url(#g_pw)"/>
+   <path d="M20 0 Q15 12 18 24 Q13 38 19 52 Q14 62 16 72" fill="none" stroke="#a8e0d0" stroke-width="1" vector-effect="non-scaling-stroke" opacity=".7"/><path d="M80 0 Q85 10 82 22 Q88 36 81 48 Q86 60 82 70" fill="none" stroke="#a8e0d0" stroke-width="1" vector-effect="non-scaling-stroke" opacity=".7"/>
+   <path d="M2 30 Q8 27 14 31 M4 50 Q9 47 15 51 M86 26 Q92 23 98 27 M84 56 Q90 53 97 57" fill="none" stroke="#6a9a6a" stroke-width="2.4" vector-effect="non-scaling-stroke" stroke-linecap="round" opacity=".8"/>
+   ${_cluster(4903,26,92,16,"#8ae8ff","#3a7ad8")}${_cluster(4905,70,96,20,"#ff9ae0","#8a3ad8")}${_cluster(4907,48,86,10,"#fff08a","#e09a2a")}`)}
+  <i class="pd56w" style="left:9%;top:4%;height:62%"></i><i class="pd56w w2" style="left:89%;top:10%;height:52%"></i>${_band(64,6,"rgba(240,255,255,.5)",12)}
+  ${[[30,18,"#a8f4ff",0],[64,12,"#ffc8f0",1.4],[40,34,"#fff4a0",.7],[70,30,"#a8f4ff",2.1],[24,40,"#ffc8f0",2.8],[56,24,"#d8c8ff",3.3]].map(([x,y,c,dl],i)=>`<i class="pd56c" style="left:${x}%;top:${y}%;--c:${c};--dl:-${dl}s;--s:${(2.6+i%3*.7).toFixed(1)}cqw"></i>`).join("")}
+  ${_band(56,8,"rgba(220,255,250,.35)",16)}${_ups(10,["#a8f4ff","#ffc8f0","#fff4a0"],.8,1.6,5,9,10,90,";--g:6px")}${_spk(8,60,90,["#ffffff","#c8f8ff","#ffd8f4"],1.2,2.2)}`}
+};
+try{for(const k in BG6256){const D=BG6256[k];if(CARD_BG[k]){CARD_BG[k].html=D.html;if(D.n)CARD_BG[k].n=D.n;try{delete BG_PRE[k];delete BG_POST[k];}catch(e){}}}}catch(e){}
+
+/* v1.62.5.6: KI-Testmodus – Bündel zeigt mehrzeilige Meldungen vollständig (z. B. sub list), revMalus immer gesetzt (auch ohne Revanche-Möglichkeit) */
+try{const _ac6256=PKT.act;PKT.act=async function(cmd){if(!Array.isArray(cmd))return _ac6256.apply(this,arguments);
+  const msgs=[];let last="";for(let i=0;i<cmd.length;i++){const c=cmd[i];const r=await PKT.act(c);last=typeof r==="string"?r:String(r);
+    if(i<cmd.length-1){const L=last.split("\n"),k=L.findIndex(l=>/^(Pokélings v|UPDATE VERFÜGBAR)/.test(l)),m=(k<0?L:L.slice(0,k)).join("\n").trim();if(m)msgs.push(`${c}: ${m}`);}}
+  return (msgs.length?msgs.join("\n")+"\n":"")+last;};}catch(e){}
+pkRevMalus=function(){try{if(typeof S==="undefined"||!S)return null;if(S.tower)return {revives:0,per:0,now:0,next:null,note:"Turm: Leben statt Revanche-Malus"};
+  if((S.noRev||S.iron)&&!S.daily)return {revives:0,per:0,now:0,next:null,note:"keine Revanche in diesem Modus"};
+  const per=Math.round(Math.max(.015,MODES[S.mode].revive-.015*perk("phoenix"))*1000)/10;
+  return {revives:S.revives|0,per,now:S.revanche?Math.round((S.revives|0)*per*10)/10:0,next:Math.round(((S.revives|0)+1)*per*10)/10};}catch(e){return null;}};
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
