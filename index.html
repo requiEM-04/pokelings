@@ -5393,6 +5393,10 @@ img.aur,.card .pic img.aur,.u img.aur{filter:url(#aurF) drop-shadow(0 0 2px rgba
 .evCards .path[disabled]{opacity:.45;filter:grayscale(.6);cursor:not-allowed}
 /* v1.60.0.10 */
 .ltDet .ltCost{font-size:11px;opacity:.75;margin:-2px 0 8px}
+/* v1.61.0.5 */
+.cdBody{height:min(calc(58*var(--vh,1vh)),560px);max-height:none}
+.cdT .tt-geist,.cdT5 .tt-geist{filter:drop-shadow(0 0 1px rgba(255,255,255,.95)) drop-shadow(0 0 3px rgba(160,90,255,.85))}
+.cdBgsLock .cdBg{opacity:.62;cursor:default}.cdBgsLock .cdBg .bgThumb{filter:grayscale(.75) brightness(.7)}.cdBgsLock .cdBar{display:block;height:4px;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden}.cdBgsLock .cdBar i{display:block;height:100%;background:#8fa3d8}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -9577,7 +9581,7 @@ const ACH=[
  {id:"alola",cat:"reg",t:2,ic:"leaf",n:"Champion von Alola",d:"Werde in Alola Champion.",chk:()=>_champR("alola")>0,rw:"miniras"},
  {id:"allreg",cat:"reg",t:4,ic:"route",n:"Weltmeister",d:"Werde in allen 11 Regionen Champion.",prog:()=>[_regChamps(),Object.keys(REGIONS).length],rw:"lugia"},
  {id:"akapu",cat:"reg",t:3,ic:"crown",n:"Schutzpatrone",d:"Habe 2 Kapu-Pokémon gleichzeitig im Team.",chk:()=>_all().filter(u=>u.sp>=785&&u.sp<=788).length>=2},
- {id:"kfossil",cat:"reg",t:2,ic:"relic",n:"Urzeit-Duo",d:"Habe Monargoras und Amagarga gleichzeitig im Team.",chk:()=>{const a=_all().map(u=>u.sp);return a.includes(697)&&a.includes(699);}},
+ {id:"kfossil",cat:"reg",t:2,ic:"relic",n:"Urzeit-Duo Kalos",d:"Habe Monargoras und Amagarga gleichzeitig im Team.",chk:()=>{const a=_all().map(u=>u.sp);return a.includes(697)&&a.includes(699);}},
  {id:"kmega",cat:"reg",t:3,ic:"mega",n:"Kalos-Mega",d:"Rüste ein Kalos-Pokémon in Endstufe mit einem Megastein aus.",chk:()=>_all().some(u=>(u.items||[]).includes("mega")&&MEGA[u.sp]&&u.sp>=650&&u.sp<=721)},
  {id:"kfairy",cat:"reg",t:2,ic:"star",n:"Feenzauber",d:"Habe 4 Fee-Pokémon gleichzeitig im Raster.",chk:()=>_bu().filter(u=>SPECIES[u.sp].types.includes("fairy")).length>=4},
  {id:"azkristall",cat:"reg",t:2,ic:"spark",n:"Z-Kraft",d:"Rüste ein Pokémon mit einem Z-Kristall aus.",chk:()=>_all().some(u=>(u.items||[]).includes("zkristall"))},
@@ -9683,7 +9687,7 @@ const ACH=[
 /* v1.43.0: Erfolge für die neuen Perks */
  {id:"gm1",cat:"coll",t:3,ic:"badge",n:"Großmeister",d:"Erforsche deinen ersten Großmeister-Perk.",chk:()=>Object.keys(ROLES).some(r=>perkLv("g_"+r)>0)},
  {id:"gm8",cat:"coll",t:4,ic:"crown",n:"Meister aller Klassen",d:"Erforsche alle 8 Großmeister-Perks.",prog:()=>[Object.keys(ROLES).filter(r=>perkLv("g_"+r)>0).length,Object.keys(ROLES).length]},
- {id:"treefull",cat:"coll",t:4,ic:"lab",n:"Forschung abgeschlossen",d:"Erforsche den kompletten Skillbaum.",chk:()=>RESEARCH.every(c=>c.nodes.every(n=>perkLv(n.id)>=n.max))},
+ {id:"treefull",cat:"coll",t:4,ic:"lab",n:"Forschungsleiter",d:"Erforsche drei Viertel aller Stufen im Skillbaum.",prog:()=>[_labN(),Math.ceil(_labMax()*.75)]},
  {id:"bag5",cat:"coll",t:2,ic:"pack",n:"Volle Taschen",d:"Habe 5 Items gleichzeitig in der Tasche.",chk:()=>!!(S&&Array.isArray(S.bag)&&S.bag.length>=5)},
  {id:"gmtwin",cat:"fight",t:3,ic:"aim",n:"Doppelt hält besser",d:"Triff mit Zwillingsschuss insgesamt 100-mal ein zweites Ziel.",prog:()=>[(META.stats||{}).gmTwin||0,100]},
  {id:"gmshield",cat:"fight",t:3,ic:"bubble",n:"Felsenfest",d:"Lass deinen Schild durch Unerschütterlich insgesamt 25-mal erneuern.",prog:()=>[(META.stats||{}).gmShield||0,25]},
@@ -9700,7 +9704,7 @@ const ACH=[
  {id:"evo8",cat:"coll",t:4,ic:"star",n:"Evoli-Sammler",d:"Entwickle Evoli in alle 8 Formen.",prog:()=>[[134,135,136,196,197,470,471,700].filter(id=>((((META.stats||{}).evoBr)||{})[id]||0)>0).length,8]},
  {id:"kampftrio",cat:"coll",t:3,ic:"swords",n:"Kampf-Trio",d:"Habe Kicklee, Nockchan und Kapoera gleichzeitig im Team.",chk:()=>[106,107,237].every(id=>_all().some(u=>u.sp===id))},
  {id:"plusminus",cat:"coll",t:2,ic:"bolt",n:"Plus und Minus",d:"Habe Plusle und Minun gleichzeitig im Team.",chk:()=>[311,312].every(id=>_all().some(u=>u.sp===id))},
- {id:"fossil2",cat:"coll",t:3,ic:"relic",n:"Urzeit-Duo",d:"Habe Wielie und Armaldo gleichzeitig im Team.",chk:()=>[346,348].every(id=>_all().some(u=>u.sp===id))},
+ {id:"fossil2",cat:"coll",t:3,ic:"relic",n:"Urzeit-Duo Hoenn",d:"Habe Wielie und Armaldo gleichzeitig im Team.",chk:()=>[346,348].every(id=>_all().some(u=>u.sp===id))},
  {id:"burmy4",cat:"coll",t:3,ic:"star",n:"Garderobe",d:"Entwickle Burmy in alle 4 Formen.",prog:()=>[[413,10004,10005,414].filter(id=>((((META.stats||{}).evoBr)||{})[id]||0)>0).length,4]},
  {id:"zweiwege",cat:"coll",t:2,ic:"swords",n:"Zwei Wege",d:"Habe Guardevoir und Galagladi gleichzeitig im Team.",chk:()=>[282,475].every(id=>_all().some(u=>u.sp===id))},
  {id:"affentrio",cat:"coll",t:2,ic:"leaf",n:"Affen-Trio",d:"Habe Vegichita, Grillchita und Sodachita gleichzeitig im Team.",chk:()=>[512,514,516].every(id=>_all().some(u=>u.sp===id))},
@@ -15719,6 +15723,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"KI-Reiter": "AI tab", "Bestenliste
 if(typeof EN!=="undefined")Object.assign(EN,{"Turm bleibt": "Tower stays", "Champion-Bildschirm: Wer ins Hauptmenü geht, verliert den Kampfturm nicht mehr. Über „Weiterspielen“ geht es in den Turm oder du beendest den Lauf.": "Champion screen: going to the main menu no longer loses the Battle Tower. Use “Continue” to enter the tower or end the run.", "Siegchance: Die Anzeige rechnet jetzt immer alle 50 Probekämpfe durch. Vorher stand nach 20 gewonnenen Probekämpfen schon 100 % fest.": "Win chance: the display now always runs all 50 practice battles. Before, 100 % was fixed after 20 won practice battles.", "Forschungslabor: Bei jeder Forschung stehen die Kosten aller Stufen und die Gesamtsumme.": "Research lab: each research shows the cost of all levels and the total.", "Nach einer Niederlage startet kein neuer Kampf mehr, bevor du Revanche oder Aufgeben gewählt hast.": "After a defeat, no new battle starts before you choose rematch or give up.", "Dieser Lauf ist geschafft, die Edelsteine dafür hast du schon bekommen. Dein Champion-Team kann noch in den Kampfturm.": "This run is done and you already got its gems. Your Champion team can still enter the Battle Tower.", "IN DEN KAMPFTURM": "INTO THE BATTLE TOWER", "Lauf beenden": "End run", "Champion · der Kampfturm wartet": "Champion · the Battle Tower awaits", "Kosten je Stufe:": "Cost per level:", "Gesamtkosten": "total cost", "verbleibend": "remaining"});
 /* v1.61.0 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Genauere Siegchance": "More accurate win chance", "Siegchance genauer: Die Probekämpfe laufen jetzt in denselben kleinen Zeitschritten wie der echte Kampf. Vorher lag die Anzeige bei knappen Kämpfen oft einige Punkte zu hoch, bei manchen Gegnerteams sogar deutlich.": "More accurate win chance: practice battles now run in the same small time steps as the real battle. Before, the display was often a few points too high in close battles, for some enemy teams even clearly.", "Booster: Stufen mit nur einem oder zwei Pokémon kommen als 3. Karte seltener, damit sich dasselbe Pokémon nicht so oft wiederholt.": "Boosters: tiers with only one or two Pokémon appear less often as the 3rd card, so the same Pokémon doesn't repeat as much."});
+/* v1.61.0.5 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Trainerkarte & Erfolge": "Trainer card & achievements", "Trainerkarte: Unter Stil siehst du jetzt auch die gesperrten Hintergründe, mit Bedingung und Fortschritt, z. B. 154 / 700. Das Fenster springt beim Wechsel der Reiter nicht mehr, und der mythische Titel ist besser lesbar.": "Trainer card: under Style you now also see locked backgrounds, with condition and progress, e.g. 154 / 700. The window no longer jumps when switching tabs, and the mythic title is easier to read.", "Abzeichen: Misst die nächste Stufe etwas anderes, steht dort jetzt „Nächste Stufe misst: …“.": "Badges: if the next tier measures something else, it now says “Next tier measures: …”.", "Erfolge: Krösus, Elite-Jäger, Ultra-Team, Ohne Kratzer, Sternenhimmel, Erzrivale, Typen-Meister und Tera-Sammler zeigen jetzt einen Fortschritt (bester Wert aus allen Läufen). Die zwei „Urzeit-Duo“ heißen jetzt Urzeit-Duo Kalos und Urzeit-Duo Hoenn. „Forschungsleiter“ (vorher „Forschung abgeschlossen“) gibt es schon für drei Viertel des Skillbaums, „Nobelpreis“ bleibt für den kompletten.": "Achievements: Croesus, Elite Hunter, Ultra Team, Without a Scratch, Starry Sky, Archrival, Type Master and Tera Collector now show progress (best value across all runs). The two “Prehistoric Duo” are now Prehistoric Duo Kalos and Prehistoric Duo Hoenn. “Research Lead” (formerly “Research complete”) now needs three quarters of the skill tree, “Nobel Prize” stays for the full tree.", "Noch gesperrt": "Still locked", "Nächste Stufe misst:": "Next tier measures:", "Urzeit-Duo Kalos": "Prehistoric Duo Kalos", "Urzeit-Duo Hoenn": "Prehistoric Duo Hoenn", "Forschungsleiter": "Research Lead", "Erforsche drei Viertel aller Stufen im Skillbaum.": "Research three quarters of all levels in the skill tree.", "„im Team“ zählt Raster und Bank, „im Raster“ nur die Pokémon auf dem Raster. Bei Zielen über mehrere Runden zählt dein bester Wert aus allen Läufen.": "“In the team” counts grid and bench, “on the grid” only the Pokémon on the grid. For goals over several rounds your best value from all runs counts."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18279,7 +18285,7 @@ function cardModal(t){t=t||CARD_TAB;CARD_TAB=t;const C=cardMeta(),me=cardMine();
     body=`<p class="cdHint">Tippe ein freigeschaltetes Abzeichen an, um es in eines der 3 Felder zu legen (nochmal tippen = entfernen). ${got} von ${all.length} Abzeichen freigeschaltet.</p>`+cats.map(cat=>{const L=all.filter(b=>b.cat===cat);if(!L.length)return"";
       return `<h4 class="cdCat">${cat}</h4><div class="cdGrid">${L.map(b=>{const s0=badgeState(b),gt=bGiftT(b.id),gv=gt>s0.t,s=gv?Object.assign({},s0,{t:gt}):s0,on=C.badges.includes(b.id),pr=gv?1:s.next?Math.min(1,s.v/s.next):b.v5&&s.t===4?Math.min(1,(s.v5||0)/b.T5):s.t===5&&b.T6?Math.min(1,(s.v6||0)/b.T6):1;
         return `<button class="cdB${on?" on":""}${s.t?"":" lock"}" data-b="${b.id}">${badgeHTML(b.id,Math.max(1,s.t),"sm")}${s.t?"":`<span class="cdL">${ic("lock")}</span>`}<div><b>${esc(b.n)} ${s.t?ROMAN[s.t]:""}</b><small>${esc(b.d)}</small>
-          <span class="cdBar"><i style="width:${Math.round(pr*100)}%;background:${s.t?TIER[s.t].c:"#6a7088"}"></i></span>${gv?`<small class="cdN cdGv">${ic("star")} Verliehen: ${TIER[gt].n}</small>`:`<small class="cdN">${Math.floor(s.v).toLocaleString("de-DE")}${s.next?` / ${s.next.toLocaleString("de-DE")} → ${TIER[s.t+1].n}`:b.v5&&s.t===4?` · ${esc(b.d5)}: ${(s.v5||0).toLocaleString("de-DE")} / ${b.T5} → ${TIER[5].n}`:s.t===5&&b.T6?(b.d6?` · ${esc(b.d6)}: ${Math.floor(s.v6||0).toLocaleString("de-DE")} / ${b.T6.toLocaleString("de-DE")} → ${TIER[6].n}`:` / ${b.T6.toLocaleString("de-DE")} → ${TIER[6].n}`):" · MAX"}</small>${s.t>=5?`<small class="cdT5${s.t>=6?" amb":""}">${ic(s.t>=6?"crown":"ghost")} Titel: <span class="tt tt-${s.t>=6?"bernstein":"geist"}">${esc(badgeT5n(b))}</span></small>`:""}`}</div></button>`;}).join("")}</div>`;}).join("");}
+          <span class="cdBar"><i style="width:${Math.round(pr*100)}%;background:${s.t?TIER[s.t].c:"#6a7088"}"></i></span>${gv?`<small class="cdN cdGv">${ic("star")} Verliehen: ${TIER[gt].n}</small>`:`<small class="cdN">${Math.floor(s.v).toLocaleString("de-DE")}${s.next?` / ${s.next.toLocaleString("de-DE")} → ${TIER[s.t+1].n}`:b.v5&&s.t===4?` · Nächste Stufe misst: ${esc(b.d5)} ${(s.v5||0).toLocaleString("de-DE")} / ${b.T5} → ${TIER[5].n}`:s.t===5&&b.T6?(b.d6?` · Nächste Stufe misst: ${esc(b.d6)} ${Math.floor(s.v6||0).toLocaleString("de-DE")} / ${b.T6.toLocaleString("de-DE")} → ${TIER[6].n}`:` / ${b.T6.toLocaleString("de-DE")} → ${TIER[6].n}`):" · MAX"}</small>${s.t>=5?`<small class="cdT5${s.t>=6?" amb":""}">${ic(s.t>=6?"crown":"ghost")} Titel: <span class="tt tt-${s.t>=6?"bernstein":"geist"}">${esc(badgeT5n(b))}</span></small>`:""}`}</div></button>`;}).join("")}</div>`;}).join("");}
   else if(t==="fav"){const all=favEntries(),d=META.dex||{},rc={};for(const e of all){const r=favReg(e.id);rc[r]=(rc[r]||0)+1;}const shOk=C.favM?favMegaOk(C.fav,C.favM,true):(d[C.fav]&&d[C.fav].shiny>0);if(FAV_R!=="all"&&!rc[FAV_R])FAV_R="all";
     body=`<p class="cdHint">Dein Lieblingspokémon steht auf deiner Kampfkarte, im VS-Bildschirm und in der Bestenliste. Wählbar ist jedes Pokémon, das du schon einmal hattest (${all.length}).<span> Mega-Formen zählen mit, auch schillernd.</span></p>
      <div class="favBar"><input id="favQ" placeholder="Pokémon suchen …" maxlength="20" autocomplete="off" value="${esc(FAV_Q)}">${shOk?`<button class="btn sm${C.favSh===1?" on":""}" id="favSh">${ic("shiny")} Schillernd</button>`:""}${(C.favM?favMegaOk(C.fav,C.favM,2):d[C.fav]&&d[C.fav].aur>0)?`<button class="btn sm${C.favSh===2?" on":""}" id="favAu">${ic("shiny")} Aurora</button>`:""}</div>
@@ -18364,7 +18370,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.61.0",DUEL_HP=30;
+const MP_VER="1.61.0.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -19002,8 +19008,12 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.61.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.61.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.61.0.5",d:"24.11.2026",t:"Trainerkarte & Erfolge",items:[
+  ["user", "Trainerkarte: Unter Stil siehst du jetzt auch die gesperrten Hintergründe, mit Bedingung und Fortschritt, z. B. 154 / 700. Das Fenster springt beim Wechsel der Reiter nicht mehr, und der mythische Titel ist besser lesbar."],
+  ["star", "Abzeichen: Misst die nächste Stufe etwas anderes, steht dort jetzt „Nächste Stufe misst: …“."],
+  ["trophy", "Erfolge: Krösus, Elite-Jäger, Ultra-Team, Ohne Kratzer, Sternenhimmel, Erzrivale, Typen-Meister und Tera-Sammler zeigen jetzt einen Fortschritt (bester Wert aus allen Läufen). Die zwei „Urzeit-Duo“ heißen jetzt Urzeit-Duo Kalos und Urzeit-Duo Hoenn. „Forschungsleiter“ (vorher „Forschung abgeschlossen“) gibt es schon für drei Viertel des Skillbaums, „Nobelpreis“ bleibt für den kompletten."]]},
  {v:"1.61.0",d:"24.11.2026",t:"Genauere Siegchance",items:[
   ["swords", "Siegchance genauer: Die Probekämpfe laufen jetzt in denselben kleinen Zeitschritten wie der echte Kampf. Vorher lag die Anzeige bei knappen Kämpfen oft einige Punkte zu hoch, bei manchen Gegnerteams sogar deutlich."],
   ["gem", "Booster: Stufen mit nur einem oder zwei Pokémon kommen als 3. Karte seltener, damit sich dasselbe Pokémon nicht so oft wiederholt."]]},
@@ -21939,7 +21949,7 @@ function _aiLogGet(){try{return JSON.parse(localStorage.getItem("pokelings_ailog
 function _aiLogSet(a){try{localStorage.setItem("pokelings_ailog",JSON.stringify(a.slice(-400)));}catch(e){}}
 try{const _eb59=endBattle;endBattle=function(win,timeout){try{if(!SIM&&typeof S!=="undefined"&&S&&!S.duel&&aiAcc()&&B&&!B.logged){B.logged=1;const c=_aiSimC(S.enemies||[]);
   const a=_aiLogGet();a.push({t:Date.now(),v:GAME_VER,r:S.round,m:S.mode,rg:S.region,w:S.enc?(S.enc.name||S.enc.type)+" ("+S.enc.type+")":"?",rev:S.revanche?(S.tower?(S.tower.rev|0):S.revives|0):0,tw:S.tower?1:0,m0:S.tower&&S.tower.m0||undefined,
-    ch:c&&c.n?Math.round(c.w/c.n*100):null,n:c?Math.min(c.n,SIM_N):0,win:!!win,s:+Math.max(0,(B.t||0)-INTRO).toFixed(1),
+    ch:c&&c.n?Math.round(c.w/c.n*100):null,n:c?c.n:0,win:!!win,s:+Math.max(0,(B.t||0)-INTRO).toFixed(1),
     team:boardUnits().map(u=>{const k=Object.keys(S.board).find(k=>S.board[k]===u);return _aiUnit(u)+"@"+k;}).join(", "),en:_aiEnemies(S.enemies)});_aiLogSet(a);}}catch(e){}
   return _eb59.apply(this,arguments);};}catch(e){}
 function pkLog(o){const a=_aiLogGet();if(o==="clear"){_aiLogSet([]);return "Protokoll geleert.";}
@@ -22039,7 +22049,7 @@ try{const _st60=settingsModal;settingsModal=function(){const r=_st60.apply(this,
 /* ================= v1.60.0.5: KI-Testmodus – PKT.json(), Labor, Sperren, Item verkaufen, Kampf mit fertiger Chance ================= */
 function _pkU(u,pos){const sp=SPECIES[u.sp]||{};return {pos,name:sp.name||"?",sp:u.sp,role:typeof roleOf==="function"?roleOf(u):null,stars:u.stars|0,stage:sp.stage|0,shiny:u.shiny==="a"?"aurora":!!u.shiny,crypto:!!u.crypto,
   items:(u.items||[]).map(i=>(IT_BY[i]&&IT_BY[i].n)||i),itemSlots:typeof itemSlots==="function"?itemSlots(u):null,spec:(u.spec||[]).map(k=>SPECS[k]?SPECS[k].n:k),next:sp.next?SPECIES[sp.next].name:sp.branch?sp.branch.map(i=>SPECIES[i].name):null};}
-function _pkChance(en){try{const c=SIMC.cache.get(simBoardSig()+"@"+simEnSig(en));return c&&c.n?{chance:Math.round(c.w/c.n*100),probes:Math.min(c.n,SIM_N)}:{chance:null,probes:0};}catch(e){return {chance:null,probes:0};}}
+function _pkChance(en){try{const c=SIMC.cache.get(simBoardSig()+"@"+simEnSig(en));return c&&c.n?{chance:Math.round(c.w/c.n*100),probes:c.n}:{chance:null,probes:0};}catch(e){return {chance:null,probes:0};}}
 function pkJson(){const sh=id=>$(id)&&$(id).classList.contains("show"),o={v:typeof GAME_VER!=="undefined"?GAME_VER:null,user:typeof USER!=="undefined"?USER:null,gems:typeof META!=="undefined"&&META?META.gems|0:null};
   o.screen=sh("auth")?"auth":$("stScene")?"partner":sh("result")?"result":sh("modal")?"window":sh("menu")?"menu":(typeof S!=="undefined"&&S)?"run":"title";
   if(sh("modal")){const mb=$("mbox"),ch=[...mb.querySelectorAll(".choice,.brOpt,.abDr,[data-pick],.regCard,.dfCard")].filter(b=>typeof _kVis!=="function"||_kVis(b));
@@ -22229,6 +22239,29 @@ try{const _ac61=PKT.act;PKT.act=async function(cmd){
   return _ac61.apply(this,arguments);};}catch(e){}
 /* trial: gleicher Zustand → sofort aus dem Cache */
 try{const _tr61=PKT.trial;const TC=new Map();PKT.trial=function(n){try{if(S&&S.enemies&&S.enemies.length){const k=simBoardSig()+"@"+simEnSig(S.enemies)+"|"+(+n||50);if(TC.has(k))return TC.get(k)+" · aus dem Cache";const r=_tr61.apply(this,arguments);if(TC.size>60)TC.clear();TC.set(k,r);return r;}}catch(e){}return _tr61.apply(this,arguments);};}catch(e){}
+
+/* v1.61.0.5: Trainerkarte (gesperrte Hintergründe mit Fortschritt), Erfolge mit Rekord-Fortschritt */
+/* Fortschritt eines gesperrten Hintergrunds: [aktuell, Ziel] oder null */
+function bgProg(k){try{const b=CARD_BG[k];if(!b||!b.lock)return null;const src=b.lock.toString().replace(/\s+/g,"");let m;
+  if((m=src.match(/^\(\)=>badgeState\(BADGE_BY\.(\w+)\)\.t>=(\d)$/))){const B=BADGE_BY[m[1]],N=+m[2];if(!B)return null;const D=_bDef(B),s=badgeState(B);
+    if(N===5&&B.v5)return [s.v5||0,B.T5];if(N===6&&B.T6)return [Math.floor(s.v6||0),B.T6];return N<=D.T.length?[Math.floor(s.v||0),D.T[N-1]]:null;}
+  if((m=src.match(/^\(\)=>badgeAll\(\)\.filter\(b=>badgeState\(b\)\.t>=(\d)\)\.length>=(\d+)$/)))return [badgeAll().filter(x=>badgeState(x).t>=+m[1]).length,+m[2]];
+  if((m=src.match(/^\(\)=>(.+)>=(\d+)$/))&&!/\|\||&&/.test(m[1].replace(/\|\|0\b/g,""))){const v=+new Function("return ("+m[1]+")")();return isFinite(v)?[Math.floor(v),+m[2]]:null;}}catch(e){}return null;}
+try{const _cm6105=cardModal;cardModal=function(t){const r=_cm6105.apply(this,arguments);try{if(CARD_TAB!=="look")return r;const mb=$("mbox"),box=mb&&mb.querySelector(".cdMoreBgs");if(!box)return r;
+  const L=Object.entries(CARD_BG).filter(([k,b])=>!b.bot&&!b.gift&&k!=="std"&&!bgOk(k)).sort((x,y)=>(x[1].lv||0)-(y[1].lv||0));if(!L.length){box.remove();return r;}
+  box.outerHTML=`<h4 class="cdCat">Noch gesperrt <small>${L.length}</small></h4><div class="cdBgs cdBgsLock">${L.map(([k,b])=>{const p=bgProg(k),pr=p?Math.min(1,p[0]/Math.max(1,p[1])):0;
+    return `<div class="cdBg lock"><i class="bgThumb">${bgHTML(k)}${b.lv?`<em class="cdLv l${b.lv}">${"★".repeat(b.lv)}</em>`:""}</i><b>${ic("lock")}${b.n}</b><small>${esc(b.ld||"")}</small>${p?`<span class="cdBar"><i style="width:${Math.round(pr*100)}%"></i></span><small class="cdN">${p[0].toLocaleString("de-DE")} / ${p[1].toLocaleString("de-DE")}</small>`:""}</div>`;}).join("")}</div>`;
+  try{cardHydrate(mb);}catch(e){}hydrateIcons(mb);}catch(e){}return r;};}catch(e){}
+/* Erfolge mit Zielwert: bester Wert über alle Läufe als Fortschritt */
+const ACH_REC={elite5:[()=>S&&!S.duel?(S.elites|0):0,5],ub4:[()=>S&&!S.duel?new Set(_all().filter(u=>SPECIES[u.sp]&&SPECIES[u.sp].line.ub).map(u=>SPECIES[u.sp].line.k)).size:0,4],
+  twclean:[()=>S&&S.tower&&!S.tower.lost?(S.tower.cl|0):0,10],star3x:[()=>S&&!S.duel?_all().filter(u=>u.stars>=2).length:0,3],rival4:[()=>S&&S.rival?(S.rival.w|0):0,4],rich1000:[()=>S&&!S.duel?(S.gold|0):0,1000]};
+function achRecUp(){try{if(!META)return;const R=META.achRec||(META.achRec={});for(const id in ACH_REC){const v=ACH_REC[id][0]();if(v>(R[id]|0))R[id]=v;}}catch(e){}}
+try{for(const id in ACH_REC){const a=ACH_BY[id];if(a&&!a.prog)a.prog=()=>{achRecUp();return [Math.min(((META.achRec||{})[id]|0),ACH_REC[id][1]),ACH_REC[id][1]];};}
+  const ty=ACH_BY.typeall;if(ty&&!ty.prog)ty.prog=()=>[Object.keys(TYPES).filter(t=>{try{return badgeState(badgeDef("t_"+t)).t>=1;}catch(e){return false;}}).length,Object.keys(TYPES).length];
+  const te=ACH_BY.pteraall;if(te&&!te.prog)te.prog=()=>[Object.keys(((META.stats||{}).teraTy)||{}).length,10];}catch(e){}
+try{const _ac6105=achCheck;achCheck=function(){const r=_ac6105.apply(this,arguments);achRecUp();return r;};}catch(e){}
+/* Erfolge: Hinweis Team/Raster */
+try{const _ab6105=achBody;achBody=function(){return `<p class="cdHint">${ic("info")} „im Team“ zählt Raster und Bank, „im Raster“ nur die Pokémon auf dem Raster. Bei Zielen über mehrere Runden zählt dein bester Wert aus allen Läufen.</p>`+_ab6105.apply(this,arguments);};}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
