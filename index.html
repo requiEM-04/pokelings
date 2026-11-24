@@ -13698,7 +13698,7 @@ function showFusion(){
   const so=fuseOpts(u);
   if(so.length){const lvl=(u.spec||[]).length,sp=SPECIES[u.sp],evo=q.from!==u.sp,R=ROLES[roleOf(u)];
     const applyS=s=>{u.spec=(u.spec||[]).concat(s.id);S.fuseQ.shift();save();};
-    if(window.__autoPick){applyS(so[0]);return showFusion();}
+    if(window.__autoPick){applyS(so[0]);return showFusion();}{const pi=typeof aiSubPick==="function"?aiSubPick(u,lvl,so):null;if(pi!=null&&so[pi]){const s0=so[pi];applyS(s0);toast(`${sp.name}: ${lvl?"Aufstieg":"Unterklasse"} ${specN(s0.id,u)} (Vorgabe)`,s0.ic);render();return showFusion();}}
     openModal(`<h2>${ic(lvl?"crown":"school")} ${lvl?"AUFSTIEG":"UNTERKLASSE"} WÄHLEN</h2><div class="lead">${evo?`${SPECIES[q.from].name} entwickelt sich zu <b style="color:#fff">${sp.name}</b>.`:`${sp.name} steigt auf <b style="color:var(--amber)">${"★".repeat(u.stars)}</b> (+60 % Werte).`} ${lvl?`Als <b style="color:${R.col}">${specN(u.spec[0],u)}</b> wählst du jetzt einen Aufstieg:`:`Spezialisiere den <b style="color:${R.col}">${R.n}</b>, die Wahl ist dauerhaft:`}</div>
      <div class="fuse"><div class="fp" data-sp="${q.from}" data-sh="${q.shy?(q.shy[0]==="a"?"a":q.shy[0]?1:""):(u.shiny==="a"?"a":u.shiny?1:"")}"></div><div class="fp" data-sp="${q.from}" data-sh="${q.shy?(q.shy[1]==="a"?"a":q.shy[1]?1:""):(u.shiny==="a"?"a":u.shiny?1:"")}"></div><span class="arr">${ic("arrow")}</span><div class="fp new" data-sp="${u.sp}"></div></div>
      <div class="choices specC">${so.map((s,i)=>{const nsp=(u.spec||[]).concat(s.id).join(),mate=allUnits().filter(o=>o!==u&&o.sp===u.sp&&o.stars===u.stars&&(o.spec||[]).join()===nsp).length,rec=specRec(u,lvl,s.id);return `<button class="choice spec${rec?" rec":""}" data-i="${i}" style="--dc:${R.col}">${rec?`<span class="srec">${ic("star")} EMPFOHLEN · wie dein ${esc(rec)}</span>`:""}<span class="stier">${lvl?"AUFSTIEG":"UNTERKLASSE"}</span>${s.sig?`<span class="fbadge sigB">${ic("star")} SIGNATUR</span>`:""}${typeof FORM!=="undefined"&&Object.keys(s.fx||{}).some(k=>FORM[k])?`<span class="fbadge">${ic("grid")} FORMATION</span>`:""}${mate?`<span class="smate">${ic("merge")} passt zu ${mate}× ${sp.name}</span>`:""}<div class="ci">${ic(s.ic)}</div><h4>${lvl?`<small>${specN(u.spec[0],u)} ›</small> `:""}${specN(s.id,u)}</h4><p>${specD(s.id,u)}</p></button>`;}).join("")}</div>
@@ -15717,6 +15717,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Turm-Bonus": "Tower bonus", "Kampf
 if(typeof EN!=="undefined")Object.assign(EN,{"KI-Reiter": "AI tab", "Bestenliste: Neuer Reiter „KI“ für Test-KIs, mit laufender Season, vergangenen Seasons und Allzeit. KI-Konten stehen dafür nicht mehr in Punkte, Pokémon und Turm.": "Leaderboard: new “AI” tab for test AIs, with the current season, past seasons and all-time. AI accounts no longer appear under Points, Pokémon and Tower.", "KI": "AI", "KI-Testkonten": "AI test accounts", "KI-Testkonten spielen ohne Maus. Sie stehen nur hier und bekommen keine Season-Belohnungen.": "AI test accounts play without a mouse. They only appear here and get no season rewards.", "Noch keine KI-Konten.": "No AI accounts yet.", "Die KI-Season-Liste wird gerade eingerichtet.": "The AI season list is being set up.", "KI-Season-Liste nicht erreichbar.": "AI season list unreachable.", "In dieser Season hat noch kein KI-Konto Punkte.": "No AI account has points this season yet.", "Nuzlocke: Jede normale Runde hat jetzt mindestens einen leichten oder mittleren Weg. Ein Geisterkampf ersetzt dort lieber einen schweren Weg.": "Nuzlocke: every normal round now has at least one easy or medium path. A ghost battle there prefers to replace a hard path.", "Booster: Alle drei Karten eines Boosters sind verschieden.": "Boosters: all three cards in a booster are different.", "Kampfturm: Dein Turm-Rekord zählt bei der Schwierigkeit, mit der du Champion geworden bist.": "Battle Tower: your tower record counts for the difficulty you became Champion on.", "Nuzlocke und Eisenmann: Nach einer Niederlage lässt sich keine Revanche mehr auslösen, auch nicht über Tasten.": "Nuzlocke and Ironman: after a defeat, a rematch can no longer be triggered, not even with keys.", "KI-Konto · nur im Reiter „KI“": "AI account · only in the “AI” tab", "Dein Konto erscheint": "Your account appears", "in den Season-, Wochen- und Ranked-Bestenlisten, nur noch im eigenen Reiter „KI“ der Bestenliste.": "in the season, weekly and ranked leaderboards, only in the leaderboard's own “AI” tab."});
 /* v1.60.0.10 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Turm bleibt": "Tower stays", "Champion-Bildschirm: Wer ins Hauptmenü geht, verliert den Kampfturm nicht mehr. Über „Weiterspielen“ geht es in den Turm oder du beendest den Lauf.": "Champion screen: going to the main menu no longer loses the Battle Tower. Use “Continue” to enter the tower or end the run.", "Siegchance: Die Anzeige rechnet jetzt immer alle 50 Probekämpfe durch. Vorher stand nach 20 gewonnenen Probekämpfen schon 100 % fest.": "Win chance: the display now always runs all 50 practice battles. Before, 100 % was fixed after 20 won practice battles.", "Forschungslabor: Bei jeder Forschung stehen die Kosten aller Stufen und die Gesamtsumme.": "Research lab: each research shows the cost of all levels and the total.", "Nach einer Niederlage startet kein neuer Kampf mehr, bevor du Revanche oder Aufgeben gewählt hast.": "After a defeat, no new battle starts before you choose rematch or give up.", "Dieser Lauf ist geschafft, die Edelsteine dafür hast du schon bekommen. Dein Champion-Team kann noch in den Kampfturm.": "This run is done and you already got its gems. Your Champion team can still enter the Battle Tower.", "IN DEN KAMPFTURM": "INTO THE BATTLE TOWER", "Lauf beenden": "End run", "Champion · der Kampfturm wartet": "Champion · the Battle Tower awaits", "Kosten je Stufe:": "Cost per level:", "Gesamtkosten": "total cost", "verbleibend": "remaining"});
+/* v1.61.0 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Genauere Siegchance": "More accurate win chance", "Siegchance genauer: Die Probekämpfe laufen jetzt in denselben kleinen Zeitschritten wie der echte Kampf. Vorher lag die Anzeige bei knappen Kämpfen oft einige Punkte zu hoch, bei manchen Gegnerteams sogar deutlich.": "More accurate win chance: practice battles now run in the same small time steps as the real battle. Before, the display was often a few points too high in close battles, for some enemy teams even clearly.", "Booster: Stufen mit nur einem oder zwei Pokémon kommen als 3. Karte seltener, damit sich dasselbe Pokémon nicht so oft wiederholt.": "Boosters: tiers with only one or two Pokémon appear less often as the 3rd card, so the same Pokémon doesn't repeat as much."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18362,7 +18364,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.60.0.10",DUEL_HP=30;
+const MP_VER="1.61.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18937,12 +18939,12 @@ function menuLbModal(){openModal(`<div id="mLbM" class="mLbM">${menuLbFrame()}</
    Statt einer Schätzformel wird jeder mögliche Kampf mehrfach unsichtbar mit der echten Kampflogik durchgerechnet.
    Die Siegchance = Anteil gewonnener Durchläufe. Läuft in kleinen Häppchen im Hintergrund, damit nichts ruckelt.
    Ändert sich das Team (Aufstellung, Items, Kauf), wird neu gerechnet – so sieht man direkt, ob eine Umstellung hilft. */
-const SIM_N=50,SIM_SHOW=24,SIM_DT=1/20;
+const SIM_N=50,SIM_SHOW=24,SIM_DT=1/60;
 const SIMC={cache:new Map(),queue:[],tm:0,last:0,dirty:false};
 /* v1.48.0: Rechenzeit je Häppchen: in „Begegnung“ (und beim Würfeln) zügig, sonst gedrosselt im Hintergrund, damit Laden und Raster flüssig bleiben */
 const simOnEnc=()=>typeof tab!=="undefined"&&tab==="enc";
-const simBudget=()=>document.hidden?40:simOnEnc()?((typeof rolling!=="undefined"&&rolling)?50:30):14;
-const simGap=()=>simOnEnc()?4:24;
+const simBudget=()=>(typeof aiAcc==="function"&&aiAcc())?120:document.hidden?40:simOnEnc()?((typeof rolling!=="undefined"&&rolling)?60:40):16;
+const simGap=()=>(typeof aiAcc==="function"&&aiAcc())?2:simOnEnc()?4:24;
 function simBoardSig(){if(!S)return"";const p=[];for(const k in S.board){const u=S.board[k];if(!u)continue;p.push(k+":"+u.sp+"/"+(u.stars||0)+"/"+(u.items||[]).join(".")+"/"+(u.gifts||[]).join(".")+"/"+(u.spec||[]).join(".")+"/"+(u.secret||"")+"/"+(u.megaF||"")+"/"+(u.crypto||0));}
   p.sort();return p.join("|")+"#"+(S.relics||[]).join(".")+"#"+S.round+"#"+(S.revives||0)+(S.revanche?"r":"")+(S.scout?"s":"")+(S.flare?"f":"")+(S.mode||"");}
 function simEnSig(en){return en.map(e=>e.sp+"/"+(e.stars||0)+"/"+e.x+","+e.y+"/"+(e.items||[]).join(".")+"/"+(e.gifts||[]).join(".")+"/"+(e.spec||[]).join(".")+"/"+(e.crypto?1:0)+"/"+(e.raid?1:0)+"/"+(e.mult||1)).join("|")+(typeof wxOf==="function"&&wxOf(en)?"|wx:"+wxOf(en):"");}
@@ -18952,7 +18954,7 @@ function simOnce(en){if(!S||!boardUnits().length)return null;const sB=B,sGL=GL,s
     for(const e of en)F.push(fighter(e,"enemy",e.x,e.y,null));
     B={F,proj:[],timers:[],danger:[],zones:[],t:INTRO,done:false,slowT:0,hitStop:0,pause:false,winSide:null,megaChecked:false,raidIntro:true,lastPunch:-9,sim:1,bossFight:!S.duel&&!!(typeof BOSSES!=="undefined"&&BOSSES&&BOSSES[S.round]),
       hp0:{mine:F.filter(f=>f.side==="mine").reduce((a,f)=>a+f.maxhp,0),enemy:F.filter(f=>f.side==="enemy").reduce((a,f)=>a+f.maxhp,0)}};
-    battlePrep(F);let n=0;while(!B.done&&n<2600){step(SIM_DT);n++;}
+    battlePrep(F);let n=0;const nMax=Math.ceil(130/SIM_DT);while(!B.done&&n<nMax){step(SIM_DT);n++;}
     win=B.done?B.winSide==="mine":false;}
   catch(e){win=null;if(window.__simDbg)console.warn("sim",e);}
   finally{B=sB;GL=sGL;RNG=sR;SIM=false;}return win;}
@@ -18965,6 +18967,7 @@ function simWork(){SIMC.tm=0;if(!S||B&&!B.done&&!B.sim){SIMC.queue.length=0;retu
   SIMC.queue=SIMC.queue.filter(q=>q.k.startsWith(bs+"@"));if(!SIMC.queue.length)return;
   const t0=performance.now();let changed=false;
   let full=false;while(SIMC.queue.length&&performance.now()-t0<simBudget()){const q=SIMC.queue[0];const c=SIMC.cache.get(q.k)||{w:0,n:0,fail:0};
+    if(c.n>=SIM_N){SIMC.queue.shift();changed=true;full=true;continue;}
     const r=simOnce(q.en);if(r===null)c.fail++;else{c.n++;if(r)c.w++;}SIMC.cache.set(q.k,c);
     
     if(c.n>=SIM_N||c.fail>4){SIMC.queue.shift();changed=true;full=true;if(c.fail>4&&c.n<SIM_N){c.n=Math.max(c.n,SIM_N);}}
@@ -18999,8 +19002,11 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.60.0.10"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.61.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.61.0",d:"24.11.2026",t:"Genauere Siegchance",items:[
+  ["swords", "Siegchance genauer: Die Probekämpfe laufen jetzt in denselben kleinen Zeitschritten wie der echte Kampf. Vorher lag die Anzeige bei knappen Kämpfen oft einige Punkte zu hoch, bei manchen Gegnerteams sogar deutlich."],
+  ["gem", "Booster: Stufen mit nur einem oder zwei Pokémon kommen als 3. Karte seltener, damit sich dasselbe Pokémon nicht so oft wiederholt."]]},
  {v:"1.60.0.10",d:"24.11.2026",t:"Turm bleibt",items:[
   ["tower", "Champion-Bildschirm: Wer ins Hauptmenü geht, verliert den Kampfturm nicht mehr. Über „Weiterspielen“ geht es in den Turm oder du beendest den Lauf."],
   ["swords", "Siegchance: Die Anzeige rechnet jetzt immer alle 50 Probekämpfe durch. Vorher stand nach 20 gewonnenen Probekämpfen schon 100 % fest."],
@@ -20445,7 +20451,7 @@ function bstLines(rg){return LINES.filter(L=>(L.region||"kanto")===rg&&!L.start&
 function bstMissing(rg){return bstLines(rg).filter(L=>!META.unlocked.includes(L.k));}
 function bstState(rg){META.boost=META.boost||{};return META.boost[rg]=META.boost[rg]||{n:0,dry:0};}
 function bstTier(tbl,avail){const ok=tbl.filter(([t])=>avail.has(t));if(!ok.length)return null;const sum=ok.reduce((a,[,w])=>a+w,0);let x=Math.random()*sum;for(const[t,w]of ok){if(x<w)return t;x-=w;}return ok[ok.length-1][0];}
-function bstRare(all,tiers,has,cards){const tw=BOOST.rare.filter(([t])=>tiers.has(t)&&all.some(L=>L.tier===t&&!cards.includes(L))).map(([t,w])=>[t,all.some(L=>L.tier===t&&!has(L))?w:w*.4]);if(!tw.length)return null;
+function bstRare(all,tiers,has,cards){const tw=BOOST.rare.filter(([t])=>tiers.has(t)&&all.some(L=>L.tier===t&&!cards.includes(L))).map(([t,w])=>[t,all.some(L=>L.tier===t&&!has(L))?w:w*.4]).map(([t,w])=>[t,w*Math.min(1,all.filter(L=>L.tier===t).length/3)]);if(!tw.length)return null;
   const sum=tw.reduce((a,[,w])=>a+w,0);let x=Math.random()*sum,t=tw[tw.length-1][0];for(const[tt,w]of tw){if(x<w){t=tt;break;}x-=w;}
   let ls=all.filter(L=>L.tier===t);const fr=ls.filter(L=>!cards.includes(L));if(fr.length)ls=fr;const wl=ls.map(L=>has(L)?1:3),ws=wl.reduce((a,b)=>a+b,0);let y=Math.random()*ws;for(let i=0;i<ls.length;i++){if(y<wl[i])return ls[i];y-=wl[i];}return ls[ls.length-1];}
 function bstDraw(rg){const all=bstLines(rg),tiers=new Set(all.map(L=>L.tier)),St=bstState(rg),has=L=>META.unlocked.includes(L.k);
@@ -21857,7 +21863,7 @@ async function pkAct(cmd){const wt=ms=>new Promise(r=>setTimeout(r,ms));try{cons
   const key=k=>{const m={space:" ",enter:"Enter",esc:"Escape",escape:"Escape"};document.body.dispatchEvent(new KeyboardEvent("keydown",{key:m[k.toLowerCase()]||k,bubbles:true}));};
   if(a==="key")key(x);else if(a==="buy")buy(+x);else if(a==="paths"||a==="path"){if(S&&S.phase==="shop"&&!S.paths&&!S.enc){setTab("enc");render();for(let i=0;i<40&&(!S.paths||(typeof rolling!=="undefined"&&rolling));i++)await wt(100);}if(a==="path")choosePath(+x-1);}else if(a==="fight")fight();else if(a==="reroll")doReroll();
   else if(a==="pick")key(String(+x));else if(a==="item")buyItem();else if(a==="xp")buyXP();else if(a==="move"){const m=pkMove(r[0],r[1]);if(m)return m;}else if(a==="sell"){const u=pkUnitAt(x);if(!u)return "leer: "+x;sell(u);}else if(a==="equip"){const u=pkUnitAt(r[1]);if(!u)return "kein Pokémon: "+r[1];equip(u,+r[0]-1);}else if(a==="click"){const el=document.querySelector(x);if(!el)return "nicht gefunden: "+x;el.click();}else return "unbekannt: "+cmd;
- }catch(e){return "Fehler: "+e.message;}await wt(350);return pkState();}
+ }catch(e){return "Fehler: "+e.message;}await wt(typeof _pkW==="function"?_pkW(350):350);return pkState();}
 window.PKT={state:pkState,act:pkAct,on:aiOn};
 let _aiFast=false;
 setInterval(()=>{try{const on=aiOn();let p=$("aiPanel");
@@ -21946,7 +21952,7 @@ function pkTrial(n){n=Math.max(1,Math.min(400,+n||50));if(typeof S==="undefined"
     for(const k in S.board){const[x,y]=k.split(",").map(Number);F.push(fighter(S.board[k],"mine",x,y,cnt));}for(const e of S.enemies)F.push(fighter(e,"enemy",e.x,e.y,null));
     B={F,proj:[],timers:[],danger:[],zones:[],t:INTRO,done:false,slowT:0,hitStop:0,pause:false,winSide:null,megaChecked:false,raidIntro:true,lastPunch:-9,sim:1,bossFight:!!(typeof BOSSES!=="undefined"&&BOSSES[S.round]),
       hp0:{mine:F.filter(f=>f.side==="mine").reduce((a,f)=>a+f.maxhp,0),enemy:F.filter(f=>f.side==="enemy").reduce((a,f)=>a+f.maxhp,0)}};if(!S.tower&&S.enc&&S.enc.weather)B.weather=S.enc.weather;
-    battlePrep(F);let k=0;while(!B.done&&k<2600){step(SIM_DT);k++;}if(B.done){d++;if(B.winSide==="mine")w++;}}catch(e){}finally{B=sB;GL=sGL;RNG=sR;SIM=false;}}
+    battlePrep(F);let k=0;const kMax=Math.ceil(130/SIM_DT);while(!B.done&&k<kMax){step(SIM_DT);k++;}if(B.done){d++;if(B.winSide==="mine")w++;}}catch(e){}finally{B=sB;GL=sGL;RNG=sR;SIM=false;}}
   const c=_aiSimC(S.enemies);return `Probe: ${w}/${n} Siege (${Math.round(w/n*100)} %) in ${Math.round(performance.now()-t0)} ms · angezeigt: ${c&&c.n?Math.round(c.w/c.n*100)+" % aus "+Math.min(c.n,SIM_N):"–"} · ${n-d} ohne Ende`;}
 PKT.trial=pkTrial;
 PKT.panel=v=>{try{localStorage.setItem("pokelings_aipanel",v===false||v==="aus"?"0":"1");}catch(e){}return v===false||v==="aus"?"Statusbox aus":"Statusbox an";};
@@ -21956,18 +21962,18 @@ const _act585=pkAct;
 async function pkAct59(cmd){const [a,...r]=String(cmd||"").trim().split(/\s+/);
   try{
   const at=v=>/^\d+$/.test(v||"")?S.bench[+v-1]:/^b\d+$/i.test(v||"")?S.bench[+v.slice(1)-1]:S.board[v];
-  if(a==="event"){if(!S||!S.enc||S.enc.type!=="event")return "Kein Ereignis offen";chooseEvent(+r[0]-1);await _aiW(500);return pkState();}
-  if(a==="merge"){const u=at(r[0]),t=at(r[1]);if(!u||!t)return "Pokémon fehlt";if(!canFuse(t,u))return "nicht fusionierbar";fuseUnits(t,u);render();await _aiW(400);return pkState();}
+  if(a==="event"){if(!S||!S.enc||S.enc.type!=="event")return "Kein Ereignis offen";chooseEvent(+r[0]-1);await _aiW(_pkW(500));return pkState();}
+  if(a==="merge"){const u=at(r[0]),t=at(r[1]);if(!u||!t)return "Pokémon fehlt";if(!canFuse(t,u))return "nicht fusionierbar";fuseUnits(t,u);render();await _aiW(_pkW(400));return pkState();}
   if(a==="place")cmd=`move b${r[0]} ${r[1]}`;
-  else if(a==="fuse"&&r[0]!=="all"){const u=at(r[0]),t=at(r[1]);if(!u||!t)return "Pokémon fehlt";if(!canFuse(t,u))return "nicht fusionierbar";fuseUnits(t,u);render();await _aiW(400);return pkState();}
-  else if(a==="fuse"&&r[0]==="all"){let n=0;for(let g=0;g<20;g++){if($("modal").classList.contains("show"))break;const all=allUnits();let pr=null;for(const t of all){const o=all.find(x=>x!==t&&canFuse(t,x));if(o){pr=[locate(t)&&locate(t).w==="board"?t:o,locate(t)&&locate(t).w==="board"?o:t];break;}}if(!pr)break;fuseUnits(pr[0],pr[1]);render();n++;await _aiW(300);}return `${n} Fusion(en)`+"\n"+pkState();}
+  else if(a==="fuse"&&r[0]!=="all"){const u=at(r[0]),t=at(r[1]);if(!u||!t)return "Pokémon fehlt";if(!canFuse(t,u))return "nicht fusionierbar";fuseUnits(t,u);render();await _aiW(_pkW(400));return pkState();}
+  else if(a==="fuse"&&r[0]==="all"){let n=0;for(let g=0;g<20;g++){if($("modal").classList.contains("show"))break;const all=allUnits();let pr=null;for(const t of all){const o=all.find(x=>x!==t&&canFuse(t,x));if(o){pr=[locate(t)&&locate(t).w==="board"?t:o,locate(t)&&locate(t).w==="board"?o:t];break;}}if(!pr)break;fuseUnits(pr[0],pr[1]);render();n++;await _aiW(_pkW(300));}return `${n} Fusion(en)`+"\n"+pkState();}
   else if(a==="item"&&r.length>=2){cmd=`equip ${r[0]} ${r[1]}`;}
   else if(a==="buyitem")cmd="item";
   else if(a==="sell"&&/^\d+$/.test(r[0]||""))cmd=`sell b${r[0]}`;
   else if(a==="partner"){const ps=$("stScene");if(!ps)return "Keine Partnerwahl offen";const b=ps.querySelectorAll(".psPick")[+r[0]-1];if(!b)return "Gibt es nicht: "+r[0];b.click();await _aiW(250);b.click();await _aiW(1200);return pkState();}
   else if(a==="new"){const rg=(r[0]||"kanto").toLowerCase(),md=AI_MODES[(r[1]||"normal").toLowerCase()];if(!REGIONS[rg])return "Region? "+Object.keys(REGIONS).join(", ");if(!md)return "Schwierigkeit? leicht, normal, schwer, nuzlocke, albtraum";
     if(!regUnlocked(rg))return "Region gesperrt: "+rg;try{closeModal();}catch(e){}modeRegion=rg;chooseDiff();await _aiW(300);const c=$("mbox").querySelector(`.dfCard[data-m="${md}"]`);if(!c||c.disabled)return "Schwierigkeit gesperrt: "+md;c.click();await _aiW(1500);return pkState();}
-  else if(a==="paths"||a==="path"){const res=await _act585(cmd);for(let i=0;i<250;i++){const ps=(S&&S.paths||[]).filter(p=>p.type!=="event"&&p.enemies&&p.enemies.length);if(!ps.length||ps.every(p=>{const c=_aiSimC(p.enemies);return c&&(c.n>=SIM_N||c.fail>4);}))break;try{for(const p of ps)simChance(p.enemies,p.type,1);}catch(e){}await _aiW(100);}await _aiW(200);return pkState();}
+  else if(a==="paths"||a==="path"){const res=await _act585(cmd);for(let i=0;i<250;i++){const ps=(S&&S.paths||[]).filter(p=>p.type!=="event"&&p.enemies&&p.enemies.length);if(!ps.length||ps.every(p=>{const c=_aiSimC(p.enemies);return c&&(c.n>=(/full|voll/.test(cmd)?SIM_N:SIM_SHOW)||c.fail>4);}))break;try{for(const p of ps)simChance(p.enemies,p.type,1);}catch(e){}await _aiW(100);}await _aiW(200);return pkState();}
   else if(a==="fight"){const r0=await _act585(cmd);for(let i=0;i<1800;i++){if($("result").classList.contains("show")||(S&&S.phase==="shop"&&i>20)||!S)break;if($("modal").classList.contains("show")&&i>5)break;await _aiW(100);}await _aiW(300);return pkState();}
   }catch(e){return "Fehler: "+e.message;}
   return _act585(cmd);}
@@ -22190,6 +22196,39 @@ try{const _st10=PKT.state;PKT.state=function(){let s=_st10.apply(this,arguments)
 try{const _js10=PKT.json;PKT.json=function(){const o=_js10.apply(this,arguments);try{o.busy={fight:!!(typeof B!=="undefined"&&B&&!B.done&&!B.sim),sims:typeof SIMC!=="undefined"?SIMC.queue.length:0};o.shopFuse=pkShopFuse();o.fuseBlocked=pkFuseBlocked();}catch(e){}return o;};}catch(e){}
 /* trial: erst die Anzeige fertig rechnen (50 Probekämpfe), dann vergleichen */
 try{const _tr10=PKT.trial;PKT.trial=function(n){try{if(S&&S.enemies&&S.enemies.length&&boardUnits().length&&!S.duel){const k=simBoardSig()+"@"+simEnSig(S.enemies),c=SIMC.cache.get(k)||{w:0,n:0,fail:0};let g=0;while(c.n<SIM_N&&c.fail<=4&&g++<120){const r=simOnce(S.enemies);if(r===null)c.fail++;else{c.n++;if(r)c.w++;}}SIMC.cache.set(k,c);}}catch(e){}return _tr10.apply(this,arguments);};}catch(e){}
+
+/* v1.61.0: KI-Testmodus schneller (Turbo, Bündel, idle, Vorgaben für Unterklassen, Fenster-ID, trial aus dem Cache) */
+function _pkW(ms){return window.__aiTurbo?Math.min(ms,40):Math.round(ms*.4);}
+/* Unterklassen-/Aufstiegs-Vorgaben je Linie: META.aiSub[linie]=[Unterklasse, Aufstieg] (Nr ab 1 oder "rec") */
+function aiSubPick(u,lvl,so){try{if(typeof aiAcc!=="function"||!aiAcc()||!so||!so.length)return null;const P=(META&&META.aiSub)||{},k=SPECIES[u.sp].line.k,v=(P[k]||P._all||[])[lvl?1:0];if(v==null)return null;
+  if(v==="rec"){const i=so.findIndex(s=>{try{return !!specRec(u,lvl,s.id);}catch(e){return false;}});return i>=0?i:0;}const n=+v-1;return n>=0&&n<so.length?n:null;}catch(e){return null;}}
+function _pkLine(a){a=String(a||"").toLowerCase();if(!a)return null;return LINES.find(L=>L.k===a)||LINES.find(L=>L.stages.some(s=>String(s[1]).toLowerCase()===a))||null;}
+function pkSub(r){META.aiSub=META.aiSub||{};const P=META.aiSub,ok=v=>v==null||v==="rec"||/^\d$/.test(v);
+  if(!r.length||r[0]==="list"){const ks=Object.keys(P);return ks.length?"Vorgaben (Unterklasse, Aufstieg):\n"+ks.map(k=>`  ${k==="_all"?"alle":(LINE_BY[k]?LINE_BY[k].stages[0][1]:k)}: ${P[k][0]??"–"}, ${P[k][1]??"–"}`).join("\n"):"Keine Vorgaben. Format: sub <Linie|alle> <Nr|rec> [<Nr|rec>] · sub clear [Linie]";}
+  if(r[0]==="clear"){if(r[1]){const L=_pkLine(r[1]);if(r[1]==="alle"||r[1]==="all")delete P._all;else if(L)delete P[L.k];else return "Linie unbekannt: "+r[1];}else META.aiSub={};saveMeta();return "Vorgaben gelöscht.";}
+  const key=(r[0]==="alle"||r[0]==="all")?"_all":(_pkLine(r[0])||{}).k;if(!key)return "Linie unbekannt: "+r[0]+" (Name einer Stufe oder Linien-Schlüssel)";
+  if(!ok(r[1])||!ok(r[2]))return "Format: sub <Linie|alle> <Nr|rec> [<Nr|rec>]";P[key]=[r[1]??null,r[2]??null];saveMeta();
+  return `Vorgabe gesetzt: ${key==="_all"?"alle Linien":LINE_BY[key].stages[0][1]} → Unterklasse ${r[1]??"–"}, Aufstieg ${r[2]??"–"}. Das Auswahlfenster erscheint dafür nicht mehr.`;}
+/* Fenster erkennen */
+function pkWinId(mb){try{if(mb.querySelector(".brPick"))return "branch";if(mb.querySelector(".ubCatch"))return "ultra";const t=(mb.querySelector("h2")||{}).textContent||"";
+  const M=[[/UNTERKLASSE WÄHLEN/,"subclass"],[/AUFSTIEG WÄHLEN/,"ascend"],[/RELIKT/,"relic"],[/ITEM WÄHLEN/,"item"],[/MEGA-FORM/,"mega"],[/CRYPTO/,"crypto"],[/FUSION!/,"gift"],[/KAMPFBERICHT/,"report"],[/PAUSE/,"pause"],[/KAMPFTURM/,"towerIntro"],[/CHAMPION!/,"champTower"],[/WIRKLICH|VERLASSEN\?|AUFGEBEN\?/,"confirm"],[/FORSCHUNGSLABOR|LABOR/,"lab"],[/EINSTELLUNGEN/,"settings"]];
+  for(const[re,id]of M)if(re.test(t))return id;return null;}catch(e){return null;}}
+try{const _js61=PKT.json;PKT.json=function(){const o=_js61.apply(this,arguments);try{const mb=$("mbox");if(o.window&&mb){o.window.id=pkWinId(mb);const ch=[...mb.querySelectorAll(".choice")];const ri=ch.findIndex(b=>b.classList.contains("rec"));o.window.recommended=ri>=0?ri+1:null;}o.turbo=!!window.__aiTurbo;}catch(e){}return o;};}catch(e){}
+/* Ruhe abwarten: kein Kampf, keine Probekämpfe, keine Einblendung */
+PKT.idle=async function(maxMs){const t0=performance.now(),mx=+maxMs||30000;for(;;){const busy=(typeof B!=="undefined"&&B&&!B.done&&!B.sim)||(typeof SIMC!=="undefined"&&SIMC.queue.length)||!!document.querySelector(".cine-ov")||($("vs")&&$("vs").classList.contains("show"))||(typeof rolling!=="undefined"&&rolling)||(typeof cineBusy!=="undefined"&&cineBusy);
+  if(!busy)return {ok:true,ms:Math.round(performance.now()-t0)};if(performance.now()-t0>mx)return {ok:false,ms:Math.round(performance.now()-t0)};await new Promise(r=>setTimeout(r,40));}};
+PKT.speed=function(v){window.__aiTurbo=v==="turbo"||v===true;try{localStorage.setItem("pokelings_aiturbo",window.__aiTurbo?"1":"0");}catch(e){}return window.__aiTurbo?"Turbo an: Befehle kommen nach ~40 ms zurück (danach ggf. PKT.idle())":"Turbo aus";};
+try{window.__aiTurbo=localStorage.getItem("pokelings_aiturbo")==="1";}catch(e){}
+/* Bündel und neue Befehle */
+try{const _ac61=PKT.act;PKT.act=async function(cmd){
+  if(Array.isArray(cmd)){const msgs=[];let last="";for(const c of cmd){const r=await _ac61.call(this,c);last=typeof r==="string"?r:String(r);const first=last.split("\n")[0];if(!/^Pokélings v/.test(first))msgs.push(`${c}: ${first}`);}return (msgs.length?msgs.join("\n")+"\n":"")+last;}
+  const s=String(cmd||"").trim(),[a,...r]=s.split(/\s+/);
+  if(a==="sub")return pkSub(r);
+  if(a==="turbo")return PKT.speed(r[0]==="aus"||r[0]==="off"?false:"turbo");
+  if(a==="paths"&&(r[0]==="now"||r[0]==="jetzt")){if(S&&S.phase==="shop"&&!S.paths&&!S.enc){setTab("enc");render();for(let i=0;i<40&&(!S.paths||(typeof rolling!=="undefined"&&rolling));i++)await new Promise(q=>setTimeout(q,50));}return PKT.state();}
+  return _ac61.apply(this,arguments);};}catch(e){}
+/* trial: gleicher Zustand → sofort aus dem Cache */
+try{const _tr61=PKT.trial;const TC=new Map();PKT.trial=function(n){try{if(S&&S.enemies&&S.enemies.length){const k=simBoardSig()+"@"+simEnSig(S.enemies)+"|"+(+n||50);if(TC.has(k))return TC.get(k)+" · aus dem Cache";const r=_tr61.apply(this,arguments);if(TC.size>60)TC.clear();TC.set(k,r);return r;}}catch(e){}return _tr61.apply(this,arguments);};}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
