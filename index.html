@@ -5401,6 +5401,9 @@ img.aur,.card .pic img.aur,.u img.aur{filter:url(#aurF) drop-shadow(0 0 2px rgba
 .cdFx .cdT.lock{opacity:.5;cursor:default;flex-direction:column;align-items:flex-start}.cdFx .cdT.lock .tt{filter:grayscale(.6)}.cdFxReq{display:block;font-style:normal;font-size:9px;color:var(--muted);margin-top:2px}.cdFxReq .ic{width:9px;height:9px}
 /* v1.62.0.5 */
 #aiUpd{position:fixed;left:50%;top:4px;transform:translateX(-50%);z-index:9999;padding:3px 10px;border-radius:6px;background:rgba(120,60,0,.85);color:#ffe0a0;font:11px/1.3 ui-monospace,Consolas,monospace;pointer-events:none}
+/* v1.62.0.7 Sparmodus KI */
+body.aiLite .tcBg,body.aiLite .tcBg *,body.aiLite #menu .mLb *,body.aiLite .lbRow,body.aiLite .lbRow *{animation:none!important;transition:none!important}
+body.aiLite .tcBg .x-band,body.aiLite .tcBg .x-shaft,body.aiLite .tcBg .x-cloud{filter:none!important}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -18376,7 +18379,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.62.0.6",DUEL_HP=30;
+const MP_VER="1.62.0.7",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -18608,7 +18611,7 @@ function newRun(mode,region,o){const rk=REGIONS[region]?region:"kanto";LS.set("p
 function dexModal(t){needAll(()=>dexModal0(t));}
 function sprRegionLoaded(r){for(const k in sprIdx)if(sprIdx[k]==="ph")delete sprIdx[k];try{sprSwapWaiting();}catch(e){}try{if(S&&(S.region===r||S.abyss)&&S.phase==="shop")render();}catch(e){}}
 /* Nach dem Start leise im Hintergrund weiterladen: zuerst die zuletzt gespielte Region, bei Datensparmodus nur diese */
-setTimeout(function bgL(){if(!window.__SPRM)return;if(document.getElementById("bootLd"))return setTimeout(bgL,800);const save=!!(navigator.connection&&navigator.connection.saveData),last=LS.get("pokelings_lastreg","kanto");
+setTimeout(function bgL(){if(!window.__SPRM)return;if(window.__aiLite||(typeof aiLiteOn==="function"&&aiLiteOn()))return;if(document.getElementById("bootLd"))return setTimeout(bgL,800);const save=!!(navigator.connection&&navigator.connection.saveData),last=LS.get("pokelings_lastreg","kanto");
   const order=[...new Set([last,...Object.keys(__SPRM)])].filter(k=>__SPRM[k]&&(k===last||typeof regUnlocked!=="function"||regUnlocked(k)));let ch=Promise.resolve();
   for(const r of save?order.slice(0,1):order)ch=ch.then(()=>new Promise(ok=>setTimeout(ok,150))).then(()=>__sprLoad(r));},6000);
 
@@ -19014,7 +19017,7 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.62.0.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.62.0.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
  {v:"1.62.0",d:"24.11.2026",t:"Erfolge & Titel",items:[
   ["gem", "Erfolge geben jetzt dreimal so viele Edelsteine (Bronze 6, Silber 15, Gold 30, Platin 60, Mythisch 120). Für deine schon freigeschalteten Erfolge wird der Unterschied einmal nachgezahlt."],
@@ -22337,6 +22340,12 @@ try{const _id6206=PKT.idle;PKT.idle=async function(maxMs,o){if(!(o&&o.sims===fal
   if(!busy)return {ok:true,ms:Math.round(performance.now()-t0)};if(performance.now()-t0>mx)return {ok:false,ms:Math.round(performance.now()-t0)};await new Promise(r=>setTimeout(r,40));}};}catch(e){}
 try{const _js6206=PKT.json;PKT.json=function(){const o=_js6206.apply(this,arguments);try{if(o.window&&!o.window.id){const t=(($("mbox").querySelector("h2")||{}).textContent||"").trim();o.window.id=/PATCH|NEU IN|NEUIGKEITEN/i.test(t)?"notes":t.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,30)||null;}}catch(e){}return o;};}catch(e){}
 
+/* v1.62.0.7: Sparmodus für KI-Konten – 3D nur jedes 20. Bild, keine Hintergrund-Animationen, keine Sprite-Pakete im Hintergrund nachladen. PKT.lite(false) schaltet ihn für Screenshots aus. */
+function aiLiteOn(){try{return typeof aiOn==="function"&&aiOn()&&localStorage.getItem("pokelings_ailite")!=="0";}catch(e){return false;}}
+setInterval(()=>{try{const on=aiLiteOn();window.__aiLite=on;document.body.classList.toggle("aiLite",on);}catch(e){}},500);
+try{PKT.lite=v=>{try{localStorage.setItem("pokelings_ailite",v===false||v==="aus"?"0":"1");}catch(e){}window.__aiLite=aiLiteOn();document.body.classList.toggle("aiLite",window.__aiLite);return window.__aiLite?"Sparmodus an: 3D selten gezeichnet, keine Hintergrund-Animationen":"Sparmodus aus: volle Grafik";};}catch(e){}
+try{const _js6207=PKT.json;PKT.json=function(){const o=_js6207.apply(this,arguments);try{o.lite=!!window.__aiLite;}catch(e){}return o;};}catch(e){}
+
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
 /* ================================ KAMPF: 2 ATTACKEN + EIGENE KI ================================ */
@@ -23150,6 +23159,7 @@ function frame(now){
     if(B&&!B.done){if(B.det){B.acc+=dt*speed;let n=0;while(B.acc>=DSTEP&&n<14&&B&&!B.done){RNG=B.rng;try{step(DSTEP);}finally{RNG=null;}B.acc-=DSTEP;n++;}}else for(let i=0;i<speed;i++)step(dt);}
     if(B&&S&&(S.phase==="battle"||B.done)){$("timer").textContent=Math.max(0,Math.ceil(FIGHT_TIME-Math.max(0,B.t-INTRO)));$("timer").classList.toggle("fat",ftime()>0);const hm=B.F.filter(f=>f.side==="mine"&&f.alive).reduce((a,f)=>a+Math.max(0,f.hp),0),he=B.F.filter(f=>f.side==="enemy"&&f.alive).reduce((a,f)=>a+Math.max(0,f.hp),0);const pm=Math.min(100,hm/B.hp0.mine*100),pe=Math.min(100,he/B.hp0.enemy*100);$("hpMine").firstChild.style.width=(MIR?pe:pm)+"%";$("hpEnemy").firstChild.style.width=(MIR?pm:pe)+"%";}
     let frz=!!window.__gbOpen||(window.__mHeavy&&!(B&&!B.done)&&$("modal").classList.contains("show"));if(frz&&window.__glDirty&&!window.__gbOpen){window.__glDirty=false;frz=false;} /* v1.31.6: großes Fenster offen = 3D ganz anhalten (nur nach Größenänderung einmal neu zeichnen) */
+    if(window.__aiLite&&((window.__aiFr=(window.__aiFr|0)+1)%20))frz=true;
     if(frz){}
     else if(GL&&MB.on){try{menuCam(dt);animScene(dt);for(const T of GL.tiles)T.m.material.opacity=0;GL.emblem.visible=false;GL.portal.material.opacity=0;}catch(e){glErr("menu",e);}try{GL.r.render(GL.scene,GL.cam);}catch(e){glErr("render-menu",e);}}
     else if(GL&&S&&tab==="shop"&&SB.on){try{shopCam(dt);animScene(dt);for(const T of GL.tiles)T.m.material.opacity=0;GL.emblem.visible=false;GL.portal.material.opacity=0;}catch(e){glErr("shop",e);}try{if((SB.fr++&1)===0||gfxQ()!==GFX_LV.niedrig)GL.r.render(GL.scene,GL.cam);}catch(e){glErr("render-shop",e);}}
