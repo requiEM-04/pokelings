@@ -5652,6 +5652,8 @@ em.fmLs.mn{margin-left:4px}em.fmLs.mn s{width:9px;height:9px}
 .fmDiaF.leg s{background:radial-gradient(circle,#fff 0 18%,rgba(255,220,140,.95) 30%,transparent 62%)}
 @keyframes fgl635{0%,100%{opacity:0;transform:scale(.2) rotate(0)}18%{opacity:1;transform:scale(1.1) rotate(20deg)}36%{opacity:0;transform:scale(.3) rotate(45deg)}}
 @media (prefers-reduced-motion:reduce){.fmOrb .cm u,.fmOrb s,.fmDia *,.fmDiaF s{animation:none!important}.tcAv .fmDiaM~.tcMon img{animation:tcMonB 1.4s steps(2) infinite}.fmDiaF s{opacity:.8}}
+/* ================= v1.63.5.9: Schweif – zweiter Komet auf eigener, um die halbe Bahn versetzter Ellipse (offset-distance über 100 % wurde nicht umgebrochen, der Komet stand still) ================= */
+.fmOrb .cm.c2 u{offset-path:path("M107 58A107 29 0 1 1 107 0A107 29 0 1 1 107 58");animation-name:fom635}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -19283,7 +19285,7 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.63.5.8"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.63.5.9"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
  {v:"1.63.5.8",d:"25.11.2026",t:"Schnellerer Start & Ruhm-Effekte",items:[
   ["bolt", "Das Spiel startet schneller: Die Weltkarte wird erst nach dem Startbild aufgebaut, und die 3D-Grafik wird beim Start geschickter vorbereitet. Auf unserem Testrechner kommt das Startbild rund eine Sekunde früher."],
@@ -23228,6 +23230,13 @@ function fameDiaF(c){if(!fameFxOn(c,"diamant"))return "";const leg=fameFxK(c)===
 try{const _pc6358=famePilC;famePilC=function(c){return fameDiaB(c)+fameOrb(c,false)+_pc6358.apply(this,arguments);};}catch(e){}
 try{const _rf6358=fameRubyFr;fameRubyFr=function(c){return _rf6358.apply(this,arguments)+fameOrb(c,true)+fameDiaF(c);};}catch(e){}
 try{const _tr6358=fameTrail;fameTrail=function(c){return fameFxK(c)==="legende"?_tr6358.apply(this,arguments):"";};}catch(e){}
+
+/* v1.63.5.9 (KI-Sparmodus): Wurde der Sparmodus in der Laden-Phase eingeschaltet, blieb die Klasse „shopbg“ am body hängen (shopBg(false) bricht ohne 3D ab)
+   und versteckte alle Fenster im Kampfbereich (Ergebnis, K.O., Lauf vorbei, Turm verlassen). Jetzt räumt shopBg(false) die Klasse immer ab,
+   und beim Einschalten des Sparmodus werden Laden- und Menü-Hintergrund beendet. */
+try{const _sb6359=shopBg;shopBg=function(on){const r=_sb6359.apply(this,arguments);try{if(!on&&document.body.classList.contains("shopbg")){SB.on=false;document.body.classList.remove("shopbg");}}catch(e){}return r;};}catch(e){}
+try{const _ag6359=aiGfx;aiGfx=function(on){if(on){try{if(typeof SB!=="undefined"){SB.on=false;}document.body.classList.remove("shopbg");}catch(e){}try{if(typeof menuBgStop==="function")menuBgStop();document.body.classList.remove("menubg");}catch(e){}}
+  return _ag6359.apply(this,arguments);};}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
