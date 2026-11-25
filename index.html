@@ -5502,6 +5502,59 @@ body.aiLite{background:#2e3138!important}body.aiLite #arena,body.aiLite #wwrap{b
 .bg-rg_paldea .pd56c{width:var(--s);aspect-ratio:.62;margin-left:calc(var(--s) / -2);z-index:2;filter:drop-shadow(0 0 1cqw var(--c));animation:pd56c 5s ease-in-out var(--dl,0s) infinite alternate}
 .bg-rg_paldea .pd56c::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,#ffffff,var(--c) 55%,rgba(40,60,80,.5));clip-path:polygon(50% 0,100% 45%,50% 100%,0 45%)}
 @keyframes pd56c{from{transform:translateY(-1.2cqh) rotate(-8deg)}to{transform:translateY(1.2cqh) rotate(8deg)}}
+/* ================= v1.63.0: Ruhm-Leiste oben (automatisches Einzahlen, Animation je Aufstieg) ================= */
+#fmAuto{--fc:#ffd84a;--fd:#7a5a10;position:fixed;left:50%;top:12px;z-index:10050;transform:translate(-50%,-160%);display:flex;align-items:center;gap:14px;width:min(440px,calc(calc(100*var(--vw,1vw)) - 32px));padding:12px 18px 12px 14px;border-radius:16px;box-sizing:border-box;
+  background:radial-gradient(140% 160% at 0% 50%,rgba(255,255,255,.07),transparent 55%),radial-gradient(120% 160% at 0% 50%,color-mix(in srgb,var(--fc) 26%,transparent),transparent 62%),linear-gradient(180deg,#26203f,#120f22);
+  border:2px solid var(--fc);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),inset 0 -10px 24px rgba(0,0,0,.35),0 10px 30px rgba(0,0,0,.6),0 0 22px color-mix(in srgb,var(--fc) 55%,transparent);
+  transition:transform .5s cubic-bezier(.2,1.35,.4,1),border-color .3s,box-shadow .3s;pointer-events:none;font-family:var(--ui);color:#fff}
+#fmAuto.in{transform:translate(-50%,0)}
+/* Wappen mit Hof */
+#fmAuto .fa-em{position:relative;width:58px;height:58px;flex:none;display:grid;place-items:center;perspective:300px}
+#fmAuto .fa-em .fmEm{position:relative;z-index:2;width:58px;height:58px;margin:0;filter:drop-shadow(0 3px 0 rgba(0,0,0,.45)) drop-shadow(0 0 8px color-mix(in srgb,var(--fc) 70%,transparent))}
+#fmAuto .fa-em .fmEm.out{animation:faOut .17s ease-in forwards}
+@keyframes faOut{to{transform:rotateY(90deg) scale(.8);opacity:.3}}
+#fmAuto .fa-em.flip .fmEm{animation:faFlip .9s cubic-bezier(.2,1.4,.35,1)}
+@keyframes faFlip{0%{transform:rotateY(-90deg) scale(.7)}55%{transform:rotateY(12deg) scale(1.3)}100%{transform:none}}
+#fmAuto .fa-halo{position:absolute;inset:-12px;border-radius:50%;background:radial-gradient(circle,var(--fc) 0,transparent 66%);opacity:.45;animation:faHalo 2.6s ease-in-out infinite}
+@keyframes faHalo{50%{opacity:.7;transform:scale(1.08)}}
+#fmAuto .fa-rays{position:absolute;inset:-30px;border-radius:50%;background:repeating-conic-gradient(from 0deg,var(--fc) 0 7deg,transparent 7deg 30deg);-webkit-mask:radial-gradient(circle,#000 28%,transparent 70%);mask:radial-gradient(circle,#000 28%,transparent 70%);opacity:0}
+#fmAuto .fa-em.flip .fa-rays{animation:faRays 1.25s ease-out}
+@keyframes faRays{0%{opacity:0;transform:rotate(0) scale(.5)}25%{opacity:.9}100%{opacity:0;transform:rotate(70deg) scale(1.25)}}
+#fmAuto .fa-ring{position:absolute;inset:-4px;border-radius:50%;border:3px solid var(--fc);opacity:0;z-index:1}
+#fmAuto .fa-em.flip .fa-ring{animation:faRing .9s ease-out}
+@keyframes faRing{0%{transform:scale(.4);opacity:1}100%{transform:scale(2.4);opacity:0}}
+#fmAuto .fa-spk{position:absolute;left:50%;top:50%;z-index:3;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:#fff;box-shadow:0 0 6px var(--fc),0 0 2px #fff;opacity:0;animation:faSpk 1s ease-out .12s forwards}
+@keyframes faSpk{0%{opacity:1;transform:translate(0,0) scale(1.2)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.3)}}
+/* Text */
+#fmAuto .fa-r{flex:1;min-width:0}
+#fmAuto .fa-h{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+#fmAuto .fa-nm{min-width:0;display:flex;flex-direction:column;line-height:1.15}
+#fmAuto .fa-nm small{display:block;margin-bottom:5px;font:9px/1 var(--px);letter-spacing:.18em;color:rgba(255,255,255,.65)}
+#fmAuto .fa-nm b{display:block;font:15px/1.15 var(--px);font-weight:400;color:var(--fc);text-shadow:0 2px 0 rgba(0,0,0,.55);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#fmAuto .fa-g{display:inline-flex;align-items:center;gap:3px;font:14px var(--px);color:var(--gem,#6fe6ff);text-shadow:0 2px 0 rgba(0,0,0,.5);white-space:nowrap}
+#fmAuto .fa-g .ic{width:15px;height:15px}
+/* Leiste */
+#fmAuto .fa-barw{display:flex;align-items:center;gap:6px;margin-top:7px}
+#fmAuto .fa-bar{position:relative;flex:1;height:16px;border-radius:9px;background:linear-gradient(180deg,rgba(0,0,0,.45),rgba(255,255,255,.08));box-shadow:inset 0 2px 3px rgba(0,0,0,.5);overflow:hidden}
+#fmAuto .fa-fill{position:absolute;left:0;top:0;bottom:0;width:0;border-radius:9px;background:linear-gradient(180deg,rgba(255,255,255,.35),transparent 55%),linear-gradient(90deg,var(--fd),var(--fc));box-shadow:0 0 12px var(--fc);overflow:hidden}
+#fmAuto .fa-shine{position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.6) 45%,transparent 60%);background-size:240% 100%;animation:faShine 1.5s linear infinite}
+@keyframes faShine{from{background-position:140% 0}to{background-position:-100% 0}}
+#fmAuto .fa-nx{flex:none;width:24px;height:24px;display:grid;place-items:center;opacity:.75}
+#fmAuto .fa-nx .fmEm{width:24px;height:24px;margin:0}
+#fmAuto .fa-t{margin-top:5px;font-size:11px;font-weight:700;color:#c9cfe6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* fliegende Edelsteine */
+#fmAuto .fa-gem{position:absolute;z-index:4;width:8px;height:8px;margin:-4px 0 0 -4px;background:linear-gradient(135deg,#ffffff,var(--gem,#6fe6ff) 55%,#2a8ab0);transform:rotate(45deg);box-shadow:0 0 8px var(--gem,#6fe6ff);opacity:0;animation:faGem .65s cubic-bezier(.5,0,.8,.6) forwards}
+@keyframes faGem{0%{opacity:0;transform:translate(0,0) rotate(45deg) scale(.6)}15%{opacity:1}100%{opacity:.9;transform:translate(var(--dx),var(--dy)) rotate(225deg) scale(.9)}}
+/* Aufstieg */
+#fmAuto .fa-up{position:absolute;left:50%;top:-13px;z-index:5;padding:3px 14px;border-radius:999px;background:linear-gradient(180deg,var(--fc),var(--fd));color:#fff;font:11px var(--px);letter-spacing:.1em;text-shadow:0 1px 0 rgba(0,0,0,.6);box-shadow:0 0 16px var(--fc),inset 0 1px 0 rgba(255,255,255,.5);transform:translateX(-50%) scale(0);opacity:0}
+#fmAuto.up .fa-up{animation:faRib 1.25s cubic-bezier(.2,1.5,.4,1) forwards}
+@keyframes faRib{0%{transform:translateX(-50%) scale(0);opacity:0}18%{transform:translateX(-50%) scale(1.18);opacity:1}30%{transform:translateX(-50%) scale(1)}85%{opacity:1}100%{transform:translateX(-50%) scale(1);opacity:0}}
+#fmAuto.up{animation:faGlow 1.25s ease-out}
+@keyframes faGlow{0%{box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 10px 30px rgba(0,0,0,.6),0 0 0 var(--fc)}30%{box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 10px 30px rgba(0,0,0,.6),0 0 44px var(--fc)}}
+#fmAuto.up .fa-nm b{animation:faTxt 1.1s ease-out}
+@keyframes faTxt{0%{transform:translateY(8px);opacity:0}35%{transform:none;opacity:1;text-shadow:0 0 14px var(--fc),0 2px 0 rgba(0,0,0,.55)}100%{text-shadow:0 2px 0 rgba(0,0,0,.55)}}
+.fmAutoNote{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;color:#c9cfe6}
+.fmAutoNote .ic{width:14px;height:14px;color:var(--gem,#6fe6ff)}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -6513,22 +6566,22 @@ const SYN={fire:{k:"atk",v:.2,d:"Feuer +{v}% Angriff"},water:{k:"hp",v:.2,d:"Was
 /* Items = Pokémon-Items zum Tragen (auf ein Pokémon ziehen) */
 const ITEMS=[
  {id:"muskel",n:"Muskelband",ic:"dumbbell",col:"#ff6b5c",r:"c",d:"+15 % Angriff. Jeder 4. Treffer von Attacke 1 ist ein Kraftschlag: +50 % Schaden."},
- {id:"flink",n:"Flinkklaue",ic:"fast",col:"#ffe14d",r:"c",d:"+15 % Angriffstempo. 20 % Chance, nach einem Angriff sofort erneut zuzuschlagen."},
+ {id:"flink",n:"Flinkklaue",ic:"fast",col:"#ffe14d",r:"c",d:"+15 % Angriffstempo. 10 % Chance, nach einem Angriff sofort erneut zuzuschlagen."},
  {id:"weste",n:"Schutzweste",ic:"def",col:"#5aa7ff",r:"c",d:"+20 % KP und +10 Verteidigung. Über 50 % KP erleidet der Träger 12 % weniger Schaden."},
  {id:"zoom",n:"Zoomlinse",ic:"aim",col:"#6ee06a",r:"c",d:"+1 Reichweite (Nahkämpfer +0,4) und +8 % Angriff. +25 % Schaden gegen Ziele, die mehr als 2,5 Felder entfernt sind."},
  {id:"beere",n:"Tsitrubeere",ic:"heart",col:"#ffd23f",r:"c",d:"Fällt das Pokémon unter 50 % KP, heilt es sich einmal um 30 % KP."},
  {id:"platte",n:"Typenplatte",ic:"badge",col:"#c9a2ff",r:"c",d:"Attacken vom eigenen Typ richten +25 % Schaden an."},
  {id:"muschel",n:"Muschelglocke",ic:"bubble",col:"#ff9ad8",r:"r",d:"Heilt sich um 20 % des verursachten Schadens."},
  {id:"orb",n:"Leben-Orb",ic:"spark",col:"#ff4fd8",r:"r",d:"+35 % Schaden, aber jeder eigene Angriff kostet 2 % der max. KP."},
- {id:"helm",n:"Beulenhelm",ic:"thorn",col:"#8fd35a",r:"r",d:"Nahkämpfer, die den Träger treffen, verlieren jedes Mal 3 % ihrer max. KP."},
- {id:"king",n:"King-Stein",ic:"crown",col:"#ffc94a",r:"r",d:"15 % Chance: Das Ziel schreckt zurück und ist 0,6 s betäubt. Mehrere zusammen höchstens 40 %."},
- {id:"evio",n:"Evolith",ic:"gem",col:"#d6a8ff",r:"r",d:"+40 % KP und +20 Verteidigung, solange das Pokémon nicht voll entwickelt ist."},
+ {id:"helm",n:"Beulenhelm",ic:"thorn",col:"#8fd35a",r:"r",d:"Nahkämpfer, die den Träger treffen, verlieren jedes Mal 3 % ihrer max. KP (höchstens 7,5 % der max. KP des Trägers)."},
+ {id:"king",n:"King-Stein",ic:"crown",col:"#ffc94a",r:"r",d:"15 % Chance: Das Ziel schreckt zurück und ist 0,6 s betäubt. Mehrere King-Steine auf einem Pokémon: höchstens 40 %."},
+ {id:"evio",n:"Evolith",ic:"gem",col:"#d6a8ff",r:"r",d:"+40 % KP und +20 Verteidigung, solange das Pokémon nicht voll entwickelt ist. Nur für Pokémon, die sich noch entwickeln."},
  {id:"lehm",n:"Lichtlehm",ic:"bubble",col:"#9fd8ff",r:"r",d:"Kampfbeginn: Schild über 20 % der KP. Alle Schilde des Trägers +50 %."},
- {id:"gift",n:"Giftstich",ic:"drop",col:"#c050e0",r:"r",d:"Angriffe vergiften das Ziel (3 % KP/s für 3 s)."},
+ {id:"gift",n:"Giftstich",ic:"drop",col:"#c050e0",r:"r",d:"Angriffe vergiften das Ziel (3 % seiner max. KP pro Sekunde für 3 s, höchstens 7,5 % der eigenen max. KP pro Sekunde)."},
  {id:"eis",n:"Eisbrocken",ic:"snow",col:"#8ff3ff",r:"r",d:"30 % Chance: Angriffe verlangsamen das Ziel 1,5 s."},
  {id:"zahn",n:"Scharfzahn",ic:"crit",col:"#ffc94a",r:"r",d:"+25 % Chance auf kritische Treffer (×1,8)."},
- {id:"schlamm",n:"Schwarzschlamm",ic:"drop",col:"#7a5aa0",r:"e",d:"Heilt 2 % der max. KP pro Sekunde (Gift-Pokémon 3 %)."},
- {id:"brille",n:"Weisheitsbrille",ic:"lens",col:"#ff9a3d",r:"e",d:"Sehr effektive Treffer richten +35 % Schaden an."},
+ {id:"schlamm",n:"Schwarzschlamm",ic:"drop",col:"#7a5aa0",r:"e",d:"Heilt 3 % der max. KP pro Sekunde."},
+ {id:"brille",n:"Weisheitsbrille",ic:"lens",col:"#ff9a3d",r:"e",d:"+15 % Schaden. Sehr effektive Treffer richten zusätzlich +35 % Schaden an."},
  {id:"metro",n:"Metronom",ic:"bolt",col:"#ffd84a",r:"e",d:"Jeder Treffer auf dasselbe Ziel +6 % Schaden (bis +48 %). Ein Zielwechsel setzt es zurück."},
  {id:"fokus",n:"Fokusgurt",ic:"band",col:"#ffd23f",r:"e",d:"+15 % KP. Überlebt einmal pro Kampf einen K.O.-Treffer mit 30 % KP."},
  {id:"kraut",n:"Energiekraut",ic:"leaf",col:"#7ae05a",r:"e",d:"Startet mit voller Energie: wirkt die Spezialattacke sofort."},
@@ -13103,7 +13156,7 @@ function mods(u,mine){
   // Mega-Boni kommen erst im Kampf (applyMega), Info zeigt die Mega-Form als Vorschau
   for(const i of u.items||[]){m.it[i]=(m.it[i]||0)+1;switch(i){case"muskel":m.atk+=.15;break;case"flink":m.as+=.15;break;case"weste":m.hp+=.2;m.def+=10;break;case"zoom":m.range+=melee?.4:1;m.atk+=.08;break;case"urkrone":m.hp+=.2;m.atk+=.2;m.as+=.2;break;case"lichtfeder":m.fx.revive=Math.max(m.fx.revive||0,.4);break;case"zeitkristall":m.fx.manaCut=Math.min(.5,(m.fx.manaCut||0)+.3);m.mana+=30;break;case"urschuppe":m.fx.dmgRed=(m.fx.dmgRed||0)+.2;m.fx.rage=(m.fx.rage||0)+.3;break;case"sonnenherz":m.fx.banner=(m.fx.banner||0)+.08;break;case"nachtkern":m.dodge+=.2;m.fx.killPhase=Math.max(m.fx.killPhase||0,1.2);break;
     case"muschel":m.ls+=.2;break;case"orb":m.atk+=.35;break;case"evio":if(sp.stage<sp.line.stages.length-1){m.hp+=.4;m.def+=20;}break;case"lehm":m.shield+=.2;break;case"gift":m.poison+=.03;break;case"eis":m.frost+=.3;break;case"zahn":m.crit+=.25;break;
-    case"fokus":m.focus=true;m.hp+=.15;break;case"schlamm":m.regen+=(sp.types||[]).includes("poison")?.03:.02;break;case"bonbon":m.hp+=.25;m.atk+=.25;break;case"weiss":m.mana+=0;break;case"mond":if(["fairy","psychic","normal"].some(t=>(sp.types||[]).includes(t)))m.ab+=.3;break;case"lava":m.shield+=.18;break;case"kraut":m.echo=true;break;case"curry":m.hp+=.15;m.regen+=.01;break;case"sandwich":m.hp+=.1;m.as+=.12;break;case"herbamystica":m.atk+=.15;break;case"raumsplitter":m.atk+=.12;break;case"ruhegabe":m.hp+=.12;m.shield+=.1;break;case"mochi":m.atk+=.12;m.hp+=.08;break;case"sirupapfel":m.hp+=.15;if(["dragon","grass"].some(t=>(sp.types||[]).includes(t)))m.atk+=.15;break;}}
+    case"fokus":m.focus=true;m.hp+=.15;break;case"schlamm":m.regen+=.03;break;case"brille":m.atk+=.15;break;case"bonbon":m.hp+=.25;m.atk+=.25;break;case"weiss":m.mana+=0;break;case"mond":if(["fairy","psychic","normal"].some(t=>(sp.types||[]).includes(t)))m.ab+=.3;break;case"lava":m.shield+=.18;break;case"kraut":m.echo=true;break;case"curry":m.hp+=.15;m.regen+=.01;break;case"sandwich":m.hp+=.1;m.as+=.12;break;case"herbamystica":m.atk+=.15;break;case"raumsplitter":m.atk+=.12;break;case"ruhegabe":m.hp+=.12;m.shield+=.1;break;case"mochi":m.atk+=.12;m.hp+=.08;break;case"sirupapfel":m.hp+=.15;if(["dragon","grass"].some(t=>(sp.types||[]).includes(t)))m.atk+=.15;break;}}
   if(mine){const d=perk("d_"+role);if(d){m.hp+=.06*d;m.atk+=.06*d;}const ev=perk("e_"+role);if(ev){m.hp+=.03*ev;m.atk+=.03*ev;}
     if(perk("s_"+role)){if(role==="tank")m.shield+=.15;else if(role==="warrior")m.ls+=.1;else if(role==="marksman"){m.range+=.7;m.crit+=.1;}else if(role==="mage")m.mana+=35;}
     if(perk("m_"+role))m.as+=.12;}
@@ -15836,6 +15889,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Erfolge & Titel": "Achievements & 
 if(typeof EN!=="undefined")Object.assign(EN,{"Regions-Hintergründe": "Region backgrounds", "11 neue Regions-Hintergründe: Wer in einer Region Champion wird (Normal oder schwerer), bekommt ihren Hintergrund: Kanto-Morgen, Glockenturm, Tropenküste, Speersäule, Stratos bei Nacht, Prismaturm, Inselsonne, Stadionnacht, Areal Null, Raumzeitriss und Laternenfest.": "11 new region backgrounds: becoming Champion in a region (Normal or harder) unlocks its background: Kanto Morning, Bell Tower, Tropical Coast, Spear Pillar, Castelia by Night, Prism Tower, Island Sun, Stadium Night, Area Zero, Space-Time Rift and Lantern Festival.", "Überarbeitet: Gewittersturm (Blitze mit Ästen, Wolkenwand), Himmelsturm (Wolkenmeer in drei Ebenen, Treppen, Licht von oben), Lichterglanz (Stadt, Lichterketten, Schnee), Edelsteinmine (Stollen, Schienen, Lore, Laternen), Polarlicht (Vorhang aus Lichtstrahlen über Eisscholle und Iglu), Vulkanherz (Lavafluss, Rauch, Funkenflug), Morgenroute (Weg mit Wegweiser) und Sandsturm (Sandschleier und Böen).": "Reworked: Thunderstorm (branching lightning, cloud wall), Sky Tower (three-layer cloud sea, stairs, light from above), Glow of Lights (city, light strings, snow), Gem Mine (tunnel, rails, mine cart, lanterns), Aurora (curtain of light rays over an ice floe and igloo), Volcano Heart (lava river, smoke, sparks), Morning Route (path with signpost) and Sandstorm (sand veils and gusts).", "Kanto-Morgen": "Kanto Morning", "Glockenturm": "Bell Tower", "Tropenküste": "Tropical Coast", "Speersäule": "Spear Pillar", "Stratos bei Nacht": "Castelia by Night", "Prismaturm": "Prism Tower", "Inselsonne": "Island Sun", "Stadionnacht": "Stadium Night", "Areal Null": "Area Zero", "Raumzeitriss": "Space-Time Rift", "Laternenfest": "Lantern Festival", "Champion in": "Champion in"});
 /* v1.62.5.6 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Hintergründe nachgebessert": "Backgrounds polished", "Gewittersturm: Die Blitze leuchten jetzt hell und sind länger zu sehen, der Himmel blitzt mit.": "Thunderstorm: the lightning now glows brightly and stays visible longer, and the sky flashes with it.", "Hintergründe nachgebessert: Morgenroute, Polarlicht, Vulkanherz und Edelsteinmine zeigen ihre Motive (Wegweiser, Iglu, Lavastrom, Lore) jetzt weiter oben, wo Abzeichen und Werte sie nicht verdecken. Sandsturm hat Dünen mit Licht und Schatten und alte Ruinen, Areal Null Kraterwände mit Wasserfällen und schwebenden Kristallen.": "Backgrounds polished: Morning Route, Aurora, Volcano Heart and Gem Mine now show their motifs (signpost, igloo, lava stream, mine cart) higher up, where badges and stats don't cover them. Sandstorm has dunes with light and shadow plus old ruins, Area Zero has crater walls with waterfalls and floating crystals.", "Kanto hat einen eigenen Champion-Hintergrund: „Indigo-Plateau“ (die Liga auf dem Berg im Morgenrot) statt der dritten Wiese.": "Kanto has its own Champion background: “Indigo Plateau” (the League on the mountain at dawn) instead of a third meadow.", "Indigo-Plateau": "Indigo Plateau"});
+/* v1.63.0 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm automatisch: Sobald Ruhm freigeschaltet ist, fließen neue Edelsteine sofort hinein. Oben erscheint die Ruhm-Leiste, jeder Aufstieg bekommt eine kleine Animation. Die Einzahl-Knöpfe sind weg.": "Automatic fame: once fame is unlocked, new gems flow into it right away. The fame bar appears at the top and every rank-up gets a small animation. The deposit buttons are gone.", "Items ausgeglichen: Flinkklaue schlägt nur noch mit 10 % Chance doppelt zu. Schwarzschlamm heilt 3 % pro Sekunde, die Weisheitsbrille gibt zusätzlich +15 % Schaden auf alles. Giftstich und Beulenhelm sind gegen sehr starke Gegner gedeckelt, etwa Bosse und Gegner im Turm oder Abgrund.": "Items balanced: Quick Claw now strikes twice with only a 10 % chance. Black Sludge heals 3 % per second, Wise Glasses also give +15 % damage on everything. Poison Barb and Rocky Helmet are capped against very strong enemies, such as bosses and enemies in the tower or the abyss.", "Evolith lässt sich nur noch Pokémon anlegen, die sich noch entwickeln. Beim King-Stein steht jetzt dabei, dass die Obergrenze von 40 % je Pokémon gilt.": "Eviolite can now only be given to Pokémon that can still evolve. King's Rock now states that the 40 % cap applies per Pokémon.", "Ruhm automatisch": "Automatic fame", "+15 % Angriffstempo. 10 % Chance, nach einem Angriff sofort erneut zuzuschlagen.": "+15 % attack speed. 10 % chance to strike again immediately after an attack.", "Nahkämpfer, die den Träger treffen, verlieren jedes Mal 3 % ihrer max. KP (höchstens 7,5 % der max. KP des Trägers).": "Melee attackers that hit the holder lose 3 % of their max HP each time (at most 7.5 % of the holder's max HP).", "15 % Chance: Das Ziel schreckt zurück und ist 0,6 s betäubt. Mehrere King-Steine auf einem Pokémon: höchstens 40 %.": "15 % chance: the target flinches and is stunned for 0.6 s. Several King's Rocks on one Pokémon: at most 40 %.", "+40 % KP und +20 Verteidigung, solange das Pokémon nicht voll entwickelt ist. Nur für Pokémon, die sich noch entwickeln.": "+40 % HP and +20 defense while the Pokémon is not fully evolved. Only for Pokémon that can still evolve.", "Angriffe vergiften das Ziel (3 % seiner max. KP pro Sekunde für 3 s, höchstens 7,5 % der eigenen max. KP pro Sekunde).": "Attacks poison the target (3 % of its max HP per second for 3 s, at most 7.5 % of the holder's own max HP per second).", "Heilt 3 % der max. KP pro Sekunde.": "Heals 3 % of max HP per second.", "+15 % Schaden. Sehr effektive Treffer richten zusätzlich +35 % Schaden an.": "+15 % damage. Super effective hits deal an extra +35 % damage.", "Neue Edelsteine fließen automatisch in deinen Ruhm.": "New gems flow into your fame automatically.", "Wenn du alles gesammelt und erforscht hast, fließen deine Edelsteine automatisch in ": "Once you have collected and researched everything, your gems flow into ", "Höchster Ruhm erreicht": "Highest fame reached"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18481,7 +18536,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.62.5.6",DUEL_HP=30;
+const MP_VER="1.63.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -19119,8 +19174,12 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.62.5.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.63.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.63.0",d:"25.11.2026",t:"Ruhm automatisch",items:[
+  ["crown", "Ruhm automatisch: Sobald Ruhm freigeschaltet ist, fließen neue Edelsteine sofort hinein. Oben erscheint die Ruhm-Leiste, jeder Aufstieg bekommt eine kleine Animation. Die Einzahl-Knöpfe sind weg."],
+  ["scroll", "Items ausgeglichen: Flinkklaue schlägt nur noch mit 10 % Chance doppelt zu. Schwarzschlamm heilt 3 % pro Sekunde, die Weisheitsbrille gibt zusätzlich +15 % Schaden auf alles. Giftstich und Beulenhelm sind gegen sehr starke Gegner gedeckelt, etwa Bosse und Gegner im Turm oder Abgrund."],
+  ["gem", "Evolith lässt sich nur noch Pokémon anlegen, die sich noch entwickeln. Beim King-Stein steht jetzt dabei, dass die Obergrenze von 40 % je Pokémon gilt."]]},
  {v:"1.62.5.6",d:"24.11.2026",t:"Hintergründe nachgebessert",items:[
   ["bolt", "Gewittersturm: Die Blitze leuchten jetzt hell und sind länger zu sehen, der Himmel blitzt mit."],
   ["route", "Hintergründe nachgebessert: Morgenroute, Polarlicht, Vulkanherz und Edelsteinmine zeigen ihre Motive (Wegweiser, Iglu, Lavastrom, Lore) jetzt weiter oben, wo Abzeichen und Werte sie nicht verdecken. Sandsturm hat Dünen mit Licht und Schatten und alte Ruinen, Areal Null Kraterwände mit Wasserfällen und schwebenden Kristallen."],
@@ -20678,7 +20737,7 @@ function fameNameRow(name,card){try{return fameNameHtml(name,card&&typeof cardCl
 const fameEm=(L,big)=>{const i=fameStepInfo(L);if(!i)return "";return `<i class="fmEm${typeof fameEmSvg==="function"?" sv":""}${big?" big":""}${i.leg?" leg":""}" style="--fc:${i.c};--fd:${i.d}" title="Ruhm: ${esc(fameName_(L))}">${typeof fameEmSvg==="function"?fameEmSvg(i):`<span>${i.leg?"★":ROM3[i.sub]}</span>`}</i>`;};
 function fameTabHtml(){const O=fameOpen();
   if(!O.ok){const nb=Object.keys(REGIONS).filter(rk=>!bstMissing(rk).length).length,nr=Object.keys(REGIONS).length;let tl=0,tm=0;RESEARCH.forEach(c=>c.nodes.forEach(n=>{tm+=n.max;tl+=Math.min(n.max,perkLv(n.id));}));
-    return `<div class="fmLock"><div class="fmLockIc">${ic("crown")}</div><h3>RUHM</h3><p>Wenn du alles gesammelt und erforscht hast, steckst du deine Edelsteine in <b>Ruhm</b>. Dafür gibt es Edelstein-Ränge von Topas bis Diamant und die Ruhmeslegende, mit farbigen Spielernamen und Kartenrändern.</p>
+    return `<div class="fmLock"><div class="fmLockIc">${ic("crown")}</div><h3>RUHM</h3><p>Wenn du alles gesammelt und erforscht hast, fließen deine Edelsteine automatisch in <b>Ruhm</b>. Dafür gibt es Edelstein-Ränge von Topas bis Diamant und die Ruhmeslegende, mit farbigen Spielernamen und Kartenrändern.</p>
       <div class="fmReq${O.bst?" ok":""}">${ic(O.bst?"check":"lock")} Alle Booster leer <b>${nb}/${nr}</b></div><div class="fmReq${O.tree?" ok":""}">${ic(O.tree?"check":"lock")} Skillbaum komplett <b>${tl}/${tm}</b></div>
       <div class="fmPrev">${FAME_T.map((t,i)=>fameEm(i*3+1)).join("")}${fameEm(FAME_MAX)}</div></div>`;}
   const F=fameMeta(),lv=fameLevel(F.g),L=lv.L,inf=fameStepInfo(L),nx=fameStepInfo(L+1),p=lv.next?Math.min(1,lv.into/lv.next):1;
@@ -20689,7 +20748,7 @@ function fameTabHtml(){const O=fameOpen();
   return `<div class="fmTop" style="--fc:${inf?inf.c:"#8a93b0"};--fd:${inf?inf.d:"#2a3048"}">${L?fameEm(L,true):`<i class="fmEm big none"><span>?</span></i>`}<div class="fmTopR"><h3>${L?esc(fameName_(L)):"Noch kein Ruhm"}</h3>
      <small>${ic("gem")} ${F.g.toLocaleString("de-DE")} Edelsteine im Ruhm</small>
      ${lv.next?`<div class="rkProg fmBar" style="--rc:${nx.c}"><i style="width:${Math.round(p*100)}%"></i><span>${lv.into} / ${lv.next} bis ${esc(fameName_(L+1))}</span></div>`:`<div class="rkProg myth fmBar"><i style="width:100%"></i><span>Höchster Ruhm erreicht</span></div>`}
-     ${lv.next?`<div class="fmInv"><span>Einzahlen:</span>${[50,100,500].map(v=>`<button class="gemBtn" data-fmi="${v}" ${META.gems<1?"disabled":""}>${ic("gem")}${v}</button>`).join("")}<button class="gemBtn" data-fmi="next" ${META.gems<1?"disabled":""}>${ic("gem")}bis ${esc(fameName_(L+1))}</button></div>`:""}</div></div>
+     ${lv.next?`<div class="fmAutoNote">${ic("gem")}<span>Neue Edelsteine fließen automatisch in deinen Ruhm.</span></div>`:""}</div></div>
    <div class="fmPick v57"><div class="fmOptG"><div class="fmSec"><h5>NAMENSFARBE</h5><div class="fmOpts"><button class="fmO${!F.n?" on":""}" data-fmn="">Normal</button>${nm.map(k=>`<button class="fmO${F.n===k?" on":""}" data-fmn="${k}"><span class="fmN fn-${k}">${esc(me)}</span></button>`).join("")||`<small class="fmNo">ab Topas I</small>`}</div></div>
      <div class="fmSec"><h5>RANG-EFFEKT</h5><div class="fmOpts"><button class="fmO${!F.e?" on":""}" data-fme="">Keiner</button>${fx.map(k=>`<button class="fmO fmFxO${F.e===k?" on":""}" data-fme="${k}" style="--fc:${fameFxC(k)}"><i class="fmFxI${k==="legende"?" leg":""}"></i>${esc(FAME_FXN[k]||k)}</button>`).join("")||`<small class="fmNo">ab Topas II</small>`}</div></div>
      <div class="fmSec"><h5>KARTENRAND</h5><div class="fmOpts"><button class="fmO${!F.f?" on":""}" data-fmf="">Keiner</button>${fr.map(k=>{const b=k.replace("+",""),t=FAME_C[b];return `<button class="fmO fmFrO${F.f===k?" on":""}" data-fmf="${k}" style="--fc:${t.c};--fd:${t.d}"><i class="fmSw${k.endsWith("+")?" plus":""}${b==="legende"?" leg":""}"></i>${t.n}${k.endsWith("+")?" ✦":""}</button>`;}).join("")||`<small class="fmNo">ab Topas III</small>`}</div></div>
@@ -20749,7 +20808,7 @@ function itDmg(f,t,d,basicA){const fi=f.it||{},ti=t.it||{};
   if(fi.zoom&&dist(f,t)>2.5)d*=1+.25*fi.zoom;
   if(ti.weste&&t.hp>t.maxhp*.5)d*=1-Math.min(.3,.12*ti.weste);
   return d;}
-function itHit(f,t,basicA){const fi=f.it||{};if(fi.flink&&basicA===1&&f.alive&&Math.random()<Math.min(.4,.2*fi.flink))f.cd=Math.min(f.cd,.08);}
+function itHit(f,t,basicA){const fi=f.it||{};if(fi.flink&&basicA===1&&f.alive&&Math.random()<Math.min(.3,.1*fi.flink))f.cd=Math.min(f.cd,.08);}
 function itKill(f){const fi=f.it||{};if(fi.mochi&&f.alive)heal(f,f.maxhp*.12*fi.mochi,false,f);}
 /* ---------- Kampfturm: Kartenhintergründe ab Ebene 10, 25 und 50 (Rekord über alle Regionen) ---------- */
 Object.assign(CARD_BG,{
@@ -22750,6 +22809,76 @@ try{if(CARD_BG.vulkan)CARD_BG.vulkan.html=`<i class="vu62g"></i>${_ups(10,["rgba
   ${_L62("vu56r","0 0 40 24","left:14%;bottom:42%;height:12cqh",`<path d="M0 24 L6 10 L12 13 L18 4 L26 12 L32 9 L40 24Z" fill="#140404"/><path d="M18 4 L26 12 L22 12Z M6 10 L12 13 L9 14Z" fill="#ff6a1a" opacity=".55"/>`)}${_L62("vu56r","0 0 40 24","left:88%;bottom:43%;height:10cqh",`<path d="M0 24 L8 8 L14 12 L22 2 L30 14 L40 24Z" fill="#140404"/><path d="M22 2 L30 14 L26 14Z" fill="#ff6a1a" opacity=".5"/>`)}
   ${_ups(22,["#ffb03a","#ff7a2a","#ffd36a"],.5,1.2,2.6,4.6,10,90,";--g:8px")}${_bl(50,62,60,"rgba(255,110,40,.45)",";--d:2.6s")}`;}catch(e){}
 
+/* v1.63.0: Ruhm automatisch (neue Edelsteine fließen sofort hinein, Ruhm-Leiste oben, Animation je Aufstieg); Evolith nur für Pokémon, die sich noch entwickeln */
+/* Evolith wirkt nur, solange sich das Pokémon noch entwickeln kann → auf Endstufen gar nicht erst anlegen */
+try{const _eq630=equip;equip=function(u,bi){try{const id=S&&S.bag?S.bag[bi]:null;if(id==="evio"&&u){const sp=SPECIES[u.sp];if(!(sp.stage<sp.line.stages.length-1)){toast(`Evolith wirkt nur bei Pokémon, die sich noch entwickeln. ${sp.name} ist voll entwickelt.`,"gem");try{sfx("deny");}catch(e){}return false;}}}catch(e){}return _eq630.apply(this,arguments);};}catch(e){}
+/* ---------- Ruhm automatisch ---------- */
+const FA={t:0,run:0};
+const fameTotal=()=>FAME_COST.slice(0,FAME_MAX).reduce((a,b)=>a+b,0);
+const fameAccAt=L=>FAME_COST.slice(0,Math.max(0,L)).reduce((a,b)=>a+b,0);
+let _sm630=saveMeta;
+function fameAuto(){try{if(!META||typeof USER==="undefined"||!USER)return;if(typeof ADM!=="undefined"&&ADM&&ADM.sess)return;if((META.gems|0)<=0)return;
+  if(typeof B!=="undefined"&&B&&!B.done&&!B.sim)return;if(!fameOpen().ok)return;
+  const F=fameMeta(),room=fameTotal()-F.g;if(room<=0)return;
+  const v=Math.min(META.gems|0,room),g0=F.g,L0=fameLevel(g0).L;META.gems-=v;F.g+=v;const L1=fameLevel(F.g).L;
+  for(let L=L0+1;L<=L1;L++){const i=fameStepInfo(L);if(i&&i.sub===1&&!F.n)F.n=i.k;if(i&&i.sub===2)F.e=i.k;if(i&&i.sub===3&&!F.f)F.f=i.k+"+";if(i&&i.leg){F.n="legende";F.e="legende";}}
+  _sm630();try{refreshGems();}catch(e){}
+  try{const mb=$("mbox");if($("modal").classList.contains("show")&&mb&&mb.querySelector('.dtabs button.on[data-t="fame"]'))labScreen("fame");}catch(e){}
+  fameBanner(g0,F.g,v);}catch(e){console.error(e);}}
+saveMeta=function(){const r=_sm630.apply(this,arguments);clearTimeout(FA.t);FA.t=setTimeout(fameAuto,700);return r;};
+setTimeout(fameAuto,4000);setInterval(fameAuto,15000);
+/* Ruhm-Leiste oben: Edelsteine fliegen in die Leiste und zählen hoch, bei jedem Aufstieg dreht sich das Wappen zum neuen Rang (Strahlen, Funken, „AUFSTIEG!“) */
+async function fameBanner(g0,g1,v){if(window.__aiLite)return;const run=++FA.run,sl=ms=>new Promise(r=>setTimeout(r,ms)),nf=n=>Math.round(n).toLocaleString(LANG==="en"?"en-US":"de-DE");
+  let el=$("fmAuto");if(!el){el=document.createElement("div");el.id="fmAuto";document.body.appendChild(el);}el.className="";
+  const L0=fameLevel(g0).L,L1=fameLevel(g1).L,pct=g=>{const l=fameLevel(g);return l.next?Math.min(100,l.into/l.next*100):100;};
+  const col=L=>{const i=fameStepInfo(Math.max(1,L));el.style.setProperty("--fc",i.c);el.style.setProperty("--fd",i.d);};
+  let shown=0,curL=0;
+  const em=L=>L?fameEm(L,true):`<i class="fmEm big none"><span>?</span></i>`;
+  const draw=L=>{curL=L;const nx=L<FAME_MAX?fameEm(L+1):"";el.innerHTML=`<div class="fa-em"><i class="fa-halo"></i><i class="fa-rays"></i>${em(L)}<i class="fa-ring"></i></div><div class="fa-r"><div class="fa-h"><div class="fa-nm"><small>RUHM</small><b>${esc(L?fameName_(L):"Noch kein Ruhm")}</b></div><div class="fa-g">+<span class="fa-num">${nf(shown)}</span>${ic("gem")}</div></div>
+    <div class="fa-barw"><div class="fa-bar"><i class="fa-fill"><i class="fa-shine"></i></i></div>${nx?`<div class="fa-nx">${nx}</div>`:""}</div><div class="fa-t"></div></div><div class="fa-up">AUFSTIEG!</div>`;try{hydrateIcons(el);}catch(e){}col(L);};
+  const prog=g=>{if(curL>=FAME_MAX)return "Höchster Ruhm erreicht";const nx=fameCost(curL+1);return `${nf(Math.max(0,Math.min(nx,g-fameAccAt(curL))))} / ${nf(nx)} bis ${fameName_(curL+1)}`;};
+  const txt=g=>{const t=el.querySelector(".fa-t");if(t)t.textContent=prog(g);};
+  const bar=(p,ms)=>{const b=el.querySelector(".fa-fill");if(!b)return;b.style.transition=ms?`width ${ms}ms cubic-bezier(.3,.8,.4,1)`:"none";b.style.width=p+"%";if(!ms)void b.offsetWidth;};
+  const count=(to,ms)=>{const n=el.querySelector(".fa-num"),t=el.querySelector(".fa-t"),from=shown,t0=performance.now();shown=to;if(!n)return;const f=()=>{if(run!==FA.run||!n.isConnected)return;const k=Math.min(1,(performance.now()-t0)/ms),val=from+(to-from)*(1-Math.pow(1-k,2));n.textContent=nf(val);if(t)t.textContent=prog(g0+val);if(k<1)requestAnimationFrame(f);};f();};
+  const fly=(n,ms)=>{try{const R=el.getBoundingClientRect(),G=el.querySelector(".fa-g").getBoundingClientRect(),F=el.querySelector(".fa-bar").getBoundingClientRect(),fw=el.querySelector(".fa-fill").getBoundingClientRect().width;
+    for(let k=0;k<n;k++){const s=document.createElement("i");s.className="fa-gem";const x0=G.left-R.left+G.width*.5,y0=G.top-R.top+G.height*.5,x1=F.left-R.left+Math.max(6,fw)*(.55+Math.random()*.45),y1=F.top-R.top+F.height/2;
+      s.style.left=x0+"px";s.style.top=y0+"px";s.style.setProperty("--dx",Math.round(x1-x0)+"px");s.style.setProperty("--dy",Math.round(y1-y0)+"px");s.style.animationDelay=Math.round(k*ms/n)+"ms";el.appendChild(s);setTimeout(()=>s.remove(),ms+700);}}catch(e){}};
+  const gAt=L=>Math.max(g0,fameAccAt(L));
+  const skip=Math.max(0,L1-L0-6);let L=L0+skip;
+  if(skip)shown=gAt(L)-g0;draw(L);bar(skip?0:pct(g0),0);txt(skip?fameAccAt(L):g0);
+  await sl(40);if(run!==FA.run)return;el.classList.add("in");await sl(480);
+  for(L=L0+skip+1;L<=L1;L++){if(run!==FA.run)return;fly(5,650);bar(100,700);count(gAt(L)-g0,700);await sl(760);if(run!==FA.run)return;
+    const old=el.querySelector(".fa-em .fmEm");if(old)old.classList.add("out");await sl(170);if(run!==FA.run)return;
+    draw(L);bar(0,0);txt(fameAccAt(L));const e=el.querySelector(".fa-em");e.classList.add("flip");el.classList.add("in","up");
+    for(let k=0;k<12;k++){const s=document.createElement("i"),a=k/12*Math.PI*2,r=30+Math.random()*18;s.className="fa-spk";s.style.setProperty("--dx",Math.round(Math.cos(a)*r)+"px");s.style.setProperty("--dy",Math.round(Math.sin(a)*r)+"px");e.appendChild(s);}
+    try{sfx("levelUp");}catch(e){}await sl(1250);el.classList.remove("up");}
+  if(run!==FA.run)return;const pf=pct(g1);if(g1>gAt(L1)||L1===L0){fly(L1===L0?6:3,600);bar(pf,750);count(v,750);}txt(g1);if(L1===L0)try{sfx("coin");}catch(e){}
+  await sl(L1>L0?2600:2300);if(run!==FA.run)return;el.classList.remove("in");await sl(600);if(run===FA.run)el.remove();}
+/* ---------- KI-Uhr: Chrome drosselt in versteckten Tabs (Tab im Hintergrund, Fenster minimiert/verdeckt) alle Zeitgeber der Seite stark.
+   Im Sparmodus laufen setTimeout/setInterval (und requestAnimationFrame, solange die Seite versteckt ist) deshalb über einen Web Worker, der alle 10 ms tickt.
+   Davon profitieren Kampf-Takt, Wartestellen in PKT.act/idle, Probekämpfe und alle Spielabläufe. PKT.sleep(ms) wartet ebenfalls darüber. ---------- */
+(function(){try{
+  const nST=window.setTimeout.bind(window),nCT=window.clearTimeout.bind(window),nSI=window.setInterval.bind(window),nCI=window.clearInterval.bind(window),nRAF=window.requestAnimationFrame.bind(window),nCAF=window.cancelAnimationFrame.bind(window);
+  const Q=new Map();let seq=1e9,on=false,W=null;
+  const call=t=>{try{if(typeof t.fn==="function")t.fn(...t.a);else (new Function(String(t.fn)))();}catch(e){console.error(e);}};
+  function pump(){const t0=performance.now();for(let r=0;r<50;r++){const now=performance.now(),due=[];for(const [id,t] of Q)if(t.at<=now)due.push([id,t]);if(!due.length)break;
+      due.sort((a,b)=>a[1].at-b[1].at||a[0]-b[0]);for(const [id,t] of due){if(!Q.has(id))continue;if(t.iv)t.at=performance.now()+t.ms;else Q.delete(id);call(t);}if(performance.now()-t0>30)break;}}
+  function start(){if(W)return;const src="let iv=null;onmessage=e=>{if(e.data==='on'&&!iv)iv=setInterval(()=>postMessage(0),10);};";W=new Worker(URL.createObjectURL(new Blob([src],{type:"text/javascript"})));W.onmessage=()=>{if(Q.size)pump();};W.postMessage("on");}
+  window.setTimeout=function(fn,ms,...a){if(!on)return nST(fn,ms,...a);const id=++seq;Q.set(id,{fn,a,at:performance.now()+Math.max(0,+ms||0)});return id;};
+  window.clearTimeout=function(id){if(Q.delete(id))return;return nCT(id);};
+  window.setInterval=function(fn,ms,...a){if(!on)return nSI(fn,ms,...a);const id=++seq,m=Math.max(4,+ms||0);Q.set(id,{fn,a,at:performance.now()+m,ms:m,iv:1});return id;};
+  window.clearInterval=function(id){if(Q.delete(id))return;return nCI(id);};
+  window.requestAnimationFrame=function(cb){if(on&&document.hidden)return window.setTimeout(()=>cb(performance.now()),16);return nRAF(cb);};
+  window.cancelAnimationFrame=function(id){if(Q.delete(id))return;return nCAF(id);};
+  const sync=()=>{const want=!!window.__aiLite;if(want&&!W)try{start();}catch(e){return;}on=want&&!!W;window.__aiClock=on;};
+  nSI(sync,500);sync();
+  window.__aiClockQ=()=>Q.size;
+}catch(e){console.error(e);}})();
+try{PKT.sleep=ms=>new Promise(r=>setTimeout(r,Math.max(0,+ms||0)));}catch(e){}
+try{const _js630=PKT.json;PKT.json=function(){const o=_js630.apply(this,arguments);try{o.clock=window.__aiClock?"worker":"normal";o.hidden=!!document.hidden;}catch(e){}return o;};}catch(e){}
+try{const _ac630=PKT.act;PKT.act=async function(cmd){const out=await _ac630.apply(this,arguments);try{const a=Array.isArray(cmd)?"":String(cmd||"").trim().split(/\s+/)[0];if((a==="help"||a==="hilfe"||a==="?")&&typeof out==="string")return out+`
+ Warten:     await PKT.sleep(ms) – läuft im Sparmodus über die KI-Uhr, also auch bei verstecktem Tab oder minimiertem Fenster (json().clock zeigt "worker")`;}catch(e){}return out;};}catch(e){}
+
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
 /* ================================ KAMPF: 2 ATTACKEN + EIGENE KI ================================ */
@@ -23302,7 +23431,7 @@ function hit(f,t,pow,crit,type,critB,ult,basicA){
     if(sx.drain){const dr=Math.min(t.mana,sx.drain);t.mana-=dr;f.mana=Math.min(f.manaMax*2,f.mana+dr/2);}}
   if(t.alive&&f.it&&f.it.dns&&(type==="fire"||type==="electric")&&Math.random()<Math.min(.5,.25*f.it.dns))applyTFX(f,t,1,type);
   if(t.alive&&f.it&&f.it.king&&Math.random()<Math.min(.4,.15*f.it.king)&&!(t.sx&&t.sx.ccImm)){t.stunT=Math.max(t.stunT,.6);popAt(fw(t,1.5),"Zurückgeschreckt!","s","#ffc94a");}
-  if(t.it&&t.it.helm&&f.alive&&f.range<1.7&&dist(f,t)<1.7)raw(f,f.maxhp*.03*t.it.helm);
+  if(t.it&&t.it.helm&&f.alive&&f.range<1.7&&dist(f,t)<1.7)raw(f,Math.min(f.maxhp,t.maxhp*2.5)*.03*t.it.helm);
   if(basicA===1&&sx.hitFx&&t.alive&&Math.random()<.35)applyTFX(f,t,sx.hitFx);
   if(basicA===1){const oth=foes(f).filter(o=>o!==t&&o.alive);
     if(sx.cleave)for(const o of oth)if(dist(o,t)<1.25){const cd=Math.round(d*sx.cleave);raw(o,cd);popAt(fw(o,1.1),""+cd,"s","#ffb0a0");if(!o.alive)onKill(f,o);}
@@ -23318,7 +23447,7 @@ function hit(f,t,pow,crit,type,critB,ult,basicA){
     if(f.abil==="giftgriff"&&t.alive&&Math.random()<.3){t.poisT=Math.max(t.poisT||0,4);t.poisD=Math.max(t.poisD||0,t.maxhp*.03);if(!f.ggT||B.t-f.ggT>2.5){f.ggT=B.t;abilPop(f);}}}
   if(t.thorns&&f.alive&&dist(f,t)<1.7){const r=d*t.thorns;raw(f,r);t.dmg+=Math.round(r);}
   if(t.reflT>0&&t.refl&&f.alive&&f!==t){const r=d*t.refl;raw(f,r);t.dmg+=Math.round(r);if(!t.reflP||B.t-t.reflP>1.2){t.reflP=B.t;popAt(fw(t,1.5),"Spiegelcape!","s","#c9a8ff");}}
-  if(f.poisonOn&&t.alive){t.poisT=3;t.poisD=t.maxhp*f.poisonOn;}
+  if(f.poisonOn&&t.alive){t.poisT=3;t.poisD=Math.min(t.maxhp,f.maxhp*2.5)*f.poisonOn;}
   t.mana=Math.min(t.manaMax*2,t.mana+clamp(d/t.maxhp*(t.role==="tank"?70:55),.5,t.role==="tank"?6:5)*(ftime()>0?.5:1));
   popAt(fw(t,1.1).add(new THREE.Vector3(rnd(-.15,.15),0,0)),(isCrit?"KRIT ":"")+d+(m>1?"!":""),crit||isCrit||pow>1.5?"big":(m<1?"s":""),isCrit?"#ff8a7a":m>1?"#ffe14d":m<1?"#c3c9dc":"#fff");
   if(m>1&&t.alive&&t.it&&t.it.schwaeche&&!t.schwUsed){t.schwUsed=true;t.atk*=1.4;t.as*=1.25;popAt(fw(t,1.85),"Schwächenschutz!","s","#e0a030");}if(m!==1&&(!t.effT||B.t-t.effT>1.4)){t.effT=B.t;popAt(fw(t,1.65),m>1?"Sehr effektiv!":"Nicht sehr effektiv …","s",m>1?"#ffe14d":"#aab2cc");}
