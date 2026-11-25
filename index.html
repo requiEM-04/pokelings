@@ -19242,7 +19242,7 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.63.5.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.63.5.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
  {v:"1.63.5",d:"25.11.2026",t:"Legenden-Sterne",items:[
   ["crown", "Ruhm: Auf dem langen Weg von Diamant III zur Ruhmeslegende gibt es jetzt alle 6.000 Edelsteine einen Legenden-Stern. Die Sterne stehen unter deinem Rang-Wappen auf der Trainerkarte, also sehen sie auch andere."],
@@ -23153,6 +23153,24 @@ try{const _pb6355=pkBoot;pkBoot=function(){const o=_pb6355.apply(this,arguments)
         if(window.requestIdleCallback)requestIdleCallback(run,{timeout:2500});else run();},1800);return;}
     return _ws.apply(this,arguments);};}catch(e){}})();
 try{const _pb6356=pkBoot;pkBoot=function(){const o=_pb6356.apply(this,arguments);try{const w=(window.__bootT||{}).warm;o.vorwaermen=w?("ab "+w[0]+": "+w[1]+" ms (nach dem Start)"):"noch nicht";}catch(e){}return o;};PKT.boot=pkBoot;}catch(e){}
+
+/* v1.63.5.7: schnellerer Start, Teil 2 – die Weltkarte (eigene 3D-Szene, nur im Lauf sichtbar) wird nicht mehr vor dem Startbild gebaut,
+   sondern gleich danach im Leerlauf. Bis dahin ist WL leer (das Spiel kommt damit klar, wie im KI-Sparmodus). KI: menu meldet einen beendeten Lauf richtig. */
+(function(){try{const _iw=window.initWorld;if(typeof _iw!=="function")return;let first=true,done=false;
+  const run=()=>{if(done)return;done=true;const t0=performance.now();
+    try{_iw.apply(window);}catch(e){console.error(e);WL=null;}
+    try{(window.__bootT=window.__bootT||{}).welt=[Math.round(t0),Math.round(performance.now()-t0)];}catch(e){}
+    try{if(window.__aiLite&&window.__GL0&&WL&&!window.__WL0){window.__WL0=WL;try{WL.r.domElement.style.visibility="hidden";}catch(e){}WL=null;}}catch(e){}
+    try{if(typeof S!=="undefined"&&S&&WL&&typeof refreshWorld==="function")refreshWorld();}catch(e){}};
+  window.__worldNow=run;
+  window.initWorld=function(){if(!first)return run();first=false;const t0=Date.now();
+    const later=()=>{const idle=window.requestIdleCallback?f=>requestIdleCallback(f,{timeout:1200}):f=>setTimeout(f,50);requestAnimationFrame(()=>requestAnimationFrame(()=>idle(run)));};
+    (function wait(){if((window.__bootT&&window.__bootT.ready)||Date.now()-t0>6000)later();else setTimeout(wait,60);})();};
+}catch(e){}})();
+/* Ein Lauf/Turm, der schon vorbei ist, lässt sich nicht fortsetzen: Meldung von PKT.act("menu") danach richten, ob „Weiterspielen“ im Menü steht */
+try{const _pm6357=pkMenu;pkMenu=function(){const r=_pm6357.apply(this,arguments);try{if(typeof r==="string"&&/ist gespeichert und lässt sich fortsetzen/.test(r)&&!$("mCont"))
+  return "Hauptmenü. "+(typeof S!=="undefined"&&S&&S.tower?"Der Turm-Aufstieg":"Der Lauf")+" ist beendet, im Menü gibt es kein Weiterspielen.";}catch(e){}return r;};PKT.menu=pkMenu;}catch(e){}
+try{const _pb6357=pkBoot;pkBoot=function(){const o=_pb6357.apply(this,arguments);try{const w=(window.__bootT||{}).welt;o.weltkarte=w?("ab "+w[0]+": "+w[1]+" ms (nach dem Start)"):"noch nicht gebaut";}catch(e){}return o;};PKT.boot=pkBoot;}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
