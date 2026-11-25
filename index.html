@@ -19242,7 +19242,7 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.63.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.63.5.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
  {v:"1.63.5",d:"25.11.2026",t:"Legenden-Sterne",items:[
   ["crown", "Ruhm: Auf dem langen Weg von Diamant III zur Ruhmeslegende gibt es jetzt alle 6.000 Edelsteine einen Legenden-Stern. Die Sterne stehen unter deinem Rang-Wappen auf der Trainerkarte, also sehen sie auch andere."],
@@ -23127,6 +23127,22 @@ function fameBanStars635(s0){const t0=Date.now();const iv=setInterval(()=>{try{c
 try{const _fb635=fameBanner;fameBanner=function(g0,g1,v){const r=_fb635.apply(this,arguments);try{const b=$("mFame");if(b){b.querySelectorAll(".mFameBar,.mFameR .fmLs").forEach(x=>x.remove());fameMenu635();}}catch(e){}try{if(!window.__aiLite&&fameLevel(g1).L>=FAME_MAX-1&&fameLevel(g0).L<=FAME_MAX-1)fameBanStars635(fameLegStars(g0));}catch(e){}return r;};}catch(e){}
 /* 6) KI-Test: Ruhm im Spielzustand */
 try{const _js635=PKT.json;PKT.json=function(){const o=_js635.apply(this,arguments);try{if(META&&META.fame&&typeof fameLevel==="function"){const F=META.fame,lv=fameLevel(F.g|0);o.fame={g:F.g|0,rank:lv.L?fameName_(lv.L):null,into:lv.into,next:lv.next,legStars:fameLegStars(F.g),name:F.n||null,effect:F.e||null,frame:F.f||null,boardFrame:F.b===undefined?null:F.b};}}catch(e){}return o;};}catch(e){}
+
+/* v1.63.5.5: Startzeit-Messung, Teil 2 (nur KI-Test, ändert nichts am Spiel): Dauer der Start-Schritte (DOM, Übersetzung, 3D-Grundgerüst, Effekte, Shader-Vorwärmen,
+   Arena, Welt, erste Größenanpassung, Menü), WebGL-Zeit je Aufruf-Art (Shader übersetzen/verknüpfen, Abfragen, Texturen) und die ersten Bilder. Alles nur in den ersten 20 s. */
+(function(){try{const T=window.__bootT=window.__bootT||{};T.fn={};T.fnAt={};T.gl={};T.frames=[];const LIM=20000;
+  ["buildDom","i18nStart","initThree","initFx","warmShaders","setArenaLoc","buildKanto","wBuildRegion","initWorld","glWatch","resize","menuCam","menuBgStart","showAuth","showMenu","gifSheet","cameosFill"].forEach(name=>{try{const f=window[name];if(typeof f!=="function")return;
+    window[name]=function(){const t0=performance.now();try{return f.apply(this,arguments);}finally{if(t0<LIM){const d=performance.now()-t0;T.fn[name]=(T.fn[name]||0)+d;const c=T.fnAt[name]||(T.fnAt[name]=[]);if(c.length<4)c.push([Math.round(t0),Math.round(d)]);else c.n=(c.n||4)+1;}}};}catch(e){}});
+  [window.WebGLRenderingContext,window.WebGL2RenderingContext].forEach(C=>{if(!C)return;["compileShader","linkProgram","getProgramParameter","getShaderParameter","getProgramInfoLog","getShaderInfoLog","getActiveUniform","getActiveAttrib","getUniformLocation","texImage2D","texSubImage2D","bufferData","drawElements","drawArrays","readPixels","clear"].forEach(m=>{try{const f=C.prototype[m];if(typeof f!=="function")return;
+    C.prototype[m]=function(){const t0=performance.now();try{return f.apply(this,arguments);}finally{if(t0<LIM){const g=T.gl[m]||(T.gl[m]=[0,0]);g[0]++;g[1]+=performance.now()-t0;}}};}catch(e){}});});
+  /* erste Bilder der beiden Renderer */
+  const _it=window.initThree;window.initThree=function(){const r=_it.apply(this,arguments);try{if(typeof GL!=="undefined"&&GL){[["r",GL.r],["fr",GL.fr]].forEach(([k,R])=>{if(!R||!R.render)return;const rd=R.render;let n=0;R.render=function(){const t0=performance.now();try{return rd.apply(this,arguments);}finally{if(n++<3)T.frames.push([k,Math.round(t0),Math.round(performance.now()-t0)]);}};});
+    try{const gl=GL.r.getContext(),ex=gl.getExtension("WEBGL_debug_renderer_info");T.gpu=ex?gl.getParameter(ex.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER);T.webgl2=typeof WebGL2RenderingContext!=="undefined"&&gl instanceof WebGL2RenderingContext;}catch(e){}}}catch(e){}return r;};
+}catch(e){}})();
+try{const _pb6355=pkBoot;pkBoot=function(){const o=_pb6355.apply(this,arguments);try{const T=window.__bootT||{},R=v=>Math.round(v);
+  o.schritte=Object.fromEntries(Object.entries(T.fn||{}).filter(([k,v])=>v>=1).sort((a,b)=>b[1]-a[1]).map(([k,v])=>{const c=T.fnAt[k]||[];return [k,R(v)+" ms · "+c.map(x=>"ab "+x[0]+": "+x[1]).join(", ")+(c.n?" (+"+(c.n-4)+" weitere)":"")];}));
+  o.webgl=Object.fromEntries(Object.entries(T.gl||{}).filter(([k,v])=>v[1]>=1).sort((a,b)=>b[1][1]-a[1][1]).map(([k,v])=>[k,v[0]+"× "+R(v[1])+" ms"]));
+  o.ersteBilder=(T.frames||[]).map(f=>f[0]+" ab "+f[1]+": "+f[2]+" ms");o.gpu=T.gpu||null;o.webgl2=!!T.webgl2;}catch(e){}return o;};PKT.boot=pkBoot;}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
