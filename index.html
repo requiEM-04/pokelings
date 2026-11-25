@@ -5575,6 +5575,13 @@ body.aiLite{background:#2e3138!important}body.aiLite #arena,body.aiLite #wwrap{b
 .acClaim:hover{filter:brightness(1.1)}
 .acClaim:disabled{opacity:.6;animation:none}
 @keyframes acClaim{50%{box-shadow:0 0 20px rgba(255,214,90,.95),inset 0 1px 0 rgba(255,255,255,.6);transform:translateY(-1px)}}
+/* ================= v1.63.0.6: Hinweis-Fenster Ruhm neu berechnet ================= */
+.fmHint{text-align:center}
+.fmHintEm{display:flex;justify-content:center;margin:2px 0 8px}
+.fmHintEm .fmEm{width:64px;height:64px}
+.fmHintR{margin-top:10px;font-family:var(--px);font-size:13px}
+.fmHintR b{color:var(--gem,#6fe6ff)}
+.fmHintS{display:block;margin-top:8px;color:var(--muted,#aab2cc);font-size:12px}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -15913,6 +15920,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Hintergründe nachgebessert": "Bac
 if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm automatisch: Sobald Ruhm freigeschaltet ist, fließen neue Edelsteine sofort hinein. Oben erscheint die Ruhm-Leiste, jeder Aufstieg bekommt eine kleine Animation. Die Einzahl-Knöpfe sind weg.": "Automatic fame: once fame is unlocked, new gems flow into it right away. The fame bar appears at the top and every rank-up gets a small animation. The deposit buttons are gone.", "Items ausgeglichen: Flinkklaue schlägt nur noch mit 10 % Chance doppelt zu. Schwarzschlamm heilt 3 % pro Sekunde, die Weisheitsbrille gibt zusätzlich +15 % Schaden auf alles. Giftstich und Beulenhelm sind gegen sehr starke Gegner gedeckelt, etwa Bosse und Gegner im Turm oder Abgrund.": "Items balanced: Quick Claw now strikes twice with only a 10 % chance. Black Sludge heals 3 % per second, Wise Glasses also give +15 % damage on everything. Poison Barb and Rocky Helmet are capped against very strong enemies, such as bosses and enemies in the tower or the abyss.", "Evolith lässt sich nur noch Pokémon anlegen, die sich noch entwickeln. Beim King-Stein steht jetzt dabei, dass die Obergrenze von 40 % je Pokémon gilt.": "Eviolite can now only be given to Pokémon that can still evolve. King's Rock now states that the 40 % cap applies per Pokémon.", "Ruhm automatisch": "Automatic fame", "+15 % Angriffstempo. 10 % Chance, nach einem Angriff sofort erneut zuzuschlagen.": "+15 % attack speed. 10 % chance to strike again immediately after an attack.", "Nahkämpfer, die den Träger treffen, verlieren jedes Mal 3 % ihrer max. KP (höchstens 7,5 % der max. KP des Trägers).": "Melee attackers that hit the holder lose 3 % of their max HP each time (at most 7.5 % of the holder's max HP).", "15 % Chance: Das Ziel schreckt zurück und ist 0,6 s betäubt. Mehrere King-Steine auf einem Pokémon: höchstens 40 %.": "15 % chance: the target flinches and is stunned for 0.6 s. Several King's Rocks on one Pokémon: at most 40 %.", "+40 % KP und +20 Verteidigung, solange das Pokémon nicht voll entwickelt ist. Nur für Pokémon, die sich noch entwickeln.": "+40 % HP and +20 defense while the Pokémon is not fully evolved. Only for Pokémon that can still evolve.", "Angriffe vergiften das Ziel (3 % seiner max. KP pro Sekunde für 3 s, höchstens 7,5 % der eigenen max. KP pro Sekunde).": "Attacks poison the target (3 % of its max HP per second for 3 s, at most 7.5 % of the holder's own max HP per second).", "Heilt 3 % der max. KP pro Sekunde.": "Heals 3 % of max HP per second.", "+15 % Schaden. Sehr effektive Treffer richten zusätzlich +35 % Schaden an.": "+15 % damage. Super effective hits deal an extra +35 % damage.", "Neue Edelsteine fließen automatisch in deinen Ruhm.": "New gems flow into your fame automatically.", "Wenn du alles gesammelt und erforscht hast, fließen deine Edelsteine automatisch in ": "Once you have collected and researched everything, your gems flow into ", "Höchster Ruhm erreicht": "Highest fame reached"});
 /* v1.63.0.5 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm braucht jetzt mehr Einsatz: Alle Stufen kosten doppelt so viel, die Ruhmeslegende 24.000 Edelsteine. Deine eingezahlten Edelsteine bleiben erhalten, dein Rang wurde danach neu berechnet.": "Fame now takes more effort: every rank costs twice as much, Fame Legend takes 24,000 gems. The gems you've already put in stay, and your rank has been recalculated from them.", "Ruhm doppelt so weit": "Fame twice as far", "Ruhm doppelt so weit, Pokédex zum Abholen": "Fame twice as far, Pokédex rewards to claim", "Ruhm doppelt so weit, Pokédex zum Abholen, Logo": "Fame twice as far, Pokédex rewards to claim, logo", "Dynamax-Band: Beim Dynamaximieren steigen die KP nur noch auf das 1,3-Fache (vorher 1,6). Auf einem Nahkämpfer vorn war es bisher deutlich stärker als alle anderen Items.": "Dynamax Band: when Dynamaxing, HP now only rises to 1.3 times (previously 1.6). On a front-line melee fighter it used to be far stronger than any other item.", "Nur eines pro Lauf! Nach 2,5 s Kampfzeit (oder unter 55 % KP) dynamaximiert der Träger für 12 s: riesengroß, KP ×1,3, immun gegen Betäubung und Rückstoß, Angriffe +15 %. Die Spezialattacke wird zur Dyna-Attacke: +50 % Schaden und ein Zusatzeffekt je Typ. Gigadynamax-Pokémon wie Krarmor, Infernopod oder die Galar-Starter setzen ihre eigene G-Max-Attacke ein.": "Only one per run! After 2.5 s of battle (or below 55 % HP) the holder Dynamaxes for 12 s: gigantic, HP ×1.3, immune to stun and knockback, attacks +15 %. Its special move becomes a Max Move: +50 % damage and a bonus effect by type. Gigantamax Pokémon such as Corviknight, Centiskorch or the Galar starters use their own G-Max Move.", "Pokélings hat ein eigenes Logo-Icon im Browser-Tab, in der Adressleiste, bei Lesezeichen und auf dem Startbildschirm.": "Pokélings now has its own logo icon in the browser tab, address bar, bookmarks and home screen.", "Pokédex: Die Edelsteine der Aurora- und Schillernd-Sammlung gibt es jetzt zum Abholen. Ein roter Punkt am Pokédex zeigt, wenn eine Belohnung bereitliegt.": "Pokédex: the gems from the Aurora and Shiny collections now have to be claimed. A red dot on the Pokédex shows when a reward is waiting.", "Belohnung bereit: unten abholen!": "Reward ready: claim it below!", "ABHOLEN": "CLAIM", "danach": "next", "Pokédex: Eine Sammlungs-Belohnung liegt zum Abholen bereit!": "Pokédex: a collection reward is ready to claim!", "AURORA-SAMMLUNG": "AURORA COLLECTION", "SCHILLERND-SAMMLUNG": "SHINY COLLECTION"});
+/* v1.63.0.6 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm: Verlierst du durch die neue Berechnung eine Namensfarbe, einen Effekt oder einen Rand, bekommst du jetzt die beste deines neuen Rangs statt gar keiner. Der Hinweis zum neuen Rang erscheint als Fenster im Hauptmenü.": "Fame: if the recalculation costs you a name colour, effect or frame, you now get the best one of your new rank instead of none. The note about your new rank appears as a window in the main menu.", "Ruhm-Hinweis": "Fame note", "RUHM NEU BERECHNET": "FAME RECALCULATED", "Alles klar": "Got it", "Zum Ruhm": "To fame", "Dein Rang: ": "Your rank: ", "Alle Ruhm-Stufen kosten jetzt ": "All fame ranks now cost ", "doppelt so viel": "twice as much", ", die Ruhmeslegende 24.000 Edelsteine.": ", Fame Legend 24,000 gems.", "Deine ": "Your ", " eingezahlten Edelsteine bleiben erhalten.": " gems already put in stay.", "Namensfarbe, Effekt und Rand sind auf die besten deines neuen Rangs gesetzt. Ändern kannst du sie im Forschungslabor unter Ruhm.": "Name colour, effect and frame are set to the best of your new rank. You can change them in the research lab under Fame."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18558,7 +18567,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.63.0.5",DUEL_HP=30;
+const MP_VER="1.63.0.6",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -19196,8 +19205,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.63.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.63.0.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.63.0.6",d:"25.11.2026",t:"Ruhm-Hinweis",items:[
+  ["crown", "Ruhm: Verlierst du durch die neue Berechnung eine Namensfarbe, einen Effekt oder einen Rand, bekommst du jetzt die beste deines neuen Rangs statt gar keiner. Der Hinweis zum neuen Rang erscheint als Fenster im Hauptmenü."]]},
  {v:"1.63.0.5",d:"25.11.2026",t:"Ruhm doppelt so weit, Pokédex zum Abholen, Logo",items:[
   ["crown", "Ruhm braucht jetzt mehr Einsatz: Alle Stufen kosten doppelt so viel, die Ruhmeslegende 24.000 Edelsteine. Deine eingezahlten Edelsteine bleiben erhalten, dein Rang wurde danach neu berechnet."],
   ["gem", "Pokédex: Die Edelsteine der Aurora- und Schillernd-Sammlung gibt es jetzt zum Abholen. Ein roter Punkt am Pokédex zeigt, wenn eine Belohnung bereitliegt."],
@@ -22949,6 +22960,26 @@ aiTick=function(){const now=performance.now();let dt=(now-AIT.last)/1000;AIT.las
       else{let rem=dt,n=0;while(rem>1e-6&&B&&!B.done&&n<200){const d=Math.min(.05,rem);for(let i=0;i<speed&&B&&!B.done;i++)step(d);rem-=d;n++;}}}}catch(e){console.error(e);}
   setTimeout(aiTick,window.__aiLite?6:250);};
 try{const _raf6305=window.requestAnimationFrame;window.requestAnimationFrame=function(cb){if(window.__aiClock)return window.setTimeout(()=>cb(performance.now()),16);return _raf6305.call(window,cb);};}catch(e){}
+
+/* v1.63.0.6: Ruhm – nicht mehr erlaubte Auswahl (Namensfarbe, Effekt, Rand, Bestenliste-Rand) fällt immer auf die beste erlaubte statt auf „keine“
+   (vorher räumte fameMeta sie beim ersten Kartenaufbau ab, bevor die Umstellung lief); Hinweis zum neu berechneten Rang als Fenster im Hauptmenü */
+try{const _fm6306=fameMeta;fameMeta=function(){try{if(META&&META.fame){const F=META.fame,L=fameLevel(Math.max(0,F.g|0)).L,nm=fameNames(L),fr=fameFrames(L),fx=fameFxs(L);
+  if(F.n&&!nm.includes(F.n))F.n=nm.length?nm[nm.length-1]:null;
+  if(F.f&&!fr.includes(F.f)&&!fr.includes(F.f+"+"))F.f=fr.length?fr[fr.length-1]:null;
+  if(F.e&&!fx.includes(F.e))F.e=fx.length?fx[fx.length-1]:null;
+  if(typeof F.b==="string"&&F.b!==""&&!fr.includes(F.b))delete F.b;}}catch(e){}return _fm6306.apply(this,arguments);};}catch(e){}
+/* Umstellung selbst ohne Einblendung (das Fenster unten übernimmt den Hinweis) */
+fameRe635=function(){try{if(!META||typeof USER==="undefined"||!USER||(META.fkv2|0)>=1635)return;META.fkv2=1635;if(META.fame)fameMeta();try{LS.set(metaKey(USER),META);}catch(e){}try{if(typeof clDirty==="function")clDirty();}catch(e){}}catch(e){}};
+function fameHint636(){try{if(!META||typeof USER==="undefined"||!USER||(META.fkv2|0)<1635||META.fmHint636)return;const g=(META.fame&&META.fame.g)|0;if(g<=0){META.fmHint636=1;return;}
+  if(!$("menu").classList.contains("show")||$("modal").classList.contains("show")||document.getElementById("bootLd"))return;
+  META.fmHint636=1;saveMeta();const L=fameLevel(g).L,nf=n=>n.toLocaleString(LANG==="en"?"en-US":"de-DE");
+  if(window.__aiLite){try{toast(`Ruhm neu berechnet: Alle Stufen kosten jetzt doppelt so viel. Deine ${nf(g)} Edelsteine bleiben, dein Rang ist jetzt ${L?fameName_(L):"noch offen"}.`,"crown");}catch(e){}return;}
+  openModal(`<div class="fmHint"><div class="fmHintEm">${L?fameEm(L,true):""}</div><h2>${ic("crown")} RUHM NEU BERECHNET</h2>
+    <div class="lead">Alle Ruhm-Stufen kosten jetzt <b>doppelt so viel</b>, die Ruhmeslegende 24.000 Edelsteine.<br>Deine <b>${nf(g)}</b> eingezahlten Edelsteine bleiben erhalten.</div>
+    <div class="fmHintR">Dein Rang: <b>${esc(L?fameName_(L):"noch offen")}</b></div><small class="fmHintS">Namensfarbe, Effekt und Rand sind auf die besten deines neuen Rangs gesetzt. Ändern kannst du sie im Forschungslabor unter Ruhm.</small>
+    <div class="rbtns" style="margin-top:14px"><button class="pri hot" id="fmHOk">${ic("check")} Alles klar</button><button class="btn" id="fmHGo">${ic("crown")} Zum Ruhm</button></div></div>`,"narrow",true);
+  try{hydrateIcons($("mbox"));}catch(e){}$("fmHOk").onclick=closeModal;$("fmHGo").onclick=()=>{closeModal();labScreen("fame");};}catch(e){}}
+setInterval(fameHint636,1500);
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
