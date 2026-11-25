@@ -5582,6 +5582,8 @@ body.aiLite{background:#2e3138!important}body.aiLite #arena,body.aiLite #wwrap{b
 .fmHintR{margin-top:10px;font-family:var(--px);font-size:13px}
 .fmHintR b{color:var(--gem,#6fe6ff)}
 .fmHintS{display:block;margin-top:8px;color:var(--muted,#aab2cc);font-size:12px}
+/* ================= v1.63.0.9: Season-Abzeichen ohne Animation (Bewegung reduzieren, Abzeichen-Auswahl, KI-Sparmodus): nur die Platz-Zahl statt Zahl und Pokal übereinander ================= */
+.bdg.sea .seaT{opacity:0;transform:rotateY(-90deg)}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -15924,6 +15926,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm braucht jetzt mehr Einsatz: A
 if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm: Verlierst du durch die neue Berechnung eine Namensfarbe, einen Effekt oder einen Rand, bekommst du jetzt die beste deines neuen Rangs statt gar keiner. Der Hinweis zum neuen Rang erscheint als Fenster im Hauptmenü.": "Fame: if the recalculation costs you a name colour, effect or frame, you now get the best one of your new rank instead of none. The note about your new rank appears as a window in the main menu.", "Ruhm-Hinweis": "Fame note", "RUHM NEU BERECHNET": "FAME RECALCULATED", "Alles klar": "Got it", "Zum Ruhm": "To fame", "Dein Rang: ": "Your rank: ", "Alle Ruhm-Stufen kosten jetzt ": "All fame ranks now cost ", "doppelt so viel": "twice as much", ", die Ruhmeslegende 24.000 Edelsteine.": ", Fame Legend 24,000 gems.", "Deine ": "Your ", " eingezahlten Edelsteine bleiben erhalten.": " gems already put in stay.", "Namensfarbe, Effekt und Rand sind auf die besten deines neuen Rangs gesetzt. Ändern kannst du sie im Forschungslabor unter Ruhm.": "Name colour, effect and frame are set to the best of your new rank. You can change them in the research lab under Fame."});
 /* v1.63.0.7 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Evolith: Entwickelt sich ein Pokémon voll, kommt sein Evolith automatisch zurück in die Tasche, denn auf Endstufen wirkt er nicht.": "Eviolite: when a Pokémon fully evolves, its Eviolite automatically goes back to your bag, since it has no effect on final stages.", "Evolith zurück": "Eviolite returns"});
+/* v1.63.0.9 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Season-Abzeichen: Wenn Animationen aus sind (z. B. „Bewegung reduzieren“ im System), lagen Platz-Zahl und Pokal übereinander. Jetzt steht dann nur die Platz-Zahl.": "Season badges: with animations turned off (e.g. “reduce motion” in your system), the place number and the trophy overlapped. Now only the place number is shown then.", "Season-Abzeichen": "Season badges"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18569,7 +18573,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.63.0.7",DUEL_HP=30;
+const MP_VER="1.63.0.9",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -19207,8 +19211,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.63.0.8"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.63.0.9"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.63.0.9",d:"25.11.2026",t:"Season-Abzeichen",items:[
+  ["trophy", "Season-Abzeichen: Wenn Animationen aus sind (z. B. „Bewegung reduzieren“ im System), lagen Platz-Zahl und Pokal übereinander. Jetzt steht dann nur die Platz-Zahl."]]},
  {v:"1.63.0.7",d:"25.11.2026",t:"Evolith zurück",items:[
   ["gem", "Evolith: Entwickelt sich ein Pokémon voll, kommt sein Evolith automatisch zurück in die Tasche, denn auf Endstufen wirkt er nicht."]]},
  {v:"1.63.0.6",d:"25.11.2026",t:"Ruhm-Hinweis",items:[
