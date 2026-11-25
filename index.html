@@ -19207,7 +19207,7 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.63.0.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.63.0.8"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
  {v:"1.63.0.7",d:"25.11.2026",t:"Evolith zurück",items:[
   ["gem", "Evolith: Entwickelt sich ein Pokémon voll, kommt sein Evolith automatisch zurück in die Tasche, denn auf Endstufen wirkt er nicht."]]},
@@ -22991,6 +22991,22 @@ function evioBack(){try{if(typeof S==="undefined"||!S||S.phase!=="shop"||!S.bag)
   if(S.bag.length>=BAG_MAX){if(!u.evioWarn){u.evioWarn=1;toast(`Evolith wirkt bei ${sp.name} nicht mehr (voll entwickelt). Mach Platz in der Tasche, dann kommt er zurück.`,"gem");}continue;}
   u.items.splice(u.items.indexOf("evio"),1);delete u.evioWarn;toBag("evio");toast(`Evolith zurück in der Tasche: ${sp.name} ist voll entwickelt.`,"gem");}}catch(e){}}
 try{const _r6307=render;render=function(){evioBack();return _r6307.apply(this,arguments);};}catch(e){}
+
+/* v1.63.0.8: KI-Testmodus – PKT.act("menu") geht sicher ins Hauptmenü (Lauf bzw. Turm bleibt gespeichert, nicht während eines Kampfes);
+   Crypto-Fenster mit Empfehlung (seltenste Karte, bei Gleichstand eine, die zu einem vorhandenen Pokémon passt) */
+function pkMenu(){try{if(typeof S==="undefined"||!S){if(!$("menu").classList.contains("show"))showMenu();return "Hauptmenü (kein Lauf aktiv).";}
+  if(typeof B!=="undefined"&&B&&!B.done&&["battle","intro"].includes(S.phase))return "Kampf läuft. Ein Abbruch würde als Niederlage zählen: erst nach dem Kampf menu.";
+  if($("result").classList.contains("show"))return "Ergebnis-Bildschirm ist offen: erst weiter (z. B. #rGo), dann menu.";
+  try{if(S.phase==="shop")save();}catch(e){}try{if($("modal").classList.contains("show"))closeModal();}catch(e){}showMenu();
+  return `Hauptmenü. ${S&&S.tower?"Der Turm-Aufstieg":"Der Lauf"} ist gespeichert und lässt sich fortsetzen.`;}catch(e){return "menu fehlgeschlagen: "+e.message;}}
+PKT.menu=pkMenu;
+function pkCryptoRec(mb){try{const ch=[...mb.querySelectorAll(".choice.crypto")];if(!ch.length)return null;const own=new Set(allUnits().map(u=>SPECIES[u.sp].line.k));
+  let bi=-1,bs=-1;ch.forEach((b,i)=>{const sp=SPECIES[+((b.querySelector(".cpic[data-sp]")||{}).dataset||{}).sp];if(!sp)return;const sc=sp.line.tier*10+(own.has(sp.line.k)?5:0);if(sc>bs){bs=sc;bi=i;}});return bi>=0?bi+1:null;}catch(e){return null;}}
+try{const _js6308=PKT.json;PKT.json=function(){const o=_js6308.apply(this,arguments);try{const mb=$("mbox");if(o.window&&mb&&mb.querySelector(".choice.crypto")){o.window.id="crypto";const r=pkCryptoRec(mb);if(r)o.window.recommended=r;
+  o.window.benchFull=S.bench.indexOf(null)<0;}}catch(e){}return o;};}catch(e){}
+try{const _ac6308=PKT.act;PKT.act=async function(cmd){const a=Array.isArray(cmd)?"":String(cmd||"").trim().split(/\s+/)[0];if(a==="menu"||a==="hauptmenü"||a==="hauptmenu")return pkMenu();
+  const out=await _ac6308.apply(this,arguments);try{if((a==="help"||a==="hilfe"||a==="?")&&typeof out==="string")return out+`
+ Hauptmenü:  PKT.act("menu") – speichert und geht ins Hauptmenü, auch aus dem Turm (Aufstieg bleibt erhalten); nicht während eines Kampfes`;}catch(e){}return out;};}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
