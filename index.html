@@ -6659,7 +6659,7 @@ for(let i=LINES.length-1;i>=0;i--)if(LINES[i].excl)LINES.splice(i,1);
 const exclOk=()=>typeof USER!=="undefined"&&!!USER&&String(USER).trim().toLowerCase()==="requiem";
 const isExcl=id=>!!(SPECIES[id]&&SPECIES[id].line&&SPECIES[id].line.excl);
 const STG=[1,1.8,3.1],STG_ATK=[1,1.62,2.65],STG_DEF=[1,1.35,1.75];
-const SYN_ON=false; // Synergien vorerst deaktiviert
+const SYN_ON=true; // v1.64.0: Synergien an (Werte in x640.js)
 const SYN={fire:{k:"atk",v:.2,d:"Feuer +{v}% Angriff"},water:{k:"hp",v:.2,d:"Wasser +{v}% KP"},grass:{k:"regen",v:.015,d:"Pflanze regeneriert {v}% KP/s"},electric:{k:"as",v:.2,d:"Elektro +{v}% Angriffstempo"},psychic:{k:"mana",v:30,raw:1,d:"Psycho startet mit +{v} Energie"},fighting:{k:"atk",v:.2,d:"Kampf +{v}% Angriff"},rock:{k:"def",v:.3,d:"Gestein +{v}% Verteidigung"},ground:{k:"def",v:.3,d:"Boden +{v}% Verteidigung"},steel:{k:"def",v:.3,d:"Stahl +{v}% Verteidigung"},ghost:{k:"dodge",v:.15,d:"Geist weicht {v}% der Treffer aus"},dragon:{k:"both",v:.15,d:"Drache +{v}% KP & Angriff"},flying:{k:"as",v:.15,d:"Flug +{v}% Angriffstempo"},fairy:{k:"heal",v:.3,d:"Fee-Heilung +{v}%"},normal:{k:"hp",v:.2,d:"Normal +{v}% KP"},ice:{k:"atk",v:.2,d:"Eis +{v}% Angriff"},poison:{k:"poison",v:.02,d:"Gift-Treffer vergiften ({v}% KP/s, 3 s)"}};
 
 /* Items = Pokémon-Items zum Tragen (auf ein Pokémon ziehen) */
@@ -16002,6 +16002,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Season-Abzeichen: Wenn Animationen
 if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm: Auf dem langen Weg von Diamant III zur Ruhmeslegende gibt es jetzt alle 6.000 Edelsteine einen Legenden-Stern. Die Sterne stehen unter deinem Rang-Wappen auf der Trainerkarte, also sehen sie auch andere.": "Fame: on the long road from Diamond III to Fame Legend you now get a legend star every 6,000 gems. The stars sit under your rank emblem on your trainer card, so others can see them too.", "Am Ruhm-Knopf im Hauptmenü siehst du jetzt, wie viele Edelsteine bis zum nächsten Rang fehlen, mit Fortschrittsbalken.": "The Fame button in the main menu now shows how many gems you need for the next rank, with a progress bar.", "Beim Aufstieg wechseln Namensfarbe, Rang-Effekt und Kartenrand auf das Neue, wenn du bisher das jeweils Neueste gewählt hattest. Hast du bewusst etwas Älteres gewählt, bleibt es.": "When you rank up, name color, rank effect and card frame switch to the new one if you had the newest one selected. If you deliberately picked an older one, it stays.", "Legenden-Sterne": "Legend stars"});
 /* v1.63.5.8 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Das Spiel startet schneller: Die Weltkarte wird erst nach dem Startbild aufgebaut, und die 3D-Grafik wird beim Start geschickter vorbereitet. Auf unserem Testrechner kommt das Startbild rund eine Sekunde früher.": "The game starts faster: the world map is now built after the title screen, and the 3D graphics are prepared more efficiently at startup. On our test machine the title screen appears about one second sooner.", "Ruhm-Effekte: „Schweif“ (Amethyst) und „Holo-Glanz“ (Diamant) spielen sich jetzt wie die anderen Effekte um dein Pokémon auf der Trainerkarte ab. Beim Schweif umkreisen zwei Kometen dein Pokémon, beim Holo-Glanz funkelt ein Diamant dahinter und dein Pokémon leuchtet in Regenbogenfarben.": "Fame effects: “Trail” (Amethyst) and “Holo Shine” (Diamond) now play around your Pokémon on the trainer card, like the other effects. With Trail, two comets orbit your Pokémon; with Holo Shine, a diamond sparkles behind it and your Pokémon glows in rainbow colors.", "Schnellerer Start & Ruhm-Effekte": "Faster start & fame effects"});
+/* v1.64.0 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Synergien sind da: Stehen 2 verschiedene Pokémon desselben Typs im Raster, bekommen alle Pokémon dieses Typs einen Bonus. Bei 4 verdoppelt er sich. Jeder Typ hat seinen eigenen Bonus, zum Beispiel Feuer mehr Angriff, Wasser mehr KP, Geist weicht aus und Unlicht trifft öfter kritisch. Die aktiven Synergien siehst du im Raster rechts und im Infofeld jedes Pokémon.": "Synergies are here: if 2 different Pokémon of the same type stand on your board, all Pokémon of that type get a bonus. With 4 it doubles. Every type has its own bonus, for example Fire gets more attack, Water more HP, Ghost dodges and Dark lands more critical hits. You can see your active synergies on the right of the board and in each Pokémon's info panel.", "Synergien gelten für dein Team. In Live-Duellen bekommen beide Seiten ihre Synergien.": "Synergies apply to your team. In live duels both sides get their synergies.", "Synergien": "Synergies", "Normal +{v} % KP": "Normal +{v}% HP", "Feuer +{v} % Angriff": "Fire +{v}% attack", "Wasser +{v} % KP": "Water +{v}% HP", "Pflanze regeneriert {v} % KP pro Sekunde": "Grass regenerates {v}% HP per second", "Elektro +{v} % Angriffstempo": "Electric +{v}% attack speed", "Eis +{v} % Angriff": "Ice +{v}% attack", "Kampf +{v} % Angriff": "Fighting +{v}% attack", "Gift-Treffer vergiften ({v} % KP pro Sekunde, 3 s)": "Poison hits poison ({v}% HP per second, 3 s)", "Boden +{v} % Verteidigung": "Ground +{v}% defense", "Flug +{v} % Angriffstempo": "Flying +{v}% attack speed", "Psycho startet mit +{v} Energie": "Psychic starts with +{v} energy", "Käfer +{v} % Angriffstempo": "Bug +{v}% attack speed", "Gestein +{v} % Verteidigung": "Rock +{v}% defense", "Geist weicht {v} % der Treffer aus": "Ghost dodges {v}% of hits", "Drache +{v} % KP und Angriff": "Dragon +{v}% HP and attack", "Unlicht +{v} % Volltrefferchance": "Dark +{v}% critical hit chance", "Stahl +{v} % Verteidigung": "Steel +{v}% defense", "Fee-Heilung +{v} %": "Fairy healing +{v}%", "2 verschiedene Pokémon eines Typs im Raster aktivieren einen Bonus, 4 verdoppeln ihn.": "2 different Pokémon of one type on the board activate a bonus, 4 double it."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18647,7 +18649,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.63.5.8",DUEL_HP=30;
+const MP_VER="1.64.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -19285,8 +19287,11 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.63.5.9"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.64.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.64.0",d:"25.11.2026",t:"Synergien",items:[
+  ["users", "Synergien sind da: Stehen 2 verschiedene Pokémon desselben Typs im Raster, bekommen alle Pokémon dieses Typs einen Bonus. Bei 4 verdoppelt er sich. Jeder Typ hat seinen eigenen Bonus, zum Beispiel Feuer mehr Angriff, Wasser mehr KP, Geist weicht aus und Unlicht trifft öfter kritisch. Die aktiven Synergien siehst du im Raster rechts und im Infofeld jedes Pokémon."],
+  ["info", "Synergien gelten für dein Team. In Live-Duellen bekommen beide Seiten ihre Synergien."]]},
  {v:"1.63.5.8",d:"25.11.2026",t:"Schnellerer Start & Ruhm-Effekte",items:[
   ["bolt", "Das Spiel startet schneller: Die Weltkarte wird erst nach dem Startbild aufgebaut, und die 3D-Grafik wird beim Start geschickter vorbereitet. Auf unserem Testrechner kommt das Startbild rund eine Sekunde früher."],
   ["star", "Ruhm-Effekte: „Schweif“ (Amethyst) und „Holo-Glanz“ (Diamant) spielen sich jetzt wie die anderen Effekte um dein Pokémon auf der Trainerkarte ab. Beim Schweif umkreisen zwei Kometen dein Pokémon, beim Holo-Glanz funkelt ein Diamant dahinter und dein Pokémon leuchtet in Regenbogenfarben."]]},
@@ -23238,6 +23243,32 @@ try{const _sb6359=shopBg;shopBg=function(on){const r=_sb6359.apply(this,argument
 try{const _ag6359=aiGfx;aiGfx=function(on){if(on){try{if(typeof SB!=="undefined"){SB.on=false;}document.body.classList.remove("shopbg");}catch(e){}try{if(typeof menuBgStop==="function")menuBgStop();document.body.classList.remove("menubg");}catch(e){}}
   return _ag6359.apply(this,arguments);};}catch(e){}
 
+/* v1.64.0: Typ-Synergien eingeschaltet (waren seit den frühen Versionen aus, SYN_ON in data.js). 2 verschiedene Pokémon-Linien eines Typs im Raster = Stufe 1,
+   4 = Stufe 2 (doppelter Wert). Gilt für das eigene Team (Gegner-Wellen bleiben, wie sie sind), in Live-Duellen für beide Seiten.
+   Werte etwas gesenkt, neu: Käfer (Angriffstempo) und Unlicht (Volltrefferchance), damit jeder der 18 Typen einen Bonus hat. */
+Object.assign(SYN,{
+ normal:{k:"hp",v:.15,d:"Normal +{v} % KP"},
+ fire:{k:"atk",v:.12,d:"Feuer +{v} % Angriff"},
+ water:{k:"hp",v:.15,d:"Wasser +{v} % KP"},
+ grass:{k:"regen",v:.01,d:"Pflanze regeneriert {v} % KP pro Sekunde"},
+ electric:{k:"as",v:.12,d:"Elektro +{v} % Angriffstempo"},
+ ice:{k:"atk",v:.12,d:"Eis +{v} % Angriff"},
+ fighting:{k:"atk",v:.12,d:"Kampf +{v} % Angriff"},
+ poison:{k:"poison",v:.02,d:"Gift-Treffer vergiften ({v} % KP pro Sekunde, 3 s)"},
+ ground:{k:"def",v:.25,d:"Boden +{v} % Verteidigung"},
+ flying:{k:"as",v:.1,d:"Flug +{v} % Angriffstempo"},
+ psychic:{k:"mana",v:20,raw:1,d:"Psycho startet mit +{v} Energie"},
+ bug:{k:"as",v:.1,d:"Käfer +{v} % Angriffstempo"},
+ rock:{k:"def",v:.25,d:"Gestein +{v} % Verteidigung"},
+ ghost:{k:"dodge",v:.08,d:"Geist weicht {v} % der Treffer aus"},
+ dragon:{k:"both",v:.1,d:"Drache +{v} % KP und Angriff"},
+ dark:{k:"crit",v:.08,d:"Unlicht +{v} % Volltrefferchance"},
+ steel:{k:"def",v:.25,d:"Stahl +{v} % Verteidigung"},
+ fairy:{k:"heal",v:.25,d:"Fee-Heilung +{v} %"}});
+try{if(typeof LANG!=="undefined"&&LANG==="en"&&typeof EN!=="undefined")for(const k in SYN)if(EN[SYN[k].d])SYN[k].d=EN[SYN[k].d];}catch(e){}
+/* KI-Test: aktive Synergien im Spielzustand */
+try{const _js640=PKT.json;PKT.json=function(){const o=_js640.apply(this,arguments);try{if(typeof S!=="undefined"&&S&&S.board){const c=synCounts(boardUnits());o.syn=Object.fromEntries(Object.entries(c).filter(([t])=>SYN[t]).sort((a,b)=>b[1]-a[1]).map(([t,n])=>[t,n+" (Stufe "+synLv(n)+")"]));}}catch(e){}return o;};}catch(e){}
+
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
 /* ================================ KAMPF: 2 ATTACKEN + EIGENE KI ================================ */
@@ -23260,7 +23291,7 @@ function fighter(u,side,x,y,cnt){
   if(f.it.alphakern){f.alpha=true;f.maxhp*=ALPHA.hp;f.atk*=ALPHA.atk;}
   if(MASK_IDS.some(k=>f.it[k]))maskApply(f);
   if(u.raid){f.raid=true;f.ubRaid=!!u.ub;f.sx=Object.assign({},f.sx,{ccImm:1,cleave:Math.max(.55,f.sx.cleave||0)});f.dodge=0;f.raidPh=0;f.raidCd=3.2;f.raidK=0;f.range=Math.max(f.range,2.6);}
-  if(cnt)for(const t of sp.types){const s=SYN[t],lv=synLv(cnt[t]||0);if(!s||!lv)continue;const v=s.v*lv;({atk:()=>f.atk*=1+v,hp:()=>f.maxhp*=1+v,def:()=>f.def*=1+v,as:()=>f.as*=1+v,mana:()=>f.mana+=v,dodge:()=>f.dodge+=v,regen:()=>f.regen+=v,heal:()=>f.heal+=v,poison:()=>f.poisonOn=v,both:()=>{f.atk*=1+v;f.maxhp*=1+v;}})[s.k]();}
+  if(cnt)for(const t of sp.types){const s=SYN[t],lv=synLv(cnt[t]||0);if(!s||!lv)continue;const v=s.v*lv;({crit:()=>f.crit=(f.crit||0)+v,atk:()=>f.atk*=1+v,hp:()=>f.maxhp*=1+v,def:()=>f.def*=1+v,as:()=>f.as*=1+v,mana:()=>f.mana+=v,dodge:()=>f.dodge+=v,regen:()=>f.regen+=v,heal:()=>f.heal+=v,poison:()=>f.poisonOn=v,both:()=>{f.atk*=1+v;f.maxhp*=1+v;}})[s.k]();}
   if(mine){
     if(hasRelic("claw"))f.as*=1.15;if(hasRelic("leftovers"))f.regen+=.015;if(hasRelic("expert"))f.expert+=.6;if(hasRelic("scope")){f.manaMax=Math.round(f.manaMax*.7);f.mana+=Math.round(f.manaMax*.25);}if(hasRelic("stardust")&&f.L.tier>=4){f.maxhp*=1.3;f.atk*=1.3;}else if(hasRelic("stardust")&&f.L.tier===3){f.maxhp*=1.12;f.atk*=1.12;}if(hasRelic("banner")){f.atk*=1.08;f.def*=1.08;}if(hasRelic("critlens"))f.crit=(f.crit||0)+.1;if(hasRelic("vampir"))f.ls=(f.ls||0)+.08;
     if(f.role==="support"&&perk("s_support"))f.heal+=.35;if(f.role==="assassin"&&perk("s_assassin"))f.ambush=true;if(f.role==="mage"&&perk("g_mage"))f.manaMax=Math.max(1,Math.round(f.manaMax*.9));
