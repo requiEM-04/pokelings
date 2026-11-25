@@ -19119,7 +19119,7 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.62.5.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.62.5.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
  {v:"1.62.5.6",d:"24.11.2026",t:"Hintergründe nachgebessert",items:[
   ["bolt", "Gewittersturm: Die Blitze leuchten jetzt hell und sind länger zu sehen, der Himmel blitzt mit."],
@@ -21934,7 +21934,7 @@ window.addEventListener("keydown",e=>{try{
     if(/^[1-9]$/.test(k)){const ch=[...mb.querySelectorAll(".choice,.brOpt,.abDr,[data-pick],.regCard,.dfCard")].filter(_kVis);if(ch.length)hit(ch[+k-1]);return;}
     return;}
   if(rOn){const R=$("result");
-    const lock=Date.now()-(window.__rShowT||0)<1500;if(k===" "||k==="Enter"){const mb=kbMainBtn(R,false);if(lock||(k===" "&&mb&&(mb.classList.contains("hot")||mb.id==="rRev"))){e.preventDefault();e.stopImmediatePropagation();return;}hit(mb);return;}
+    const lock=Date.now()-(window.__rShowT||0)<((typeof aiAcc==="function"&&aiAcc())?0:1500);if(k===" "||k==="Enter"){const mb=kbMainBtn(R,false);if(lock||(k===" "&&mb&&(mb.classList.contains("hot")||mb.id==="rRev"))){e.preventDefault();e.stopImmediatePropagation();return;}hit(mb);return;}
     if(/^[1-9]$/.test(k)){if(lock){e.preventDefault();e.stopImmediatePropagation();return;}const bs=[...R.querySelectorAll(".rbtns button")].filter(_kVis);hit(bs[+k-1]);return;}
     return;}
   if(lk==="h"&&!(typeof B!=="undefined"&&B&&!B.done)){e.preventDefault();e.stopImmediatePropagation();kbHelp();return;}
@@ -22712,6 +22712,43 @@ pkRevMalus=function(){try{if(typeof S==="undefined"||!S)return null;if(S.tower)r
   if((S.noRev||S.iron)&&!S.daily)return {revives:0,per:0,now:0,next:null,note:"keine Revanche in diesem Modus"};
   const per=Math.round(Math.max(.015,MODES[S.mode].revive-.015*perk("phoenix"))*1000)/10;
   return {revives:S.revives|0,per,now:S.revanche?Math.round((S.revives|0)*per*10)/10:0,next:Math.round(((S.revives|0)+1)*per*10)/10};}catch(e){return null;}};
+
+/* v1.62.5.7: KI-Testmodus – Kampf im Sparmodus über eigenen Takt (läuft auch bei verdecktem/minimiertem Fenster weiter), Sieg-Bildschirm ohne Tastensperre,
+   Probekämpfe reihum (alle Wege zuerst auf 24 statt nacheinander auf 50), im Sparmodus keine Hintergrund-Probekämpfe ohne Anforderung (buy/lock bleiben schnell),
+   Siegchance erst ab 8 Proben, Vulkanherz-Lavastrom etwas höher */
+/* 1) Kampf-Takt: requestAnimationFrame läuft bei verdecktem Fenster nur ~1×/s. Im Sparmodus rechnet deshalb ein Timer den Kampf (Echtzeit × Tempo, gleiche Schritte wie sonst). */
+const AIT={last:performance.now()};
+function aiTick(){const now=performance.now();let dt=(now-AIT.last)/1000;AIT.last=now;
+  try{const on=!!(window.__aiLite&&typeof B!=="undefined"&&B&&!B.done&&B.det&&!SIM);window.__aiTick=on;
+    if(on){dt=Math.min(dt,2);B.acc=(B.acc||0)+dt*speed;let n=0;while(B&&!B.done&&B.acc>=DSTEP&&n<900){RNG=B.rng;try{step(DSTEP);}finally{RNG=null;}B.acc-=DSTEP;n++;}}}catch(e){console.error(e);}
+  setTimeout(aiTick,window.__aiLite?6:250);}
+setTimeout(aiTick,500);
+/* 2) Probekämpfe für KI-Konten reihum: erst bekommen alle Wege SIM_SHOW Proben, dann wird in Prioritäts-Reihenfolge auf SIM_N aufgefüllt.
+      Im Sparmodus laufen sie nur, solange ein Befehl darauf wartet (paths/path/fight/trial), sonst bremsen sie buy/lock aus. */
+try{const _sw6257=simWork;simWork=function(){if(!(typeof aiAcc==="function"&&aiAcc()))return _sw6257.apply(this,arguments);
+  SIMC.tm=0;if(!S||B&&!B.done&&!B.sim){SIMC.queue.length=0;return;}const bs=simBoardSig();
+  SIMC.queue=SIMC.queue.filter(q=>q.k.startsWith(bs+"@"));if(!SIMC.queue.length)return;
+  if(window.__aiLite&&!window.__aiSimReq)return;
+  const t0=performance.now(),nOf=q=>{const c=SIMC.cache.get(q.k);return c?c.n:0;};let changed=false,full=false;
+  while(SIMC.queue.length&&performance.now()-t0<simBudget()){let bi=0,bn=1e9;for(let i=0;i<SIMC.queue.length;i++){const n=nOf(SIMC.queue[i]);if(n<bn){bn=n;bi=i;}}if(bn>=SIM_SHOW)bi=0;
+    const q=SIMC.queue[bi];const c=SIMC.cache.get(q.k)||{w:0,n:0,fail:0};
+    if(c.n>=SIM_N){SIMC.queue.splice(bi,1);changed=true;full=true;continue;}
+    const r=simOnce(q.en);if(r===null)c.fail++;else{c.n++;if(r)c.w++;}SIMC.cache.set(q.k,c);
+    if(c.n>=SIM_N||c.fail>4){SIMC.queue.splice(bi,1);changed=true;full=true;if(c.fail>4&&c.n<SIM_N)c.n=Math.max(c.n,SIM_N);}
+    else if(c.n>=8&&c.n%4===0)changed=true;}
+  if(SIMC.cache.size>400){const ks=[...SIMC.cache.keys()].slice(0,200);for(const k of ks)SIMC.cache.delete(k);}
+  if(changed)simRefreshUI(full);
+  if(SIMC.queue.length)SIMC.tm=setTimeout(simWork,simGap());};}catch(e){}
+/* Sparmodus: idle wartet nicht auf Probekämpfe, die ohne Anforderung ohnehin ruhen */
+try{const _id6257=PKT.idle;PKT.idle=function(maxMs,o){if(window.__aiLite&&!(o&&o.sims===true))o=Object.assign({},o||{},{sims:false});return _id6257.call(this,maxMs,o);};}catch(e){}
+/* 3) Siegchance erst ab 8 Proben (vorher z. B. „100 % aus 1 Probe“) */
+try{const _pc6257=_pkChance;_pkChance=function(){const r=_pc6257.apply(this,arguments);try{if(r&&r.chance!=null&&r.probes<8)return {chance:null,probes:r.probes,note:"rechnet noch (unter 8 Proben)"};}catch(e){}return r;};}catch(e){}
+/* 4) Vulkanherz: Lavastrom und Felsen etwas höher, damit sie nicht an der Abzeichen-Kante liegen */
+try{if(CARD_BG.vulkan)CARD_BG.vulkan.html=`<i class="vu62g"></i>${_ups(10,["rgba(70,60,70,.6)","rgba(110,90,90,.5)"],6,12,6,11,40,60,";--o:.7")}
+  ${_sv(`<path d="M0 100 L0 64 L22 52 L40 30 L46 33 L54 33 L60 30 L78 52 L100 62 L100 100Z" fill="#2c0d0b"/><path d="M40 30 L46 33 L54 33 L60 30 L56 36 L44 36Z" fill="#ff8a2a"/><path class="lava" d="M47 34 Q44 43 38 49 Q32 54 24 57"/><path class="lava l2" d="M53 34 Q57 45 63 50 Q70 54 78 56"/>
+   <path d="M0 58 Q20 54 44 58 T100 56 V100 H0Z" fill="#1a0604"/><path class="vu62r" d="M-2 62 Q22 55 46 60 Q70 65 102 56 L102 61 Q70 71 46 66 Q22 61 -2 68Z"/>`)}
+  ${_L62("vu56r","0 0 40 24","left:14%;bottom:42%;height:12cqh",`<path d="M0 24 L6 10 L12 13 L18 4 L26 12 L32 9 L40 24Z" fill="#140404"/><path d="M18 4 L26 12 L22 12Z M6 10 L12 13 L9 14Z" fill="#ff6a1a" opacity=".55"/>`)}${_L62("vu56r","0 0 40 24","left:88%;bottom:43%;height:10cqh",`<path d="M0 24 L8 8 L14 12 L22 2 L30 14 L40 24Z" fill="#140404"/><path d="M22 2 L30 14 L26 14Z" fill="#ff6a1a" opacity=".5"/>`)}
+  ${_ups(22,["#ffb03a","#ff7a2a","#ffd36a"],.5,1.2,2.6,4.6,10,90,";--g:8px")}${_bl(50,62,60,"rgba(255,110,40,.45)",";--d:2.6s")}`;}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
@@ -23523,7 +23560,7 @@ let last=performance.now();const VSEL=document.getElementById("vs");
 function frame(now){
   const dt=Math.min(.05,(now-last)/1000);last=now;
   try{
-    if(B&&!B.done){if(B.det){B.acc+=dt*speed;let n=0;while(B.acc>=DSTEP&&n<14&&B&&!B.done){RNG=B.rng;try{step(DSTEP);}finally{RNG=null;}B.acc-=DSTEP;n++;}}else for(let i=0;i<speed;i++)step(dt);}
+    if(B&&!B.done&&!window.__aiTick){if(B.det){B.acc+=dt*speed;let n=0;while(B.acc>=DSTEP&&n<14&&B&&!B.done){RNG=B.rng;try{step(DSTEP);}finally{RNG=null;}B.acc-=DSTEP;n++;}}else for(let i=0;i<speed;i++)step(dt);}
     if(B&&S&&(S.phase==="battle"||B.done)){$("timer").textContent=Math.max(0,Math.ceil(FIGHT_TIME-Math.max(0,B.t-INTRO)));$("timer").classList.toggle("fat",ftime()>0);const hm=B.F.filter(f=>f.side==="mine"&&f.alive).reduce((a,f)=>a+Math.max(0,f.hp),0),he=B.F.filter(f=>f.side==="enemy"&&f.alive).reduce((a,f)=>a+Math.max(0,f.hp),0);const pm=Math.min(100,hm/B.hp0.mine*100),pe=Math.min(100,he/B.hp0.enemy*100);$("hpMine").firstChild.style.width=(MIR?pe:pm)+"%";$("hpEnemy").firstChild.style.width=(MIR?pm:pe)+"%";}
     let frz=!!window.__gbOpen||(window.__mHeavy&&!(B&&!B.done)&&$("modal").classList.contains("show"));if(frz&&window.__glDirty&&!window.__gbOpen){window.__glDirty=false;frz=false;} /* v1.31.6: großes Fenster offen = 3D ganz anhalten (nur nach Größenänderung einmal neu zeichnen) */
     if(window.__aiLite&&((window.__aiFr=(window.__aiFr|0)+1)%20))frz=true;
