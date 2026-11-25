@@ -15922,6 +15922,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm automatisch: Sobald Ruhm frei
 if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm braucht jetzt mehr Einsatz: Alle Stufen kosten doppelt so viel, die Ruhmeslegende 24.000 Edelsteine. Deine eingezahlten Edelsteine bleiben erhalten, dein Rang wurde danach neu berechnet.": "Fame now takes more effort: every rank costs twice as much, Fame Legend takes 24,000 gems. The gems you've already put in stay, and your rank has been recalculated from them.", "Ruhm doppelt so weit": "Fame twice as far", "Ruhm doppelt so weit, Pokédex zum Abholen": "Fame twice as far, Pokédex rewards to claim", "Ruhm doppelt so weit, Pokédex zum Abholen, Logo": "Fame twice as far, Pokédex rewards to claim, logo", "Dynamax-Band: Beim Dynamaximieren steigen die KP nur noch auf das 1,3-Fache (vorher 1,6). Auf einem Nahkämpfer vorn war es bisher deutlich stärker als alle anderen Items.": "Dynamax Band: when Dynamaxing, HP now only rises to 1.3 times (previously 1.6). On a front-line melee fighter it used to be far stronger than any other item.", "Nur eines pro Lauf! Nach 2,5 s Kampfzeit (oder unter 55 % KP) dynamaximiert der Träger für 12 s: riesengroß, KP ×1,3, immun gegen Betäubung und Rückstoß, Angriffe +15 %. Die Spezialattacke wird zur Dyna-Attacke: +50 % Schaden und ein Zusatzeffekt je Typ. Gigadynamax-Pokémon wie Krarmor, Infernopod oder die Galar-Starter setzen ihre eigene G-Max-Attacke ein.": "Only one per run! After 2.5 s of battle (or below 55 % HP) the holder Dynamaxes for 12 s: gigantic, HP ×1.3, immune to stun and knockback, attacks +15 %. Its special move becomes a Max Move: +50 % damage and a bonus effect by type. Gigantamax Pokémon such as Corviknight, Centiskorch or the Galar starters use their own G-Max Move.", "Pokélings hat ein eigenes Logo-Icon im Browser-Tab, in der Adressleiste, bei Lesezeichen und auf dem Startbildschirm.": "Pokélings now has its own logo icon in the browser tab, address bar, bookmarks and home screen.", "Pokédex: Die Edelsteine der Aurora- und Schillernd-Sammlung gibt es jetzt zum Abholen. Ein roter Punkt am Pokédex zeigt, wenn eine Belohnung bereitliegt.": "Pokédex: the gems from the Aurora and Shiny collections now have to be claimed. A red dot on the Pokédex shows when a reward is waiting.", "Belohnung bereit: unten abholen!": "Reward ready: claim it below!", "ABHOLEN": "CLAIM", "danach": "next", "Pokédex: Eine Sammlungs-Belohnung liegt zum Abholen bereit!": "Pokédex: a collection reward is ready to claim!", "AURORA-SAMMLUNG": "AURORA COLLECTION", "SCHILLERND-SAMMLUNG": "SHINY COLLECTION"});
 /* v1.63.0.6 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm: Verlierst du durch die neue Berechnung eine Namensfarbe, einen Effekt oder einen Rand, bekommst du jetzt die beste deines neuen Rangs statt gar keiner. Der Hinweis zum neuen Rang erscheint als Fenster im Hauptmenü.": "Fame: if the recalculation costs you a name colour, effect or frame, you now get the best one of your new rank instead of none. The note about your new rank appears as a window in the main menu.", "Ruhm-Hinweis": "Fame note", "RUHM NEU BERECHNET": "FAME RECALCULATED", "Alles klar": "Got it", "Zum Ruhm": "To fame", "Dein Rang: ": "Your rank: ", "Alle Ruhm-Stufen kosten jetzt ": "All fame ranks now cost ", "doppelt so viel": "twice as much", ", die Ruhmeslegende 24.000 Edelsteine.": ", Fame Legend 24,000 gems.", "Deine ": "Your ", " eingezahlten Edelsteine bleiben erhalten.": " gems already put in stay.", "Namensfarbe, Effekt und Rand sind auf die besten deines neuen Rangs gesetzt. Ändern kannst du sie im Forschungslabor unter Ruhm.": "Name colour, effect and frame are set to the best of your new rank. You can change them in the research lab under Fame."});
+/* v1.63.0.7 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Evolith: Entwickelt sich ein Pokémon voll, kommt sein Evolith automatisch zurück in die Tasche, denn auf Endstufen wirkt er nicht.": "Eviolite: when a Pokémon fully evolves, its Eviolite automatically goes back to your bag, since it has no effect on final stages.", "Evolith zurück": "Eviolite returns"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18567,7 +18569,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.63.0.6",DUEL_HP=30;
+const MP_VER="1.63.0.7",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -19205,8 +19207,10 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.63.0.6"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.63.0.7"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.63.0.7",d:"25.11.2026",t:"Evolith zurück",items:[
+  ["gem", "Evolith: Entwickelt sich ein Pokémon voll, kommt sein Evolith automatisch zurück in die Tasche, denn auf Endstufen wirkt er nicht."]]},
  {v:"1.63.0.6",d:"25.11.2026",t:"Ruhm-Hinweis",items:[
   ["crown", "Ruhm: Verlierst du durch die neue Berechnung eine Namensfarbe, einen Effekt oder einen Rand, bekommst du jetzt die beste deines neuen Rangs statt gar keiner. Der Hinweis zum neuen Rang erscheint als Fenster im Hauptmenü."]]},
  {v:"1.63.0.5",d:"25.11.2026",t:"Ruhm doppelt so weit, Pokédex zum Abholen, Logo",items:[
@@ -22980,6 +22984,13 @@ function fameHint636(){try{if(!META||typeof USER==="undefined"||!USER||(META.fkv
     <div class="rbtns" style="margin-top:14px"><button class="pri hot" id="fmHOk">${ic("check")} Alles klar</button><button class="btn" id="fmHGo">${ic("crown")} Zum Ruhm</button></div></div>`,"narrow",true);
   try{hydrateIcons($("mbox"));}catch(e){}$("fmHOk").onclick=closeModal;$("fmHGo").onclick=()=>{closeModal();labScreen("fame");};}catch(e){}}
 setInterval(fameHint636,1500);
+
+/* v1.63.0.7: Evolith wirkt nur, solange sich der Träger noch entwickeln kann. Entwickelt er sich voll, wandert der Evolith zurück in die Tasche
+   (Tasche voll: bleibt liegen, einmal ein Hinweis je Pokémon). */
+function evioBack(){try{if(typeof S==="undefined"||!S||S.phase!=="shop"||!S.bag)return;for(const u of allUnits()){if(!u||!u.items||!u.items.includes("evio"))continue;const sp=SPECIES[u.sp];if(!sp||sp.stage<sp.line.stages.length-1)continue;
+  if(S.bag.length>=BAG_MAX){if(!u.evioWarn){u.evioWarn=1;toast(`Evolith wirkt bei ${sp.name} nicht mehr (voll entwickelt). Mach Platz in der Tasche, dann kommt er zurück.`,"gem");}continue;}
+  u.items.splice(u.items.indexOf("evio"),1);delete u.evioWarn;toBag("evio");toast(`Evolith zurück in der Tasche: ${sp.name} ist voll entwickelt.`,"gem");}}catch(e){}}
+try{const _r6307=render;render=function(){evioBack();return _r6307.apply(this,arguments);};}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
