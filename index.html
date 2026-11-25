@@ -101,7 +101,7 @@ var __TIPS=__EN?["Drag two identical Pokémon onto each other to fuse them.","Hi
 if(__XM){__TIPS=(__EN?["In December a new door opens in the Advent calendar every day. Something special waits on Christmas Eve.","Missed a door? You can open it until December 31.","Christmas quest: collect snowflakes with runs in December for a badge and a title.","The top 3 of the Winter Season get the Snow Globe background.","Snowfall too much? You can turn it off in the settings."]:["Im Dezember wartet jeden Tag ein Türchen im Adventskalender. An Heiligabend gibt es ein besonderes Geschenk.","Eine Tür verpasst? Du kannst sie bis zum 31.12. nachholen.","Weihnachts-Quest: Sammle mit Läufen im Dezember Schneeflocken für ein Abzeichen und einen Titel.","Die Top 3 der Winter-Season bekommen den Hintergrund Schneekugel.","Zu viel Schnee? Der Schneefall lässt sich in den Einstellungen abschalten."]).concat(__TIPS);__tipI=Math.floor(Math.random()*5);}
 function __tip(){var t=document.getElementById("bootTip");if(!t)return;var s=__TIPS[__tipI++%__TIPS.length],k=0;clearInterval(__tipT0);t.textContent="";__tipT0=setInterval(function(){k+=2;t.textContent=s.slice(0,k);if(k>=s.length)clearInterval(__tipT0);},28);}
 __tip();var __tipT=setInterval(__tip,4200),__parT=0;
-function __ld(i,n,done){var p=i/n,b=document.getElementById("bootBar"),t=document.getElementById("bootTxt"),q=document.getElementById("bootPct");if(b)b.style.width=Math.max(2,p*100)+"%";if(q)q.textContent=Math.round(p*100)+" %";if(t)t.textContent=done?(__EN?"STARTING GAME …":"STARTE SPIEL …"):(__EN?"LOADING POKÉMON …":"LADE POKÉMON …");}</script>
+function __ld(i,n,done){try{(window.__bootT=window.__bootT||{})["ld"+i]=performance.now();}catch(e){}var p=i/n,b=document.getElementById("bootBar"),t=document.getElementById("bootTxt"),q=document.getElementById("bootPct");if(b)b.style.width=Math.max(2,p*100)+"%";if(q)q.textContent=Math.round(p*100)+" %";if(t)t.textContent=done?(__EN?"STARTING GAME …":"STARTE SPIEL …"):(__EN?"LOADING POKÉMON …":"LADE POKÉMON …");}</script>
 <style>:root{
   --bg0:#12141c;--text:#f6f6f2;--muted:#a8b0c8;--dim:#6a7290;
   --win:#283043;--win2:#323c55;--wout:#0b0d13;--wline:#7686ab;--wlineHi:#a9b7d6;
@@ -5584,6 +5584,35 @@ body.aiLite{background:#2e3138!important}body.aiLite #arena,body.aiLite #wwrap{b
 .fmHintS{display:block;margin-top:8px;color:var(--muted,#aab2cc);font-size:12px}
 /* ================= v1.63.0.9: Season-Abzeichen ohne Animation (Bewegung reduzieren, Abzeichen-Auswahl, KI-Sparmodus): nur die Platz-Zahl statt Zahl und Pokal übereinander ================= */
 .bdg.sea .seaT{opacity:0;transform:rotateY(-90deg)}
+/* ================= v1.63.0.10: Admin-Spielerliste – Kennzeichen für KI-Konten ================= */
+.admKi{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:6px;font-size:10px;font-weight:800;letter-spacing:.06em;vertical-align:1px;color:#0b1020;background:#7cc8ff}
+/* ================= v1.63.5: Ruhm – Legenden-Sterne (Karte, Ruhm-Fenster, Hauptmenü, Einzahl-Leiste) und Fortschrittsbalken am Ruhm-Knopf ================= */
+em.fmLs{display:inline-flex;gap:1px;font-style:normal;line-height:0;vertical-align:middle}
+em.fmLs s,.mFameBar s,#fmAuto .fa-ls s{display:block;width:8px;height:8px;text-decoration:none;background:rgba(255,255,255,.28);clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+em.fmLs s.on,.mFameBar s.on,#fmAuto .fa-ls s.on{background:linear-gradient(180deg,#fff6b0,#ffd84a 45%,#e08a10)}
+.tcTop .tcFmB em.fmLs.tc{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:0;filter:drop-shadow(0 1px 0 rgba(0,0,0,.8)) drop-shadow(0 0 2px rgba(0,0,0,.6))}
+.tcTop .tcFmB em.fmLs.tc s{width:7px;height:7px}
+em.fmLs.big{gap:3px}em.fmLs.big s{width:16px;height:16px}
+.fmLsRow{display:flex;align-items:center;gap:8px;margin:2px 0 4px;font:700 12px var(--ui);color:#ffe27a;filter:drop-shadow(0 1px 1px rgba(0,0,0,.6))}
+em.fmLs.mn{margin-left:4px}em.fmLs.mn s{width:9px;height:9px}
+.rkProg.leg4 .fmTick{position:absolute;inset:0;z-index:1;pointer-events:none;font-style:normal}
+.rkProg.leg4 .fmTick s{position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:rgba(255,255,255,.28);text-decoration:none}
+.rkProg.leg4 .fmTick s:nth-child(1){left:25%}.rkProg.leg4 .fmTick s:nth-child(2){left:50%}.rkProg.leg4 .fmTick s:nth-child(3){left:75%}
+.rkProg.leg4 .fmTick s.on{background:#ffe27a;box-shadow:0 0 6px #ffd84a}
+.rkProg.leg4 span{z-index:2}
+.mbtn .mFameBar{position:relative;display:block;min-width:200px;height:5px;margin-top:5px;border-radius:3px;background:rgba(0,0,0,.4);box-shadow:inset 0 1px 2px rgba(0,0,0,.5);font-style:normal}
+.mbtn .mFameBar b{position:absolute;left:0;top:0;bottom:0;margin:0;border-radius:3px;background:linear-gradient(90deg,color-mix(in srgb,var(--rc) 55%,#000),var(--rc));box-shadow:0 0 6px color-mix(in srgb,var(--rc) 60%,transparent)}
+.mbtn .mFameBar .mFbS{position:absolute;inset:0;text-decoration:none;filter:drop-shadow(0 0 1px rgba(0,0,0,.9))}
+.mbtn .mFameBar s{position:absolute;top:50%;width:11px;height:11px;transform:translate(-50%,-50%)}
+.mbtn .mFameBar s:nth-of-type(1){left:25%}.mbtn .mFameBar s:nth-of-type(2){left:50%}.mbtn .mFameBar s:nth-of-type(3){left:75%}
+.mbtn .mFameBar s:not(.on){background:#5a6278}
+#fmAuto .fa-ls{position:absolute;inset:0;z-index:2;font-style:normal;pointer-events:none}
+#fmAuto .fa-ls s{position:absolute;top:50%;width:12px;height:12px;transform:translate(-50%,-50%);background:rgba(255,255,255,.4)}
+#fmAuto .fa-ls s:nth-child(1){left:25%}#fmAuto .fa-ls s:nth-child(2){left:50%}#fmAuto .fa-ls s:nth-child(3){left:75%}
+#fmAuto .fa-ls s.pop{animation:fls635 .7s cubic-bezier(.2,1.6,.4,1)}
+@keyframes fls635{0%{transform:translate(-50%,-50%) scale(.4)}45%{transform:translate(-50%,-50%) scale(2.1)}100%{transform:translate(-50%,-50%) scale(1)}}
+#fmAuto .fa-bar.leg4{overflow:visible}
+@media (prefers-reduced-motion:reduce){#fmAuto .fa-ls s.pop{animation:none}}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -15928,6 +15957,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm: Verlierst du durch die neue 
 if(typeof EN!=="undefined")Object.assign(EN,{"Evolith: Entwickelt sich ein Pokémon voll, kommt sein Evolith automatisch zurück in die Tasche, denn auf Endstufen wirkt er nicht.": "Eviolite: when a Pokémon fully evolves, its Eviolite automatically goes back to your bag, since it has no effect on final stages.", "Evolith zurück": "Eviolite returns"});
 /* v1.63.0.9 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Season-Abzeichen: Wenn Animationen aus sind (z. B. „Bewegung reduzieren“ im System), lagen Platz-Zahl und Pokal übereinander. Jetzt steht dann nur die Platz-Zahl.": "Season badges: with animations turned off (e.g. “reduce motion” in your system), the place number and the trophy overlapped. Now only the place number is shown then.", "Season-Abzeichen": "Season badges"});
+/* v1.63.5 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Ruhm: Auf dem langen Weg von Diamant III zur Ruhmeslegende gibt es jetzt alle 6.000 Edelsteine einen Legenden-Stern. Die Sterne stehen unter deinem Rang-Wappen auf der Trainerkarte, also sehen sie auch andere.": "Fame: on the long road from Diamond III to Fame Legend you now get a legend star every 6,000 gems. The stars sit under your rank emblem on your trainer card, so others can see them too.", "Am Ruhm-Knopf im Hauptmenü siehst du jetzt, wie viele Edelsteine bis zum nächsten Rang fehlen, mit Fortschrittsbalken.": "The Fame button in the main menu now shows how many gems you need for the next rank, with a progress bar.", "Beim Aufstieg wechseln Namensfarbe, Rang-Effekt und Kartenrand auf das Neue, wenn du bisher das jeweils Neueste gewählt hattest. Hast du bewusst etwas Älteres gewählt, bleibt es.": "When you rank up, name color, rank effect and card frame switch to the new one if you had the newest one selected. If you deliberately picked an older one, it stays.", "Legenden-Sterne": "Legend stars"});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18573,7 +18604,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.63.0.9",DUEL_HP=30;
+const MP_VER="1.63.5",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -19211,8 +19242,12 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.63.0.9"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.63.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.63.5",d:"25.11.2026",t:"Legenden-Sterne",items:[
+  ["crown", "Ruhm: Auf dem langen Weg von Diamant III zur Ruhmeslegende gibt es jetzt alle 6.000 Edelsteine einen Legenden-Stern. Die Sterne stehen unter deinem Rang-Wappen auf der Trainerkarte, also sehen sie auch andere."],
+  ["gem", "Am Ruhm-Knopf im Hauptmenü siehst du jetzt, wie viele Edelsteine bis zum nächsten Rang fehlen, mit Fortschrittsbalken."],
+  ["star", "Beim Aufstieg wechseln Namensfarbe, Rang-Effekt und Kartenrand auf das Neue, wenn du bisher das jeweils Neueste gewählt hattest. Hast du bewusst etwas Älteres gewählt, bleibt es."]]},
  {v:"1.63.0.9",d:"25.11.2026",t:"Season-Abzeichen",items:[
   ["trophy", "Season-Abzeichen: Wenn Animationen aus sind (z. B. „Bewegung reduzieren“ im System), lagen Platz-Zahl und Pokal übereinander. Jetzt steht dann nur die Platz-Zahl."]]},
  {v:"1.63.0.7",d:"25.11.2026",t:"Evolith zurück",items:[
@@ -22869,7 +22904,7 @@ function fameAuto(){try{if(!META||typeof USER==="undefined"||!USER)return;if(typ
   if(typeof B!=="undefined"&&B&&!B.done&&!B.sim)return;if(!fameOpen().ok)return;
   const F=fameMeta(),room=fameTotal()-F.g;if(room<=0)return;
   const v=Math.min(META.gems|0,room),g0=F.g,L0=fameLevel(g0).L;META.gems-=v;F.g+=v;const L1=fameLevel(F.g).L;
-  for(let L=L0+1;L<=L1;L++){const i=fameStepInfo(L);if(i&&i.sub===1&&!F.n)F.n=i.k;if(i&&i.sub===2)F.e=i.k;if(i&&i.sub===3&&!F.f)F.f=i.k+"+";if(i&&i.leg){F.n="legende";F.e="legende";}}
+  for(let L=L0+1;L<=L1;L++)fameFollow(F,L); /* v1.63.5: Auswahl zieht mit (x635.js) */
   _sm630();try{refreshGems();}catch(e){}
   try{const mb=$("mbox");if($("modal").classList.contains("show")&&mb&&mb.querySelector('.dtabs button.on[data-t="fame"]'))labScreen("fame");}catch(e){}
   fameBanner(g0,F.g,v);}catch(e){console.error(e);}}
@@ -23013,6 +23048,85 @@ try{const _js6308=PKT.json;PKT.json=function(){const o=_js6308.apply(this,argume
 try{const _ac6308=PKT.act;PKT.act=async function(cmd){const a=Array.isArray(cmd)?"":String(cmd||"").trim().split(/\s+/)[0];if(a==="menu"||a==="hauptmenü"||a==="hauptmenu")return pkMenu();
   const out=await _ac6308.apply(this,arguments);try{if((a==="help"||a==="hilfe"||a==="?")&&typeof out==="string")return out+`
  Hauptmenü:  PKT.act("menu") – speichert und geht ins Hauptmenü, auch aus dem Turm (Aufstieg bleibt erhalten); nicht während eines Kampfes`;}catch(e){}return out;};}catch(e){}
+
+/* v1.63.0.10: Admin-Knopf „KI-Konto aufheben“, Startzeit-Messung PKT.boot() für den KI-Test. Keine Patchnotes, keine Mindestversion. */
+/* 1) Admin: KI-Konten in der Spielerliste markieren (Kennzeichen „KI“) und per Knopf aufheben (RPC admin_ai_off, Server-SQL aus 1.60.0) */
+async function admKiMark(){const L=$("admList"),list=ADM.list;if(!L||!Array.isArray(list)||!list.length)return;let S;
+  try{const r=await clFetch("/rest/v1/rpc/ai_names",{method:"POST",auth:false,body:{},timeout:8000});if(!r.ok||!Array.isArray(r.j))return;S=new Set(r.j.map(x=>userKey(x.name||"")));}catch(e){return;}
+  if(ADM.list!==list||$("admList")!==L)return;const rows=L.querySelectorAll("tbody > tr");
+  list.forEach((a,i)=>{if(!a||!S.has(userKey(a.name||"")))return;const tr=rows[i];if(!tr||tr.querySelector(".admKi"))return;
+    const nm=tr.querySelector("td b");if(nm)nm.insertAdjacentHTML("afterend",` <span class="admKi" title="KI-Konto: nicht in Season-, Wochen- und Ranked-Bestenlisten">KI</span>`);
+    const act=tr.querySelector(".admAct");if(!act)return;act.insertAdjacentHTML("afterbegin",`<button class="btn sm" data-kioff="${i}" title="KI-Konto aufheben">${ic("bolt")}</button>`);hydrateIcons(act);
+    act.querySelector("[data-kioff]").onclick=()=>admKiOff(a);});}
+function admKiOff(a){if(!a)return;openModal(`<h2>${ic("bolt")} KI-KONTO AUFHEBEN?</h2><div class="lead"><b>${esc(a.name)}</b> wird wieder ein normales Konto: Es erscheint wieder in den Season-, Wochen- und Ranked-Bestenlisten und bekommt deren Belohnungen. Der KI-Testmodus geht beim nächsten Spielstart aus. Wieder einschalten kann ihn nur der Spieler selbst (Einstellungen).</div><div class="aerr" id="admKe"></div>
+   <div class="rbtns" style="margin-top:12px"><button class="pri hot" id="admKg">${ic("check")} Aufheben</button><button class="btn" id="admKx">Abbrechen</button></div>`,"narrow",true);
+  $("admKx").onclick=closeModal;$("admKg").onclick=async()=>{const g=$("admKg");g.disabled=true;const r=await admRpc("admin_ai_off",{uname:a.name});if($("admKg"))$("admKg").disabled=false;
+    if(!r.ok){const t=JSON.stringify(r.j||"");$("admKe").innerHTML=/admin_ai_off|function|schema/i.test(t)?"Auf dem Server fehlt die Funktion <b>admin_ai_off</b> (Server-SQL aus 1.60.0).":"Fehlgeschlagen: "+admErr(r);return;}
+    if(r.j===-1){$("admKe").textContent="Das darf nur das Admin-Konto.";return;}
+    closeModal();try{KI.names=null;}catch(e){}toast(+r.j>0?`${a.name} ist kein KI-Konto mehr`:`${a.name} war schon kein KI-Konto mehr`,"check");admLoadList();};}
+try{const _al63010=admLoadList;admLoadList=async function(){const r=await _al63010.apply(this,arguments);try{await admKiMark();}catch(e){}return r;};}catch(e){}
+/* 2) Das Test-Konto requiEM-Claude wird nur noch automatisch zum KI-Konto, solange darüber nie entschieden wurde (META.ai fehlt).
+      Hebt der Admin es auf (META.ai=0 nach ai_me), bleibt es aufgehoben. */
+try{kiSync=async function(){if(KI.chk||typeof USER==="undefined"||!USER||typeof CL==="undefined"||!CL.sess||!META)return;KI.chk=true;
+  try{if(!(await clReady()))return;if(userKey(USER)==="requiem-claude"&&META.ai==null){await kiEnable();return;}
+    const r=await kiRpc("ai_me");if(r.ok&&typeof r.j==="boolean"){const on=r.j?1:0;if((META.ai|0)!==on){META.ai=on;if(!on){try{localStorage.setItem("pokelings_ai","0");}catch(e){}window.__fast=false;}saveMeta();}}}catch(e){}};}catch(e){}
+/* 3) Startzeit: PKT.boot() fasst die Ladezeiten dieses Seitenaufrufs zusammen (Zeiten in ms ab Seitenaufruf) */
+window.__bootT=window.__bootT||{};window.__bootT.script=performance.now();
+try{const _sm63010=showMenu;showMenu=function(){try{if(!window.__bootT.menu)window.__bootT.menu=performance.now();}catch(e){}return _sm63010.apply(this,arguments);};}catch(e){}
+function pkBoot(){const R=v=>v==null?null:Math.round(v),KB=v=>v==null?null:Math.round(v/1024),T=window.__bootT||{},o={ver:typeof GAME_VER!=="undefined"?GAME_VER:"?"};
+  try{const n=performance.getEntriesByType("navigation")[0];if(n)o.html={antwortStart:R(n.responseStart),geladen:R(n.responseEnd),kb:KB(n.transferSize),kbEntpackt:KB(n.decodedBodySize),domFertig:R(n.domContentLoadedEventEnd),alles:R(n.loadEventEnd)};}catch(e){}
+  try{const hideT=T.hide||1e12;o.sprites=performance.getEntriesByType("resource").filter(e=>/\/sprites-[a-z0-9-]+\.js/.test(e.name)&&e.startTime<hideT).map(e=>({datei:e.name.split("/").pop().split("?")[0],start:R(e.startTime),ende:R(e.responseEnd),kb:KB(e.transferSize),kbEntpackt:KB(e.decodedBodySize),ausCache:e.transferSize===0||e.workerStart>0&&e.transferSize<300}));}catch(e){}
+  o.ablauf={kernSprite1:R(T.ld0),kernSprite2:R(T.ld1),kernFertig:R(T.ld2),spielSkriptFertig:R(T.script),startbildBereit:R(T.ready),ladebildWeg:T.hide?R(T.hide+950):null,menue:R(T.menu),vorladenDateien:T.pre||0,weiterOhneWarten:!!T.skip};
+  try{const c=navigator.connection||{};o.geraet={kerne:navigator.hardwareConcurrency||null,speicherGB:navigator.deviceMemory||null,netz:c.effectiveType||null,mbit:c.downlink||null,rtt:c.rtt||null,sw:!!(navigator.serviceWorker&&navigator.serviceWorker.controller)};}catch(e){}
+  return o;}
+try{PKT.boot=pkBoot;}catch(e){}
+try{const _ac63010=PKT.act;PKT.act=async function(cmd){const out=await _ac63010.apply(this,arguments);try{const a=Array.isArray(cmd)?"":String(cmd||"").trim().split(/\s+/)[0];if((a==="help"||a==="hilfe"||a==="?")&&typeof out==="string")return out+`
+ Startzeit:  PKT.boot() – Ladezeiten dieses Seitenaufrufs (HTML, Sprite-Pakete, Ablauf bis Menü; ms ab Seitenaufruf, kb 0 = aus dem Cache)`;}catch(e){}return out;};}catch(e){}
+
+/* v1.63.5: Ruhm – Legenden-Sterne auf dem Weg von Diamant III zur Ruhmeslegende (alle 6.000 Edelsteine ein Stern, beim 4. Abschnitt Legende; auf der Trainerkarte für alle sichtbar),
+   Fortschrittsbalken am Ruhm-Knopf im Hauptmenü, beim Aufstieg ziehen Namensfarbe, Effekt, Kartenrand und Bestenliste-Rand mit, wenn bisher das jeweils Neueste gewählt war */
+const FAME_LS=4;
+function fameLegStars(g){try{const lv=fameLevel(Math.max(0,g|0));if(lv.L!==FAME_MAX-1||!lv.next)return 0;return Math.max(0,Math.min(FAME_LS-1,Math.floor(lv.into/(lv.next/FAME_LS))));}catch(e){return 0;}}
+const _ls635=(n,cls)=>`<em class="fmLs${cls?" "+cls:""}">${[1,2,3].map(i=>`<s class="${i<=n?"on":""}"></s>`).join("")}</em>`;
+/* 1) Aufstieg: jede Auswahl zieht mit, wenn sie bisher das Neueste ihrer Art war (auch „noch keine“ beim allerersten). Bewusst Älteres oder „Keiner“ bleibt. Legende setzt Name und Effekt wie bisher immer. */
+function fameFollow(F,L){const i=fameStepInfo(L);if(!F||!i)return;const last=a=>a&&a.length?a[a.length-1]:null;
+  const pf=last(fameFrames(L-1)),nf=i.leg?"legende":i.sub===3?i.k+"+":null;
+  if(nf){if((F.f||null)===pf)F.f=nf;if(typeof F.b==="string"&&F.b!==""&&F.b===pf)F.b=nf;}
+  if(i.leg){F.n="legende";F.e="legende";return;}
+  if(i.sub===1&&(F.n||null)===last(fameNames(L-1)))F.n=i.k;
+  if(i.sub===2&&(F.e||null)===last(fameFxs(L-1)))F.e=i.k;}
+/* 2) Trainerkarte: Sterne unter dem Rang-Wappen (Feld fs, nur bei Diamant III) */
+try{const _cm635=cardMine;cardMine=function(){const c=_cm635.apply(this,arguments);try{if(c&&c.fl===FAME_MAX-1&&META&&META.fame){const s=fameLegStars(META.fame.g);if(s)c.fs=s;}}catch(e){}return c;};}catch(e){}
+try{const _cc635=cardClean;cardClean=function(c){const r=_cc635.apply(this,arguments);try{if(r&&c&&r.fl===FAME_MAX-1){const s=c.fs|0;if(s>0&&s<FAME_LS)r.fs=s;}}catch(e){}return r;};}catch(e){}
+try{const _ch635=cardHTML;cardHTML=function(c,side){let h=_ch635.apply(this,arguments);try{const cc=c||cardMine();const s=cc&&cc.fl===FAME_MAX-1?cc.fs|0:0;
+  if(s>0&&typeof h==="string"){const en=typeof LANG!=="undefined"&&LANG==="en",t=en?`Legend stars: ${s} of ${FAME_LS-1}`:`Legenden-Sterne: ${s} von ${FAME_LS-1}`;
+    h=h.replace(/(<i class="tcFmB"[^>]*?)( data-td=")([^"]*)(")([^>]*>)/,(m,a,b,d,e,f)=>a+b+(d?d+" · ":"")+t+e+f+_ls635(s,"tc")).replace(/(<i class="tcFmB"(?![^>]*data-td)[^>]*>)/,"$1"+_ls635(s,"tc"));}}catch(e){}return h;};}catch(e){}
+/* 3) Ruhm-Fenster: Balken mit Stern-Marken und Hinweis an der Legenden-Stufe */
+try{const _ft635=fameTabHtml;fameTabHtml=function(){let h=_ft635.apply(this,arguments);try{if(typeof h!=="string"||!fameOpen().ok)return h;const F=fameMeta(),lv=fameLevel(F.g),en=LANG==="en";
+  h=h.replace("Legenden-Name + Kronenrand",en?"3 legend stars on the way (every 6,000), then Legend name + crown frame":"unterwegs 3 Legenden-Sterne (alle 6.000), dann Legenden-Name + Kronenrand");
+  if(lv.L===FAME_MAX-1){const s=fameLegStars(F.g);h=h.replace(/<div class="rkProg fmBar"([^>]*)>(<i style="width:[^"]*"><\/i>)/,`<div class="rkProg fmBar leg4"$1>$2<em class="fmTick"><s class="${s>=1?"on":""}"></s><s class="${s>=2?"on":""}"></s><s class="${s>=3?"on":""}"></s></em>`);
+    h=h.replace(/(<div class="fmTopR"><h3>[^<]*<\/h3>)/,`$1<div class="fmLsRow">${_ls635(s,"big")}<span>${en?`Legend star ${s} of ${FAME_LS-1}`:`Legenden-Stern ${s} von ${FAME_LS-1}`}</span></div>`);}}catch(e){}return h;};}catch(e){}
+/* 4) Hauptmenü: Fortschritt am Ruhm-Knopf */
+function fameMenu635(){try{const b=$("mFame");if(!b||b.querySelector(".mFameBar")||typeof fameMeta!=="function")return;const F=fameMeta(),lv=fameLevel(F.g),L=lv.L,en=LANG==="en",nf=n=>Math.max(0,Math.round(n)).toLocaleString(en?"en-US":"de-DE");
+  let txt,p=1,leg=false,s=0;
+  if(L>=FAME_MAX)txt=en?"Highest fame reached":"Höchster Ruhm erreicht";
+  else if(L===FAME_MAX-1){leg=true;s=fameLegStars(F.g);const step=lv.next/FAME_LS;p=lv.into/lv.next;
+    txt=s<FAME_LS-1?(en?`${nf((s+1)*step-lv.into)} to legend star ${s+1}`:`noch ${nf((s+1)*step-lv.into)} bis Legenden-Stern ${s+1}`):(en?`${nf(lv.next-lv.into)} to Fame Legend`:`noch ${nf(lv.next-lv.into)} bis zur Ruhmeslegende`);}
+  else{p=lv.next?lv.into/lv.next:1;txt=en?`${nf(lv.next-lv.into)} to ${fameName_(L+1)}`:`noch ${nf(lv.next-lv.into)} bis ${fameName_(L+1)}`;}
+  const sm=b.querySelector("small");if(sm)sm.textContent=txt;const nx=fameStepInfo(Math.min(FAME_MAX,L+1));
+  const d=b.querySelector("div");if(d)d.insertAdjacentHTML("beforeend",`<em class="mFameBar${leg?" leg4":""}" style="--rc:${nx?nx.c:"#ffd84a"}"><b style="width:${Math.round(Math.max(0,Math.min(1,p))*1000)/10}%"></b>${leg?`<u class="mFbS"><s class="${s>=1?"on":""}"></s><s class="${s>=2?"on":""}"></s><s class="${s>=3?"on":""}"></s></u>`:""}</em>`);
+  if(leg&&s){const r=b.querySelector(".mFameR");if(r)r.insertAdjacentHTML("beforeend",_ls635(s,"mn"));}}catch(e){}}
+try{const _sm635=showMenu;showMenu=function(){const r=_sm635.apply(this,arguments);try{fameMenu635();}catch(e){}return r;};}catch(e){}
+/* 5) Einzahl-Leiste oben: Stern-Marken auf dem Balken, solange er von Diamant III zur Legende läuft; neue Sterne leuchten auf */
+function fameBanStars635(s0){const t0=Date.now();const iv=setInterval(()=>{try{const el=$("fmAuto");if(!el||Date.now()-t0>15000){clearInterval(iv);return;}const bar=el.querySelector(".fa-bar");if(!bar)return;
+  const on=!!el.querySelector(".fa-nx .fmEm.leg");bar.classList.toggle("leg4",on);let st=bar.querySelector(".fa-ls");if(!on){if(st)st.remove();return;}
+  if(!st){bar.insertAdjacentHTML("beforeend",`<em class="fa-ls"><s></s><s></s><s></s></em>`);st=bar.querySelector(".fa-ls");}
+  const f=el.querySelector(".fa-fill"),W=bar.getBoundingClientRect().width,w=f&&W?f.getBoundingClientRect().width/W:0;
+  st.querySelectorAll("s").forEach((x,i)=>{const now=w>=(i+1)/FAME_LS-.003;if(now&&!x.classList.contains("on")){x.classList.add("on");if(i+1>s0)x.classList.add("pop");}else if(!now)x.classList.remove("on","pop");});}catch(e){clearInterval(iv);}},70);}
+/* fameBanner läuft nach jeder Einzahlung (auch im Sparmodus, dort ohne Leiste): Menü-Knopf auffrischen, Stern-Marken anbringen */
+try{const _fb635=fameBanner;fameBanner=function(g0,g1,v){const r=_fb635.apply(this,arguments);try{const b=$("mFame");if(b){b.querySelectorAll(".mFameBar,.mFameR .fmLs").forEach(x=>x.remove());fameMenu635();}}catch(e){}try{if(!window.__aiLite&&fameLevel(g1).L>=FAME_MAX-1&&fameLevel(g0).L<=FAME_MAX-1)fameBanStars635(fameLegStars(g0));}catch(e){}return r;};}catch(e){}
+/* 6) KI-Test: Ruhm im Spielzustand */
+try{const _js635=PKT.json;PKT.json=function(){const o=_js635.apply(this,arguments);try{if(META&&META.fame&&typeof fameLevel==="function"){const F=META.fame,lv=fameLevel(F.g|0);o.fame={g:F.g|0,rank:lv.L?fameName_(lv.L):null,into:lv.into,next:lv.next,legStars:fameLegStars(F.g),name:F.n||null,effect:F.e||null,frame:F.f||null,boardFrame:F.b===undefined?null:F.b};}}catch(e){}return o;};}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
@@ -23846,15 +23960,15 @@ window.__pk={get GL(){return GL},step,buyXP,specOpts,SPECSall:SPECS,genEnemies,f
 </script>
 <script>(function(){var t0=Date.now(),l=document.getElementById("bootLd");if(!l)return;var t=document.getElementById("bootTxt");if(t)t.textContent=window.__EN?"BUILDING THE WORLD …":"BAUE DIE WELT AUF …";var q=document.getElementById("bootPct");if(q)q.textContent="100 %";var b=document.getElementById("bootBar");if(b)b.style.width="100%";
 function ready(){return document.querySelector(".screen.show,#intro,#stScene")||(typeof S!=="undefined"&&!!S);}
-function hide(){setTimeout(function(){l.style.opacity=0;setTimeout(function(){l.remove();try{clearInterval(__tipT);clearInterval(__parT);clearInterval(__tipT0)}catch(e){}},450);},500);}
+function hide(){try{(window.__bootT=window.__bootT||{}).hide=performance.now();}catch(e){}setTimeout(function(){l.style.opacity=0;setTimeout(function(){l.remove();try{clearInterval(__tipT);clearInterval(__parT);clearInterval(__tipT0)}catch(e){}},450);},500);}
 function all(){var c=navigator.connection||{},mob=/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||(window.matchMedia&&matchMedia("(pointer:coarse)").matches);if(c.saveData)return false;if(!mob)return true;return c.type==="wifi"||c.type==="ethernet";}
 function pre(){var M=window.__SPRN||window.__SPRM;if(!M||typeof __sprLoad!=="function"||!all())return hide();var last="kanto";try{last=JSON.parse(localStorage.getItem("pokelings_lastreg"))||"kanto";}catch(e){}var fs=(M[last]||[]).slice();if(!fs.length)return hide();
- var N=fs.length,fin=false,go=function(){if(fin)return;fin=true;clearInterval(iv);hide();};
- var sk=document.createElement("button");sk.textContent=window.__EN?"Continue without waiting":"Weiter ohne Warten";sk.style.cssText="position:absolute;left:50%;bottom:64px;transform:translateX(-50%);z-index:3;padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;font:600 13px system-ui,sans-serif;cursor:pointer;opacity:0;transition:opacity .4s";sk.onclick=go;l.appendChild(sk);setTimeout(function(){sk.style.opacity=1;},8000);
+ try{(window.__bootT=window.__bootT||{}).pre=fs.length;}catch(e){}var N=fs.length,fin=false,go=function(){if(fin)return;fin=true;clearInterval(iv);hide();};
+ var sk=document.createElement("button");sk.textContent=window.__EN?"Continue without waiting":"Weiter ohne Warten";sk.style.cssText="position:absolute;left:50%;bottom:64px;transform:translateX(-50%);z-index:3;padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.45);color:#fff;font:600 13px system-ui,sans-serif;cursor:pointer;opacity:0;transition:opacity .4s";sk.onclick=function(){try{window.__bootT.skip=1;}catch(e){}go();};l.appendChild(sk);setTimeout(function(){sk.style.opacity=1;},8000);
  var iv=setInterval(function(){var n=0;fs.forEach(function(x){if(__SPRF[x])n++;});if(t)t.textContent=window.__EN?"LOADING POKÉMON …":"LADE POKÉMON …";if(q)q.textContent=n+" / "+N;if(b)b.style.width=Math.max(2,n/N*100)+"%";},150);
  var one=function(x){return new Promise(function(ok){if(__SPRF[x])return ok();var tr=0;(function g(){var e=document.createElement("script");e.src=x+(tr?"&t="+tr+"_"+Date.now():"");e.onload=function(){__SPRF[x]=1;ok();};e.onerror=function(){e.remove();if(++tr<3)setTimeout(g,1500*tr);else ok();};document.head.appendChild(e);})();});};
  var i=0,run=function(){if(i>=fs.length)return Promise.resolve();var x=fs[i++];return one(x).then(run,run);};Promise.all([run(),run(),run()]).then(go,go);setTimeout(go,180000);}
-(function chk(){if(ready()||Date.now()-t0>30000)pre();else setTimeout(chk,120);})();})();</script>
+(function chk(){if(ready()||Date.now()-t0>30000){try{(window.__bootT=window.__bootT||{}).ready=performance.now();}catch(e){}pre();}else setTimeout(chk,120);})();})();</script>
 </body>
 </html>
 
