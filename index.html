@@ -5665,6 +5665,69 @@ em.fmLs.mn{margin-left:4px}em.fmLs.mn s{width:9px;height:9px}
  50%{filter:drop-shadow(0 5px 0 rgba(0,0,0,.35)) drop-shadow(0 0 2px #fff) drop-shadow(0 0 5px #ffd84a) drop-shadow(0 0 11px #ffd84a)}
  75%{filter:drop-shadow(0 5px 0 rgba(0,0,0,.35)) drop-shadow(0 0 2px #fff) drop-shadow(0 0 5px #6dff9a) drop-shadow(0 0 11px #6dff9a)}}
 @media (prefers-reduced-motion:reduce){.tcAv .fmDiaM~.tcMon img{animation:tcMonB 1.4s steps(2) infinite;filter:drop-shadow(0 5px 0 rgba(0,0,0,.35)) drop-shadow(0 0 2px #fff) drop-shadow(0 0 6px #38e8ff)}}
+/* ================= v1.66.0: Lauf-Ziele, Wochen-Checkliste, Ordenleiter ================= */
+/* Seitenleiste: Lauf-Ziele */
+#lzList{display:flex;flex-direction:column;gap:5px}
+.lzRow{display:flex;align-items:center;gap:8px;padding:5px 6px;border-radius:8px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07)}
+.lzRow>div{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.lzRow b{font-size:14px;line-height:1.1;color:var(--text)}
+.lzRow small{font-size:11.5px;line-height:1.15;color:var(--dim)}
+.lzRow em{flex:none;font:7px var(--px);font-style:normal;padding:4px 5px 3px;border-radius:4px;background:#161b28;color:var(--muted);white-space:nowrap}
+.lzI{flex:none;width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;background:rgba(106,200,240,.14);color:var(--cyan)}.lzI .ic{width:15px;height:15px}
+.lzRow.ok .lzI{background:rgba(88,208,104,.16);color:var(--green)}.lzRow.ok em{background:rgba(88,208,104,.2);color:#b8f5c2}
+.lzRow.br{opacity:.62}.lzRow.br .lzI{background:rgba(240,80,80,.16);color:var(--red)}.lzRow.br em{background:rgba(240,80,80,.2);color:#ffb0b0}.lzRow.br b{text-decoration:line-through;text-decoration-color:rgba(240,80,80,.7)}
+.lzRow.warn{border-color:rgba(255,216,74,.55);background:rgba(255,216,74,.08);animation:lzWarn 1.2s ease-in-out infinite}.lzRow.warn .lzI{background:rgba(255,216,74,.2);color:var(--amber)}.lzRow.warn em{background:var(--amber);color:#1a1200}.lzRow.warn small{color:#ffe9a0}
+@keyframes lzWarn{50%{box-shadow:0 0 0 2px rgba(255,216,74,.25)}}
+.lzBar{display:block;height:4px;margin-top:3px;border-radius:3px;background:#161b28;overflow:hidden}.lzBar>i{display:block;height:100%;background:var(--cyan);border-radius:3px}
+#lzCount{font-family:var(--px);font-size:8px;color:var(--gem)}
+#rSide #lzBox{flex:none}
+@media (max-height:520px){#rSide #lzBox{display:none!important}}
+/* Nachfrage */
+.lzAsk{display:flex;align-items:center;gap:10px;margin:4px 0 10px;padding:10px 12px;border-radius:10px;background:rgba(240,80,80,.08);border:1px solid rgba(240,80,80,.35)}
+.lzAsk>div{display:flex;flex-direction:column;gap:2px}.lzAsk b{font-size:16px}.lzAsk small{color:var(--muted);font-size:13px}
+.lzAskI{flex:none;width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:rgba(240,80,80,.16);color:var(--red)}.lzAskI .ic{width:20px;height:20px}
+#rRev .lzWarn{display:block;font-size:10px;opacity:.85;margin-top:2px}
+/* Auswahl beim Spielstart */
+.lzBox .monoH .ic{color:var(--cyan)}
+.lzBox .lzN{margin-left:auto;font:8px var(--px);padding:4px 6px;border-radius:5px;background:rgba(106,200,240,.15);color:#cff4ff}
+.lzTy{flex-wrap:wrap;max-width:100%;text-align:left}.lzTy .ic{color:var(--cyan)}
+.lzTy em{font-style:normal;font-size:10px;color:var(--gem);font-weight:700}
+.lzTy.on{background:#1f6f8a;border-color:#9fe6ff;box-shadow:0 0 0 2px rgba(255,255,255,.75),0 0 14px rgba(92,200,255,.45)}.lzTy.on .ic,.lzTy.on em{color:#fff}
+/* Wochen-Checkliste */
+.wkChk{display:flex;flex-direction:column;gap:6px;margin:8px 0 2px;padding:9px 10px;border-radius:10px;background:rgba(255,180,80,.06);border:1px solid rgba(255,190,90,.3)}
+.wkChkH{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.wkChkH .ic{width:15px;height:15px;color:#ffb34d}.wkChkH small{color:var(--muted)}
+.wkG{display:flex;align-items:center;gap:7px;font-size:13px}.wkG .ic{width:15px;height:15px;color:#ffb34d}.wkG small{color:var(--dim)}
+.chRules.wkCk span{border-color:rgba(255,190,90,.4);background:rgba(255,180,80,.08);color:#ffe2b0}
+/* Herausforderungen: Ordenleiter */
+.chCard.od{background:radial-gradient(ellipse at 50% 130%,rgba(184,107,255,.22),transparent 60%),linear-gradient(180deg,rgba(255,216,74,.08),rgba(255,255,255,.02));border-color:rgba(255,216,74,.4)}
+.chCard.od::before{background:linear-gradient(90deg,#d08a4a,#c8d0e0,#ffd84a,#5cf2ff,#4dffa6,#ff8a3d,#ff4d6d,#b86bff)}
+.chCard.od .chI{background:rgba(255,216,74,.16);color:var(--amber)}
+.chCard.od.lock{filter:saturate(.6) brightness(.85)}
+.odRow{display:flex;gap:4px}
+.odB{flex:1;height:22px;display:flex;align-items:center;justify-content:center;border-radius:50%/40%;font:7px var(--px);font-style:normal;color:rgba(255,255,255,.35);background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.12)}
+.odB.on{color:#10121a;background:radial-gradient(circle at 35% 30%,#fff 0,var(--oc) 45%,color-mix(in srgb,var(--oc) 55%,#000) 100%);border-color:var(--oc);box-shadow:0 0 8px color-mix(in srgb,var(--oc) 60%,transparent)}
+.odB.nx{color:var(--oc);border-color:var(--oc);border-style:dashed;animation:odNx 1.6s ease-in-out infinite}
+@keyframes odNx{50%{box-shadow:0 0 10px color-mix(in srgb,var(--oc) 70%,transparent)}}
+/* Ordenleiter-Fenster */
+.odSteps{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin:10px 0}
+.odS{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px 6px;border-radius:10px;border:2px solid rgba(255,255,255,.14);background:rgba(10,12,22,.6);color:#e8ecf8;cursor:pointer;font:inherit}
+.odS b{font:10px var(--px);color:var(--oc)}.odS small{font-size:10px;color:var(--muted);display:flex;align-items:center;height:14px}.odS small .ic{width:12px;height:12px}
+.odS.got{background:color-mix(in srgb,var(--oc) 14%,rgba(10,12,22,.6))}.odS.got small{color:var(--green)}
+.odS.on{border-color:var(--oc);box-shadow:0 0 0 2px rgba(255,255,255,.7),0 0 14px color-mix(in srgb,var(--oc) 55%,transparent)}
+.odS:disabled{opacity:.4;cursor:not-allowed}
+.odRules{display:flex;flex-direction:column;gap:5px}
+.odRule{display:flex;align-items:center;gap:9px;padding:6px 9px;border-radius:9px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08)}
+.odRule>div{flex:1;display:flex;flex-direction:column;gap:1px}.odRule b{font-size:15px}.odRule small{color:var(--muted);font-size:12.5px}
+.odRule em{font:8px var(--px);font-style:normal;color:var(--oc)}
+.odRI{flex:none;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:color-mix(in srgb,var(--oc) 18%,transparent);color:var(--oc)}.odRI .ic{width:16px;height:16px}
+.odRule.nw{border-color:var(--oc);background:color-mix(in srgb,var(--oc) 10%,rgba(255,255,255,.03))}
+.odRule.nw b::after{content:"NEU";margin-left:8px;font:7px var(--px);padding:3px 4px 2px;border-radius:3px;background:var(--oc);color:#10121a;vertical-align:2px}
+.odRw{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;margin:10px 0 4px;font-size:13px;color:var(--muted)}.odRw span{display:inline-flex;align-items:center;gap:5px}.odRw .ic{width:14px;height:14px;color:var(--gem)}
+.odRegs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:7px}
+.odReg{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:9px 11px;border-radius:10px;border:2px solid rgba(194,124,255,.35);background:linear-gradient(180deg,rgba(194,124,255,.12),rgba(10,12,22,.6));color:#fff;font:inherit;cursor:pointer;transition:transform .12s,border-color .12s}
+.odReg b{font-size:16px}.odReg small{font-size:11.5px;color:var(--muted)}
+.odReg:hover{transform:translateY(-2px);border-color:#c27cff}
+@media (max-width:640px){.odSteps{grid-template-columns:repeat(4,1fr)}}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -13243,7 +13306,7 @@ const mkUnit=(sp,stars=0,shiny=false)=>({uid:uidC++,sp,stars,items:[],gifts:[],.
 const shinyChance=()=>SHINY_BASE*(1+perk("shinycharm"));
 const hasRelic=id=>!!(S&&S.relics.includes(id));
 const level=()=>{let l=1;for(let i=0;i<LV_XP.length;i++)if(S.xp>=LV_XP[i])l=i+1;return l;};
-const capFor=()=>Math.max(1,level()+2+(hasRelic("pack")?1:0)+(S&&S.tower&&perk("twslot")?1:0)-(S&&S.small?2:0)-(S&&S.abyss?1:0));
+const capFor=()=>Math.max(1,level()+2+(hasRelic("pack")?1:0)+(S&&S.tower&&perk("twslot")?1:0)-(S&&S.small?2:0)-(S&&(S.ord|0)>=5?1:0)-(S&&S.abyss?1:0));
 const benchSize=()=>5+perk("bench");
 const boardUnits=()=>Object.values(S.board);
 const allUnits=()=>[...boardUnits(),...S.bench.filter(Boolean)];
@@ -16021,6 +16084,8 @@ if(typeof EN!=="undefined")Object.assign(EN,{"Typ-Effekte: Die Standardattacke l
 if(typeof EN!=="undefined")Object.assign(EN,{"Klassen-Verhalten: Jede Klasse hat jetzt ein festes Merkmal im Kampf. Tanks verspotten alle 6 Sekunden Gegner in der Nähe, Schützen machen auf Entfernung mehr Schaden (bis +30 %), Unterstützer geben mit jedem Grundangriff dem schwächsten Verbündeten einen Schild, Magier treffen mit dem Grundangriff auch Gegner direkt neben dem Ziel, und Krieger bekommen unter 50 % KP einmal einen Schild.": "Class behavior: every class now has a fixed trait in battle. Tanks taunt nearby enemies every 6 seconds, Marksmen deal more damage at range (up to +30%), Supports give the weakest nearby ally a shield with every basic attack, Mages also hit enemies right next to their target with basic attacks, and Warriors get a one-time shield below 50% HP.", "Wie bisher springen Assassinen zu Kampfbeginn nach hinten, Berserker werden mit sinkenden KP schneller (jetzt mit Einblendung „Raserei!“), und Störer rauben Energie. Die Merkmale stehen im Infofeld jedes Pokémon unter Klasse. Sie gelten auch für die Gegner.": "As before, Assassins leap to the back row at the start of a battle, Berserkers get faster as their HP drops (now with a “Frenzy!” popup), and Disruptors drain energy. The traits are listed in each Pokémon's info panel under class. They apply to enemies too.", "Klassen-Verhalten": "Class behavior", "Spott!": "Taunt!", "Durchhalten!": "Hold on!", "Raserei!": "Frenzy!", "Steht vorne, hält enorm viel aus und verspottet alle 6 s Gegner in der Nähe: Sie müssen ihn angreifen.": "Stands in front, takes a huge beating and taunts nearby enemies every 6 s: they have to attack it.", "Ausgewogener Nahkämpfer mit solidem Schaden und guter Ausdauer. Fällt er unter 50 % KP, bekommt er einmal einen Schild (20 % seiner KP).": "Balanced melee fighter with solid damage and good stamina. When it drops below 50% HP, it gets a one-time shield (20% of its HP).", "Springt zu Kampfbeginn in die hinterste Gegnerreihe und jagt Fernkämpfer.": "Leaps into the enemy's back row at the start of a battle and hunts ranged fighters.", "Schnelle Angriffe aus großer Distanz. Je weiter das Ziel weg ist, desto mehr Schaden (bis +30 %). Braucht Schutz von vorne.": "Fast attacks from long range. The farther away the target, the more damage (up to +30%). Needs protection up front.", "Langsame Angriffe, die auch Gegner direkt neben dem Ziel treffen (25 %), und eine verheerende Spezialattacke mit Flächenwirkung.": "Slow attacks that also hit enemies right next to the target (25%), and a devastating special attack with area damage.", "Heilt und schützt Verbündete aus der zweiten Reihe: Jeder Grundangriff gibt dem schwächsten Verbündeten in der Nähe einen Schild.": "Heals and protects allies from the second row: every basic attack gives the weakest nearby ally a shield."});
 /* v1.65.5 */
 if(typeof EN!=="undefined")Object.assign(EN,{"Synergie-Werte angepasst: Feuer, Eis und Kampf geben jetzt +16 % Angriff (vorher 12 %), Boden, Gestein und Stahl +18 % Verteidigung (vorher 25 %), Flug und Käfer +12 % Angriffstempo (vorher 10 %) und Unlicht +12 % Volltrefferchance (vorher 8 %).": "Synergy values adjusted: Fire, Ice and Fighting now give +16% attack (was 12%), Ground, Rock and Steel +18% defense (was 25%), Flying and Bug +12% attack speed (was 10%) and Dark +12% critical hit chance (was 8%).", "Fee gibt jetzt zu Kampfbeginn einen Schild (8 % der KP, bei 4 Fee-Pokémon 16 %) statt mehr Heilung. So hilft die Synergie auch ohne Heiler im Team.": "Fairy now grants a shield at the start of battle (8% of HP, 16% with 4 Fairy Pokémon) instead of more healing, so the synergy helps even without a healer on the team.", "Synergie-Balance": "Synergy balance", "Fee startet mit einem Schild ({v} % KP)": "Fairy starts with a shield ({v}% HP)"});
+/* v1.66.0 */
+if(typeof EN!=="undefined")Object.assign(EN,{"Neu unter Herausforderungen: die Ordenleiter. 8 Orden, jeder legt eine Regel auf Albtraum drauf: Gegner-Synergien, Sparfuchs, stärkere Gegner, starke Bosse, ein Platz weniger, frühe Gegner-Items, noch stärkere Gegner und am Ende ein zweiter Champion aus einer anderen Region. Der erste Sieg je Orden bringt einmalig 100 bis 750 Edelsteine. Freigeschaltet mit einem Albtraum-Champion.": "New under Challenges: the Badge Ladder. 8 badges, each adds a rule on top of Nightmare: enemy synergies, Penny Pincher, stronger enemies, strong bosses, one slot less, early enemy items, even stronger enemies and finally a second champion from another region. The first win of each badge pays 100 to 750 gems once. Unlocked by a Nightmare champion title.", "Neu: Lauf-Ziele. Wähle beim Spielstart bis zu 3 Ziele, zum Beispiel „Würfle den Laden nie neu“ oder „Besiege 5 Elite-Gegner“. Die Seitenleiste zeigt den Stand, und bevor du ein Ziel brichst, fragt das Spiel nach. Als Champion gibt es für jedes erfüllte Ziel 10 bis 30 Edelsteine.": "New: Run Goals. Pick up to 3 goals when you start a run, for example “Never reroll the shop” or “Defeat 5 elite foes”. The sidebar shows your progress, and the game asks before you break a goal. As champion you get 10 to 30 gems for every goal you met.", "Wochen-Herausforderung mit Checkliste: Jede Woche gibt es 2 Pflicht-Ziele. Brichst du eines, ist der Lauf vorbei. Dafür bringt der erste Wochen-Champion-Titel jetzt 100 statt 30 Edelsteine, jeder weitere in derselben Woche 25.": "Weekly Challenge with a checklist: every week has 2 mandatory goals. Break one and the run is over. In return the first weekly champion title now pays 100 gems instead of 30, every further one in the same week 25.", "4 neue Erfolge für die Ordenleiter und die Lauf-Ziele.": "4 new achievements for the Badge Ladder and Run Goals.", "Lauf-Ziele, Wochen-Checkliste und Ordenleiter": "Run Goals, weekly checklist and Badge Ladder", "Schicksal": "Fate", "Würfle den Laden nie neu.": "Never reroll the shop.", "Bescheiden": "Modest", "Kaufe keine Erfahrung.": "Don't buy experience.", "Treue": "Loyalty", "Verkaufe kein Pokémon.": "Don't sell any Pokémon.", "Makellos": "Flawless", "Nutze keine Revanche.": "Don't use a rematch.", "Bodenständig": "Down to Earth", "Kein legendäres Pokémon im Raster.": "No legendary Pokémon on the grid.", "Saubere Bosse": "Clean Bosses", "In Bosskämpfen fällt keines deiner Pokémon.": "None of your Pokémon faint in boss battles.", "Erzrivale": "Archrival", "Besiege deinen Rivalen bei allen 4 Treffen.": "Defeat your rival in all 4 encounters.", "Elite-Jäger": "Elite Hunter", "Besiege 5 Elite-Gegner.": "Defeat 5 elite foes.", "Siegeszug": "Winning Streak", "Gewinne 10 Kämpfe in Folge.": "Win 10 battles in a row.", "Dagobert": "Scrooge", "Besitze 60 Gold gleichzeitig.": "Own 60 gold at once.", "Sternenhimmel": "Starry Sky", "Habe 3 Pokémon auf ★★ gleichzeitig.": "Have 3 Pokémon at ★★ at once.", "Einer gegen alle": "One Against All", "Besiege einen Boss mit nur einem Pokémon im Raster.": "Defeat a boss with only one Pokémon on the grid.", "Unberührbar": "Untouchable", "Gewinne das Finale, ohne dass eines deiner Pokémon fällt.": "Win the final without any of your Pokémon fainting.", "LAUF-ZIELE": "RUN GOALS", "CHECKLISTE": "CHECKLIST", "Lauf-Ziele": "Run Goals", "Lauf-Ziel": "Run goal", "Checkliste": "Checklist", "Pflicht": "Required", "hält": "holding", "gebrochen": "broken", "verpasst": "missed", "erfüllt": "met", "offen": "open", "Achtung": "Warning", "Ein legendäres Pokémon steht im Raster!": "A legendary Pokémon is on the grid!", "optional · bis zu 3 · als Champion gibt es für jedes erfüllte Ziel Edelsteine": "optional · up to 3 · as champion you get gems for every goal met", "Halten (darf nie gebrochen werden)": "Keep (must never be broken)", "Erreichen (bis zum Champion)": "Reach (before the champion)", "(nur mit Revanche)": "(only with rematches)", "Höchstens 3 Lauf-Ziele": "At most 3 run goals", "PFLICHT BRECHEN?": "BREAK A REQUIRED GOAL?", "ZIEL BRECHEN?": "BREAK THIS GOAL?", "Das bricht eine Pflicht der Wochen-Checkliste.": "This breaks a required goal of the weekly checklist.", "Der Wochenlauf endet dann sofort.": "The weekly run ends right away.", "Damit brichst du dieses Lauf-Ziel. Als Champion gäbe es dafür": "This breaks the run goal. As champion it would pay", "Doch nicht": "Never mind", "Trotzdem": "Do it anyway", "Lauf beenden": "End run", "Ein legendäres Pokémon steht im Raster. Das verbietet die Pflicht": "A legendary Pokémon is on the grid. That breaks the required goal", "Nimm es heraus, dann kann der Kampf beginnen.": "Remove it, then the battle can start.", "Verstanden": "Got it", "Brichst du ein Pflicht-Ziel, ist der Lauf vorbei.": "Break a required goal and the run is over.", "erster Champion-Titel der Woche:": "first champion title of the week:", "jeder weitere": "each further one", "Checkliste: 2 Pflicht-Ziele · Bestes Ergebnis:": "Checklist: 2 required goals · Best result:", "Wochen-Champion": "Weekly champion", "Checkliste nicht erfüllt": "Checklist not met", "geschafft": "done", "nicht geschafft": "not done", "Erster Wochen-Champion": "First weekly champion", "Checkliste gebrochen: Dieser Lauf endet hier.": "Checklist broken: this run ends here.", "bricht Lauf-Ziel „Makellos“": "breaks the run goal “Flawless”", "als Champion": "as champion", "nur als Champion": "only as champion", "intakt": "intact", "Ordenleiter": "Badge Ladder", "ORDENLEITER": "BADGE LADDER", "Orden": "Badge", "8 Orden · Albtraum mit Zusatzregeln · 1 Leben": "8 badges · Nightmare with extra rules · 1 life", "Nächster Orden:": "Next badge:", "neu:": "new:", "erster Sieg": "first win", "Erster Sieg:": "First win:", "Alle 8 Orden geschafft.": "All 8 badges done.", "Ordenleiter spielen": "Play the Badge Ladder", "Werde in einer Region auf Albtraum Champion": "Become champion on Nightmare in one region", "Gesperrt": "Locked", "neu": "new", "Schon geschafft": "Already done", "gewonnen": "won", "Jeder Orden legt eine Regel auf Albtraum drauf, die Regeln der Orden davor bleiben. Gewinne einen Lauf, um den nächsten Orden freizuschalten. 1 Leben, keine Revanche, kein Kampfturm danach.": "Each badge adds a rule on top of Nightmare, the rules of the badges before it stay. Win a run to unlock the next badge. 1 life, no rematch, no Battle Tower afterwards.", "Region wählen (Albtraum freigeschaltet)": "Choose a region (Nightmare unlocked)", "Ordenleiter-Champion": "Badge Ladder champion", "Keine Region mit Albtraum.": "No region with Nightmare.", "Gegner-Synergien": "Enemy synergies", "Gegnerische Teams bekommen Typ-Synergien wie du.": "Enemy teams get type synergies like you.", "−25 % Gold aus Kämpfen.": "−25% gold from battles.", "Stärkere Gegner": "Stronger enemies", "Gegner +6 % KP und Angriff.": "Enemies +6% HP and attack.", "Starke Bosse": "Strong bosses", "Bosse +10 % KP und Angriff.": "Bosses +10% HP and attack.", "1 Platz weniger im Raster.": "1 slot less on the grid.", "Frühe Items": "Early items", "Gegner tragen schon ab Runde 3 Items, ab Runde 12 zwei.": "Enemies carry items from round 3, two from round 12.", "Noch stärkere Gegner": "Even stronger enemies", "Gegner weitere +6 % KP und Angriff.": "Enemies another +6% HP and attack.", "Zweiter Champion": "Second champion", "Nach dem Finale wartet der Champion einer anderen Region.": "After the final, the champion of another region awaits.", "ZWEITER CHAMPION": "SECOND CHAMPION", "Belohnung für deinen Champion-Sieg": "Reward for your champion win", "Albtraum mit Zusatzregeln aus der Ordenleiter.": "Nightmare with extra rules from the Badge Ladder.", "Champion auf Albtraum in einer Region": "Champion on Nightmare in one region", "Täglich · Woche · Orden · Abgrund": "Daily · Week · Badges · Abyss", "Jetzt wartet der zweite Champion,": "Now the second champion awaits,", "Erster Orden": "First Badge", "Gewinne den ersten Orden der Ordenleiter.": "Win the first badge of the Badge Ladder.", "Halbe Ordenbox": "Half a Badge Case", "Gewinne 4 Orden der Ordenleiter.": "Win 4 badges of the Badge Ladder.", "Ordenmeister": "Badge Master", "Gewinne alle 8 Orden der Ordenleiter.": "Win all 8 badges of the Badge Ladder.", "Zielstrebig": "Determined", "Werde Champion und erfülle dabei 3 Lauf-Ziele.": "Become champion while meeting 3 run goals."});
 
 /* ================================ CLOUD (Supabase) ================================
    Konten + Spielstände + globale Bestenliste. Ohne Netz läuft alles lokal weiter.
@@ -18666,7 +18731,7 @@ setTimeout(()=>aurTry(0),3000);
    Tagesherausforderung (gleicher Start für alle, ein gewerteter Versuch pro Tag),
    Geisterkämpfe (echte Teams anderer Spieler als Gegner), Live-Duell (Testphase, Raumcode).
    Ohne Netz bleibt alles lokal spielbar. Kein Werbe-/Tracking-Code, nur das eigene Supabase-Projekt. */
-const MP_VER="1.65.5",DUEL_HP=30;
+const MP_VER="1.66.0",DUEL_HP=30;
 /* Täglicher Run: Tageswechsel um 0 Uhr deutscher Zeit. Die Uhrzeit kommt beim Laden der Seite vom Server (falsche Geräte-Uhr egal),
    ohne Server zählt die Geräte-Uhr. Der Tag wird jedes Mal neu berechnet, ein Neustart der Seite holt also immer den aktuellen Tag. */
 const SRVT={off:0,ok:false};
@@ -19304,8 +19369,13 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.65.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.66.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
+ {v:"1.66.0",d:"26.11.2026",t:"Lauf-Ziele, Wochen-Checkliste und Ordenleiter",items:[
+  ["badge", "Neu unter Herausforderungen: die Ordenleiter. 8 Orden, jeder legt eine Regel auf Albtraum drauf: Gegner-Synergien, Sparfuchs, stärkere Gegner, starke Bosse, ein Platz weniger, frühe Gegner-Items, noch stärkere Gegner und am Ende ein zweiter Champion aus einer anderen Region. Der erste Sieg je Orden bringt einmalig 100 bis 750 Edelsteine. Freigeschaltet mit einem Albtraum-Champion."],
+  ["check", "Neu: Lauf-Ziele. Wähle beim Spielstart bis zu 3 Ziele, zum Beispiel „Würfle den Laden nie neu“ oder „Besiege 5 Elite-Gegner“. Die Seitenleiste zeigt den Stand, und bevor du ein Ziel brichst, fragt das Spiel nach. Als Champion gibt es für jedes erfüllte Ziel 10 bis 30 Edelsteine."],
+  ["cal", "Wochen-Herausforderung mit Checkliste: Jede Woche gibt es 2 Pflicht-Ziele. Brichst du eines, ist der Lauf vorbei. Dafür bringt der erste Wochen-Champion-Titel jetzt 100 statt 30 Edelsteine, jeder weitere in derselben Woche 25."],
+  ["trophy", "4 neue Erfolge für die Ordenleiter und die Lauf-Ziele."]]},
  {v:"1.65.5",d:"26.11.2026",t:"Synergie-Balance",items:[
   ["users", "Synergie-Werte angepasst: Feuer, Eis und Kampf geben jetzt +16 % Angriff (vorher 12 %), Boden, Gestein und Stahl +18 % Verteidigung (vorher 25 %), Flug und Käfer +12 % Angriffstempo (vorher 10 %) und Unlicht +12 % Volltrefferchance (vorher 8 %)."],
   ["def", "Fee gibt jetzt zu Kampfbeginn einen Schild (8 % der KP, bei 4 Fee-Pokémon 16 %) statt mehr Heilung. So hilft die Synergie auch ohne Heiler im Team."]]},
@@ -23369,6 +23439,245 @@ Object.assign(SYN,{
  fairy:{k:"shield",v:.08,d:"Fee startet mit einem Schild ({v} % KP)"}});
 try{if(typeof LANG!=="undefined"&&LANG==="en"&&typeof EN!=="undefined")for(const k in SYN)if(EN[SYN[k].d])SYN[k].d=EN[SYN[k].d];}catch(e){}
 
+/* ================================ v1.66.0: LAUF-ZIELE, WOCHEN-CHECKLISTE, ORDENLEITER ================================
+   Lauf-Ziele: beim Spielstart bis zu 3 Ziele anheften (Halten = darf nie gebrochen werden, Erreichen = bis zum Champion schaffen).
+     Die Seitenleiste zeigt den Stand, vor einem Schritt, der ein Ziel bricht, fragt das Spiel nach. Als Champion: Edelsteine je erfülltem Ziel.
+   Wochen-Checkliste: jede Woche 2 Pflicht-Ziele (1 Halten + 1 Erreichen, für alle gleich). Gebrochen = Lauf vorbei.
+     Wochen-Champion nur mit erfüllter Checkliste: erster Titel der Woche +100 (vorher 30), jeder weitere +25.
+   Ordenleiter: 8 Orden auf Albtraum, jeder legt eine Regel drauf (die der Orden davor bleiben). Erster Sieg je Orden zahlt einmal Edelsteine.
+     Eigener versteckter Modus "orden" (Kopie von Albtraum, Werte je Orden über Getter). Kein Kampfturm danach. Season zählt wie Albtraum. */
+
+/* ---------------- Ziele ---------------- */
+const LZ={
+ noroll:{k:"h",ic:"dice",n:"Schicksal",d:"Würfle den Laden nie neu.",g:30},
+ noxp:{k:"h",ic:"up",n:"Bescheiden",d:"Kaufe keine Erfahrung.",g:20},
+ nosell:{k:"h",ic:"coin",n:"Treue",d:"Verkaufe kein Pokémon.",g:15},
+ norev:{k:"h",ic:"heart",n:"Makellos",d:"Nutze keine Revanche.",g:15,rev:1},
+ noleg:{k:"h",ic:"crown",n:"Bodenständig",d:"Kein legendäres Pokémon im Raster.",g:10},
+ bossclean:{k:"h",ic:"skull",n:"Saubere Bosse",d:"In Bosskämpfen fällt keines deiner Pokémon.",g:25},
+ rival:{k:"e",ic:"swords",n:"Erzrivale",d:"Besiege deinen Rivalen bei allen 4 Treffen.",g:15},
+ elite5:{k:"e",ic:"fang",n:"Elite-Jäger",d:"Besiege 5 Elite-Gegner.",g:15},
+ streak10:{k:"e",ic:"fast",n:"Siegeszug",d:"Gewinne 10 Kämpfe in Folge.",g:10,rev:1},
+ rich60:{k:"e",ic:"chest",n:"Dagobert",d:"Besitze 60 Gold gleichzeitig.",g:10},
+ star3:{k:"e",ic:"star",n:"Sternenhimmel",d:"Habe 3 Pokémon auf ★★ gleichzeitig.",g:25},
+ solo:{k:"e",ic:"aim",n:"Einer gegen alle",d:"Besiege einen Boss mit nur einem Pokémon im Raster.",g:20},
+ untouched:{k:"e",ic:"bubble",n:"Unberührbar",d:"Gewinne das Finale, ohne dass eines deiner Pokémon fällt.",g:25}
+};
+const LZ_MAX=3,WK_RW={first:100,again:25};
+const _lzLeg=u=>{try{return !!SPECIES[u.sp].line.leg;}catch(e){return false;}};
+function lzProg(id){if(!S||!S.lz)return null;const mx=S.lz.mx||{},ok=!!S.lz.ok[id];
+  switch(id){case "rival":return [Math.min(4,(S.rival&&S.rival.w)|0),4];case "elite5":return [Math.min(5,S.elites|0),5];case "streak10":return [Math.min(10,Math.max(mx.st|0,S.streak|0)),10];
+    case "rich60":return [Math.min(60,Math.max(mx.g|0,S.gold|0)),60];case "star3":return [Math.min(3,mx.s2|0),3];case "solo":case "untouched":return [ok?1:0,1];}return null;}
+const lzOn=id=>!!(typeof S!=="undefined"&&S&&S.lz&&S.lz.ids.includes(id)&&!S.lz.br[id]&&!S.lz.ok[id]);
+const lzWk=()=>!!(S&&S.lz&&S.lz.src==="wk");
+function lzDone(L,id){L=L||S.lz;return LZ[id].k==="h"?!L.br[id]:(!!L.ok[id]&&!L.br[id]);}
+function lzAllDone(L){return L.ids.every(id=>lzDone(L,id));}
+function lzBroken(L){L=L||(S&&S.lz);return L?L.ids.filter(id=>L.br[id]):[];}
+function lzBreak(id,quiet){if(!S||!S.lz||!S.lz.ids.includes(id)||S.lz.br[id])return;S.lz.br[id]=1;try{save();}catch(e){}if(!quiet&&!window.__fast)toast(`${lzWk()?"Checkliste":"Lauf-Ziel"} gebrochen: ${LZ[id].n}`,"close");try{sfx("deny");}catch(e){}lzRender();}
+function lzOk(id){if(!S||!S.lz||!S.lz.ids.includes(id)||S.lz.ok[id]||S.lz.br[id])return;S.lz.ok[id]=1;try{save();}catch(e){}if(!window.__fast)toast(`${lzWk()?"Checkliste":"Lauf-Ziel"} erfüllt: ${LZ[id].n}`,"check");lzRender();}
+/* Wochenlauf: ein gebrochenes Pflicht-Ziel beendet den Lauf */
+function lzWkEnd(id){if(!S||S.lzEnd||S.phase==="over"||S.tower)return;S.lzEnd=id||1;try{closeModal();}catch(e){}if(B&&!B.done){B.done=true;B.userPause=false;}try{$("result").classList.remove("show");$("vs").classList.remove("show");}catch(e){}if(typeof cineStop==="function")try{cineStop();}catch(e){}finish(false);}
+/* Nachfrage vor einem Schritt, der ein Ziel bricht. true = abgefangen (Aufrufer macht nichts) */
+function lzGuard(id,go){if(!lzOn(id))return false;const wk=lzWk(),G=LZ[id];
+  if(window.__autoPick||(typeof aiOn==="function"&&aiOn())){lzBreak(id);if(wk){setTimeout(()=>lzWkEnd(id),50);return true;}return false;}
+  openModal(`<h2>${ic("close")} ${wk?"PFLICHT BRECHEN?":"ZIEL BRECHEN?"}</h2><div class="lzAsk"><span class="lzAskI">${ic(G.ic)}</span><div><b>${G.n}</b><small>${G.d}</small></div></div>
+    <div class="lead">${wk?"Das bricht eine Pflicht der Wochen-Checkliste. <b>Der Wochenlauf endet dann sofort.</b>":`Damit brichst du dieses Lauf-Ziel. Als Champion gäbe es dafür <b style="color:var(--gem)">+${G.g}</b> Edelsteine.`}</div>
+    <div class="rbtns" style="margin-top:14px"><button class="pri" id="lzNo">${ic("back")} Doch nicht</button><button class="btn" id="lzYes">${ic("close")} ${wk?"Lauf beenden":"Trotzdem"}</button></div>`,"narrow lzM",true);
+  $("lzNo").onclick=()=>{closeModal();sfx("click");};$("lzYes").onclick=()=>{closeModal();lzBreak(id);if(wk)lzWkEnd(id);else go();};return true;}
+/* Laufender Stand: Höchstwerte mitschreiben, Erreichen-Ziele abhaken, verpasste Rivalen erkennen */
+function lzTick(){if(!S||!S.lz||S.duel)return;const L=S.lz,mx=L.mx||(L.mx={});mx.g=Math.max(mx.g|0,S.gold|0);mx.st=Math.max(mx.st|0,S.streak|0);
+  try{mx.s2=Math.max(mx.s2|0,allUnits().filter(u=>(u.stars|0)>=2).length);}catch(e){}
+  for(const id of L.ids){if(L.br[id]||L.ok[id]||LZ[id].k!=="e")continue;const p=lzProg(id);if(p&&p[0]>=p[1]&&id!=="solo"&&id!=="untouched"){lzOk(id);continue;}
+    if(id==="rival"&&!S.tower&&typeof RIVAL!=="undefined"){const w=(S.rival&&S.rival.w)|0,past=RIVAL.rounds.filter(r=>r<S.round&&!(BOSSES&&BOSSES[r])).length;if(w<past)lzBreak(id);}}
+  if(lzWk()&&!S.lzEnd&&S.phase==="shop"&&lzBroken().length){const b=lzBroken()[0];setTimeout(()=>{if(S&&S.phase==="shop"&&!S.lzEnd)lzWkEnd(b);},400);}}
+/* Seitenleiste */
+function lzRender(){const box=$("lzBox");if(!box)return;const L=S&&S.lz;if(!L||S.duel||S.tower){box.classList.add("none");return;}box.classList.remove("none");
+  const wk=L.src==="wk",legOn=lzOn("noleg")&&S.phase==="shop"&&boardUnits().some(_lzLeg);
+  box.querySelector("h3").textContent=wk?"CHECKLISTE":"LAUF-ZIELE";
+  $("lzCount").textContent=wk?"Pflicht":`+${L.ids.filter(id=>!L.br[id]).reduce((a,id)=>a+LZ[id].g,0)}`;
+  $("lzList").innerHTML=L.ids.map(id=>{const G=LZ[id],br=!!L.br[id],ok=!!L.ok[id],p=G.k==="e"?lzProg(id):null,warn=id==="noleg"&&legOn;
+    const st=br?(G.k==="h"?"gebrochen":"verpasst"):G.k==="h"?(warn?"Achtung":"hält"):ok?"erfüllt":p&&p[1]>1?`${p[0]}/${p[1]}`:"offen";
+    return `<div class="lzRow ${br?"br":ok||(G.k==="h"&&!warn)?"ok":warn?"warn":"open"}"><span class="lzI">${ic(br?"close":ok?"check":G.ic)}</span><div><b>${G.n}</b><small>${warn?"Ein legendäres Pokémon steht im Raster!":G.d}</small>${p&&!ok&&!br&&p[1]>1?`<i class="lzBar"><i style="width:${Math.round(100*p[0]/p[1])}%"></i></i>`:""}</div><em>${st}</em></div>`;}).join("");
+  hydrateIcons&&hydrateIcons(box);}
+function lzMount(){if($("lzBox")||!$("sideStack"))return;const ib=$("infoBox");const h=`<div class="glass panel none" id="lzBox"><div class="ttl"><h3>LAUF-ZIELE</h3><small id="lzCount"></small></div><div id="lzList"></div></div>`;
+  if(ib)ib.insertAdjacentHTML("afterend",h);else $("sideStack").insertAdjacentHTML("afterbegin",h);}
+
+/* ---------------- Auswahl beim Spielstart (Schwierigkeit) ---------------- */
+let LZ_PICK=(()=>{try{const a=LS.get("pokelings_lz",[]);return Array.isArray(a)?a.filter(k=>LZ[k]).slice(0,LZ_MAX):[];}catch(e){return [];}})();
+const lzPicked=()=>LZ_PICK.filter(k=>LZ[k]).slice(0,LZ_MAX);
+function lzPickHtml(){const chip=id=>{const G=LZ[id];return `<button class="chTy lzTy${LZ_PICK.includes(id)?" on":""}" data-g="${id}">${ic(G.ic)}<span>${G.n}</span><i>${G.d}${G.rev?" (nur mit Revanche)":""}</i><em>+${G.g}</em></button>`;};
+  return `<div class="monoBox lzBox"><div class="monoH">${ic("check")}<b>Lauf-Ziele</b><small>optional · bis zu 3 · als Champion gibt es für jedes erfüllte Ziel Edelsteine</small><span class="lzN">${lzPicked().length}/${LZ_MAX}</span></div>
+    <div class="monoSub">Halten (darf nie gebrochen werden)</div><div class="monoList">${Object.keys(LZ).filter(k=>LZ[k].k==="h").map(chip).join("")}</div>
+    <div class="monoSub">Erreichen (bis zum Champion)</div><div class="monoList">${Object.keys(LZ).filter(k=>LZ[k].k==="e").map(chip).join("")}</div></div>`;}
+function lzPickBind(root){const box=root.querySelector(".lzBox");if(!box)return;box.querySelectorAll(".lzTy").forEach(b=>b.onclick=()=>{const k=b.dataset.g,i=LZ_PICK.indexOf(k);
+    if(i>=0)LZ_PICK.splice(i,1);else{if(LZ_PICK.length>=LZ_MAX){sfx("deny");toast(`Höchstens ${LZ_MAX} Lauf-Ziele`,"check");return;}LZ_PICK.push(k);}
+    try{LS.set("pokelings_lz",LZ_PICK);}catch(e){}b.classList.toggle("on",LZ_PICK.includes(k));const n=box.querySelector(".lzN");if(n)n.textContent=lzPicked().length+"/"+LZ_MAX;sfx("click");});}
+(()=>{const _cd=chooseDiff;chooseDiff=function(){const r=_cd.apply(this,arguments);try{const mb=$("mbox"),host=mb.querySelector(".monoBox")||mb.querySelector(".dfList");
+    if(host&&!mb.querySelector(".lzBox")){host.insertAdjacentHTML("afterend",lzPickHtml());hydrateIcons(mb);lzPickBind(mb);}
+    mb.querySelectorAll(".dfCard").forEach(b=>b.onclick=()=>{if(b.disabled){sfx("deny");return;}closeModal();hideScreens();const o=(typeof monoOpt==="function"?monoOpt():undefined)||{};const g=lzPicked();if(g.length)o.goals=g.slice();newRun(b.dataset.m,modeRegion,Object.keys(o).length?o:undefined);});
+  }catch(e){console.warn("lz pick",e);}return r;};})();
+
+/* ---------------- Wochen-Checkliste ---------------- */
+function wkChk(W){if(!W)return [];const R=mkRng(((W.seed|0)+7919)|0),noRev=W.rule==="iron";
+  const H=["noroll","noxp","nosell","norev","noleg"].filter(k=>!(noRev&&LZ[k].rev)),E=["rival","elite5","streak10","rich60","solo"].filter(k=>!(noRev&&LZ[k].rev));
+  return [H[Math.floor(R()*H.length)%H.length],E[Math.floor(R()*E.length)%E.length]];}
+const WK_RL={iron:["heart","Eisenmann","keine Wiederbelebung"],poor:["coin","Sparfuchs","−25 % Gold aus Kämpfen"],small:["users","Kleines Team","2 Plätze weniger im Raster"],allin:["atk","Alles oder nichts","+25 % Angriff, −25 % KP"]};
+weeklyCardHtml=function(){const {W,M}=weeklyState(),T=TYPES[W.ty],wn=W.wk.split("-W")[1],rl=WK_RL[W.rule]||WK_RL.poor,ck=wkChk(W);
+  const best=M?(M.champ?`${ic("crown","","width:13px;height:13px;color:var(--amber)")} Champion`:"Runde "+M.best):"noch kein Lauf";
+  return `<div class="dyCard wkCard"><div class="dyH">${ic("cal")}<div><b>Wochen-Herausforderung</b><small>Woche ${+wn} · jede Woche neu · gleiche Regeln für alle Läufe der Woche</small></div><span class="dyReg">${ic(REGIONS[W.region].ic||"ball")} ${REGIONS[W.region].n}</span></div>
+    <div class="mpRules"><span style="--tc:${T[1]}">${ic("flag")}<b>Monotyp: ${T[0]}</b><small>Alle Pokémon dieses Typs sind dabei, auch noch nicht freigeschaltete.</small></span><span>${ic(rl[0])}<b>${rl[1]}</b><small>${rl[2]}</small></span></div>
+    <div class="wkChk"><div class="wkChkH">${ic("check")}<b>Checkliste</b><small>Brichst du ein Pflicht-Ziel, ist der Lauf vorbei.</small></div>${ck.map(id=>`<span class="wkG ${LZ[id].k}">${ic(LZ[id].ic)}<b>${LZ[id].n}</b><small>${LZ[id].d}</small></span>`).join("")}</div>
+    <p class="mpNote">Bestes Ergebnis: <b>${best}</b> · erster Champion-Titel der Woche: <b style="color:var(--gem)">+${WK_RW.first}</b> ${ic("gem","","width:12px;height:12px;color:var(--gem)")} · jeder weitere <b style="color:var(--gem)">+${WK_RW.again}</b></p>
+    <div class="mpB"><button class="pri hot" id="wkGo">${ic("play")} ${M?"Nochmal":"Starten"}</button></div></div>`;};
+chWeeklyCard=function(){if(typeof weeklyState!=="function")return"";const {W,M}=weeklyState(),T=TYPES[W.ty],wn=W.wk.split("-W")[1],rl=WK_RL[W.rule]||WK_RL.poor,ck=wkChk(W);
+  return `<div class="chCard wk"><div class="chH"><i class="chI">${ic("cal")}</i><div><b>Wochen-Herausforderung</b><small>Woche ${+wn} · neue Regeln jede Woche</small></div><span class="chReg">${REGIONS[W.region].n}</span></div>
+   <div class="chRules"><span style="--tc:${T[1]}">${ic("flag")} Monotyp: ${T[0]}</span><span title="${esc(rl[2])}">${ic(rl[0])} ${rl[1]}</span></div>
+   <div class="chRules wkCk">${ck.map(id=>`<span class="lzC ${LZ[id].k}" title="${esc(LZ[id].d)}">${ic(LZ[id].ic)} ${LZ[id].n}</span>`).join("")}</div>
+   <small class="chNote">Checkliste: 2 Pflicht-Ziele · Bestes Ergebnis: <b>${M?(M.champ?"Champion":"Runde "+M.best):"noch kein Lauf"}</b> · erster Champion-Titel <b style="color:var(--gem)">+${WK_RW.first}</b></small>
+   <div class="chB"><button class="pri" data-ch="wk">${ic("play")} ${M?"Nochmal":"Starten"}</button></div></div>`;};
+weeklyFinish=function(win,reached){const wk=S.weekly;if(!wk)return "";const Wm=META.weekly=META.weekly||{w:{}};Wm.w=Wm.w||{};const M=Wm.w[wk]=Wm.w[wk]||{best:0,champ:false,runs:0};
+  const L=S.lz&&S.lz.src==="wk"?S.lz:null,ok=!!win&&(!L||lzAllDone(L));M.runs++;M.best=Math.max(M.best,Math.min(20,reached));let add=0,first=false;
+  if(ok){first=!M.champ;M.champ=true;M.cn=(M.cn|0)+1;add=first?WK_RW.first:WK_RW.again;META.gems+=add;META.gemsTotal=(META.gemsTotal||0)+add;}
+  const keys=Object.keys(Wm.w).sort();while(keys.length>30)delete Wm.w[keys.shift()];try{_achT=0;achCheck();}catch(e){}
+  const row=(c,a,b)=>`<div class="incRow" style="color:${c}"><span>${a}</span><span>${b}</span></div>`;
+  return row("var(--cyan)",`${ic("cal","","width:14px;height:14px")} Wochen-Herausforderung`,ok?"Wochen-Champion":win?"Checkliste nicht erfüllt":"Runde "+Math.min(20,S.round))
+    +(L?L.ids.map(id=>row(lzDone(L,id)?"var(--green)":"var(--red)",`${ic(LZ[id].ic,"","width:14px;height:14px")} Checkliste: ${LZ[id].n}`,lzDone(L,id)?"geschafft":L.br[id]?"gebrochen":"nicht geschafft")).join(""):"")
+    +(add?row("var(--gem)",`${ic("gem","","width:14px;height:14px")} ${first?"Erster Wochen-Champion":"Wochen-Champion"}`,"+"+add):"");};
+
+/* ---------------- Lauf beginnt: Ziele, Checkliste, Orden ---------------- */
+(()=>{const _nr=newRun0;newRun0=function(mode,region,o){const r=_nr.apply(this,arguments);try{o=o||{};if(!S)return r;
+    if(mode==="orden"){S.ord=Math.max(1,Math.min(ORD.n,o.ord|0||1));if(S.ord>=8){S.ordR2=ordPickR2();try{if(typeof __sprLoad==="function"&&!regReady(S.ordR2))__sprLoad(S.ordR2).catch(()=>{});}catch(e){}}}
+    let ids=null,src="pin";if(o.weekly){ids=wkChk(weeklyInfo(o.weekly));src="wk";}else if(o.goals&&!o.daily&&!o.duel&&!o.abyss){const nr=!!((MODES[mode]&&MODES[mode].noRev)||o.iron);ids=o.goals.filter(k=>LZ[k]&&!(nr&&LZ[k].rev)).slice(0,LZ_MAX);}
+    if(ids&&ids.length){S.lz={src,ids,br:{},ok:{},mx:{}};if(!window.__fast)setTimeout(()=>toast(`${src==="wk"?"Checkliste":"Lauf-Ziele"}: ${ids.map(k=>LZ[k].n).join(", ")}`,"check"),900);}
+    save();lzRender();}catch(e){console.warn("lz start",e);}return r;};})();
+
+/* ---------------- Schritte, die Ziele brechen ---------------- */
+(()=>{const _rr=doReroll;doReroll=function(){if(S&&S.phase==="shop"&&(S.freeRolls>0||S.gold>=shopRollCost())&&lzGuard("noroll",()=>_rr.apply(this,arguments)))return;return _rr.apply(this,arguments);};
+  const _xp=buyXP;buyXP=function(){if(S&&S.phase==="shop"&&level()<LV_XP.length&&S.gold>=4&&lzGuard("noxp",()=>_xp.apply(this,arguments)))return;return _xp.apply(this,arguments);};
+  const _sl=sell;sell=function(u){if(u&&S&&lzGuard("nosell",()=>_sl.apply(this,arguments))){render();return;}return _sl.apply(this,arguments);};
+  const _cp=choosePath;choosePath=function(i){try{if(S&&S.phase==="shop"&&S.paths&&S.paths[i]&&!(S.revanche&&S.enc)&&S.paths[i].type!=="rival"&&S.paths.some(p=>p&&p.type==="rival")&&lzGuard("rival",()=>_cp.apply(this,arguments)))return;}catch(e){}return _cp.apply(this,arguments);};
+  const _fg=fight;fight=function(){try{if(S&&!S.duel&&S.phase==="shop"&&S.enc&&S.enc.type!=="event"&&lzOn("noleg")&&boardUnits().some(_lzLeg)){
+      if(lzWk()&&!window.__autoPick&&!(typeof aiOn==="function"&&aiOn())){openModal(`<h2>${ic("crown")} CHECKLISTE</h2><div class="lead">Ein legendäres Pokémon steht im Raster. Das verbietet die Pflicht <b>„Bodenständig“</b>. Nimm es heraus, dann kann der Kampf beginnen.</div><button class="pri" id="lzOkB" style="margin-top:14px">${ic("check")} Verstanden</button>`,"narrow lzM",true);$("lzOkB").onclick=closeModal;return;}
+      if(lzGuard("noleg",()=>_fg.apply(this,arguments)))return;}}catch(e){}return _fg.apply(this,arguments);};})();
+
+/* ---------------- Kampfende: Bosse, Finale, Serie ---------------- */
+(()=>{const _eb=endBattle;endBattle=function(win){let info=null;
+  try{if(!SIM&&S&&!S.duel&&S.lz&&B&&B.F){const mine=B.F.filter(f=>f.side==="mine"&&!(f.u&&f.u.minion));info={boss:!!(BOSSES[S.round]&&S.enc&&S.enc.type==="boss"),r:S.round,n:mine.length,lost:mine.some(f=>!f.alive)};}}catch(e){}
+  const res=_eb.apply(this,arguments);
+  try{if(info){if(info.boss&&(info.lost||!win))lzBreak("bossclean",true);if(win&&info.boss&&info.n===1)lzOk("solo");if(win&&info.boss&&info.r===20&&!info.lost)lzOk("untouched");lzTick();}}catch(e){}return res;};})();
+/* Ergebnis-Fenster: Revanche bricht „Makellos“, im Wochenlauf endet ein gebrochener Lauf */
+(()=>{const _sr=showResult;showResult=function(){const r=_sr.apply(this,arguments);try{if(!S||!S.lz||S.tower||!B||!B.res)return r;const R=$("result"),rb=$("rRev");
+    const wkEnd=()=>{const ids=lzBroken();const rw=R.querySelector(".rewards");if(rw)rw.innerHTML=ids.map(id=>`<div class="incRow"><span>${ic(LZ[id].ic,"","width:14px;height:14px")} Checkliste: ${LZ[id].n}</span><span style="color:var(--red)">${LZ[id].k==="h"?"gebrochen":"verpasst"}</span></div>`).join("");
+      const h=R.querySelector("h4");if(h)h.textContent="Checkliste gebrochen: Dieser Lauf endet hier.";if(rb)rb.remove();const go=$("rGo");if(go){go.innerHTML=`${ic("flag")} Lauf beenden`;go.onclick=()=>{R.classList.remove("show");R.innerHTML="";lzWkEnd(ids[0]);};}
+      const q=$("rQuit");if(q){q.className="pri";q.innerHTML=ic("flag")+" Lauf beenden";q.onclick=()=>{R.classList.remove("show");R.innerHTML="";lzWkEnd(ids[0]);};}};
+    if(!B.res.win&&rb&&lzOn("norev")){if(lzWk()){lzBreak("norev",true);wkEnd();return r;}
+      rb.insertAdjacentHTML("beforeend",`<small class="lzWarn">bricht Lauf-Ziel „Makellos“</small>`);const oc=rb.onclick;rb.onclick=function(){lzBreak("norev");return oc&&oc.apply(this,arguments);};}
+    if(lzWk()&&lzBroken().length)wkEnd();}catch(e){console.warn("lz res",e);}return r;};})();
+
+/* ---------------- Render: Panel, Moduszeile ---------------- */
+(()=>{const _rd=render;render=function(){const r=_rd.apply(this,arguments);try{lzMount();lzTick();lzRender();if(S&&S.ord&&$("sMode"))$("sMode").textContent=MODES[S.mode].n+" · Orden "+ordRom(S.ord);}catch(e){}return r;};})();
+
+/* ---------------- Ordenleiter ---------------- */
+const ORD={n:8,gemB:3,gemS:.2,first:[100,150,200,250,300,400,500,750],
+ col:["#d08a4a","#c8d0e0","#ffd84a","#5cf2ff","#4dffa6","#ff8a3d","#ff4d6d","#b86bff"],
+ rules:[{ic:"grid",n:"Gegner-Synergien",d:"Gegnerische Teams bekommen Typ-Synergien wie du."},
+  {ic:"coin",n:"Sparfuchs",d:"−25 % Gold aus Kämpfen."},
+  {ic:"atk",n:"Stärkere Gegner",d:"Gegner +6 % KP und Angriff."},
+  {ic:"crown",n:"Starke Bosse",d:"Bosse +10 % KP und Angriff."},
+  {ic:"users",n:"Kleines Team",d:"1 Platz weniger im Raster."},
+  {ic:"pack",n:"Frühe Items",d:"Gegner tragen schon ab Runde 3 Items, ab Runde 12 zwei."},
+  {ic:"skull",n:"Noch stärkere Gegner",d:"Gegner weitere +6 % KP und Angriff."},
+  {ic:"trophy",n:"Zweiter Champion",d:"Nach dem Finale wartet der Champion einer anderen Region."}]};
+const ordRom=k=>["","I","II","III","IV","V","VI","VII","VIII"][k|0]||String(k);
+const ordSt=()=>(typeof S!=="undefined"&&S&&S.ord)|0;
+(()=>{const N=MODES.night,O=Object.assign({},N,{n:"Ordenleiter",ic:"badge",hidden:1,unlock:"Champion auf Albtraum in einer Region",d:"Albtraum mit Zusatzregeln aus der Ordenleiter."});
+  const gp=(k,f)=>Object.defineProperty(O,k,{get:f,enumerable:true,configurable:true});
+  gp("enemy",()=>{const s=ordSt();return N.enemy*(s>=3?1.06:1)*(s>=7?1.06:1);});gp("boss",()=>(N.boss||1)*(ordSt()>=4?1.1:1));
+  gp("gem",()=>+(ORD.gemB+ORD.gemS*Math.max(1,ordSt())).toFixed(2));gp("eIt",()=>ordSt()>=6?[3,12]:N.eIt);MODES.orden=O;})();
+const ordMeta=()=>{const O=META.ord=META.ord||{lv:0,w:{},runs:0};O.w=O.w||{};return O;};
+const _ordNight=rk=>{try{return ((regProg(rk).champs||{}).night|0)>0;}catch(e){return false;}};
+const ordUnlocked=()=>!!META&&(Object.keys(REGIONS).some(_ordNight)||((META.champs||{}).night|0)>0);
+function ordRegs(){return Object.keys(REGIONS).filter(rk=>(typeof regUnlocked!=="function"||regUnlocked(rk))&&modeUnlocked("night",rk));}
+function ordPickR2(){const ks=Object.keys(BOSSES_BY).filter(k=>k!==(S&&S.region)&&BOSSES_BY[k]&&BOSSES_BY[k][20]&&REGIONS[k]);const R=mkRng(((S&&S.seed)|0)+31);return ks[Math.floor(R()*ks.length)%ks.length]||"kanto";}
+/* Gegner-Synergien (Orden I): Gegner bekommen ihre eigenen Typ-Zählungen */
+(()=>{const _fi=fighter;fighter=function(u,side,x,y,cnt){if(side==="enemy"&&!cnt&&SYN_ON&&ordSt()>=1&&S&&!S.duel&&!S.tower)try{const E=S.enemies||[];
+    const lst=E.includes(u)?E:(((S.paths||[]).find(p=>p&&p.enemies&&p.enemies.includes(u)))||{}).enemies||E;cnt=synCounts(lst);}catch(e){}return _fi.call(this,u,side,x,y,cnt);};})();
+/* Season: Ordenleiter zählt wie Albtraum */
+try{SEA_W.orden=SEA_W.night;const _sr=seasonRec;seasonRec=function(rg,md,reached,win){return _sr.call(this,rg,md==="orden"?"night":md,reached,win);};}catch(e){}
+/* Zweiter Champion (Orden VIII) */
+function ordInstallF2(){const rk2=S&&S.ordR2,B2=rk2&&(BOSSES_BY[rk2]||{})[20];if(!B2)return false;BOSSES=Object.assign({},BOSSES_BY[S.region]||BOSSES,{20:Object.assign({},B2,{sub:"Zweiter Champion · "+REGIONS[rk2].n})});return true;}
+function ordSetupF2(){if(!S)return;if(!ordInstallF2()){S.ordF2=2;return finish(true);}delete S.winRes;delete S.pending;delete S.pendingKO;
+  if(typeof wxShow==="function")wxShow(null);enterBattleMode(false);clearZones();S.phase="shop";B=null;$("texts").innerHTML="";clearVis();clearFx();S.revanche=false;S.shopRolls=0;rollShop();
+  S.enc={type:"boss",name:BOSSES[20].name,loc:BOSS_LOC[20]};const r0=S.region;try{S.region=S.ordR2;S.enemies=genEnemies(S.enc);}finally{S.region=r0;}S.enc.enemies=S.enemies;S.ordF2=2;
+  setView("raster",true);save();saveMeta();setTab("shop");render();toast(`Zweiter Champion: ${BOSSES[20].name} (${REGIONS[S.ordR2].n})`,"crown");}
+function ordFinal2(){if(!S||ordSt()<8||S.ordF2||S.tower||S.duel)return false;S.ordF2=1;if(!S.ordR2)S.ordR2=ordPickR2();save();const rk2=S.ordR2,B2=(BOSSES_BY[rk2]||{})[20];if(!B2){S.ordF2=2;return false;}
+  showResult();const R=$("result"),h=R.querySelector(".rHead");if(h)h.textContent="SIEG!";const p=R.querySelector("h4");if(p)p.innerHTML=`Orden VIII: Jetzt wartet der zweite Champion, <b>${esc(B2.name)}</b> aus ${REGIONS[rk2].n}.`;
+  const go=$("rGo");if(go){go.innerHTML=`${ic("trophy")} ZWEITER CHAMPION ${ic("arrow")}`;go.onclick=()=>{R.classList.remove("show");R.innerHTML="";const nx=()=>needReg(rk2,()=>ordSetupF2());
+    if(B&&B.res&&B.res.prize==="relic"&&S.relics.length<RELIC_MAX&&typeof relicChoice==="function"&&!window.__autoPick)relicChoice("Belohnung für deinen Champion-Sieg",nx);else nx();};}
+  return true;}
+(()=>{const _lg=loadGame;loadGame=function(){const r=_lg.apply(this,arguments);try{if(r&&S&&S.ord){
+    if(S.ord>=8&&!S.tower&&S.round>=20&&(S.ordF2===1||((S.ordF2|0)<2&&S.winRes))){S.ordF2=1;if(!S.ordR2)S.ordR2=ordPickR2();delete S.winRes;S.phase="shop";save();setTimeout(()=>needReg(S.ordR2,()=>ordSetupF2()),120);}
+    else if(S.ordF2===2){const rk2=S.ordR2;ordInstallF2();if(typeof __sprLoad==="function"&&rk2&&!regReady(rk2))__sprLoad(rk2).then(()=>{try{render();}catch(e){}}).catch(()=>{});}}}catch(e){console.warn("ord load",e);}return r;};})();
+
+/* ---------------- Laufende: Edelsteine für Lauf-Ziele, Orden-Belohnung ---------------- */
+(()=>{const _fn=finish;finish=function(win){if(S&&S.tower)return _fn.apply(this,arguments);const r=_fn.apply(this,arguments);try{if(!S)return r;const rw=document.querySelector("#result .rewards");const rows=[];
+    const row=(c,a,b)=>`<div class="incRow" style="color:${c}"><span>${a}</span><span>${b}</span></div>`;
+    if(S.lz&&S.lz.src==="pin"&&!S.lz.paid){const L=S.lz;L.paid=1;let add=0;rows.push(row("var(--cyan)",`${ic("check","","width:14px;height:14px")} Lauf-Ziele`,win?"als Champion":"nur als Champion"));
+      for(const id of L.ids){const ok=lzDone(L,id);if(win&&ok)add+=LZ[id].g;rows.push(row(ok?"var(--green)":"var(--red)",`${ic(LZ[id].ic,"","width:14px;height:14px")} ${LZ[id].n}`,ok?(win?"+"+LZ[id].g:"geschafft"):L.br[id]?"gebrochen":"nicht geschafft"));}
+      if(add){META.gems+=add;META.gemsTotal=(META.gemsTotal||0)+add;rows.push(row("var(--gem)",`${ic("gem","","width:14px;height:14px")} Lauf-Ziele`,"+"+add));}
+      if(win&&L.ids.length>=3&&lzAllDone(L))try{achGrant("lz3");}catch(e){}}
+    if(S.ord&&!S.ordPaid){S.ordPaid=1;const k=S.ord,O=ordMeta();O.runs=(O.runs|0)+1;let add=0;
+      if(win){O.w[k]=(O.w[k]|0)+1;if(k>(O.lv|0)){O.lv=k;add=ORD.first[k-1]||0;if(add){META.gems+=add;META.gemsTotal=(META.gemsTotal||0)+add;}}}
+      rows.push(row(ORD.col[k-1],`${ic("badge","","width:14px;height:14px")} Ordenleiter · Orden ${ordRom(k)}`,win?"geschafft":"Runde "+Math.min(20,S.round)));
+      if(add)rows.push(row("var(--gem)",`${ic("gem","","width:14px;height:14px")} Erster Sieg: Orden ${ordRom(k)}`,"+"+add));
+      if(win){try{LS.del(saveKey());}catch(e){}delete S.champDone;const R=$("result");R.querySelectorAll(".twOffer,#rTw").forEach(e=>e.remove());const lb=$("rLab");if(lb)lb.className="pri";}
+      try{_achT=0;achCheck();}catch(e){}}
+    if(rows.length){saveMeta();if(rw){rw.insertAdjacentHTML("beforeend",rows.join(""));hydrateIcons(rw);}}}catch(e){console.warn("lz finish",e);}return r;};})();
+
+/* ---------------- Herausforderungen-Panel: Ordenleiter ---------------- */
+function chOrdCard(){const ok=ordUnlocked(),lv=ok?(ordMeta().lv|0):0,nx=Math.min(ORD.n,lv+1);
+  return `<div class="chCard od${ok?"":" lock"}"><div class="chH"><i class="chI">${ic("badge")}</i><div><b>Ordenleiter</b><small>8 Orden · Albtraum mit Zusatzregeln · 1 Leben</small></div></div>
+   <div class="odRow">${Array.from({length:ORD.n},(_,i)=>`<i class="odB${i<lv?" on":""}${ok&&lv<ORD.n&&i===lv?" nx":""}" style="--oc:${ORD.col[i]}">${ordRom(i+1)}</i>`).join("")}</div>
+   ${ok?`<small class="chNote">${lv>=ORD.n?"Alle 8 Orden geschafft.":`Nächster Orden: <b>${ordRom(nx)}</b> · neu: ${ORD.rules[nx-1].n} · erster Sieg <b style="color:var(--gem)">+${ORD.first[nx-1]}</b>`}</small>
+     <div class="chB"><button class="pri hot" data-ch="od">${ic("badge")} ${lv>=ORD.n?"Ordenleiter spielen":"Start: Orden "+ordRom(nx)}</button></div>`
+   :`<div class="chLock">${ic("lock")}<span>Werde in einer Region auf Albtraum Champion</span></div><button class="btn" disabled>${ic("lock")} Gesperrt</button>`}</div>`;}
+chPanelHtml=function(){return `<div class="ttl"><h3>${ic("flag")} HERAUSFORDERUNGEN</h3></div><div class="chList">${chDailyCard()}${chWeeklyCard()}${chOrdCard()}${chAbyssCard()}</div>`;};
+chModal=function(){openModal(`<h2>${ic("flag")} HERAUSFORDERUNGEN</h2><div class="chList m">${chDailyCard()}${chWeeklyCard()}${chOrdCard()}${chAbyssCard()}</div>`,"narrow chM",true);chWire($("mbox"));};
+(()=>{const _cw=chWire;chWire=function(root){const r=_cw.apply(this,arguments);try{root.querySelectorAll('[data-ch="od"]').forEach(b=>b.onclick=()=>{sfx("click");ordModal();});}catch(e){}return r;};})();
+(()=>{const _sm=showMenu;showMenu=function(){const r=_sm.apply(this,arguments);try{const s=$("mChB")&&$("mChB").querySelector("small");if(s)s.textContent="Täglich · Woche · Orden · Abgrund";}catch(e){}return r;};})();
+let ORD_SEL=0;
+function ordModal(k){if(!ordUnlocked()){sfx("deny");return;}const O=ordMeta(),lv=O.lv|0,max=Math.min(ORD.n,lv+1);k=Math.max(1,Math.min(max,k||ORD_SEL||max));ORD_SEL=k;
+  const regs=ordRegs(),wins=O.w[k]|0,first=k>lv;
+  openModal(`<h2>${ic("badge")} ORDENLEITER</h2><div class="lead">Jeder Orden legt eine Regel auf Albtraum drauf, die Regeln der Orden davor bleiben. Gewinne einen Lauf, um den nächsten Orden freizuschalten. 1 Leben, keine Revanche, kein Kampfturm danach.</div>
+    <div class="odSteps">${Array.from({length:ORD.n},(_,i)=>{const n=i+1,lock=n>max;return `<button class="odS${n===k?" on":""}${n<=lv?" got":""}" data-k="${n}" style="--oc:${ORD.col[i]}" ${lock?"disabled":""}><b>${ordRom(n)}</b><small>${lock?ic("lock"):n<=lv?ic("check"):"neu"}</small></button>`;}).join("")}</div>
+    <div class="odRules">${ORD.rules.slice(0,k).map((R,i)=>`<div class="odRule${i===k-1?" nw":""}" style="--oc:${ORD.col[i]}"><span class="odRI">${ic(R.ic)}</span><div><b>${R.n}</b><small>${R.d}</small></div><em>${ordRom(i+1)}</em></div>`).join("")}</div>
+    <div class="odRw"><span>${ic("gem")} Edelsteine ×${String(MODES.night.gem+0).replace(".",",")} → ×${String(+(ORD.gemB+ORD.gemS*k).toFixed(2)).replace(".",",")}</span><span>${first?`${ic("badge")} Erster Sieg: <b style="color:var(--gem)">+${ORD.first[k-1]}</b>`:`${ic("check")} Schon geschafft · ${wins}× gewonnen`}</span></div>
+    <h4 class="ngSub">${ic("flag")} Region wählen (Albtraum freigeschaltet)</h4>
+    <div class="odRegs">${regs.map(rk=>`<button class="odReg" data-r="${rk}"><b>${REGIONS[rk].n}</b><small>${((regProg(rk).champs||{}).orden|0)}× Ordenleiter-Champion</small></button>`).join("")||`<p class="empty">Keine Region mit Albtraum.</p>`}</div>`,"wide odM",true);
+  const mb=$("mbox");mb.querySelectorAll(".odS").forEach(b=>b.onclick=()=>{if(b.disabled){sfx("deny");return;}sfx("click");ordModal(+b.dataset.k);});
+  mb.querySelectorAll(".odReg").forEach(b=>b.onclick=()=>{sfx("click");closeModal();hideScreens();newRun("orden",b.dataset.r,{ord:k});});}
+
+/* ---------------- Erfolge ---------------- */
+for(const a of [{id:"ord1",cat:"champ",t:2,ic:"badge",n:"Erster Orden",d:"Gewinne den ersten Orden der Ordenleiter.",chk:()=>((META.ord||{}).lv|0)>=1},
+  {id:"ord4",cat:"champ",t:3,ic:"badge",n:"Halbe Ordenbox",d:"Gewinne 4 Orden der Ordenleiter.",chk:()=>((META.ord||{}).lv|0)>=4},
+  {id:"ord8",cat:"champ",t:5,ic:"crown",n:"Ordenmeister",d:"Gewinne alle 8 Orden der Ordenleiter.",chk:()=>((META.ord||{}).lv|0)>=8},
+  {id:"lz3",cat:"champ",t:3,ic:"check",n:"Zielstrebig",d:"Werde Champion und erfülle dabei 3 Lauf-Ziele."}])if(!ACH_BY[a.id]){ACH.push(a);ACH_BY[a.id]=a;}
+
+/* ---------------- Pause-Menü ---------------- */
+(()=>{const _pm=pauseMenu;pauseMenu=function(){const r=_pm.apply(this,arguments);try{const pi=document.querySelector("#mbox .pauseInfo");if(pi&&S){let h="";if(S.ord)h+=`<span style="color:${ORD.col[S.ord-1]}">${ic("badge")} Orden ${ordRom(S.ord)}</span>`;
+    if(S.lz)h+=`<span>${ic("check")} ${S.lz.src==="wk"?"Checkliste":"Lauf-Ziele"}: ${S.lz.ids.filter(id=>!S.lz.br[id]).length}/${S.lz.ids.length} intakt</span>`;if(h){pi.insertAdjacentHTML("beforeend",h);hydrateIcons(pi);}}}catch(e){}return r;};})();
+
+/* ---------------- Test-Schnittstelle ---------------- */
+try{const _js660=PKT.json;PKT.json=function(){const o=_js660.apply(this,arguments);try{if(S&&S.lz)o.ziele={art:S.lz.src==="wk"?"Wochen-Checkliste":"Lauf-Ziele",ziele:S.lz.ids.map(id=>{const p=lzProg(id);return {id,name:LZ[id].n,art:LZ[id].k==="h"?"halten":"erreichen",stand:S.lz.br[id]?"gebrochen":S.lz.ok[id]?"erfüllt":LZ[id].k==="h"?"hält":"offen",fortschritt:p?p[0]+"/"+p[1]:null,edelsteine:LZ[id].g};})};
+    o.zieleAuswahl=lzPicked();if(META)o.orden={frei:ordUnlocked(),geschafft:(ordMeta().lv|0),stufe:S&&S.ord||null,zweiterChampion:S&&S.ordR2||null};}catch(e){}return o;};}catch(e){}
+try{const _ac660=PKT.act;PKT.act=async function(cmd){const [a,...r]=Array.isArray(cmd)?[""]:String(cmd||"").trim().split(/\s+/);
+  if(a==="ziele"){if(r[0]==="aus"||r[0]==="off"){LZ_PICK=[];}else if(r.length){const ks=r.join(",").split(",").map(s=>s.trim()).filter(k=>LZ[k]);LZ_PICK=ks.slice(0,LZ_MAX);}try{LS.set("pokelings_lz",LZ_PICK);}catch(e){}
+    return "Lauf-Ziele für den nächsten Lauf: "+(lzPicked().map(k=>k+" ("+LZ[k].n+")").join(", ")||"keine")+"\nVerfügbar: "+Object.keys(LZ).join(", ");}
+  if(a==="orden"){if(!ordUnlocked())return "Ordenleiter gesperrt (Albtraum-Champion nötig)";const k=+r[0]||Math.min(ORD.n,(ordMeta().lv|0)+1),rg=(r[1]||"").toLowerCase();if(k>Math.min(ORD.n,(ordMeta().lv|0)+1))return "Orden "+k+" noch gesperrt";
+    if(!ordRegs().includes(rg))return "Region? "+ordRegs().join(", ");try{closeModal();}catch(e){}newRun("orden",rg,{ord:k});await new Promise(f=>setTimeout(f,1500));return typeof pkState==="function"?pkState():"ok";}
+  const out=await _ac660.apply(this,arguments);try{if((a==="help"||a==="hilfe"||a==="?")&&typeof out==="string")return out+`
+ Lauf-Ziele: PKT.act("ziele noroll,elite5") setzt bis zu 3 Ziele für den nächsten Lauf, "ziele aus" löscht sie · Ordenleiter: PKT.act("orden 1 galar") startet Orden I in Galar`;}catch(e){}return out;};}catch(e){}
+
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
 /* ================================ KAMPF: 2 ATTACKEN + EIGENE KI ================================ */
@@ -24033,14 +24342,14 @@ function endBattle(win,timeout){if(SIM){B.done=true;B.winSide=win?"mine":"enemy"
     if(S.revanche){const tot=parts.reduce((a,p)=>a+p[1],0);parts.length=0;parts.push([`Prämie (Revanche, halbiert)`,Math.ceil(tot/2)]);}
     if(S.daily&&S.daily.rules.includes("hard"))parts.push(["Tagesregel: Harte Gegner",2]);
     {const zt=typeof paydayGold==="function"?paydayGold():0;if(zt)parts.push(["Zahltag",zt]);}
-    if(S.poor&&!S.daily&&!S.duel){const t0=parts.reduce((a,p)=>a+p[1],0),cut=Math.floor(t0*.25);if(cut>0)parts.push(["Sparfuchs (−25 % Kampfgold)",-cut]);}parts.push(...incomeParts());const g=parts.reduce((a,p)=>a+p[1],0);S.gold+=g;META.stats=META.stats||{};META.stats.gold=(META.stats.gold||0)+g;if(typeof misWin==="function")misWin(g);
+    if((S.poor||(S.ord|0)>=2)&&!S.daily&&!S.duel){const t0=parts.reduce((a,p)=>a+p[1],0),cut=Math.floor(t0*.25);if(cut>0)parts.push(["Sparfuchs (−25 % Kampfgold)",-cut]);}parts.push(...incomeParts());const g=parts.reduce((a,p)=>a+p[1],0);S.gold+=g;META.stats=META.stats||{};META.stats.gold=(META.stats.gold||0)+g;if(typeof misWin==="function")misWin(g);
     const xp=2+perk("school")+(hasRelic("xpamu")?1:0)+(S.daily&&S.daily.rules.includes("xp")?1:0);gainXP(xp);
     for(const u of boardUnits())dexUp(u.sp,d=>d.wins++);try{dexSync();}catch(e){}
     if(S.enc.type==="boss")S.bosses++;if(S.enc.type==="elite")S.elites++;
     B.res={win:true,parts,g,xp,prize:D.prize||null};if(S.tower&&typeof twOnWin==="function"){B.res.tw=twOnWin();if(S.enc.type==="boss")B.res.prize=S.relics.length<RELIC_MAX?"relic":"twitem";}saveMeta();S.winRes={prize:B.res.prize||null};save();
   }else{S.phase="ko";S.streak=0;META.losses++;if(S.tower)S.tower.lost=(S.tower.lost|0)+1;saveMeta();B.res={win:false,timeout};S.pendingKO=true;save();}
   render();
-  setTimeout(()=>{if(!S||(S.phase!=="result"&&S.phase!=="ko"))return;if(win&&S.round>=20&&!S.tower)return finish(true);showResult();},window.__fast?0:800);
+  setTimeout(()=>{if(!S||(S.phase!=="result"&&S.phase!=="ko"))return;if(win&&S.round>=20&&!S.tower&&!(typeof ordFinal2==="function"&&ordFinal2()))return finish(true);showResult();},window.__fast?0:800);
 }
 function reviveMalus(n){return Math.round(n*Math.max(.015,MODES[S.mode].revive-.015*perk("phoenix"))*100);}
 function showResult(){
