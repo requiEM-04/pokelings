@@ -5728,6 +5728,8 @@ em.fmLs.mn{margin-left:4px}em.fmLs.mn s{width:9px;height:9px}
 .odReg b{font-size:16px}.odReg small{font-size:11.5px;color:var(--muted)}
 .odReg:hover{transform:translateY(-2px);border-color:#c27cff}
 @media (max-width:640px){.odSteps{grid-template-columns:repeat(4,1fr)}}
+/* ================= v1.66.0.5: Herausforderungen-Panel ohne Scrollen (Größe per zoom in chFit) ================= */
+#mCh.mCh{max-height:none;overflow:hidden}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -19369,7 +19371,7 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.66.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.66.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
  {v:"1.66.0",d:"26.11.2026",t:"Lauf-Ziele, Wochen-Checkliste und Ordenleiter",items:[
   ["badge", "Neu unter Herausforderungen: die Ordenleiter. 8 Orden, jeder legt eine Regel auf Albtraum drauf: Gegner-Synergien, Sparfuchs, stärkere Gegner, starke Bosse, ein Platz weniger, frühe Gegner-Items, noch stärkere Gegner und am Ende ein zweiter Champion aus einer anderen Region. Der erste Sieg je Orden bringt einmalig 100 bis 750 Edelsteine. Freigeschaltet mit einem Albtraum-Champion."],
@@ -23677,6 +23679,17 @@ try{const _ac660=PKT.act;PKT.act=async function(cmd){const [a,...r]=Array.isArra
     if(!ordRegs().includes(rg))return "Region? "+ordRegs().join(", ");try{closeModal();}catch(e){}newRun("orden",rg,{ord:k});await new Promise(f=>setTimeout(f,1500));return typeof pkState==="function"?pkState():"ok";}
   const out=await _ac660.apply(this,arguments);try{if((a==="help"||a==="hilfe"||a==="?")&&typeof out==="string")return out+`
  Lauf-Ziele: PKT.act("ziele noroll,elite5") setzt bis zu 3 Ziele für den nächsten Lauf, "ziele aus" löscht sie · Ordenleiter: PKT.act("orden 1 galar") startet Orden I in Galar`;}catch(e){}return out;};}catch(e){}
+
+/* ================================ v1.66.0.5: Herausforderungen-Panel ohne Scrollen ================================
+   Am PC (Panel sichtbar, ab 1241 px Breite) passt sich das Panel per zoom an die Fensterhöhe an, statt einen Scrollbalken zu zeigen.
+   Auf schmalen Bildschirmen bleibt es beim Knopf „Herausforderungen“ mit scrollbarem Fenster. */
+function chFit(){try{const M=$("menu"),ch=$("mCh");if(!M||!ch||!M.classList.contains("show")||getComputedStyle(ch).display==="none")return;
+  const lb=$("mLb"),base=parseFloat((lb&&lb.style.zoom)||"")||1;ch.style.zoom=base<1?String(base):"";
+  for(let i=0;i<3;i++){const mr=M.getBoundingClientRect(),cr=ch.getBoundingClientRect();if(!mr.height||!cr.height)return;const avail=mr.height-Math.max(40,mr.height*.1);
+    if(cr.height<=avail+1)break;const cur=parseFloat(ch.style.zoom||"")||1;const z=Math.max(.45,Math.floor(cur*avail/cr.height*1000)/1000);if(z>=cur)break;ch.style.zoom=String(z);}}catch(e){}}
+(()=>{const _mf=menuFit;menuFit=function(){const r=_mf.apply(this,arguments);chFit();return r;};
+  const _cm=chMount;chMount=function(){const r=_cm.apply(this,arguments);chFit();requestAnimationFrame(chFit);return r;};})();
+try{if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>chFit());}catch(e){}
 
 /* v1.39.0: Edelsteine pro Lauf gesenkt – mehr Läufe nötig */
 const GEM_RUN_MUL=.6;
