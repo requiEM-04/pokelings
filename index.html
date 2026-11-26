@@ -5654,6 +5654,17 @@ em.fmLs.mn{margin-left:4px}em.fmLs.mn s{width:9px;height:9px}
 @media (prefers-reduced-motion:reduce){.fmOrb .cm u,.fmOrb s,.fmDia *,.fmDiaF s{animation:none!important}.tcAv .fmDiaM~.tcMon img{animation:tcMonB 1.4s steps(2) infinite}.fmDiaF s{opacity:.8}}
 /* ================= v1.63.5.9: Schweif – zweiter Komet auf eigener, um die halbe Bahn versetzter Ellipse (offset-distance über 100 % wurde nicht umgebrochen, der Komet stand still) ================= */
 .fmOrb .cm.c2 u{offset-path:path("M107 58A107 29 0 1 1 107 0A107 29 0 1 1 107 58");animation-name:fom635}
+/* ================= v1.65.0.5: Schweif – größere, stärker geneigte Bahn, damit der hintere Komet neben dem Pokémon sichtbar bleibt; Holo-Glanz – kräftigeres, schneller wechselndes Regenbogen-Leuchten ================= */
+.fmOrb{bottom:44px;width:228px;height:74px;margin-left:-114px;transform:rotate(-14deg)}
+.fmOrb .cm u{offset-path:path("M114 0A114 37 0 1 1 114 74A114 37 0 1 1 114 0")}
+.fmOrb .cm.c2 u{offset-path:path("M114 74A114 37 0 1 1 114 0A114 37 0 1 1 114 74")}
+.tcAv .fmDiaM~.tcMon img{animation:tcMonB 1.4s steps(2) infinite,fpg6505 2.4s linear infinite}
+@keyframes fpg6505{
+ 0%,100%{filter:drop-shadow(0 5px 0 rgba(0,0,0,.35)) drop-shadow(0 0 2px #fff) drop-shadow(0 0 5px #38e8ff) drop-shadow(0 0 11px #38e8ff)}
+ 25%{filter:drop-shadow(0 5px 0 rgba(0,0,0,.35)) drop-shadow(0 0 2px #fff) drop-shadow(0 0 5px #ff4fd8) drop-shadow(0 0 11px #ff4fd8)}
+ 50%{filter:drop-shadow(0 5px 0 rgba(0,0,0,.35)) drop-shadow(0 0 2px #fff) drop-shadow(0 0 5px #ffd84a) drop-shadow(0 0 11px #ffd84a)}
+ 75%{filter:drop-shadow(0 5px 0 rgba(0,0,0,.35)) drop-shadow(0 0 2px #fff) drop-shadow(0 0 5px #6dff9a) drop-shadow(0 0 11px #6dff9a)}}
+@media (prefers-reduced-motion:reduce){.tcAv .fmDiaM~.tcMon img{animation:tcMonB 1.4s steps(2) infinite;filter:drop-shadow(0 5px 0 rgba(0,0,0,.35)) drop-shadow(0 0 2px #fff) drop-shadow(0 0 6px #38e8ff)}}
 </style>
 <script>/* Große Monitore: alles proportional hochskalieren (Referenz 1920×1080). Bis 1920×1080 bleibt alles exakt wie es ist. */
 window.UIZ=1;function uiScale(){var off=false;try{off=localStorage.getItem("pokelings_uiz")==="off";}catch(e){}var z0=Math.min(innerWidth/1920,innerHeight/1080),z=!off&&z0>=1.04?Math.min(2,z0):1,b=document.body,r=document.documentElement.style;window.UIZ=z;
@@ -19291,7 +19302,7 @@ addEventListener("pagehide",()=>autoSave("hide"));addEventListener("beforeunload
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")autoSave("hide");});
 
 /* ================================ VERSION & PATCHNOTES ================================ */
-const GAME_VER="1.65.0"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
+const GAME_VER="1.65.0.5"; // Duell-Kompatibilität hängt an MP_VER (mp.js) · Schnellfix = aktuelle Version + .5, zweiter Schnellfix = nächste Nummer
 const PATCH=[
  {v:"1.65.0",d:"25.11.2026",t:"Klassen-Verhalten",items:[
   ["users", "Klassen-Verhalten: Jede Klasse hat jetzt ein festes Merkmal im Kampf. Tanks verspotten alle 6 Sekunden Gegner in der Nähe, Schützen machen auf Entfernung mehr Schaden (bis +30 %), Unterstützer geben mit jedem Grundangriff dem schwächsten Verbündeten einen Schild, Magier treffen mit dem Grundangriff auch Gegner direkt neben dem Ziel, und Krieger bekommen unter 50 % KP einmal einen Schild."],
